@@ -1,0 +1,154 @@
+PHP爆绝对路径方法收集
+来源：本站转载 作者：佚名 时间：2011-06-28 15:56:13 
+
+ 原作者:MrBig
+1、单引号爆路径
+ 
+说明：
+ 
+直接在URL后面加单引号，要求单引号没有被过滤(gpc=off)且服务器默认返回错误信息。
+ 
+Eg:
+ 
+www.xxx.com/news.php?id=149'
+ 
+ 
+ 
+ 
+2、错误参数值爆路径
+ 
+说明：
+ 
+将要提交的参数值改成错误值，比如-1。单引号被过滤时不妨试试。
+ 
+Eg:
+ 
+www.xxx.com/researcharchive.php?id=-1
+ 
+ 
+  
+ 
+ 
+ 
+3、Google爆路径
+ 
+说明：
+ 
+结合关键字和site语法搜索出错页面的网页快照，常见关键字有warning和fatal error。注意，如果目标站点是二级域名，site接的是其对应的顶级域名，这样得到的信息要多得多。
+ 
+ 
+      Eg:
+ 
+Site:xxx.edu.tw warning
+ 
+Site:xxx.com.tw "fatal error"
+   
+ 
+ 
+ 
+ 
+ 
+ 
+  4、测试文件爆路径
+ 
+   说明：
+ 
+   很多网站的根目录下都存在测试文件，脚本代码通常都是phpinfo()。
+ 
+   Eg:
+ 
+   www.xxx.com/test.php
+ 
+   www.xxx.com/ceshi.php
+ 
+   www.xxx.com/info.php
+ 
+   www.xxx.com/phpinfo.php
+ 
+   www.xxx.com/php_info.php
+ 
+   www.xxx.com/1.php
+ 
+ 
+ 
+   
+ 
+ 
+ 
+  5、phpmyadmin爆路径
+ 
+  说明：
+ 
+   一旦找到phpmyadmin的管理页面，再访问该目录下的某些特定文件，就很有可能爆出物理路径。至于phpmyadmin的地址可以用wwwscan这类的工具去扫，也可以选择google。PS：有些BT网站会写成phpMyAdmin。
+ 
+  Eg:
+ 
+  www.xxx.cn/phpmyadmin/themes/darkblue_orange/layout.inc.php
+ 
+  www.xxx.cn/phpmyadmin/libraries/select_lang.lib.php
+ 
+  www.xxx.cn/phpmyadmin/index.php?lang[]=1
+
+2.11.9.2
+phpmyadmin/libraries/List_Database.class.php
+
+ 
+ dz爆路径
+                       ucenter\control\admin\db.php
+ http://www.liuyifei.cc/uc_server/control/admin/db.php
+ 
+ 
+ 
+ 
+ 
+ 
+6、配置文件找路径
+ 
+说明：
+ 
+如果注入点有文件读取权限，就可以手工load_file或工具读取配置文件，再从中寻找路径信息（一般在文件末尾）。各平台下Web服务器和PHP的配置文件默认路径可以上网查，这里列举常见的几个。
+ 
+Eg:
+ 
+Windows:
+ 
+c:\windows\php.ini                                                 php配置文件
+ 
+c:\windows\system32\inetsrv\MetaBase.xml              IIS虚拟主机配置文件
+ 
+Linux:
+       /etc/php.ini                                                             php配置文件
+ 
+/etc/httpd/conf.d/php.conf
+      /etc/httpd/conf/httpd.conf                                         Apache配置文件
+      /usr/local/apache/conf/httpd.conf
+ 
+/usr/local/apache2/conf/httpd.conf
+ 
+/usr/local/apache/conf/extra/httpd-vhosts.conf  虚拟目录配置文件
+ 
+ 
+     
+ 
+ 
+ 
+7、nginx文件类型错误解析爆路径
+ 
+说明：
+ 
+这是昨天无意中发现的方法，当然要求Web服务器是nginx，且存在文件类型解析漏洞。有时在图片地址后加/x.php，该图片不但会被当作php文件执行，还有可能爆出物理路径。
+ 
+Eg:
+ 
+www.xxx.com/top.jpg/x.php
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+8、其他
+ 
+其他就是像dedecms、phpwind之类的整站程序爆路径漏洞，比较杂，通用性不强

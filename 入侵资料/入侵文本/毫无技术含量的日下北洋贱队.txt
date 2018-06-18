@@ -1,0 +1,43 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+毫无技术含量的日下北洋贱队
+D8888D主贴内容-------------------------------------------------------
+ 
+
+From:H4ckx7
+  前天晚上回公司通宵CS的,上北洋贱队看下了,当时就震惊了,好多CMS,国内牛B的官网都被他们集体路过,小弟简直佩服得裸体投地了...
+   心里一瞬间飘过很邪恶的想法习惯性的查询了他同服务器的站就3个站,而且都是大牛的站,安全就不用想了吧,那怎么办呢,C段吧,反正闲的蛋疼,开了个几个C段扫描的工具就跟黑小子一起出去吃夜宵去了,回来的时候看了看结果,没什么敏感的东西,那就一个IP一个站的日吧,累活....
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1006/1006181915fec9d008bfdebf28.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjcyMnxhNGRhYWQ1ZHwxMjg2NDc5NTk2fDY5ZWZpMitFY3A4eXlETHloWUloLzNiQjBnenJKc1BzT21tSDdhdzVXT1VlcVQ4&nothumb=yes]链接标记下载[/url] (47.3 KB)
+
+2010-6-18 19:15
+日了10几分钟的样子吧,居然找到一个骗子站,NND!Dedecms5.6的，突然想起农村娃不是有个5.6的0day吗？上t00ls找了找，爆密码，拿下SHELL之，配置文件一看， root 提权之...
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1006/10061819164327d6408c2a797d.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjcyM3w1OTg1ZTY5NnwxMjg2NDc5NTk2fDY5ZWZpMitFY3A4eXlETHloWUloLzNiQjBnenJKc1BzT21tSDdhdzVXT1VlcVQ4&nothumb=yes]链接标记下载[/url] (21.75 KB)
+
+2010-6-18 19:16
+一番XXOO后，一切都顺利，没想到他也没装ARP防火墙，连突破都省了，就上去像狗一样的嗅吧..
+一夜过去了，没结果，2天过去了没结果，不找到哪个傻逼在扫FTP，CAIN里几万条记录，操之...
+今天一看，震精了...
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1006/1006181916ed86d1b0940a88de.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjcyNHwxYTU2N2QyY3wxMjg2NDc5NTk2fDY5ZWZpMitFY3A4eXlETHloWUloLzNiQjBnenJKc1BzT21tSDdhdzVXT1VlcVQ4&nothumb=yes]链接标记下载[/url] (140.19 KB)
+
+2010-6-18 19:16
+
+www.zhuba,net 这不是猪哥靓大牛的站吗？以前在非安全看过他不少写的文章，膜拜之...
+看了看，他的站Z-Blog，账号是URL加密，密码是MD5，破解之，进后台..
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1006/1006181917ba25917e23d87ede.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjcyNXwwMzEyNjBkYnwxMjg2NDc5NTk2fDY5ZWZpMitFY3A4eXlETHloWUloLzNiQjBnenJKc1BzT21tSDdhdzVXT1VlcVQ4&nothumb=yes]链接标记下载[/url] (68.14 KB)
+
+2010-6-18 19:17
+拿SHELL，IIS6.0.，拿下SHELL我还以为大牛的服务器设置得多变态，都准备找大牛提权了，结果ABCDEFG，全都可以浏览，悲剧之...
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1006/1006181917f452fbfca717e68f.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjcyNnwwZjRhMmE0ZnwxMjg2NDc5NTk2fDY5ZWZpMitFY3A4eXlETHloWUloLzNiQjBnenJKc1BzT21tSDdhdzVXT1VlcVQ4&nothumb=yes]链接标记下载[/url] (40.24 KB)
+
+2010-6-18 19:17
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1006/1006181917ae74cfe19cc7143b.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjcyN3wzNWM1OTVlOXwxMjg2NDc5NTk2fDY5ZWZpMitFY3A4eXlETHloWUloLzNiQjBnenJKc1BzT21tSDdhdzVXT1VlcVQ4&nothumb=yes]链接标记下载[/url] (84.06 KB)
+
+2010-6-18 19:17
+想涂鸦主页的，想了想还是没有，毕竟自己怎么用阿D都是他们中某位大牛教的，只想单纯的提醒下那群大牛，低调点，不然菊花不保...
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1006/10061819183d55f119af801191.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjcyOHwwODQ4OTlhZXwxMjg2NDc5NTk2fDY5ZWZpMitFY3A4eXlETHloWUloLzNiQjBnenJKc1BzT21tSDdhdzVXT1VlcVQ4&nothumb=yes]链接标记下载[/url] (17 KB)
+
+2010-6-18 19:18
+装完B，闪人..
+毫无技术含量，大牛飘过，不顺眼的，你可以不看，
+原地址：[url=http://hi.baidu.com/77dear/blog/item/c2a3523c29ade40dbaa16781.html]链接标记http://hi.baidu.com/77dear/blog/ ... ade40dbaa16781.html[/url]

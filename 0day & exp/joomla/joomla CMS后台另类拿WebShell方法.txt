@@ -1,0 +1,93 @@
+joomla CMS后台另类拿WebShell方法 
+
+漏洞详情
+
+披露状态：
+
+
+
+2011-08-07： 积极联系厂商并且等待厂商认领中，细节不对外公开
+2011-08-07： 厂商已经主动忽略漏洞，细节向公众公开
+
+
+简要描述：
+
+joomla CMS后台有个专门更新插件的接口，只支持上传ZIP文件。 Google 一下目前最新版本是 joomla_1.6。下载了一个中文语言包ZIP格式的，解压出来如下： pkg_zh_CN.xml 代码如下： ?xml version=1.0 encoding=UTF-8 ? !-- $Id: zh-CN.install.xml 216 2011-03...
+
+详细说明：
+
+joomla CMS后台有个专门更新插件的接口，只支持上传ZIP文件。
+ 
+
+Google 一下目前最新版本是 joomla_1.6。下载了一个中文语言包ZIP格式的，解压出来如下：
+ 
+
+
+pkg_zh_CN.xml 代码如下：
+ <?xml version="1.0" encoding="UTF-8" ?>
+ <!-- $Id: zh-CN.install.xml 216 2011-03-08 06:44:51Z tchyusuf $ -->
+ <extension type="package" version="1.6">
+ <name>Simplified Chinese Language Pack</name>
+ <tag>zh-CN</tag>
+ <packagename>zh-CN</packagename>
+ <version>1.6.1</version>
+ <creationDate>2011-03-12</creationDate>
+ <author>CHN Translation Team</author>
+ <authorEmail>zhous1998@sohu.com</authorEmail>
+ <authorUrl>www.joomla.cn</authorUrl>
+ <copyright>Copyright (C) 2010 CHN Joomla Translation Team (http://joomlacode.org/gf/project/choice/). All rights reserved.</copyright>
+ <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+ <description>
+ </description>
+ <files>
+ <file type="language" client="site" id="zh-CN">site_zh-CN.zip</file>
+ <file type="language" client="admin" id="zh-CN">admin_zh-CN.zip</file>
+ </files>
+ </extension>
+ 升级或者更新插件不就是读取XML里面的 site_zh-CN.zip 和 admin_zh-CN.zip 吗？
+ 解压 admin_zh-CN.zip 再看看 install.xml 里面的代码。
+ 
+
+install.xml：
+ <?xml version="1.0" encoding="utf-8"?>
+ <install type="language" version="1.6" client="administrator" method="upgrade">
+ <name>简体中文</name>
+ <tag>zh-CN</tag>
+ <version>1.6.1</version>
+ <creationDate>2011-03-08</creationDate>
+ <author>Derek Joe(zhous)</author>
+ <authorEmail>zhous1998@sohu.com</authorEmail>
+ <authorurl>www.joomla.cn</authorurl>
+ <copyright>Copyright (C) 2010 CHN Joomla Translation (http://joomlacode.org/gf/project/choice/). All rights reserved.</copyright>
+ <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+ <description>
+ </description>
+ <files>
+ <filename>index.html</filename>
+ <filename>zh-CN.com_admin.ini</filename>
+ <filename>zh-CN.com_admin.sys.ini</filename>
+ <filename>zh-CN.com_banners.ini</filename>
+ <filename>zh-CN.com_banners.sys.ini</filename>
+ <filename>zh-CN.com_cache.ini</filename>
+ <filename>zh-CN.com_cache.sys.ini</filename>
+ <filename>zh-CN.com_categories.ini</filename>
+ <filename>zh-CN.com_categories.sys.ini</filename>
+ <filename>zh-CN.com_checkin.ini</filename>
+ <filename>zh-CN.com_checkin.sys.ini</filename>
+ <filename>zh-CN.com_config.ini</filename>
+ <filename>zh-CN.com_config.sys.ini</filename>
+ <filename>zh-CN.com_contact.ini</filename>
+ <filename>zh-CN.com_contact.sys.ini</filename>
+ <filename>zh-CN.com_content.ini</filename>
+ <filename>zh-CN.com_content.sys.ini</filename>
+ <filename>zh-CN.com_cpanel.ini</filename>
+ 
+
+更新不就是install.xml读取压缩包里面的文件，然后到WEB上面解压出来吗，于是有了想法。
+ 在代码下面加上：<filename>>xxxxxx.php</filename>
+ 然后再里面创建一个 xxxxxx.php 写上你的大马，打包记得一下要是ZIP文件，否则不能上传。
+ 替换掉原来的 admin_zh-CN.zip，然后再进行打包 site_zh-CN.zip 和 admin_zh-CN.zip。
+ 上传安装，你的 xxxxxx.php 会解压到目录：administrator\language\zh-CN
+ 得到 WebShell 的地址：
+ http://xxxx.com/administrator/language/zh-CN/xxxxxx.php
+ 至于 joomla_1.6 之前的版本，同样的方法，只是代码稍有变动

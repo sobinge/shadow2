@@ -1,0 +1,69 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+难渗透某设计网站
+D8888D主贴内容-------------------------------------------------------
+ 
+
+首发本人博客，次发T00LS，原创文章，转载请注入出处[url=http://www.waitalone.cn]链接标记www.waitalone.cn[/url]
+
+今天闲来无事和朋友一起找漂亮网站练习，最后找到一个做设计的网站，特别喜欢，于是想黑了他，拿到源码回来收藏，经过小弟艰难的渗透，最后成功拿下该站。
+
+渗透过程中用到的方法是我第一次用，也许牛人们早就测试过，但是本人还是想记录下来，共享给大家。大家可要好好学习，天天向上哦。
+
+1、收集基本信息
+
+经过扫描查询，发现此站都是htm?id=1这样调用参数的，经过GG确定网站脚本类型，查询过asp,aspx,php,jsp等都查不到，后台也搜索不到，注入也没有。
+
+于是想到了使用扫描器扫描网站的目录，仅得到了一些常见的目录及文件upload,uploads等
+
+2、发现dedeCMS文件系统
+
+经过目录测试，发现uploads目录下面是dedecms5.5，但是没有安装，于是我就想可不可以帮站长安装网站，但是问题又来了，dede是mysql连接，我没有mysql数据库呀，怎么办？
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1005/10052710250898c4b3b3eb6c5c.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjIyN3xjZjBhODNiOXwxMjg2NDgwMTU0fDExYWFWeWgrb090WHRzN1U0YWxMK2xvMkFQak95UTcxSDBFQzZuWldMQkFUbEhz&nothumb=yes]链接标记下载[/url] (23 KB)
+
+2010-5-27 10:25
+
+3、本机搭建mysql数据库
+
+在网上下载了一个php环境的套件包，首先下载了一个免费的phpnow最小化客户端在本机安装，安装好以后发现端口是3307，但是不允许外网使用root连接，这个工具又没有提示修改端口及新建数据库的文件（精简版），重新下载了个WampServer2.0i来搭建PHP环境，自带PHPMyadmin套件可以管理数据库，这对不熟悉数据库的我来说太方便了。但是默认安装的wamp的root密码为空，我们自己搞黑的，不能允许这种事情发生，就改了root的密码，结果事情来了phpmyadmin登录不上了，经过我半小时的网上搜索查询，终于解决了这个问题。（）详细文章请参见本人博客文章：  phpMyAdmin 修改密码后不能登陆解决办法         原文地址：[url=http://www.waitalone.cn/post/594.html]链接标记http://www.waitalone.cn/post/594.html[/url] ） 新建数据库test并建立Test用户数据库搭建完毕
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1005/10052710266207e73f046653e6.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjIyOXwzYzA2Mzg1MnwxMjg2NDgwMTU0fDExYWFWeWgrb090WHRzN1U0YWxMK2xvMkFQak95UTcxSDBFQzZuWldMQkFUbEhz&nothumb=yes]链接标记下载[/url] (26.03 KB)
+
+2010-5-27 10:26
+
+4、端口映射解决内网问题
+
+不同路由端口映射方法不同，本人的如下，找朋友测试使用我的外网IP  telnet一下本人的3306端口成功，于是开始了YD的下一步，帮站长安装dedeCMS
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1005/10052710265218c3646aab9abf.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjIzM3xmYmU5NDRkMHwxMjg2NDgwMTU0fDExYWFWeWgrb090WHRzN1U0YWxMK2xvMkFQak95UTcxSDBFQzZuWldMQkFUbEhz&nothumb=yes]链接标记下载[/url] (19.09 KB)
+
+2010-5-27 10:26
+
+5、安装dedeCMS
+
+安装过程比较简单，最主要的是数据库连接的时候要写上我的IP地址 
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1005/1005271025971b56248feddfc6.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjIyOHxhYzZjNjQyY3wxMjg2NDgwMTU0fDExYWFWeWgrb090WHRzN1U0YWxMK2xvMkFQak95UTcxSDBFQzZuWldMQkFUbEhz&nothumb=yes]链接标记下载[/url] (73.41 KB)
+
+2010-5-27 10:25
+
+安装完成后，我们成功登陆后台 
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1005/100527102687974e40f54ed019.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjIzMHw2YzAwNWVhN3wxMjg2NDgwMTU0fDExYWFWeWgrb090WHRzN1U0YWxMK2xvMkFQak95UTcxSDBFQzZuWldMQkFUbEhz&nothumb=yes]链接标记下载[/url] (67.24 KB)
+
+2010-5-27 10:26
+
+6、利用dedecms5.5的0day漏洞，成功得到一句话，关于漏洞利用的详情请参见本人博客：
+
+DedeCMS V5.5 Final GetWebshell最新0day漏洞    原文地址：[url=http://www.waitalone.cn/post/595.html]链接标记http://www.waitalone.cn/post/595.html[/url] 
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1005/1005271026668f97ff2ed0e737.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjIzMXw3YzRiMTYyNXwxMjg2NDgwMTU0fDExYWFWeWgrb090WHRzN1U0YWxMK2xvMkFQak95UTcxSDBFQzZuWldMQkFUbEhz&nothumb=yes]链接标记下载[/url] (25.84 KB)
+
+2010-5-27 10:26
+
+7、利用lankerPHP一句话客户端连接，成功上传shell，完成渗透。 
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1005/1005271026b9a2e764035b0e90.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjIzMnxkNGMwMGNlZHwxMjg2NDgwMTU0fDExYWFWeWgrb090WHRzN1U0YWxMK2xvMkFQak95UTcxSDBFQzZuWldMQkFUbEhz&nothumb=yes]链接标记下载[/url] (32.33 KB)
+
+2010-5-27 10:26
+可气的是，到了最后时刻打包居然不能完全打完，可能是因为网站文件太多，磁盘配额满了的原因，打包的文件不全，真是天不助我呀。
+本文来源于独自等待博客：[url=http://www.waitalone.cn/]链接标记http://www.waitalone.cn/[/url] 原文地址：[url=http://www.waitalone.cn/post/596.html]链接标记http://www.waitalone.cn/post/596.html[/url]

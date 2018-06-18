@@ -1,0 +1,39 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+让那些有钱人后悔吧！！--IPHONE --PAD QQ--BUG
+D8888D主贴内容-------------------------------------------------------
+发布时间：2010-9-23
+更新时间：2010-9-23
+严重程度：中
+威胁程度：导致IPHONE OR IPAD QQ 无法正常登录
+
+错误类型：处理汉字问题
+利用方式：发送任意含有汉字文件给那些上IPHONE OR IPAD QQ的人，导致对方QQ崩溃，退出！
+
+
+受影响版本：V1.0.1
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1009/1009231818f26696aa0520b1c5.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTIyMXwzYmZkNmI2Y3wxMjg2NDc4ODIzfDhkMzNvOWxvNnhUKzltbUZYVzI0dVR4amgzOWlVNWljUWx5dFhKanFDVWlJVWpV&nothumb=yes]链接标记下载[/url] (426.56 KB)
+
+2010-9-23 18:18
+
+
+详细描述：
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1009/1009231823cc19649a28098e4e.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTIyNXxjZWQ1MTFlY3wxMjg2NDc4ODIzfDhkMzNvOWxvNnhUKzltbUZYVzI0dVR4amgzOWlVNWljUWx5dFhKanFDVWlJVWpV&nothumb=yes]链接标记下载[/url] (28.43 KB)
+
+2010-9-23 18:23
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1009/1009231823d9772eb016bb413d.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTIyNnw5YjdjZTRmY3wxMjg2NDc4ODIzfDhkMzNvOWxvNnhUKzltbUZYVzI0dVR4amgzOWlVNWljUWx5dFhKanFDVWlJVWpV&nothumb=yes]链接标记下载[/url] (13.88 KB)
+
+2010-9-23 18:23
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1009/1009231823fc3660cf3e91c18d.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTIyN3wzNDY0OGQ0Y3wxMjg2NDc4ODIzfDhkMzNvOWxvNnhUKzltbUZYVzI0dVR4amgzOWlVNWljUWx5dFhKanFDVWlJVWpV&nothumb=yes]链接标记下载[/url] (12.58 KB)
+
+2010-9-23 18:23
+
+解决方案:暂无！！
+
+---------------------------------
+
+PS:让那些使用IPHONE OR PAD QQ 的人见鬼去吧！！！

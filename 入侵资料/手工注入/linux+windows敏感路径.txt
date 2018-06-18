@@ -1,0 +1,10 @@
+linux
+/etc/httpd/conf/httpd.conf      httpd config file
+/etc/passwd
+/etc/shadow
+/usr/local/tomcat/conf/tomcat-users.xml    tomcat
+
+
+windows
+c://windows/system32/boot.bat       别人sa弱口令密码保存后门
+d://apache/apache2/conf/httpd.conf  apache配置文件

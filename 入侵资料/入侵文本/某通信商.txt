@@ -1,0 +1,48 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+某通信商
+D8888D主贴内容-------------------------------------------------------
+ 
+
+TOOLS卧虎藏龙 好是让后生我诚惶诚恐
+开篇之初 先来膜拜一下 TOOLS 众仙永垂！
+
+高手和菜鸟之间的区别
+高手喜欢分析源代码以寻找过滤不足之处也就是0DAY 菜鸟如我辈之流碍于脚本功力未够火候多拾人手慧 
+当你们这些牛淫们闲暇之余信手拈来0day时 我还在用啊D搭配google四下乱注
+感叹一下 人生啊！
+话说野百合也有春天 咸鱼也有翻身之日
+且看注入点[url=http://xxxx.com/xxx/xxx.aspx?id=84]链接标记http://xxxx.com/xxx/xxx.aspx?id=84[/url]（这里我仿佛又受到了BS乐 因为啊D注入判断未必准确） 
+    [img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0909/09092422249e87272617f86cf9.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjA1M3xiNTQ0OTU0N3wxMjg2NDgyNzIxfGUwYmREeFdTdlUvSjBxb2loK1N4anZNUXdZVHpEK2VpVEhLOVVHUFZmcDNOSWhR&nothumb=yes]链接标记下载[/url] (102.91 KB)
+
+2009-9-24 22:24      
+aspx通常搭配mssql 或mysql  若是这两者的话 机会也就大了
+按部就班先判断数据库 出乎所料oracle 
+顿时傻眼 因为貌似oracle 的相关资料不多
+脑海闪现zwell大牛的pangolin 貌似是支持ORACLE数据库的 不妨一试（这一试方有了后文）
+似乎对oracle的利用停留在获取管理员信息-后台登陆的入侵方法上(之前看过一篇相关的文章 但是碍于境界问题 只能长叹 不知所云）
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0909/09092422267b1eb499fca8468d.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjA1NHwzNDNiYjk4MHwxMjg2NDgyNzIxfGUwYmREeFdTdlUvSjBxb2loK1N4anZNUXdZVHpEK2VpVEhLOVVHUFZmcDNOSWhR&nothumb=yes]链接标记下载[/url] (58.64 KB)
+
+2009-9-24 22:26
+顺利登陆后台 存在上传之处 IIS6漏洞 GIF头均失效 颇为失落
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0909/09092422286977e2961d8ae1db.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjA1NXxhNDNlNzE2MXwxMjg2NDgyNzIxfGUwYmREeFdTdlUvSjBxb2loK1N4anZNUXdZVHpEK2VpVEhLOVVHUFZmcDNOSWhR&nothumb=yes]链接标记下载[/url] (26.37 KB)
+
+2009-9-24 22:28
+个人觉得入侵的乐趣便在于峰回路转之处突见一亭翼然临于泉上
+忽见editor
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0909/09092422324bcc6fabeac0afe6.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjA1Nnw3NDIyMWRiYnwxMjg2NDgyNzIxfGUwYmREeFdTdlUvSjBxb2loK1N4anZNUXdZVHpEK2VpVEhLOVVHUFZmcDNOSWhR&nothumb=yes]链接标记下载[/url] (50.6 KB)
+
+2009-9-24 22:32
+对于editor来说 逾是功能强大 处在漏洞的可能性愈大 窃喜
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0909/0909242232344d0654a317355f.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjA1N3xkOTAyZjFlNnwxMjg2NDgyNzIxfGUwYmREeFdTdlUvSjBxb2loK1N4anZNUXdZVHpEK2VpVEhLOVVHUFZmcDNOSWhR&nothumb=yes]链接标记下载[/url] (218.75 KB)
+
+2009-9-24 22:32
+原来是CuteEditor 漏洞同FCKEDITOR 解析漏洞
+小马 [img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0909/09092422177a9014ad043fcc1b.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjA1Mnw0MWMzMGVhMHwxMjg2NDgyNzIxfGUwYmREeFdTdlUvSjBxb2loK1N4anZNUXdZVHpEK2VpVEhLOVVHUFZmcDNOSWhR&nothumb=yes]链接标记下载[/url] (37.36 KB)
+
+2009-9-24 22:17
+草草说下提权过程:内网 serv u 端口和密码都没改 于是执行了自己马 懒得端口转发
+
+服务器为某通信商的 不敢做内网渗透了 怕是被关黑箱子

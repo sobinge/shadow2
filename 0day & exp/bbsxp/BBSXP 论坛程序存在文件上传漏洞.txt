@@ -1,0 +1,19 @@
+BBSXP 论坛程序存在文件上传漏洞
+
+洞版本:
+
+bbsxp 最新版
+漏洞描述:
+
+文件保存类型是通过FileMIME判断FileMIME=\"image/pjpeg\"
+也就是说上传类型要是图片
+然后第一段代码
+
+if FileExt=\"asa\" or FileExt=\"asp\" or FileExt=\"cdx\" or FileExt=\"cer\" then error2(\"对不起，管理员设定本论坛不允许上传 \"&FileExt&\" 格式的文件\")
+
+的意思是：出错时候检查后缀.如果后缀是asa或者asp或者cdx或者cer的时候他就会提示错误。然后FileExt=文件后缀
+第三段代码的意思是：如果文件中有getfolder，createfolder等等特征的话。他就提示错误.错误类型在下边自己看了。
+Bssxp是通过这3段代码来过滤上传类型的.可这却造成了一个逻辑性的漏洞.他过滤的后缀只有asa、asp、cdx、cer如果我们传的文件的后缀不是这4个呢？嘿嘿,不是这4个也不能传.为什么？因为后边还有个FileMIME=\"image/pjpeg\"。好,我们让文件是image/pjpeg。具体怎么实现呢？很简单。在我们的马马头部加上gif89a。也就是文件头欺骗
+<* 参考
+http://sebug.net/vulndb/1705/
+ *>

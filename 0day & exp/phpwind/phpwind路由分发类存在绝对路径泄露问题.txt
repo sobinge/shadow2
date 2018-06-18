@@ -1,0 +1,27 @@
+phpwind路由分发类存在绝对路径泄露问题 
+
+漏洞详情
+
+披露状态：
+
+
+
+2012-08-12： 细节已通知厂商并且等待厂商处理中
+2012-08-17： 厂商已经主动忽略漏洞，细节向公众公开
+
+
+简要描述：
+
+
+详细说明：
+
+文件：\lib\framework\router.class.php
+ 直接泄露了绝对路径。
+ Error::showError("路径不存在" . $path);
+
+漏洞证明：
+
+比如安装了phpwind的商家导航模块时，http://www.xxx.com/index.php?m=dianpu&c=list&categoryid=1
+ 获取商家分类时，这是正确地址。
+ 改成http://www.xxx.com/index.php?m=dianpu&c=XXXXXXXXXXXX&categoryid=1
+ 绝对路径泄露了

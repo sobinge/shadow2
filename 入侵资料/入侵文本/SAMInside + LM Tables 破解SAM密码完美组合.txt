@@ -1,0 +1,61 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+SAMInside + LM Tables 破解SAM密码完美组合
+D8888D主贴内容-------------------------------------------------------
+有舍才有得.
+最讨厌那些只知道舍取的人了。一点儿共享含量都没有
+
+
+本帖隐藏的内容需要回复才可以浏览
+为什么要破解密码?这问题似乎要问你自己才对.
+今天MSN上有朋友问我平时我都怎么破解Windows的密码,其实破解Windows密码并没有什么很先进的技术和方法,无非就是SAMinside 和LM Tables(120G)组合.不过这个方法还真的很爽很强大.
+
+如何导出系统的HASH值?
+方法A: 
+pwdump7 工具. 
+下载地址:[url=http://www.live-share.com/files/358151/Pwdump7.rar.html]链接标记http://www.live-share.com/files/358151/Pwdump7.rar.html[/url]
+方法B:自己想办法把对方的sam文件下载回来.默认目录:C:\WINDOWS\system32\config\sam
+
+讲解如何通过pwdump7导出HASH并进行破解.!
+命令行 pdwump7 >dump.txt 运行后得到一个dump7.txt的文本文件.
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0811/20081122_5b0031f41558de2c1974Wg1HawN8OSh2.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzQxfDA3ZDU2ZDQ3fDEyODY0NzY4MjR8ZjE2MFJQYlVSSHk0bmRjMFNORWIwRGh2bTZMaDZoZ3B3cXFKV2diQlpqb1hrRXM%3D&nothumb=yes]链接标记下载[/url] (73.04 KB)
+
+2008-11-22 17:36
+dump7.txt 内容:
+Administrator:500:15B86E26C1E785061F10FA9B8EB43A53:1B11058AA6D3D6D643D6325B0D158776:::
+Guest:501:NO PASSWORD*********************:NO PASSWORD*********************:::
+HelpAssistant:1000:77B03B4053D048193B984EE6E0ADA679:7EB6392A0824CA0E9FFF458F2A298438:::
+SUPPORT_388945a0:1002:NO PASSWORD*********************:83618B64FC4199EA6C44998219B3BC72:::
+
+OK,导入SAMInside 里破解..
+[attach]338[/attach]
+
+
+5分钟后:
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0811/20081122_573c24683b3da864f7c40sfnDmxsMqbz.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzM5fDBiOTlkY2RhfDEyODY0NzY4MjR8ZjE2MFJQYlVSSHk0bmRjMFNORWIwRGh2bTZMaDZoZ3B3cXFKV2diQlpqb1hrRXM%3D&nothumb=yes]链接标记下载[/url] (54.52 KB)
+
+2008-11-22 17:36
+
+当然...这是需要一个120G的LM TABLES字典来支持暴破的.我提供了这120G的下载地址给大家.
+
+LM Tables 120G:
+
+[url=http://www.t00ls.net/viewthread.php?tid=474]链接标记http://www.t00ls.net/viewthread.php?tid=474[/url]
+SAMInside中文 注册版:
+[url=http://www.live-share.com/files/358152/saminside.v2.6.1.0.chs.zip.html]链接标记http://www.live-share.com/files/358152/saminside.v2.6.1.0.chs.zip.html[/url]
+
+图解将Tables 导入SAMInside:
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0811/20081122_45fa89593e5c7830f09as34tcOLHi2bC.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzQwfDNkYzk3NmY0fDEyODY0NzY4MjR8ZjE2MFJQYlVSSHk0bmRjMFNORWIwRGh2bTZMaDZoZ3B3cXFKV2diQlpqb1hrRXM%3D&nothumb=yes]链接标记下载[/url] (73.93 KB)
+
+2008-11-22 17:36
+很多工具都支持使用TABLES来破解密码.如著名的CAIN.
+
+
+
+[  ]
+[url=http://www.t00ls.net/attachment.php?aid=MzQyfDM1NWY0YWRlfDEyODY0NzY4MjR8ZjE2MFJQYlVSSHk0bmRjMFNORWIwRGh2bTZMaDZoZ3B3cXFKV2diQlpqb1hrRXM%3D&nothumb=yes]链接标记d26df636eb216a2a0b55a9ff.GIF[/url] (8.93 KB) 
+下载次数:22
+2008-11-22 17:36
+
+ [img]http://www.t00ls.net/attachments/month_0811/20081122_cb108b23e740ac4085f46Vb6bj704O6d.gif[/img]

@@ -1,0 +1,32 @@
+删除webshell中的不死僵尸隐藏后门
+
+主要是利用系统保留文件名创建无法删除的webshell来隐藏后门。
+
+Windows 下不能够以下面这些字样来命名文件或文件夹：
+
+1.aux|prn|con|nul|com1|com2|com3|com4|com5|com6|com7|com8|com9|lpt1|lpt2|lpt3|lpt4|lpt5|lpt6|lpt7|lpt8|lpt9  
+
+但是通过cmd的copy命令即可实现：
+
+D:\wwwroot>copy rootkit.asp \\.\D:\wwwroot\lpt6.chouwazi.com.asp 前面必须有 \\.\
+
+已复制 1 个文件。
+
+D:\wwwroot>dir
+2011-04-25 14:41 <DIR> .
+2011-04-25 14:41 <DIR> ..
+2011-03-08 22:50 42,756 aux.asp
+2009-05-02 03:02 9,083 index.asp
+2012-03-08 22:50 42,756 rootkit.asp
+
+这类文件无法在图形界面删除，只能在命令行下删除：
+
+1.del D:\wwwroot>del \\.\D:\wwwroot\lpt6.chouwazi.com.asp  
+
+
+
+
+
+
+然而在IIS中，这种文件又是可以解析成功的。Webshell中的 "不死僵尸隐藏"的 原理就是这样。
+

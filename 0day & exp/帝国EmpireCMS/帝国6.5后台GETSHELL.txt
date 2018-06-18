@@ -1,0 +1,17 @@
+帝国6.5后台GETSHELL
+
+
+不要用一句话作为SHELL 最好用待验证的SHELL。然后再SHELL中加入
+
+<? echo str_replace('\\','/',__FILE__) ?>
+
+ 
+
+就OK，在下来
+进入后台---系统设置---管理数据表---管理系统模型---导入新型模块,直接把修改过的php的shell改名为shell.php.mod上传
+
+当时本地测试的时候上传会卡在SHELL登录框那 但是SHELL已经上传上去
+通过获取的SHELL路径为../e/data/tmp/mod/uploadmxxxxxxx.php
+然后访问http://xxx.com/e/data/tmp/mod/uploadmxxxxxxx.php
+就能看到可爱的SHELL了
+

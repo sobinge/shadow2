@@ -1,0 +1,33 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+下载mysql彩虹表的同学请注意！
+D8888D主贴内容-------------------------------------------------------
+ 
+
+可能有些新手不清楚怎么回事！
+常见问题
+
+一。字符集问题
+passwordpro里面是没有加入charset.txt的
+需要复制过去一个charset.txt到passwordpro程序目录下，然后在选项设置里面选择彩虹表攻击，
+选择这个txt，这个txt在附件Winrtgen里面！
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912212029096b512d80997eb1.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjgxMXxhN2Y3ZjViYXwxMjg2NDc4ODg4fDUyN2VFcFBCY1RCVnNSQ2hCMUdQMmExV1gvc3N4eUMzR1RrWGhCcjZIK0lMWE9V&nothumb=yes]链接标记下载[/url] (48.18 KB)
+
+2009-12-21 20:29
+
+二，彩虹表排序问题！
+我不知道怎么回事，我本机的都是好好的，上传上去的也都是好好的
+鲈鱼说好像有一个有问题，我本机测试我本地是没有问题的，郁闷了，大家只需要拍下序就可以了
+将未排序的那个彩虹表放入Winrtgen文件夹中，并在Tables.lst里面将未排序的彩虹表的名称写进去，然后结尾是一个分号；
+千万别忘记了这个符号！然后运行exe程序，大约20秒钟左右出现一个 “类似耐克的勾”时候表示排序已经完成
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/091221202910059d169fc56b08.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjgxMnw4OGZmODg3NHwxMjg2NDc4ODg4fDUyN2VFcFBCY1RCVnNSQ2hCMUdQMmExV1gvc3N4eUMzR1RrWGhCcjZIK0lMWE9V&nothumb=yes]链接标记下载[/url] (9.47 KB)
+
+2009-12-21 20:29
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912212033e247d03310547dee.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjgxM3xlZmJiODM4NnwxMjg2NDc4ODg4fDUyN2VFcFBCY1RCVnNSQ2hCMUdQMmExV1gvc3N4eUMzR1RrWGhCcjZIK0lMWE9V&nothumb=yes]链接标记下载[/url] (39.18 KB)
+
+2009-12-21 20:33
+
+Winrtgen下载  [img]http://www.t00ls.net/images/attachicons/rar.gif[/img][url=http://www.t00ls.net/attachment.php?aid=MjgxNHw1ZWYyYzdmZHwxMjg2NDc4ODg4fDUyN2VFcFBCY1RCVnNSQ2hCMUdQMmExV1gvc3N4eUMzR1RrWGhCcjZIK0lMWE9V]链接标记Winrtgen.rar[/url] (252.54 KB) 下载次数: 93
+
+2009-12-21 20:34

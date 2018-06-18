@@ -1,0 +1,60 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+nslookup踩点
+D8888D主贴内容-------------------------------------------------------
+被陆MM训了一顿，号都因为长期不登陆被清掉了。 哭哇……  厚颜发一篇老早的文章，不过DNS大部分被限制查询了。但是不排除您运气好能用的上
+
+C:\>nslookup
+Default Server:  kns.kornet.net
+Address:  168.126.63.1
+
+> set type=ns    设置解析名字服务器（MX也可以测试一下） 查邮件  type=mx
+> pristontale.com
+Server:  kns.kornet.net
+Address:  168.126.63.1
+
+Non-authoritative answer:
+pristontale.com nameserver = ns1.pristen.com
+
+ns1.pristen.com internet address = 211.189.28.240
+
+> server 211.189.28.240    设置查询IP地址
+Default Server:  ns1.pristontale.com
+Address:  211.189.28.240
+
+> ls pristontale.com                  列举当前IP地址 ，如果有ns2,ns3等机器，都可以试列举一下
+[ns1.pristontale.com]
+pristontale.com.               A      211.189.80.146
+pristontale.com.               NS     server = ns1.pristen.com
+bittorrent                     A      211.189.28.84
+clan                           A      211.189.80.177
+clanserver                     A      211.189.80.177
+count                          A      211.189.80.157
+eng                            A      211.189.80.146
+engimage                       A      211.189.80.146
+engimages                      A      211.189.80.143
+eupdate                        A      211.189.28.106
+ftp                            A      221.148.123.202
+hangamepcbang                  A      211.189.80.150
+haninfo                        A      211.189.28.162
+image                          A      211.189.80.158
+info                           A      211.189.28.162
+kr                             A      211.189.80.150
+mail                           A      211.44.231.5
+media                          A      211.189.28.173
+media01                        A      211.189.28.173
+media02                        A      211.189.28.174
+media03                        A      220.73.177.206
+media04                        A      220.73.177.207
+ns1                            A      211.189.28.240
+pcbang                         A      211.189.80.150
+security                       A      211.189.80.150
+www                            A      211.189.80.146
+zhoon                          A      59.10.55.174
+
+c:\>nslookup
+Default server: 目标的DNS服务器
+Address: 目标的IP地址
+>set type=ANY  //表示接受任何可能的DNS记录
+>ls -d 163.com >zone.163.com.txt   //获得目标域的相关记录，结果保存在zone.163.com.txt

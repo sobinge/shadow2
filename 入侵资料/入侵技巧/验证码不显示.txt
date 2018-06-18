@@ -1,0 +1,6 @@
+管理员账号密码都到手了??验证码不显示??他妹的换了浏览器也是一样不行的这里说下突破方法吧
+REGEDIT4 
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\Security] 
+"BlockXBM"=dword:00000000 
+复制代码
+保存为Code.reg? ?双击导入就可以了重启浏览器

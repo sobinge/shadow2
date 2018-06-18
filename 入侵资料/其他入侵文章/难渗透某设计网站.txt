@@ -1,0 +1,46 @@
+
+难渗透某设计网站
+ 
+1、收集基本信息
+
+经过扫描查询，此站都是htm?id=1这样调用参数的，确定网站脚本类型，
+
+查询过asp,aspx,php,jsp等都查不到，site:localhost inurl:asp
+
+后台也搜索不到，
+
+注入也没有。
+
+于是想到了使用扫描器扫描网站的目录，仅得到了一些常见的目录及文件upload,uploads等
+
+2、发现dedeCMS文件系统
+
+经过目录测试，发现uploads目录下面是dedecms5.5，但是没有安装，于是我就想可不可以帮站长安装网站，
+
+dede是mysql连接，我没有mysql数据库呀，怎么办？
+
+3、本机搭建mysql数据库
+
+WampServer2.0i搭建PHP环境，自带PHPMyadmin套件可以管理数据库，默认安装的wamp的root密码为空，
+
+新建数据库test并建立Test用户数据库搭建
+
+4、端口映射解决内网问题
+
+不同路由端口映射方法不同，本人的如下，找朋友测试使用我的外网IP  telnet一下本人的3306端口成功，
+
+于是开始帮站长安装dedeCMS
+
+5、安装dedeCMS
+
+安装过程比较简单   数据库连接的时候要写上我的IP地址 
+
+安装完成后，我们成功登陆后台 
+
+6、利用dedecms5.5的0day漏洞，成功得到一句话
+
+http://www.waitalone.cn/post/595.html
+
+7、利用lankerPHP一句话客户端连接，成功上传shell，完成渗透。 
+
+

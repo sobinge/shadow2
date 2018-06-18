@@ -1,0 +1,54 @@
+discuz后台密码加密hash破解
+
+discuz加密算法破解是大家公认的蛋疼，该程序采用暴力破解，加载字典(各种库中提取的)。
+
+
+
+PHP代码
+<?php  
+error_reporting(0);  
+if ($argc<2) {  
+print_r(' 
+----------------------------------------------------------------+ 
+Usage: php '.$argv[0].' hash 
+Example: 
+php '.$argv[0].' cd1a0b2de38cc1d7d796b1d2ba6a954f:dc2bce 
+----------------------------------------------------------------+ 
+');  
+die;  
+}  
+$fd=fopen("1.txt","rb");  
+  
+if(!$fd)  
+{  
+echo "[!] error:打开字典文件错误";  
+die;  
+}  
+  
+echo "\n[+] 破解中...";  
+echo "\r";  
+
+while($buf=trim(fgets($fd)))  
+ {  
+   //echo $buf."\r\n";  
+$hash=$argv[1];  
+$hash2=substr($hash,0,32);  
+$salt=substr($hash,33,6);  
+$tmp=md5(md5($buf).$salt);  
+  
+$conn = strcmp($tmp,$hash2);  
+  if($conn==0)  
+      {  
+  
+        echo "[+] 密码破解成功\n"."[+]密码为：".$buf."\r\n";  
+       die;  
+      }  
+ 
+    }  
+  
+if($conn!=0)  
+{  
+echo "你的字典不给力啊!快快扩充字典吧 : ) \r\n";  
+}  
+fclose($fd);  
+?>  

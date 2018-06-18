@@ -1,0 +1,8 @@
+ECShop最新gbk官方补丁：ECShop_2_7_2_GBK_patch014.rar被植入后门与统计代码，
+
+初步观察后门涉及三个文件：
+admin\flow_ints.php
+mobile\search.php
+includes\fckeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\int.php
+
+密码  end_date

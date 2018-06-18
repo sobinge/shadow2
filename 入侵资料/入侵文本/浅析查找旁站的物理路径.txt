@@ -1,0 +1,167 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+浅析查找旁站的物理路径
+D8888D主贴内容-------------------------------------------------------
+文章作者:冰刀
+
+blog:[url=http://hi.baidu.com/hcbingdao]链接标记http://hi.baidu.com/hcbingdao[/url]
+
+前提条件，旁下一个同F的shell，可以执行常用的命令。
+
+第一， 如果支持aspx，可以利用aspxshell的IISspy功能查看，前提管理没有做限制。
+
+另外，IISspy还有一个可以查看IIS用户和密码的功能，不知大家发现没有。
+
+第二，社工，旁下的站是[url=http://www.bbb.com]链接标记www.bbb.com[/url]，物理路径是D:\wwwroot1\bbbcom\web，
+
+目标是[url=http://www.aaa.com]链接标记www.aaa.com[/url]，我们可以去猜测目标站点路径，D:\wwwroot*\aaacom\web
+
+有个的管理可能用自己的注册邮箱名或者QQ昵称什么的作为路径名，自由发挥
+
+第三，利用命令查询。学过简单DOS命令的都知道，记不记得有个tree命令
+
+（真搞不懂，有些家伙居然当ODAY来使，画个圈圈鄙视下）
+
+我们看下百度百科的解释：
+
+tree——显示磁盘目录结构命令　
+
+
+　　1．功能：显示指定驱动器上所有目录路径和这些目录下的所有文件名。　
+
+
+　　2．类型：外部命令　
+
+
+　　3．格式：tree[盘符：][/f][>prn]　
+
+
+　　4．使用说明：　
+
+
+　　（1）使用/f参数时显示所有目录及目录下的所有文件，省略时，只显示目录，不显示目录下的文件；　
+
+
+　　（2）选用＞prn参数时，则把所列目录及目录中的文件名打印输出。　
+我来截图看看效果：
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1006/1006270123b3c5335a6fbb21cc.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=Njg5M3wzYmRhZDU3YXwxMjg2NDgwNDk5fDE2NDNmODkwNzdKbllNQU1NNFlWbUVXZHNWOHpLREw3cjVuZ1NVS2VMT3dQM09j&nothumb=yes]链接标记下载[/url] (27.99 KB)
+
+2010-6-27 01:23
+
+希望对大家有所帮忙，写的不好的地方，还望指点。
+
+如果上面的方面都不能用的话，那你只能膜拜春哥了
+
+在网上找了一篇比较详细的介绍文章
+
+最强最全的Tree命令详解！
+
+
+[Tree命令作用]
+
+以图形显示驱动器或路径的文件夹结构。很多时候，这是一个非常有用的命令！
+
+[Tree命令格式]
+
+可以在命令行窗口敲tree /?看帮助。
+
+
+TREE [drive:][path] [/F] [/A]
+
+   /F   显示每个文件夹中文件的名称。
+   /A   使用 ASCII 字符，而不使用扩展字符。
+
+使用/F参数时显示所有目录及目录下的所有文件，省略时，只显示目录，不显示目录下的文件；
+
+选用>PRN参数时，则把所列目录及目录中文件名打印输出
+
+tree c:\ | more 出现由 tree 命令产生的第一个输出命令提示符窗口，后面跟着 -- More -- 提示。输出暂停，直到用户按键盘上的任意键为止（Pause除外）。
+
+[Tree命令范例]
+
+[例一]
+
+tree d: > d:\dTree.txt
+
+或者
+
+tree d:\ > d:\dTree.txt
+
+作用：把D盘下的所有目录结构以树状结构导出，以文本文件dTree.txt保存在文件夹d:\下。
+
+[例二]
+
+tree d: /f > d:\dF.txt
+
+或者
+
+tree d:\ /f > d:\dF.txt
+
+作用：把D盘下的所有目录及文件结构以树状结构导出，以文本文件dF.txt保存在文件夹d:\下。
+
+[例三]
+
+tree C:\WINDOWS\system32 /f > C:\s32f.txt
+
+作用：把C:\WINDOWS\system32 /f > C:\s32f.txt下的所有目录及文件结构以树状结构导出，以文本文件s32f.txt保存在文件夹c:\下。
+
+[例四]
+
+tree E:\BitComet\Downloads /f > f:\download\tree\dl.txt
+
+作用：把E:\BitComet\Downloads下的所有目录及文件以树状结构导出，以文本文件dl.txt保存在文件夹f:\download\tree\下。
+
+[Tree命令注意事项]
+
+[注意1] TREE命令中涉及的文件夹名称中不得有空格
+
+例如，类似下面的命令发挥不了作用：
+
+tree C:\Documents and Settings\Administrator /f > c:\administrator.txt
+
+若要提取诸如E盘My doc文件夹下的文件结构，可以先进入这个目录(先e:回车，再cd My doc回车)，再用tree命令提取：
+
+tree /f>mydoc.txt
+
+[注意2]了解DOS的对当前提示符的一些默认
+
+例如，在提示符
+
+E:\My doc>下，可以用下面的简洁命令
+
+tree /f>mydoc.txt
+
+把E:\My doc>下的所有目录及文件结构以树状结构导出，以文本文件mydoc.txt保存在文件夹E:\My doc下。
+
+注意这个TREE命令后没有盘符及路径，缺省时，默认值就是当前提示符所在路径。导出符“>”后也同此默认。
+
+[注意3]关于路径后面的反斜杠
+
+（1）在提示符
+
+C:\Documents and Settings\Administrator>下，如果要导出C盘的所有文件结构，必须使用类似下列命令：
+
+tree c:\ > c:\ct.txt
+
+而不能是诸如此类之命令：
+
+tree c: > c:\ct.txt
+
+因为此命令导出的不是整个C盘的内容，而是提示符所在路径C:\Documents and Settings\Administrator>下的内容。
+
+（2）但在一般情况下，路径后面不能有反斜杠
+
+例如若需导出D:\ghost下的结构，不能用诸如此类的命令：
+
+tree D:\ghost\ /f > d:\ghost.txt
+
+而只能是：
+
+tree D:\ghost /f > d:\ghost.txt
+
+[注意4]导出符前后空格均可省略，但参数\F等前面的空格不可以。
+
+此命令有效：tree D:\ghost /F>d:\ghost.txt
+
+而此命令无效：tree D:\ghost/F > d:\ghost.txt

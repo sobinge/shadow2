@@ -1,0 +1,97 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+启动项详解
+D8888D主贴内容-------------------------------------------------------
+启动项目就是开机的时候系统会在前台或者后台运行的程序。
+　　当Windows（操作系统）完成登录过程，进程表中出现了很多的进程！Windows在启动的时候，自动加载了很多程序。
+　　许多程序的自启动，给我们带来了很多方便，这是不争的事实，但不是每个自启动的程序对我们都有用；更甚者，也许有病毒或木马在自启动行列！
+　　其实Windows2000/XP中的自启动文件，除了从以前系统中遗留下来的Autoexec.bat文件中加载外，按照两个文件夹和9个核心注册表子键来自动加载程序的。
+[编辑本段]启动项分解
+　　1）“启动”文件夹──最常见的自启动程序文件夹。
+　　它位于系统分区的“documents and Settings－－>User－－>〔开始〕菜单－－>程序”目录下。这时的User指的是登录的用户名。
+　　2）“All Users”中的自启动程序文件夹──另一个常见的自启动程序文件夹。
+　　它位于系统分区的“documents and Settings－－>All User－－>〔开始〕菜单－－>程序”目录下。前面提到的“启动”文件夹运行的是登录用户的自启动程序，而“All Users”中启动的程序是在所有用户下都有效（不论你用什么用户登录）。
+　　3）“Load”键值── 一个埋藏得较深的注册表键值。
+　　位于〔HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Windows\load〕主键下。
+　　4）“Userinit”键值──用户相关
+　　它则位于〔HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit〕主键下，也是用于系统启动时加载程序的。一般情况下，其默认值为“userinit.exe”，由于该子键的值中可使用逗号分隔开多个程序，因此，在键值的数值中可加入其它程序。
+　　5）“Explorer\Run”键值──与“load”和“Userinit”两个键值不同的是，“Explorer\Run”同时位于〔HKEY_CURRENT_USER〕和〔HKEY_LOCAL_MACHINE〕两个根键中。
+　　它在两个中的位置分别为（HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run〕和〔HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run〕下。
+　　6）“RunServicesOnce”子键──它在用户登录前及其它注册表自启动程序加载前面加载。
+　　这个键同时位于〔HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce〕和〔HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce〕下。
+　　7）“RunServices”子键──它也是在用户登录前及其它注册表自启动程序加载前面加载。
+　　这个键同时位于〔HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunServices〕和〔HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunServices〕下。
+　　8）“RunOnce\Setup”子键──其默认值是在用户登录后加载的程序。
+　　这个键同时位于〔HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce\Setup〕和〔HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce\Setup〕下。
+　　9）“RunOnce”子键──许多自启动程序要通过RunOnce子键来完成第一次加载。
+　　这个键同时位于〔HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce〕和〔HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce〕下。位于〔HKEY_CURRENT_USER〕根键下的RunOnce子键在用户登录扣及其它注册表的Run键值加载程序前加载相关程序，而位于〔HKEY_LOCAL_MACHINE〕主键下的Runonce子键则是在操作系统处理完其它注册表Run子键及自启动文件夹内的程序后再加载的。在Windows XP中还多出一个〔HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnceEX〕子键，其道理相同。
+　　10）“Run”子键──目前最常见的自启动程序用于加载的地方。
+　　这个键同时位于〔HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run〕和〔HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run〕下。
+　　其中位于〔HKEY_CURRENT_USER〕根键下的Run键值紧接着〔HKEY_LOCAL_MACHINE〕主键下的Run键值启动，但两个键值都是在“启动”文件夹之前加载。
+　　11）再者就是Windows中加载的服务了，它的级别较高，用于最先加载。
+　　其位于〔HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services〕下，看到了吗，你所有的系统服务加载程序都在这里了！
+　　12）Windows Shell──系统接口
+　　它位于〔HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\〕下面的Shell字符串类型键值中，基默认值为Explorer.exe，当然可能木马程序会在此加入自身并以木马参数的形式调用资源管理器，以达到欺骗用户的目的。
+　　13）BootExecute──属于启动执行的一个项目 
+　　可以通过它来实现启动Natvice程序，Native程序在驱动程序和系统核心加载后将被加载，此时会话管理器(smss.exe)进行windowsNT用户模式并开始按顺序启动native程序
+　　它位于注册表中〔HKEY_LOCAL_MACHINE\System\ControlSet001\Session Manager\〕下面，有一个名为BootExecute的多字符串值键，它的默认值是"autocheck autochk *"，用于系统启动时的某些自动检查。这个启动项目里的程序是在系统图形界面完成前就被执行的，所以具有很高的优先级。
+　　14）策略组加载程序──打开Gpedit.msc，展开“用户配置——管理模板——系统——登录”，就可以看到“在用户登录时运行这些程序”的项目，你可以在里面添加。
+　　在注册表中[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Group Policy Objects\本地User\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run]你也可以看到相对应的键值。
+　　备注：
+　　Home版的XP中没有提供gpedit工具，可到网上搜索并下载补丁。
+　　快速进入启动项
+　　快速进入启动项的方法是在运行中输入 msconfig ，即可看到窗口下的启动项运行项目。
+[编辑本段]从系统的启动项可以看到什么
+　　俗话说“万事开头难”， 俗话也说“良好的开头是成功的一半”，那么XP系统“开头”也就是“启动”能告诉我们什么那。
+　　1、msconfig
+　　在"开始“-“运行”对话框中输入“msconfig”就打开“系统配置实用程序”。
+　　msconfig是Windows系统中的“系统配置实用程序”，它可以自动执行诊断xp系统的配置问题时所用的常规解决步骤。它管的方面可够宽，包括:一般（常规）、system.ini、win.ini、BOOT.INI、服务、启动。它是xp系统底层最先启动的程序，可见它的重要性了。这里面可是自启动程序非常喜欢呆的地方。
+　　这里我们只介绍一下“启动”
+　　系统配置实用程序中的“启动”选项和我们在下面讲的"启动"文件夹并不是同一个东西，在系统配置实用程序中的这个启动项目是Windows系统启动项目的集合地，几乎所有的启动项目部能在这里找到----当然，经过特殊编程处理的程序可以通过另外的方法不在这里显示。
+　　打开“启动”标签，“启动项目”中罗列的是开机启动程序的名称，“命令”下是具体的程序附加命令，最后的"位置"就是该程序在注册表中的相应位置了，你可以对可疑的程序进行详细的路径、命令检查，一旦发现错误，就可以用下方的"禁用"来禁止该程序开机时候的加载。
+　　一般来讲，除系统基于硬件部分和内核部分的系统软件的启动项目外，其他的启动项目都是可以适当更改的，包括:杀毒程序、特定防火墙程序、播放软件、内存管理软件等。也就是说，启动项目中包含了所有我们可见的程序的列表，你完全可以通过它来管理你的启动程序，换句话，这里可以全部是空的。
+　　2、注册表中相应的启动加载项目
+　　注册表的启动项目是病毒和木马程序的最爱，非常多的病毒木马的顽固性就是通过注册表来实现的，特别是在安装了新的软件程序，一定不要被程序漂亮的外表迷惑，一定要看清楚它的实质是不是木马的伪装外壳或者是捆绑程序，必要的时候可以根据备份来恢复注册表。
+　　我们也可以通过手动的方法来检查注册表中相应的位置，注意同安全、清洁的系统注册表相应键进行比较，如果发现不一致的地方，一定要弄清楚它是什么东西!不要相信写在外面的 “system”、
+　　“windows”、“programfiles”等名称，尤其是如果你仔细观察的话，有些字符是不一样的，比如0和o的区别，1和l的区别等，如果经过详细的比较，可以确定它是不明程序的话，不要手软，马上删除。
+　　主要的启动加载键值有
+　　“Explorer\Run”键值──在HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run〕和〔HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run〕下。
+　　“RunServicesOnce”子键──在〔HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce〕和〔HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce〕下。
+　　“RunServices”子键──在〔HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunServices〕和〔HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunServices〕下。
+　　“RunOnce”子键──在〔HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce〕和〔HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce〕下。
+　　“Run”子键──在
+　　〔HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run〕和〔HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run〕下。
+　　3、“启动”项目
+　　在windows的“开始”中有自带的启动文件夹，它是最常见的启动项目。如果在安装程序时设置成开机既启动，这个程序就装入到这个文件夹中，系统启动就会自动地加载相应程序。
+　　具体的位置是“开始”菜单中的“所有程序”-“启动”选项。
+　　在硬盘上的位置是：C:\Documents and Settings\你的用户名\「开始」菜单\程序\启动。 
+　　在注册表中的位置是：
+　　HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run。
+　　这里最好为空，而且用户要不时地检查一下这里有什么不明的东西。 
+　　4、boot.ini
+　　当用户的电脑有ghost备份、dos工具或者是双系统时，在开机后就出现个让用户选择，如果不选择就以默认的启动的窗口，(屏幕底部是F8高级启动），boot.ini就控制这个地方。
+　　里边的内容一般是
+　　[boot loader] 
+　　timeout=x （x一般在1-5就可以了）
+　　default=multi(0)disk(0)rdisk(0)partition(1)\WINDOWS 
+　　[operating systems] 
+　　multi(0)disk(0)rdisk(0)partition(1)\WINDOWS="Microsoft Windows XP Professional" /noexecute=optin /fastdetect………… 
+　　BOOT.INI是一个非常重要的系统文件，是系统启动时，需要查询的一个系统文件，它告诉启动程序本计算机有几个操作系统、各系统的位置在哪里等信息。没有它或者误删了，系统还能进行引导，但是一个是只能引导默认的系统，不在有你的备份系统的引导选择，在一个是每次开机重启时都显示两行字：“boot.ini文件是非法的，现在正从C:/Windows/下启动”，但是速度明显慢了。所以我们平时除了要对其作必要的备份之外，还要编辑它的方法。特别是在安装多系统时，如果没有按照从低到高(Windows 98、Windows 2000、Windows XP、Windows 2003)的安装顺序，该文件往往会被损坏。如果我们掌握修改和编辑它的办法，就不会到时候无计可施了。
+　　5、非法关机以后的“启动”
+　　相信很多人都碰到过电脑开机后出现
+　　“Checking file system on E:
+　　The type of the file system is NTFS……然后是一些数字的变化，最后一行是类似的“??（问号代表数字） allocation units available on disk”，然后就进入系统桌面了”的情况吧。
+　　这就是非正常关机,如断电、按热启动键启动、或强制按电源键关机在开机造成的。
+　　由于关机的时候E盘里面的程序还在运行，每次开机硬盘都会自动自检，消除错误信息等，而如果非正常关机这些程序没有正常退出，那么下次在开机电脑就要从新执行自检，以便消除消除错误信息，正常的电脑有一次就好了，下次启动就不会出现这种情况了。
+　　如果每次开机都出现这样的情况有2个可能：一个是硬盘出现坏道了，硬盘在工作时突然关闭电源，可能会导致磁头与盘片猛烈磨擦而损坏硬盘，还会使磁头不能正确复位而造成硬盘的划伤，从而在硬盘留下了坏道，但是电脑还能勉强使用，出现这种情况一般只能更换硬盘了。一个是硬盘没有问题，但是留下了记忆的信息，结果每次都自检，消除的办法就是：开始-运行中输入chkdsk E: /x/f 回车，然后就出现个自动运行的dos窗口，等他运行完毕就没有问题了。
+　　chkdsk E: /x /f的意思是Windows发现在E盘里文件系统有问题 ，运行CHKDSK <使用选项/x /f> 来更正这些问题 。
+　　对于FAT文件系统，可以使用win自己的磁盘修复来操作，方法是：右击你要操作的盘符，属性-工具，选择查错，把自动修复错误的勾打上，点击开始就可以了。
+　　6、其他情况的“启动”
+　　当用户打开电源开关后从“启动”到进入桌面以及可以登录网络后，如果花费的时间很长，而且打开、关闭、拖动一个程序文件的时候显得拖拖拉拉的，有时候还有莫名其妙的从“启动”，这样的“启动”往往说明：（1）加载的启动项目过多，（2）电脑中毒了，(3)系统盘的空间不足了，（4）机箱该打扫一下了，（5）有关的硬件性能欠佳了……
+　　如何取消不必要的开机启动
+　　1、开始--所有程序--"启动"，点击打开后把里面全部删掉。 
+　　2、减少开机启动项，开始---运行,键入"msconfig".点击"启动",建议留下:rfw main,RAV TMER ,RAV MON此三项是瑞星杀毒软件,应随时启动对系统进行监视,ctfmon.exe是输入法显示,这项不要删掉,其他的可以全部删除。 
+　　3、如你的系统教稳定很少出现系统失败的故障，可以如下操作：开始---控制面板- --性能和维护---系统",打开"系统特征-高级"选项卡,使用期中的"启动和故障恢复"按钮,打开"启动和故障恢复"对话框,将'系统失败下的"将事件写入系统日志"和"发送管理警报"两项去掉,,然后打开"写入调试信息"的下拉列表,选择"无"以后"确定" 
+　　4、减少开机使滚动条滚动次数.开始-运行,确定.键入"regedit",打开找到"HKEY-LOCAL-MACHINE-SYSTEM/Current Contralset/Control/Sessin Manager /Memory Management/Preech Paramentrs的分枝,在右侧窗口找到"EnablePrefecher",子健,把它的值设为:"1",右击我得电脑-属性-硬件-设备管理器-展开'IDE ATA/ATAPZ控制器",双击"次要通道IDE".,在对话框中选中"高级",再"设备0"中,将原设的"自动检测"改为"无",主要通道也如此修改.重启电脑,滚动条减少为3次(原十几次). 
+　　5、开始-运行,确定.键入"regedit",打开HKEY-CURRENT-USER/ControlPanel;Desktop/,找到"HungAPPTineout",把它的之改为"5000",另一个"WaitTokillAPPTimeout",把它的值改为"4000".再再HKEY-LOCAL-MACHINE-System/CurrnentContralset/Control,把其中的WaitTokillServiceTimeout"的键值也改为4000

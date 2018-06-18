@@ -1,0 +1,46 @@
+公网服务器一台
+
+开始>运行>输入services.msc
+寻找如下服务名称!
+Workstation
+Telephony
+Remote Access Connection Manager
+Remote Access Auto Connection Manager
+remote Registry
+Server
+
+要停止 或允许1723端口
+
+Routing and Remote Access
+设置启动类型为自动，并启动
+
+关闭以下服务并禁用：
+Windows Firewall/Internet Connection Sharing (ICS)
+
+开始>运行>输入>rrasmgmt.msc
+
+因为VPN用一个空IP做服务器另一个用来给客户端，我们挑选有2个空IP以上的段
+
+点击开始>运行>输入>rrasmgmt.msc
+
+，点击>配置并启用路由和远程访问(C)
+点击>下一步.>自定义配置>选着VPN访问>下一步>完成。
+右键选中地方，属性。
+
+选IP，静态地址池>添加>填上我们刚才记录下的空IP段>确定！
+
+下一步。选中常规。点击新增路由协议。添加NAT/基本防火墙.。确定。
+
+选择公网的网卡
+
+确定。大功告成。
+接下来就是配置一个自己的VPN账户了。
+计算机管理→本地用户和组–用户 选一个要拨入的用户 点 右键 属性 拨入选项卡 选允许拨入 确定
+VPN就基本设置就完成了
+网上邻居 右键属性 新建连接向导 下一步 选‘连接到我的工作场所的网络’
+下一步 选虚拟网络专用连接 随便输入一个公司名 下一步 输入服务器IP或（域名） 完成
+输入刚刚设置的拨入用户 连接进去之后
+在CMD下输入 IPCONFIG -ALL 可以发现多了一个IP地址了
+去www.ip138.com先看下没连接VPN之前的IP
+用VPN连接之后在看看IP
+一个公网VPN就建立好了。

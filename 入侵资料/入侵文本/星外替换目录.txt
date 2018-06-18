@@ -1,0 +1,83 @@
+2011-08-28 09:40 星外提权目录收集c:\Program Files\Helicon\ISAPI_Rewrite3\error.log   态设置软件ISAPI Rewrite日志文件
+c:\Program Files\Helicon\ISAPI_Rewrite3\Rewrite.log  态设置软件ISAPI Rewrite日志文件
+c:\Program Files\Helicon\ISAPI_Rewrite3\httpd.conf  静态设置软件ISAPI Rewrite配置文件
+
+主要是ISAPI Rewrite 3.0版本存在权限问题，老版本暂时没发现有此类问题。
+
+c:\Program Files\Common Files\Symantec Shared\Persist.bak 诺顿杀毒事件日志文件
+
+c:\Program Files\Common Files\Symantec Shared\Validate.dat 诺顿杀毒事件日志文件
+
+c:\Program Files\Common Files\Symantec Shared\Persist.Dat  诺顿杀毒事件日志文件
+
+以下是最后2个可替换文件
+c:\windows\hchiblis.ibl  华盾服务器管理专家文件许可证
+
+c:\Documents and Settings\All Users\Application Data\Hagel Technologies\DU Meter\log.csv
+
+DU Meter的流量统计信息日志文件
+
+ 
+
+文件:C:\WINDOWS\TAPI\tsec.ini
+360的
+文件:C:\Program Files\360\360sd\Section\mutex.db
+文件:C:\Program Files\360\360Safe\deepscan\Section\mutex.db
+文件:C:\Program Files\360\360Safe\AntiSection\mutex.db
+Flash:
+文件:C:\WINDOWS\system32\Macromed\Flash\Flash10q.ocx
+
+IISrewrite3
+文件:C:\Program Files\Helicon\ISAPI_Rewrite3\Rewrite.log
+文件:C:\Program Files\Helicon\ISAPI_Rewrite3\httpd.conf
+文件:C:\Program Files\Helicon\ISAPI_Rewrite3\error.log
+
+DU Meter的流量统计信息日志文件
+c:\Documents and Settings\All Users\Application Data\Hagel Technologies\DU Meter\log.csv
+诺顿
+c:\Program Files\Common Files\Symantec Shared\Persist.bak
+c:\Program Files\Common Files\Symantec Shared\Validate.dat
+c:\Program Files\Common Files\Symantec Shared\Persist.Dat
+华盾
+文件:C:\WINDOWS\hchiblis.ibl
+
+一流过滤:
+文件:C:\7i24.com\iissafe\log\startandiischeck.txt
+文件:C:\7i24.com\iissafe\log\scanlog.htm
+
+其他有可能提示的文件:
+文件:C:\WINDOWS\Temp\Temporary Internet Files\Content.IE5\index.dat
+文件:C:\WINDOWS\Temp\History\History.IE5\index.dat
+文件:C:\WINDOWS\Temp\Cookies\index.dat
+文件:C:\7i24.com\LinkGate\log\….
+目录:C:\7i24.com\LinkGate\log
+目录:C:\7i24.com\serverdoctor\log\
+文件:C:\7i24.com\serverdoctor\log\….
+
+部分zend版本可能有这个提示:
+文件:C:\Program Files\Zend\ZendOptimizer-3.3.0\lib\Optimizer-3.3.0\php-5.2.x\ZendOptimizer.dll
+目录:C:\Program Files\Zend\ZendOptimizer-3.3.0\lib\Optimizer-3.3.0\php-5.2.x……
+
+c:\7i24.com\iissafe\log\sys
+
+近期有用户的报告发映服务器被入侵,经查是回收站目录的权限有错造成的.
+(最新发现一键GHOST产生的默认备份目录如~1也会有安全问题) ~~这个不错以前没注意到
+
+ 
+
+另外,所有安装诺顿10的用户,请马上升级成诺顿11,不然以下目录一升级诺顿就有权限问题:
+C:\Program Files\Symantec AntiVirus\SAVRT
+C:\Documents and Settings\All Users\Application Data\Symantec\Symantec AntiVirus Corporate Edition\7.5\I2_LDVP.TMP
+
+ 
+
+C:\Documents and Settings\All Users\Application Data\Microsoft\Media Index\
+C:\php\dev,C:\php\ext,C:\PHP\extras,C:\PHP\PEAR
+C:\wmpub
+C:\upload
+C:\inetpub
+
+ 
+
+C:\Documents and Settings\All Users\Application Data\Microsoft\Media Index\
+有users,或everyone写入的权限,大家查下有没有这个问题

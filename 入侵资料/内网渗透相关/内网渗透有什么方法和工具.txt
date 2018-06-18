@@ -1,0 +1,7 @@
+tracert ip  可以看出同一c段
+幻境  netfuke1.7
+
+arp -a判断是不是arp防火墙的问题
+
+
+tracert arp –a

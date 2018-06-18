@@ -1,0 +1,12 @@
+大家应该有很多人碰到过这样的web.config的连接字串
+ <add name="SqlClient" providerName="System.Data.SqlClient" connectionString="Data Source=localhost;MultipleActiveResultSets=True;Initial Catalog=XXX;Integrated Security=True"/>
+
+
+没有SQL的id也没有pwd
+经过查找资料
+此种方式是使得连接SQL服务器时不需要用户名密码,直接用windows的用户进行验证..从而避免了暴露Sa账号密码..
+经过找寻,发现此种方法也可以在我们的马儿中连接数据库.其语句为
+
+Persist Security Info=False;Initial Catalog=数据库名;Data Source=SQL服务器名(本地则为localhost);Integrated Security=SSPI;Provider=SQLOLEDB.1
+
+把这句复制到aspx马的连接数据库的地方即可连接

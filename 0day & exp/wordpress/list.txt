@@ -1,0 +1,19 @@
+Archin WordPress Theme Unauthenticated Configuration Access
+Multiple Vulnerabilities in Wordpress FoxyPress Plugin
+ultiple Vulnerabilities in Wordpress Social
+wordpress 3.1.3 注入漏洞（最新）
+WordPress 3.3.2鸡肋存储型跨站漏洞
+WordPress 3.X.X 及以前版本文件包含漏洞
+Wordpress All Video Gallery 1.1 SQL Injection Vulnerability
+Wordpress Easy Webinar Plugin Blind SQL Injection Vulnerability
+Wordpress FireStorm Professional Real Estate 2.06.01 SQL Injection Vulnerability
+Wordpress Plugin Catalog HTML Code Injection and Cross-site scripting
+Wordpress plugins - bbpress Multiple Vulnerabilities
+Wordpress spider calendar Plugin Multiple Vulnerabilities
+WordPress插件BackWPup远程和本地代码执行漏洞
+WordPress插件EditorMonkey上传漏洞
+Wordpress插件Key远程任意篡改漏洞
+Wordpress插件永久XSS漏洞
+WordPress反射型XSS
+wordpress后台暴力破解
+WordPress默认主题泄漏物理路径

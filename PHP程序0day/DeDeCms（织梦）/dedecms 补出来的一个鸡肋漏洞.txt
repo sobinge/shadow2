@@ -1,0 +1,26 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+dedecms 补出来的一个鸡肋漏洞
+D8888D主贴内容-------------------------------------------------------
+dedecms 补出来的一个鸡肋漏洞
+
+作者：冰的原点[L.S.T]&[0.S.T]
+
+刚看了下小帅同志的博客发现上面又介绍了一个关于dedecms的一个0day（[url=http://www.xssor.cn/sa/?action=show&id=58]链接标记http://www.xssor.cn/sa/?action=show&id=58[/url]），不过这个漏洞和几个月前的那个直接写文件的漏洞好象不在一个文件（我记得不太清楚，大家勿怪），刚好手里有一个dedecms的站，但是测试的时候老是不成功。于是下载了一套最新版的dede下载下来看了一下，原来官方早已经补了。可是我在测试的时候，发现官方的补救措施不太明显。下面我们来回顾一下漏洞的形成。在member/story_add_content_action.php文件夹下有如下代码：
+WriteBookText($arcID,stripslashes($body));
+再来看一下这个函数是处么写的，在include\inc_bookfunctions.php：
+function WriteBookText($cid,$body)
+{
+        global $cfg_cmspath,$cfg_basedir;
+        $ipath = $cfg_cmspath."/data/textdata";
+        $tpath = ceil($cid/5000);
+        if(!is_dir($cfg_basedir.$ipath)) MkdirAll($cfg_basedir.$ipath,$GLOBALS['cfg_dir_purview']);
+        if(!is_dir($cfg_basedir.$ipath.'/'.$tpath)) MkdirAll($cfg_basedir.$ipath.'/'.$tpath,$GLOBALS['cfg_dir_purview']);
+        $bookfile = $cfg_basedir.$ipath."/{$tpath}/bk{$cid}.php";
+        $body = "<"."?php exit();\r\n".$body."\r\n?".">";
+        @$fp = fopen($bookfile,'w');
+最重要的是这一句：$body = "<"."?php exit();\r\n".$body."\r\n?".">";我没看以前的代码，但是前面加了一个exit();后，即使我们写入一句话，文件里的内容就会变成<?php exit();?><?php @eval($_POST[cmd])?>?> 也就是说，在执行eval函数前，先执行了exit函数，官方就这样限制了一句话木马的功能 ，但这里官方忽视了php的暴错性，我们要是随便写几个多余的字符进去呢？我们多写几个>或者其它比较关键的字符进去，反正stripslashes($body)会对它进行转义的，这样我们会轻而易举的得到网站的物理路径，这里给大家一个实例[url=http://www.xyxxw.com/book/data/textdata/1/bk23.php]链接标记http://www.xyxxw.com/book/data/textdata/1/bk23.php[/url] 
+
+
+好了，漏洞分析到这里了！这也是我们的一句话为什么写进去了却连不上的原因了！

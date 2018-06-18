@@ -1,0 +1,61 @@
+新云网站管理系统任意文件可下载漏洞
+
+漏洞版本:
+
+ACCESS和SQL版
+
+ 漏洞描述:
+
+<%
+Dim url,strUrl,strPath
+url = Replace(Replace(Replace(Request("url"), "'", ""), "%", ""), "\", "/")
+//首先先进行一些字符的替换，'换成空，%也换成空，\换成/
+
+If Len(url) > 3 Then
+ If Left(url,1) = "/" Then
+ Response.Redirect url //如果用户提交的url第一个字符是/，那直接转向url
+ End If
+ If Left(url,3) = "../" Then
+ Response.Redirect url //同上，意思就是不给你用../跳转目录
+ End If
+ strUrl = Left(url,10)
+ If InStr(strUrl, "://") > 0 Then //这个，汗·～～://不懂干什么用的
+ Response.Redirect url
+ End If
+ If InStr(url, "/") > 0 Then
+ strPath = Server.MapPath(".") & "\" & url //补充物理地址了
+ strPath = Replace(strPath, "/", "\") //替换/为\呢
+ Call downThisFile(strPath) //HOHO～～开始下载了
+ Else
+ Response.Redirect url
+ End If
+End If
+
+Sub downThisFile(thePath)
+ Response.Clear
+ On Error Resume Next
+ Dim stream, fileName, fileContentType
+ 
+ fileName = split(thePath,"\")(UBound(split(thePath,"\")))
+ Set stream = Server.CreateObject("adodb.stream")
+ stream.Open
+ stream.Type = 1
+ stream.LoadFromFile(thePath)
+ Response.AddHeader "Content-Disposition", "attachment; filename=" & fileName
+ Response.AddHeader "Content-Length", stream.Size
+ Response.Charset = "UTF-8"
+ Response.ContentType = "application/octet-stream"
+ Response.BinaryWrite stream.Read 
+ Response.Flush
+ stream.Close
+ Set stream = Nothing
+End Sub
+%>
+
+ <* 参考
+http://www.2456.org.cn/myblog/article.asp?id=643
+ *>
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.似乎是url都处理掉了，是不可能用../跳转目录的。但是，他判断../很奇怪，就判断url的前三个字符而已。所以，嘿嘿！前三个字符不能是../，难道我后面不能是吗？于是构造一下url参数为"uploadfile/../../conn.asp"，于是总体的地址就是http://127.0.0.1/flash/downfile.asp?url=uploadfile/../../conn.asp。嘿嘿～～conn.asp文件下载下来了吧。2.这套整站程序用的人还是挺多的

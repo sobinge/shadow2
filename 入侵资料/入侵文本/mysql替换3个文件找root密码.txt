@@ -1,0 +1,9 @@
+一般用记事本格式打开user.myd就看见加密值了，如果不行的话就安装一个mysql吧
+1、停止mysql服务
+2、替换下载下来的3个文件
+3、cmd切换到bin目录下，进入mysql安全模式
+mysqld-nt --skip-grant-tables
+4、重新打开一个cmd
+切换到bin目录下>mysql -u root
+版本不同有可能是mysql -uroot -proot
+5、最后查询一下就出来了select user,password from mysql.user;

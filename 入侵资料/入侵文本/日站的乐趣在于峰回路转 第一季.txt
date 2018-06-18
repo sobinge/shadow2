@@ -1,0 +1,63 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+日站的乐趣在于峰回路转 第一季
+D8888D主贴内容-------------------------------------------------------
+ 
+
+废话不说了。
+先收集下这个站的信息 主站是Apache/2.0.55 (Unix) mod_ssl/2.0.55 OpenSSL/0.9.7a PHP/4.4.1，开个8083端口作为“分站”
+“分站”的所有页面都是像class-9-8.aspx这样的，无任何参数，也就别想通过注入了
+用啊D扫下目录，不要看不起AD，只要你有强大的数据库，哪个工具不都一样？现在我的数据库就基本上囊括了现有所有系统的可利用目录，哈哈。。。在此要感谢下吐司的几位先生，为我又增加了些。
+开始扫的时候，没扫到什么，就连后台都没有。。估计是没收录的系统吧
+凭着直觉添加一个
+robots.txt（一般站偶想这个都会删吧，所以就没加 ,哎。。没想到。。。）
+人品原因，出现了一点点可利用的。。（作为站长这个小小的细节没注意的话，就有可能导致整个站的沦陷)
+好，继续。。。
+于是，加个/cmsfile/,再扫，出现后台的登录页
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/100102154095df0e83245f38cd.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzMwNXw5MDEzM2U1M3wxMjg2NDgyMzYwfDUzNmQyakFtUm9Td2ZsWTd4QUhTNDZkMC8vaGp1eGxFRWFJWDB4MHgwQlIzK2Nz&nothumb=yes]链接标记下载[/url] (44.87 KB)
+
+2010-1-2 15:40
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/10010216004230868697a309a0.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzMwN3wyY2VjYmFjOXwxMjg2NDgyMzYwfDUzNmQyakFtUm9Td2ZsWTd4QUhTNDZkMC8vaGp1eGxFRWFJWDB4MHgwQlIzK2Nz&nothumb=yes]链接标记下载[/url] (47.88 KB)
+
+2010-1-2 16:00
+很明显是，被管理员改了标题栏。
+凭直觉加个user
+出现这个
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/10010216025649f21bd33b2d09.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzMwOHw5MzQ1MDA0ZHwxMjg2NDgyMzYwfDUzNmQyakFtUm9Td2ZsWTd4QUhTNDZkMC8vaGp1eGxFRWFJWDB4MHgwQlIzK2Nz&nothumb=yes]链接标记下载[/url] (43.61 KB)
+
+2010-1-2 16:02
+看到是一个系统JumbotCms!NET2009，于是down下，这个系统的源代码。（人品，要是闭源的又要重新想了）
+本来是想通过下载数据库，然后进后台的，可是他限制了页面类型。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/100102155362c4f79c99b82d0e.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzMwNnwxYTZkOGNjNXwxMjg2NDgyMzYwfDUzNmQyakFtUm9Td2ZsWTd4QUhTNDZkMC8vaGp1eGxFRWFJWDB4MHgwQlIzK2Nz&nothumb=yes]链接标记下载[/url] (46.87 KB)
+
+2010-1-2 15:53
+继续看源码。。有个FCK，呵呵~若果他是装的ISS6那就爽了。
+但是一般都是装的这个
+于是，看看管理员懒吗？懒的话就有戏了~
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/10010216059dda71fb7545d9fb.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzMwOXxmNTBjYWEwN3wxMjg2NDgyMzYwfDUzNmQyakFtUm9Td2ZsWTd4QUhTNDZkMC8vaGp1eGxFRWFJWDB4MHgwQlIzK2Nz&nothumb=yes]链接标记下载[/url] (47.68 KB)
+
+2010-1-2 16:05
+到这里基本上就KO他了。。
+现在讲下这个FCK的利用，是针对这个站的，其他情况请自己改，大鸟飘过，也别拍砖。你知道不代表别人知道，老鸟也是从菜鸟成长起来的。
+[url=http://xxx.xx.xxx.xxx:8031/cmsfile]链接标记http://xxx.xx.xxx.xxx:8031/cmsfile[/url]\fckeditor\editor\filemanager\browser\default\connectors\test.htm
+在connector选择asp.net，create folder 可以建立一个1.asp的目录，resource type 是上传的路径。我们上传的是jpg，通过iis6的解析漏洞，如/1.asp/你的马.jpg,就能解析出来。
+（当然 突's的朋友会说这个可以直接上asa，可是，这个系统还是限制了，只能穿规定格式，可能是我太菜了吧，而且传1.asp;1.jpg的时候，会被转化为2010XXXX.JPG)穿好后，会显示错误，其实没有，通过右键查看源代码可以看出来这个文件的名字。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/10010216165dc4a4b3d53d601c.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzMxMHxkZjhkMzlkM3wxMjg2NDgyMzYwfDUzNmQyakFtUm9Td2ZsWTd4QUhTNDZkMC8vaGp1eGxFRWFJWDB4MHgwQlIzK2Nz&nothumb=yes]链接标记下载[/url] (77.99 KB)
+
+2010-1-2 16:16
+然后，这个地址可以看到你传的文件
+[url=http://XXX.XX.XXX.XXX:8031/cmsfile]链接标记http://XXX.XX.XXX.XXX:8031/cmsfile[/url]\fckeditor/editor/filemanager/browser/default/browser.htm?Type=&Connector=connectors\aspx\connector.aspx
+
+总结：其实走了些弯路，1.在robots.txt里面明显有这个系统的名字，当时却没注意。。
+                      2.在传小马的时候，我建的目录为/1.asp/1.jpg,被解析了，登录后却直接跳到1.asp去了，这样就提示无法找到页面。而我用的小马只能传本目录，而且是加参数登录的，我要感谢天使之翼先生提供了一个常规小马可以传任意地方。所以说有些东西不一定要赶潮流，经典的马儿更优秀。。
+                      3.t00ls是个好地方。
+下面秀上webshell
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/10010216254e2ea52e3d1a705a.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzMxMXxiNDY5YmY3OXwxMjg2NDgyMzYwfDUzNmQyakFtUm9Td2ZsWTd4QUhTNDZkMC8vaGp1eGxFRWFJWDB4MHgwQlIzK2Nz&nothumb=yes]链接标记下载[/url] (121.54 KB)
+
+2010-1-2 16:25
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/1001021627c7335ae71a91de04.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzMxMnwyMmQzYzMxMXwxMjg2NDgyMzYwfDUzNmQyakFtUm9Td2ZsWTd4QUhTNDZkMC8vaGp1eGxFRWFJWDB4MHgwQlIzK2Nz&nothumb=yes]链接标记下载[/url] (101.58 KB)
+
+2010-1-2 16:27
+ [img]http://www.t00ls.net/images/attachicons/rar.gif[/img][url=http://www.t00ls.net/attachment.php?aid=NTQyMHwyYzNhYzA5YnwxMjg2NDgyMzYwfDUzNmQyakFtUm9Td2ZsWTd4QUhTNDZkMC8vaGp1eGxFRWFJWDB4MHgwQlIzK2Nz]链接标记test.rar[/url] (20 Bytes) 下载次数:3
+2010-4-26 21:08

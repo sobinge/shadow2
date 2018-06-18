@@ -1,0 +1,166 @@
+高危漏洞乔客(joekoe) CMS 4.0 上传与SQL注入漏洞
+
+Joekoe CMS 4.0 给您带来一个经过完善的设计，在会员互动及安全方面有独特创新性的系统，适用于Windows NT服务环境下的的Web站点或商务平台的最佳解决方案。它精心设计的架构与功能机制，从个人到企业各方面应用的要求，为你提供一个安全、稳定、高效而快捷的Web站点和一体化的商务平台解决方案。 
+
+乔客4.0版本中存在两个高危漏洞,一个上传漏洞,
+
+可以随意上传任意文件,包括ASP,另一个是SQL注入,甚至还有返回错误信息,可怕啊
+上传漏洞:
+/common/include/web.upload.asp中的代码
+————————————————————
+
+sub doPageLoad()
+
+if APP_STATUS=”close” then
+
+treeData.addItem “_status”,”error.message”
+
+treeData.addItem “_message”,”网站暂时因关闭维护中！请稍候…”
+
+exit sub
+
+end if
+
+up.doInit()
+
+if not upConfig.isInit then
+
+treeData.addItem “_status”,”error.message”
+
+treeData.addItem “_message”,”上传文件的参数不正确！”
+
+else
+
+doPageLoadUser()
+
+select case upConfig.channel
+
+case “forum”
+
+upConfig.setSaveDir(upConfig.getSaveDir&(left
+
+(ops.time.toConvertString(“”,10),6)&DIR_SEPARATOR))
+
+upConfig.filename=”"
+
+case “user.face”
+
+upConfig.filename=”face_”&upConfig.userid
+
+upConfig.setSaveDir(“face”&DIR_SEPARATOR)
+
+upConfig.filetype=”gif”
+
+case “blog.logo”
+
+upConfig.setSaveDir(“blog”&DIR_SEPARATOR)
+
+upConfig.filetype=”gif”
+
+case else
+
+if instr(upConfig.channel,”.”)>0 then
+
+upConfig.setSaveDir(mid(upConfig.channel,1,instr
+
+(upConfig.channel,”.”)-1)&DIR_SEPARATOR)
+
+end if
+
+if instr(upConfig.fileinput,”url”)>0 then
+
+upConfig.filetype=”affix”
+
+end if
+
+end select
+
+if len(upConfig.getSaveDir())<3 then
+
+treeData.addItem “_status”,”error.message”
+
+treeData.addItem “_message”,”上传文件的参数不正确！”
+
+exit sub
+
+end if
+
+if 1=1 then
+
+upConfig.setData “zoom.channel.width”,120
+
+upConfig.setData “zoom.channel.height”,90
+
+end if
+
+upConfig.setBaseDir(DIR_ROOT&DIR_UPLOAD)
+
+upConfig.setBasePath(opsDirPath(DIR_ROOT&DIR_UPLOAD))
+
+upConfig.setBaseURL(URL_UPLOAD)
+
+up.doLoad()
+
+end if
+
+end sub
+-------------------------------------------------------
+这代码通过channel判断是否给上传类型赋值,如果channel不等于forum、
+user.face、blog.logo的时候判断fileinput是否包含url，如果不包含，
+upConfig.filetype就不赋值，继续往下看
+————————————————————
+if up.isPost() then
+call doParseUploadData()
+treeData.addItem “_status”,”succeed”
+dim tmpFormMode,tmpFileValue,tmpThumbValue
+tmpFormMode=”set”
+if upConfig.channel=”user.face” then
+tmpLinkMode=”no”
+tmpFileValue=”#”&up.getFileInfo(“filename”)
+else
+tmpFileValue=up.getFileInfo(“file.path”)
+select case upConfig.filetype
+case “file”
+tmpLinkMode=”no”
+‘tmpFileValue=up.getFileInfo(“file.path”)
+case “pic”,”spic”,”pics”,”affix”,”gif”,”jpg”,”jpeg”,”bmp”,”png”
+tmpLinkMode=”no”
+tmpThumbValue=up.getFileInfo(“thumb.path”)
+case else
+tmpLinkMode=”again”
+tmpFormMode=”append”
+dim tmpFileType:tmpFileType=lcase(up.getFileInfo(“filetype”))
+select case tmpFileType
+case “gif”,”jpg”,”jpeg”,”bmp”,”png”
+tmpFileValue=”"
+case “swf”
+tmpFileValue=”"
+case else
+tmpFileValue=”[download="&tmpFileType&"]upload_download.asp?
+id=”&upConfig.fileid&”[/download]“
+end select
+end select
+end if
+treeData.addItem “_form.mode”,tmpFormMode
+treeData.addItem “_form.filevalue”,tmpFileValue
+treeData.addItem “_form.thumbvalue”,tmpThumbValue
+end if
+———————————————————————-
+这段代码判断upConfig.filetype，然后定义上传文件的后缀名，只要之前
+upConfig.filetype没被赋值，且不是gif,jpg,jpeg,bmp,png,swf,就
+tmpFileValue=”[download="&tmpFileType&"]upload_download.asp?
+id=”&upConfig.fileid&”[/download]“，看到这个，大家眼睛都放光了，根据用
+户的定义来判断上传类型，就好比问一个要偷东西的人：“你是贼么？”，这段
+代码也太XX了，估计之前也有不少人读出来了，只不过没公开而已
+
+
+
+乔客(JoeKoe) CMS 4.0后台拿shell。
+
+来到后台—>系统管理—>网站配置—>网站名称—>在网站名称那里写入一句话。
+
+
+
+然后通过一句话链接器连接. http://www.XXX.com/index.asp 即可！
+
+

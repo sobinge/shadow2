@@ -1,0 +1,85 @@
+怎么找到支持aspx的网站进一步入侵2011-11-15 14:22怎么找到支持aspx的网站进一步入侵
+
+http://www.t00ls.net/viewthread.php?tid=18648
+
+ 
+
+作者：goingta
+
+来源：http://www.t00ls.net/viewthread.php?tid=18648
+
+为什么要找支持aspx的网站
+
+大家都懂的 我就不多说了
+
+很多朋友是用查旁站 然后测试是否支持aspx 然后入侵
+
+当然这种方法比较局限
+
+以下给一种平时总结的经验出来给大家  前提拥有旁站的一shell
+
+运行aspx网站会在.net的安装目录下产生一些 文件
+
+往往这些文件是在较低的权限下 可用访问 查看的
+
+不同的版本有不同的安装目录
+
+C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\Temporary ASP.NET Files\root
+
+C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\Temporary ASP.NET Files\root
+
+貌似还有其他版本 不记得版本号了
+
+大家可用在这个目录往下面照  C:\WINDOWS\Microsoft.NET\Framework
+
+一直找到root下面的就ok了
+
+来到root  下面各个文件夹 应该对应的不同的网站产生的文件的目录
+
+找那种 .vb 或者 .cs的文件 打开里面躺着支持aspx网站的路径
+
+很多文件名也同时暴露了网站存在的文件的名字 比如后台密码
+
+但是关键的 有暴露支持aspx的网站路径
+
+怎么再进一步利用呢？
+
+一、确认域名
+
+1.比如已经暴露了 d:\www\goingta\web
+
+当然我们有可用测试 goingta.com 或者其他的域名后缀
+
+这里假设 goingta是一个比较偏的词 我们可用在百度或者google 查询与此有关的域名
+
+2.在查找同服务器的域名的时候 有可能查到多级域名 这个很多正规的网站都会绑定一个多级域名对网站目录的
+
+ 比如 goingta.23dns.xxxx.com
+
+3.我们可用ping一下ip，有的主机商会同样的绑定一个别名，方法同2
+
+4.就是各位经常说的社工
+
+5.各位黑客来补充
+
+二、获取权限
+
+1.利用bs写的马儿对 root 目录进行搜索
+
+  可以直接搜索aspxspy 关键字 直接找到马儿 （ 成功的概率有点高哦 ）
+
+  也可以直接搜索fckeditor关键字 找支持fckeditor
+
+  或者其他关键字
+
+2.搜集所有的目录 比如 d:\www\goingta\web  d:\www\goingta1\web d:\www\goingta2\web .....
+
+然后提取 goingta goingta1 goingta2 来对服务器进行ftp弱口令扫描
+
+成功率大得很 用着非常拉风
+
+3.就是找到域名根据网站进行入侵吧
+
+4.你来补充
+ 
+

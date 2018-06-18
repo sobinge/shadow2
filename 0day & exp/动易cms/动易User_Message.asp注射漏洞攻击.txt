@@ -1,0 +1,6 @@
+动易User_Message.asp注射漏洞攻击
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.主要问题在于 User_Message.asp2.http://77169.org/User/User_Message.asp?Action=Del&ManageType=Inbox&MessageID=90;3. 4.MessageID 没有严格过滤，有注入漏洞。只过滤了 单引号， 这就能挡住聪明的黑客吗？5.我们来看一下，User_Message.asp的源代码、6.——————————————————————————

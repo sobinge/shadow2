@@ -1,0 +1,2 @@
+[【原创】] 淫荡的一种抓取HASH技巧
+看见很多朋友在取得3389权限以后，都已经习惯的抓HASH跑彩虹，要不就是直接传一个工具记录密码，但是现在很多工具都已经不免杀了，而且都要合并进程，一般都无法绕过去，可以说几率很小，像最常用的winlogin不是所有版本都有效，在几次实践中，我发现直接用reg保存注册表中的reg save hklm\sam sam.hive reg save hklm\system system.hive reg save hklm\security security.hive然后下载到本地，用CAIN来导入system.hive 和security.hive直接明文密码就出来了，但是也不是每次都行，有时候可能存在历史密码，这里也可以直接爆破lm/ntlm hash 但还是要导入system.hive 和security.hive，然后再跑彩虹！大功告成，但是我测试了又几个版本也不实用，xp sp2 2000 其他测试木有问题，比较短小，算个小技巧 

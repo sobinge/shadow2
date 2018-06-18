@@ -1,0 +1,128 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+巧妙渗透：从注射点直接到root【上】
+D8888D主贴内容-------------------------------------------------------
+ 
+
+作者：黯魂（[url=http://hi.baidu.com/arctan0]链接标记http://hi.baidu.com/arctan0[/url]）
+说明：来这里潜水也有些日子了，看大家都很热情，就把自己的几篇拙文发来献丑了，还希望大家多多指教呀  ：）对了，本文好像投给了黑防9月，现在发出来应该没关系了。
+
+
+        韩国网站美观确实做得不错，这个网站就吸引了我。网站性质为在线招聘，类似于国内的中华英才网和51job，在熟悉网站架构和应用逻辑的同时，我粗略浏览了一下网站内容。发现韩元真是不值钱 ：）
+        点着点着，不一会儿就发现了一个注射点，字符型的，用order by猜出字段数为43后开始尝试获取内容，见下图：
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/09122600188d47fe2db1522b58.jpg[/img]
+[url=http://www.t00ls.net/attachment.php?aid=Mjk3NnwwYzBmZDRjOXwxMjg2NDgyMDM2fDE4NTd4S2ZyVGxuU1EzTWo2R3J0RFpsSW1XQ0QyRnk0bVBiY3dJR1Q5cGN6QS9v&nothumb=yes]链接标记下载[/url] (43.81 KB)
+
+2009-12-26 00:18
+    发现“3”和“4”两处可以显示内容，那么把“3”替换为user()，把“4”替换为version()后回车，如图：
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/091226002354124e35d36d02df.png[/img]
+[url=http://www.t00ls.net/attachment.php?aid=Mjk3N3xmNmMwYTFiNXwxMjg2NDgyMDM2fDE4NTd4S2ZyVGxuU1EzTWo2R3J0RFpsSW1XQ0QyRnk0bVBiY3dJR1Q5cGN6QS9v&nothumb=yes]链接标记下载[/url] (71.93 KB)
+
+2009-12-26 00:23
+
+        MYSQL的版本为4.0.22，那就有点繁琐了，没有information_schema这个库，无法直接跑数据，只能手工猜解了。
+        在把“4”替换为database()后看到了当前数据库为jobcruit，见下图：
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912260023cd3884be1928894a.jpg[/img]
+[url=http://www.t00ls.net/attachment.php?aid=Mjk3OHw5ODdlZDE0NXwxMjg2NDgyMDM2fDE4NTd4S2ZyVGxuU1EzTWo2R3J0RFpsSW1XQ0QyRnk0bVBiY3dJR1Q5cGN6QS9v&nothumb=yes]链接标记下载[/url] (8.26 KB)
+
+2009-12-26 00:23
+    非root用户并不代表一定不能load_file或者导出一个webshell呀，我们来看看当前用户是否具有file权限：
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/09122600250186d0a5b6695a5c.jpg[/img]
+[url=http://www.t00ls.net/attachment.php?aid=Mjk4NHxhNWY4YTNlZnwxMjg2NDgyMDM2fDE4NTd4S2ZyVGxuU1EzTWo2R3J0RFpsSW1XQ0QyRnk0bVBiY3dJR1Q5cGN6QS9v&nothumb=yes]链接标记下载[/url] (30.2 KB)
+
+2009-12-26 00:25[align]
+        很遗憾，没有file权限，同时还发现magic_quotes_gpc为on。
+        那么目前的处境只能猜解数据进后台然后想办法得webshell了。先来看看是否存在admin表：
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912260025cfcd9b15e88ae5e7.jpg[/img]
+[url=http://www.t00ls.net/attachment.php?aid=Mjk4NXwwMjJmYzdjN3wxMjg2NDgyMDM2fDE4NTd4S2ZyVGxuU1EzTWo2R3J0RFpsSW1XQ0QyRnk0bVBiY3dJR1Q5cGN6QS9v&nothumb=yes]链接标记下载[/url] (15.73 KB)
+
+2009-12-26 00:25
+
+    不存在，我又试了几个常见的比如admin_info,admin_user等等表，但却都不存在。此刻有些郁闷了，于是又回到网站上浏览目录，也没什么发现。转向google，搜索site:jobcruit.co.kr后返回400多项结果，不多。很快便发现一个有趣的目录：rankup_module，很可能是某个名为rankup的系统，那表名的前缀也极有可能就是rankup，于是我再次猜测：
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912260023f020dae6c69dff6a.jpg[/img]
+[url=http://www.t00ls.net/attachment.php?aid=Mjk4MXw3NDVkOWMyY3wxMjg2NDgyMDM2fDE4NTd4S2ZyVGxuU1EzTWo2R3J0RFpsSW1XQ0QyRnk0bVBiY3dJR1Q5cGN6QS9v&nothumb=yes]链接标记下载[/url] (53.34 KB)
+
+2009-12-26 00:23
+
+啊哈，存在，很好 ：）那么看看admin：
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912260023d7628dba845bdfb5.jpg[/img]
+[url=http://www.t00ls.net/attachment.php?aid=Mjk4Mnw0OTA5NzZmOHwxMjg2NDgyMDM2fDE4NTd4S2ZyVGxuU1EzTWo2R3J0RFpsSW1XQ0QyRnk0bVBiY3dJR1Q5cGN6QS9v&nothumb=yes]链接标记下载[/url] (46.08 KB)
+
+2009-12-26 00:23
+太棒了，管理员表果真就是rankup_admin，那么我们继续猜列名：
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912260024a40867ca53799485.jpg[/img]
+[url=http://www.t00ls.net/attachment.php?aid=Mjk4M3wxZDY2Zjk0OHwxMjg2NDgyMDM2fDE4NTd4S2ZyVGxuU1EzTWo2R3J0RFpsSW1XQ0QyRnk0bVBiY3dJR1Q5cGN6QS9v&nothumb=yes]链接标记下载[/url] (44.42 KB)
+
+2009-12-26 00:24
+        字段名id存在，至于用户名和密码字段，先不急猜解，我们先找到后台再说。根据站点的应用逻辑，我很快找到了后台，可是，却出现了意想不到的情况，如图：
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912260029d3ab62bb61ae7c3a.jpg[/img]
+[url=http://www.t00ls.net/attachment.php?aid=Mjk4NnxiYjA4MWRmN3wxMjg2NDgyMDM2fDE4NTd4S2ZyVGxuU1EzTWo2R3J0RFpsSW1XQ0QyRnk0bVBiY3dJR1Q5cGN6QS9v&nothumb=yes]链接标记下载[/url] (34.19 KB)
+
+2009-12-26 00:29
+        尝试login.php结果如下：
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912260029cbcfde11bca3cf7a.jpg[/img]
+[url=http://www.t00ls.net/attachment.php?aid=Mjk4N3wwM2JlNDgwMXwxMjg2NDgyMDM2fDE4NTd4S2ZyVGxuU1EzTWo2R3J0RFpsSW1XQ0QyRnk0bVBiY3dJR1Q5cGN6QS9v&nothumb=yes]链接标记下载[/url] (25.04 KB)
+
+2009-12-26 00:29
+      后台无法登陆，难道是必须要前台登陆后才能进后台吗？
+        首页有普通会员登陆框，通常来说按照程序员的逻辑惯性，管理登陆的字段名往往和普通会员相同。我们看一下首页的源码：
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/091226002983cbf94b27f7ea86.jpg[/img]
+[url=http://www.t00ls.net/attachment.php?aid=Mjk4OHw2OWFiN2MyMnwxMjg2NDgyMDM2fDE4NTd4S2ZyVGxuU1EzTWo2R3J0RFpsSW1XQ0QyRnk0bVBiY3dJR1Q5cGN6QS9v&nothumb=yes]链接标记下载[/url] (31.07 KB)
+
+2009-12-26 00:29
+      看到了吗？密码字段名为passwd，呵呵，先猜出一个用户再说：
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/09122600299f0ecdacb05818f5.jpg[/img]
+[url=http://www.t00ls.net/attachment.php?aid=Mjk4OXxjYjI5MWY2OXwxMjg2NDgyMDM2fDE4NTd4S2ZyVGxuU1EzTWo2R3J0RFpsSW1XQ0QyRnk0bVBiY3dJR1Q5cGN6QS9v&nothumb=yes]链接标记下载[/url] (54.46 KB)
+
+2009-12-26 00:29
+      使用这个用户成功登陆前台：
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912260029f995ecbf2b274bc0.jpg[/img]
+[url=http://www.t00ls.net/attachment.php?aid=Mjk5MHw2NjRhYWI5ZnwxMjg2NDgyMDM2fDE4NTd4S2ZyVGxuU1EzTWo2R3J0RFpsSW1XQ0QyRnk0bVBiY3dJR1Q5cGN6QS9v&nothumb=yes]链接标记下载[/url] (18.09 KB)
+
+2009-12-26 00:29
+      发现有上传的地方，试试直接上传一个shell看：
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912260029ca367f0ff8faa287.jpg[/img]
+[url=http://www.t00ls.net/attachment.php?aid=Mjk5MXw2Zjg5ZTc5ZnwxMjg2NDgyMDM2fDE4NTd4S2ZyVGxuU1EzTWo2R3J0RFpsSW1XQ0QyRnk0bVBiY3dJR1Q5cGN6QS9v&nothumb=yes]链接标记下载[/url] (30.92 KB)
+
+2009-12-26 00:29
+        很遗憾，对文件扩展名做了限制，只能上传jgp,bmp,gif和png的附件 ：（ 不管它，现在既然已经有了一个普通用户的cookies，那直接访问后台看看，然而，结果跟前面一样，还是不行……
+        回到前台上传的地方，修改文件头后再次上传还是不行，不停修改文件扩展名，超长等方式都尝试了，仍然不行，看来这个地方没得搞。
+        这下有点郁闷了，后台是摆设？还是做了什么奇怪的限制？
+        转念一想，站点通过ftp管理，而我现在可以获得后台的管理员用户数据，即使不能登录后台，但也可以用来试试ftp。因为按照我的经验，很多站长的后台密码都跟FTP密码相同 ：）
+        说干就干，开始猜解管理员数据：
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/091226002911a32903e342be18.jpg[/img]
+[url=http://www.t00ls.net/attachment.php?aid=Mjk5Mnw0NDU0NjkwYnwxMjg2NDgyMDM2fDE4NTd4S2ZyVGxuU1EzTWo2R3J0RFpsSW1XQ0QyRnk0bVBiY3dJR1Q5cGN6QS9v&nothumb=yes]链接标记下载[/url] (57.26 KB)
+
+2009-12-26 00:29
+        很顺利的拿到了管理员的用户名和密码。而之前已经知道当前数据库用户为jobcruit，因此很有可能FTP用户名也为jobcruit，确认一下后发现确实如此：
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912260029391c42109efef918.jpg[/img]
+[url=http://www.t00ls.net/attachment.php?aid=Mjk5M3xjN2UwZDQxNnwxMjg2NDgyMDM2fDE4NTd4S2ZyVGxuU1EzTWo2R3J0RFpsSW1XQ0QyRnk0bVBiY3dJR1Q5cGN6QS9v&nothumb=yes]链接标记下载[/url] (26.91 KB)
+
+2009-12-26 00:29
+      接下来先不急登录，ping一下域名后发现服务器或外围防火墙没有过滤ICMP包，能够ping通，那么用nmap扫描一下端口先：
+
+      扫描结果很理想，端口21，22，3306都开放，甚至开放了23，只是3306端口由于ACL的缘故无法直接进行连接。不过已经足够，web根目录位于/home/hosting_user/jobcruit下，那么这样的ftp用户应该能够直接登录SSH。
+      怀着忐忑不安的心情连上VPN后开启putty进行连接：
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912260038b818f30e36f516ef.jpg[/img]
+[url=http://www.t00ls.net/attachment.php?aid=Mjk5NnxkMDczNWU0YXwxMjg2NDgyMDM2fDE4NTd4S2ZyVGxuU1EzTWo2R3J0RFpsSW1XQ0QyRnk0bVBiY3dJR1Q5cGN6QS9v&nothumb=yes]链接标记下载[/url] (20.49 KB)
+
+2009-12-26 00:38
+      在输入后台管理员密码后登录成功 ：）

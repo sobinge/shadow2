@@ -1,0 +1,1 @@
+先来试试2008的默认注射：flash_upload.php?modelid=1：

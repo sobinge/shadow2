@@ -1,0 +1,32 @@
+您的远程桌面会话已结束，可能是下列原因之一：这里是我们自己的交流平台，属于我们自己的技术分享平台，在这里所有的文档全部源自于90sec团队成员自发的原创文档！/ i+ c8 t9 O4 G
+- ~& e' ]* j1 y* c& O7 g3 L: |
+管理员已结束了会话。
+. K2 Y7 L2 b# R/ m, v90sec-Web信息安全团队; U# V$ k) {' X. v: x2 C
+在建立连接时发生错误。
+& z% G( h. K& K7 N, v. c- l% S - 专注Web信息安全
+" y9 T; l- A. A% K2 B3 |* M" n90sec-Web信息安全团队发生网络问题。
+2 {  Z; D* P6 O/ C) H90sec-Web信息安全团队, b+ O9 o; t- I
+请检查系统服务中的Remote Desktop Help Session Manager服务是否启动。5 k( }, n- K1 l5 A5 X
+90 Security Team1 v: A/ k7 W5 X6 V! n9 \( `* N0 M
+1、“我的电脑”-->右键-->“管理”--->“服务和应用程序”--->“服务”--->Remote Desktop Help Session Manager右建启动。
+7 r: P6 c. K9 Y0 m9 x; m6 N - 专注Web信息安全90sec-Web信息安全团队, d7 c3 w4 w5 @: t: R/ G
+2、改注册表的权限；找到 HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\Root\RDPDR ，在RDPDR上点右键，选择权限，在everyone上，完全控制选中。: N/ N( ]9 z- @7 D( N" m
+这里是我们自己的交流平台，属于我们自己的技术分享平台，在这里所有的文档全部源自于90sec团队成员自发的原创文档！% }6 X1 d: J8 s1 Y6 S
+3、将以下内容复制，保存为REG文件，导入注册表。
+5 X2 t0 W/ V/ z8 T: ^& R! y- x90sec-Web信息安全团队
+7 V- `, i' S1 h- ]. oWindows Registry Editor Version 5.00
+4 d; Z- w0 x) q! N( ?/ M$ p90 Security Team
+3 @7 L, g: C. ?8 P - 专注Web信息安全[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\Root\RDPDR\0000]这里是我们自己的交流平台，属于我们自己的技术分享平台，在这里所有的文档全部源自于90sec团队成员自发的原创文档！% b' c, ]( D! J
+"ClassGUID"="{4D36E97D-E325-11CE-BFC1-08002BE10318}"
+7 d0 k8 U7 |- a7 ]* U90 Security Team"Class"="System"
+" g+ s) X, T6 d% d0 ]( Z90 Security Team"HardwareID"=hex(7):52,00,4f,00,4f,00,54,00,5c,00,52,00,44,00,50,00,44,00,52,\
+2 S* z0 j1 E+ N90sec-Web信息安全团队00,00,00,00,00
+2 F1 V3 K- h4 }, U( i90 Security Team"Driver"="{4D36E97D-E325-11CE-BFC1-08002BE10318}\\0021"
+  Q, @( i1 |  B3 o$ v" I0 T# ~90sec-Web信息安全团队"Mfg"="(标准系统设备)"www.90sec.org1 S2 U, ^; R$ R7 n* a  v: u6 e1 z
+"Service"="rdpdr"90 Security Team& _% Q+ O1 L! N" p% `. I- G
+"DeviceDesc"="Terminal Server Device Redirector"
+# ^6 I# w1 r; J! c# z* R1 A' W8 dwww.90sec.org"ConfigFlags"=dword:00000000www.90sec.org4 t- C. y- v2 O5 P; x. C; r
+"Capabilities"=dword:00000000 
+$ c0 ]- r/ p7 ~' Y# Y- z90 Security Team
+7 D1 O& x- I4 [; l* R! e- D3 _90 Security Team
+1 f" y. m. n# |6 W# N该问题可能是由于Terminal Services的设备重定向器有问题，导致连接失败。解决方法：1. 到以下链接下载Devcom.exe工具http://download.microsoft.com/do ... 3e0240/devcon.exe2. 解压到一个目录，启动命令行模式，切换到该目录的i386目录。3. 运行devcon -r install %windir%\inf\machine.inf root\rdpdr命令重新安装Terminal services重定向器。4. 然后重启系统，测试是否修复错误。第二种方法一、远程桌面连接故障现象：    笔者刚刚安装完一台员工计算机，该计算机操作系统是windows XP，领导决定以后这台计算机就担任公司数据存放工作，所以日后需要对其进行远程管理操作。所以笔者也像往常一样，开启了该系统的远程桌面连接功能。谁知道在网络中的其他计算机通过远程桌面连接程序访问时却出现了“中断远程桌面连接，远程计算机已结束连接”的提示，也就是说能够连接上但是马上中断，根本没有给予输入管理员用户名和密码的时间。二、解决问题：    既然可以连接到该计算机，只是马上中断。笔者怀疑是否在远程桌面登录时是默认使用当前帐户的，所以将自己的计算机帐户和密码设置为和远程那台计算机一致，谁知道问题依旧。看来故障应该是该计算机远程桌面服务本身的设置问题。笔者在网上寻求帮助，终于发现了问题的所在。        第一步：通过“开始->运行->输入regedit”，打开注册表编辑器。        第二步：打开注册表后找到[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Enum\Root\RDPDR键值，在左侧的RDPDR上点鼠标右键，选择“权限”。        第三步：在弹出的对RDPDR设置权限窗口后，将everyone组添加到完全控制权限，如果你只想让某个特定的用户远程管理该计算机的话，将该帐户添加到权限设置窗口中即可，记住一定要给予“完全控制”权限。第四步：接下来将如下内容复制到一个记事本txt文件中，并保存成后缀为.reg的文件。例如笔者保存成111.reg。Windows Registry Editor Version 5.00 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Enum\Root\RDPDR\0000]"ClassGUID"="{4D36E97D-E325-11CE-BFC1-08002BE10318}""Class"="System""HardwareID"=hex(7):52,00,4f,00,4f,00,54,00,5c,00,52,00,44,00,50,00,44,00,52,\      00,00,00,00,00"Driver"="{4D36E97D-E325-11CE-BFC1-08002BE10318}\\0030""Mfg"="(标准系统设备)""Service"="rdpdr""DeviceDesc"="终端服务器设备重定向器""ConfigFlags"=dword:00000000"Capabilities"=dword:00000000        第五步：接下来我们双击运行保存后的注册表文件111.reg，当出现“注册表导入成功”的提示后说明我们操作正确。        第六步：再通过“开始->运行->输入services.msc”，打开服务管理窗口，找到名为“Remote Desktop Help Session Manager ”和“Telnet”的服务。        第七步：在这两个服务名称上点鼠标右键选择“启动”，将服务开启。        第八步：重新启动计算机后我们再通过远程桌面连接程序访问此台计算机就不会再出现任何问题了，程序自动进入输入管理员帐号和密码的步骤。        至此我们通过启动服务和导入注册表，以及修改注册表键值使用权限三个步骤完成了解决一连接远程桌面程序就中断的故障，我们又可以轻松正常的使用远程管理程序操纵网络另一端的计算机了。总结：    这个故障实际上是因为在安装操作系统时，使用了精简版XP GHOST或网络流传的XP万能GHOST造成的，在这些GHOST中默认将远程桌面程序关闭了，并对一些必要的注册表键值使用权限进行了修改。虽然对于普通家庭个人用户来说能够提高安全，防止非法用户通过远程桌面连接计算机，但是对企业来说则会带来一定的不方便。所以笔者建议各位网络管理员在以后安装员工计算机操作系统时，尽量选择那些没有精简过的XP GHOST或者直接使用系统光盘进行安装，毕竟GHOST在使用上或多或少存在一定的问题。另外在电脑进行远程桌面连接，在连接时，系统会报错："远程连接与ngina.dll版本冲突，无法进行连接，请与管理员联系"，在微软站点搜索ngina，发现这是由于安装了domino服务器版本造成的，解决方法很简单，只需删除注册表中的一个键值----NGINA.DLL 即可，HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT \Current Version\WinlogonWhere the registry value is Ginadll:REG_SZ:NGINA.DLL

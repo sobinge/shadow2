@@ -1,0 +1,16 @@
+过滤方法：
+
+打开cain后，选择Configure，再选择HTTP Fields！
+
+Username fields代表他会截获那些字段，我们在里面找到。
+
+找到垃圾数据获取的表段User-id，右键选择Remove delete将其删除
+
+有时候，我们截获某个后台账户密码，但是截获不成功。
+
+例如：只能截获到后台密码，不能获取账户。我们打开后台，右键查看源文件！
+
+发现，账户的表段为：usrname，依旧打开cain，选择Configure，再选择HTTP Fields！
+
+先删除login_name=，然后添加usrname=这表段
+

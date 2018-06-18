@@ -1,0 +1,10 @@
+http://shop.yangtse.com/home/cache/t00ls-1.php.php5   
+
+
+
+Shopex商城获得shell一法
+输入http://商城网站/install
+按提示安装，一直到索取授权文件，按照提示提交信息，收到邮件后激活下载授权文件到本地，用记事本打开授权文件，加上php一句话代码，然后上传，提示成功后用lanker的php连接端连接http://url/index.php就可以获得webshell了，官方演示好象无此漏洞
+
+
+

@@ -1,0 +1,9 @@
+http://www.lpboke.com/shopex-4-8-5-%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E4%BB%A5%E5%8F%8A%E5%90%8E%E5%8F%B0%E6%8B%BFshell.html
+
+http://www.hackseo.net/post/229.html
+
+http://cashchen.com/cash/240.html
+
+首先进网站后台（废话），打开以下Url，进行文件编辑：http://localhost/shopadmin/index.php#ctl=system/template&act=editor&p[0]=purple&p[1]=index.php 
+
+最后编辑好的 WebShell 就是这个文件了：http://localhost/themes/purple/index.php 

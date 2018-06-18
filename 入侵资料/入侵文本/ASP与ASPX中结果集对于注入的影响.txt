@@ -1,0 +1,96 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+ASP与ASPX中结果集对于注入的影响
+D8888D主贴内容-------------------------------------------------------
+文/ninty
+
+从BS大牛那里吸取的经验，然后自己小小研究了一下，写点笔记。。
+
+先来看下面这段代码： <%
+
+    Set Conn = Server.CreateObject("ADODB.Connection")
+
+    conn.open "Driver={SQL Server};Server=MICROSOF-17A8A8;UID=sa;PWD=sajjjjjj;Database=pubs"
+
+    Set RS = Server.CreateObject("Adodb.Recordset")
+
+    RS.Open "select * from sysobjects where id="&request("id") , Conn, 1, 3
+
+    if not rs.bof and not rs.eof then
+
+        response.write rs("name")
+
+    end if
+
+    'Set rs2 = rs.NextRecordset
+
+    'response.write rs2("test")
+
+    conn.close
+
+%>
+复制代码asp以ODBC的方式去连接SQL SERVER数据库， 很明显的存在注入的一段代码。
+保存为odbc.asp
+然后访问：
+odbc.asp?id=1 and @@version=1
+
+就可以把@@version的值暴出来了。
+但是如果我们这么构造注入：
+odbc.asp?id=1;select 1 where @@version=1
+
+这样是不会有任何效果的。这里说的不会有任何效果，意思是不能将值暴出来，不过可能暴别的错误或者页面无任何变化 ，
+具体要看环境了，
+环境不一样或者连库所使用的驱动不一样，都会对注入时的错误信息与注入的方式造成一些影响 。
+
+这时将注释的那两行放开，再次利用
+odbc.asp?id=1;select 1 where @@version=1
+这回值被暴出来了。
+
+当我们提交id=1;select 1 where @@version=1的时候，执行的SQL为：
+select * from sysobjects where id=1;select 1 where @@version=1
+
+两条SELECT语句，很明显会有两个结果集，但是Recordset默认只取第一个结果集，所以当第二个结果集报错的话，
+是不能将值暴出来的，这时如果代码再去取第二个结果集，（rs.NextRecordset）就可以将值暴出来了。
+不过貌似没有多少ASP代码会这么写啊，一般都只取第一个结果集。。所以在ASP中没有啥大用。
+
+如果代码里面只取了第一个结果集，那除非第二个语句有语法错误，不然一般页面都不会暴错的。
+比如：
+odbc.asp?id=1;selectttt 1
+这样，就算没有取第二个结果集，也会暴错的。。
+
+再看ASPX： SqlConnection conn = new SqlConnection("server=MICROSOF-17A8A8;User ID=sa;Password=sajjjjjj;Database=pubs;Connect Timeout=30");
+
+        SqlDataAdapter adap = new SqlDataAdapter("select * from sysobjects where id = "+Request["id"],conn);
+
+        DataTable dt = new DataTable();
+
+    'DataSet dt = new DataSet();
+
+        adap.Fill(dt);
+
+        this.GridView1.DataSource = dt;
+
+        this.GridView1.DataBind();
+
+        conn.Close();
+复制代码仍然是一段有注入漏洞的代码：
+访问：
+sql.aspx?id=1 and 1=@@version
+可以将@@version暴出来。
+
+再访问：
+sql.aspx?id=1;select 1 where 1=@@version
+跟ASP一样， 暴不出来值。
+
+这时将注释的那行放开，将DataTable dt = new DataTable();这一行注释掉，再访问
+sql.aspx?id=1;select 1 where 1=@@version
+
+拿到错误信息了。。
+
+原因是一样的，用DataTable的话，默认只取了第一个结果集，而如果用DataSet ，则所有的结果集都会被取出来。
+自然就会暴错了。。
+用DataSet的这种写法在ASPX的程序中还算比较常见的吧？在注ASPX的时候可以试试哦。当一句代码不好暴出错误的话，可以试试多句。。
+有一定几率的。
+
+还有不同的数据库驱动对注入的影响 ， 这个没怎么搞明白，以后明白点了再写。。

@@ -1,0 +1,8 @@
+mssqltools 攻击sql的工具集 http://www.cnsq.net/sq88/down/show.asp?id=335&down=1 ;
+SQL Brower（SQL数据库浏览工具）http://arm.533.net/hack/sqlbrower.zip
+SQL Cmd（利用SQL Server执行命令）http://arm.533.net/hack/sqlcmd.zip
+SQLEXEC mssql连接工具 http://arm.533.net/hack/sqlexec.zip ;
+SQL Ping http://arm.533.net/hack/sqlping.zip
+SQL Remote Cmd（利用SQL Server执行命令,小榕软件,控制台界面）http://arm.533.net/hack/sqlrcmd.zip　 
+
+本文来自http://www.cnhackvip.com.cn

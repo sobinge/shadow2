@@ -1,0 +1,20 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+解决:关于终端服务器超出了最大允许连接的问题
+D8888D主贴内容-------------------------------------------------------
+ 
+
+前天看有个朋友.在论坛问关于终端服务器超出了最大允许连接的问题。看了下.没人写这样没技术的文章.还是搞个原创吧.嘿嘿.
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/091218084138251c53ca0785c5.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjcxN3wxOGYyMDI2Y3wxMjg2NDgyODA4fGEwYzVNV3RNWXQ1Ykl0QzgwVkhWQ1JwWHBTOWNnUGZIS05jbDhJUHp4R2wzMFIw&nothumb=yes]链接标记下载[/url] (20.2 KB)
+
+2009-12-18 08:41
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0912/0912180842a7999e2879480718.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjcxOHxiODEyNDM4OXwxMjg2NDgyODA4fGEwYzVNV3RNWXQ1Ykl0QzgwVkhWQ1JwWHBTOWNnUGZIS05jbDhJUHp4R2wzMFIw&nothumb=yes]链接标记下载[/url] (32.59 KB)
+
+2009-12-18 08:42
+看了很多兄弟的办法.都比较行.但是,没解决实际上的问题. 这里我解决这个文本的办法.用过一款工具
+
+[备注:里面有2个连接工具.先用mstsc.exe连下.然后再用RMDSTC.exe连.就可以解决这个问题了.
+文章没什么技术含量。希望能帮大家解决到问题.
+ [img]http://www.t00ls.net/images/attachicons/rar.gif[/img][url=http://www.t00ls.net/attachment.php?aid=MjcxOXxjNjZkZmI5ZnwxMjg2NDgyODA4fGEwYzVNV3RNWXQ1Ykl0QzgwVkhWQ1JwWHBTOWNnUGZIS05jbDhJUHp4R2wzMFIw]链接标记3389(解决终端超出最大连接数).rar[/url] (573.01 KB) 下载次数:18
+2009-12-18 08:42

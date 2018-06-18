@@ -1,0 +1,13 @@
+mssql hash 获取方法如下:
+select password from master.dbo.sysxlogins where name='sa' 
+
+mysql hash 获取方法如下:
+SELECT password,USER() FROM mysql.user;
+
+
+SELECT plain FROM oldmysql WHERE oldmysql LIKE '44a80e6e63d207a0';
+
+
+HKEY_LOCAL_MACHINE\SOFTWARE\SWsoft\ServiceConfig 这里看到的！
+
+这里能看到mssql和mysql加密的密码

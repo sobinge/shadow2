@@ -1,0 +1,4 @@
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.http://127.0.0.1/dg/group/search.php?sad=g&keyword=%cf'

@@ -1,0 +1,26 @@
+
+SHOPEX 4.8.5 后台拿SHELL（WIN+linux）
+
+看到有人找这个拿SHELL的方法。就本地搭建试了下。很简单的。
+
+首先是WIN下。需要WIN主机IIS解析漏洞。
+
+进入后台。点页面管理。点模板列表。默认模板是紫气东来(ShopEx4.8)。点编辑模板。创建新页面
+
+点创建。写入大马小马的。随便你
+
+保存。
+
+自动返回。就可以看到成功了。
+
+下面这个适合WIN+LINUX
+
+同样是模板管理下。上传模板包。我这做好了一个。
+
+ [img]http://www.t00ls.net/images/attachicons/binary.gif[/img][url=http://www.t00ls.net/attachment.php?aid=NTMzMnw0ZDExZmI0NnwxMjg2NDgxNzM5fDVhMzB6NzdER01EVjZyTEhxWjRGcTdxb05kZWNNRjIyK1JDTk5uT3FKMy9XL2pn]链接标记shopex模板SHELL.tgz[/url] (394.5 KB) 下载次数: 89
+
+2010-4-22 11:36
+上传好以后在themes目录里有个新的模板目录。具体自己看。我在WIN下测试是自动生成的目录名。在LINUX下是lssh目录。
+生成的SHELL就是[url=http://test.com/themes/]链接标记http://test.com/themes/[/url]模板目录名/1.PHP注意PHP是大写。密码cmd.
+
+还有其他的方法。就没有这个简单。我就不多说了。

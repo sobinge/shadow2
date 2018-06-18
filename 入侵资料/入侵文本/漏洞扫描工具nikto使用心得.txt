@@ -1,0 +1,55 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+漏洞扫描工具nikto使用心得
+D8888D主贴内容-------------------------------------------------------
+#[url=http://www.cirt.net/]链接标记http://www.cirt.net/[/url]  官方网站
+# site [url=http://www.feelids.com]链接标记http://www.feelids.com[/url]*/
+# Author:swap
+简单扫描   目标基本WEB基本配制信息，服务器，PHP解析器等版本信息
+perl nkito.pl –h 192.168.0.1
+
+多端口扫描
+Perl nikto.pl –h 192.168.0.1 –p 80，88，443
+
+加代理扫描
+Perl nikto.pl –h 192.168.0.1 –p 80 –u
+
+
+CGI扫描     -C参数只能放在后面，应该可以指定相对目录。
+Perl nikto.pl –h 192.168.0.1  -c
+Perl nikto.pl –h 192.168.0.1  -c  /phpbb
+
+数据库扫描  此参数也需要跟在后面
+Perl nikto.pl –h 192.168.0.1  -c  -d
+
+猜测apache默认配制密码    前提需要目标服务器允许guess
+Perl nikto.pl –h 192.168.0.1　-m
+
+报告输出指定地点
+Perl nikto.pl –h 192.168.0.1　-o  result.txt
+
+Tuning选项控制Nikto使用不同的方式来扫描目标。     这个最有价值。-T参数后的数字是隐藏的,大家可以灵活搭配使用
+0.文件上传
+1.日志文件
+2.默认的文件
+3.信息泄漏
+4.注射(XSS/Script/HTML)
+5.远程文件检索(Web 目录中)
+6.拒绝服务
+7.远程文件检索(服务器)
+8.代码执行-远程shell
+9.SQL注入
+a.认证绕过
+b.软件关联
+g.属性(不要依懒banner的信息)
+x.反向连接选项
+
+Perl nikto.pl –h 192.168.0.1　-T 58
+Perl nikto.pl –h 192.168.0.1　-T 58x
+Perl nikto.pl –h 192.168.0.1　-T   默认不指定数字，应该是全部扫描吧， 没测试过
+更新插件和数据库
+Perl nikto.pl   -update
+
+完全点的检测一个主机信息
+Perl nikto.pl –h 192.168.0.1　-m -T -c  -o 结果.txt

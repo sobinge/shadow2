@@ -1,0 +1,7 @@
+Oblog 4.5-4.6 access&mssql getshell 0day
+Oblog 博客系统漏洞及利用
+oblog4.5跨站漏洞大观园
+oblog4.6添加后台管理员漏洞(适用于sql版
+Oblog多用户博客程序AjaxServer.asp页面过滤不严导致SQL注入漏洞
+Oblog多用户博客程序Api-API_Response.asp页面过滤不严导致SQL注入漏洞
+Oblog多用户博客程序strMonth变量过滤不严导致SQL注入漏洞

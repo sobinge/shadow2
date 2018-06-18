@@ -1,0 +1,43 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+突破防篡改 继续上传
+D8888D主贴内容-------------------------------------------------------
+继SQL注入盛行，许多网站首页招致恶意的篡改，人们迫切的需要一款解决网页防篡改问题的方案，许多公司相续推出了硬件和软件，比如文中提到的IGuard防篡改系统，防篡改的原理一般基于三种，分别是外挂轮询技术、核心内嵌技术、事件触发技术。外挂轮询技术是利用一个网页检测程序，以轮询方式读出要监控的网页，与真实网页相比较，来判断网页内容的完整性，对于被篡改的网页进行报警和实时恢复。核心内嵌技术是将篡改检测模块嵌在Web服务器软件里，它在每一个网页流出时都进行完整性检查，对于篡改网页进行实时访问阻断，并予以报警和恢复。事件触发技术是利用操作系统的文件系统接口，在网页文件的被修改时进行合法性检查，对于非法操作进行报警和恢复。
+
+由表可知，核心内嵌技术许是最好的防篡改解决方案了。只是在攻击手段层出不穷的今天，系统配置是否最佳和WEB应用层防护是否关乎全局，在都是些较关键的问题。
+
+在检测一下网站时，从扫描结果得到一个
+
+[url=http://www.nuanyue.com/admin/fckeditor/editor/filemanager/connectors/test.html]链接标记http://www.nuanyue.com/admin/fck ... onnectors/test.html[/url]
+
+可以看出这是fckeditor的上传页面，通过点击不同的文件类型，fckeditor是支持多种文件类型文件上传的，所以，有的管理员可能根据需要不同而配置了不同的文件，可以通过选择Connector不同的文件类型，再点击”Get Folders and Files”来查看文件夹，如果存在文件夹，如下图，如果返回空白页面或者出错信息，则没有启用这类文件的上传配置。
+
+
+
+通过测试发现，网站管理员配置了asp.net,并且可以在resource Type “Media”可以创建和可列目录，这条思路其实有人在网上已经提过，大致思路是通过创建asp文件夹，再往asp传送图片木马。只是没有公布怎么建立类似于x.asp这样的文件夹呢。在fckeditor里，是会对“.“进行转换成“_“的。如果你输入建立”x.asp“,其实建立的是”x_asp”文件夹。
+
+提交一条这样的语句就可以
+
+[url=http://www.nuanyue.com/admin/FckEditor/editor/filemanager/connectors/aspx/connector.aspx?Command=CreateFolder&Type=Media&CurrentFolder=c.cdx&NewFolderName=z&uuid=1244789975684]链接标记http://www.nuanyue.com/admin/Fck ... ;uuid=1244789975684[/url]
+
+创建一个”c.cdx”的文件夹，在提交时需要uuid参数，原理跟aps文件夹一样，在这个文件夹放置的图片文件IIS会当作asp文件来解析的。由于在默认的编辑器默认测试页面，管理员禁用了上传功能，只能允许创建目录，所以，在后台找到一处上传的地方，其URL：
+
+[url=http://www.nuanyue.com/admin/adminimg.aspx?simage=images2&bimage=images&path=%2fadmin%2fUploadFile%2fmedia%2fz.cdx&returnpath=admin/pic&wsize=270&hsize=190]链接标记http://www.nuanyue.com/admin/adm ... e=270&hsize=190[/url]
+
+通过参数returnpath把目录直接指向“/admin/pic“，直接把它指向刚刚建立的z.cdx文件夹 admin%2fUploadFile%2fmedia%2fz.cdx
+
+[url=http://www.nuanyue.com/imgresize/imgresize.aspx?simage=images2&bimage=images&path=%2fadmin%2fUploadFile%2fmedia%2fz.cdx&returnpath=admin%2fUploadFile%2fmedia%2fz.cdx&wsize=270&hsize=190]链接标记http://www.nuanyue.com/imgresize ... e=270&hsize=190[/url]
+
+在后台直接上传文件或者图片木马，但是原因其服务器上有iGuard，是不能执行的。
+
+
+突破iGuard其实用得也是图片木马的原理，先把一张图片和一个小马，就用比较经典的diy.asp上传文件的马。命令如下：
+
+C:\copy /b 图片+图片木马 图片木马
+
+
+其主要欺骗iGuard，告诉它，“这不是寂寞，这是一张图片”
+
+
+当然还有另一种方法了，这种方法可以减少了创建特殊文件夹的过程。原理跟这个也是一样的，就是不久前让人爆出的Nday，其实传来传去很长时间了。 “Microsoft IIS 5.x/6.0 0解析文件名漏洞”，此漏洞描述：“当文件名为x.asp;x.jpg时，Microsoft IIS会自动以asp格式来进行解析。而当文件名为x.php;x.jpg时，Microsoft IIS会自动以php格式来进行解析。”上传一个这样格式的图片木马，iGuard也会放行的。只所以能成功上传，大致可以看成是iGuard对文件检测过于简单，而IIS本身的缺陷也是主要的原因。

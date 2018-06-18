@@ -1,0 +1,25 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+蛋疼的DEDE后台拿Shell
+D8888D主贴内容-------------------------------------------------------
+在拿下DEDE后台账号密码的时候，社工或者什么的
+DEDE后台能直接上传PHP文件，他是传到uploads目录了，当遇到下面的情况时
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1007/10072317402e5f2d54cbda77cd.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzczOXw2ZjZhODQ0M3wxMjg2NDc5NjE0fGRlZTZIQmlMUG5hM2w3cmZXWGFUdytzRGdzbFc4b0hweVFjSzNXV2NrVEh5WkhN&nothumb=yes]链接标记下载[/url] (32.98 KB)
+
+2010-7-23 17:40
+
+那就利用模板上传的功能得Shell，在模板那里新建一个HTM文件，或者上传一个
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1007/100723174055e4243ba5cbc72a.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=Nzc0MHwwZmJlNjI4NHwxMjg2NDc5NjE0fGRlZTZIQmlMUG5hM2w3cmZXWGFUdytzRGdzbFc4b0hweVFjSzNXV2NrVEh5WkhN&nothumb=yes]链接标记下载[/url] (18.3 KB)
+
+2010-7-23 17:40
+
+然后保存，到生成首页文件那里，把上面改成你修改上传的HTM文件，下面改后缀为PHP之后就生成
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1007/100723174068e97f83bf880596.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=Nzc0MXw3N2FhYmY2NnwxMjg2NDc5NjE0fGRlZTZIQmlMUG5hM2w3cmZXWGFUdytzRGdzbFc4b0hweVFjSzNXV2NrVEh5WkhN&nothumb=yes]链接标记下载[/url] (25.2 KB)
+
+2010-7-23 17:40
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1007/1007231740d55b86498f037917.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=Nzc0Mnw5ZWNjMzZmNHwxMjg2NDc5NjE0fGRlZTZIQmlMUG5hM2w3cmZXWGFUdytzRGdzbFc4b0hweVFjSzNXV2NrVEh5WkhN&nothumb=yes]链接标记下载[/url] (24.02 KB)
+
+2010-7-23 17:40

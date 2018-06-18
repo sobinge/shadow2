@@ -1,0 +1,3 @@
+IIS注册表全版本泄漏用户路径和FTP用户名漏洞
+
+1.HKEY_LOCAL_MACHINE\SYSTEM\ControlSet002\Services\MSFtpsvc\Parameters\Virtual Roots\  

@@ -1,0 +1,55 @@
+查找文件的语句
+
+CODE:
+
+drop table tmp;
+create table tmp
+(
+[id] [int] IDENTITY (1,1) NOT NULL,
+[name] [nvarchar] (300) NOT NULL,
+[depth] [int] NOT NULL,
+[isfile] [nvarchar] (50) NULL
+);
+
+declare @id int, @depth int, @root nvarchar(300), @name nvarchar(300)
+set @root='f:\usr\' -- Start root
+set @name='cmd.exe'   -- Find file
+insert into tmp exec master..xp_dirtree @root,0,1--
+set @id=(select top 1 id from tmp where isfile=1 and name=@name) 
+set @depth=(select top 1 depth from tmp where isfile=1 and name=@name)
+while @depth<>1 
+begin 
+set @id=(select top 1 id from tmp where isfile=0 and id<@id and depth=(@depth-1) order by id desc) 
+set @depth=(select depth from tmp where id=@id) 
+set @name=(select name from tmp where id=@id)+'\'+@name
+end
+update tmp set name=@root+@name where id=1
+select name from tmp where id=1
+
+查找目录的语句
+
+
+CODE:
+
+
+drop table tmp;
+create table tmp
+(
+[id] [int] IDENTITY (1,1) NOT NULL,
+[name] [nvarchar] (300) NOT NULL,
+[depth] [int] NOT NULL
+);
+
+declare @id int, @depth int, @root nvarchar(300), @name nvarchar(300)
+set @root='f:\usr\' -- Start root
+set @name='donggeer' -- directory to find
+insert into tmp exec master..xp_dirtree @root,0,0
+set @id=(select top 1 id from tmp where name=@name) 
+set @depth=(select top 1 depth from tmp where name=@name) 
+while @depth<>1 
+begin 
+set @id=(select top 1 id from tmp where id<@id and depth=(@depth-1) order by id desc)
+set @depth=(select depth from tmp where id=@id) 
+set @name=(select name from tmp where id=@id)+'\'+@name 
+end update tmp set name=@root+@name where id=1
+select name from tmp where id=1

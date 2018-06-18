@@ -1,0 +1,67 @@
+　　此漏洞对windows 2000 SP4 和 Windows XP SP1 依然有效
+
+scanms.exe 用来检查RPC漏洞，此命令在命令行下检查目标主机是否安装了：“DCOM RPC接口远程缓冲区溢出漏洞（823980-MS03-026）”补丁程序，如果没有安装，将显示出 “VULN" 结果。
+
+软件：cndcom.exe
+
+
+要想成功的入侵服务器，需要具备2个条件：1、服务器存在RPC漏洞 2、TCP协议的135端口要是开放状态（可以利用端口扫描工具Superscan,扫描135端口的开放情况）。
+
+　　黑客软件：cndcom.exe（包含一个DLL文件cygwin1.dll），它就是利用RPC溢出的入侵程序,针对几乎所有的WINDOWS版本。在命令提示符下输入”cndcom 17 218.22.123.26“，接着要耐心等待 ：
+
+
+
+
+
+2.MsDcomscanner.exe 专业扫描 rpc
+受影响的软件及系统：
+
+
+　　- Microsoft Windows NT
+
+　　- Microsoft Windows XP
+
+　　- Microsoft Windows 2000
+
+　　- Microsoft Windows 2003
+
+　　未受影响的软件及系统：
+
+　　- Microsoft Windows 98
+
+
+1
+0
+0
+1打好补丁了
+0
+0
+1
+1
+没打补丁
+
+
+洞是存在的，没有补上。那我们就可以进行溢出了
+
+溢出的工具是rpc2sbaa.exe
+
+
+溢出的格式：
+
+Rpc2sbaa.exe 系统版本 对方ip地址
+
+IUSA 密码为k911 ，可以使用这个帐号建立ipc连接
+
+
+当然在溢出成功之后会在对方的主机中建立一个超级管理员的帐号
+
+来验证一下效果，建立一下ipc链接 
+
+telnet 服务，上传一个木马
+
+
+
+
+
+
+

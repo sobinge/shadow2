@@ -1,0 +1,45 @@
+
+1:使用SHOW语句找出在服务器上当前存在什么数据库：
+  mysql> SHOW DATABASES;
+2:创建一个数据库MYSQLDATA
+  mysql> CREATE DATABASE MYSQLDATA;
+3:选择你所创建的数据库
+  mysql> USE MYSQLDATA; (按回车键出现Database changed 时说明操作成功！)
+4:查看现在的数据库中存在什么表
+  mysql> SHOW TABLES;
+5:创建一个数据库表
+  mysql> CREATE TABLE MYTABLE (name VARCHAR(20), sex CHAR(1));
+6:显示表的结构：
+  mysql> DESCRIBE MYTABLE;
+7:往表中加入记录
+  mysql> insert into MYTABLE values ("hyq","M");
+8:用文本方式将数据装入数据库表中（例如D:/mysql.txt）
+  mysql> LOAD DATA LOCAL INFILE "D:/mysql.txt" INTO TABLE MYTABLE;
+9:导入.sql文件命令（例如D:/mysql.sql）
+  mysql> use database;
+  mysql> source d:/mysql.sql;
+10:删除表
+  mysql> drop TABLE MYTABLE;
+11:清空表
+  mysql> delete from MYTABLE;
+12:更新表中数据
+  mysql> update MYTABLE set sex="f" where name=hyq;
+
+此外，Linux下经常使用的命令：
+
+1:导入数据库备份文件的方法：
+  root: mysql –u数据库帐户 –p密码 数据库名 < .sql备份文件
+2:MySql的用户管理是通过User表来实现的，添加新用户常用的方法有两个，一是在User表插入相应的数据行，同时设置相应的权限；二是通过GRANT命令创建具有某种权限的用户。其中GRANT的常用用法如下：
+  mysql> grant all privileges on 数据库明.* to 用户名@localhost identified by “密码”;
+3:清空文件内容：
+  cat /dev/null > 文件名
+4:添加帐户：
+  useradd 用户名 –d 目录名 –s /sbin/nologin（不允许该用户直接登录服务器）
+5:设置帐户密码
+  passwd 用户名
+
+特别注意：
+刚安装好的MySql包含一个含空密码的root帐户和一个匿名帐户，这是很大的安全隐患，对于一些重要的应用我们应将安全性尽可能提高，在这里应把匿名帐户删除、 root帐户设置密码，可用如下命令进行：
+use mysql;
+delete from User where User="";
+update User set Password=PASSWORD(newpassword) where User=root;

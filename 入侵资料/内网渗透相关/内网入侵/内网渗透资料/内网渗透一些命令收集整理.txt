@@ -1,0 +1,92 @@
+ 内网渗透一些命令收集整理 收藏 
+
+=====
+
+一些收集信息的命令
+
+=====
+
+@查询本机的一些情况
+
+ipconfig /all
+
+@查询存在关系的机器
+
+Net view
+
+@查询有几个域
+
+nei view /damin
+
+@查看 testdomain域中的计算机列表
+
+net view /domain:testdomain
+
+@查询域内的组
+
+net group /domain
+
+@划分网段
+
+dsquery subnet
+
+@查询域内用户
+
+net user /domain
+
+@查询域内组信息
+
+net group /domain
+
+@查询域管理用户组
+
+net group "domain admins" /domain 
+
+@查看管理员登陆时间，密码过期时间，是否有登陆脚本，组分配等信息！
+
+net user domain-admin /domain
+
+@查询域内计算机
+
+net group "domain computers" /domain
+
+@判断机器属于哪个域
+
+net config Workstation
+
+@判断主域.主域服务器都做时间服务器
+
+net time /domian  //这招是在LCX牛的文章里面学会的
+
+net group "domain admins" /domain
+
+@ipc域内连接
+
+net use \\IP\ipc$ password /user:username@domain
+
+====
+
+猜测内网结构的一些命令和工具
+
+====
+
+tracert  10.1.0.1
+
+ping x.x.x.x
+
+nbtscan -r 192.168.16.0/24
+
+@扫描某个段的一些东西 //感谢玫瑰大叔的工具。感谢猫师傅给我说这个东东
+
+hd.exe -hscan 10.0.0.1-10.0.0.255 /a /t 200
+
+还有一个内网结构图形化表现工具
+
+dude  ///感谢影叔 感谢LInux520群得朋友说
+
+还有一部分没有整理。过段时间在发上来吧~ 欢迎各位牛一起交流内网渗透。
+ 
+
+
+
+本文来自CSDN博客，转载请标明出处：http://blog.csdn.net/cnbird2008/archive/2011/05/12/6414579.aspx

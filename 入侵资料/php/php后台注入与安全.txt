@@ -1,0 +1,108 @@
+php后台注入与安全
+2010 年 05 月 25 日 发表在 Hack
+作者：Julie_nana
+来自：Shudoo、{S.G.}
+php以其跨平台的优 越性著称。很多网站采用php编写。因为没有像asp那么多的入侵工具，很多人对php的后台并不重视。
+我发现很多的get方式登录的后台，但他 们大多都不安全。
+我们看一个php登陆代码（GET）：
+
+
+
+$conn=mysql_connect(“ip”,”name”,”pass”); 
+//连接数据库信息 
+$query=”select uid from admin where adminname=’$_get["adminname"]‘ 
+“and password =’$_get["password"]‘”; 
+//判断get来的是否正确 
+$result=mysql_query($query); 
+… 
+
+复制代码
+
+
+既然是GET，当我们的登录名是nm，密码是pa，php 源： 
+
+
+select uid from admin where adminname=’nm’ 
+and password =’pa’; 
+
+复制代码
+
+
+地址栏就成了：
+adminlogin.php?adminname=nm&password=bar
+
+如 果在地址栏后面加’or’1′=’1
+原来的地址就成了：
+adminlogin.php?adminname=nm&password=bar’or’1′=’1
+
+再 回来看源： 
+
+
+select uid from admin where adminname=’nm’ 
+and password =’pa’or’1′=’1′; 
+
+复制代码
+
+
+一次php完美的简单注射就完成了。
+其实xss的攻 击思想和这个是十分相似的。不知道大家明白了SQL注射没有。所以并不建议大家用get方式接收后台登录 验证信息。
+我的博客是用get方式请求显示后台登陆，但是验证信息获取并不靠get
+
+这是一次我搞的安全活 动的内容：
+admin_login.php是后台管理入口，页面有两个表单：管理名和密码。
+在原始代码中对应的变量分别 是$admin_name和$admin_pass，登录验证代码为：
+
+
+
+select * from administrator 
+where adminname = ‘$_GET[admin_name]‘ and admin_pass = ‘$_GET[admin_pass]‘ 
+
+复制代码
+
+
+这时我在两个表单分别填写：
+admin’/*hacking by Juliet！
+japanese all are dogs*/’
+结果我就进了管理后台了。请问原因是什么？
+提示：答案 共分三个要点，数据库，原始页面，和php程序本身。
+
+后来评出来的标准答案：
+
+
+原始的表单应该有类似下边的代码：
+
+
+
+<FORM ACTION=“admin_login.php” METHOD=“get”> 
+<INPUT TYPE=“text” NAME=“admin_name” VALUE=“”></INPUT> 
+<INPUT TYPE=“password” NAME=“admin_pass” VALUE=“”></INPUT> 
+…… 
+
+复制代码
+
+
+当输入表单提交以后，浏览器的地址栏就会出现 “admin_login.php?admin_name=admin&admin_pass=password“（假如输入的是admin和 password）。这些都表明表单是通过get方式来提交的。
+由于admin_login.php没有对敏感字符进行过滤，直接将变量带入 SQL语句中验证，结果造成SQL注入漏洞，
+
+
+当提交“admin’/*hacking by Juliet！”和“japanese all are dogs*/’”之后，SQL语句就变成
+
+
+
+select * from administrator 
+where adminname = ‘admin’/*hacking by Juliet！’ and admin_pass = ‘japanese all are dogs*/” 
+
+复制代码
+
+
+由于”/*”在SQL语法中表示的是注释，结果后边密码比较 的部分就被注释掉，实际执行的SQL语句为：
+
+
+
+select * from administrator 
+where adminname = ‘admin’ 
+
+复制代码
+
+
+结果，只要数据库中的administrator表中存在 admin这个用户名就可以直接进入后台了。如果没有这个用户名的话，那么就不能进入后台

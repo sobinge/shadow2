@@ -1,0 +1,16 @@
+利用Magic Winmail提权
+
+Magic Winmail提权漏洞
+
+服务器上装有Magic Winmail邮件系统会开启8080端口
+
+Magic Winmail邮件服务器支持php脚本,不支持asp脚本
+
+转载地址：http://www.chouwazi.com/article.asp?id=357
+
+ 
+
+在Magic Winmail的文件夹下有一个server的文件夹，其中有webmail文件夹，该目录默认为system权限
+
+把phpwebshell放入这个文件夹，webshell继承system权限，直接提权！
+

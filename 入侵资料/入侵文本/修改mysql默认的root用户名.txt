@@ -1,0 +1,26 @@
+修改mysql默认的root用户名
+
+mysql数据库默认是root用户名，为了防止mysql被暴力破解，建议改下默认的root用户名。
+
+方法步骤：
+
+进入 phpmyadmin
+
+进入mysql表
+
+执行sql语句
+
+1.update user set user='你的新root用户名' where user='root';  
+2.flush privileges;  
+很简单的就修改，可以增加服务器安全性。
+
+ 
+
+例如：
+
+用root身份登入，进入mysql库，修改user表即可。
+1.use mysql;  
+2.  
+3.mysql>update user set user='newName' where user='root';  
+4.  
+5.mysql> flush privileges;   

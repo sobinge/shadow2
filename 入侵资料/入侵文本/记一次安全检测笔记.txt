@@ -1,0 +1,20 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+记一次安全检测笔记
+D8888D主贴内容-------------------------------------------------------
+本文已发表在《黑客防线》2010-7期转载请保留完整性
+Athor: 814ckhum0r 
+Team: B.H.S.T （[url=http://www.bhst.org]链接标记www.bhst.org[/url]）
+Blog:[url=http://www.hack41.cn]链接标记www.hack41.cn[/url]
+1、整体思路：
+在目标网站服务器禁用了asp解析导致aspshell无法执行的情况下通过域名注册信息得到技术管理员邮箱，通过此邮箱信息得知此邮箱同时注册了另外一个域名cdxxx.cn，利用fckeditor二次上传漏洞入侵此网站(cdxxx.cn)获取webshell，发现此服务器(cdxxx.cn)上iis配置信息里存在目标网站，提权未果情况下，利用此服务器上某个站点的dbo权限的mssql帐号执行sql语句备份一个脚本木马到原服务器(cdxxx.cn)上目标站点的web目录，通过查看system.config文件得到目标网站的数据库连接帐号密码，利用此帐号密码成功连接上目标服务器的数据库。同时数据库角色也是dbo，备份aspx小马到目标站目录，然后提权。此时网站和服务器成功沦陷。
+
+2、详细过程
+
+
+ [img]http://www.t00ls.net/images/attachicons/rar.gif[/img][url=http://www.t00ls.net/attachment.php?aid=NzcxM3wzNDVhNThmY3wxMjg2NDgwMDk0fGY0MGZ5MlM3UVByVmUvUDNZOWhyOGh2QzFsajBBR2lFMGdOdHRMT0Z1SlBtbWxv]链接标记《记一次安全检测笔记》-投稿-渗透提权栏目_final.rar[/url] (381.17 KB) 下载次数: 156
+
+2010-7-22 12:05
+
+文字有点多。传个附件

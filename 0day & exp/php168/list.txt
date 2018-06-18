@@ -1,0 +1,31 @@
+configfile
+Create New Admin Exploit FOR php168 v4.0SP
+php168v6 getshell 0day
+PHP168 6.0 Command Execution
+PHP168 6.0及以下版本login.php存在重大安全漏洞
+PHP168 6.0及以下版本漏洞及利用
+Php168 v 4.0 sp global.php 写入漏洞
+Php168 v6 权限提升漏洞
+PHP168 V6.01 权限提升漏洞
+PHP168 V6.02 form.php存在跨站漏洞
+PHP168 V6.02 vote.php存在跨站漏洞
+PHP168 V6.02整站系统远程执行任意代码漏洞
+php168 v7 某系统注入漏洞
+Php168 v2008 list.php sql注入漏洞
+Php168 v2008 special.php sql注入漏洞
+Php168 v2008 SQL注射漏洞
+Php168 v2008 权限提升漏洞
+Php168 v2008 最新漏洞
+PHP168 X-Forwarded-For的漏洞利用
+Php168 读取任意文件漏洞
+PHP168 下载任意文件漏洞
+php168-v6.0拿shell
+PHP168V6.02member下post.php代码执行漏洞
+Php168的一个本地文件包含漏洞
+PHP168后台查看修改任意文件漏洞
+PHP168后台修改任意文件漏洞
+php168漏洞2(0day)
+php168整站系统之CSRF攻击
+V6.01-02权限提升及暴本地路径漏洞
+齐博cms整站系统配置不当导致任意用户登陆
+新版php后台拿shell用

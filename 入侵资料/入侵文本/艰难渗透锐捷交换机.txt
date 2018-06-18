@@ -1,0 +1,232 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+艰难渗透锐捷交换机
+D8888D主贴内容-------------------------------------------------------
+ 
+
+首先申明一下，本文章仅发在t00ls.net上，仅供内部人员研究学习，原创版权规本人lalala所有，严禁转载 抄袭，对将此贴从t00ls.net流出的一切非原创作者，将追究其相应的责任，此外若因转载本文章所带来的一切导致社会安全问题的法律后果与原创作者(lalala)无关。      
+      其实渗透锐捷交换机的目的很简单，就是为了能够突破上网限制，用过锐捷网络服务的人应该都知道，锐捷可以限制上网的时间段(很久以前也有大牛写过锐捷破解版的，后来被封了，现在好像又出来了新的版本，不过不能绕过计费的^__^)，为了突破锐捷的时间段限制，前后花了大概半年至一年的时间(具体多久忘了，感觉"很久"以前的事了)，在突破时间段限制的同时还意外而又理所当然的绕过了计费系统。
+   现将过程简单的描述一下：
+      1.首先，找到锐捷计费系统的位置(这个看你自己怎么办了),目的是为了找到锐捷计费系统数据库的位置
+      2.其次，通过已知数据库网段得到数据库账户密码(服务器权限最好，没有也没事，至少有数据库账号密码)
+      3.拿下数据库，得到T_NAS表里面NASRWCOMMUNITY和NASIP，当然你还需要知道T_USER表里管理你自己IP的NASIP、NASPORT
+             如果你仅仅想给自己充点网费或者突破上网时间段的限制，那你到这里你基本上可以做到了，想给自己加网费得话只需改下T_USER表里LEFTTIME、LEFTFEE相应的值，想突破时间段限制的话，把ATNAME的值改成T_ACCTTEMPLATE表里面无需付费的ATNAME的值,但是这样做你在突破时间限制的同时面临一个问题，那就是数据库T_ACCTRECORD表里面有你的上网日志哦
+      4.找到一台可以telnet到NASIP的机器
+      5.找到锐捷交换机的账户和密码(这里考虑到其他原因，不写出来，有兴趣的可以自己去研究下锐捷某型号交换机的漏洞)
+      6.telnet进交换机，敲入命令：show running-config
+           改之前（部分）: Building configuration...
+
+Current configuration : 3096 bytes
+
+
+
+!
+
+version RGNOS 10.2.00(2), Release(27523)(Thu Dec  6 17:32:50 CST 2007 -ubu
+
+
+
+r)
+
+!
+
+aaa new-model
+
+!
+
+aaa accounting update periodic 10
+
+aaa accounting update
+
+aaa accounting network compatible start-stop group compatible
+
+aaa accounting network default start-stop group radius
+
+!
+
+aaa group server radius default
+
+server 10.*.*.*
+
+!
+
+aaa group server radius compatible
+
+!
+
+aaa authentication login default local
+
+aaa authentication dot1x default group radius
+
+!
+
+vlan 1
+
+!
+
+vlan 103
+
+!
+
+vlan 256
+
+!
+
+!
+
+ip default-gateway 172.*.*.254
+
+!
+
+!
+
+radius-server host 10.*.*.*
+
+radius-server key 7 *
+
+enable secret 5 *
+
+!
+
+!
+
+!
+
+!
+
+dot1x accounting default
+
+dot1x authentication default
+
+dot1x client-probe enable
+
+dot1x private-supplicant-only
+
+interface FastEthernet 0/1
+
+switchport mode trunk
+
+!
+
+interface FastEthernet 0/2
+
+dot1x port-control auto
+
+switchport access vlan 103
+
+
+
+interface VLAN 256
+
+ip address 172.*.*.* 255.255.255.0
+
+no shutdown
+复制代码改之后(部分): !
+
+version RGNOS 10.2.00(2), Release(27523)(Thu Dec  6 17:32:50 CST 2007 -ubu1serve
+
+r)
+
+!
+
+aaa new-model
+
+!
+
+aaa accounting update periodic 10
+
+aaa accounting update
+
+aaa accounting network compatible start-stop group compatible
+
+aaa accounting network default start-stop group radius
+
+!
+
+aaa group server radius default
+
+server 10.*.*.*
+
+!
+
+aaa group server radius compatible
+
+!
+
+aaa authentication login default local
+
+aaa authentication dot1x default group radius
+
+!
+
+vlan 1
+
+!
+
+vlan 103
+
+!
+
+vlan 256
+
+!
+
+!
+
+ip default-gateway 172.*.*.254
+
+!
+
+!
+
+no logging on
+
+no logging buffered
+
+no logging console
+
+radius-server host 10.*.*.*
+
+radius-server key 7 .......
+
+enable secret 5 .........
+
+!
+
+!
+
+!
+
+!
+
+dot1x accounting default
+
+dot1x authentication default
+
+dot1x client-probe enable
+
+dot1x private-supplicant-only
+
+interface FastEthernet 0/1
+
+switchport mode trunk
+
+!
+
+interface FastEthernet 0/2
+
+dot1x port-control auto
+
+switchport access vlan 103
+
+!
+
+
+
+interface VLAN 256
+
+ip address 172.*.*.* 255.255.255.0
+
+no shutdown     
+复制代码至此就成功突破时间段限制并绕过收费了，从此上网不再需要锐捷客户端，当然别忘了交换机日志的清除(^__^)

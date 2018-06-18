@@ -1,0 +1,28 @@
+net stop sharedacces 关闭防火墙
+
+去除TCP IP筛选：
+
+TCP/IP筛选在注册表里有三处，分别是：
+
+HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Tcpip
+HKEY_LOCAL_MACHINE\SYSTEM\ControlSet002\Services\Tcpip
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip
+
+分别用以下命令来导出注册表项：
+regedit -e D:\a.reg HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip
+regedit -e D:\b.reg HKEY_LOCAL_MACHINE\SYSTEM\ControlSet002\Services\Tcpip
+regedit -e D:\c.reg HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip 
+ 
+
+然后再把三个文件里的：
+
+“EnableSecurityFilters"=dword:00000001”
+
+改为：
+
+“EnableSecurityFilters"=dword:00000000”
+
+再将以上三个文件分别用以下命令导入注册表即可：
+regedit -s D:\a.reg
+regedit -s D:\b.reg
+regedit -s D:\c.reg 

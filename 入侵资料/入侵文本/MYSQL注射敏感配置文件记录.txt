@@ -1,0 +1,40 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+MYSQL注射敏感配置文件记录
+D8888D主贴内容-------------------------------------------------------
+mysql注入中,load_file()函数在获得webshell以及提权过程中起着十分重要的作用，常被用来读取各种配置文件，如： /etc/rc.local 这个是linux的启动文件
+/usr/local/app/apache2/conf/httpd.conf //apache2缺省配置文件
+/usr/local/apache2/conf/httpd.conf
+/usr/local/app/apache2/conf/extra/httpd-vhosts.conf //虚拟网站设置
+/usr/local/app/php5/lib/php.ini //PHP相关设置
+/etc/sysconfig/iptables //从中得到防火墙规则策略
+/etc/httpd/conf/httpd.conf // apache配置文件
+/etc/rsyncd.conf //同步程序配置文件
+/etc/sysconfig/network-scripts/ifcfg-eth0 //查看IP.
+/etc/my.cnf //mysql的配置文件
+/etc/redhat-release //系统版本
+/etc/issue
+/etc/issue.net /etc/rc.local
+c:\mysql\data\mysql\user.MYD //存储了mysql.user表中的数据库连接密码
+c:\Program Files\RhinoSoft.com\Serv-U\ServUDaemon.ini //存储了虚拟主机网站路径和密码
+c:\Program Files\Serv-U\ServUDaemon.ini
+c:\windows\my.ini //MYSQL配置文件
+c:\windows\system32\inetsrv\MetaBase.xml //IIS配置文件
+
+等等。实际上，load_file()的作用不止于此，它还可以用来读取系统中的二进制文件，
+
+c:\windows\repair\sam //存储了WINDOWS系统初次安装的密码
+c:\Program Files\ Serv-U\ServUAdmin.exe //6.0版本以前的serv-u管理员密码存储于此
+c:\Program Files\RhinoSoft.com\ServUDaemon.exe
+C:\Documents and Settings\All Users\Application Data\Symantec\pcAnywhere\*.cif文件
+//存储了pcAnywhere的登陆密码
+TOMCAT的物理路径
+x:\Tomcat 5.0\conf\tomcat-user.xml
+serv-u的安装路径
+C:\Documents and Settings\All Users\「开始」菜单\程序\Serv-U\Serv-U Administrator.lnk
+C:\Documents and Settings\All Users\「开始」菜单\程序\Serv-U FTP Server\Serv-U Administrator.lnk
+
+等敏感文件都在此列。
+
+MYSQL 帐号权限足够高的话，理论上load_file()函数可以读取任何文件，只是因为浏览器的编码不能完全显示二进制编码的文件，从而无法把 load_file()出来的二进制文件存储并加以利用。其实这个问题很容易解决，只要用hex()函数把用load_file() 函数读出的二进制文件 转为十六进制，就可以把二进制文件以十六进制编码的形式完全显示在网页上。把这些十六进制代码复制下来，用十六进制文件编辑器编辑后另存，就可以得到完整 的二进制文件。

@@ -1,0 +1,70 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+一次社会工程学的利用
+D8888D主贴内容-------------------------------------------------------
+ 
+
+起因：我需要做一个 flash，自己不会做，所以跑到猪八戒网站上去发任务。有个QQ为5534008XX的伙计加了我，说220能做，我讲明了详细要求以及FLASH的效果，还把相关资料发给他了，他说明白了，能做。晚上的时候，他说做了个电子书，让我看看，我当时就有点不爽了，明明让做的是FLASH，搞个电子书干什么，我还是同意看一看。结果发现他做的电子书是用EBOOK生成的，里面别人软件的版权信息一大堆，效果也不合我意，板块也没划分好，就随便生成的。我当时就说，你是不是嫌弃钱少了，随便弄一个糊弄我？
+我说你做得好，我1000都拿得出来，我每天都有500+收入。
+他就不高兴了，说我素质低，谈钱，低俗。还骂我脑子进水了。还讽刺我有钱。说我是暴发户。
+我说你吃屎了吧，让你做FLASH，你弄个电子书干什么。做电子书也就算了，还做个垃圾出来，是什么东西？
+反正说了半天，我就删了他，他也删了我。
+然后,弄得心情很不爽，他妈的B。来社他。首先进他的QQ空间，看到他自己做的一个FLASH，是个介绍他的FLASH，里面有信息如下：
+[attach]1112[/attach]
+看到学校和名字了，直接奔他们学校主页，找到教务系统jw.cdysxy.com，转了一圈，有注射漏洞，找不到表名。ping了一下，发现教务系统与主站一个服务器。
+然后还看到各个系的主页和主站都在一个服务器上（哎，垃圾学校，就一台服务器，承载这么多网站），每个系的主页都转了一圈，注射点不少。但是很遗憾，不是破不了密码，就是找不到后台，真他妈的背。 后来注射什么艺术系的一个点，得到加密密码，密码经过自身加密了的，密码为ecrypt}，在论坛问同学，得到了解密程序，解开后登陆后台，进去一看，是雷池系统，雷池系统有上传漏洞（网上一大把的上传方法），传上去，发现uppic目录不允许执行asp。操了。。
+没办法，继续寻找点，后来发现他们的戏剧影视设计系有防注射系统，不过没照顾到cookie方法，用中转器中转注射，
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0905/0905240049ed325fde4d4f83fb.gif[/img][url=http://www.t00ls.net/attachment.php?aid=MTExM3wwNWJiM2NlY3wxMjg2NDgzMzk2fDQ1YjY1UUh0Um5iT3VxTVRWY28xRzdPT0E4S0hHVkNFaXVDY0kxaGJYT2d3OWdF&nothumb=yes]链接标记下载[/url] (112.34 KB)
+
+2009-5-24 00:49
+明小子3.5认识这个点。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0905/09052400490f218ef456144f5e.gif[/img][url=http://www.t00ls.net/attachment.php?aid=MTExNHw4ZjQ3MzdiOXwxMjg2NDgzMzk2fDQ1YjY1UUh0Um5iT3VxTVRWY28xRzdPT0E4S0hHVkNFaXVDY0kxaGJYT2d3OWdF&nothumb=yes]链接标记下载[/url] (479.84 KB)
+
+2009-5-24 00:49
+可惜找不到表名。寻找后台，找到manage目录。出现登陆页面！
+右键查看源文件，发现系统名字！
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0905/09052400499689d818e9026e27.gif[/img][url=http://www.t00ls.net/attachment.php?aid=MTExNXwzOGFjYWJlNHwxMjg2NDgzMzk2fDQ1YjY1UUh0Um5iT3VxTVRWY28xRzdPT0E4S0hHVkNFaXVDY0kxaGJYT2d3OWdF&nothumb=yes]链接标记下载[/url] (395.13 KB)
+
+2009-5-24 00:49
+以为是个比较广泛的系统，网上会有下载的，百度一搜索，鸡巴都没有。
+就想用迅雷搜索一下资源，看有没有，迅雷一搜，嘿，资源没搜到，搜到一个一摸一样的后台的站，也采用这个系统。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0905/0905240049ebbf4ca3f472bd9e.gif[/img][url=http://www.t00ls.net/attachment.php?aid=MTExNnwwN2M5ZmEyMnwxMjg2NDgzMzk2fDQ1YjY1UUh0Um5iT3VxTVRWY28xRzdPT0E4S0hHVkNFaXVDY0kxaGJYT2d3OWdF&nothumb=yes]链接标记下载[/url] (198.18 KB)
+
+2009-5-24 00:49
+运气突然开始好转，这个帐后台默认账号密码admin进去了。并且发现能写include/vars.asp文件。（仔细看图底部）
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0905/09052400493aae0854ca30a2f1.gif[/img][url=http://www.t00ls.net/attachment.php?aid=MTExN3w0MTA2ZjhkYnwxMjg2NDgzMzk2fDQ1YjY1UUh0Um5iT3VxTVRWY28xRzdPT0E4S0hHVkNFaXVDY0kxaGJYT2d3OWdF&nothumb=yes]链接标记下载[/url] (371.56 KB)
+
+2009-5-24 00:49
+以前也遇到过这个问题，我自己解决了，看我原来的帖子.[url=http://www.t00ls.net/viewthread.php?tid=1174&highlight=%2Bxxbing]链接标记http://www.t00ls.net/viewthread.php?tid=1174&highlight=%2Bxxbing[/url]
+然后写了个asp马，下载数据库，看表名。
+再去明小子里面自己添加表名，射出16位的MD5，破解之。然后成功登陆后台，依葫芦画瓢，又打算写一个asp马，又出现问题，include下不能写。
+我仔细一想，vars.asp在后台写好了，我干脆直接把马写到vars.asp里。破坏掉这个文件。顺利把大马传上去了。
+成功找到JW网目录。还找到SA账号密码。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0905/0905240049793af1f0c6ff666c.gif[/img][url=http://www.t00ls.net/attachment.php?aid=MTExOHxiMDQ2ZTg5NXwxMjg2NDgzMzk2fDQ1YjY1UUh0Um5iT3VxTVRWY28xRzdPT0E4S0hHVkNFaXVDY0kxaGJYT2d3OWdF&nothumb=yes]链接标记下载[/url] (983.02 KB)
+
+2009-5-24 00:49
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0905/09052400493fe37e707254866c.gif[/img][url=http://www.t00ls.net/attachment.php?aid=MTExOXxlYTdjYmQ5Y3wxMjg2NDgzMzk2fDQ1YjY1UUh0Um5iT3VxTVRWY28xRzdPT0E4S0hHVkNFaXVDY0kxaGJYT2d3OWdF&nothumb=yes]链接标记下载[/url] (273.67 KB)
+
+2009-5-24 00:49
+然后看查询学籍的ASP文件源码，找到存放学籍的表。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0905/0905240049c0e48a1181a283ff.gif[/img][url=http://www.t00ls.net/attachment.php?aid=MTEyMHw0ZDllZGVkMnwxMjg2NDgzMzk2fDQ1YjY1UUh0Um5iT3VxTVRWY28xRzdPT0E4S0hHVkNFaXVDY0kxaGJYT2d3OWdF&nothumb=yes]链接标记下载[/url] (206.69 KB)
+
+2009-5-24 00:49
+一条MSSQL语句就找到了他，中间的 乐山的。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0905/0905240049fae951c0a962be05.gif[/img][url=http://www.t00ls.net/attachment.php?aid=MTEyMXw0ZGMzZTA4ZnwxMjg2NDgzMzk2fDQ1YjY1UUh0Um5iT3VxTVRWY28xRzdPT0E4S0hHVkNFaXVDY0kxaGJYT2d3OWdF&nothumb=yes]链接标记下载[/url] (174.27 KB)
+
+2009-5-24 00:49
+不过在这里看不太好辨认，在学籍查询的地方输入学号，身份证号码。进行查询，什么都出来了。
+[attach]1123[/attach]
+
+结束。明天去威胁他去。
+[url=http://www.t00ls.net/attachment.php?aid=MTEyMnw0MTllNTg2OXwxMjg2NDgzMzk2fDQ1YjY1UUh0Um5iT3VxTVRWY28xRzdPT0E4S0hHVkNFaXVDY0kxaGJYT2d3OWdF&nothumb=yes]链接标记10.gif[/url] (628.69 KB) 
+下载次数:0
+2009-5-24 00:49
+
+ [img]http://www.t00ls.net/attachments/month_0905/09052400495c971c34c1d7b477.gif[/img][url=http://www.t00ls.net/attachment.php?aid=MTEyNHw0ZWU0ODM3ZnwxMjg2NDgzMzk2fDQ1YjY1UUh0Um5iT3VxTVRWY28xRzdPT0E4S0hHVkNFaXVDY0kxaGJYT2d3OWdF&nothumb=yes]链接标记11.gif[/url] (527.58 KB) 
+下载次数:0
+2009-5-24 01:19
+
+ [img]http://www.t00ls.net/attachments/month_0905/0905240119af9a413305e866e3.gif[/img]

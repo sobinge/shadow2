@@ -1,0 +1,42 @@
+copy 保存为 xx.bat
+
+@echo off
+:check
+choice /C YN /T 10 /D Y
+quser find "#23"   && del xx.bat logoff
+goto check
+
+
+说明一下
+#23 每次运行这个 bat 的时候
+
+
+先quser 一下，看当前的会话id 是多少22
+
+然后加1 每连接一次就会加1
+
+用户名 会话名 ID 状态 空闲时间 登录时间
+administrator rdp-tcp#22 2 运行中 . 2009-4-16 19:24
+
+你要把这个给改成 #23 就可以了 然后下一个连接进来的时候就会注销自已
+
+
+当然 你要选择尽量少的服务来嗅.比如你要嗅目标的1433及80.那你嗅其他的就没用罗.
+这样会大大的减少当机的可能性.如果看到丢包率超过10%就要注意啦. 赶紧停掉,看看那里没设置好吧.
+如果还是不小心挂了呢.copy 保存为 xx.bat
+
+没事.这里为您准备了一个BAT 在开嗅的时候运行它就行了哦.
+
+======start=========
+
+:ping
+choice /C YN /T 120 /D Y
+ping g.cn
+IF ERRORLEVEL 1 GOTO reboot
+IF ERRORLEVEL 0 GOTO ping
+:reboot
+shutdown /r /t 0
+
+
+======end=========
+这里的g.cn你可以设置为网关的IP或你的IP

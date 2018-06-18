@@ -1,0 +1,47 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+EditPlus查找PHP源码简单数字型注入的正则表达式
+D8888D主贴内容-------------------------------------------------------
+来源：n3tl04d's Blog
+
+今天看一个项目代码，文件不多，不过每个文件中都N多注入，一个一个看实在太累，索性花了点时间，弄了个正则表达式，搜索出来，然后再将安全的筛选出去。省了不少时间的说。
+
+1.查找select、update、delete语句 
+((select|SELECT|update|UPDATE|delete|DELETE)+.*(from|FROM|set|SET)+.*(where|WHERE)+.*)
+
+查询语句,对于没有条件判断的基本不存在注入问题，因而仅搜索此语句即可
+例子：
+select * from user where
+
+2.简单的数字型注入 
+((select|SELECT|update|UPDATE|delete|DELETE)+.*(from|FROM|set|SET)+.*(where|WHERE)+.*=[ ]?["]?["]?\$)
+
+能找到select、update delete三种语句，5种格式的整形注入，如：
+
+直接变量传入
+select * from guess where id=$subject_id
+update guess set is_valid=0 where id=$subject_id
+delete from guess where id=$subject_id
+
+=与变量之间存在空格
+select * from guess where id= $subject_id
+update guess set is_valid=0 where id= $subject_id
+delete from guess where id= $subject_id
+
+变量双引号
+select * from guess where id="$subject_id"
+update guess set is_valid=0 where id="$subject_id"
+delete from guess where id="$subject_id"
+
+=与双引号之间存在空格
+select * from guess where id= "$subject_id"
+update guess set is_valid=0 where id= "$subject_id"
+delete from guess where id= "$subject_id"
+
+=与引号、双引号之间存在空格
+select * from guess where id= " $subject_id"
+update guess set is_valid=0 where id= " $subject_id"
+delete from guess where id= " $subject_id"
+
+其实自己发现其他的一些漏洞也可以找到相应关键字寻找的，当然这些仅限于比较容易看出来的漏洞了，^_^。

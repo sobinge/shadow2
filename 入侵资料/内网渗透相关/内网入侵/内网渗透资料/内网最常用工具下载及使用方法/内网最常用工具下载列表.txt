@@ -1,0 +1,22 @@
+http://www.edge-security.com/soft/wfuzz-1.4b-win.tar.gz 
+
+http://nmap.org/dist/nmap-5.00-win32.zip 
+
+http://freeworld.thc.org/thc-hydra/hydra-5.4-win.zip 
+
+http://windowsaudit.com/downloads/WinScanX_Basic.zip 
+
+http://www.xfocus.net/tools/200410/sqlexec.zip 
+
+http://www.xfocus.net/tools/200210/SQLServerSniffer.rar 
+
+http://www.xfocus.net/tools/200610/arpspoof.2.1.zip 
+
+http://download.sysinternals.com/Files/PsTools.zip 
+
+http://www.xfocus.net/tools/200309/PortLessNew.zip 
+
+http://www.xfocus.net/tools/200710/wnps-0.26-beta2.tgz 
+
+http://qs.onlinedown.net/down/ca_setup_53494.zip (cain) 
+

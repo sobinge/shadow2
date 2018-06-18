@@ -1,0 +1,16 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+MYSQL 注射精华 PDF文档下载
+D8888D主贴内容-------------------------------------------------------
+ 
+
+对于网上发布的版本，应该都是从pdf复制下来的，都没做排版并且图片丢失，本人花了一点时间找到原版PDF文档，并做了WEB版式的排版着色，本文档绝对经典。
+
+下载:
+ [img]http://www.t00ls.net/images/attachicons/zip.gif[/img][url=http://www.t00ls.net/attachment.php?aid=OTE3NXxmYmZmODBhMXwxMjg2NDc4OTAyfDU0ZTcrTWoydjJzVmhHZE9XamhBVWxock9CMlRBZS9rdC9DOEt5RGVrd2kvdnFV]链接标记MySQL_Inject_PDF.zip[/url] (179.72 KB) 下载次数: 135
+
+2010-9-21 13:38
+
+web版地址：
+[url=https://www.chinasb.org/archives/2010/09/368.shtml]链接标记https://www.chinasb.org/archives/2010/09/368.shtml[/url]

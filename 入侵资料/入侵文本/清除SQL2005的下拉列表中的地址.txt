@@ -1,0 +1,8 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+清除SQL2005的下拉列表中的地址
+D8888D主贴内容-------------------------------------------------------
+SQL2000是在HKEY_CURRENT_USER\Software\Microsoft\Microsoft SQL Server\80\Tools\Client\PrefServers
+
+SQL2005是在C:\Documents and Settings\<user>\Application Data\Microsoft\Microsoft SQL Server\90\Tools\Shell\mru.dat

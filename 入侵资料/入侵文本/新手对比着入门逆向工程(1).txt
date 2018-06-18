@@ -1,0 +1,134 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+新手对比着入门逆向工程(1)
+D8888D主贴内容-------------------------------------------------------
+ 
+
+看此文前置知识：VC++,ASM
+
+作者：风中流转
+原文地址：http://www.0x7ffa4512.cn/blog/read.php?188
+转载请注明出处
+
+开始学习逆向工程了。。。当然是要有方法的。。我寻思半天貌似不错的方法就是对比着学习。。
+
+首先~~从最简单的开始。。VC写一个MessageBox的Hello World程序。。然后IDA反汇编之。。VC windows编程入门最简单的程序：
+
+
+
+#include <windows.h>
+int WINAPI WinMain (HINSTANCE hInstance,HINSTANCE hPrevInstance,PSTR szCmdLine,int iCmdShow)
+{
+  MessageBox(NULL,TEXT("Hello API"),TEXT("Hello"),0);
+  return 0;
+}
+
+
+
+IDA的代码
+
+
+.686p
+.mmx
+.model flat
+
+
+; Segment type: Pure code
+; Segment permissions: Read/Execute
+_text segment para public 'CODE' use32
+assume cs:_text
+;org 401000h
+assume es:nothing, ss:nothing, ds:_data, fs:nothing, gs:nothing
+
+
+
+; int __stdcall WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nShowCmd)
+__stdcall WinMain(x, x, x, x) proc near
+
+hInstance= dword ptr  4
+hPrevInstance= dword ptr  8
+lpCmdLine= dword ptr  0Ch
+nShowCmd= dword ptr  10h
+
+push    0               ; uType
+push    offset Caption  ; "yalu"
+push    offset Text     ; "baga"
+push    0               ; hWnd
+call    ds:MessageBoxW(x,x,x,x)
+xor     eax, eax
+retn    10h
+__stdcall WinMain(x, x, x, x) endp
+
+
+
+再看看ASM怎么写。。
+
+
+
+.386
+.model flat,stdcall
+option casemap:none
+include windows.inc
+include user32.inc
+includelib user32.lib
+include kernel32.inc
+includelib kernel32.lib
+
+.data
+szCaption db 'A MessageBox!',0
+szText db 'Hello, World !',0
+
+.code
+start:
+invoke MessageBox,NULL,offset szText,offset szCaption,MB_OK
+invoke ExitProcess,NULL
+end start
+[\code]
+
+反汇编出来的代码：
+
+[code]
+.686p
+.mmx
+.model flat
+
+
+; Segment type: Pure code
+; Segment permissions: Read/Execute
+_text segment para public 'CODE' use32
+assume cs:_text
+;org 401000h
+assume es:nothing, ss:nothing, ds:_data, fs:nothing, gs:nothing
+
+
+
+public start
+start proc near
+push    0               ; uType
+push    offset Caption  ; "A MessageBox!"
+push    offset Text     ; "Hello, World !"
+push    0               ; hWnd
+call    MessageBoxA
+push    0               ; uExitCode
+call    ExitProcess
+start endp
+[\code]
+
+差别不大吧。。VC反汇编的结果明显多了
+
+[code]
+hInstance= dword ptr  4
+hPrevInstance= dword ptr  8
+lpCmdLine= dword ptr  0Ch
+nShowCmd= dword ptr  10h
+
+
+
+这几行代码。。很简单。。win32 程序的入口点。。其实和C的main()函数的作用差不多。。原型是WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nShowCmd)。。
+
+还有一个很重要的不同点就是VC调用的MessageBox函数调用的是MessageBoxW。。而MASM调用的是MessageBoxA。。这其实是VS的一点小修改。。VC6.0的时候默认调用了MessageBoxA而在VS2005以后的环境中默认了MessageBoxW。。如果想改回调用MessageBoxA可以先预编译命令 #undef UNICODE然后把把工程属性的Debugging -》 Character set -> 改成multi byte 。。。
+
+所以在这里面调用的时候就有点小差别。。VC VS版的默认调用call    ds:MessageBoxW(x,x,x,x)而ASM调用为call    MessageBoxA。。当然调用都一样。。先倒序push参数。。然后call。。VC编译最后还有个xor eax,eax 用处就是eax清零还有个retn 10h打扫战场。。其实之所以不用mov eax,0。。因为xor消耗两个指令而mov消耗5个指令。。时空复杂度啊。。
+
+学习逆向工程的时候有一个很好的积累经验的办法就是用VC写程序然后调试。。看反汇编代码。。每一句下面都有相应的汇编代码。。这样积累经验以后看到反汇编代码就能相对容易的想到相应的C代码。。思路也会相应开阔了。。(ASM牛牛们无视之)

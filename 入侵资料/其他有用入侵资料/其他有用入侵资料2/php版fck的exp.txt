@@ -1,0 +1,5 @@
+<form id="frmUpload"
+action="http://news.xxx.edu.cn:80/admin/FCKeditor/editor/filemanager/upload/php/upload.php?Type=Media" >
+<input type="file" name="NewFile" size="50"><br>
+<input id="btnUpload" type="submit" value="Upload">
+</form> 

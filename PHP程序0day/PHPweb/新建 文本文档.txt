@@ -1,0 +1,8 @@
+先用注射点跑出密码
+
+down/class/index.php?myord=1
+
+ 之后后台地址是admin.php
+本文来源于iick's blog      http://www.hack1990.com/ , 原文地址：http://www.hack1990.com/cat_1/578.html  
+
+

@@ -1,0 +1,56 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+记一次入侵过程-突破口万能密码和编辑器漏洞
+D8888D主贴内容-------------------------------------------------------
+文章作者:wjs
+QQ:825680101
+晚上朋友发了一个URL让我检测下，给了后台地址然后说无法拿下了。
+朋友是用工具扫描找到后台地址,图1
+[attach]693[/attach]
+利用万能密码:’or’=’or’成功进入后台,图2
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0903/20090330_9ec90d0e7e96b2a87d3fAyfbsdF05BQi.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=Njk0fDFkMDllMTgwfDEyODY0ODM1NzF8MWQ5N2o2bzcwTmcrYXpPWUY0YlVibEtSa0UyMURpZzlHcFMzbUhqd1J6QXJ1S3c%3D&nothumb=yes]链接标记下载[/url] (38.31 KB)
+
+2009-3-30 13:01
+进来后思路是找数据库备份,发现没有，然后想到发文章很多网站使用 ewebeditor编辑器,这个网站会不会也有使用?在[新闻管理中心点]发文章,然后右键看源代码
+发现如下图3
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0903/20090330_1686711d7834b11caadbLIhuvcEPTrWX.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=Njk1fGViMjEzNGZifDEyODY0ODM1NzF8MWQ5N2o2bzcwTmcrYXpPWUY0YlVibEtSa0UyMURpZzlHcFMzbUhqd1J6QXJ1S3c%3D&nothumb=yes]链接标记下载[/url] (148.07 KB)
+
+2009-3-30 13:01
+发现83editor,应该是ewebeditor目录修改了
+现在我们进入后台的网址是:[url=http://www.xxx.com/inmake/manage_login.asp]链接标记www.xxx.com/inmake/manage_login.asp[/url]
+尝试访问: [url=http://www.xxx.com/inmake/83editor/admin_login.asp]链接标记www.xxx.com/inmake/83editor/admin_login.asp[/url]  
+如图4
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0903/20090330_e07ed47eecfb55be3c63hCiVjnKbKR7L.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=Njk2fDAxZGU2NWI2fDEyODY0ODM1NzF8MWQ5N2o2bzcwTmcrYXpPWUY0YlVibEtSa0UyMURpZzlHcFMzbUhqd1J6QXJ1S3c%3D&nothumb=yes]链接标记下载[/url] (114.07 KB)
+
+2009-3-30 13:01
+默认密码登陆,无法登陆
+然后试下默认数据库下载: [url=http://www.xxx.com/inmake/83editor/db/ewebeditor.mdb]链接标记www.xxx.com/inmake/83editor/db/ewebeditor.mdb[/url]能下载,但密码无法破解出，思路断了,
+
+然后新的思路出现ewbeditor入侵还有一种方法,就是利用别人入侵过留下的样式,比如增加了asa或asp的
+在数据里发现,图5
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0903/20090330_785fca860c090d52c2eah26zeziwCIHc.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=Njk3fGVlYzFlYjZifDEyODY0ODM1NzF8MWQ5N2o2bzcwTmcrYXpPWUY0YlVibEtSa0UyMURpZzlHcFMzbUhqd1J6QXJ1S3c%3D&nothumb=yes]链接标记下载[/url] (77.23 KB)
+
+2009-3-30 13:01
+有人增加了aaspsp,这样我们修改下URL然后直接上传asp木马就能获得网站的webshell
+
+ewebeditor.asp?id=s_id&style=s_name  没修改前的
+ewebeditor.asp?id=s_47&style=standard1 修改后的,对应修改s_id和s_name
+
+然后访问: [url=http://www.xxx.com/inmake/83editor/ewebeditor.asp?id=s_47&style=standard1]链接标记www.xxx.com/inmake/83editor/eweb ... amp;style=standard1[/url]
+并上传ASP木马,图6
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0903/20090330_ca45071dbc7f55de0e34Dv8vn7tZkARG.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=Njk4fDU3ODYwMzVlfDEyODY0ODM1NzF8MWQ5N2o2bzcwTmcrYXpPWUY0YlVibEtSa0UyMURpZzlHcFMzbUhqd1J6QXJ1S3c%3D&nothumb=yes]链接标记下载[/url] (83.27 KB)
+
+2009-3-30 13:01
+最后成功获得webshell ,图7
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0903/20090330_ad3ab8516d0433fbf03dpCx2ER25kCgU.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=Njk5fDdhMmRlZjM4fDEyODY0ODM1NzF8MWQ5N2o2bzcwTmcrYXpPWUY0YlVibEtSa0UyMURpZzlHcFMzbUhqd1J6QXJ1S3c%3D&nothumb=yes]链接标记下载[/url] (90.05 KB)
+
+2009-3-30 13:01
+
+[  ]
+[url=http://www.t00ls.net/attachment.php?aid=NzAwfDI3NGU5NmFifDEyODY0ODM1NzF8MWQ5N2o2bzcwTmcrYXpPWUY0YlVibEtSa0UyMURpZzlHcFMzbUhqd1J6QXJ1S3c%3D&nothumb=yes]链接标记7.jpg[/url] (105.21 KB) 
+下载次数:0
+2009-3-30 13:01
+
+ [img]http://www.t00ls.net/attachments/month_0903/20090330_b3e340c3a74c872f4fb9AJaTgjAjCcld.jpg[/img] [img]http://www.t00ls.net/images/attachicons/rar.gif[/img][url=http://www.t00ls.net/attachment.php?aid=Njg4fDQxMDlkMjcwfDEyODY0ODM1NzF8MWQ5N2o2bzcwTmcrYXpPWUY0YlVibEtSa0UyMURpZzlHcFMzbUhqd1J6QXJ1S3c%3D]链接标记记一次入侵过程-突破口万能密码和编辑器漏洞.rar[/url] (255.81 KB) 下载次数:60
+2009-3-28 15:14

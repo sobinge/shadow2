@@ -1,0 +1,36 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+Winodws提权EXP（MS08066）
+D8888D主贴内容-------------------------------------------------------
+Windows NT/2K/XP/2K3/VISTA/2K8/7 NtVdmControl()->KiTrap0d local ring0 exploit
+原作者联系方式:taviso@sdf.lonestar.org
+
+
+本版本以这位GOOGLE黑客高手Tavis Ormandy的大作为基础改写而成.
+修改部分如下:
+1:根据作者个人遗憾的几点做了改进,避免了因NT系统的目录差异而失败的情况.
+2:造成蓝屏的机率减少,改了一些宏的重复DEFINIE.
+3:去除ROOT过程中的提示,保留了最终结果提示.
+4:模拟之前的MS08066 利用方法,直接在程序后接收参数,方便上传后在WEBSHELL上使用.
+5: ... ...
+
+
+使用方法(详见程序内提示):
+----------------------------------------
+exp.exe net localgroup administrators you /add   or
+exp.exe malwear.exe
+....
+----------------------------------------
+
+
+racle.dll名字不可更改,whatever.exe文件名可随意更改.时间仓促之作,如果有问题,欢迎回应.
+
+有免杀技术的同志可以做下兔杀。
+
+下载地址：[url=http://www.51chi.net/qing/ms08066exp.rar]链接标记http://www.51chi.net/qing/ms08066exp.rar[/url]
+
+
+另外发一个dz加管理员的php木马，就不另外开贴了
+
+[url=http://www.51chi.net/qing/dzadmin.rar]链接标记http://www.51chi.net/qing/dzadmin.rar[/url]

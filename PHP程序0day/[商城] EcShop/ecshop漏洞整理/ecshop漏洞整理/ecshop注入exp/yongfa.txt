@@ -1,0 +1,3 @@
+´î½¨php»·¾³
+
+php.exe ecshopexp.php www.baidu.com /ecshop/ 1 

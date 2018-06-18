@@ -1,0 +1,44 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+小心跨站脚本蠕虫大闹网易博客
+D8888D主贴内容-------------------------------------------------------
+作者：茄子宝
+链接：[url=http://safe.it168.com/ss/2007-07-25/200707250847125.shtml]链接标记http://safe.it168.com/ss/2007-07-25/200707250847125.shtml[/url]
+
+    【IT168 专稿】现今黑客关于XSS的攻击是越来越火了，OWASP这个WEB[url=http://safe.it168.com/]链接标记安全[/url]组织已经将XSS列为2007年WEB安全威胁第一位.然而国内网站对这个问题并没有重视起来，几乎所有的大型门户网站都存在这个漏洞，其中关于[url=http://corp.it168.com/corp/1350_index.shtml]链接标记博客[/url]的安全问题尤为严重，国外的MYSPACHE站点曾经发生过这样一个事件，一个叫samy的人利用XSS漏洞写了世界上第一只跨站脚本蠕虫，20小时内就传染了一百万个用户，最后导致MySpace站瘫痪.前车之鉴，如果这些漏洞给黑客利用在博客上，后果将不堪设想！
+    以前针对SOHU的BLOG做过测试，确认证明了此类攻击的可行性，最近听说网易的BLOG人气不错，那么我们就来挖掘一下漏洞,类似这种跨站脚本蠕虫首先必须找一个页面[url=http://corp.it168.com/corp/1289_index.shtml]链接标记通用[/url]的地方测试是否能写入XSS，比如SOHU BLOG的个人档案，关于网易我已经找到了一处，就在自定义模块功能，如图1 [img]http://publish.it168.com/2007/0724/images/547491.jpg[/img]
+
+    下面测试一下构造javascript的字符是否被过滤，如图2 [img]http://publish.it168.com/2007/0724/images/547496.jpg[/img]
+    结果全部被过滤，看来已经做了XSS的黑名单，可是没关系，我们可以从白名单入手，也就是在内容里能写入的正常HTML标记里插入javascript,正好此处提供了一个特效字的功能，如图3 [img]http://publish.it168.com/2007/0724/images/547501.jpg[/img]
+
+   查了一下Marquee标记，发现当Marquee元素开始显示内容时会触发onstart事件，OK那么我们就可以构造XSS了，例如图4： [img]http://publish.it168.com/2007/0724/images/547590.jpg[/img]
+    <marquee >.</marquee>
+    现在已经有可以写入XSS的地方，那么我们就可以开始构造攻击脚本了，我在XSS Phishing这篇文里提过XSS最大的魅力就是在于能劫持用户的浏览器，甚至模拟用户的操作，那么怎么做到这些呢？很简单，利用AJAX技术，例如构造GET提交：
+    var url = "[url=http://www.163.com/login.php]链接标记http://www.163.com/login.php[/url]"
+    var xmlhttp = new ActiveXObject("[url=http://corp.it168.com/corp/90_index.shtml]链接标记Microsoft[/url].XMLHTTP");
+    xmlhttp.open("GET", url+"参数", false);
+    xmlhttp.send();
+    WEB程序只是接受参数做出反应，XSS劫持浏览器后的操作是继承了用户的会话与 Cookies认证的。
+    下面我们来做一个实验，利用网易的好友功能，如图5： [img]http://publish.it168.com/2007/0724/images/547598.jpg[/img]
+
+    随意加入一个好友，同时对这次操作抓下包， [img]http://publish.it168.com/2007/0724/images/547645.jpg[/img]
+
+    我们来模拟这次POST提交
+[img]http://publish.it168.com/2007/0724/images/547655.jpg[/img]
+
+    如果我们将如下代码写入自定义模块，那么所有浏览者都会自动加入指定的人为好友。
+[img]http://publish.it168.com/2007/0724/images/547660.jpg[/img]
+
+    只是简单的代码就可以模拟用户的操作，再完成复杂的功能也是没有问题的，想一想如果是模拟用户自己创建含有XSS的自定义模块，传染整站用户，后果将不堪设想。
+    最后再郑重提醒下各门户站点，一定要重视XSS漏洞，否则发生类似MYSPACE事件爆发蠕虫事件也只是时间问题。   
+
+    有关XSS跨站攻击的基本概念及防范的方法，请读者参考以下文章： 
+    浅析XSS(Cross Site Script)漏洞原理
+    [url=http://publish.it168.com/2007/0704/20070704004201.shtml]链接标记http://publish.it168.com/2007/0704/20070704004201.shtml[/url]
+
+D8888D回贴内容-------------------------------------------------------
+XSS 很是强大，蠕虫威力不容小视
+
+D8888D回贴内容-------------------------------------------------------
+你这回复我看的到了N次。不创新，哈哈

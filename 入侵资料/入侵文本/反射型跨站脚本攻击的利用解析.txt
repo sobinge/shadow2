@@ -1,0 +1,304 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+反射型跨站脚本攻击的利用解析
+D8888D主贴内容-------------------------------------------------------
+让大家认识反射型XSS，不要搞破坏。我测试邪八时也是借助刺的文章 [img]http://www.t00ls.net/images/smilies/default2/xiudou[/img]
+
+版权所有，转载请注明出处！ 
+Author: [url=http://www.t00ls.net/mailto:axis@ph4nt0m.org]链接标记axis@ph4nt0m.org[/url]
+
+昨天好像不小心标题党了一下，今天整理好paper发出来，希望不会被口水淹没。
+
+我思考了很久才把这里面的错综复杂的关系整清楚，我想很多人看我下面的paper会睡着，或者干脆“一目百行”的跳过去，但如果你真的想弄懂，请调试我的每一个poc，会非常有助于理解(虽然你还是可能会晕)。请尊重俺的劳动成果，码这么多字不容易。欢迎技术讨论，但谢绝没仔细看就来指手画脚的。@_@
+
+首先，为了帮助大家更好的理解，我先讲讲这种攻击能够达成什么效果：
+1. 跨域执行脚本（IE、Firefox）
+2. 把非持久性XSS变成持久性XSS
+3. 跨页面执行脚本
+4. 浏览器将很难修补这一“特性”造成的威胁
+5. 当然还是有一些条件限制的,本篇只是在理论上描述了这种攻击。
+
+那么，什么是cross iframe，简单来说就是把iframe做一个迭代，以实现一些iframe之间的交叉数据访问。在正常的web应用中，许多地方都有用到这种技术，比如facebook，比如yahoo。
+
+但是由cross iframe引申出来一些安全隐患，则是我这里要探讨的重点。
+
+以下是我的测试环境：
+Windows XP SP2
+IE 6 SP2 (我只有IE6，没有IE7，请自行测试IE7)
+Firefox 2.0.0.16
+
+测试域名：
+[url=http://www.A.com]链接标记www.A.com[/url] （/1.html , /4.html）
+[url=http://www.B.com]链接标记www.B.com[/url] （/2.html , /3.html）
+
+这次测试主要使用了4个html页面，请牢记1.html和4.html是在域A下； 2.html和3.html是在域B下
+
+首先来看看什么是Cross Iframe， 他们又能干些什么。
+
+Rule1: 同一个页面下的两个iframe，如果这两个iframe指向同一个域，那么他们可以互相访问，并操作对方页面的脚本。
+
+
+在 [url=http://www.A.com]链接标记www.A.com[/url] 上，存在一个 1.html ，包含了两个iframe，这两个iframe分别引用了[url=http://www.B.com]链接标记www.B.com[/url] 上的两个页面。其代码如下：
+1.html:
+<iframe id="tt2_2" src="http://www.B.com/2.html" width="300" height="300" ></iframe>
+
+<iframe id="tt2_3" src="http://www.B.com/3.html" width="300" height="300" ></iframe>
+
+
+现在我们的目的就是利用 iframe：tt2_2 去调用 iframe：tt2_3里的javascript的函数。
+
+3.html的代码如下：
+3.html：
+<html>
+<body>
+
+<script>
+function alertpoc(){ 
+   alert("alert POC");
+}    
+</script>
+
+</body>
+</html>
+
+
+2.html的代码如下：
+2.html：
+<body>
+
+<script>
+window.onload = function() {
+    parent.frames["tt2_3"].alertpoc();
+}
+</script>
+
+</body>
+
+
+那么，当访问 [url=http://www.A.com/1.html]链接标记http://www.A.com/1.html[/url] 时，iframe：tt2_2中的脚本在[url=http://www.B.com]链接标记www.B.com[/url]执行了，它通过读父窗口的iframe：tt2_3，尝试在其中执行脚本函数alertpoc()。由于tt2_2与tt2_3同在[url=http://www.B.com]链接标记www.B.com[/url] 域中，所以他们之间不存在跨域问题，脚本被允许执行。
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1008/1008281345e4054bd8a5a0b96d.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=ODY4M3w0YmZkNWFiZXwxMjg2NDc5MjM2fDJhYTRzMkFmQ3FMbTFYc0FMYXREb3QwZGxrdkFuRXg4SmZ3aGp1YmFWTkVtYVM0&nothumb=yes]链接标记下载[/url] (23.31 KB)
+
+2010-8-28 13:45
+
+
+Rule2：域B能够以 iframe proxy 的方式，操作域A上的脚本，或者传递信息，实现跨域操作。
+
+什么叫iframe proxy呢？其实就是做了一次iframe的迭代。
+
+如下：
+[url=http://www.A.com/1.html]链接标记http://www.A.com/1.html[/url] 中包含一个iframe，指向 [url=http://www.B.com/3.html]链接标记http://www.B.com/3.html[/url]
+
+[url=http://www.B.com/3.html]链接标记http://www.B.com/3.html[/url] 中又包含一个iframe，指向 [url=http://www.A.com/4.html]链接标记http://www.A.com/4.html[/url]
+
+那么这个3.html就是一个iframe proxy，通过 3.html 就能从B域 向 A域的 4.html传递消息，如果4.html还有一些处理的话，就可以执行脚本。
+
+实例如下：
+1.html的代码：
+1.html：
+<script>
+// 1.html上的弹窗函数
+function tt1(fvck){
+    alert(fvck);
+}
+
+</script>
+
+<iframe id="tt2_2" src="http://www.B.com/2.html" width="300" height="300" ></iframe>
+
+<iframe id="tt2_3" src="http://www.B.com/3.html" width="300" height="300" ></iframe>
+
+
+同在 [url=http://www.A.com]链接标记www.A.com[/url] 域下的 4.html代码：
+4.html:
+<html>
+<body>        
+<script>
+    //parent.parent.tt1("fvck tt1"); 也可以
+    top.tt1("fvck tt1");     // 调用 1.html 里的 tt1() 函数
+    
+</script>
+
+</body>
+</html>
+
+
+在 [url=http://www.B.com]链接标记www.B.com[/url] 域下的3.html 作用是iframe proxy，其代码为：
+3.html:
+<html>
+<body>
+    
+<script>
+    var tt1_4 = document.createElement("iframe");
+    tt1_4.src = "http://www.A.com/4.html"; 
+    document.body.appendChild(tt1_4);
+</script>
+    
+</body>
+</html>
+
+访问 [url=http://www.A.com/1.html]链接标记http://www.A.com/1.html[/url] 后，将通过 [url=http://www.B.com/3.html]链接标记http://www.B.com/3.html[/url] ，利用 [url=http://www.A.com/4.html]链接标记http://www.A.com/4.html[/url] 执行 [url=http://www.A.com/1.html]链接标记http://www.A.com/1.html[/url] 的脚本
+
+如下：
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1008/10082813461d5be6d99367982f.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=ODY4NHwwMmIwMDRhOHwxMjg2NDc5MjM2fDJhYTRzMkFmQ3FMbTFYc0FMYXREb3QwZGxrdkFuRXg4SmZ3aGp1YmFWTkVtYVM0&nothumb=yes]链接标记下载[/url] (24.93 KB)
+
+2010-8-28 13:46
+
+
+
+正确执行了脚本。
+
+
+跨域的问题已经POC过了，那么存在什么样的风险呢？
+
+先讲跨域的问题。
+
+首先，由于4.html在这里关联性最小，所以我们假设4.html是我们在域A下上传的某个文件，或者是存在XSS漏洞的某个页面。
+
+那么对于域A下的页面 1.html，它包含了 域B的3.html，当域B下的3.html被恶意用户控制时，恶意用户就可以通过4.html，直接攻击到 1.html
+
+所以我们有了第一个攻击方法：
+Attack Vector 1：控制iframe proxy后可以跨域攻击父页面
+
+由于域B和域A不是同一个域，所以域A的安全级别和一些防范措施很可能无法涉及到域B，这种信任上的危机将带来一定的风险。
+
+请注意和普通挂马或者是XSS攻击不同的是，域A上的这个页面是我们无法控制或篡改的，但他正好包含了一个指向域B上页面的iframe，所以我们才可以通过域B上的那个页面跨域攻击它。
+
+比如，[url=http://www.baidu.com/av.html]链接标记www.baidu.com/av.html[/url] 可能包含了某个广告网站的一些页面，他使用的是iframe的方式： <iframe src="http://www.advertise.com/evil.html" >
+
+那么这个时候，攻击者如果能够控制evil.html，就可以在evil.html 中包含一个指向 [url=http://www.baidu.com/evilupload.html]链接标记http://www.baidu.com/evilupload.html[/url] 的iframe；
+
+当正常用户浏览 [url=http://www.baidu.com/av.html]链接标记http://www.baidu.com/av.html[/url] 时候，就会受到来自 evilupload.html 的XSS攻击， 而攻击的来源是 [url=http://www.advertise.com/evil.html]链接标记http://www.advertise.com/evil.html[/url] 发起的。
+
+这种跨域的攻击将会极其隐蔽，因为真正的恶意脚本是写在evilupload.html 里的，所以即便查看了 av.html 和 evil.html 的代码也无法看到任何恶意脚本，只能看到两个iframe。
+
+对于IE 6， 甚至可以把 4.html 改名为 4.JPG 或者 4.RAR， 在iframe proxy中引用后，都将执行脚本。(想到GIFAR没？)
+
+而Firefox 2 则必须保持为 html 文件才能保证脚本的执行。
+
+控制evil.html的方法有很多种，最常见的包括直接攻击域B服务器、篡改客户端网络中的数据、或者是在evil.html 中放置一个 持久性的XSS，都将导致 evil.html 被控制
+
+
+通过控制 evil.html，调整不同的iframe src地址，我们可以得到第二种攻击方法。
+Attack Vector 2：在iframe proxy中直接引用一个非持久性XSS（反射XSS），可以让该XSS在父窗口中持久存在。
+
+很多人非常鄙视非持久性XSS（反射型XSS），认为这种XSS只能依靠欺骗的手段去骗人点击，才能让攻击正常实施起来。
+
+其实让非持久性XSS变得持久的方法，已经出现过好多次了。比如利用applet、利用flash的AS脚本、利用IE的Ghost 页面。
+
+那么今天这种方法又要多一个了：利用 Cross Iframe Trick
+
+实例如下：
+设想[url=http://www.A.com/4.html]链接标记http://www.A.com/4.html[/url] 存在一个XSS漏洞，其代码如下：
+4.html：
+<html>
+    <body>        
+<script>
+    //parent.parent.tt1("fvck tt1");
+    //top.tt1("fvck tt1");
+
+    document.write("<input id=\"aaa\" value=\'test"+window.location.href+"\' >");   
+</script>
+
+</body>
+</html>
+
+这里存在一个基于DOM的XSS漏洞，当在浏览器地址栏里输入：
+[url=http://www.A.com/4.html#]链接标记http://www.A.com/4.html#'[/url]><script>alert(/XSS/);</script><'
+时，alert()将被执行。
+
+此时，利用 Cross Iframe技术，在 3.html 中直接构造iframe地址为XSS的地址。
+3.html：
+<html>
+<body>
+    
+<script>
+    //function alertpoc(){ alert("alert POC"); }    
+
+    var tt1_4 = document.createElement("iframe");
+    tt1_4.src = "http://www.A.com/4.html#\'\>\<script\>alert(\"Domain=\"+document.domain)\;\</script\>\<\'";
+    document.body.appendChild(tt1_4);
+</script>
+    
+</body>
+</html>
+
+
+访问 [url=http://www.A.com/1.html]链接标记http://www.A.com/1.html[/url] 后，4.html里的XSS漏洞将被利用，并弹出可爱的小框框
+
+
+
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1008/100828134671a6ff5865844a10.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=ODY4NXxlY2MyZWYxNHwxMjg2NDc5MjM2fDJhYTRzMkFmQ3FMbTFYc0FMYXREb3QwZGxrdkFuRXg4SmZ3aGp1YmFWTkVtYVM0&nothumb=yes]链接标记下载[/url] (25.93 KB)
+
+2010-8-28 13:46
+
+
+如果说，前面讲的两种方法是利用的Rule 2，那么Rule 1能否利用起来呢？思考后，发现Rule 1虽然没有跨域风险高，但还是会带来一些问题的。
+Attack Vector 3：如果域A下的某个页面z中，包含了指向域B的两个iframe，分别是x和y；那么x能够通过z，对y的某些对象进行一定的修改，从而篡改数据，或者是篡改函数的参数，执行脚本。此时z起着iframe proxy的作用。
+
+这段话可能有点拗口，其实就是父窗口在这里起了iframe proxy的作用。根据rule 1，我们有以下实例：
+2.html：
+<script> 
+window.onload = function() {
+    parent.frames["tt2_3"].document.getElementById("3").value="222";
+    parent.frames["tt2_3"].alertpoc1();
+}
+</script>
+
+2.html将调用 3.html 中的 alertpoc1()函数，并修改 input框的值为222
+
+3.html：
+<html>
+<body>
+<script> 
+    //function alertpoc(){ alert("alert POC"); }
+    function alertpoc1(){ alert(window.location.href); }    
+</script>
+
+<input id="3" value="333" >
+</body>
+</html>
+
+
+此时，访问[url=http://www.A.com/1.html]链接标记http://www.A.com/1.html[/url] 后，发现input的值被成功修改，同事alertpoc1弹出显示的是3.html的地址。
+
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1008/10082813462ffb594d2a22a866.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=ODY4NnxiYzY5OTFmYnwxMjg2NDc5MjM2fDJhYTRzMkFmQ3FMbTFYc0FMYXREb3QwZGxrdkFuRXg4SmZ3aGp1YmFWTkVtYVM0&nothumb=yes]链接标记下载[/url] (22.24 KB)
+
+2010-8-28 13:46
+
+这种攻击实际上还是攻击的 [url=http://www.A.com]链接标记http://www.A.com[/url] 下的 1.html 这个页面（注意这个是和普通XSS攻击的本质区别，攻击的目标页面不同），因为iframe： 3.html 是显示在 1.html 里的。在实际中用到这种情况的可能是某个页面里要显示一个报表，那么这个报表可以采用iframe的方式嵌入在页面中。
+
+实施这种攻击，可以随意篡改报表里的数据。攻击来源却是在另外一个iframe里实现的，和当前的1.html 没有直接关系。
+
+如果结合JSON Hijacking，直接在2.html中调用 3.html 里的一些回调函数，窃取敏感数据，也可能会起到一些意想不到的作用。因为在这里，我们再次把JSON CallBack函数持久化了，而且json返回的数据将显示在1.html里，更具有欺骗性。
+
+所以这第三种攻击方法在篡改数据方面带来了更高的风险。
+
+
+
+以上可以看出，Cross Iframe Trick最大的优势就是隐蔽性
+攻击就像来自天外一样，几乎无迹可寻。
+
+
+
+局限性：
+1、首先iframe是限制发送cookie的，本地存储的stored cookie将不被发送，只能发送一个session cookie。浏览器的这个安全特性将使得我们使用XSRF的可能性更低。
+     但也不是没有办法，比如在 4.html 里使用一个 window.open() 就能够发送出stored cookie了，当然可能还有更好的方法。
+     不过虽然限制了cookie，导致XSRF会有些困难，但是能够执行目标域下的脚本，还是非常有价值的一件事情，已经可以完成许多攻击了。
+
+2、其次，要在A域寻找到这样一个用iframe包含B域的页面，并且去控制iframe中的B域页面，才是最为不容易的事情。这个条件是比较苛刻的。如果有朋友能找到现实网站中的案例，请给我一个反馈。
+
+
+
+
+最后，正如最开始所说，要修补这种漏洞非常困难，因为这完全是浏览器的正常功能。如果要限制iframe的话，微软自己在IE里实现了iframe的一个security属性，可以限制框架页面里脚本的执行。也许还有其他的方法可以来对抗，但是，就不是我们今天要讨论的话题了。
+
+我虽然只是在理论上提出了Cross Iframe Trick这种威胁，但是我认为这几乎可以算成是一种漏洞类型。它是许多脚本攻击技术的结合应用技巧，而程序员又往往会忽略这些地方。所以这种威胁是真实存在的，而且是可以长期挖掘和利用的一种“漏洞类型”
+
+
+
+PS: 本来准备拆成几篇的，不过为了完整性，还是整一篇吧！

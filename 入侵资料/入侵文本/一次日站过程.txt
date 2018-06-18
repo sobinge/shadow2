@@ -1,0 +1,116 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+一次日站过程
+D8888D主贴内容-------------------------------------------------------
+ 
+
+我很懒，懒贴得图。
+【由于害怕怕被JC叔叔请去喝茶，我以下所发表的内容不完全代表本人的意见。不排除黑客入侵我机器，盗走都账号在此发表。文中网址都已和谐！该站点网址用[url=http://www.xxbing.com]链接标记www.xxbing.com[/url]代替】
+
+     美女同学要看言情小说，[url=http://www.xxbing.com]链接标记www.xxbing.com[/url] 的言情小说要收钱，于是就帮她找找“空子”！
+
+     在[url=http://tool.chinaz.com/]链接标记http://tool.chinaz.com/[/url]查了一下[url=http://www.xxbing.com]链接标记www.xxbing.com[/url]信息，日IP访问量快达到40W了。很牛逼呀。全站采用php构架。nignx服务器。好了，废话结束。进入正题。
+
+     首先我注册了一个账号，然后我登陆作者平台，申请成为作者需要提交自己的原创作品。于是我上baidu搜索了一本很多年前的小说，提交了几章，等待审核。
+
+     几天后，成功的申请成为作者。经过1-2个小时的手工测试，成功的在管理作品处寻到一个注射点。
+     类似： book.php?bookid=123
+       我提交 book.php?bookid=123 and 1=1 [正常]
+              book.php?bookid=124-1             [正常]
+              book.php?bookid=123 and 1=2  [错误]提示权限不足。
+         book.php?bookid=124                 [错误]提示权限不足。
+     可以判断这里是注射点了，为什么会提示权限不足，应该是每个bookid代表一本图书，有其他字段控制着作者信息，防止非法编辑他人作品。
+
+     用order判断出有53个字段。
+
+     book.php?bookid=123 and 1=2 union select 1,2,3,……,52,53# 提示：[错误]提示权限不足。
+
+     绝对是其中某个位置的数字不正确，导致系统判断我编辑了其他人的图书。于是我把注射点丢到pangolin里面暴力跑字段。成功的跑出53个字段名出来。（一个字符一个字符的暴力猜解。跑了很久）
+
+     然后提交： book.php?bookid=123 and 1=2 union select 字段名1,字段名1,字段名3,……,字段名52,字段名53# 成功显示正常页面。
+
+     接着我把字段名1、字段名2等等，一个个替换成数字，这个过程中一直显示正常页面。终于到了字段名13的时候，出错了，提示权限不足。那就可以跑了。
+
+      book.php?bookid=123 and 1=2 union select 1,2,3,…,字段名13,…,52,53# 正常页面，页面上出现我定义的数字。
+
+     接下来就丢到WSI 5.1里面跑数据。很可惜，数据库里面只有一些作品内容，也有编辑用户表，所有编辑账号密码都有，但是找不到后台。
+
+     于是我开始寻找绝对路径，也找了N久，后来被我在上传图片处找到。上传一张图片，系统会自动生成该图片的缩略图，我上传一个文本图片，处理的时候出错了。爆出了绝对路径。
+      [/opt/data/www/xxx.cn/common/include/upfile.php]
+
+        用load_file能读出来。顺藤摸瓜，成功读到Mysql账号密码。
+     mysql账号：  Myuser
+       密码： (Myuser.pass)
+
+      可惜该服务器3306端口外部无法连接【ip:111.111.111.58】。服务器开了GPC，无法导SHELL。【陷入此步1个多月。】
+
+     一个月后，我一次百无聊赖的又用wsi看数据库，看到MySql库中user表里面的内容。
+
+真实地址已处理 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]1localhost  root  *C8169C29D82108D9D608E702575A2371348AAB32   
+
+2localhost  Myuser  *CDBC867991BB13C75EED082F7A1CBFC14DB97E31   
+
+3111.111.111.59  Myuser  *CDBC867991BB13C75EED082F7A1CBFC14DB97E31   
+
+4222.222.222.56  Myuser  *CDBC867991BB13C75EED082F7A1CBFC14DB97E31   
+
+5111.111.111.58  Myuser  *CDBC867991BB13C75EED082F7A1CBFC14DB97E31   
+
+6222.222.222.55  Myuser  *CDBC867991BB13C75EED082F7A1CBFC14DB97E31   
+
+7111.111.111.61  Myuser  *CDBC867991BB13C75EED082F7A1CBFC14DB97E31   
+
+8111.111.111.52  Myuser  *CDBC867991BB13C75EED082F7A1CBFC14DB97E31  
+才发现原来有很多IP有权限连接，选择了拿111.111.111.61服务器。上面有个解梦类网站。采用的是DreamArticle_V3.0系统。网上搜索该系统漏洞无果。
+
+   自己上网下载该代码，阅读源代码，挖掘出0day一枚。根目录下show.php注射点。
+
+   show.php?id=%cf'%20union%20select%201,2,3,11,5,@version,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23%23
+
+     得到管理员md5值，破解管理员md5，登陆默认地址。在后台系统配置处getwebshell一个。【此处感谢国际黑客的友情帮助。】
+
+   开工，连接目标服务器服务器Mysql成功。可以111.111.111.58服务器权限设置太紧。导shell的时候提示：mysql can't write file.[error:113]
+  
+    陷入僵局，突然灵机一动，该站应该还有几台服务器，都在111.111.111.x段内。于是ping到另一分站ip:111.111.111.56
+
+    还是用原来的mysql账号和密码，成功连接上56服务器的mysql。根据111.111.111.61服务器上的nignx安装地址，读取了56服务器的nignx.conf文件代码。
+
+  找到[url=http://www.xxbing.com的分站home.xxbing.com]链接标记www.xxbing.com的分站home.xxbing.com[/url]的绝对路径。导出Webshell一枚。56服务器是一台关键的服务器，因为[url=http://www.xxbing.com]链接标记www.xxbing.com[/url]所有会员表都在上面。
+
+  通过56服务器的nignx.conf配置文件，看到了残留的后台管理地址bj.[url=http://www.xxbing.com]链接标记www.xxbing.com[/url]。（以前存放在56服务器，后搬走了，但是nignx.conf里面的后台url地址没删除）
+
+  在56服务器的mysql数据库中找到超级管理员的账号密码，登陆bi.[url=http://www.xxbing.com]链接标记www.xxbing.com[/url]，进入后台。发现后台有个上传专题功能，于是我传了一匹 php木马上去。又得到一台服务器。ip: 111.111.111.52
+
+  总结一下：
+  我现在拥有 111.111.111.56
+                   111.111.111.52
+                   111.111.111.61 
+  这3台服务器的权限。（全部是linux服务器）上面有分站若干个，还有所有重要数据库。
+
+主站点[url=http://www.xxbing.com]链接标记www.xxbing.com[/url]不在上面。主站采用cdn加速，无法得到真实IP。
+
+没办法，我一定要拿到58服务器，上去找一找。（拿58服务器过程非常困难，花了很多心思，这里不表。）
+
+为了扩大战果，我用udev漏洞得到了52服务器的root权限。关闭了该服务器的防火墙，安装了一个Rootkit，功能是记录root  ssh登陆密码,并且设置一个ssh超级密码。【此处感谢XX同学提供linux内部后门，以及技术支持。】
+
+2天后，root密码被记录到，我连接58服务器的mysql，读取了/etc/ssh/ssh_config文件，得到ssh 端口为7777，但是外部无法连接，我先登陆上52服务器，然后ssh -p 7777 111.111.111.58
+
+  输入记录的密码成功登陆58服务器。上面分站不少，可惜还是没有主站点。甚至连 [url=http://www.xxbing.com]链接标记www.xxbing.com[/url]的真实IP都不知道。唉，失败。
+
+查看了我现在拥有的4台服务器，发现基本所有的分站都被搞定了。我肯定还漏了一台。
+
+于是用熊猫黑客写的旁注大杀器【论坛有下】，扫描111.111.111.x段，没有结果。这时候，突然想起mysql.user表。主站要读取数据，肯定要连接这4台服务器的MYSQL。
+
+于是翻看了4台服务器上的所有mysql.user表。终于发现其IP地址。222.222.222.1
+
+远程ssh，连不上。继续用先前得到的mysql账号密码连，OK，连上了。读nignx配置，导木马。搞定。
+
+最后传一张图吧。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004262226075fb7ca236c1645.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTQzNXw2MWQ1YTljY3wxMjg2NDgwMTkxfDRjZmN5TXNEWGFodXdnYkhYRGQrNVlVS3BkdTh0VjYvbXVjU0gxZXBRSmQwVVBB&nothumb=yes]链接标记下载[/url] (22.69 KB)
+
+2010-4-26 22:26
+
+
+ps:这些过程，一起花费接近5个月。战果也是丰硕的，一个RP7站，一个RP6。
+有疑问的回复提问吧。

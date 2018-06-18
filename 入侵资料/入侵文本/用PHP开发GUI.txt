@@ -1,0 +1,146 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+用PHP开发GUI.
+D8888D主贴内容-------------------------------------------------------
+国内比较少的文章，PHP开发GUI..
+一个简单的记事本（只可以打开文件进行修改）
+<?php
+set_time_limit (0);       // 设置运行时间
+
+
+
+if (!class_exists ("gtk"))           // 判断是否有GTK模块
+    if (strtoupper (substr ($_SERVER["OS"], 0, 3)) == "WIN")
+        dl ("php_gtk.dll");
+    else 
+        dl ("php_gtk.so");
+
+$window = &new GtkWindow ();              // 建一个窗口
+$window->set_uposition (100, 100);        // 窗口出现位置
+$window->set_usize ((gdk::screen_width()-200), (gdk::screen_height()-150)); // 窗口大小
+$window->set_title ("WINDOWS");         // 设置窗口标题
+$window->connect_object ('destroy', array ('gtk', 'main_quit'));     // 注册窗口的事件
+
+$vbox = &new GtkVBox ();          
+$hbox = &new GtkHBox ();        
+$window->add ($vbox);
+
+
+$menuBar = &new GtkMenuBar ();               // 创建菜单
+$vbox->pack_start ($menuBar, false, false, 0);
+
+$file = &new GtkMenuItem ("File");
+$menuBar->append ($file);
+
+$fileMenu = &new GtkMenu ();
+$open = &new GtkMenuItem ("Open");
+$save = &new GtkMenuItem ("Save");
+$line = &new GtkMenuItem ();
+$line->set_sensitive (true);
+$exit = &new GtkMenuItem ("Exit");
+$fileMenu->append ($open);
+$open->connect_object ('activate', 'showFileSelection');       
+$fileMenu->append ($save);
+$save->connect_object ('activate', 'saveFile');
+$fileMenu->append ($line);
+$fileMenu->append ($exit);
+$exit->connect_object ('activate', array ('gtk', 'main_quit'));
+
+$file->set_submenu ($fileMenu);
+
+$scroll = &new GtkScrolledWindow ();
+$scroll->set_border_width (8);
+$scroll->set_policy (GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+$hbox->pack_start ($scroll, true, true, 0);
+$vbox->pack_start ($hbox, true, true, 1);
+
+$text = &new GtkText ();
+$text->set_editable (true);
+$text->set_word_wrap (true);
+$scroll->add ($text);
+
+function showFileSelection ()           // 文件选择函数
+{
+    $file = &new GtkFileSelection ("File Selection");
+    $ok_button = $file->ok_button;
+    $ok_button->connect ('clicked', 'openFile', $file);
+    $ok_button->connect_object ('clicked', array ($file, 'destroy'));
+    $cancel_button = $file->cancel_button;
+    $cancel_button->connect_object ('clicked', array ($file, 'destroy'));
+    $file->show ();
+}
+
+$filePath = null;
+function openFile ($button, $f)          // 打开文件的函数
+{
+    GLOBAL $text, $save, $filePath;
+    $filePath = $f->get_filename ();
+    if (is_file ($filePath))
+    {
+        $fp = fopen ($filePath, 'r');
+        while (!feof ($fp))
+            $str .= fgets ($fp, 1024);
+        $text->insert (null, null, null, $str);
+        fclose ($fp);
+        return $filePath;
+    }
+}
+
+function saveFile ()                // 保存文件的函数
+{
+    GLOBAL $filePath, $text;
+    if (is_file ($filePath))
+    {
+        $str = $text->get_chars (0, -1);
+        $fp = fopen ($filePath, 'w');
+        fwrite ($fp, $str);
+        fclose ($fp);
+    }
+    return;
+}
+
+$window->show_all ();             // 显示窗体内的所有控件
+gtk::main ();                      // 最重要的一句，不可少的
+?>
+
+
+
+附：php/gtk配置
+
+实战PHP/GTK(转载) 
+
+刁馋 发表于 2002-2-19 15:25 PHP编程 ←返回版面     
+
+以前PHP被认为只能用来编写服务器端的CGI程序，如果说PHP能够开发Windows下的GUI（图形用户界面）程序，你相信吗？最近，PHP的开发小组成功开发出了捆绑GTK+的PHP，那么就可以开发Windows下的GUI程序了。 
+
+一、建立PHP/GTK运行环境： 
+其实GUI程序和普通的PHPCGI程序没有什么区别，不过是PHP/GTK程序由GTK的类来生成GUI界面而已，他们同样是开放源代码，靠PHP来解析建立窗口。如果你已经建立好了PHP的调试环境，那么安装PHP/GTK环境比较简单： 
+1、下载php_gtk.dll（这个dll文件用于解析PHP源程序里面的GTK代码），下载后将其解压到PHP的扩展（extension）目录中； 
+2、下载其他PHP/GTK的dll文件（一共6个），将他们解压缩到Windows的system32目录里面； 
+3、打开php.ini，在扩展设置部分“Windows Extensions”最下面加入“extension=php_gtk.dll”的语句，建议先备份php.ini，避免修改失败使得建立好的PHP运行环境作废； 
+现在就建立好了PHP/GTK的运行环境了。当然，你也可以不作第二步，而改为在每个PHP/GTK程序源代码的第一行加入“dl('php_gtk.dll')”来动态加载GTK的支持。 
+如果你还没有建立PHP运行环境，那么安装要更加简单： 
+1、下载整个PHP/GTK的捆绑支持包，然后将他们解压缩到c盘的PHP4目录下面； 
+2、将winnt目录下面的dll文件拷贝到Windows的system32目录中，将php.ini文件拷贝到Windows的目录中； 
+建立好了PHP/GTK的运行后，可以用命令行模式的PHP来运行一个PHP/GTK程序：在运行中输入“c:\php4\php -q gtkprogrampath”，其中“c:\php4\php”改为PHP.EXE的路径，“gtkprogrampath”就是PHP/GTK程序的路径。比如：“c:\php4\php -q c:\php4\samples\hello.php”将会运行PHP/GTK运行包中附带的例子“hello world”程序。 
+
+二、编译PHP/GTK程序： 
+如果你作出一个PHP/GTK的应用程序，还需要对方的电脑建立PHP的运行环境并且使用PHP命令行模式来解析才可以执行的话，那就过于复杂了。那么怎么样才可以编译一个PHP/GTK的程序呢？经过一番搜索，笔者发现了PHPCompiler这个软件。 
+PHPCompiler由[url=http://www.deskcode.com]链接标记www.deskcode.com[/url]开发（[url=http://www.deskcode.com/phpcompiler]链接标记http://www.deskcode.com/phpcompiler[/url]），可以将PHP编译成为EXE可执行文件，内置了PHP的支持，如果你要编译一个PHP/GTK程序，必须建立PHP/GTK的运行环境（参照前面的步骤）。要编译一个PHP/GTK程序的步骤如下： 
+1、打开PHPCompiler（如图），在“Script to”选择希望编译的PHP程序源代码，在“Destination”处选择编译成功后的EXE文件的路径； 
+2、点击“Compile”按钮，会弹出一个对话框询问使用的编译模式（如果是PHP/GTK程序就选择no，是单纯的PHPCGI程序就选择yes）； 
+3、然后又会弹出一个对话框询问是否拷贝php4ts.dll文件到编译后的EXE文件的目录，选择yes。 
+经过上面的步骤，一个PHP/GTK程序就成功编译了，但是对于编译PHP/GTK程序还有几个需要注意的地方： 
+1、编译完成后的可执行文件如果需要执行，PC机上面必须具有GTK运行环境所需的几个dll文件（就是前面下载的那几个），如果需要作成应用程序，可以在安装的时候将几个dll文件拷贝到system32目录中（不过这样子程序也就不是“绿色软件”了^_^）。 
+2、PHPCompiler本身对于PHP的支持非常好，但是有些人试过用一些需要扩展支持的函数，比如“gzopen”等等，在编译之前还好好的，编译完毕后就不能用了。其实编译完成后的可执行文件，相当于了只有默认的PHP支持（连GTK支持都没有了），所以如果在程序中应用了任何需要扩展支持的函数，都必须动态的加载支持函数的dll文件，比如“dl('php_gtk.dll')”，这样子编译完成后才不会出错。 
+3、运行一个编译后的可执行文件，都会先弹出一个DOS窗口，然后自动关闭，因为每个GUI窗口都是通过GTK来“绘制”出来的，所以必须会有那个窗口。 
+4、或许以前PHP还不能说是真正的OOP（面向对象程序）语言，但是到了PHP/GTK，任何一个窗口都由GTK对象来“绘制”，如果没有过硬的OOP功底，是很难写出GUI程序的。 
+
+三、PHP/GTK资源： 
+1、[url=http://gtk.php.net]链接标记http://gtk.php.net[/url]：PHP/GTK的官方网站；虽然说是官方网站，但是确简陋的很，出了一个FAQ和邮件列表，几乎找不到任何有用的东西了， 
+2、[url=http://www.phpgtk.com]链接标记http://www.phpgtk.com[/url]：一个界面比较好的PHP/GTK网站，有最新的版本信息。 
+3、[url=http://developer.gnome.org/doc/API/gtk/gtkobjects.html]链接标记http://developer.gnome.org/doc/API/gtk/gtkobjects.html[/url]：PHP/GTK函数和类的大全/手册网站，里面有十分丰富的PHP/GTK资料。 
+4、[url=http://www.phpuk.org/gtk/]链接标记http://www.phpuk.org/gtk/[/url]：非官方版本的GTK手册网站，简单易懂。 
+
+如果大家认为E文比较难看，也可以来zphp.com下载最新的PHP/GTK运行环境和支持包

@@ -1,0 +1,37 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+提权拿安全中国服务器
+D8888D主贴内容-------------------------------------------------------
+ 
+
+作者 wjs
+qq 825680101
+
+
+朋友发shell让我帮忙提权，过程写出来分享给大家。
+安全中国用的是dedecms,如果是5.5版本在这data/common.inc就可以找到root名字和密码
+
+root找到后用好用孤水绕城写的UDF.PHP来提权，免杀的很好用。
+上传了个port.exe先读端口图1
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1003/10031712204e5952b73fa7165a.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NDIxNXw4NDhmNWY5OHwxMjg2NDgxMjAwfDg4ZTBpTXJpTzRuM2VnOFFEa0ZuWDUzcUY0NkVaR2hxTlhVcGgvbUlOUXpoRVVn&nothumb=yes]链接标记下载[/url] (78.91 KB)
+
+2010-3-17 12:20
+
+
+
+
+
+然后把sethc替换成explorer,图2
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1003/100317122779ce0ff00bc7d962.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NDIxOHwwMWZjYWE2ZHwxMjg2NDgxMjAwfDg4ZTBpTXJpTzRuM2VnOFFEa0ZuWDUzcUY0NkVaR2hxTlhVcGgvbUlOUXpoRVVn&nothumb=yes]链接标记下载[/url] (32.3 KB)
+
+2010-3-17 12:27
+连接服务器按5次shift出现C盘，找到这个文件C:\WINDOWS\system32\lusrmgr.msc
+加个用户，加完记得给他加上administrators这个组里，不然3389连接不上
+图3，很简单就获得服务器权限了
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1003/100317122612b01e44da47a5c9.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NDIxN3w4MWRkYTAyMnwxMjg2NDgxMjAwfDg4ZTBpTXJpTzRuM2VnOFFEa0ZuWDUzcUY0NkVaR2hxTlhVcGgvbUlOUXpoRVVn&nothumb=yes]链接标记下载[/url] (60.37 KB)
+
+2010-3-17 12:26
+ [img]http://www.t00ls.net/images/attachicons/rar.gif[/img][url=http://www.t00ls.net/attachment.php?aid=NDIyMXxjYTExZmUxYXwxMjg2NDgxMjAwfDg4ZTBpTXJpTzRuM2VnOFFEa0ZuWDUzcUY0NkVaR2hxTlhVcGgvbUlOUXpoRVVn]链接标记mysql_udf.rar[/url] (37.83 KB) 下载次数: 283
+
+2010-3-17 13:43

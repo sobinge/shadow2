@@ -1,0 +1,10 @@
+vBulletin 4.X 后台拿 WebShell
+这两天搞到这个东西,网上找来的,顺手发出来做个记号,希望遇到的基友,能一路秒杀,谷哥大爷也有.....
+
+Plugins & Products选项>>Add New Plugin(添加一个新插件)
+
+Hook Location 选择ajax_complete,Title处随便写了,Plugin PHP Code :写入一句话;
+
+
+
+直接访问http://xxooxooo.com/ajax.php 一句话

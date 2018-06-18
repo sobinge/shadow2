@@ -1,0 +1,60 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+记一次虚拟机简单提权
+D8888D主贴内容-------------------------------------------------------
+作者：情深
+   
+今天朋友发来个shell  让看下提权
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1003/100326000665cbeccb2560f841.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NDQ2N3w4NmI3YjNkOHwxMjg2NDgxMjU0fDYzMDVtK1hOK2c1YlZPQm1MVzRuRGNERHZWMktZVXZ3aHlMem5zVGxGWFdEZXh3&nothumb=yes]链接标记下载[/url] (6.34 KB)
+
+2010-3-26 00:06
+
+只有一个硬盘 一定是虚拟机了
+
+先不管他虚拟机不虚拟的 先看下权限吧
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1003/10032600096f410e6c5efd7107.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NDQ2OHw1MzFmYjg0MXwxMjg2NDgxMjU0fDYzMDVtK1hOK2c1YlZPQm1MVzRuRGNERHZWMktZVXZ3aHlMem5zVGxGWFdEZXh3&nothumb=yes]链接标记下载[/url] (7.67 KB)
+
+2010-3-26 00:09
+
+能 net user 看来是权限不小的 (当然直接建帐号的权限是没有了)
+
+通过查看 发现上面装有360 [img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1003/10032600128fa51dfabbe50d30.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NDQ2OXxhMmRmMzY4Y3wxMjg2NDgxMjU0fDYzMDVtK1hOK2c1YlZPQm1MVzRuRGNERHZWMktZVXZ3aHlMem5zVGxGWFdEZXh3&nothumb=yes]链接标记下载[/url] (8.3 KB)
+
+2010-3-26 00:12
+
+第一时间想到的是前段时间出的360提权exp
+
+直接上传360的exp 。。 杯具发生了
+
+用shell上传的所以文件都属于损坏了的
+
+即使上传个ASP文件都不行
+
+先暂停下 360提权的思路 继续
+
+没办法上传陷入僵局。。但是有修改的权限
+
+直接把里面的一个 txt文件 修改成VBS加管理命令
+
+然后移动到启动项目 [img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1003/1003260017b17c99602c4bf2a5.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NDQ3MHw4YmY0MTU2ZXwxMjg2NDgxMjU0fDYzMDVtK1hOK2c1YlZPQm1MVzRuRGNERHZWMktZVXZ3aHlMem5zVGxGWFdEZXh3&nothumb=yes]链接标记下载[/url] (17.11 KB)
+
+2010-3-26 00:17
+
+下面等待管理重新启动就行了  但是不能只要一直等着蛤 慢的狠
+
+看下有别的利用的地方没了。。又在上面发现Serv-U 
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1003/10032600182297208cf82c5c43.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NDQ3MXw0MDBmYzMyOHwxMjg2NDgxMjU0fDYzMDVtK1hOK2c1YlZPQm1MVzRuRGNERHZWMktZVXZ3aHlMem5zVGxGWFdEZXh3&nothumb=yes]链接标记下载[/url] (3.95 KB)
+
+2010-3-26 00:18通过查看 发现Serv-U 的密码是XXXX
+
+然后直接登陆 FTP  试了下 发现FTP里 上传的文件是不损坏的
+
+直接把 360exp 上传上去   成功拿下服务器 [img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1003/1003260023fa0e23b9e367a876.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NDQ3Mnw5NjAxOGZiNnwxMjg2NDgxMjU0fDYzMDVtK1hOK2c1YlZPQm1MVzRuRGNERHZWMktZVXZ3aHlMem5zVGxGWFdEZXh3&nothumb=yes]链接标记下载[/url] (10.2 KB)
+
+2010-3-26 00:23
+
+没啥技术含量。。。大鸟飞过。。勿笑

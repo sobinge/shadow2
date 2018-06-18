@@ -1,0 +1,8 @@
+[#] Vulnerable Files :
+ 
+/list.php?id=[sql]
+/members.php?id=[sql]
+/book.php?id=[sql]
+
+貌似老外能突破DEDECMS IDS 有些扯淡的0day，毕竟外国牛人多，这几个页面都是比较
+大众的页面能突破那可是灰常强大！

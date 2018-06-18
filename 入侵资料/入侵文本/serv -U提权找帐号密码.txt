@@ -1,0 +1,7 @@
+他没改的话就是默认密码   最好用aspx大马去提权
+
+改了的话在路径
+
+C:\Program Files\RhinoSoft.com\Serv-U\\ServUDaemon.ini
+
+可以查看md5加密的密码

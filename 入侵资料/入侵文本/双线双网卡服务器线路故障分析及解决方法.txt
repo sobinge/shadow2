@@ -1,0 +1,289 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+双线双网卡服务器线路故障分析及解决方法
+D8888D主贴内容-------------------------------------------------------
+ 
+
+文章作者:kuba8
+
+人遇到事才会想到去解决,我们溜客安全网服务器采用的是双线双卡接入方式,即网通,电信两条线路分别接入到服务器双网卡,这也是国内双线机房普遍采用的网络接入方式,但是由于是双线接入,所以导致服务器只能使用一个网关,如果使用电信网关,网通用户即使访问网通IP也会出现访问速度非常慢的情况,反之采用网通网关,电信访问用户也会遇到相同的问题,同时在服务器中会看到网卡非正常情况,如
+
+ [img]http://dx.176ku.com:81/wenzhai/UploadFiles_7336/201005/2010052900402753.gif[/img]
+
+右下角双网卡显示其中一个网卡故障时显示一个灯亮一个灯不变的情况
+
+[img]http://dx.176ku.com:81/wenzhai/UploadFiles_7336/201005/2010052900425665.gif[/img]
+
+故障时无发送数据
+
+我们就以服务器采用电信网关为例,事实上当网通线路访问者访问时,实际上走的还是电信的路由,那自然会出现访问速度慢的情况,因为南电信北网通的访问限制,这个不用细说
+
+那问题出现了,就要想办法去解决,因为我是黑客站嘛,所以跟一些圈内的朋友交流了一下,可能是我接触的圈太窄,或者圈里的朋友更注重网络安全攻与防,问了一圈没有给出一些详细的方法(基本上都没有遇到这样的问题,呵呵),那就只能自己找了一些资料,可以通过route add命令来解决,后来碰到一些有经验的人交流了一下,确定了这个方法可行的,以下我们就以实例来告诉大家如何解决这个问题
+
+服务器网卡设置情况
+
+网通IP:111.111.111.111
+
+网通网关:AAA.AAA.AAA.AAA
+
+电信IP:222.222.222.222
+
+电信网关:BBB.BBB.BBB.BBB
+
+我们要达到的目的就是当电信线路访问者访问网站时走电信网关,网通线路访问者访问网站时走网通网关(这个可能跟大家的理解有一些出入,不要认为电信访问者给个电信的IP就能根本解决问题,主要还是取决于网关)
+
+复制以下命令复制,建立一个.bat的批处理
+
+route add 58.16.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 58.17.0.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 58.17.128.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 58.18.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 58.19.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 58.20.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 58.21.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 58.22.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 58.240.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 58.242.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 58.244.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 58.246.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 58.248.0.0 mask 255.248.0.0 AAA.AAA.AAA.AAA
+route add 60.0.0.0 mask 255.248.0.0 AAA.AAA.AAA.AAA
+route add 60.8.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 60.10.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 60.11.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 60.12.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 60.13.0.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 60.13.128.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 60.14.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 60.16.0.0 mask 255.248.0.0 AAA.AAA.AAA.AAA
+route add 60.24.0.0 mask 255.252.0.0 AAA.AAA.AAA.AAA
+route add 60.28.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 60.30.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 60.31.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 60.55.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 60.208.0.0 mask 255.248.0.0 AAA.AAA.AAA.AAA
+route add 60.216.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 60.218.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 60.220.0.0 mask 255.252.0.0 AAA.AAA.AAA.AAA
+route add 61.48.0.0 mask 255.252.0.0 AAA.AAA.AAA.AAA
+route add 61.52.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 61.54.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 61.55.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 61.133.0.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 61.134.96.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 61.134.128.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 61.134.192.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 61.135.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 61.136.0.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 61.136.64.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 61.137.128.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 61.138.0.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 61.138.64.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 61.138.128.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 61.139.128.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 61.148.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 61.156.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 61.158.0.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 61.158.128.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 61.159.0.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 61.161.0.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 61.161.128.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 61.162.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 61.163.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 61.167.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 61.168.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 61.176.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 61.179.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 61.180.128.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 61.181.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 61.182.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 61.189.0.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 124.64.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 124.88.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 124.89.0.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 124.89.128.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 124.90.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 124.92.0.0 mask 255.252.0.0 AAA.AAA.AAA.AAA
+route add 124.128.0.0 mask 255.248.0.0 AAA.AAA.AAA.AAA
+route add 124.160.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 125.32.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 125.33.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 125.34.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 125.35.0.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 125.35.128.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 125.36.0.0 mask 255.252.0.0 AAA.AAA.AAA.AAA
+route add 125.40.0.0 mask 255.248.0.0 AAA.AAA.AAA.AAA
+route add 202.38.143.0 mask 255.255.255.0 AAA.AAA.AAA.AAA
+route add 202.96.0.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 202.96.64.0 mask 255.255.248.0 AAA.AAA.AAA.AAA
+route add 202.96.72.0 mask 255.255.248.0 AAA.AAA.AAA.AAA
+route add 202.96.80.0 mask 255.255.240.0 AAA.AAA.AAA.AAA
+route add 202.97.192.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 202.97.224.0 mask 255.255.248.0 AAA.AAA.AAA.AAA
+route add 202.97.232.0 mask 255.255.248.0 AAA.AAA.AAA.AAA
+route add 202.97.240.0 mask 255.255.240.0 AAA.AAA.AAA.AAA
+route add 202.98.0.0 mask 255.255.248.0 AAA.AAA.AAA.AAA
+route add 202.98.8.0 mask 255.255.248.0 AAA.AAA.AAA.AAA
+route add 202.98.16.0 mask 255.255.240.0 AAA.AAA.AAA.AAA
+route add 202.99.0.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 202.99.64.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 202.99.96.0 mask 255.255.248.0 AAA.AAA.AAA.AAA
+route add 202.99.104.0 mask 255.255.248.0 AAA.AAA.AAA.AAA
+route add 202.99.112.0 mask 255.255.240.0 AAA.AAA.AAA.AAA
+route add 202.99.128.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 202.99.160.0 mask 255.255.248.0 AAA.AAA.AAA.AAA
+route add 202.99.168.0 mask 255.255.248.0 AAA.AAA.AAA.AAA
+route add 202.99.176.0 mask 255.255.240.0 AAA.AAA.AAA.AAA
+route add 202.99.192.0 mask 255.255.248.0 AAA.AAA.AAA.AAA
+route add 202.99.200.0 mask 255.255.248.0 AAA.AAA.AAA.AAA
+route add 202.99.208.0 mask 255.255.240.0 AAA.AAA.AAA.AAA
+route add 202.99.224.0 mask 255.255.248.0 AAA.AAA.AAA.AAA
+route add 202.99.232.0 mask 255.255.248.0 AAA.AAA.AAA.AAA
+route add 202.99.240.0 mask 255.255.240.0 AAA.AAA.AAA.AAA
+route add 202.102.128.0 mask 255.255.248.0 AAA.AAA.AAA.AAA
+route add 202.102.136.0 mask 255.255.248.0 AAA.AAA.AAA.AAA
+route add 202.102.144.0 mask 255.255.240.0 AAA.AAA.AAA.AAA
+route add 202.102.160.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 202.102.224.0 mask 255.255.248.0 AAA.AAA.AAA.AAA
+route add 202.102.232.0 mask 255.255.248.0 AAA.AAA.AAA.AAA
+route add 202.102.240.0 mask 255.255.240.0 AAA.AAA.AAA.AAA
+route add 202.106.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 202.107.0.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 202.108.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 202.110.0.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 202.110.64.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 202.110.192.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 202.111.128.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 202.111.160.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 203.93.0.0 mask 255.255.252.0 AAA.AAA.AAA.AAA
+route add 203.93.4.0 mask 255.255.252.0 AAA.AAA.AAA.AAA
+route add 203.93.8.0 mask 255.255.255.0 AAA.AAA.AAA.AAA
+route add 203.93.64.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 203.93.140.0 mask 255.255.255.0 AAA.AAA.AAA.AAA
+route add 203.93.192.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 203.175.192.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 210.12.0.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 210.13.0.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 210.13.64.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 210.13.128.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 210.14.160.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 210.14.192.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 210.14.224.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 210.15.0.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 210.15.32.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 210.15.64.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 210.15.96.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 210.15.128.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 210.21.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 210.22.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 210.51.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 210.52.0.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 210.52.64.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 210.52.128.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 210.53.0.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 210.53.128.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 210.82.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 218.7.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 218.8.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 218.10.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 218.11.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 218.12.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 218.21.128.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 218.24.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 218.26.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 218.27.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 218.28.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 218.56.0.0 mask 255.252.0.0 AAA.AAA.AAA.AAA
+route add 218.60.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 218.62.0.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 218.67.128.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 218.68.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 218.104.0.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 218.104.128.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 218.104.160.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 218.104.192.0 mask 255.255.248.0 AAA.AAA.AAA.AAA
+route add 218.104.200.0 mask 255.255.248.0 AAA.AAA.AAA.AAA
+route add 218.104.208.0 mask 255.255.240.0 AAA.AAA.AAA.AAA
+route add 218.104.224.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 218.105.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 218.106.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 219.154.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 219.156.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 219.158.0.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 219.158.128.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 219.159.0.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 220.248.0.0 mask 255.252.0.0 AAA.AAA.AAA.AAA
+route add 220.252.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 221.0.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 221.2.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 221.3.0.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 221.3.128.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 221.4.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 221.5.0.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 221.5.128.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 221.6.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 221.7.0.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 221.7.32.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 221.7.64.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 221.7.96.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 221.7.128.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 221.8.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 221.10.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 221.11.0.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 221.11.128.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 221.11.192.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 221.11.224.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 221.12.0.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 221.12.128.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 221.13.0.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 221.13.64.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 221.13.96.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 221.13.128.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 221.14.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 221.136.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 221.192.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 221.194.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 221.195.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 221.196.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 221.198.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 221.199.0.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 221.199.32.0 mask 255.255.240.0 AAA.AAA.AAA.AAA
+route add 221.199.64.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 221.199.128.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 221.199.192.0 mask 255.255.240.0 AAA.AAA.AAA.AAA
+route add 221.200.0.0 mask 255.252.0.0 AAA.AAA.AAA.AAA
+route add 221.204.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 221.206.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 221.207.0.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 221.207.64.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 221.207.128.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 221.208.0.0 mask 255.252.0.0 AAA.AAA.AAA.AAA
+route add 221.212.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 221.213.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 221.214.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 221.216.0.0 mask 255.248.0.0 AAA.AAA.AAA.AAA
+route add 222.128.0.0 mask 255.252.0.0 AAA.AAA.AAA.AAA
+route add 222.132.0.0 mask 255.252.0.0 AAA.AAA.AAA.AAA
+route add 222.136.0.0 mask 255.248.0.0 AAA.AAA.AAA.AAA
+route add 222.160.0.0 mask 255.254.0.0 AAA.AAA.AAA.AAA
+route add 222.162.0.0 mask 255.255.0.0 AAA.AAA.AAA.AAA
+route add 222.163.0.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 222.163.32.0 mask 255.255.224.0 AAA.AAA.AAA.AAA
+route add 222.163.64.0 mask 255.255.192.0 AAA.AAA.AAA.AAA
+route add 222.163.128.0 mask 255.255.128.0 AAA.AAA.AAA.AAA
+route add 0.0.0.0 mask 0.0.0.0 BBB.BBB.BBB.BBB
+
+以上蓝色部分命令是添加指定网通IP段走网通网关线路
+
+以上红色部分命令是添加其余来访IP段走电信网关线路
+
+也可以在route后面加一个参数 -p 长期有效,不加-p的情况下每次重启服务器后运行一下批处理即可
+
+例:route -p add ***** 
+
+相对来说,国内网通IP段较电信IP段少,所以我是采用的服务器使用电信网关,通过route add命令来添加国内所有网通IP段,至此双线接入双网关访问故障彻底解决.希望这篇文章可以给广大站长一些帮助,草根站长命苦,什么时候能够解决南北互通的问题!!
+
+有不明白的可以跟我交流一下,QQ:4829593
+
+最后还要打个小广告,大家经常光临我们溜客,[url=http://www.176ku.com和www.17huan.com]链接标记www.176ku.com和www.17huan.com[/url],是不是觉得访问速度还行,呵呵!

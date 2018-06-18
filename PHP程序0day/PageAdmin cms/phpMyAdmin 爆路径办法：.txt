@@ -1,0 +1,6 @@
+phpMyAdmin ±¬Â·¾¶°ì·¨£º
+
+phpMyAdmin/libraries/select_lang.lib.php
+phpMyAdmin/darkblue_orange/layout.inc.php
+phpMyAdmin/index.php?lang[]=1
+phpmyadmin/themes/darkblue_orange/layout.inc.php

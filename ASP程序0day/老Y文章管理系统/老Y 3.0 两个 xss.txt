@@ -1,0 +1,78 @@
+老Y 3.0 两个 xss2011-10-31 14:08:14  
+
+代码我是两月个前看的。 网上应该也发出来了吧。。
+
+    代码:
+
+ 
+
+第一个
+
+ 
+
+ub savenew()
+
+        dim Title,Content,ClassID,sqlmoney
+
+        Title = LoseHtml(trim(request.form("Title")))
+
+        ClassID = LaoYRequest(request.form("ClassID"))
+
+        CopyFrom = LoseHtml(trim(request.form("CopyFrom")))
+
+        Author = LoseHtml(trim(request.form("Author")))
+
+        Content = request.form("Content")  '这里未过滤
+
+        myyn = LaoYRequest(request.form("myyn"))
+
+        mycode = LaoYRequest(request.form("code"))
+
+        if mycode<>Session("getcode") then
+
+        Call Alert("请输入正确的验证码！",-1)
+
+        end if
+
+        If session("postarttime")<>"" then
+
+                posttime8=DateDiff("s",session("postarttime"),Now())
+
+                  if posttime8<yaopostgetime then www.2cto.com
+
+                posttime9=yaopostgetime-posttime8
+
+                Call Alert ("话说的太快不好!"&posttime9&"秒后再发表。","-1")
+
+                  end if
+
+        end if
+
+ 
+
+第二个
+
+ 
+
+if (get_cookie('laoymood<%=request("ID")%>')=='<%=request("ID")%>')
+
+        {
+
+                alert("-_-|||，你不是表过态了嘛？！");
+
+        }
+
+        else {
+
+                url = "http://"+window.location.host+"<%=SitePath%>xinqing.asp?action=mood&id="+infoid+"&typee="+mood_id+"&m=" + Math.random();
+
+                makeRequest(url,'return_review1','GET','');
+
+        //moodzt = "1";
+
+        document.cookie='laoymood'+infoid+'='+infoid+'';
+
+        }
+
+ 
+

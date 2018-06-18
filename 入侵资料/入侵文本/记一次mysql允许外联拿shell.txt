@@ -1,0 +1,27 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+记一次mysql允许外联拿shell
+D8888D主贴内容-------------------------------------------------------
+文章作者:wjs
+qq 825680101
+
+和朋友一起检测一个php站，发现很有趣的事情。把注入点放到havij(国外注入工具)检测
+[url=http://www.xxx.com/article.php?id=10]链接标记http://www.xxx.com/article.php?id=10[/url]
+[url=http://www.176ku.com/anquan/UploadFiles_3093/201002/2010020718333426.jpg]链接标记[img]http://www.176ku.com/anquan/UploadFiles_3093/201002/2010020718333426.jpg[/img][/url]
+Root信息也检测出来了，图1
+用mysqlsha1破解root密码，密码是是89091212
+第一次遇见能外联的mysql,之前看过文章，挺兴奋的。记得可以写一句话。
+用sql_global.php这个shell,里面有个执行mysql功能，有写入文件的功能。图2
+[url=http://www.176ku.com/anquan/UploadFiles_3093/201002/2010020718340117.jpg]链接标记[img]http://www.176ku.com/anquan/UploadFiles_3093/201002/2010020718340117.jpg[/img][/url]
+对应把root 信息写上去，还需要知道网站路径，
+注入点提交’，报错信息如下
+
+Fatal error: Call to a member function fetch_assoc() on a non-object in 
+/opt/other/shijue/class/data.class.php on line 195
+得出是使用linux系统和路径是/opt/other/shijue/class/
+修改路径点执行，图3
+[url=http://www.176ku.com/anquan/UploadFiles_3093/201002/2010020718344293.jpg]链接标记[img]http://www.176ku.com/anquan/UploadFiles_3093/201002/2010020718344293.jpg[/img][/url]
+访问[url=http://www.xxx.com/class/3.php]链接标记http://www.xxx.com/class/3.php[/url] 出现空白页面，写入成功
+用php客服端连接图4
+[url=http://www.176ku.com/anquan/UploadFiles_3093/201002/2010020718352097.jpg]链接标记[img]http://www.176ku.com/anquan/UploadFiles_3093/201002/2010020718352097.jpg[/img] [/url]

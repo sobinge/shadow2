@@ -1,0 +1,20 @@
+///////////////
+PageAdmin cms getshell 0day
+
+2011/11/06 20:07 | admin | 漏洞0day | 占个座先 
+这个程序有格fckeditor 悲剧就在这里了
+不过程序他在upload.aspx里面到时验证了权限
+这个程序有格fckeditor 悲剧就在这里了
+不过程序他在upload.aspx里面到时验证了权限
+任意上传
+
+但是在connector.aspx这个里面就是一段
+
+
+我不会.net所以完全不知道他这个代码是什么意思但是经过测试这个代码一点用处都没有！
+可以任意文件上传../../任意跨目录！
+上传可以本地构造test.html
+然后我用php写了一个exp
+shell密码是90sec.org
+
+////////////

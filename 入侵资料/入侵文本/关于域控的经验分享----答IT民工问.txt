@@ -1,0 +1,61 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+关于域控的经验分享----答IT民工问
+D8888D主贴内容-------------------------------------------------------
+ 
+
+关于域控的经验分享
+                                                                          ----答IT民工问
+
+1如何寻找域控？
+方法一 ipconfig /all 找到
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1006/10062814501539c687ef31ab10.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=Njk1NHwxYjgwODZhOXwxMjg2NDc5MTk0fDg1ZjhjbWQ0L0tHY0haRnVsOHJmSUNsRHg0M044a2VYMnIvMzFvQUszVUZCQ0pz&nothumb=yes]链接标记下载[/url] (43.23 KB)
+
+2010-6-28 14:50
+域名就是openlab.cn 
+nslookup openlab.cn 就可以列出所有的域控制器IP
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1006/100628145055e12a3eb0bcf005.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=Njk1NXw5YzgyYjczM3wxMjg2NDc5MTk0fDg1ZjhjbWQ0L0tHY0haRnVsOHJmSUNsRHg0M044a2VYMnIvMzFvQUszVUZCQ0pz&nothumb=yes]链接标记下载[/url] (14.7 KB)
+
+2010-6-28 14:50
+
+方法二 登录域控制器-->用户和计算机 （需要管理员权限）
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1006/1006281450da599d130c1aa661.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=Njk1Nnw4NzRkMDliZnwxMjg2NDc5MTk0fDg1ZjhjbWQ0L0tHY0haRnVsOHJmSUNsRHg0M044a2VYMnIvMzFvQUszVUZCQ0pz&nothumb=yes]链接标记下载[/url] (64.06 KB)
+
+2010-6-28 14:50
+可以看到所有域控的计算机名。
+
+方法三  脚本
+★
+set obj=GetObject("LDAP://rootDSE") 
+wscript.echo obj.servername
+★
+后缀保存为vbs。
+
+方法四  注释
+在域内的任意一台机器上执行net view /domain
+Server Name                      Remark
+\\2109-DA3773A363          Domain Controller
+\\XIN-5EE4B4EE10B           SH Domain Controller
+这个方法全凭运气，管理员要是懒得话，谁也没办法。
+
+注意：
+1在3389登录一个IP时候，有“选择到”这个选项，域控的下拉列表中只有域名，而普通的机器有computer name（this computer）这一选项。可以利用这一点来判断是否是域控。
+2大多数域，DNS服务器和DC很有可能是同一台机器，找到了DNS就找到了域控。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1006/1006281450f3dd58a8fcdb89c8.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=Njk1N3w3MTU3OWM5YXwxMjg2NDc5MTk0fDg1ZjhjbWQ0L0tHY0haRnVsOHJmSUNsRHg0M044a2VYMnIvMzFvQUszVUZCQ0pz&nothumb=yes]链接标记下载[/url] (39.67 KB)
+
+2010-6-28 14:50
+（安装域控的时候，默认把第一台当做DNS服务器。）
+3如果一个域中含有子域，那么上述所有的方法中会连子域的域控列出来。这对寻找主域控是不利的。
+解决办法使用ping -a IP 得到两台主机的主机名。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1006/10062814500dd023196906c191.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=Njk1OHw2YTFmMTFlYnwxMjg2NDc5MTk0fDg1ZjhjbWQ0L0tHY0haRnVsOHJmSUNsRHg0M044a2VYMnIvMzFvQUszVUZCQ0pz&nothumb=yes]链接标记下载[/url] (49.98 KB)
+
+2010-6-28 14:50
+比较两个主机名可以得出 192.168.200.102是子域。
+
+
+大牛飘过，没飘过的请回帖。 偶就不设隐藏贴了。[img]http://www.t00ls.net/images/smilies/default/bq49.gif[/img]
+文中有错的地方，还望各位看官指出，多谢了。
+
+另外，有大牛研究过找file server and mail server的方法没？透漏一下呗。

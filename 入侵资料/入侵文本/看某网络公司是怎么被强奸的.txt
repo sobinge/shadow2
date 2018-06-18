@@ -1,0 +1,62 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+看某网络公司是怎么被强奸的
+D8888D主贴内容-------------------------------------------------------
+作者：静流 Blog:[url=http://www.kiraabc.com/]链接标记www.kiraabc.com[/url]
+目标站点：[url=http://www.mst.cn/]链接标记http://www.mst.cn/[/url] MARS最喜欢的玉米，貌似是他们自己公司出的什么J8渐飞CMS。渐飞，呵呵，飞慢了吧。
+采用的是ACC或MSSQL加ASP.NET的系统。而我们目标站的程序是ACC的，直接网上下源码下默认数据库进后台拿SHELL，
+
+[img]http://www.hxhack.com/bbs/attachment/81_65749_a1f5dea094e8ac5.jpg[/img]
+SU提权拿服务器。
+
+[img]http://www.hxhack.com/bbs/attachment/81_65749_a9044c828497a58.jpg[/img]
+本来入侵就到这了，但是无聊嘛。拿出CAIN乱嗅一通。嗅出了两管理在开心网的帐户。密码用88****代替。
+[url=http://www.t00ls.net/mailto:ttz424@163.com]链接标记ttz424@163.com[/url] ********
+[url=http://www.t00ls.net/mailto:huxinnihao@163.com]链接标记huxinnihao@163.com[/url] ********
+
+首先我们进第一个吧，试着进邮箱。然后得到一系列的权限。
+
+[url=http://www.hxhack.com/bbs/attachment/81_65749_53acf4e5863074f.jpg]链接标记[img]http://www.hxhack.com/bbs/attachment/81_65749_53acf4e5863074f.jpg[/img][/url]
+
+[img]http://www.hxhack.com/bbs/attachment/81_65749_d769a9309375b65.jpg[/img]
+
+[img]http://www.hxhack.com/bbs/attachment/81_65749_b533883b606e39a.jpg[/img]
+
+
+[img]http://www.hxhack.com/bbs/attachment/81_65749_a4da569223a4d1c.jpg[/img]
+
+[img]http://www.hxhack.com/bbs/attachment/81_65749_24dc3f119f5b451.jpg[/img]
+还有快钱，阿里妈妈搞他QQ等等。就不一一截图 了。
+下面我们来看第二个油箱。进去也是相当容易。密码通用。
+
+[url=http://www.hxhack.com/bbs/attachment/81_65749_653a41bfa24bf79.jpg]链接标记[img]http://www.hxhack.com/bbs/attachment/81_65749_653a41bfa24bf79.jpg[/img][/url]
+呵呵，看见支付宝了吧。
+
+[img]http://www.hxhack.com/bbs/attachment/81_65749_3eb5453867fdca7.jpg[/img]
+进开心网的时候能看见那孩子资料：
+（Snake） 胡欣
+别：   男 
+出生日期：   1983年11月06日 
+家乡：   曲靖 
+现居住地：   云南曲靖 
+继续通过百度知道他还有的信息。QQ：155051029 另一个常用名字：inhesion
+进他QQ空间看看吧，呵呵。
+
+[img]http://www.hxhack.com/bbs/attachment/81_65749_fae015c831d5794.jpg[/img]
+申诉他QQ肯定简单，不过我们只是社工玩玩嘛。加那小子继续社工。
+
+[img]http://www.hxhack.com/bbs/attachment/81_65749_ff2c7554d42692e.jpg[/img]
+我说吧，都是那公司的技术人员。还是做系统维护的。哈哈。
+原来他还跟电信合作搞了个站啊。[url=http://www.eqj.cn/]链接标记http://www.eqj.cn[/url]
+PR5，看来有搞头，继续慢慢跟他聊。继续CAIN。
+过一会，居然嗅到[url=http://www.eqj.cn/]链接标记http://www.eqj.cn[/url]的后台跟管理。 赶紧登陆。
+
+[img]http://www.hxhack.com/bbs/attachment/81_65749_261a5c997c070bd.jpg[/img]
+拿SHELL就很简单了，在设置拿加上能上传ASPX，直接传大马就可以了。
+
+[url=http://www.hxhack.com/bbs/attachment/81_65749_f1ca871906acfdd.jpg]链接标记[img]http://www.hxhack.com/bbs/attachment/81_65749_f1ca871906acfdd.jpg[/img][/url]
+其实我发现这两服务器都有同样的管理用户，我们还可以继续破系统密码进行社工得到更多的服务器的。
+但是我感觉已经没必要了。毕竟我们不是搞破坏。友情检测嘛。等会跟那技术说下。希望大家别去搞破坏了。
+
+最后小结一下，管理使用默认数据库开始，服务器未对SU进行限制导致提权，管理人员在服务器随意登陆开心网，导致被ARP，更可悲的是，居然技术人员一个密码通用。看来这公司根本没安全所言了。（文章完）

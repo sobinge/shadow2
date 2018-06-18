@@ -1,0 +1,45 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+web版终端
+D8888D主贴内容-------------------------------------------------------
+ 
+
+这是[url=http://t00ls.net//thread-9985-1-1.html]链接标记没开3389？没事，还有8098[/url]的续。
+
+那个8098的远程管理虽然很强大，但是很明显，（不知道微软的asp程序员写的有漏洞没）
+
+继续研究如下，可以利用默认网站的端口。
+
+步骤如下
+
+1 同样是运行APPWIZ.CPL，添加/删除windows组件
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1008/100803092081a77e6bb30667fb.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=Nzk0M3w5M2ViMGM0OHwxMjg2NDc5NTc4fDdkMjBtaTJmNGJqaGZhQi9CKzNrUFdNTDh6dWFibHNYMndTTzcrbWtEanpOTG9Z&nothumb=yes]链接标记下载[/url] (76.98 KB)
+
+2010-8-3 09:20
+
+2 安装完成后，原有的网站下回多出一个TSWEB的目录
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1008/10080309209fa86703e007e0fd.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=Nzk0NHw2NGJkN2UwN3wxMjg2NDc5NTc4fDdkMjBtaTJmNGJqaGZhQi9CKzNrUFdNTDh6dWFibHNYMndTTzcrbWtEanpOTG9Z&nothumb=yes]链接标记下载[/url] (31.61 KB)
+
+2010-8-3 09:20
+
+3利用方法就是，（必须带路径）
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1008/100803092041dd4d4deb0338c2.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=Nzk0NXxiNzMwZTc3Y3wxMjg2NDc5NTc4fDdkMjBtaTJmNGJqaGZhQi9CKzNrUFdNTDh6dWFibHNYMndTTzcrbWtEanpOTG9Z&nothumb=yes]链接标记下载[/url] (53.83 KB)
+
+2010-8-3 09:20
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1008/100803092094451c7464c1ac60.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=Nzk0NnxkZTc0NTBjYXwxMjg2NDc5NTc4fDdkMjBtaTJmNGJqaGZhQi9CKzNrUFdNTDh6dWFibHNYMndTTzcrbWtEanpOTG9Z&nothumb=yes]链接标记下载[/url] (48.05 KB)
+
+2010-8-3 09:20
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1008/10080309207910e5ad8e7d6ae1.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=Nzk0N3wyNjQwMzdhZnwxMjg2NDc5NTc4fDdkMjBtaTJmNGJqaGZhQi9CKzNrUFdNTDh6dWFibHNYMndTTzcrbWtEanpOTG9Z&nothumb=yes]链接标记下载[/url] (94.18 KB)
+
+2010-8-3 09:20
+
+好处如下：
+1可以连接内网所有的电脑的终端
+2可以忽略局域网对外所作的IPSEC
+
+好了，你可以扔西瓜给我了，西红柿也可以，鸡蛋就不要了，我这里有。
+说了这么多，你是不是也该把TSWEB放入wwwscan的字典里去了？
+
+等xcon完了，在研究研究那IIS7的正门当后门的利用方法。

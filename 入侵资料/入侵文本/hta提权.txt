@@ -1,0 +1,16 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+hta提权
+D8888D主贴内容-------------------------------------------------------
+首先声明一点··要认为是标题党的人士 麻烦你不要看这个贴了··
+我在一本书籍上看到的···忘记书名字了·
+如果你拿到webshell发现可写  启动项  
+要是写个bat进去 虽然服务器重启 看不到cmd里面的内容··
+但是可以弹出cmd
+这样管理员就会知道 的··
+要是用这个的话就 不会·了··
+自己下载了·
+ [img]http://www.t00ls.net/images/attachicons/rar.gif[/img][url=http://www.t00ls.net/attachment.php?aid=MzE5NXw0ZWU3NGRhOHwxMjg2NDgwNjIxfDBiNThYdC84Q1lEU1JXc0s3a1hYenFmSFhTVkhOYUR6dENzSGhOVWFTZjVGa3dn]链接标记hta提权.rar[/url] (286 Bytes) 下载次数: 136
+
+2009-12-31 20:02

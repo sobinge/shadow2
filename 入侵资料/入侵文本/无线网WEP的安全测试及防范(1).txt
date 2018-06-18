@@ -1,0 +1,40 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+无线网WEP的安全测试及防范(1)
+D8888D主贴内容-------------------------------------------------------
+随着无线通信技术的日益成熟, 无线局域网逐步走进千家万户,与有线网络相比, 由于无线局域网络信道的开放性, 更容易引发安全性的问题, 毕竟在无线信号覆盖范围内, 黑客有机会接入, 甚至偷窥、篡改和破坏用户的重要数据文件。所以无线网络的安全性尤为重要。无线网路就在我们身边，如果各位在此之前还没接触过无线玩过还不知道“SSID”、“WEP”、”WPA”是什么时，不用着急，读完本文，相信大家会对无线网络安全有个全新认识。随着无线网络的逐渐流行及对安全要求的不断提高, 使用WEP 加密的缺陷逐渐暴露出来。下面的测试就是要告诉大家WEP加密有那些弊端，希望大家在阅读后能有所启发。一、测试步骤：
+测试使用的是WinAircrackPack 工具包。该工具包是一个无线工具的组合包，包括WinAircrack.exe，wzcook.exe，airdecap.exe以及airodump.exe四个程序airodump.exe是SSID号发现工具，用来对付 SSID影藏。利用其中的airodump 监视无线网络中的传输数据, 当收集到足够多的数据包时利用WinAircrack 就能破解出密钥。测试环境为一台TP- LINK 的TL-WR340G 54M的无线路由器和两台笔记本电脑, 其中一台使用了Intel Pro 2200 无线网卡, 如图一所示。
+[url=http://new.51cto.com/files/uploadimg/20090213/093134513.jpg]链接标记[img]http://new.51cto.com/files/uploadimg/20090213/093134513.jpg[/img][/url]
+图一
+1. 运行winaircrackpack包里头的airodump.exe
+[url=http://new.51cto.com/files/uploadimg/20090213/093155101.jpg]链接标记[img]http://new.51cto.com/files/uploadimg/20090213/0948271.jpg[/img][/url]
+图二
+选择“10 InterPRO/Wireless 2200BG Network Connection”网卡
+出现：
+Interface types：’o’ = HermesI /Realtek‘a’= Aironet/Atheros
+
+输入o或者a选择网卡模式，下一个界面出现：
+[url=http://new.51cto.com/files/uploadimg/20090213/100918856.jpg]链接标记[img]http://images.51cto.com/files/uploadimg/20090213/100918856.jpg[/img][/url] 
+选择搜索频段，输入0是代表所有频段都检测的意思。假设还不知道该无线设备使用的哪个频段和SSID号。 按下回车出现：
+Output filename prefix ->
+提示你输入一个保存文件，这样该工具会把所有sniffer下来的数据包放到这个文件
+Only write WEP IVs   ->
+only write wep ivs是否只检测WEP加密数据包，我们选择“N”， 这样将检测网络中的所有数据包不只WEP加密数据。 
+这时会出现一个提示，大概意思就是说目前驱动还不支持，无法进行sniffer的操作。同时浏览器会自动转到这个[url=http://www.wildpackets.com/support/product_support/airopeek/hardware]链接标记http://www.wildpackets.com/suppo ... t/airopeek/hardware[/url]页面，我们可以通过这个页面下载兼容驱动程序，升级我们的无线网卡让sniffer工具——airodump.exe可以顺利运行。我们通过这个地址下载适合自己网卡的可以使用airodump的驱动，在搜索设备页面中选择自己无线网卡的品牌和型号。笔者选择tp-link的所有无线产品进行查询，看看应该下载哪个驱动 。下载后放到指定目录。然后我们开始安装驱动
+[url=http://new.51cto.com/files/uploadimg/20090213/093253498.jpg]链接标记[img]http://new.51cto.com/files/uploadimg/20090213/0948272.jpg[/img][/url]
+图三
+
+1.在桌面网上邻居图标上点鼠标右键，并选择属性，在自己的无线网卡对应的本地连接上点鼠标右键，并选择属性。 
+2. 在无线网络连接属性窗口中的“常规”标签下点网卡信息旁边的“配置”按钮，在“驱动程序”标签中点“更新驱动程序”按钮。
+[url=http://new.51cto.com/files/uploadimg/20090213/093339545.jpg]链接标记[img]http://new.51cto.com/files/uploadimg/20090213/0948273.jpg[/img][/url]
+图四
+
+再选择“从列表或指定位置安装（高级）”，然后选择“不要搜索。我要自己选择安装的驱动程序”
+[url=http://new.51cto.com/files/uploadimg/20090213/093413193.jpg]链接标记[img]http://new.51cto.com/files/uploadimg/20090213/0948274.jpg[/img][/url]
+图五
+
+[url=http://new.51cto.com/files/uploadimg/20090213/093440132.jpg]链接标记[img]http://new.51cto.com/files/uploadimg/20090213/0948275.jpg[/img][/url]
+图六
+
+2. 在安装驱动过程中会出现兼容性提示，我们点“仍然继续”即可。最后完成硬件更新向导，我们的intel无线网卡现在已经变成了atheros 无线网卡了，这样才能够使用airodump这个无线网络sniffer工具。请大家注意，由于WEP破解的准备工作比较多，已经成功的将自己的网卡进行了更新驱动工作，这也是WEP加密破解的关键。

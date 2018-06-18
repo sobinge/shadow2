@@ -1,0 +1,67 @@
+获得MS SQL的版本号 
+execute master..sp_msgetversion 
+
+--得到硬盘文件信息 
+--参数说明:目录名,目录深度,是否显示文件 
+execute master..xp_dirtree 'c:' 
+execute master..xp_dirtree 'c:',1 
+execute master..xp_dirtree 'c:',1,1 
+
+
+--列出服务器上安装的所有OLEDB提供的程序 
+execute master..xp_enum_oledb_providers 
+
+--列出服务器上安装的所有代码页 
+execute master..xp_enumcodepages 
+
+--列出服务器上配置的dsn 
+execute master..xp_enumdsn 
+
+--列出sql server错误日志列表,最后更新时间 
+execute master..xp_enumerrorlogs 
+
+--列出服务器上所有windows本地组 
+execute master..xp_enumgroups 
+
+--检测文件存在性 
+execute master..xp_fileexist 'c:\a.bak' 
+
+declare @flag int 
+
+exec master..xp_fileexist 'c:\abc.bak',@flag out 
+
+if @flag=1 
+begin 
+print 'exist' 
+end 
+else 
+begin 
+print 'no exist' 
+end 
+
+--列出服务器上固定驱动器,以及每个驱动器的可用空间 
+execute master..xp_fixeddrives 
+
+
+--得到当前sql server服务器的计算机名称 
+execute master..xp_getnetname 
+
+--列出当前错误日志的具体内容 
+EXEC [master].[dbo].[xp_readerrorlog] 
+
+--列出指定目录的所有下一级子目录 
+EXEC [master].[dbo].[xp_subdirs] 'c:\WINNT' 
+
+
+---列出驱动器的名称 
+--以字节为单位的空闲空间(low free) 
+--以驱动器类型:软驱(1),硬盘(2),cd-rom(8) 
+EXEC [master].[dbo].[xp_availablemedia] 
+--效果如下: 
+
+name low free high free media type 
+C:\ 1270386688 0 2 
+D:\ 1726824448 2 2 
+E:\ 875053056 10 2 
+F:\ 0 0 8 
+

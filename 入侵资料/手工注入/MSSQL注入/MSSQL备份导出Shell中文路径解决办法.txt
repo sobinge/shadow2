@@ -1,0 +1,11 @@
+MSSQL备份导出Shell中文路径解决办法
+五月 3rd, 2012 by admin received No Comments ?
+Author:bugcx or Anonymous
+Url:http://blog.bug.cx/2012/05/03/mssql%e5%a4%87%e4%bb%bd%e5%af%bc%e5%87%bashell%e4%b8%ad%e6%96%87%e8%b7%af%e5%be%84%e8%a7%a3%e5%86%b3%e5%8a%9e%e6%b3%95/ | bugcx's blog | 关注网络安全 (撸一撸)
+
+
+某学校换了网站程序，害得我又给重新弄，老方法，任意文件下载来数据库配置文件，然后连接数据库，DB权限，www.bug.cx LOG备份导shell。
+导出过程中，使用的是网上多人转的九步手工差异备份方法 在备份到中文路径时出错了，提示不能打开设备，将SQL_encode解码后发现原来编码好的路径d:\中学\x.asp变为了d:\
+将其导出语句换一下就可以了，都是同样的导出原理，只是方式不同。
+backup database czwj to disk='d:\中学\x.asp' WITH DIFFERENTIAL,FORMAT;
+发觉有些文章中有多处错误或者是不足，找资料还给仔细的纠错。

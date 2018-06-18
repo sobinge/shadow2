@@ -1,0 +1,9 @@
+KesionCMS科讯网站管理系统V7.0 0day发布:koohik | 发布时间: 2012年4月9日 
+ 通杀KesionCMS v7.0版本，利用条件必须基于iis7.0架设。（有点鸡肋）！！！
+
+　　第一步：注册用户：http://www.****.com /?do=reg
+　　第二步：访问相册直接点批量上传伪造好的jpg一句话，（不要选择图片库里面上传）
+　　http://www.****.com /user/User_Photo.asp?Action=Add
+　　第三步：利用iis7.0解析漏洞拿下shell
+　　某人利用这个oday把土豆黑了
+　　具体情况不了解

@@ -1,0 +1,5 @@
+
+使用google搜索关键字 inurl:backupdata*dede_admin ， 可以找到很多dedecms备份数据。
+本文来源于独自等待博客：http://www.waitalone.cn/ 原文地址：http://www.waitalone.cn/post/1071.html 
+
+

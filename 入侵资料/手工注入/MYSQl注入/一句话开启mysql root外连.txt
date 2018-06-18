@@ -1,0 +1,21 @@
+一句话开启mysql root外连
+如果遇到了 服务器开启了 3306 端口，但是不允许root外连的情况，我们可以在shell里面执行如下的语句来开启root用户的外连，方便我们提权。
+
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'pass' WITH GRANT OPTION; 
+
+
+首先用root账号登陆phpmyadmin，然后点击左侧进入mysql数据库，在顶部点击“mysql”进入sql输入界面。输入以下命令：
+
+update user set password=password('123456') where User='root'
+
+
+phpmyadmin修改mysql数据库root密码成功
+
+接着还要进入phpmyadmin目下下的libraries目录，修改config.default.php文件。找到$cfg['Servers'][$i]['password']  = ' '，
+
+修改为$cfg['Servers'][$i]['password']      = '123456';    123456就是您想要的密码。重启mysql后新密码生效。
+
+
+文章来源：阅微草堂
+链接地址：http://www.xhbest.org/j/20100809186.html
+

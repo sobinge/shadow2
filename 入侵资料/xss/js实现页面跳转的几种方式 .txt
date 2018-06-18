@@ -1,0 +1,27 @@
+第一种：
+    <script language="javascript" type="text/javascript">
+           window.location.href="login.jsp?backurl="+window.location.href; 
+    </script>
+
+第二种：
+    <script language="javascript">
+	alert("返回");
+	window.history.back(-1);
+   </script>
+
+第三种：
+   <script language="javascript">
+	window.navigate("top.jsp");
+  </script>
+
+第四种：
+   <script language="JavaScript">
+          self.location='top.htm';
+   </script>
+
+第五种：
+   <script language="javascript">
+          alert("非法访问！");
+          top.location='xx.jsp';
+   </script>
+

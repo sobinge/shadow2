@@ -1,0 +1,27 @@
+
+
+phpMyFAQ 普通用户如何拿shell   [ 日期：2011-12-07 ]   [ 来自：影子鹰 ]
+
+phpMyFAQ是一个支持多语言的FAQ系统。主要是洋人用的。。国内也有。。不多。。
+思来想去还是改改标题把。。
+
+phpMyFAQ 普通用户如何拿shell（鸡肋）
+好了 直接说如何拿shell把。。环境必须支持apache！
+
+phpMyFAQ 普通用户如何拿shell（鸡肋）
+
+先注册个帐号。（个人观测这个比较难因为需要管理员验证。个人推荐你用其他方法。
+
+phpMyFAQ 普通用户如何拿shell（鸡肋）
+有帐号的话登陆xxxx.com/phpmyfaq/admin  （普通用户这里登陆了自然没权限什么也做不了，当然如果你有管理员帐号，请直接到下一步。）
+
+phpMyFAQ 普通用户如何拿shell（鸡肋）
+
+确保后台登陆的情况下打开 xxxx.com/phpmyfaq/admin/editor/plugins/ajaxfilemanager/ajax_login.php
+
+phpMyFAQ 普通用户如何拿shell（鸡肋）
+登陆  然后直接上传  xxx.php.pdf
+
+phpMyFAQ 普通用户如何拿shell（鸡肋）
+
+shell路径 xxxx.com/phpmyfaq/images/xxx.php.pdf

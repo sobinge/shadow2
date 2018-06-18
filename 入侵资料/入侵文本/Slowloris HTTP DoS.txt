@@ -1,0 +1,41 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+Slowloris HTTP DoS
+D8888D主贴内容-------------------------------------------------------
+ha.ckers.org上发出来的，原地址：[url=http://ha.ckers.org/slowloris/]链接标记http://ha.ckers.org/slowloris/[/url]
+[url=http://ha.ckers.org/blog/20090617/slowloris-http-dos/]链接标记http://ha.ckers.org/blog/20090617/slowloris-http-dos/[/url]
+
+下载地址：slowloris.pl
+
+[url=http://ha.ckers.org/slowloris/slowloris.pl]链接标记http://ha.ckers.org/slowloris/slowloris.pl[/url]
+
+Getting started: perldoc slowloris.pl
+
+milw0rm上的地址
+Multiple HTTP Server Low Bandwidth Denial of Service (slowloris.pl)：
+[url=http://milw0rm.com/exploits/8976]链接标记http://milw0rm.com/exploits/8976[/url]
+
+
+=head1 AFFECTS
+Apache 1.x, Apache 2.x, dhttpd, GoAhead WebServer, Squid, others...?
+
+=head1 NOT AFFECTED
+IIS6.0, IIS7.0, lighthttpd, others...?
+
+Sowhat的话：
+
+大致原理是, 攻击者先发送一个包： GET / HTTP/1.1\r\n
+
+Host: host\r\n
+
+User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; .NET CLR 1.1.4322; .NET CLR 2.0.503l3; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; MSOffice 12)\r\n
+
+Content-Length: 42\r\n
+复制代码结尾少了一个\r\n，所以apache等待，攻击者再发一坨狗屎过去：
+X-a: b\r\n
+
+Apache一看啥都不是，继续痴痴地等待。。。
+攻击者可以多发送一些类似的组合，直到Apache连接数耗尽。
+这个东西威力还挺大，因为不需要太多流量，就是一些HTTP头。目前影响Apache1.x, 2.x和Squid
+打站的又爽了?

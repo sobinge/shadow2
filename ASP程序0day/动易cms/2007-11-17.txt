@@ -1,0 +1,3 @@
+2007-11-17  Count\Counter.asp文件第19行
+
+可以执行 MSIE’WHERE USER=0—得到当前数据库的用户名

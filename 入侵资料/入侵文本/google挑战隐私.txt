@@ -1,0 +1,164 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+google挑战隐私
+D8888D主贴内容-------------------------------------------------------
+ 
+
+/*
+看论坛没人发google hacker之类的，我就发个吧。个人还是挺喜欢google~
+这个是不是完整版的我就不清楚了，然后这个也不是我翻译的。
+顺便我就手工编辑下吧。让大家看的更直观一点。编辑来编辑去还是有点凌乱，大家将就下吧。
+*/
+
+[all]inurl
+[all]intext
+[all]intitle
+site
+ext,filetype
+symbol: - . * |
+boolean Epression: and or not
+lang:"c++" define
+
+
+隐私信息
+1.用户名和密码 "create table" insert into" "pass|passwd|password" (ext:sql | ext:dump | ext:txt)
+
+   "your password * is" (ext:csv | ext.doc | ext:txt)
+复制代码2. 密匙    "index of" slave_datatrans OR from_master
+复制代码3.隐私的密码    "Begin (DSA | RSA)" ext:key
+
+   "index of" "secring.gpg"
+复制代码4.经过加密的消息    -"public | pubring | pubkeysignature | pgp | and | or |release" ext:gpg
+
+   -intext:"and" (ext:enc | ext:axx)
+
+   "ciphervalue" ext:xml
+复制代码机密信息
+那些期望成为机密以杜绝未经授权人查看的信息 data that is expected to stay confidential against unauthorized access
+复制代码1.聊天日志    "session start" "session ident" thomas ext:txt
+复制代码2.私人信件/邮件    "index of" inbox.dbx
+
+   "To parent directory" inurl:"Identities"
+复制代码3.机密的目录和文件    "index of" (private | secure | geheim | gizli)
+
+   "robots.txt" "User-agent" ext:txt
+
+   "this document is private | confidential(机密的) | secret" ext:doc | ext:pdf | ext:xls
+
+   intitle:"index of" "jpg | png | bmp" inurl"personal | inurl:private
+复制代码4.在线网络摄像头 intitle:"live View/ -AXIS" | inurl:view/view.shtml
+
+inurl:"ViewFrame?Mode="
+
+inurl:"MultiCameraFrame?Mode="
+
+inturl:"axis-cgi/mjpg"
+
+intext:"MOBOTIX M1"
+
+intext:"Open Menu"
+
+inurl:"view/index.shtml"
+复制代码www.undertree.us/allcams.html //这个应该是相关网站吧。我也不是很清楚，翻墙了也没打开。有打开的请PM我！
+
+Google Video    supergirl duration:(short | medium | long) is:free
+复制代码在线设备 inurl:"hp/device/this.LCDispatcher"
+
+intitle:liveapplet inurl:LvAppl
+
+"Please wait ....." intitle:"SWW link"
+复制代码敏感信息
+（那些通常公众于世但它的透露可能会给当事人带来麻烦的信息） Data which is normally public but whose reveal may disturb its owner
+复制代码1.位于讨论会，邮局等场所    inurl:"search.php?search_author=thomas"
+
+   inurl:pipermail "thomas fischer"
+复制代码2.敏感的目录    intitle:"index of" inurl:"backup"
+复制代码3.Web 2.0    "thomas fischer" site:blogspot.com
+
+   "thomas" site:flickr.com
+
+   "thomas" site:youtube.com
+复制代码鉴定资料
+1.描述标识私人的信息
+   姓名，地址，电话，电话分机    allintext: name email phone address intext:"thomas fischer(人物)" ext:pdf
+
+   Twiki inurl:"View/Main" "thomas fischer"
+复制代码   个人简历    intitle:CV OR intitle:Lebenslauf "thomas fischer"
+
+   intitle:CV OR intitle:Lebenslauf ext:pdf OR ext:doc
+复制代码2 用户姓名    intitle:"usage Statistics(统计表) for" intext:"Total Unique Usernames"
+复制代码Examples Of Google Hacking 1
+不可靠程序透露的信息 "php version" intitle:phpinfo inurl:info.php
+复制代码程序中含有SQL注入漏洞并且路径可以修改弱口 "advanced guestbook * powered" inurl:addentry.php
+
+intitle:"View img" inurl:viewimg.php
+复制代码安全扫描报告 "Assessment report" "nessus" filetype:pdf
+复制代码数据库程序和错误文件 "Welcome to phpmyadmin ***" "running on * as root@*" intitle:phpmyadmin
+
+"mysql error with query"
+复制代码============================================================================
+countermeasure（对策） //这块就是说措施吧。原作者没翻译，我翻译下吧。
+
+Use automatic tools to check your system(e.g. gooscan,sitedigger,goolink)   
+使用工具自动检测你的系统 例如:(e.g. gooscan,sitedigger,goolink)  
+Install and manage Google Honeypot
+安装管理google蜜罐？
+
+sitedigger //网页挖掘
+
+free from FoundStone Company //剩下这段，小弟不材，我看了好几遍也没懂~谁懂了，帮忙翻译下~
+support Both GHD and foundstone's own hacking database
+
+for a given host,all etries in the database are queried 
+
+
+===================================================
+参考文献
+
+
+google hacking database   
+[url=http://johnny.ihackstuff.com]链接标记http://johnny.ihackstuff.com[/url]
+
+google hack honeypot project 
+[url=http://ghh.sourceforge.net]链接标记http://ghh.sourceforge.net[/url]
+
+goolink -security scanner
+[url=http://www.ghacks.net/2005/11/23/goolink-scanner-beta-preview/]链接标记www.ghacks.net/2005/11/23/goolink-scanner-beta-preview/[/url]
+
+siteDigger c2.0 -information Gathering Tool
+[url=http://www.foundstone.com]链接标记http://www.foundstone.com[/url]
+
+FileSearching
+[url=http://www.filesearching.com]链接标记www.filesearching.com[/url]
+
+gooscan-google security scanner
+[url=http://johnny.ihackstuff.com]链接标记http://johnny.ihackstuff.com[/url]
+=====================================================
+Please use this information for no other reason
+
+Online Cameras inurl:"viewrframe?mode=motion"(Requires ActiveX)[/b]
+
+intitle:"snc-rz30 home" (requires activeX)
+
+intitle:"WJ-NT104 Main"
+
+inurl:LvApp1 intilte:liveapplet(great pan and zoom)
+
+intitle:"Live Vew / -AXIS"
+
+inurl:indexFrame.shtml "Axis Video Server"
+复制代码查看从Google中注销的网站
+
+思路:找到记载这些网站的robots.txt进行筛选 "robots.txt" "disallow:" filetype:txt
+复制代码Front Page user logins
+使用此字符串进行搜索，你可以获取很多登陆密码和账户，搜索到的的这些文件中密码和账户都未进行过加密 inurl:_vti_pvt "service.pwd"
+复制代码Php Photo Albums
+此搜索算法允许你察看PHP用户上传倻面相册，并且你可以上传你自己的照片到里面 inurl:"phphotoabum/upload"
+复制代码VNC User info
+通过虚拟机绕过密码验证使用VNc Brute强行破解密码需求这一验证强行的登陆别人的电脑 "vnc desktop" inurl:5800
+复制代码Network Printers
+察看公网的共享打印机，你可以查看他们的状态，设置 ，你还可以用他们中的一些来打印自己的东西 inurl:"port_255" -htm
+复制代码php Administrator Access
+PHPMyAdmin是用户操控网站数据库的一个账户，你可以用它来访问那些安全系数比较低的网站，通过这个账户你可以操控他们的网站 intitle:phpMyAdmin "Welcome to phpMyAdmin ***" running on * as root@*"
+复制代码

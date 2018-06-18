@@ -1,0 +1,8 @@
+WordPress爆绝对路径的方法是：
+1.http://www.chouwazi.com/wp-admin/includes/admin.php  
+2.http://www.chouwazi.com/wp-content/plugins/akismet/akismet.php  
+3.http://www.chouwazi.com/wp-content/plugins/akismet/hello.php  
+4.http://www.chouwazi.com/wp-content/plugins/default/index.php  
+5.http://www.chouwazi.com/wp-content/plugins/default/404.php  
+6.http://www.chouwazi.com/wp-settings.php  
+7.http://www.chouwazi.com/source/function/function_connect.php  

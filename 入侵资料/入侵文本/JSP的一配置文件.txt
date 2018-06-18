@@ -1,0 +1,75 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+JSP的一配置文件
+D8888D主贴内容-------------------------------------------------------
+ 
+
+一平时喜欢在群里晒工资的同学发来他的名片，软件实施呀，哎，人家都有名片了，他比较喜欢炫的，老是在群里炫，上次他一找到工作，一星期做了个网站，直接用工具生成的，基本不用自己做什么，然后就把网址发到群里让我们看，那界面难看的要死，可他还很得意的说你们做的出来吗。晕死，然后就一不小心日进去了，然后他气死了，这次他换了工作，所以又可以气气他了，哈哈，他名片上有他的公司邮箱，于是找到网站就开始了
+
+
+      他公司的站看了下，ASPX的，没怎么搞，就去查了下同服的，想看看他那站是放哪的，不多，就3个，估计公司自己做的服务器，然后看到一个JSP的站，这个权限可是大大的呀，呵呵，就直接去看这个JSP的站了，导航上一个报表下载功能， 下载呀，常出问题的地方哦，于是转到了下载，看到下载地址就兴奋了，直接加一个文件名下载，把文件名改成当前这个页面的文件，下载回来，成功，于是。。。。
+
+
+      因为是JSP的站，就去下了 FileDown.jsp?filename=../../../conf/web.xml   web.xml文件，下回来才记起来这文件的作用，我想找的是数据库信息，再换，因为当今JSP的站好多都会用框架，想他应该用了Hibernate框架，于是 FileDown.jsp?filename=../WEB-INF/classes/hibernate.cfg.xml 成功下载了他的Hibernate配置文件，晕死，库站分离。。。
+
+
+       8080肉鸡，哈哈，想到这个，应该知道我想干吗了吧，真正发布的站，网站应该都会放到tomcat目录下的webapps文件中，于是再次构造路径FileDown.jsp?filename=../../../conf/tomcat-users.xml 成功下载了tomcat的管理员信息。
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1010/1010041506a970e15570fa039b.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTQ5MnxhZmVkZTU2YXwxMjg2NDc2ODA4fGM1ZjVVOTJHb2FvZEp3VFBJQTBEcHJ4eHo4ZnJXejVDUHRCNnd6eS9NQm9xV0RV&nothumb=yes]链接标记下载[/url] (28.68 KB)
+
+4 天前 15:06
+直接8080访问，不行，看来换端口了，没事，反正我们可以下他文件，再次构造FileDown.jsp?filename=../../../conf/server.xml ，查找<Connector 发现端口7777了，于是换成7777输入用户密码，一个system权限的shell拿到了
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1010/101004150647271703023579e2.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTQ5MXw4YjI4MmI0OXwxMjg2NDc2ODA4fGM1ZjVVOTJHb2FvZEp3VFBJQTBEcHJ4eHo4ZnJXejVDUHRCNnd6eS9NQm9xV0RV&nothumb=yes]链接标记下载[/url] (32.51 KB)
+
+4 天前 15:06
+
+        然后把这个消息告诉了雄，哈哈，他又一次气死了
+
+
+
+然后就把JSP的一些配置文件常规位置整理了下
+
+WEB-INF/web.xml
+    标签的配置，过滤器，项目的名称，servlet的配置，默认首页等
+     [url=http://www.360doc.com/content/10/0225/11/888785_16761596.shtml]链接标记http://www.360doc.com/content/10/0225/11/888785_16761596.shtml[/url]
+
+
+
+WEB-INF/struts-config.xml
+     [url=http://wenku.baidu.com/view/59c557cfa1c7aa00b52acbbf.html]链接标记http://wenku.baidu.com/view/59c557cfa1c7aa00b52acbbf.html[/url]
+
+
+WEB-INF/dwr.xml
+      Dwr框架的配置文件
+       [url=http://www.360doc.com/content/10/0823/15/2542611_48185024.shtml]链接标记http://www.360doc.com/content/10/0823/15/2542611_48185024.shtml[/url]
+
+
+WEB-INF/classes/applicationContext.xml
+     Spring的配置文件
+      [url=http://wenku.baidu.com/view/1614b88da0116c175f0e48cb.html]链接标记http://wenku.baidu.com/view/1614b88da0116c175f0e48cb.html[/url]
+
+
+WEB-INF/classes/hibernate.cfg.xml
+     hibernate的配置文件, 这个好东西呀，里面有数据库连接信息
+      [url=http://wenku.baidu.com/view/f60be7aad1f34693daef3ee0.html]链接标记http://wenku.baidu.com/view/f60be7aad1f34693daef3ee0.html[/url]
+
+
+
+conf/server.xml
+      [url=http://www.vanjor.org/blog/2010/05/tomcat-server-xml-config/]链接标记http://www.vanjor.org/blog/2010/05/tomcat-server-xml-config/[/url]
+
+
+conf/tomcat-users.xml
+      这个没什么看的
+
+
+
+     也许你会觉得像Spring这样的配置文件没什么用，其它如果这里网站没用hibernate，他的数据库连接可能写在属性文件，也可能在JAVA类里，在JAVA类里我们可以通过Spring知道一些类的名称，路径什么的，然后再去下载他的class文件，不是JAVA文件哦，都是编译后的，所以下回来再反编译查找相关有可能的信息
+
+
+     还有个就是hibernate,Spring这些框架的配置文件，他们对应的配置文件的文件名和路径都是可以改的，不过大多情况下没人会去改，都保持默认，因为改的话很麻烦
+
+
+     最后，上面列出这些配置文件不是说只有在文件下载这种情况下能用，只是列出了在SSH框架下JSP中的一些重要文件，欢迎补充其它有用的配置文件

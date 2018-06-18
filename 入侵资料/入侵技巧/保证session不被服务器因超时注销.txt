@@ -1,0 +1,7 @@
+拿到偷到的session登陆后,再地址栏敲入下面代码,即可保证session不被服务器因超时注销.
+
+
+
+javascript:(function sogili() {
+    setInterval(function () {_ = new XMLHttpRequest || new ActiveXObject("Microsoft.XMLHTTP");_.open("GET", location);_.send(null);}, 60000);
+})();

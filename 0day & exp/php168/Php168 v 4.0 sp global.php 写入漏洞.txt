@@ -1,0 +1,29 @@
+Php168 v 4.0 sp global.php 写入漏洞
+
+漏洞描述:
+
+在global.php中有这样的代码:
+function login_logs($username,$password){
+      global $timestamp,$onlineip;
+      $logdb[]=\"$username\\t$password\\t$timestamp\\t$onlineip\";
+      @include(PHP168_PATH.\"cache/adminlogin_logs.php\");
+      $writefile=\"$value){
+              $jj++;
+              $writefile.=\"\\$logdb[]=\\\"$value\\\";\";
+              if($jj>200){
+                    break;
+              }
+      }
+      write_file(PHP168_PATH.\"cache/adminlogin_logs.php\",$writefile);
+}
+
+当登陆admin界面时,每次登陆的username都记录在cache/adminlogin_logs.php中,但是却没有对$username变量进行过滤,导致攻击者可以构造恶意$username变量,最终向cache/adminlogin_logs.php写入木马程序.
+<* 参考
+ http://www.phpwind.net/read.php?tid-460806.html&t=1
+ http://www.hx95.com/Soft/Terror/200707/90.htm
+ 
+*>
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.哈哈,这就是我要找的了,我开始考虑构造的问题,由于前面有结束掉前面的脚本标记,可是问题又来了2. 3.$logdb[]=\"$username\\t$password\\t$timestamp\\t$onlineip\";4. 5.在$username之前有个极其讨厌的”号,必须要再写入一个”来关闭它,可是默认设置下写入”或者’会在前面加上\\,从而变成\\”,双引号也就没用了.6.这个问题困扰了我5个小时,凌晨4点

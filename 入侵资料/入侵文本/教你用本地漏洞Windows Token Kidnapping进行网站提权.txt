@@ -1,0 +1,51 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+教你用本地漏洞Windows Token Kidnapping进行网站提权
+D8888D主贴内容-------------------------------------------------------
+作者：hackest [H.S.T.] 
+此文章已发表在《黑客X档案》2008年第11期杂志上 
+后经作者发布在博客上，如转载请务必保留此信息！ 
+话说很久很久没有爆过Windows下比较有影响的漏洞了，这回终于微软也可爱了一回，爆了个可以让大家爽歪歪的本地权限提升漏洞。如果你手里有一大批以前提不了权限的Webshell的话，看完本文之后就赶紧拿出来提权去，效果还是蛮不错的。因为微软并没有修补这一漏洞，只是在安全公告里做了提醒（详见[url=http://www.microsoft.com/technet/security/advisory/951306.mspx]链接标记http://www.microsoft.com/technet/security/advisory/951306.mspx[/url]）。 
+受此漏洞影响的系统： 
+Windows XP Professional Service Pack 2 
+Windows XP Professional Service Pack 3 
+Windows Server 2003 
+Windows Vista 
+Windows Server 2008 
+漏洞信息： 
+MicrosoftWindows是一款流行的操作系统。漏洞是由于在NetworkService或LocalService上运行的代码，可以访问同样是在NetworkService或LocalService上运行的进程，部分进程允许提升权限到LocalSystem。对于IIS，默认安装是不受影响的，但以Full Trust运行的ASP.NET代码受此漏洞影响，如果权限低于FullTrust，也不受此漏洞影响。同样ASP代码不受此漏洞影响，只有ASP.NET才受影响。针对SQLServer，如果用户以administrative权限运行代码，则受此漏洞影响。针对Windows Server2003，攻击者可以通过MSDTC获取token访问其他同样token的进程，从而提升权限。任何具有SeImpersonatePrivilege的进程都有可能造成权限提升。 
+漏洞相关描述就先看这么多了，本地权限提升嘛，当然前提是你要能访问到Windows，比如你已经获得了目标的一个Webshell，而且这个目标支持ASP.NET程序，而你又能够执行命令，那么基本上这台服务器就跑不掉了（当然还得人家没做相应的安全设置，因为这个洞也是可以防的嘛）。 
+一、攻 
+耳听为虚，眼见为实。那我们就来实地演练一下这个漏洞到底有多么的酷！ 
+测试环境： 
+操作系统：Microsoft Windows Server 2003 Enterprise Edition Service Pack 2（已更新所有补丁） 
+IIS版本：IIS 6.0 
+ASP.NET版本：Microsoft.NET Framework 1.1 
+如图1。 [img]http://1874.img.pp.sohu.com.cn/images/blog/2008/11/16/0/13/11e490d50b7g214.jpg[/img]
+添加IIS支持.NET程序，然后在WEB目录放一个ASPX的Webshell。为了方便演示，直接使用ASPX脚本，其实用ASP的Webshell也是可以的，前提是要目标支持ASPX（当前目录不支持也不要紧，ASP的Webshell能执行命令都不妨一试），而且Webshell是可以执行命令的，如图2。 
+然后就把利用程序上传到WEB目录（老外公布的东西，有源代码，编译好的利用工具和源代码都会打包在光盘里），然后就可以执行提权操作了。执行如下命令： [img]http://1854.img.pp.sohu.com.cn/images/blog/2008/11/16/0/15/11e49117d7ag213.jpg[/img]
+●/c D:\wwwroot\Churrasco.exe "net user hackest estidc.com /add"● 
+Churrasco.exe是利用工具名，后面是要执行的命令，注意要用英文双引号括住。稍等一下之后返回执行结果，可以看到提示成功了，当然不同的环境PID可能不一样，如图3。 再看看是否真的成功添加了用户，这回放心了吧，证实已经成功添加了用户hackest，如图4。[img]http://1864.img.pp.sohu.com.cn/images/blog/2008/11/16/0/16/11e490fbdd4g214.jpg[/img]要添加进管理员组就执行如下命令： [img]http://1834.img.pp.sohu.com.cn/images/blog/2008/11/16/0/17/11e49109349g214.jpg[/img]
+●/c D:\wwwroot\Churrasco.exe "net localgroup administrators hackest /add"● 
+然后就可以看到用户hackest已经老老实实地躲在管理员组里了，如图5。利用相当的简单吧，出乎你的意料？本地权限提升就是这么帅！利用就基本介绍完了，注意命令格式就可以了。 [img]http://1814.img.pp.sohu.com.cn/images/blog/2008/11/16/0/19/11e49146f2fg215.jpg[/img]
+二、防 
+下面再介绍下怎么防止被黑客利用该漏洞胡作非为。 
+IIS管理员可参考如下临时解决方案： 
+在IIS管理器中使用建立一个已建立帐户，为IIS中为应用程序池配置WPI，并禁用MSDTC（Microsoft Windows Distributed Transaction Coordinator）。 
+IIS 6.0： 
+IIS6.0下可以按如下操作为应用程序池指定WPI： 
+Internet信息服务（IIS）管理器->本地计算机->应用程序池->右键点击“应用程序池”->选择“属性”->点击“标识”->点击“配置”->在“用户名”和“密码”栏里输入工作进程要操作的帐户的用户名和密码->添加选择的用户到IIS_WPG组。
+禁用MSDTC可帮助保护受影响系统不被此漏洞利用，要禁用MSDTC，可执行如下步骤： 
+点击“开始”->“控制面板”->“管理工具”->“服务”，在弹出的服务管理界面，找到“Distributed TransactionCoordinator”项并双击打开属性对话框，在“启动类型”列表中选择“禁用”。如果服务已启动，停止该服务，然后点击确定退出。也可以在CMD窗口里使用如下命令停止和禁用MSDTC服务： 
+●sc stop MSDTC & sc config MSDTC start= disabled● 
+IIS 7.0： 
+IIS7.0下可以使用命令行工具appcmd.exe为应用程序池指定WPI： 
+在CMD中，更改至%systemroot%\system32\inetsrv目录，使用如下语法执行appcmd.exe命令，string是应用程序池名，username是指定给应用池帐户的用户名，password字符串是帐户密码： 
+● 
+appcmd set config /section:applicationPools / 
+[name='string'].processModel.identityType:SpecificUser / 
+[name='string'].processModel.userName:string / 
+[name='string'].processModel.password:string 
+● 
+注：应用程序池身份标识在IIS7中动态添加到IIS_WPG组中，无需手动添加。

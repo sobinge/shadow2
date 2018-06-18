@@ -1,0 +1,25 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+巧妙配置Apache 迷惑盯上你服务器的黑客
+D8888D主贴内容-------------------------------------------------------
+说明:该文章被刊登在《黑客手册》2009-09刊(PS:文采不是很好 大家嘴下留情！)
+
+   发现一个问题，每次我做Web安全检测时，首先要获取的信息就是对方的Web服务器是Windows操作系统还是Linux/Unix操作系统，还有用的什么HTTP服务软件（IIS/Apache/nginx/lighttpd或者其他）但是很多时候我只能获得对方使用的是Apache，操作系统和版本都无法获得。这给我的入侵增加不少难度。如图:
+
+[img]http://www.chinesehonker.org/d/file/Original/Article/2009-08-05/51b0e108c36022a3abaa28fa5688997c.jpg[/img]
+
+   
+  这里我用的环境是Windows+Apache，现在我们来巧妙的配置一下，来实现上面的功能，从而迷惑那些菜鸟黑客。首先打开Apache的配置文件httpd.conf修改以下选项
+
+[img]http://www.chinesehonker.org/d/file/Original/Article/2009-08-05/8d162b07b1d4e93df474eda3ca80cf69.jpg[/img]
+
+
+  下一步修改系统默认的TTL值(Windows Server 2003  一般是128)，这里我们通过注册表来修改（键值:HKEY_LOCAL_MACHINE/System/CurrentControlSet/Services/Tcpip/Parameters ）依次展开找到DefualtTTL这个值 把他修改为60以下就可以了.（注意是十进制）用Ping命令来测试 如图:
+
+[img]http://www.chinesehonker.org/d/file/Original/Article/2009-08-05/8a4d5670d53574f566c4ec0e7d4b3474.jpg[/img]
+
+
+然后我们在来用那些常用的扫描探测工具来测试以下，看看是不是不显示操作系统了！
+
+[img]http://www.chinesehonker.org/d/file/Original/Article/2009-08-05/0f18b7471aee86a11bcd2fd0a17e6085.jpg[/img]

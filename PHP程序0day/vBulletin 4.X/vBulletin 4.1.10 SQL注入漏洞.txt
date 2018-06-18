@@ -1,0 +1,36 @@
+vBulletin 4.1.10 SQL注入漏洞
+作者：雨路博客 发布于：2012-4-8 10:20 Sunday 分类：技术文章 
+
+########################################################
+#
+# Exploit Title : vBulletin 4.1.10 Sql Injection Vulnerabilitiy
+#
+# Author        : IrIsT.Ir
+#
+# Discovered By : Am!r
+#
+# Home          : http://IrIsT.Ir
+#
+# Software Link : http://vbulletin.com
+#
+# Security Risk : High
+#
+# Version       : All Version
+#
+# Tested on     : GNU/Linux Ubuntu - Windows Server - win7
+#
+# Dork          : "Powered By Vbulletin"
+#
+########################################################
+#
+#  Expl0iTs :
+#
+#  [TarGeT]/announcement.php?a=&announcementid=[Sql]
+#
+#########################################################
+#
+# Greats : Zarbat.Org - Aria-Security.Com - datacoders.org - black-hg.org
+# 
+#     Security7.ir - AjaxTm.Com - Sepehr-Team.Org And All Iranian Hackers
+#
+#########################################################

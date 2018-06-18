@@ -1,0 +1,9 @@
+
+Ecshop爆路径：
+includes/fckeditor/editor/dialog/fck_spellerpages/spellerpages/server-scripts/spellchecker.php
+ 
+Shopex如果install目录没删，下面这个可以看phpinfo
+http://www.target.com/install/svinfo.php?phpinfo=true
+本文源于：逍遥复仇's Blog http://www.hackseo.net/，原文地址：http://www.hackseo.net/post/354.html，支持原创，谢绝山寨！
+
+

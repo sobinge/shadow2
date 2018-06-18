@@ -1,0 +1,209 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+IE7自动完成口令获取
+D8888D主贴内容-------------------------------------------------------
+作者：grassgrass (kityest_at_163.com)
+
+前一阵子自己邮箱的口令忘记了，为了找回邮箱口令到网上找了好多密码找回的工具，发现在IE7下都不好使，迫于无奈，只好自己研究了，通过Google和 OllyDbg，用了1整天时间终于弄清楚了IE7下的自动完成口令获取方法，不敢独享，特公布如下，希望能对大家有帮助。
+
+自Internet Explorer 7.0开始,微软完全改变了密码保存的方式，将网站的URL保存于历史文件中，将自动完成的密码保存于注册表中的以下位置: HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\IntelliForms\Storage2。
+
+
+要获取IE7的自动完成口令就需要同时获取IE7环境下历史文件夹中的URL记录和注册表HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\IntelliForms\Storage2下的密码信息。
+
+以下是IE7自动完成口令获取的步骤：
+
+1、用ShGetSpecialFolder获取History文件夹路径
+2、枚举History文件夹下的index.dat文件，并从index.dat文件中提取访问过的网站URL。
+index.dat文件结构：
+文件头32字节
+从文件的第0x5000地址处开始存放的是访问过的网站信息，网站信息顺序存放，每个网站数据块结构为：
+struct Web{
+const char Tag[4]; //4个字节的标志，内容为"URL ",可作为数据是否正确的判断。
+int LenNumber;  //该数据块的长度指数，数据块的长度为LenNumber*128
+char unknown[44]; //44字节的未知数据
+int DataPos;  //Visited:字段相对于该结构块头的偏移值，即&Web+DataPos就指向Visited了
+char unknown[];  //不定长度未知数据，不过据观察似乎上述DataPos都是一样的，那这个也应该定长了，算了，不管他，安全起见，就当不定长了
+const char Tag1[8];     //"Visited:"
+char Data[];  //结构 XXX@????,其中XXX是用户名，???就是URL,可以从Visited处搜索@来定位
+char Unknown[];  //长度不定
+};
+注意，上述结构中的URL是ANSI形式的
+3、打开注册表HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\IntelliForms\Storage2，枚举其Values
+注册表该位置保存的是IE7自动完成的用户名密码之类，其中ValueName就是经过Hash的网站的URL,ValueData就是加密的用户名密码之类了。
+4、对第2步获取的URL依次进行Hash，然后用其Hash值依次与第三步中获取的ValueName进行比较，一致的就是该URL的信息
+如果一致，就对ValueData进行解密。
+ValueData解密后数据结构 struct ValueData{
+
+int HeadLen;//4字节，用来表示该数据结构的头部长度。
+
+int DataPos;//真正的数据相对于数据结构头部的偏移，即：&ValueData+HeadLen+DataPos就指向有效数据了
+
+int DataLen;//有效数据的长度
+
+char unknown[];
+
+wchar UserName[];
+
+wchar Password[];
+
+};
+
+HeadLen+HeadLen+DataPos=sizeof(ValueData);
+复制代码注：
+1、Hash算法： //Algorithm=0x8004
+
+//0x8004=ALG_CLASS_HASH | ALG_TYPE_ANY | ALG_SID_SHA1=CALG_SHA1,原来采用的是CALG_SHA1算法
+
+//注意:此处这个DataLen是带Unicode的结尾的0的
+
+BOOL HashData(WCHAR *pData,int DataLen, char *pHashData,int *pHashLen,int Algorithm)
+
+{
+
+BOOL bResult = TRUE;
+
+HCRYPTPROV hProv = NULL;
+
+HCRYPTHASH hHash = NULL;
+
+DWORD dwLength;
+
+
+
+// Get handle to user default provider.
+
+if (CryptAcquireContext(&hProv, NULL, NULL, PROV_RSA_FULL, 0))//0xF0000000)) //两个都行,不知道最后一个参数是干什么的
+
+{
+
+// Create hash object.
+
+if (CryptCreateHash(hProv, Algorithm, 0, 0, &hHash))
+
+{
+
+// Hash password string.
+
+if (CryptHashData(hHash, (BYTE *)pData, DataLen, 0))
+
+{
+
+CryptGetHashParam(hHash,2,(BYTE*)pHashData,(DWORD*)pHashLen,0);
+
+}
+
+else
+
+{
+
+// Error during CryptHashData!
+
+bResult = FALSE;
+
+}
+
+CryptDestroyHash(hHash); // Destroy session key.
+
+}
+
+else
+
+{
+
+// Error during CryptCreateHash!
+
+bResult = FALSE;
+
+}
+
+CryptReleaseContext(hProv, 0);
+
+}
+
+return bResult;
+
+
+
+}
+复制代码2、解密算法： unsigned char pcryptdata[]={ //注册表中提取出来的ValueData，即加密过的用户名密码等信息
+
+0x01,0x00,0x00,0x00,0xD0,0x8C,0x9D,0xDF,0x01,0x15,0xD1,0x11,0x8C,0x7A,0x00,0xC0,0x4F,0xC2,0x97,0xEB,0x01,0x00,0x00,0x00,0x58,0x26,0xE4,0x1A,0x81,0x86,0x2F,0x4D,
+
+0xA9,0x19,0x95,0xED,0x94,0x6F,0xC5,0x2A,0x00,0x00,0x00,0x00,0x02,0x00,0x00,0x00,0x00,0x00,0x03,0x66,0x00,0x00,0xA8,0x00,0x00,0x00,0x10,0x00,0x00,0x00,0xB5,0x67,
+
+0x51,0xE5,0x1A,0x73,0x67,0x75,0x0F,0x84,0xF2,0x97,0xCE,0x07,0x21,0x31,0x00,0x00,0x00,0x00,0x04,0x80,0x00,0x00,0xA0,0x00,0x00,0x00,0x10,0x00,0x00,0x00,0x75,0xFB,
+
+0x3F,0xC8,0x4C,0x7F,0xDB,0xBA,0xC8,0x27,0xD9,0xC0,0x64,0xD8,0x05,0xEF,0x68,0x00,0x00,0x00,0x50,0x63,0x0F,0x8B,0x7B,0xBC,0xDF,0x96,0xFD,0xE4,0x11,0xEB,0x97,0x43,
+
+0xD8,0x4E,0x7C,0xB6,0x96,0x55,0xA6,0xB5,0x50,0x41,0x5D,0xD5,0xA7,0x4B,0xFA,0x16,0x4E,0x65,0xF5,0xB6,0x0D,0xC5,0xC1,0xCE,0xEB,0x3D,0x28,0x79,0xA2,0xBD,0xAA,0x97,
+
+0x9D,0x31,0xE8,0x84,0xBD,0xC5,0x49,0x74,0x64,0x40,0xFA,0x09,0xE5,0x2C,0x0F,0x27,0xD7,0x65,0x9D,0xAF,0x39,0x80,0x89,0x70,0x4C,0x43,0x65,0x5F,0xDC,0x0A,0xF1,0x7E,
+
+0x8E,0x35,0x61,0x4F,0xDB,0x84,0xFC,0x50,0xE7,0x96,0x1A,0xAE,0x12,0x82,0x2D,0xE6,0x3A,0x0A,0x86,0xA7,0xA7,0x60,0x30,0x99,0x54,0xA7,0x14,0x00,0x00,0x00,0x5B,0xA4,
+
+0x89,0xFF,0xE6,0x48,0x4B,0x05,0x28,0xCF,0xFF,0x28,0xDC,0x11,0x46,0xCB,0x26,0x5D,0x9A,0x0F
+
+};
+
+WCHAR Test[]=L"http://www.ershou.net/userlogin.aspx\0";   //通过对URL进行HASH并与ValueName进行比对获取的URL地址
+
+DATA_BLOB DataOut;
+
+if(Decrypt(Test,74,pcryptdata,0xf2,&DataOut))
+
+{
+
+for(int i=0;i<DataOut.cbData;i++)
+
+{
+
+printf("%c",DataOut.pbData[i]);
+
+}
+
+printf("\r\nOver:)\r\n");
+
+}
+
+
+
+bool Decrypt(WCHAR *pURL,int URLLen,unsigned char * pCryptedData,int CryptedLen,DATA_BLOB *pDataOut)//解密用
+
+{
+
+DATA_BLOB DataIn;
+
+//DATA_BLOB DataOut;
+
+DATA_BLOB DescrOut;
+
+
+
+DataIn.pbData=pCryptedData;
+
+DataIn.cbData=CryptedLen;
+
+
+
+DescrOut.cbData=URLLen;
+
+DescrOut.pbData=(unsigned char *)pURL;
+
+if(CryptUnprotectData(&DataIn,NULL,&DescrOut,NULL,NULL,0,pDataOut))
+
+{
+
+//pBuffer=DataOut.pbData;
+
+return true;
+
+}
+
+else
+
+return false;
+
+}
+复制代码文笔有限，如有不解的地方，可以email到[url=http://www.t00ls.net/mailto:kityest@163.com]链接标记kityest@163.com[/url]一起探讨!

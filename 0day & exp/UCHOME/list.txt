@@ -1,0 +1,2 @@
+uchome 2.0 JS.php远程代码执行漏洞
+uchome 2.0 持久XSS跨站漏洞及修复

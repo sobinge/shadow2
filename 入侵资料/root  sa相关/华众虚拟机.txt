@@ -1,0 +1,12 @@
+。。
+首先想到的是ftp密码。
+regedit /e "c:\windows\Temp\1.ini" "HKEY_LOCAL_MACHINE\Software\Cat Soft\Serv-U\Domains\" 
+听说可以导出明文的。就试了下。
+谁知道导出一看。还是密文。拿出去破解。无果。。
+找了几个位置
+HKEY_LOCAL_MACHINE\SOFTWARE\MySQL AB\ 
+HKEY_LOCAL_MACHINE\SOFTWARE\HZHOST\CONFIG\
+HKEY_LOCAL_MACHINE\SOFTWARE\cat soft\serv-u\ 
+除了su。另两个无果。。
+只能挨个翻了。翻到
+HKEY_LOCAL_MACHINE\SOFTWARE\hzhost\config\settings\

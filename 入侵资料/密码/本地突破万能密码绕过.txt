@@ -1,0 +1,15 @@
+管理员登录页面发现制作得非常简陋，很可能存在注入之类的漏洞。
+在"密码"文本框中输入'or''='，提示密码中含有非法字符（图21-35），很显然这是利用本地脚本限制用户输入的密码字符类型。查看管理界面源代码，在其中可以看到如下代码。
+if?(oform.psw.value.indexOf("'")>=0){ ?
+????alert("对不起，您输入的密码中含有非常规字符，这是不允许的。"); ?
+????oform.psw.focus(); ?
+????return?false; ?
+}?
+?
+图21-34? 物业管理系统
+
+?
+图21-35? 本地注入过滤
+将该段代码删除，然后找到如下代码。
+<form?action="default_ad.asp"?method="post"?name="Lwogin"?onSubmit="?return?cheforbidden(document.Lwogin)">?
+将提交地址"default_ad.asp"修改为"http://1**.70.244.110/erphc/default_ad.asp"，然后将页面保存到本地，用浏览器打开后就可以成功地使用'or''='登录系统管理后台了。然后新建用户，登录工作区。进入后台工作区管理系统

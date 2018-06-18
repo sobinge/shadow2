@@ -1,0 +1,11 @@
+ecshop后台写shell漏洞 0day
+
+文章内容摘要：
+adminedit_languages.php 相关变量没过滤! elseif ($_REQUEST['act'] == 'edit'){ /* 语言项的路径 */ $lang_file = isset($_POST['file_path']) ? trim($_POST['file_path']) : ''; /* 替换前的语言项 */ $src_items = !empty($_POST['item']) ? stripslashe
+
+
+adminedit_languages.php 相关变量没过滤! elseif ($_REQUEST['act'] == 'edit') { /* 语言项的路径 */ $lang_file = isset($_POST['file_path']) ? trim($_POST['file_path']) : ''; /* 替换前的语言项 */ $src_items = !empty($_POST['item']) ? stripslashes_deep($_POST['item']) : ''; /* 修改过后的语言项 */ $dst_items = array(); $_POST['item_id'] = stripslashes_deep($_POST['item_id']); for ($i = 0; $i < count($_POST['item_id']); $i++) { /* 语言项内容如果为空，不修改 */ if (trim($_POST['item_content'][$i]) == '') { unset($src_items[$i]); } else { $_POST['item_content'][$i] = str_replace('\\n', '\n', $_POST['item_content'][$i]); $dst_items[$i] = $_POST['item_id'][$i] .' = '. '"' .$_POST['item_content'][$i]. '";'; } } /* 调用函数编辑语言项 */ $result = set_language_items($lang_file, $src_items, $dst_items); if ($result === false) { /* 修改失败提示信息 */ $link[] = array('text' => $_LANG['back_list'], 'href' => 'javascript:history.back(-1)'); sys_msg($_LANG['edit_languages_false'], 0, $link); } ........................................ function set_language_items($file_path, $src_items, $dst_items) { /* 检查文件是否可写（修改） */ if (file_mode_info($file_path) < 2) { return false; } /* 获取文件内容 */ $line_array = file($file_path); if (!$line_array) { return false; } else { $file_content = implode('', $line_array); } $snum = count($src_items); $dnum = count($dst_items); if ($snum != $dnum) { return false; } /* 对索引进行排序，防止错位替换 */ ksort($src_items); ksort($dst_items); for ($i = 0; $i < $snum; $i++) { $file_content = str_replace($src_items[$i], $dst_items[$i], $file_content); } /* 写入修改后的语言项 */ $f = fopen($file_path, 'wb'); if (!$f) { return false; } if (!fwrite($f, $file_content)) { return false; } else { return true; } } echop exp 本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!
+ 文件:
+任意php文件 关键字: 
+选定文件里的内容 注入语句:
+要替换的马 

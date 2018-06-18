@@ -1,0 +1,22 @@
+动网PHP论坛indivgroup_dispbbs.php sql注入漏洞
+
+漏洞版本:
+
+动网论坛 (DVBBS) PHP 2.0++
+漏洞描述:
+
+动网（DVBBS）论坛系统是一个采用PHP和MYSQL的数据架构的高性能网站论坛解决方案。
+
+在文件indivgroup_dispbbs.php中：
+if($groupboardid == 0){   //第86行
+……
+else{    //第92行
+		$query=$db->query("select id boardid,rootid,boardname boardtype,boardinfo,indeximg,postnum,topicnum,todaynum,lastpost,boardstats,rules from {$dv}group_board where rootid={$groupid} and id={$groupboardid}");
+变量$groupboardid没有经过过滤放入sql语句导致注入漏洞的产生。
+<* 参考
+http://sebug.net/vulndb/20149/
+ *>
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.http://ssvdb.com/indivgroup_dispbbs.php?groupid=1&groupboardid=1%20and%201=1&id=2&page=1

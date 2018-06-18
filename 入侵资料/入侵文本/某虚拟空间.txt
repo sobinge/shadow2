@@ -1,0 +1,53 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+某虚拟空间
+D8888D主贴内容-------------------------------------------------------
+ 
+
+某日得来一shell 暂且不问由来 英雄不问出处（引用有误 见笑）
+上图 见环境
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0909/090925114454ab50e64a7ffbd1.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjA1OXw5MWViNWFlYXwxMjg2NDgyNzMyfGRlOWF3VkVGVld3L1F0aWprcHJNdkl6eHhKVnVPSVk1eTBYQU0vNEtQZlh1akRz&nothumb=yes]链接标记下载[/url] (79.37 KB)
+
+2009-9-25 11:44
+虚拟空间为了适应客户对环境要求的多样化 在配置基础的asp环境时 多半有可能配置asp.net
+当然啦 这只是个人猜想
+（aspx马的权限一般比asp的权限大 这是不争的事实 稍微涉猎安全知识的人都会了解）
+马不停蹄 传了个aspx的马 解析成功 暗爽
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0909/0909251144774f4211f2704b15.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjA2MHxiZWNhMGY2NHwxMjg2NDgyNzMyfGRlOWF3VkVGVld3L1F0aWprcHJNdkl6eHhKVnVPSVk1eTBYQU0vNEtQZlh1akRz&nothumb=yes]链接标记下载[/url] (31.18 KB)
+
+2009-9-25 11:44
+个人喜好 多喜欢确认是否可以cmd 
+因为cmd可以获取的信息实在太多了 抛弃多余的应用软件的猜和相关目录无聊的跳转
+直捣黄龙 列进程
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0909/09092511445cf95defbf6c3e21.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjA2MXw3YjU2M2VhMnwxMjg2NDgyNzMyfGRlOWF3VkVGVld3L1F0aWprcHJNdkl6eHhKVnVPSVk1eTBYQU0vNEtQZlh1akRz&nothumb=yes]链接标记下载[/url] (84.22 KB)
+
+2009-9-25 11:44
+列进程的好处有二： 一 清晰地看到系统运行的进程 推断应用软件
+                   二 根据 pid 获取对应的端口 即使修改端口障眼之法也在所难逃
+继而有所发现
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0909/0909251144b0ccbcd092ec5980.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjA2MnxiZmIwNWZmY3wxMjg2NDgyNzMyfGRlOWF3VkVGVld3L1F0aWprcHJNdkl6eHhKVnVPSVk1eTBYQU0vNEtQZlh1akRz&nothumb=yes]链接标记下载[/url] (86.84 KB)
+
+2009-9-25 11:44
+数据库 还要吸引眼球的serv-u
+cmd执行netstat -ano 查看servudaem关联的端口
+默认 没有修改
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0909/0909251157ce0d5ecb7bc5815b.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjA2M3wxMzI0OTA3ZXwxMjg2NDgyNzMyfGRlOWF3VkVGVld3L1F0aWprcHJNdkl6eHhKVnVPSVk1eTBYQU0vNEtQZlh1akRz&nothumb=yes]链接标记下载[/url] (61.37 KB)
+
+2009-9-25 11:57
+利用su exp提权发现密码不对
+再接再厉 找到serv -u默认路径下载了servudaem 意外出现了
+搜索关键词localadministrator 却没有收获 更无从谈乱码之中寻觅密码了
+难度连用户名都修改了？心中一阵凉意
+狗日的 算你恨
+无意于乱码丛中寻觅管理员
+于是回到进程列表中 是否别有出路？
+彷徨不知所向之时 忽有发现
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0909/0909251200796167d0f0ccb352.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjA2NHw5NmU0MDBiYnwxMjg2NDgyNzMyfGRlOWF3VkVGVld3L1F0aWprcHJNdkl6eHhKVnVPSVk1eTBYQU0vNEtQZlh1akRz&nothumb=yes]链接标记下载[/url] (59.46 KB)
+
+2009-9-25 12:00pcanywhere的进程
+立即查看关联的端口 果真修改了默认的端口5631为XXXX
+祭出账号密码 [img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0909/090925121530b49b0944fcc44b.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MjA2NXxkMWNhMTQzMnwxMjg2NDgyNzMyfGRlOWF3VkVGVld3L1F0aWprcHJNdkl6eHhKVnVPSVk1eTBYQU0vNEtQZlh1akRz&nothumb=yes]链接标记下载[/url] (138.94 KB)
+
+2009-9-25 12:15
+到此为止

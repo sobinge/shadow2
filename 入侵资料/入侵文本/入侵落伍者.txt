@@ -1,0 +1,53 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+入侵落伍者.
+D8888D主贴内容-------------------------------------------------------
+xiong221 转载请注明作者以及来源.[url=http://www.hacktools.com.cn/viewthread.php?tid=2]链接标记http://www.hacktools.com.cn/viewthread.php?tid=2[/url]
+前言:MJJ的鱼老不给我落伍,于是决定日落伍.
+
+经过查看发现落伍主站是单独的服务器,旁注不了,而且主站(im286.com)和俱乐部(im286.net)分别是单独的服务器.
+所以决定还是从别的地方下手,正赶上最近落伍要换DZ7的新模板,于是找到了临时的风格测试站bbs.286.cc
+发现上面站不少.具体一个个测试的过程就不写出来了.我一个个看的.
+因为上面的几个站,有PHPOK,动易,爱聚合.所以一个个来说:
+1,动易,代码太多了,我也没0day,再一个,对ASP不懂,所以放弃.
+2,PHPOK,我下载了,PHP的,代码还算简单,不过比较安全,也PASS
+3,爱聚合,麻痹的,dezend的,懒得弄.网上下到的都是不完整的,所以PASS.
+后来看到一个站是用的网人,还有一个站是用的马克思系统.(就这两个站很有意思.呵呵)
+网人的代码,以前某站的时候看过,没发现什么可疑的地方,对参数过滤的相当严格,这次就看得很粗了,网上搜索了一下,发现深灰以前发过一个漏洞,
+[url=http://www.7747.net/Article/200809/29321.html]链接标记http://www.7747.net/Article/200809/29321.html[/url]  但是我看了代码, 
+
+    sDir = Trim(Request("dir"))
+
+    sDir = WRMPS.GetReplace(sDir,"../","")
+
+    sDir = WRMPS.GetReplace(sDir,"./","")
+复制代码很显然就是把../给替换掉了,但是我们还是可以用..\来代替的.于是就开始翻服务器.
+后来翻到了那个马克思的站了.找到数据库了.下载回来,好几十MB,找到密码,破解之,密码很简单,CMD5很快就破解出来了.
+用这个尝试登录那个网人系统的站,OK,进去了.
+网人后来我找了半天,找到一个添加单页的地方,(这个功能类似DEDE),写个马进去.于是,方便了.
+[img]http://www.hacktools.com.cn/attachments/month_0902/20090225_51b89ffb10eef42b1136HtOBZwtSpxUg.jpg[/img]
+提权的方法都试遍了,没提上去.而且发现,目录设置的相对BT,只能浏览几个虚拟主机的目录,和C盘的temp目录.没有删除权限.
+但是可以执行CMD.这个不错.但是不能加用户.哈哈/不能使用cacls,不能使用copy.CMD得知开了1433和3306.于是开始尝试新的办法.即数据库密码.SA或者ROOT.
+同时开始修改bbs.286.cc的登录文件,以记录拒绝游泳的鱼的密码.经过一段时间的等待,记录下来了.
+用这个密码尝试root成功.使用langouster_udf.dll 专用网马打算直接执行添加用户操作.失败.失败原因见这个链接:
+[url=http://www.langouster.com/HTML/8.html]链接标记http://www.langouster.com/HTML/8.html[/url]   4楼.没搞明白.
+于是叫上Remax还有小乐一起搞.
+不多久,remax搞到了.哈哈.说是用的那个udf木马的反弹shell功能.
+上3389.没啥意思.抓了管理员密码HASH,用彩虹表跑出来了.简单的一塌糊涂.....
+后来发现SA的密码也很简单,因为一试就试对了......
+再后来发现落伍的域名管理密码,还有鱼的Gmail密码都和root密码一样.
+后来对落伍的主战和俱乐部也有了些进展.但是突然觉得没啥意思了.
+截几张图来.给大家看看.我不是说谎.
+
+[用此密码登录鱼的服务器造成的一切后果,自己承担!]
+
+
+[img]http://www.hacktools.com.cn/attachments/month_0902/20090225_098272dd57caba71ccba1R5Po34zduQd.jpg[/img]
+[img]http://www.hacktools.com.cn/attachments/month_0902/20090225_b03d082ac1dc28ee32ddoyPNNBy8QrMH.png[/img]
+[img]http://www.hacktools.com.cn/attachments/month_0902/20090225_89ba5da5b2032f3a9e8fS5um7nKR6XOv.jpg[/img]
+[img]http://www.hacktools.com.cn/attachments/month_0902/20090225_a53f679ef590c8eada4dZx0JnYiDbaS8.png[/img]
+[img]http://www.hacktools.com.cn/attachments/month_0902/20090225_ed8247ccf977ee20ef63ESEvrysb2NKh.jpg[/img]
+[img]http://www.hacktools.com.cn/attachments/month_0902/20090225_ac37a9c960209f08f721uTuy0SwZGB9i.jpg[/img]
+
+[  ]

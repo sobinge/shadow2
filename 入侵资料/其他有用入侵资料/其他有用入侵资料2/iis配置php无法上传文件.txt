@@ -1,0 +1,53 @@
+
+iis配置php无法上传文件
+
+延续《Windows Server 2003中iis配置php》一文
+
+服务器上使用Apache2+PHP正常运行，换成IIS+PHP，先后出现了php.ini的环境变量无法读取，php中验证码无法显示的问题，
+
+如今又有人反应无法上传图片的问题。
+
+从IIS替换Apache2的过程仅仅是开启IIS,关闭Apache2，其它的没什么变化，但是却发生了如此多的差异，
+
+看样子IIS支持PHP还是有很多要进行修改的。
+
+分析：
+
+根据上面的描述，我怀疑问题出在IIS的权限配置上，IUSR_MACHINE的帐户对upload没有写入的权限，于是进行权限修改，
+
+IIS下的权限，NTFS下的权限都进行修改，但是终究都没用，查找网络上的资料也没有相应的，对上传页面进行测试，
+
+流程为：
+   swf文件调用save.php上传文件---->swf文件对上传的文件进行重命名--->名字返回给save.php--->显示出最后的名字。
+   
+现在的问题一直停留在swf对文件重命名的这里，一直没有到显示出最后的名字，并且swf文件不参与上传过程，
+
+那就只能在save.php文件中进行问题查找了，在该文件中进行测试，最后显示的名字所使用的变量为fileName，
+
+于是插入下面的语句进行测试:
+
+   echo "fileName=2008*****.gif";
+
+   这句话的作用就是使得fileName有值，save.php能正常显示，先把原来的语句一句一句的进行屏蔽测试，都正常的返回了，但是当测试到：
+
+   if ([email=!@move_uploaded_file($f[%22tmp_name]!@move_uploaded_file($f["tmp_name[/email]"], $dest_dir.'/'.$fileName)) header("HTTP/1.0 404 Not Found");
+
+这句话的时候问题出现了，不能上传，查找上下文，一直没发现tmp_name的变量，不过看意思是先把文件上传到一个临时文件，
+
+挪动到目的位置，那这个tmp位置在哪里呢？是不是这个位置不可写，才导致了无法上传文件？
+ 
+  查找网上资料，发现php.ini下面有2个地方关于上传的配置：
+    file_uploads = On                          这里设置是否允许HTTP上传,默认应该为ON的
+   ;upload_tmp_dir=                          这里设置上传文件存放的临时位置
+
+网上对于这2个地方的相关资料有：
+I try to set up file uploading under IIS 7 and PHP 5.
+First problem was to set 2 variables in php.ini
+file_uploads = On
+upload_tmp_dir = "C:\Inetpub\wwwroot\uploads"
+For some reasons such directory name works, 
+but "upload_tmp" won't work.
+The second problem was to set correct user rigths for upload folders where you try to save your file. I set my upload folder rights for the "WORKGROUP/users" for the full access. You may experiment by yourselves if you not need execute access, for example.
+    我的php.ini中upload_tmp_dir是被屏蔽的，没有启用，更没有设置，可是为什么Apache2却可以正常上传呢？难道问题真的出在这里？
+解决：
+新建一个文件夹，修改php.ini中上面的那2项，同时记得修改NTFS的权限，重新启动IIS，上传试试，问题真的就这样解决了。

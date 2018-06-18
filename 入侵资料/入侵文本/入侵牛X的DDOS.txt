@@ -1,0 +1,55 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+入侵牛X的DDOS
+D8888D主贴内容-------------------------------------------------------
+作者：杀虫剂
+出处：BHST安全小组友情提交T00LS
+
+无聊看到BHST里有人发贴，题目吓人--史上最强DDOS攻击器好象很牛B的样子，疯子竟然还给+分了.文章连接[url=http://www.bhst.org/viewthread.php?tid=411&extra=page%3D1]链接标记http://www.bhst.org/viewthread.php?tid=411&extra=page%3D1[/url]  
+注册了一个个帐号登陆抓包   抓包显示验证地址是[url=http://ddos.hackroots.com/]链接标记http://ddos.hackroots.com/[/url]
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004182213d3ef3013be38e23d.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTI0NnxhOGRhM2I4NHwxMjg2NDc5NTQxfDkyNzEwRnBsVzR5OGl1QmVCV29jbkNFZ0xvNXNpUWJkeDBpVHY4LytSdkkzNWtV&nothumb=yes]链接标记下载[/url] (11.82 KB)
+
+2010-4-18 22:13
+PING了下ddos.hackroots.com和[url=http://www.hackroots.com]链接标记www.hackroots.com[/url]返回IP不同，不在同服务器  这里拿验证服务器才是重要，主站不鸟它。用整理的WWWSCAN扫描 就个[url=http://ddos.hackroots.com/admin.html]链接标记http://ddos.hackroots.com/admin.html[/url]文件 打开里面记录一个IP:61.191.191.97:8081  很像是上鸡端口，其他什么毛都信息都没。有点兴趣TELNET  61.191.191.97 8081发现可以TELNET通  TELNET  3389也开着打开[url=http://www.biying.com查询输入IP:61.191.191.97网站是www.jxfhack.cn]链接标记www.biying.com查询输入IP:61.191.191.97网站是www.jxfhack.cn[/url]金小锋?这事也有,这年头他好象是又卖鸡,又卖马还收徒,牛BXX的还有他的骗术和后门了(这些信息baidu看到的不代表本人观点)
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004182213bd55bf60e1a2e256.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTI0N3wwMjc3N2EyOHwxMjg2NDc5NTQxfDkyNzEwRnBsVzR5OGl1QmVCV29jbkNFZ0xvNXNpUWJkeDBpVHY4LytSdkkzNWtV&nothumb=yes]链接标记下载[/url] (53.87 KB)
+
+2010-4-18 22:13
+先不鸟它,对ddos.hackroots.com进行C段嗅目标~  1：黑吃黑  2：搞个软件的正版ID玩玩 直接搞目标站很难的说,用super_Injection扫描IP：1-80这个段的服务器，主要是怕跨段太大目标不在同段日下一个SHELL，提权无果。继续换了个站拿SHELL,提权成功(这些就不说了)PING 174.139.92.52 再ARP -A显示在列表  看来是可以嗅的了
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/10041822135e47acefd29a4c36.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTI0OHw1MDQxNDRiYXwxMjg2NDc5NTQxfDkyNzEwRnBsVzR5OGl1QmVCV29jbkNFZ0xvNXNpUWJkeDBpVHY4LytSdkkzNWtV&nothumb=yes]链接标记下载[/url] (44.35 KB)
+
+2010-4-18 22:13
+把CAIN装上，用注册的DDOS测试用户登陆，CAIN抓到了密码先用nmap扫描 全部TELNET下 21 80 3389能TELNET通  其他端口不行， 先嗅这些端口。不久嗅到一用户  登陆DDOS软件显示终身用户
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/10041822132c39ca54da2a1eb7.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTI0OXxlOTExYzgyMXwxMjg2NDc5NTQxfDkyNzEwRnBsVzR5OGl1QmVCV29jbkNFZ0xvNXNpUWJkeDBpVHY4LytSdkkzNWtV&nothumb=yes]链接标记下载[/url] (16.88 KB)
+
+2010-4-18 22:13
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/10041822130b0b9d15406ec05f.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTI1MHw2MmViNjZkNHwxMjg2NDc5NTQxfDkyNzEwRnBsVzR5OGl1QmVCV29jbkNFZ0xvNXNpUWJkeDBpVHY4LytSdkkzNWtV&nothumb=yes]链接标记下载[/url] (18.3 KB)
+
+2010-4-18 22:13
+PING [url=http://www.newstudents.info]链接标记www.newstudents.info[/url]  根据返回确定IP根据CAIN上的信息登陆[url=http://www.newstudents.info]链接标记www.newstudents.info[/url],因为新建的所以用BIYING等其他旁注查询不到输入CAIN截取的帐号密码登陆成功并且还是个管理员
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004182213a22e863d05e6075d.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTI1MXwwMGMwNGVlMXwxMjg2NDc5NTQxfDkyNzEwRnBsVzR5OGl1QmVCV29jbkNFZ0xvNXNpUWJkeDBpVHY4LytSdkkzNWtV&nothumb=yes]链接标记下载[/url] (16.89 KB)
+
+2010-4-18 22:13
+网站版权显示Powered By PJBlog3 v3.1.6.227 CopyRight 2005 - 2008, 鞍山一中，应该是他读书的学校，现在小HACK真多，还玩起DDOS了，百度了下PJ3拿SHELL的方法！
+1、 后台模块设置
+2、 在线修改修改Template/Link.asp文件,插入一句话,        成功在后台模块插入一句话并且上传大马,这里用了T00LS的大马感觉不错
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004182213dd4b4d2907257396.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTI1MnxkYmI3YzYxNXwxMjg2NDc5NTQxfDkyNzEwRnBsVzR5OGl1QmVCV29jbkNFZ0xvNXNpUWJkeDBpVHY4LytSdkkzNWtV&nothumb=yes]链接标记下载[/url] (33.61 KB)
+
+2010-4-18 22:13
+用T00LS大马ASPX刺探支持ASPX  上传BIN的ASPX大马方便提权
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/10041822136fab046f6ba506f1.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTI1M3w0MzkwNmM2Y3wxMjg2NDc5NTQxfDkyNzEwRnBsVzR5OGl1QmVCV29jbkNFZ0xvNXNpUWJkeDBpVHY4LytSdkkzNWtV&nothumb=yes]链接标记下载[/url] (31.66 KB)
+
+2010-4-18 22:13
+利用ASPX的IIS Spy 功能一个很有趣的情况出现了
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/10041822132ef7b311bd453594.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTI1NHw5Njc2MTUyYXwxMjg2NDc5NTQxfDkyNzEwRnBsVzR5OGl1QmVCV29jbkNFZ0xvNXNpUWJkeDBpVHY4LytSdkkzNWtV&nothumb=yes]链接标记下载[/url] (36.11 KB)
+
+2010-4-18 22:13
+[url=http://www.hackroots.com]链接标记www.hackroots.com[/url]上传个TXT访问不存在  应该是之前托放在上面现在抛弃使用了.但是ddos.hackroots.com还是使用的这个域名下全部是用户名创建的HTML文档。当然admin.html也在 修改下上鸡IP不知道能有多少鸡呢！这只能找时间再测试了！继续看下提权，服务器是VM虚拟试了几个ODAY没成功，WEB和数据库分离。只能先嗅着了。它的验证也在服务器上,在WEB下找到了,以后还可以做个破解版
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004182213a7b460f420ab2155.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTI1NXxlYjQ5MzIxYXwxMjg2NDc5NTQxfDkyNzEwRnBsVzR5OGl1QmVCV29jbkNFZ0xvNXNpUWJkeDBpVHY4LytSdkkzNWtV&nothumb=yes]链接标记下载[/url] (16.33 KB)
+
+2010-4-18 22:13
+晚上7点44,吃完饭等不急了,修改admin.html鸡头(admin叫鸡头没错)的鸡全部转发到自己服务器上
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/100418221386b8a44ca165b21b.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTI1Nnw4OTdkOTJiOHwxMjg2NDc5NTQxfDkyNzEwRnBsVzR5OGl1QmVCV29jbkNFZ0xvNXNpUWJkeDBpVHY4LytSdkkzNWtV&nothumb=yes]链接标记下载[/url] (42.67 KB)
+
+2010-4-18 22:13
+目的基本达到，其他的工作还有很多,先完工.涉及DDOS目标地址没处理,感谢BHST成员帮助TKS

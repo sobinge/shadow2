@@ -1,0 +1,150 @@
+清理你入侵后的三个重要痕迹
+应用程序日志
+安全日志
+系统日志
+
+DNS日志默认位置：%systemroot%system32config，默认文件大小512KB，管理员都会改变这个默认大小。安全日志文件：%systemroot%system32configSecEvent.EVT 
+系统日志文件：%systemroot%system32configSysEvent.EVT 
+应用程序日志文件：%systemroot%system32configAppEvent.EVT 
+FTP日志默认位置：%systemroot%system32logfilesmsftpsvc1，默认每天一个
+WWW日志默认位置：%systemroot%system32logfilesw3svc1，默认每天一个日志
+
+以上日志在注册表里的键： 应用程序日志，安全日志，系统日志，DNS服务器日志，
+它们这些LOG文件在注册表中的：
+HKEY_LOCAL_MACHINEsystemCurrentControlSetServicesEventlog
+
+钥匙（表示成功）和锁（表示当用户在做什么时被系统停止）。接连四个锁图标，表示四次失败审核，事件类型是帐户登录和登录注销失败
+
+怎样删除这些日志： 通过上面，得知日志文件通常有某项服务在后台保护，除了系统日志安全日志应用程序日志等等，它们的服务是Windos2000的关键进程，而且与注册表文件在一块，当Windows2000启动后，启动服务来保护这些文件，所以很难删除.
+
+下面就是很难的安全日志和系统日志了，守护这些日志的服务是Event Log，试着停掉它！ D:SERVERsystem32LogFilesW3SVC1>net stop eventlog 这项服务无法接受请求的"暂停" 或"停止" 操作。
+怎么清除系统日志.
+怎么利用工具清除IIS日志
+怎么清除历史和cookie
+怎么察看防火墙Blackice的日志
+netstat -an 表示的什么意思
+
+--------------------------------------------------------------------------------------------------------------
+1.系统日志 通过手工很难清除. 这里我们介绍一个工具 clearlog.exe
+
+使用方法:
+Usage: clearlogs [\computername] <-app / -sec / -sys>
+
+         -app = 应用程序日志
+         -sec = 安全日志
+         -sys = 系统日志
+a. 可以清除远程计算机的日志
+** 先用ipc连接上去: net use \ipipc$ 密码/user:用户名
+** 然后开始清除: 方法  
+clearlogs \ip -app 这个是清除远程计算机的应用程序日志
+clearlogs \ip -sec 这个是清除远程计算机的安全日志
+clearlogs \ip -sys 这个是清除远程计算机的系统日志
+
+b.清除本机日志: 如果和远程计算机的不能空连接. 那么就需要把这个工具传到远程计算机上面
+   然后清除.   方法:
+
+　
+
+clearlogs   -app 这个是清除远程计算机的应用程序日志
+clearlogs   -sec 这个是清除远程计算机的安全日志
+clearlogs   -sys 这个是清除远程计算机的系统日志
+
+安全日志已经被清除.Success: The log has been cleared   成功.
+
+为了更安全一点.同样你也可以建立一个批处理文件.让自动清除. 做好批处理文件.然后用at命令建立一个计划任务. 让自动运行. 之后你就可以离开你的肉鸡了. 
+例如建立一个 c.bat
+
+rem ============================== 开始
+@echo off
+clearlogs -app
+clearlogs -sec
+clearlogs -sys
+del clearlogs.exe
+del c.bat
+exit
+rem ============================== 结束
+
+在你的计算机上面测试的时候 可以不要 @echo off   可以显示出来. 你可以看到结果
+第一行表示: 运行时不显示窗口
+第二行表示: 清除应用程序日志
+第三行表示: 清除安全日志
+第四行表示: 清除系统日志
+第五行表示: 删除 clearlogs.exe 这个工具
+第六行表示: 删除 c.bat 这个批处理文件
+第七行表示: 退出
+
+用AT命令. 建立一个计划任务. 这个命令在原来的教程里面和杂志里面都有. 你可以去看看详细的使用方法
+
+AT 时间 c:c.bat
+
+之后你就可以安全离开了. 这样才更安全一点.
+
+--------------------------------------------------------------------------------------------------------------
+2.清除iis日志:
+工具:cleaniis.exe
+使用方法:
+iisantidote <logfile dir> <ip or string to hide>
+iisantidote <logfile dir><ip or string to hide> stop
+stop opiton will stop iis before clearing the files and restart it after
+<logfile dir> exemple : c:winntsystem32logfilesw3svc1 dont forget the
+
+使用方法解释:
+cleaniis.exe iis日志存放的路径 清除参数
+
+什么意思呢？？我来给大家举个例子吧： 
+cleaniis c:winntsystem32logfilesw3svc1 192.168.0.1
+这个表示清除log中所有此IP(192.168.0.1)地址的访问记录.     -----推荐使用这种方法
+
+cleaniis c:winntsystem32logfilesw3svc1 /shop/admin/ 
+这个表示清除这个目录里面的所以的日志
+
+c:winntsystem32logfilesw3svc1 代表是iis日志的位置(windows nt/2000) 这个路径可以改变
+c:windowssystem32logfilesw3svc1 代表是iis日志的位置(windows xp/2003) 这个路径可以改变
+
+这个测试表示 在日志里面没有这个ip地址. 
+我们看一下日志的路径     再来看一下
+我们的ip(192.168.0.1)已经没有了.
+已经全部清空. 同样这个也可以建立批处理. 方法同上面的那个.
+
+--------------------------------------------------------------------------------------------------------------
+3.清除历史记录及运行的日志:
+cleaner.exe
+直接运行就可以了.
+
+--------------------------------------------------------------------------------------------------------------
+4.察看blackice的日志.
+这个地方我们可以清除的看到   防火墙的日志.
+
+这个表示 有人发过来带有病毒的email附件.   ip是: 220.184.153.116 
+tcp_probe_other   表示 通过tcp 扫描 或者利用别的和你建立连接 通信
+这个表示通过端口 80 扫描iis
+病毒 nimda
+这里需要很多的计算机协议知识. 同时也需要对英语有了解
+才能更好的分析 如果对英语不好 你可以装一个金山词霸. 
+一般情况下 我们可以 对一些可以不用管. 
+一般这三种情况 不用去管. 
+最上面的 critical 这个   可以去关注一下 . 一般是确实有别的计算机扫描或者入侵你的计算机
+
+count 代表次数     intruder 是对方的ip   event 是通过什么方式(协议) 扫描或者想入侵的 
+time表示时间
+
+5.--------------------------------------------------------------------------------------------------------------
+netstat -an 表示什么意思?
+使用这个命令可以察看到和本机的所有的连接.
+
+Proto   Local Address           Foreign Address         State
+协议     本地端口及IP地址         远程端口及IP地址       状态
+
+LISTENING   监听状态   表示等待对方连接
+
+ESTABLISHED   正在连接着.
+
+TCP   协议是TCP
+
+UDP   协议是UDP
+
+TCP     192.168.0.10:1115       61.186.97.54:80         ESTABLISHED
+这个表示   利用tcp协议 本机ip(192.168.0.10)通过端口:1115 和远程ip(61.186.97.54)端口:80连接
+80端口 表示   http   就是你在访问这个网站.
+
+一般情况下远程ip的端口: 80 21 8000 这个都是正常的. 如果是别的 就可以看一下你的计算机了。

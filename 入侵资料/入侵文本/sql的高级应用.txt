@@ -1,0 +1,219 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+sql的高级应用
+D8888D主贴内容-------------------------------------------------------
+begin transaction sksw  --开始并保存事务
+save transaction aa --设置回滚点
+rollback transaction sksw --回滚事务 意思是撤消到保存的点可事务的开始
+commit transaction sksw --提交事务
+
+
+begin transaction 是设置事务的开始，开始之后就可执行语句，如果觉的执行的语句有误可以用 rollback transaction撤消到事务的开始,如果觉的没问题就执行commit transaction结束整个事务
+
+
+索引其实就是对数据进行排序
+
+创建索引 
+create index 索引名 on 表名(列名)
+
+删除索引
+drop index 表名.索引名
+
+索引分为两种 ：
+1、一种叫聚集索引
+2、别一种叫非聚集索引
+
+索引好处：
+1、可以提高检索效率，提高查询速度
+2、提高连接，速度
+3、强制唯一
+
+
+
+sql编程
+
+定义变量
+
+declare @变量名 类型及长度   --变量名必须已字母开头
+
+变量赋值
+
+set @变量名=值
+
+条件
+
+if (条件)
+begin
+  条件为真执行的语句
+end 
+
+
+if(条件)
+begin
+条件为真执行的语句
+end 
+else
+begin
+条件不为真执行的语句
+end 
+
+
+
+例：
+declare @sk int
+set @sk=12
+
+if(@sk>8)
+begin
+select * from zhigong
+end 
+else
+begin
+select * from bumen
+end 
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+while(条件)
+begin
+条件为真循环体
+end
+
+
+declare @sk int
+set @sk=1
+
+while(@sk<1000000)
+begin
+
+
+        insert into zhigong(zhi_name)values('ddddd')
+        set @sk=@sk+1
+end 
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+case 表达式
+when 表达式 then 表达式
+when 表达式 then 表达式
+when 表达式 then 表达式
+when 表达式 then 表达式
+.....
+end
+
+
+例：
+select 
+zhi_name,
+case zhi_sex
+when '男' then '帅哥'
+when '女' then '美女'
+end
+from zhigong
+========================================
+
+exists(子查询) --测试是否查到数据如果查到为真，如果查不到为假
+print 输出
+
+
+例：
+if exists(select * from zhigong where zhi_id=78)
+begin 
+        print '有数据'
+end 
+else
+begin
+        print '没数据'
+end 
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+declare @xm varchar(20)
+set @xm='刘晶'
+
+if exists(select * from zhigong where zhi_name=@xm)
+begin 
+        select * from zhigong where zhi_name=@xm
+end 
+else
+begin
+        insert into zhigong(zhi_name)values(@xm)
+        select * from zhigong where zhi_name=@xm
+end 
+====================================================
+
+begin transaction kaishi
+
+
+if exists(select * from zhigong where zhi_name='刘晶')
+begin
+  delete zhigong where zhi_name='刘晶'
+end 
+else
+begin
+  delete gongzi where gz_zigong_id=8
+end
+
+if exists(select * from gongzi where gz_zigong_id=8)
+begin
+   commit transaction kaishi
+end 
+else
+begin
+   rollback transaction kaishi
+end 
+
+select * from gongzi
+
+
+
+=========================================================================
+分页的存储
+alter PROCEDURE show
+        @PageNumber int--当前是第几页的分页
+        
+AS
+        declare @sql as nvarchar(300)
+                        
+                        if @PageNumber=1
+                                begin
+                                        set @sql='select top 2 * from zhigong  order by zhi_id asc'
+                                end
+                        else
+                                begin
+                                        set @sql='SELECT top 2 * From zhigong where zhi_id>(select max(zhi_id) from (select top ' + convert(varchar , ((@PageNumber-1)*2)) + ' zhi_id from zhigong order by zhi_id) as tblTmp) 
+                                                   order by zhi_id'
+                            end
+                        exec(@sql)
+==============================================================================
+
+
+触发器 就是在我们 insert ,update ,delete 的时候要执行的程序可以叫触发器
+
+
+
+
+从一表向另一个表插入数据
+insert into 表名 select 列组合 from 表名
+
+1、列组合要与被插入的表一一对应
+
+
+在触发器里，插入和修改的时候生成表inserted,在删除的时候生成表deleted
+这两个表和触动触发器的表结构是一样的，这两个表的数据就是我们insert ,update,delete的数据
+
+
+insert into cf_log select zhi_name as jilu,zhi_birthday as shijian from inserted
+
+
+创建触发器语法
+
+CREATE TRIGGER 触发器名称 ON 触动触发器的表名
+FOR INSERT, UPDATE, DELETE 
+AS
+sql 语句
+
+
+修改
+
+alter TRIGGER 触发器名称 ON 触动触发器的表名
+FOR INSERT, UPDATE, DELETE 
+AS
+sql 语句
+
+drop trigger 触发器名称

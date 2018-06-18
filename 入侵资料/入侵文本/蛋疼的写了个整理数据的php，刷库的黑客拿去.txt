@@ -1,0 +1,46 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+蛋疼的写了个整理数据的php，刷库的黑客拿去
+D8888D主贴内容-------------------------------------------------------
+使用前
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1008/1008101238cd2a128ffcd1f287.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=ODIzMXwwOTE3ZmE3ZXwxMjg2NDc2NzcxfGQ0ZmRPMUVtcGVvbWVlckVScVFBaG5tN3llRG9jNE9vUFNZRWgxM1dsbXVieHpr&nothumb=yes]链接标记下载[/url] (26.88 KB)
+
+2010-8-10 12:38
+使用后
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1008/1008101238b45214420ea60b1d.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=ODIzMnw3ZmU4OTNkMnwxMjg2NDc2NzcxfGQ0ZmRPMUVtcGVvbWVlckVScVFBaG5tN3llRG9jNE9vUFNZRWgxM1dsbXVieHpr&nothumb=yes]链接标记下载[/url] (15.36 KB)
+
+2010-8-10 12:38
+
+
+
+脚本 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]01<?php 
+
+02$fp=fopen('a.txt',r); 
+
+03$str=fread($fp,filesize('a.txt')); 
+
+04$nStr = str_replace("","\n",$str); 
+
+05echo "<pre>"; 
+
+06$s = str_replace(" ","\n",$nStr); 
+
+07echo $s; 
+
+08echo "</pre>"; 
+
+09fclose($fp); 
+
+10  
+
+11$fp = fopen('b.txt',w); 
+
+12fwrite($fp,$s); 
+
+13fclose($fp); 
+
+14?>
+ 最近刷库的黑客越来越多了[img]http://www.t00ls.net/images/smilies/default2/xiudou[/img]

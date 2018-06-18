@@ -1,0 +1,23 @@
+cacls.exe cmd dos管理员权限执行net命令提示发生系统错误 5 拒绝访问的解决办法 
+2010-12-03 21:42
+当set,ipconfig等命令可以执行的时候唯独net,net1不能执行的时候可以试试下面这个方法
+
+from:龙儿心's blog 第一句可以省略。
+
+cacls net.exe /e /c /g system:F
+
+cacls c:\windows\system32\cmd.exe /p administrator:f
+
+cacls c:\windows\system32\net.exe /p administrator:f
+
+cacls c:\windows\system32\net1.exe /p administrator:f
+
+
+Cmd下修改文件访问控制权限
+
+命令如下
+cacls.exe c: /e /t /g everyone:F           #把c盘设置为everyone可以浏览
+cacls.exe d: /e /t /g everyone:F       #把d盘设置为everyone可以浏览
+cacls.exe e: /e /t /g everyone:F           #把e盘设置为everyone可以浏览
+cacls.exe f: /e /t /g everyone:F           #把f盘设置为everyone可以浏览
+

@@ -1,0 +1,19 @@
+Drupal 7.x 核心路径泄露漏洞
+
+漏洞版本:
+
+Drupal 7.x
+漏洞描述:
+
+BUGTRAQ  ID: 53454
+
+Drupal是一款开放源码的内容管理平台。
+
+Drupal 7.14之前版本在实现上存在路径泄露漏洞，通过错误信息中泄露安装路径的index.php的q[]参数，includes/bootstrap.inc内的request_path函数可允许远程攻击者获取敏感信息。
+<* 参考
+http://www.securityfocus.com/archive/1/522662
+ *>
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.http://localhost/?q[]=x2. 3.-------------------------------------4. 5.Hotfix:6. 7.Search for:8. 9.$path = trim($path, '/');10. 11.And add the following line above:12. 13.if(is_array($path)) { die(); }14. 15.-------------------------------------

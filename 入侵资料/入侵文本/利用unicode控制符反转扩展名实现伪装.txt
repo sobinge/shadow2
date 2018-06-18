@@ -1,0 +1,10 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+利用unicode控制符反转扩展名实现伪装
+D8888D主贴内容-------------------------------------------------------
+ 
+
+ [img]http://www.t00ls.net/images/attachicons/rar.gif[/img][url=http://www.t00ls.net/attachment.php?aid=NzY1Nnw4NTc4MTI0OXwxMjg2NDgwMTQ5fGZmZmFHdFhZdjkyMk9CZG9xWkVqdnlSVFVuQ2dGQkVudWs1SzU0TDV4NnRSNGJV]链接标记利用unicode伪装扩展名.rar[/url] (2.12 MB) 下载次数: 129
+
+2010-7-19 14:54

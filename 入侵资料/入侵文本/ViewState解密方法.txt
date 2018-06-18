@@ -1,0 +1,15 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+ViewState解密方法
+D8888D主贴内容-------------------------------------------------------
+分享小技巧，4lert提醒下解决问题
+
+/wEWCAL16p4hAoDAwfwKArO2870LApWS/tMEAoT9s64NAvWu85cOAvSu85cOAp/s3yRXdPF/datxUHvE+DerUZq7ETUPFA==
+这代码是ViewState加密过的，解密直接用ViewStateDecoder2.0.exe就可以了
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/10041716328fcf0d322197f055.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTIxMnxmOWU2MDZhNXwxMjg2NDgxNzkzfGVkZDQzNDNEUHk4b21RYWJwUUI4bm1JMnlubnVucllVRFRNMW5pVUpjcHFKeEln&nothumb=yes]链接标记下载[/url] (54.3 KB)
+
+2010-4-17 16:32
+ [img]http://www.t00ls.net/images/attachicons/rar.gif[/img][url=http://www.t00ls.net/attachment.php?aid=NTIxM3xlNmQ4MzIwM3wxMjg2NDgxNzkzfGVkZDQzNDNEUHk4b21RYWJwUUI4bm1JMnlubnVucllVRFRNMW5pVUpjcHFKeEln]链接标记ViewStateDecoder2.0.rar[/url] (7.89 KB) 下载次数: 37
+
+2010-4-17 16:33

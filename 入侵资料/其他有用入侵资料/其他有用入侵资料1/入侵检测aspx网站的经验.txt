@@ -1,0 +1,50 @@
+入侵检测aspx网站的经验
+分类： 渗透技巧 标签: aspx 评论(4) 浏览(233)  来源：我也不知道。。。
+
+
+1、
+对一般遇到.net的网站时
+通常会注册个用户
+第一选择利用上传判断的漏洞 加图片头GIF89A 顺利饶过
+ 
+2、
+第二种就是注入了, 在?id=xx后加单引号 " ' "
+一般情况下 用NBSI 啊D来SCAN 都可以发现BUG页面
+而且国内大多.net都是使用MSSQL数据库
+发现注入点也可以从login下手 其实这个方法目前的成功率在75%
+ 
+ 
+3、
+不过遇到搜索型的,和没错误信息回显的时候 在这里就卡住了
+大家可以看看网上一篇 搜索型注入的文章 运气好,数据库和WEB在一起
+直接在搜索里写备份LOG语句 如果输入框限制字符 可以本地做个POST表单
+也可以用WsockExpert抓包 对search.aspx?后的值分析后加注入语句
+获取路径就更好办了 只要web.config里 
+代码如下:
+ 
+<!-- Web.Config 配置文件 -->
+ 
+<configuration>
+<system.web>
+<customErrors mode="On"/> '这里为off就失败
+</system.web>
+</configuration>
+ 
+那么只需要在任意一个文件名前
+如allyesno.aspx 改为~allyesno.aspx 顺利获得WEB绝对路径
+ 
+ 
+4、
+运气好，发现登陆后台：
+比如:http://allyesno.cnblogs.com/admin/login.aspx
+如果输入密码错误返回到http://allyesno.cnblogs.com/admin/error.aspx
+如果输入http://allyesno.cnblogs.com/admin%5Cindex.aspx说不定可以饶过验证。
+ 
+ 
+5、
+后台饶过方法：
+'or''='
+'or''='
+或者
+'or'='or'
+'or'='or'

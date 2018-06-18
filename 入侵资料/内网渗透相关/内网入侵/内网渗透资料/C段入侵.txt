@@ -1,0 +1,13 @@
+搞C段吧  怎么搞 不要盲目的去查IP  不要这样盲目的猜
+
+http://c.hackcs.com/    c段查询
+ip866                    旁注
+
+
+www.xmrc.com.cn  这个是目标  我们就来找 .xmrc.com.cn这个 site  也可以  
+
+cnc.xmrc.com.cn
+old.xmrc.com.cn
+www2.xmrc.com.cn
+www1.xmrc.com.cn
+这样的都收集  然后排出同F的  我节约点时间  直接 dw.xmrc.com.cn  这个  jsp的  考虑到jsp一般是系统权限

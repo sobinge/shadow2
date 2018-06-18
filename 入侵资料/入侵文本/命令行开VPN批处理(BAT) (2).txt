@@ -1,0 +1,36 @@
+@echo off
+rem 设置服务
+
+sc config sharedaccess start=disabled
+net stop SharedAccess
+sc config remoteaccess start=auto
+net start RemoteAccess
+net start lanmanserver
+net start RemoteRegistry
+
+rem 开启VPN
+
+netsh rasset uservpnuser permit rem vpnuser改成已存在的某个账户，比如administrator
+netsh ras ip add range10.10.1.1 10.10.10.10rem 设置地址池的范围，比如192.168.111.1 192.168.111.11
+netsh ras ipset addrassignpool
+netsh routing ip nat install
+netsh routing ip nat add interface 本地连接 full rem"本地连接"可能是其他名称，最好先ipconfig确认下
+netsh routing ip nat add interface 内部 private
+
+netsh routing ip igmp install
+netsh routing ip igmp add interface 内部 igmpprototype=IGMPRTRV3ifenabled=enable
+
+robustvar=2startupquerycount=2startupqueryinterval=31genqueryinterval=125
+
+genqueryresptime=10lastmemquerycount=2lastmemqueryinterval=1000accnonrtralertpkts=YES
+netsh routing ip igmp add interface name="本地连接"igmpprototype=IGMPPROXY ifenabled=enable
+
+rem 隐藏日志
+
+Windows Registry Editor Version5.00
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RemoteAccess\Parameters]
+"LoggingFlags"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RasMan\Parameters]
+"ProhibitIPsec"=dword:00000001

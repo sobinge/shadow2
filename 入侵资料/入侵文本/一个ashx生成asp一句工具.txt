@@ -1,0 +1,19 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+一个ashx生成asp一句工具
+D8888D主贴内容-------------------------------------------------------
+搞一套源码，后台上传调用的是ewebeditor的上传，这个版本不知道怎么利用，有后台备份，抓包没有成功，只能备份mdb文件，后来研究了很长一段时间，还可以备份txt，接下来把数据库备份页面备份成txt，用浏览器一看，无语……
+
+部分代码： if InStr(LCase(bkdbname), ".asp") or InStr(LCase(bkdbname), ".aspx") or InStr(LCase(bkdbname), ".php")  or InStr(LCase(bkdbname), ".jsp")  or InStr(LCase(bkdbname), ".cgi")  or InStr(LCase(bkdbname), ".asa")  or InStr(LCase(bkdbname), ".cer")  or InStr(LCase(bkdbname), ".cdx")  or InStr(LCase(bkdbname), ".hta") then
+
+Response.Write "<script>alert('备份文件后辍名必须为.mdb格式！');history.go(-1);</script>"
+
+response.end 
+
+end if
+复制代码看看，还好服务器支持.net然后，写了这个ashx，改名上传，备份，打开成功，小马也出来，呵呵……
+
+ [img]http://www.t00ls.net/images/attachicons/rar.gif[/img][url=http://www.t00ls.net/attachment.php?aid=NTI3OXwzYzJmMzk3NnwxMjg2NDgxNzAxfDY3ZjNka2lBOU5jMjZHUFlXMUdIMXZJZE1MektpUWEvTjN6dkswam5JRitnYU5j]链接标记Handler.rar[/url] (405 Bytes) 下载次数: 88
+
+2010-4-20 08:19

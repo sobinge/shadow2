@@ -1,0 +1,35 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+入侵小记
+D8888D主贴内容-------------------------------------------------------
+ 
+
+作者 wjs
+qq 825680101
+
+朋友发了个站，注入没有，主站就几个html页面，后台用wwwscan也扫不出。
+就直接旁注了，[url=http://ip.468w.cn/]链接标记http://ip.468w.cn/[/url](旁注查询站)
+打开几个站习惯在后面加admin，大部分站是不存在的，有少数直接显示后台，
+试试默认密码admin，有个进去了。发现有fck编辑器，上传xiaoma.asp;.jpg
+一直处于上传状态，就是上传不上去，后台也没什么好利用。
+
+
+接着看看其他旁注的站，又找到个后台图1
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1004/1004151312730b6da4c9afbf7e.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NTE1MXwzZjg3ZGUxZnwxMjg2NDgxNzYxfDNkYWExSko1cjdFa0xuN0szeTNHVDlKd1c1bTlUcnAwUFRWWUJrZWR3VEpDNGtF&nothumb=yes]链接标记下载[/url] (23.78 KB)
+
+2010-4-15 13:12
+太赞了~发现是KingCMS 5.0 ，这个信息就是突破口，我也是第一次遇见这个后台。
+百度走搜索KingCMS 5.0漏洞
+搜索到[url=http://www.hackbase.com/tech/2009-12-15/58714.html]链接标记http://www.hackbase.com/tech/2009-12-15/58714.html[/url]
+文章可以发现fck路径是
+kingcms 5.0 fckeditor 路径在 admin/system/editor/fckeditor/
+访问url/admin/system/editor/fckeditor/ 存在这个目录，接着把fck后的页面补充
+url/admin/system/editor//fckeditor/editor/filemanager/browser/default/browser.html?Type=Image&Connector=../../connectors/asp/connector.asp
+
+真兴奋，能访问,上传xiaoma;.jpg在用遨游找路径拿到小马啦！遨游找路径自己baidu。
+接着提权，开始并不好搞，旁注的站是asp,用的是mdb数据库而不是sa.
+netstat -an发现有3306说明有mysql
+c盘能访问其他盘符不能，让8L4ckHum0r看了下，发来d:\mysql
+这就好办了，下载user.MYD破除了root密码
+最好udf提权搞定

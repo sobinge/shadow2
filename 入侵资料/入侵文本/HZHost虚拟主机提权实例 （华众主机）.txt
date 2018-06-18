@@ -1,0 +1,82 @@
+华众主机  ：首先想到的是ftp密码。
+regedit /e "c:\windows\Temp\1.ini" "HKEY_LOCAL_MACHINE\Software\Cat Soft\Serv-U\Domains\" 
+听说可以导出明文的。就试了下。
+谁知道导出一看。还是密文。拿出去破解。无果。。
+找了几个位置
+HKEY_LOCAL_MACHINE\SOFTWARE\MySQL AB\ 
+HKEY_LOCAL_MACHINE\SOFTWARE\HZHOST\CONFIG\
+HKEY_LOCAL_MACHINE\SOFTWARE\cat soft\serv-u\ 
+除了su。另两个无果。。
+只能挨个翻了。翻到
+HKEY_LOCAL_MACHINE\SOFTWARE\hzhost\config\settings\
+ 
+-----------------------------------------
+
+HZHost虚拟主机提权实例
+ 
+虚拟主机被提权的漏洞很多出在对目录权限设置上面，这一台也不例外。首先拿到了webshell（这个过程就不说了）
+服务器虽然支持asp,aspx和php，但是权限被设置的都很死，我把cmd.exe传到C盘根目录，也仍然无法执行cmd命令。这可能意味着溢出提权是不可能了
+提权分很多种，例如溢出提权有pr提权，ms11-046提权，iis7提权等等，这些都是溢出提权，在users或者其他低权限下运行一个溢出程序获得SYSTEM权限，如果服务器不能执行任何exe程序或者cmd命令，溢出提权的路就不能走了。
+因为服务器本身就存在一些SYSTEM权限的服务，例如杀毒软件，数据库，FTP软件等等，我们本文就是利用SYSTEM权限提权的例子。
+
+服务器支持asp,aspx和php，既然cmd不能执行，就只能先翻翻目录，扫扫环境好了。
+扫到serv-u运行，但是密码未知，MySQL和MSSQL都有，估计可能都是system权限。下面就是选择用哪个system权限的服务提权了。
+php和asp都翻不到有用的目录，而aspx却可以翻到很多目录。
+不过这些目录虽然可以历遍，但是大部分重要目录都不能访问，例如serv-u和mysql都不能访问。
+我发现了几个 “复件 Serv-u”和“复件 HZHost”这样的文件夹，但是这些文件夹能访问且列出文件目录，但是文件却无法下载。看来还是不行
+
+不过很狗血。最后发现G盘（备份盘）的数据库备份文件夹却可以访问，而且文件可以下载。于是下载了/mysql/data/mysql/user.MYD文件，读取了mysql的hash
+
+
+
+MySQL的hash为*F0B9E1FEACB514724519B70583B6D887483E5192，解密得到明文xwr6826813，不支持外链。MYSQL的版本为5.0.x
+直接创建自定义函数
+
+但是创建自定义函数提权时，提示不能将mysql.dll写入system32文件夹。看来还是对目录设置了权限。郁闷
+既然这样，那我读取serv-u的配置文件好了
+用mysql的root账户执行 1.select load_file('E:\\Serv-U\\ServUDaemon.ini')
+复制代码
+但是提示：
+
+执行失败 Can't get stat of 'E:\Serv-U\ServUDaemon.ini' (Errcode: 2)
+
+
+这就意味着这个serv-u的上级目录，也就是E盘根目录对权限做了设置，MySQL没权，读不了
+
+现在提权陷入僵局啊
+
+既然MySQL不行，那换MSSQL好了
+\MSSQL\Data\master.mdf下载下来了，但是我转念一想
+MSSQL和MYSQL放到了一起，会不会MSSQL的sa的密码和MYSQL的root密码是一样的呢
+试着登陆了一下，结果更狗血，还真是一样的
+
+那不废话了，直接用xp_cmdshell执行cmd命令
+
+
+
+提示未找到储存过程。郁闷。sp_oacreate也跟xp_cmdshell一样
+从网上搜了一下，但是网上说的解决方法都不能用。
+什么恢复啊什么什么的，不是xp_cmdshell已经存在就是sp_oacreate无效的
+最后想到了一个简单方法： 
+1.drop procedure sp_addextendedproc
+
+2.drop procedure sp_oacreate
+
+3.exec sp_dropextendedproc 'xp_cmdshell'
+
+4.dbcc addextendedproc ("sp_oacreate","odsole70.dll")
+
+5.dbcc addextendedproc ("xp_cmdshell","xplog70.dll")
+
+复制代码
+既然提示已经存在，那就先卸载，然后恢复，就OK了
+
+
+
+说到这里，我想后面就没必要说下去了吧
+
+
+
+登陆远程桌面，发现好多"for HZHost"用户，当时翻目录就发现华众虚拟主机的目录，上来一看，还真是这个虚拟主机
+
+一个比较安静的交流群里的同学应该知道我说的是哪台服务器，你懂的。。。

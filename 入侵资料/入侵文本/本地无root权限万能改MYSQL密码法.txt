@@ -1,0 +1,26 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+本地无root权限万能改MYSQL密码法
+D8888D主贴内容-------------------------------------------------------
+打开CMD首先停止mysql服务
+
+net stop mysql
+
+进入mysql安装目录下的bin文件夹，然后输入
+
+mysqld-nt --skip-grant-tables
+
+跳过密码检测
+
+然后另外新打开一个cmd窗口
+
+输入mysql 直接回车可以以root权限进入mysql
+
+use mysql
+
+update user set password=password("新密码") where user="root";
+
+flush privileges;
+
+如果无错误提示，密码即可更改成功。

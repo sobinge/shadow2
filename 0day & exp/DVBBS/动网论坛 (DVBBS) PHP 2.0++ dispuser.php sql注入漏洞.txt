@@ -1,0 +1,33 @@
+动网论坛 (DVBBS) PHP 2.0++ dispuser.php sql注入漏洞
+
+漏洞版本:
+
+动网论坛 (DVBBS) PHP 2.0++
+漏洞描述:
+
+动网（DVBBS）论坛系统是一个采用PHP和MYSQL的数据架构的高性能网站论坛解决方案。
+
+文件dispuser.php中：
+if( is_numeric($id) ){  //第6行
+	$showUserID = intval($id);
+} else{
+	if( $UserName == '' ){
+		$ErrCodes = $lang['UrlArgError'];
+	}
+}
+……
+if( empty($showUserID) ){    //第35行
+		$updStmt .= " WHERE UserName='{$UserName}' ";
+		$stmt .= " WHERE UserName='{$UserName}' ";
+		$onstat = " WHERE UserName='{$UserName}' ";
+	} else{
+		$updStmt .= " WHERE UserID={$showUserID} ";
+在变量$UserName存在且$id不存在的时候，变量$showUserID就不会被赋值。导致注入漏洞的产生。
+<* 参考
+s1@sebug.net
+ http://sebug.net/vulndb/20111/
+ *>
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.http://ssvdb.com/dispuser.php?name=lovemmm&showUserID=1%20and%201=2

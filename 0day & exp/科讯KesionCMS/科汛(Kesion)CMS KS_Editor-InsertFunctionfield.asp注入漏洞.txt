@@ -1,0 +1,20 @@
+¿ÆÑ´(Kesion)CMS KS_Editor/InsertFunctionfield.asp×¢ÈëÂ©¶´
+
+Â©¶´ÃèÊö:
+
+KS_Editor/InsertFunctionfield.asp
+
+ID = Trim(request("id"))
+Call Main
+
+Call CloseConn
+
+Sub Main()
+Set rs=Conn.Execute("select * from KS_Label where ID='" & ID & "'")
+
+
+ <* ²Î¿¼
+http://www.neeao.com/blog/article-4534.html
+ By£º·è×Ó
+
+ *>

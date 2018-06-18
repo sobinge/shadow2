@@ -1,0 +1,96 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+HTML-WEB2.0模式下的网站入侵
+D8888D主贴内容-------------------------------------------------------
+ 
+
+HTML-WEB2.0模式下的网站入侵
+                                 声明：本文是应Calm要求对原文进行修改的。        
+
+        闲来无事，看看厦门电信的网站做的怎么样。
+        [url=http://www.xmtelecom.com.cn/]链接标记http://www.xmtelecom.com.cn/[/url]
+        嗯，网站就不多说了，我们是来入侵的。
+        先在URL后面加个 admin/ 试试他的管理入口目录。
+        好了，服务器报错，404错误，看图：
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1010/10100220514c38c24bf49dead4.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTQwN3xhY2E2ZDgxOXwxMjg2NDc2NzI1fDQ3MGNSOGVpUnFicTdUMW0rY3ptZWF4b3NQMldxdkVZQ3hRZU5KSGttcCtLanJv&nothumb=yes]链接标记下载[/url] (31.49 KB)
+
+6 天前 20:51
+        初步得到服务器信息。是 Apache的服务器。
+        然后我们猜测他的登录入口地址，猜什么好呢？
+        先试试 login.jsp 吧。(Apache也支持JSP，孤陋寡闻了我 - -!!)
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1010/1010022052ff630a5c84c84c86.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTQwOHw2ZmNkYTAwM3wxMjg2NDc2NzI1fDQ3MGNSOGVpUnFicTdUMW0rY3ptZWF4b3NQMldxdkVZQ3hRZU5KSGttcCtLanJv&nothumb=yes]链接标记下载[/url] (64.26 KB)
+
+6 天前 20:52
+好，好，又报错了，500错误，熟习搞ASP的朋友可能知道了，500是服务器内部错误，说明是有文件的，看情况肯定是参数不正确导致程序运行出问题。
+        可是，入口在哪里呢？
+        JSP动态页不是，难道是HTML页？
+        输入[url=http://www.xmtelecom.com.cn/admin/login.html]链接标记http://www.xmtelecom.com.cn/admin/login.html[/url] 
+        打开一看，还真进去了页。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1010/101002205242e21dcc553cfa7a.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTQwOXwwMWFlOTlmZHwxMjg2NDc2NzI1fDQ3MGNSOGVpUnFicTdUMW0rY3ptZWF4b3NQMldxdkVZQ3hRZU5KSGttcCtLanJv&nothumb=yes]链接标记下载[/url] (32.09 KB)
+
+6 天前 20:52
+接下去……        嗯，实际上我也不知道接下去该怎么做了。
+        仔细的研究了一下，发现这个后台登录居然是AJAX架构的，登录的提交页都没出来，直接交给JS处理了。
+        打开代码一看……
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1010/1010022053f74d6db36beab397.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTQxMHwxZDJiNWI2MnwxMjg2NDc2NzI1fDQ3MGNSOGVpUnFicTdUMW0rY3ptZWF4b3NQMldxdkVZQ3hRZU5KSGttcCtLanJv&nothumb=yes]链接标记下载[/url] (34.9 KB)
+
+6 天前 20:53
+第一个框是提交动作，采用了一个函数 buffaloremotCall()一看就是某个框架的类，里面的参数显示提交的地址是……喜欢JS的朋友可以研究一下。
+        第二个框是SetCookie()，很明显，这个是用来设置登录后的Cookie，难道这个网站登录状态是用Cookie判断的？不可思意！惊喜！为何惊喜？伪造Cookie会不会？
+        第三个框是跳转的页。嗯，总结下网站的逻辑；login.html提交登录，JS直接送参数到adminService.login判断，后台程序比对数据库，返回接口，JS判断结果是否为空，为空则抛出错误，不为空则对Cookie进行设置，然后跳转到main.html。
+        不知道后台有没有设置Session，这个估计是会有设置的，不过权限验证的时候就不知道会不会拿 Cookie和Session比对。
+        很明显，Calm不是一般人。
+        只见一眨眼的功夫Calm打开了main.html，并且在一眨眼的功夫页面跳回了login.html。很快啊，两个一眨眼的功夫跟一个一眨眼的功夫两者的时间差不多啊。BUT，正是这种快，见证了Calm的不平凡，现在有请摄影师回放，暂停，看截图：
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1010/1010022054ee5ba99e19f40671.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTQxMXxiODEwOTYwMHwxMjg2NDc2NzI1fDQ3MGNSOGVpUnFicTdUMW0rY3ptZWF4b3NQMldxdkVZQ3hRZU5KSGttcCtLanJv&nothumb=yes]链接标记下载[/url] (36.5 KB)
+
+6 天前 20:54
+
+        在万分之一秒的时间内，Calm同学看到了内幕。
+        不过这个内幕其实来的比较辛苦。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1010/101002205427ee2747f0e23268.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTQxMnxmYTFiNmY1M3wxMjg2NDc2NzI1fDQ3MGNSOGVpUnFicTdUMW0rY3ptZWF4b3NQMldxdkVZQ3hRZU5KSGttcCtLanJv&nothumb=yes]链接标记下载[/url] (16.31 KB)
+
+6 天前 20:54
+        Calm同学用浏览器的停止功能，对了就是我们平时看网页时按ESC键的效果，网页停止载入。（暂停神功，千秋万载。WEB2.0，有我不败。）
+        牛人啊，硬生生的用鼠标停下了正在载入的页。（实际上网速比较卡的同学在这点上是比较有优势的）
+        接下去，我们可以看看里面到底有什么秘密。方便起见，干脆把HTML文件下载下来看好了，嗯，这主意不错。（main.html,admin_admin.html）
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1010/1010022055a82a79b1bd6943b4.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTQxM3w1OTc2Y2QyOHwxMjg2NDc2NzI1fDQ3MGNSOGVpUnFicTdUMW0rY3ptZWF4b3NQMldxdkVZQ3hRZU5KSGttcCtLanJv&nothumb=yes]链接标记下载[/url] (46.08 KB)
+
+6 天前 20:55
+
+好了，大家看到图中的两个框分别是验证，和验证没有通过的结果。
+        没想到的是居然仅仅验证了Cookie，难道还有什么后招？
+        一般情况下的一般的人，我们会伪造一个Cookie来进行测试。
+        不过很明显示，这种情况不使用于Calm，于是，在检查了网页的链接的各各文件后，他报着试试看的心态，继续使用暂停神功，暂停了其中的一个admin_admin.html 的页面。
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1010/10100220562da0e49040c027a8.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTQxNHxhMjU3MThjYXwxMjg2NDc2NzI1fDQ3MGNSOGVpUnFicTdUMW0rY3ptZWF4b3NQMldxdkVZQ3hRZU5KSGttcCtLanJv&nothumb=yes]链接标记下载[/url] (16.82 KB)
+
+6 天前 20:56
+        相信各位也看到了。
+
+         [img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1010/101002205686df294c5ff598b5.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTQxNXw3ZjJhNzA2YnwxMjg2NDc2NzI1fDQ3MGNSOGVpUnFicTdUMW0rY3ptZWF4b3NQMldxdkVZQ3hRZU5KSGttcCtLanJv&nothumb=yes]链接标记下载[/url] (14.41 KB)
+
+6 天前 20:56
+        这才是重点。
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1010/1010022057aa37c832e31d2dc4.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTQxNnxiZDgwNjQ5ZnwxMjg2NDc2NzI1fDQ3MGNSOGVpUnFicTdUMW0rY3ptZWF4b3NQMldxdkVZQ3hRZU5KSGttcCtLanJv&nothumb=yes]链接标记下载[/url] (32.11 KB)
+
+6 天前 20:57
+网站管理员权限已经拿下，一般的网站防外防的紧，防内就比较稀松了，只不过这个网站里外都稀松。
+        然后是后台上传拿WEBSHELL.
+        拍照留念：
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1010/10100220574e46bfaed425f547.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=OTQxN3w2MWVhMzA3MXwxMjg2NDc2NzI1fDQ3MGNSOGVpUnFicTdUMW0rY3ptZWF4b3NQMldxdkVZQ3hRZU5KSGttcCtLanJv&nothumb=yes]链接标记下载[/url] (25.64 KB)
+
+6 天前 20:57
+编者按：
+        基本上在我看来拿下这个站运气成分比较多一点，还有就是网站制作人员的极大疏忽。我在和Calm谈论这件事的时候就非常感叹：
+简单  20:41:26
+不过这样的站都做起来，天！真不知道他们的安全意识薄弱到何种程度。
+        首先看这个网站，用的AJAX架构，把程序处理全部放在了后台，用户和管理员接触到的都是HTML文件，看起来是比较安全……实际上，从某种意味上来看很有掩耳盗铃的嫌疑。
+        用JS连接逻辑层和显示，很明显的权限判断没有到位。只是用JS对Cookie进行了判断，殊不知，JS也可以伪造Cookie哦，比用工具还方便。
+        还有就是 main.html 里面的 onload=login()
+        要 onload才去做判断，在你没Loaded的时候是可以直接看里面的源文件的，至少头部分会出来。
+        这个还不是最致命的，最致命的是，进行操作的时候没有进行权限确认，像他的添加管理员操作。
+简单  20:36:58
+额~ 无耐，好歹有点基本原则，载入界面不载入内容。
+每次操作前都有权限判断。
+我也只是把我自己的思维写出来而己..各人有各人的方法..我只是用了个笨的方法而己..所以请大家见谅哈...不要鄙视小弟我... 本帖隐藏的内容需要回复才可以浏览

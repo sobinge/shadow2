@@ -1,0 +1,111 @@
+
+命令：Tasklist /SVC 这个命令会列出所有进程，系统服务及其对应的PID值! 而终端所对应的服务名为：TermService 再找到PID后使用
+netstat -ano列出所有端口对应的PID值! 那么就可以看到终端的端口号了 
+
+
+在CMD命令行下关闭进程的命令2010/02/01 09:57
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+方法一：
+
+在"运行"中输入:ntsd -c q -pn 程序名字(在MS-Dos中的作用是一样的)
+
+方法二：
+
+ntsd使用以下参数杀死进程.
+c:\>ntsd -c q -p PID 只要你能提供进程的PID,那么你就可以干掉进程.
+
+法二:
+
+    tskill命令
+
+这个命令与tasklist命令是相对应的吧! tasklist命令是显示有哪些进程正在运行!
+
+tskill命令是关闭运行中的进程.
+
+不过我试验了,好像没有用哦!^O^
+
+
+共有多少种命令行下的死法呢?
+三种!tskill命令,taskkill命令,ntsd命令.
+tskill命令的使用最为简单,C:\>tskill
+
+TSKILL processid | processname [/SERVER:servername] [/ID:sessionid | /A] [/V]
+
+processid 要结束的进程的 Process ID。
+processname 要结束的进程名称。
+/SERVER:servername 含有 processID 的服务器(默认值是当前值)。
+使用进程名和 /SERVER 时，必须指定/ID 或 /A
+/ID:sessionid 结束在指定会话下运行的进程。
+/A 结束在所有会话下运行的进程。
+/V 显示正在执行的操作的信息。
+
+taskkill命令主要的好处是带很多筛选器,可以批量结束进程
+C:\>taskkill /?
+
+TASKKILL [/S system [/U username [/P [password]]]]
+{ [/FI filter] [/PID processid | /IM imagename] } [/F] [/T]
+描述:
+这个命令行工具可用来结束至少一个进程。可以根据进程 id 或图像名来结束进程。
+参数列表:
+/S system 指定要连接到的远程系统。
+/U [domain\]user 指定应该在哪个用户上下文执行这个命令。
+/P [password] 为提供的用户上下文指定密码。如果忽略，提示输入。
+/F 指定要强行终止进程。
+/FI filter 指定筛选进或筛选出查询的的任务。
+/PID process id 指定要终止的进程的PID。
+/IM image name 指定要终止的进程的图像名。通配符 '*'可用来指定所有图像名。
+/T Tree kill: 终止指定的进程和任何由此启动的子进程。
+/? 显示帮助/用法。
+筛选器:
+筛选器名 有效运算符 有效值
+----------- --------------- --------------
+STATUS eq, ne 运行 | 没有响应
+IMAGENAME eq, ne 图像名
+PID eq, ne, gt, lt, ge, le PID 值
+SESSION eq, ne, gt, lt, ge, le 会话编号
+CPUTIME eq, ne, gt, lt, ge, le CPU 时间，格式为hh:mm:ss。hh - 时，mm - 钟，ss - 秒
+MEMUSAGE eq, ne, gt, lt, ge, le 内存使用，单位为 KB
+USERNAME eq, ne 用户名，格式为[domain\]user
+MODULES eq, ne DLL 名
+SERVICES eq, ne 服务名
+WINDOWTITLE eq, ne 窗口标题
+注意: 只有带有筛选器的情况下，才能跟 /IM 切换使用通配符 '*'。
+注意: 远程进程总是要强行终止，不管是否指定了 /F 选项。
+例如:
+TASKKILL /S system /F /IM notepad.exe /T
+TASKKILL /PID 1230 /PID 1241 /PID 1253 /T
+TASKKILL /F /IM notepad.exe /IM mspaint.exe
+TASKKILL /F /FI "PID ge 1000" /FI "WINDOWTITLE ne untitle*"
+TASKKILL /F /FI "USERNAME eq NT AUTHORITY\SYSTEM" /IM notepad.exe
+TASKKILL /S system /U domain\username /FI "USERNAME ne NT*" /IM *
+TASKKILL /S system /U username /P password /FI "IMAGENAME eq note*"
+
+有一些高等级的进程,tskill和taskkill或许无法结束,那么我们还有一个更强大的工具,那就是系统debug级的ntsd.准确的说,ntsd是一个系统调试工具,只提供给系统开发级的管理员使用,但是对我们杀掉进程还是很爽的.基本上除了WINDOWS系统自己的管理进程,ntsd都可以杀掉.
+
+当然咯,有些rootkit级别的超级木马,还是无能为力,幸好这种牛牛级别的木马还是很少的.
+NTSD 调试程序在启动时要求用户指定一个要连接的进程。使用 TLIST 或 PVIEWER，您可以获得某个现有进程的进程 ID，然后键入 NTSD -p pid 来调试这个进程。NTSD 命令行使用如下的句法：
+NTSD [options] imagefile
+其中，imagefile 是要调试的映像名称，options 是下面选项之一：
+选项说明-2打开一个用于调试字符模式的应用程序的新窗口-d将输出重定向到调试终端-g 使执行自动通过第一个断点-G使 NTSD 在子程序终止时立即退出o启用多个进程的调试，默认值为由调试程序衍生的一个进程-p指定调试由进程 ID 标识的进程-v产生详细的输出
+例如，假设 inetinfo.exe 的进程 ID 为 104。键入以下命令将 NTSD 调试程序连接到 inetinfo 进程 (IIS)。
+NTSD -p 104
+也可使用 NTSD 启动一个新进程来进行调试。例如，NTSD notepad.exe 将启动一个新的 notepad.exe 进程，并与它建立连接。
+一旦连接到某个进程，您就可以用各种命令来查看堆栈、设置断点、转储内存，等等。
+命令含义~显示所有线程的一个列表KB 显示当前线程的堆栈轨迹~*KB显示所有线程的堆栈轨迹R显示当前帧的寄存器输出U反汇编代码并显示过程名和偏移量D[type][< range>]转储内存BP[#]
+
+设置断点BC[]清除一个或多个断点BD[]禁用一个或多个断点BE[< bp>]启用一个或多个断点BL[]列出一个或多个断点
+个人意见,有一个非常重要的参数就是-v参数,我们可以通过它发现一个进程下面挂接了哪些连接库文件.有很多病毒,木马,或者恶意软件,都喜欢把自己做成动态库,然后注册到系统正常程序的加载库列表中,达到隐藏自己的目的.
+首先我们需要设置一下ntsd的输出重定向,最好是重定向到一个文本文件,方便我们分析研究.
+c:\>set _NT_DEBUG_LOG_FILE_APPEND=c:\pdw.txt
+注意,虽然输出重定向了,但是我们的输出依然会继续显示在屏幕上,而且会进入到debug模式,我们使用-c q参数,就可以避免这个问题.
+c:\>ntsd -c q -v notepad.exe
+现在我们的pdw.txt文件中,就可以看见notepad.exe文件的调试信息.
+ntsd使用以下参数杀死进程.
+c:\>ntsd -c q -p PID 只要你能提供进程的PID,那么你就可以干掉进程.
+ 
+
+
+ 
+ 
+

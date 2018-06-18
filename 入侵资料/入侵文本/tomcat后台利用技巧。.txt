@@ -1,0 +1,42 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+tomcat后台利用技巧。
+D8888D主贴内容-------------------------------------------------------
+文/ninty
+
+一切都建立在能登陆后台的基础上。。
+
+如果/manager/html后台找不到口令无法登陆， 尝试一下/admin后台， 如果/admin后台存在并且弱口令进去了。（从TOMCAT5（应该是5，具体版本忘了）开始默认/admin后台不存在 。）
+在/admin后台里面可以看到manager后台的账号密码，拿到后直接登陆，或者自己手动添加manager用户组，并添加一个manager组的账号，就可以到/manager/html后台登陆了
+
+/admin后台里面可以看到TOMCAT的所有配置信息， 里面有可能会找到数据库连接字符串。。
+或者有可能会看到布置了多少个应用。
+
+如果/manager/html后台登陆进去以后， war文件因为一些原因无法上传
+利用上面的那个deploy directory or war file located on server功能
+context path写/fuckfuck
+war or directory url 写c:\
+
+然后访问
+http://ip/fuckfuck 
+就有可能将c盘下的目录列出来 ， 这跟TOMCAT配置有关，如果列不出来，就去猜文件吧。
+这里只是举例子，最好不要写成c:\ d:\这样的根目录 。。 不然TOMCAT会将这些盘里所有的文件全都COPY过来的。
+
+或者在war or directory url 那里写c:\WINDOWS\repair
+
+然后直接访问http://ip/fuckfuck/sam
+可以将sam 与 system文件下载回来破解密码。。
+
+再有就是如果这台TOMCAT上有其它的项目， 如果你能猜到项目目录，比如
+d:\tomcat 5.5\webapps\aaa 这个项目。
+
+再利用上面那个功能war or directory url写d:\tomcat 5.5\webapps\aaa\web-inf
+
+然后直接访问http://ip/fuckfuck/web.xml 就可以看到aaa这个项目的配置文件， 
+根据配置文件里面的东西再去读别的。一般都能读到数据库连接字符串的。
+
+具体自己发挥。。
+
+再有一个情况就是，war可以上传，但是jsp无法编译， 一般是没有配置编译器或者有jar包丢失了。。
+这种情况 ， 把jsp转成servlet，打成war以后直接上传， 这样就不用编译了。。

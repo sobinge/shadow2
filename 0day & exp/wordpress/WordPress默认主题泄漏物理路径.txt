@@ -1,0 +1,24 @@
+WordPress默认主题泄漏物理路径 
+
+漏洞详情
+
+披露状态：
+
+
+
+2012-07-14： 积极联系厂商并且等待厂商认领中，细节不对外公开
+2012-07-14： 厂商已经主动忽略漏洞，细节向公众公开
+
+
+简要描述：
+
+默认模板的问题。
+
+详细说明：
+
+URL/wp-content/themes/twentyeleven/index.php
+
+漏洞证明：
+
+http://blog.gentilkiwi.com/wp-content/themes/twentyeleven/index.php
+ http://www.36kr.com/wp-content/themes/twentyeleven/index.php

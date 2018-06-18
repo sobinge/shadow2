@@ -1,0 +1,236 @@
+pstools使用方法 (1)2009-07-05 11:28:56  www.hackbase.com  来源：kindle's blog http://hi.baidu.com/system_exp/
+　　软件名称：Pstools　　运行平台：Windows　　软件授权：免费软件　　软件大小：550KB　　下面我用一个实例来讲解这个命令的使用。假设我要对192.168.0.8计算机进行远程管理，那么我可以先打开一个命令行窗口 ...
+　　软件名称：Pstools
+　　运行平台：Windows
+　　软件授权：免费软件
+　　软件大小：550KB
+　　下面我用一个实例来讲解这个命令的使用。假设我要对192.168.0.8计算机进行远程管理，那么我可以先打开一个命令行窗口。在命令行中输入以下命令后敲回车：
+　　D:\tools\Pstools>psexec file://192.168.0.8/ -u administrator -p 123 cmd.exe
+　　PsExec v1.31 - execute processes remotely
+　　Copyright (C) 2001-2002 Mark Russinovich
+　　Microsoft Windows 2000 [Version 5.00.2195]
+　　(C) 版权所有 1985-1998 Microsoft Corp.
+　　C:\WINNT\system32>
+　　解释一下，上述参数中的“-u administrator”是表示使用administrator身份来登录192.168.0.8计算机；“-p 123”是表示administrator的密码为123；“cmd.exe”表示我想执行远程计算机上面的cmd.exe命令，如果远程计算机上面没有 这个命令，你可以增加“-c”的参数，这样就可以把本地计算机上的这个命令直接拷贝到远程计算机后再执行。“C:\WINNT \system32>”表示你已经登录到远程计算机上面了。怎么样，这比telnet要方便得多吧，如果对方没有开telent、或者如果对方开了 但仍然使用着NTLM验证，想想看你得花多大的精力才能登录到对方的计算机上面呢？
+　　第二个工具是Psinfo。正如它的名字所示，该命令可以查看本地或者远程计算机的一些系统信息、软件安装信息和其他信息，不加任何参数的Psinfo就只显示本地计算机的系统信息。用法如下：
+　　psinfo [-h] [-s] [-d] [-c] [\\RemoteComputer [-u Username [-p Password]]]
+　　我们用实例来介绍该命令的使用，在命令行下输入：
+　　D:\tools\Pstools>psinfo file://192.168.0.8/ -s -u administrator -p 123
+　　其中“-s”表示显示远程计算机上面已安装的软件信息，“-u”和“-p”含义同PsExec。这条命令显示192.168.0.8计算机上面的系统信息 和软件信息。系统信息包括系统安装时间、内存大小、CPU频率和品牌、操作系统类型等等；软件信息则会列出远程计算机上显示在“添加/删除”里的软件名 称。限于文章的篇幅，这里就不把上述信息列出，请大家在自己的计算机上面实验。
+　　第三个工具是Psshutdown。从名称上可以看出这是一个可以进行远程关机和重启的程序。使用语法如下：
+　　psshutdown [[-s | -r | -k [-t nn][-m "message"][-f]] -a | -l | -o] [\\computer]
+　　这条命令最简单的使用方法为：
+　　psshutdown -r file://192.168.0.8/，
+　　这条命令的意思是让远程计算机重新启动。其他参数请大家自己看帮助文件，在这里我只强调两点：1、使用该命令前必须先和远程计算机建立有效的ipc$连 接，因为我们可以看到该命令中并没有指定“-u”和“-p”；2、缺省情况下，命令发出后20秒才开始执行重启程序，如果你想立刻执行重启的话，请加上 “-t”的参数。
+　　Pstools工具集中还有一个Pskill，它和Pslist成对使用，专门用来杀死进程的，使用方法也很简单，这里就不再介绍了。至于其他的工具，使用方法都大同小异，大家可以自己练习。
+　　Pstools是一组非常优秀的网管工具集，是对Windows 2000资源工具的一个补充，希望大家能在自己的计算机上面进行实验，利用它更好地去管理我们的网络。
+　　
+　　Pstools 是Windows平台下的一组不可多得的网管工具集，它由11个短小精悍的命令行程序组成，各自可以单独运行。说它们“短小”是因为这11个小软件加起来 所占用的总空间不超过1MB，说“精悍”嘛，呵呵，是因为它的功能实在太强大了。它不但可以帮助你管理本地计算机，也可以帮助你管理远程计算机；它是网络 管理员的利器，也是黑客的杀手锏。Pstools 是完全免费的软件，无需安装，解压后直接拷贝到电脑里就可以了，很符合当前“绿色”软件的标准。
+　　Pstools总共包含11个可执行文件，每个文件名都以“ps”开头，这是因为Pstools中最早被开发出来的一个工具是用来查看进程详细信息的，而 Unix下面有一个相同的命令，名为ps，所以这个工具就被命名为pslist，而后陆续出来的其他工具便都沿用这个前缀。本文将重点为大家介绍其中最主 要的3个工
+具的使用，其余的请查看相关的帮助文件。
+　　首先介绍的工具是PsExec，这是Pstools中份量最重的一个命令，它允许网络管理员在远程计算机上执行控制命令。虽然我们可以用PcAnyway 或者Windows 2000的终端服务来进行图形界面的远程管理，但是在一个网络中给每台计算机安装这种图形界面的远程控制软件服务器端，不仅费时费力占资源，而且可操作性 不强。我们也可以用telnet等命令行方式来进行远程管理，但telnet使用起来还是不大方便，如果对方计算机没有你需要的控制命令，你还得重新上传 一个。
+　　PsExec的用法如下：
+　　psexec
+　　
+　　1)psexec
+　　usage: psexec \computer [-u username [-p password] [-c [-f] [-i][-d] program [arguments]
+　　
+　　psexec是一个远程执行工具，你可以像使用telnet一样使用它。
+　　它的使用格式为：
+　　psexec \远程机器ip [-u username [-p password] [-c [-f] [-i][-d] program [arguments]
+　　它的参数有：
+　　-u后面跟用户名 -p后面是跟密码的,如果建立ipc连接后这两个参数则不需要。（如果没有-p参数，则输入命令后会要求你输入密码）
+　　-c <[路径]文件名>:拷贝文件到远程机器并运行（注意：运行结束后文件会自动删除）
+　　-d不等待程序执行完就返回，（比如要让远程机器运行tftp服务端的时候使用，不然psexec命令会一直等待tftp程序结束才会返回）
+　　-i 在远程机器上运行一个名为psexesvc进程，(到底什么用弄不明白）
+　　
+　　假设我在远程机器ip有一个账号，账号名是：abc 密码是：123
+　　比如想要用telnet一样在远程系统上执行命令可以打：
+　　psexec \远程机器ip -u abc -p 123 cmd
+　　
+　　如果想要远程机器执行本地c:srm.exe文件可以打：
+　　psexec \远程机器ip -u abc -p 123 -c c:srm.exe
+　　
+　　如果想要让远程机器执行本地上tftp服务端，(假设tftp服务端在本地c:tftp32.exe)，可以打：
+　　psexec \远程机器ip -u abc -p 123 -c c:tftp32.exe -d
+　　
+　　(2)psservice
+　　psservice是一个服务管理程序。
+　　它的使用格式为：
+　　psservice [\远程机器ip [-u username] [-p password] <command> <options>
+　　它的参数只有：
+　　-u 后面跟用户名 -p后面是跟密码的,如果建立ipc连接后这两个参数则不需要。（如果没有-p参数，则输入命令后会要求你输入密码）
+　　它的command有：
+　　query [服务名]:显示某一服务的状态，如不填服务名则显示所有服务的状态。
+　　config <服务名>：显示某一服务的配置。
+　　start <服务名>：启动某一服务。
+　　stop <服务名>：停止某一服务。
+　　testart <服务名>：停止某一服务并重新启动它。
+　　pause <服务名>：暂停某一服务。
+　　cont <服务名>：恢复暂停的服务。
+　　depend <服务名>：显示某一服务依存关系。
+　　find <服务名>：在网络种搜寻指定的服务。
+　　
+　　比如你想查看在远程机器上的telnet服务的状态可以打：
+　　psservice \远程机器ip query tlntsvr （tlntsvr为telnet服务的服务名）
+　　比如你查看远程机器上的telnet服务的配置可以打：
+　　psservice \远程机器ip config tlntsvr
+　　比如你想启动远程机器上的telnet服务可以打：
+　　psservice \远程机器ip start tlntsvr
+　　其他用法以此类推。
+　　
+　　(3)pssuspend
+　　pssuspend是一个暂时停止进程的软件
+　　它的使用格式为：
+　　pssuspend [-r] [\远程机器ip [-u username] [-p password] <process name | process id>
+　　它有三个参数：
+　　-u：后面跟用户名 -p：后面是跟密码的,如果建立ipc连接后这两个参数则不需要。（如果没有-p参数，则输入命令后会要求你输入密码）
+　　-r:恢复进程。
+　　
+　　比如要暂时停止一个pid号为999,名称为srm.exe的进程可以打：
+　　pssuspend \远程机器ip 999 或 pssuspend \远程机器ip srm
+　　如果想要恢复它就可以打pssuspend -r \远程机器ip 999 或 pssuspend -r \远程机器ip srm
+　　
+　　(4)psinfo
+　　psinfo是一个搜集机器软
+
+件信息的工具，它可以获得操作系统信息，硬件信息和软件信息。
+　　它的使用格式为：
+　　psinfo [-h] [-s] [-d] [-c] [\远程机器ip [-u username [-p password]]
+　　它的参数有：
+　　-u：后面跟用户名 -p：后面是跟密码的,如果建立ipc连接后这两个参数则不需要。（如果没有-p参数，则输入命令后会要求你输入密码）
+　　-h：是显示它安装了哪些补丁包
+　　-s：是显示它装了哪些软件
+　　-d：是显示磁盘信息。
+　　
+　　比如我只想看远程机器的软硬件信息和只用打:
+　　psinfo \远程机器ip
+　　假如我还想看看它装了哪些补丁包可以打
+　　psinfo -h \远程机器ip
+　　假如我还想看看它磁盘信息可以打：
+　　psinfo -d \远程机器ip
+　　如果我想看它装了哪些软件可以打：
+　　psinfo -s \远程机器ip
+　　简单吧.
+　　
+　　(5)pslist
+　　pslist是一个查看进程的程序。
+　　它的使用格式为：
+　　pslist [-d] [-m] [-x][-t][-s [n] [-r n] [\远程机器ip [-u username] [-p password] [name | pid]
+　　它的参数有：
+　　-u：后面跟用户名 -p：后面是跟密码的,如果建立ipc连接后这两个参数则不需要。（如果没有-p参数，则输入命令后会要求你输入密码）
+　　-s：是使用任务管理器模式实时查看进程，可以按ESC键退出。
+　　-r <秒数>：是和-s连用的一个参数，它用来指定任务管理器模式是的刷新间隔。（默认的刷新间隔为1秒）
+　　-d：示各个进程的cpu使用信息。
+　　-m：显示各个进程的存储器使用信息。
+　　-x：非常详细显示进程的所有信息。
+　　-t：以树型方式显示进程。
+　　
+　　比如要查看远程机器ip上的进程的cpu使用信息可以打:
+　　pslist -d \远程机器ip
+　　比如要查看一个pid号为999,名称为srm.exe进程的存储器使用信息可以打：
+　　pslist -m \远程机器ip 999 或 pslist -m \远程机器ip srm
+　　比如要以任务管理器模式实时查看61.12.23.4上进程情况，并且刷新间隔为3秒可以打：
+　　pslist -s -n 3 \远程机器ip
+　　
+　　(6)psuptime
+　　psuptime是一个了解远程机器运行了多久的命令。
+　　使用它只需要打：psuptime \远程机器ip
+　　
+　　(7)psshutdown
+　　psshutdown是一个远程关机命令。
+　　它的使用格式为：
+　　psshutdown [-s | -r | -k [-t nn][-m "消息"][-f] -a | -l | -o] [\远程机器ip]
+　　
+　　它的参数有：
+　　-a：取消以前执行的关机指令。
+　　-t：离关机还有多少秒。（默认是20秒）
+　　-s：关闭机器。
+　　-m：是要显示的信息。
+　　-f：是关机是不保存运行的程序。
+　　-r：表示重启。
+　　-l：表示锁定电脑。
+　　-o：表示注销用户。
+　　
+　　比如我想让远程机器30秒后关闭并显示(要关机了，请保存文件)则打：
+　　psshutdown -t 30 -s -m "要关机了，请保存文件" \远程机器ip
+　　如果是要重起的话打：
+　　psshutdown -t 30 -m "要关机了，请保存文件" -r \远程机器ip
+　　如果要取消刚才的指令可以打：
+　　psshutdown -a \远程机器ip
+　　其他参数以此类推。
+　　
+　　(8)psfile
+　　psfile是一个显示机器上的会话和有什么文件被网络中的用户的打开的命令。
+　　它的使用格式为：
+　　psfile [\远程机器ip [-u Username [-p Password]] [Id | path] [-c]
+　　它的参数有:
+　　-u 后面跟用户名 -p后面是跟密码的,如果建立ipc连接后这两个参数则不需要。（如果没有-p参数，则输入命令后会要求你输入密码）
+　　-c：关闭会话或文件
+　　
+　　比如我想看看远程机器上的会话和被远程用户打开的文件可以打：
+　　psfile \远程机器ip
+　　接着就会显示
+　　[33] C:WINNT
+　　User: ADMINISTRATOR
+　　Locks: 0
+　　Access: Read
+　　[63] PIPEsrvsvc
+　　User: ADMINISTRATOR
+　　Locks: 0
+　　Access: Read Write
+　　接着我想关闭id为33，路径为c:winnt的这个会话可以打
+　　psfile \远程机器ip 33 -c 或 psfile \远程机器ip c:winnt -c
+　　
+　　(9)psloggedon
+　　psloggedon是一个显示目前谁登陆的机器的命令。
+　　它的参数只有
+
+-l只显示本地登陆用户而不显示其它的网络登陆用户
+　　-x不显示登陆时间
+　　比如说要显示远程机器现在登陆的用户可以打：
+　　psloggedon \远程机器ip
+　　
+　　(10)psgetsid
+　　psgetsid是一个远程获取账号sid信息的工具。
+　　它的使用格式为：
+　　psgetsid [\远程机器ip [-u username [-p password]] [account]
+　　它的参数有
+　　-u 后面跟用户名 -p后面是跟密码的,如果建立ipc连接后这两个参数则不需要。（如果没有-p参数，则输入命令后会要求你输入密码）
+　　
+　　比如要看远程机器上账号名为abc的sid信息可以打：
+　　psgetsid \远程机器ip abc
+　　
+　　(11)pskill
+　　pskill是一个杀除进程的程序。
+　　它的使用格式为：
+　　pskill [\远程机器ip [-u username] [-p password] <process name | process id>
+　　
+　　比如要杀除一个pid号为999,名称为srm.exe的进程可以打：
+　　pskill \远程机器ip 999 或 pskill \远程机器ip srm
+　　
+　　(12)psloglist
+　　psloglist
+　　psloglist是一个查看系统事件记录的程序。
+　　它的使用格式为：
+　　psloglist [\远程机器ip [-u username [-p password]] [-s [-t delimiter] [-n # | -d #][-c][-x][-r][-a mm/dd/yy][-b mm/dd/yy][-f filter] [-l event log file] <eventlog>
+　　它的参数有：
+　　-u 后面跟用户名 -p后面是跟密码的,如果建立ipc连接后这两个参数则不需要。
+　　-c:显示事件之后清理事件记录
+　　-l <事件记录文件名>:用于查看事件记录文件
+　　-n <n>：只显示最近的n条系统事件记录。
+　　-d <n>：只显示n天以前的系统事件记录
+　　-a mm/dd/yy:显示mm/dd/yy以后的系统事件记录
+　　-b mm/dd/yy:显示mm/dd/yy以前的系统事件记录
+　　-f <事件类型>：只显示指定的事件类型的系统事件记录。
+　　-x：显示事件数据代码
+　　-r：从旧到新排列（如不加则默认是从新到旧排列）
+　　-s:以一个事件为一行的格式显示，中间默认以逗号格开各个信息。
+　　-t <字符>:这个参数和-s连用，以来改变-s中默认的逗号。
+　　
+　　如果我想看远程机器的系统事件记录只用打：
+　　psloglist \远程机器ip 123
+　　比如我想看最近的10条error类型的记录可以打：
+　　psloglist \远程机器ip -n 10 -f error
+
+本篇文章来源于 黑客基地-全球最大的中文黑客站 原文链接：http://www.hackbase.com/tech/2009-07-05/53607_4.html

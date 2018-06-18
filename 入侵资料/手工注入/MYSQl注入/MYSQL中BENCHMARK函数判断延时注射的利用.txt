@@ -1,0 +1,42 @@
+MYSQL中BENCHMARK函数的利用
+
+假设我们已经设置display_errors=Off。
+
+我们这里就没办法利用union select的替换直接输出敏感信息
+
+在mysql中不支持子查询 或 通过错误消息返回不同来判断注射了。
+
+我们利用union联合查询插入BENCHMARK函数语句来进行判断注射：
+
+id=1 union select 1,benchmark(500000,md5('test')),1 from user where userid=1 and ord(substring(username,1,1))=97 /*
+
+猜userid为1的用户名的第一位字母的ascii码值是是否为97，如果是97，上面的查询将由于benchmark作用而延时。
+
+如果不为97，将不回出现延时，这样我们最终可以猜出管理员的用户名和密码了。 
+
+大家注意，这里有一个小技巧：benchmark(500000,md5('test'))中我们使用了'号， 这样是很危险的，
+
+因为管理员随便设置下 就可以过滤使注射失败，我们这里test可以是用其他进制表示，如16进制。最终构造如下：
+
+http://127.0.0.1/test/test/show.php?id=1%20union%20select%201,benchmark(500000,md5(0x41)),1%20from%20user%20where%20userid=1%20and%20ord(substring(username,1,1))=97%20/*
+
+执行速度很慢，得到userid为1的用户名的第一位字母的ascii码值是是为97。
+
+注意：我们在使用union select事必须知道原来语句查询表里的字段数，以往我们是根据错误消息来判断，
+
+我们在union select 1,1,1我们不停的增加1 如果字段数正确将正常返回不会出现错误，而现在不可以使用这个方法了，
+
+那我们可以利用benchmark(),我们这样构造 union select benchmark(500000,md5(0x41)) 1,1 我们在增加1的，
+
+当字段数正确时就回执行benchmark()出现延时，这样我们就可以判断字段数了。
+
+
+利用BENCHMARK函数进行ddos攻击
+
+　　其实思路很简单：在BENCHMARK(count,expr) 中 我们只要设置count 就是执行次数足够大的话，就可以造成dos攻击了，如果我们用代理或其他同时提交，就是ddos攻击，估计数据库很快就会挂了。不过前提还是要求可以注射。语句：
+
+http://127.0.0.1/test/test/show.php?id=1%20union%20select%201,1,benchmark(99999999,md5(0x41))
+
+
+ 
+

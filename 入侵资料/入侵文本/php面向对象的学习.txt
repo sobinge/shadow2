@@ -1,0 +1,450 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+php面向对象的学习
+D8888D主贴内容-------------------------------------------------------
+近期跟着别人开发一套php程序，深感自己面向对象很白痴，于是再次巩固了一下面向对象的学习，自己整理了一下这几天面向对象的东西，给大家分享！！！！！！
+
+
+面向对象的三大特性：
+
+封装 -- 隐藏内部实现，稳定外部接口
+
+继承 -- 子类继承父类成员，实现代码复用
+
+多态 -- 不同子类对同一消息做出不同的反映
+
+一、接口 -- 是一套规范，遵守这个规范就可以实现功能
+
+在PHP中，接口同样是一种规范和标准，可以约束类的行为，定义一个接口不指定具体的实现。
+
+接口是把隐式公共方法和属性组合起来，以封装特定功能的一个集合。一旦定义了接口，就可以在类中实现它。这样，类就可以支持接口所指定的所有属性和成员。
+
+注意：
+     接口不能单独存在。接口不能像实例化一个类那样实例化接口。接口不能包含实现其成员的任何代码，而只能定义成员本身。实现接口必须在引用接口的类中实现。
+
+     一个类可以支持多个接口，多个类也可以支持相同的接口。所以接口的概念让用户和其他开发人员更容易理解其他人的代码。
+
+二、多态性
+
+1、指不同的对象收到相同消息时，会产生不同行为
+2、同一个类在不同的场合下表现出不同的行为特征
+
+三、抽象类和抽象方法
+
+1、抽象类用来列举一个类所需要的行为
+2、抽象类不明确提供具体实现方法
+3、抽象类必须由其子类实现它的抽象方法(除非子类也具有抽象性)
+4、抽象类不能被实例化
+5、抽象类不能被锁(final修饰)
+
+四、抽象类的使用场合
+
+1、抽象类和抽象方法实现多态性
+2、父类提供一系列规定，约束子类的行为
+3、父类可以提供一些共性的行为
+以上就是我对面向对象的总结，下面就是详细的说说php面向对象的重点，难点！
+类： [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]01<?php 
+
+02/* 
+
+03                                                类的基本知识 
+
+04 1、类使用class关键字定义,类的名称每个单词首字母大写 
+
+05 2、类的属性必须用封装关键字修饰(public、protected、private) 
+
+06 3、类的方法可以不被封装关键字修饰,默认为：public 
+
+07 4、类中的构造函数：__construct(){},默认为空,可初始化属性。 
+
+08    也可以重载构造函数,有任意多个参数。注意：PHP中构造函数 
+
+09        只能有一个。 
+
+10 5、类中的析构函数：__destruct(){} 
+
+11*/
+
+12/* 
+
+13                                                类的封装关键字 
+
+14 1、public                -- 公开的 
+
+15 2、protected        -- 受保护的 
+
+16 3、private     -- 私有的 
+
+17   
+
+18 就是因为使用了受保护的或私有的封装关键字,所以产生了读写方法, 
+
+19 于是写方法可以验证数据的合法性;读方法可以将受保护或私有的属 
+
+20 性保护起来不被外部修改。 
+
+21   
+
+22 4、__get($n){return $this->$n;}  读方法 
+
+23 5、__set($n,$v){$this->$n=$v;}   写方法 
+
+24  
+
+25*/
+
+26class People{ 
+
+27        private $name; 
+
+28        private $age; 
+
+29        private $sex; 
+
+30  
+
+31        //构造函数 
+
+32        function __construct($name,$age=18,$sex="男"){ 
+
+33                $this -> name = $name; 
+
+34                $this -> age  = $age; 
+
+35                $this -> sex  = $sex; 
+
+36                echo $this -> show(); 
+
+37        } 
+
+38  
+
+39        //析构函数 
+
+40        function __destruct(){ 
+
+41                //echo "{$this->name}被释放了！"; 
+
+42        } 
+
+43  
+
+44        //读属性 
+
+45        function __get($n){ 
+
+46                if($n == "name"){ 
+
+47                        return $this -> $n; 
+
+48                } 
+
+49        } 
+
+50  
+
+51        //写属性 
+
+52        function __set($n,$v){ 
+
+53                if($n == "name"){ 
+
+54                        $this -> $n = $v; 
+
+55                } 
+
+56        }  
+
+57  
+
+58        public function show(){ 
+
+59                return "恭喜你！创建{$this->name}对象成功！"; 
+
+60        } 
+
+61} 
+
+62  
+
+63/* 
+
+64                                                继承 
+
+65 1、使用关键字extends 
+
+66 2、被继承的类叫做：父类(基类) 
+
+67 3、继承的类叫做：子类(派生类) 
+
+68 4、单一继承 
+
+69 5、具有传递性,即：父类有的，子类也会有 
+
+70 6、子类的封装关键字级别不能低于父类 
+
+71 7、父类构造函数也会被继承 
+
+72 8、重载 
+
+73*/
+
+74class Stu extends People{ 
+
+75          
+
+76  
+
+77        public function show(){ 
+
+78                return parent::show()."O(∩_∩)O哈哈~";  
+
+79        } 
+
+80} 
+
+81$stu = new Stu("张三"); 
+
+82echo $stu -> name; 
+
+83?>
+抽象类： [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]01<?php 
+
+02/* 
+
+03                                                抽象类 
+
+04 1、使用abstract关键字修饰的类叫抽象类,类中至少有一个抽象方法, 
+
+05        可以有具体方法。 
+
+06 2、抽象类不能被实例化,不能被锁(final修饰),只能被继承 
+
+07 3、抽象类必须由其子类实现它的抽象方法(除非子类也具有抽象性) 
+
+08*/
+
+09abstract class Animal{ 
+
+10        protected $name; 
+
+11        protected $age; 
+
+12        protected $weight; 
+
+13  
+
+14        abstract function __construct(); 
+
+15  
+
+16        abstract function eat($name); 
+
+17  
+
+18        abstract function sleep(); 
+
+19  
+
+20        static function show($what){ 
+
+21                return "我是{$what->name}！"; 
+
+22        } 
+
+23} 
+
+24  
+
+25//Dog类 
+
+26class Dog extends Animal{ 
+
+27         function __construct($name,$age,$weight){ 
+
+28                $this -> name = $name; 
+
+29                $this -> age = $age; 
+
+30                $this -> weight = $weight; 
+
+31         }         
+
+32  
+
+33         function eat($n){ 
+
+34                return $this->name."在吃".$n; 
+
+35         } 
+
+36  
+
+37         function sleep(){ 
+
+38                return $this->name."睡的正酣！"; 
+
+39         } 
+
+40  
+
+41         function wangwang(){ 
+
+42                return "汪汪叫！！！"; 
+
+43         } 
+
+44} 
+
+45  
+
+46//Cat类 
+
+47class Cat extends Animal{ 
+
+48         function __construct($name,$age,$weight){ 
+
+49                $this -> name = $name; 
+
+50                $this -> age = $age; 
+
+51                $this -> weight = $weight; 
+
+52                echo $this->miaomiao(); 
+
+53         }         
+
+54  
+
+55         function eat($n){ 
+
+56                return $this->name."在吃".$n; 
+
+57         } 
+
+58  
+
+59         function sleep(){ 
+
+60                return $this->name."睡的正酣！"; 
+
+61         } 
+
+62  
+
+63         function miaomiao(){ 
+
+64                return "喵喵叫！！！"; 
+
+65         } 
+
+66} 
+
+67  
+
+68$dog = new Dog("旺财",4,"10kg"); 
+
+69echo $dog->sleep(); 
+
+70echo ""; 
+
+71$cat = new Cat("龙猫",2,"5kg"); 
+
+72echo ""; 
+
+73echo $cat->sleep(); 
+
+74echo ""; 
+
+75echo Animal::show($dog); 
+
+76echo ""; 
+
+77echo Animal::show($cat); 
+
+78?>
+接口： [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]01<?php 
+
+02interface IUsb{ 
+
+03  const name1="3.0接口"; 
+
+04  function type1($what); 
+
+05  function power1(); 
+
+06} 
+
+07  
+
+08interface IApi{ 
+
+09  const name2="扩展插槽"; 
+
+10  function type2(); 
+
+11  function power2(); 
+
+12} 
+
+13  
+
+14class Pc implements IUsb,IApi{ 
+
+15  
+
+16        function type1($what){ 
+
+17                if($what == IUsb::name1){ 
+
+18                        return IUsb::name1.$this->power1(); 
+
+19                } 
+
+20                else{ 
+
+21                        return "接口不对，无法使用！"; 
+
+22                } 
+
+23        } 
+
+24  
+
+25        function power1(){ 
+
+26                return "接口正确，电源开启中..."; 
+
+27        } 
+
+28  
+
+29        function type2(){} 
+
+30  
+
+31        function power2(){} 
+
+32} 
+
+33  
+
+34class Mp3 implements IUsb{ 
+
+35  public $name = IUsb::name1; 
+
+36  function type1($s){} 
+
+37  function power1(){} 
+
+38} 
+
+39$p = new Pc(); 
+
+40$mp3 = new Mp3(); 
+
+41echo $p -> type1($mp3->name); 
+
+42?>
+希望对大家的php学习有所帮助，呵呵，反正这几天我重温面向对象收获很多，也提醒广大同学，温故而知新！！！！

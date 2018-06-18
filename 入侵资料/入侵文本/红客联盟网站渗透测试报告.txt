@@ -1,0 +1,287 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+红客联盟网站渗透测试报告
+D8888D主贴内容-------------------------------------------------------
+ 
+
+文档时间：2010/7/2
+文档版本：1.0   只是一份报告 让大家了解下 最重要的是把方法拿出来 一起讨论下！
+
+第一章        概述        
+1.1 渗透测试目的        
+1.2 渗透测试范围        
+1.3 渗透测试必要性        
+1.4 渗透测试可行性        
+1.5 实施流程        
+第二章        测试综述        
+第三章        漏洞分析        
+3.1 网站应用层漏洞分析        
+3.1.1 跨站脚本编制漏洞        
+3.1.2 不充分账户封锁漏洞        
+3.1.3 登录错误消息凭证枚举漏洞        
+3.1.4 允许从任何域进行 flash 访问        
+3.1.5 会话标示未更新        
+3.1.6 用户信息未加密传输        
+3.1.7 HTML注释敏感信息泄露        
+3.1.8 检测到隐藏目录        
+3.1.9 客户端Cookie 引用        
+3.2 网站系统层漏洞分析        
+3.2.1使用nmap进行端口扫描        
+3.2.2 使用Nessus漏洞扫描器对网站进行漏洞扫描，没有发现可以利用的漏洞        
+第四章        安全建议        
+
+第一章 概述
+渗透测试是网络安全防范的一种新趋势，在国外已经非常流行。
+渗透测试，就是经客户授权后，在攻击者的角度，采用黑客入侵手法对测试范围进行安全性测试过程；渗透测试采用可控制、非破坏性质的方法和手段，来发现目标网络设备和服务器中存在的缺陷和隐患。
+
+1.1 渗透测试目的
+通过渗透性测试，发现逻辑性更强、更深层次的漏洞，并直观反映漏洞的潜在危害，了解网络防御系统的安全强度，为预期计划正常运行而提供的一种有效安全机制，提供网络安全状况方面的具体证据。渗透性测试能够制定出切实可行的有效的安全管理制度。
+
+1.2 渗透测试范围
+
+
+
+
+应用系统 IP地址 中国红客联盟 218.28.198.135
+
+
+1.3 渗透测试必要性
+渗透测试是安全工程师尽可能完整的模拟黑客使用的漏洞发现技术与攻击技术(与黑客攻击相比其结果实可预知性的)，对目标网络、主机、数据库与应用系统的安全性做深入的探测，发现系统薄弱环节的过程。它能够直观的让管理人员知道当前网络、主机、数据库与应用系统存在的安全弱点以及可能造成的影响，以便采取必要的防范措施。
+通过工具扫描、人工评估与代码审计我们可以发现网络、系统、数据库与应用存在的安全弱点，不过我们并不知道弱点被利用的可能以及被利用后引起的风险大小，也还可能并没有发现系统真正最薄弱的环节，而渗透测试正好可以弥补这些不足。 
+
+1.4 渗透测试可行性
+由于渗透测试是在的受测试方监督下进行，使用的渗透测试方法和工具也是非暴力的，测试的结果在测试工程师的可预知范围之内，并且测试只进行到漏洞被利用为止，而不会进行下一步的破坏活动。因此不会采用导致服务的异常，因此渗透测试是完全可行的。
+1.5 实施流程
+渗透测试服务流程定义为如下阶段：
+(1)        信息收集
+在此阶段中必须对所测试的XX网站进行相关信息收集，为后续的渗透测试工作做好准备。收集的信息包括：网站的域名，IP地址，目标主机的操作系统版本等等。
+采用的方法：
+1        基本网络信息获取
+2      ping 目标网络得到 IP 地址和 ttl 等信息
+3        tcptraceroute 和 traceroute 的结果
+4        whois 结果
+5        用X-SCAN，Nessus工具 对网站进行端口扫描并判断操作系统类型
+6        google、yahoo、baidu 等搜索引擎获取目标信息
+7        FWtester、hping3 等工具进行防火墙规则探测
+（2）        渗透测试
+此阶段主要根据上一阶段所获得的信息对网站及所在网络进行渗透测试，主要包括工具扫描和手工测试，如果顺利的话可以获取相应的权限。
+1        常规漏洞扫描和采用商用软件进行检查
+2        结合使用极光与 Nessus 等商用或免费的扫描工具进行漏洞扫描
+
+3        采用 SolarWind 对网络设备等进行发现
+4        采用 nikto、webinspect 等软件对 web 常见漏洞进行扫描
+5        采用如AppDetectiv 之类的商用软件对数据库进行扫描分析
+6        对 Web 和数据库应用进行分析
+7        采用 WebProxy、SPIKEProxy、webscarab、ParosProxy、Absinthe 等
+8        工具进行分析
+9        用 Ethereal 抓包协助分析
+10        用 webscan、fuzzer 进行 SQL 注入和 XSS 漏洞初步分析
+11        手工检测 SQL 注入和 XSS 漏洞
+12        采用类似OScanner 的工具对数据库进行分析
+13        基于通用设备、数据库、操作系统和应用的攻击
+14        采用各种公开及私有的缓冲区溢出程序代码，也采用诸如MetasploitFramework之类的利用程序集合。
+
+基于应用的攻击
+
+基于web、数据库或特定的B/S 或C/S 结构的网络应用程序存在的弱点进行攻击。
+口令猜解技术
+进行口令猜解可以采用极光、X-Scan、Brutus、Hydra、溯雪等工具
+本地信息收集
+此阶段中，渗透测试小组进行本地信息收集，用于下一阶段的权限提升
+(3)        权限提升
+此阶段中，渗透测试小组尝试由普通权限提升为管理员权限，获得对系统的完全控制权。
+在时间许可的情况下，必要时从第一阶段重新进行。
+采用方法
+1        口令嗅探与键盘记录
+嗅探、键盘记录、木马等软件，功能简单，但要求不被防病毒软件发觉，因此通常需要自行开发或修改
+
+2        口令破解
+有许多著名的口令破解软件，如L0phtCrack、John the Ripper、Cain 等
+3        清除
+此阶段中，渗透测试小组清除中间数据。
+4        输出报告
+此阶段中，渗透测试小组根据测试的结果编写直观的渗透测试服务报告。
+
+第二章        测试综述
+通过通过本次渗透测试结果来看，XXX应用系统存在严重安全漏洞，导致攻击者能够利用安全漏洞对应用系统、以及访问应用系统的用户造成一定的危害、给公司的财产带来一定的损失。
+本次渗透测试发现各类漏洞17项，其中高危漏洞5项，中危漏洞2项，低危漏洞10项，下表列出了应用系统包含安全漏洞以及这些安全漏洞带来的安全风险：
+
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1007/1007021449807c893880b43654.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzExNXwzMDI4NGI1YnwxMjg2NDc4OTA4fDg0NjI3VFl2RjhOVDlIRE9pRmc3S1M3WlFFeXRzZGpDL0pZcG5hMlhIcUEzYmc4&nothumb=yes]链接标记下载[/url] (65.37 KB)
+
+2010-7-2 14:49[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1007/1007021449274593b7aedaca9d.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzExNnxkN2QyMjAxOXwxMjg2NDc4OTA4fDg0NjI3VFl2RjhOVDlIRE9pRmc3S1M3WlFFeXRzZGpDL0pZcG5hMlhIcUEzYmc4&nothumb=yes]链接标记下载[/url] (66.52 KB)
+
+2010-7-2 14:49[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1007/1007021449161c0e43ac1f5d5b.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzExN3w1ZDc1NzdkYnwxMjg2NDc4OTA4fDg0NjI3VFl2RjhOVDlIRE9pRmc3S1M3WlFFeXRzZGpDL0pZcG5hMlhIcUEzYmc4&nothumb=yes]链接标记下载[/url] (48.06 KB)
+
+2010-7-2 14:49
+
+第三章        漏洞分析
+3.1 网站应用层漏洞分析
+3.1.1 跨站脚本编制漏洞
+3.1.1.1 风险等级
+        高危风险
+3.1.1.2 问题描述
+
+在渗透测试过程中发现如下URL存在跨站点脚本编制漏洞：
+[url=http://bbs.honker.net/logging.php]链接标记http://bbs.honker.net/logging.php[/url]
+[url=http://bbs.honker.net/member.php]链接标记http://bbs.honker.net/member.php[/url]
+[url=http://bbs.honker.net/register.php]链接标记http://bbs.honker.net/register.php[/url]
+        当对以上页面提交的请求做特殊处理以后，比如说添加Javascript代码等，发现这些js代码会被执行。当恶意用户有意构造js代码，甚至可以获取到合法用户的cookie。如下图所示：
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1007/1007021451d07b324b8fab63bd.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzExOHwwYjFhZmU5MnwxMjg2NDc4OTA4fDg0NjI3VFl2RjhOVDlIRE9pRmc3S1M3WlFFeXRzZGpDL0pZcG5hMlhIcUEzYmc4&nothumb=yes]链接标记下载[/url] (61.88 KB)
+
+2010-7-2 14:51[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1007/100702145105bc054adf40afb4.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzExOXw5YzYwMDZhMnwxMjg2NDc4OTA4fDg0NjI3VFl2RjhOVDlIRE9pRmc3S1M3WlFFeXRzZGpDL0pZcG5hMlhIcUEzYmc4&nothumb=yes]链接标记下载[/url] (54.63 KB)
+
+2010-7-2 14:51
+
+3.1.1.3 风险描述
+恶意用户可以通过注入JavaScript、VBScript、ActiveX、HTML或者Flash的方式欺骗用户，并收集Cookie等相关数据并冒充其他用户。通过精心构造的恶意代码，甚至可以获取系统的管理权限，或者让访问者访问非法网站或下载恶意木马。
+
+3.1.1.4 建议解决
+对用户输入的数据进行全面安全检查或过滤，尤其注意检查是否包含HTML特殊字符。这些检查或过滤必须在服务器端完成。
+
+3.1.2 不充分账户封锁漏洞
+3.1.2.1 风险等级
+        高危风险
+3.1.2.2 问题描述
+在渗透测试过程中发现如下URL存在不充分账户封锁漏洞
+        [url=http://www.honker.net/e/enews/?enews=DownSoft&classid=22&id=196&pathid=0&pass=a3433b9afc40c3f3f641afbeda85a39f&p=::]链接标记http://www.honker.net/e/enews/?e ... beda85a39f&p=::[/url]
+3.1.2.3 风险描述
+当账户没有充分封锁的时候（比如没有限制错误登录的次数），恶意用户可以利用相关的脚本或者工具对账户进行穷举攻击。穷举工具包含大量登录尝试，未限制允许的错误登录请求次数的应用程序很容易遭到这类攻击。
+3.1.2.4 建议解决
+确定允许的登录尝试次数（通常是 3-5 次），确保超出允许的尝试次数之后，便锁定帐户。 为了避免真正的用户因帐户被锁定而致电支持人员的麻烦，可以仅临时性暂挂帐户活动，并在特定时间段之后启用帐户
+3.1.3 登录错误消息凭证枚举漏洞
+3.1.3.1 风险等级
+高危风险
+
+3.1.3.2 问题描述
+在渗透测试过程中发现如下URL存在登录错误信息凭证枚举漏洞
+        [url=http://bbs.honker.net/logging.php?action=login]链接标记http://bbs.honker.net/logging.php?action=login[/url]
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1007/100702145663873804f1302b3c.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzEyMHw4OTRhYmNjN3wxMjg2NDc4OTA4fDg0NjI3VFl2RjhOVDlIRE9pRmc3S1M3WlFFeXRzZGpDL0pZcG5hMlhIcUEzYmc4&nothumb=yes]链接标记下载[/url] (57.5 KB)
+
+2010-7-2 14:56
+测试发现应用程序在用户名字段无效时会发布一条错误消息，在密码字段无效时会发布另一条错误消息。此行为可能让攻击者能够使用蛮力技术来枚举有效的用户名和密码。
+3.1.3.3 风险描述
+当试图利用不正确的用户信息来登录时，当用户输入无效的用户名和无效的密码时，应用程序会分别生成不同的错误消息。 通过利用该行为，攻击者可以通过反复试验（穷举攻击技术）来发现应用程序的有效用户名，再继续尝试发现相关联的密码。 这样会得到有效用户名和密码的枚举，攻击者可以用来访问帐户。并且可能会升级用户特权并通过 Web 应用程序获取管理许可权。
+3.1.3.4 建议解决
+对每个错误的登录尝试发出相同的错误消息，不管是哪个字段发生错误，特别是用户名或密码字段错误。
+3.1.4 允许从任何域进行 flash 访问
+3.1.4.1 风险等级
+高危风险
+3.1.4.2 问题描述
+在渗透测试过程中发现如下URL存在允许从任何域进行flash访问的漏洞。
+        [url=http://bbs.honker.net/crossdomain.xml]链接标记http://bbs.honker.net/crossdomain.xml[/url]
+        从以上的网址可以找到网站的一些配置信息，如下图所示
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1007/10070214586bf367b0619d59a5.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzEyMXxlYzgxYTExOXwxMjg2NDc4OTA4fDg0NjI3VFl2RjhOVDlIRE9pRmc3S1M3WlFFeXRzZGpDL0pZcG5hMlhIcUEzYmc4&nothumb=yes]链接标记下载[/url] (10.5 KB)
+
+2010-7-2 14:58
+3.1.4.3 风险描述
+从上述的配置文件信息来看，该站点的crossdomain.xml 策略太宽（例如，允许任何域的 Flash 文件访问站点资源）时，可能会导致“跨站点伪造请求”或“跨站点跟踪”（“跨站点脚本编制”的变体）之类的攻击。可能会窃取或操纵客户会话和 cookie，它们可能用于模仿合法用户，从而使黑客能够以该用户身份查看或变更用户记录以及执行事务
+3.1.4.4 建议解决
+请安装 crossdomain.xml 文件中 allow-access-from 实体的 domain 属性来包括特定域名，而不是任何域。
+3.1.5 会话标示未更新
+3.1.5.1 风险等级
+高危风险
+3.1.5.2 问题描述
+在渗透测试过程中发现如下URL存在会话标示未更新的漏洞
+        [url=http://www.honker.net/e/enews?enews=DownSoft&classid=22&id=196&pathid=0&pass=a3433b9afc40c3f3f641afbeda85a39f]链接标记http://www.honker.net/e/enews?en ... 3f3f641afbeda85a39f[/url]
+3.1.5.3 风险描述
+“会话固定”是一种攻击技术，会强制用户的会话标识变成显式值。 固定会话标识值的技术有许多种，会随着目标 Web 站点的功能而不同。从利用“跨站点脚本编制”到向 Web 站点密集发出先前生成的 HTTP 请求，都在这些技术范围内。用户的会话标识固定之后，攻击者会等待用户登录，然后利用预定义的会话标识值来假定用户的联机身份。
+3.1.5.4 建议解决
+始终生成新的会话，供用户成功认证时登录。 防止用户操纵会话标识。 请勿接受用户浏览器登录时所提供的会话标识
+
+3.1.6 用户信息未加密传输
+3.1.6.1 风险等级
+中危风险
+
+3.1.6.2 问题描述
+在渗透测试过程中发现如下URL存在用户信息未加密传输的漏洞
+        [url=http://bbs.honker.net/logging.php?action=login]链接标记http://bbs.honker.net/logging.php?action=login[/url]
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1007/1007021502cd75b84d263af0c0.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzEyMnwxODg5YTA3YnwxMjg2NDc4OTA4fDg0NjI3VFl2RjhOVDlIRE9pRmc3S1M3WlFFeXRzZGpDL0pZcG5hMlhIcUEzYmc4&nothumb=yes]链接标记下载[/url] (56.86 KB)
+
+2010-7-2 15:02
+
+此漏洞属于应用程序级别测试，可能会窃取诸如用户名和密码等未经加密即发送了的用户登录信息。
+3.1.6.3 风险描述
+
+恶意用户可能对网站的各种输入进行监听，如果用户信息未加密的话在信息传递到服务器的过程中，极易被监听用户盗取
+3.1.6.4 建议解决
+1. 确保所有登录请求都以加密方式发送到服务器。
+        2. 请确保敏感信息，例如： 
+- 用户名
+- 密码
+- 社会保险号码
+- 信用卡号码
+- 驾照号码
+- 电子邮件地址
+- 电话号码
+- 邮政编码
+一律以加密方式传给服务器
+
+3.1.7 HTML注释敏感信息泄露
+3.1.7.1 风险等级
+低危风险
+
+3.1.7.2 问题描述
+在渗透测试过程中发现如下URL存在HTML注释敏感信息泄露漏洞
+        [url=http://www.honker.net/Original/]链接标记http://www.honker.net/Original/[/url]
+        [url=http://www.honker.net/Original/Article/index_2.html]链接标记http://www.honker.net/Original/Article/index_2.html[/url]
+        [url=http://www.honker.net/Security/Application/2009-08-14/1524.html]链接标记http://www.honker.net/Security/Application/2009-08-14/1524.html[/url]
+          [img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1007/1007021505d120f720b6c42a3a.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzEyM3w1NDA2ODIwNXwxMjg2NDc4OTA4fDg0NjI3VFl2RjhOVDlIRE9pRmc3S1M3WlFFeXRzZGpDL0pZcG5hMlhIcUEzYmc4&nothumb=yes]链接标记下载[/url] (13.62 KB)
+
+2010-7-2 15:05[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1007/10070215058ebe849882ddb6f2.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzEyNHw1MjcxZGE0NXwxMjg2NDc4OTA4fDg0NjI3VFl2RjhOVDlIRE9pRmc3S1M3WlFFeXRzZGpDL0pZcG5hMlhIcUEzYmc4&nothumb=yes]链接标记下载[/url] (17.84 KB)
+
+2010-7-2 15:05[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1007/1007021505c901b89458261920.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzEyNXxlZjQ0MTQ2YXwxMjg2NDc4OTA4fDg0NjI3VFl2RjhOVDlIRE9pRmc3S1M3WlFFeXRzZGpDL0pZcG5hMlhIcUEzYmc4&nothumb=yes]链接标记下载[/url] (40.81 KB)
+
+2010-7-2 15:05
+以上图中用底色为黄色的为web开发人员的注释，可能会泄露站点文件或个人信息等相关资料。
+3.1.7.3 风险描述
+        Web 应用程序程序员使用 HTML 注释，以在需要时帮助调试应用程序。尽管添加常规注释有助于调试应用程序，但一些程序员往往会遗留重要数据（例如：与 Web 应用程序相关的文件名、旧的链接或原非供用户浏览的链接、旧的代码片段等）。所以可能会收集有关 Web 应用程序的敏感信息，如用户名、密码、机器名和/或敏感文件位置
+3.1.7.4 建议解决
+1、 请勿在 HTML 注释中遗留任何重要信息（如文件名或文件路径）。 
+2、 从生产站点注释中除去以前（或未来）站点链接的跟踪信息。 
+3、 避免在 HTML 注释中放置敏感信息。
+4、 确保 HTML 注释不包括源代码片段。
+5、 确保程序员没有遗留重要信息。
+
+3.1.8 检测到隐藏目录
+3.1.8.1 风险等级
+低危风险
+3.1.8.2 问题描述
+在渗透测试过程中发现如下URL存在隐藏目录的漏洞
+        [url=http://www.honker.net/about/]链接标记http://www.honker.net/about/[/url]
+        [url=http://www.honker.net/cert/]链接标记http://www.honker.net/cert/[/url]
+        [url=http://www.honker.net/images/]链接标记http://www.honker.net/images/[/url]
+        [url=http://www.honker.net/img/]链接标记http://www.honker.net/img/[/url]
+3.1.8.3 风险描述
+本次渗透测试检测到相关目录虽然目录内容没有暴露，但此信息可以帮助恶意用户对站点进行进一步攻击。例如：知道目录名称之后，恶意用户可以猜测到它内容的类型，甚至还可以猜出其内部文件名和子目录。内容敏感度越高，此漏洞的威胁就越大。
+3.1.8.4 建议解决
+如果不需要禁止的资源，请将其从站点中除去。 可能的话，请发出改用“404 － 找不到”响应状态代码，而不是“403 － 禁止”。这项更改会将站点的目录模糊化，可以防止泄漏站点结构。
+3.1.9 客户端Cookie 引用
+3.1.9.1 风险等级
+低危风险
+3.1.9.2 问题描述
+在渗透测试过程中发现如下URL存在客户端Cookie引用漏洞
+        [url=http://bbs.honker.net/forumdata/cache/common.js]链接标记http://bbs.honker.net/forumdata/cache/common.js[/url]，当在浏览器中输入该URL会出现下载页面，经分析发现时网站的js文件，如下图所示：
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1007/1007021508d0e57c338553fd50.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzEyNnwzZmQzZGMxMXwxMjg2NDc4OTA4fDg0NjI3VFl2RjhOVDlIRE9pRmc3S1M3WlFFeXRzZGpDL0pZcG5hMlhIcUEzYmc4&nothumb=yes]链接标记下载[/url] (23.54 KB)
+
+2010-7-2 15:08
+
+3.1.9.3 风险描述
+可以将实施cookie逻辑的功能移至客户端（浏览器），这样以来恶意用户就能发送其本无权发送的cookie。
+3.1.9.4 建议解决
+[1] 避免在客户端放置业务/安全逻辑。
+[2] 查找并除去客户端不安全的 JavaScript 代码，该代码可能会对站点造成安全威胁。
+3.2 网站系统层漏洞分析
+3.2.1使用nmap进行端口扫描
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1007/1007021509e1999602024aa2a6.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NzEyN3w5NDgzNTQ4MHwxMjg2NDc4OTA4fDg0NjI3VFl2RjhOVDlIRE9pRmc3S1M3WlFFeXRzZGpDL0pZcG5hMlhIcUEzYmc4&nothumb=yes]链接标记下载[/url] (26.26 KB)
+
+2010-7-2 15:09
+3.2.2 使用Nessus漏洞扫描器对网站进行漏洞扫描，没有发现可以利用的漏洞
+第四章        安全建议
+通过本次渗透测试发现红客联盟网站应用安全问题比较突出，问题点涉及系统和应用层面。针对发现的问题，提供的安全建议如下：
+1        对用户输入的数据进行全面安全检查或过滤，尤其注意检查是否包含HTML特殊字符或者相关的脚本语言。这些检查或过滤必须在服务器端完成。
+2        必须增加相关配置文件的访问权限，而且访问策略不能设置太宽。
+3        始终生成新的会话，供用户成功认证时登录。
+4        将站点的目录模糊化，防止泄漏站点结构。
+5        避免在客户端放置业务/安全逻辑。
+6        定时更新WEB服务器的安全补丁。

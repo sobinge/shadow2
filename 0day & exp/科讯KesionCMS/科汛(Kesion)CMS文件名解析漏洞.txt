@@ -1,0 +1,6 @@
+科汛(Kesion)CMS文件名解析漏洞
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.步骤一： 访问/user/userreg.asp 注册用户2.步骤二： 访问/KS_editor/selectupfiles.asp ，勾选自动命名选项，上传命名如test.asp;x.jpg文件，3.步骤三： 上传的文件即在当前目录下，比如当前目录是”/upfiles/user/注册的用户名”，其地址即”http://www.null.com/upfiles/user/注册的用户名/test.asp;x.jpg”

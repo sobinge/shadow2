@@ -1,0 +1,22 @@
+BBSXP论坛程序Members.asp页面过滤不严导致SQL注入漏洞
+
+漏洞版本:
+
+BBSXP7.3
+BBSXP2008
+漏洞描述:
+
+漏洞文件：
+Members.asp
+
+代码分析：.
+CurrentAccountStatus=HTMLEncode(Request("CurrentAccountStatus")) //第11行
+。。。。。。
+if CurrentAccountStatus <> "" then item=item&" and UserAccountStatus="&CurrentAccountStatus&"" //第22行
+。。。。。。
+TotalCount=Execute("Select count(UserID) From ["&TablePrefix&"Users]"&item)(0) //第54行
+
+使用过滤字符函数过滤数字变量CurrentAccountStatus导致sql注入的产生。过滤函数HTMLEncode在BBSXP_Class.asp文件。绕过过滤函数构造适当的sql语句进行注射.
+
+ <* 参考
+ 漏洞发布：Bug.Center

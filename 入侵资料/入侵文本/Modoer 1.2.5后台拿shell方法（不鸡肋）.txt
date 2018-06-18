@@ -1,0 +1,25 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+Modoer 1.2.5后台拿shell方法（不鸡肋）
+D8888D主贴内容-------------------------------------------------------
+ 
+
+不要拍砖，自己发出来都觉得丢人。
+最近很多人问我怎么拿shell的，其实很简单，和DZ7.0--7.2后台拿shell同出一辙。仅供参考。
+希望大家多多发散思维
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1006/1006272025ac7b7d12f0bb4517.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjkzMHw0Y2M1YzcyMHwxMjg2NDgwNTIzfDhlOGRvMmlUT2syRFdWNFl0MUFqcUdTZXBOekJrajArZU5qU1ZzNjNPUXZ4cUFZ&nothumb=yes]链接标记下载[/url] (115.53 KB)
+
+2010-6-27 20:25
+
+提交之后，再修改一次
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_1006/1006272026f6ae1dcad5b10a9a.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjkzMXw3MDcwYzljZXwxMjg2NDgwNTIzfDhlOGRvMmlUT2syRFdWNFl0MUFqcUdTZXBOekJrajArZU5qU1ZzNjNPUXZ4cUFZ&nothumb=yes]链接标记下载[/url] (113.07 KB)
+
+2010-6-27 20:26
+
+再提交
+
+
+之后连接xxx/config.inc.php,密码cmd。
+
+记得连接之后，重新上传shell，并复原这个config.INC.PHP

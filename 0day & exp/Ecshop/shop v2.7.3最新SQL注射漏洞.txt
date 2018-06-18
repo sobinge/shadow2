@@ -1,0 +1,65 @@
+shop v2.7.3最新SQL注射漏洞
+
+这处漏洞能够利用是需要条件的哈， 就是magic_quotes_gpc = Off 直接看代码吧 文件： flow.php PHP 1234567891011 elseif ( $_REQUEST [ 'step' ] == 'update_cart' ) { if ( isset ( $_POST [ 'goods_number' ] ) is_array ( $_POST [ 'goods_number' ] ) )
+
+
+
+这处漏洞能够利用是需要条件的哈，
+ 就是magic_quotes_gpc = Off
+ 
+直接看代码吧
+ 
+文件： flow.php
+ 
+ PHP 
+ 
+ 
+elseif ($_REQUEST['step'] == 'update_cart')
+ {
+     if (isset($_POST['goods_number']) && is_array($_POST['goods_number'])) //此处没有过滤
+     {
+         flow_update_cart($_POST['goods_number']);
+     }
+  
+     show_message($_LANG['update_cart_notice'], $_LANG['back_to_cart'], 'flow.php');
+     exit;
+  
+ 
+再看flow_update_cart函数
+ 
+ PHP 
+ 
+ 
+function flow_update_cart($arr)
+ {
+     /* 处理 */
+     foreach ($arr AS $key => $val)
+     {
+         $val = intval(make_semiangle($val));
+         if ($val <= 0 && !is_numeric($key)) //这个地方我感觉的程序员当时在想妹妹吧，感觉是把 || 写成 && 了.//www.hake.cc
+         {
+             continue;
+         }
+  
+         //查询：
+         $sql = "SELECT `goods_id`, `goods_attr_id`, `product_id`, `extension_code` FROM" .$GLOBALS['ecs']->table('cart').
+                " WHERE rec_id='$key' AND session_id='" . SESS_ID . "'";
+         $goods = $GLOBALS['db']->getRow($sql);
+  
+         $sql = "SELECT g.goods_name, g.goods_number ".
+                 "FROM " .$GLOBALS['ecs']->table('goods'). " AS g, ".
+                     $GLOBALS['ecs']->table('cart'). " AS c ".
+                 "WHERE g.goods_id = c.goods_id AND c.rec_id = '$key'";
+         $row = $GLOBALS['db']->getRow($sql);
+  
+         //查询：系统启用了库存，检查输入的商品数量是否有效
+         if (intval($GLOBALS['_CFG']['use_storage']) > 0 && $goods['extension_code'] != 'package_buy')
+         {
+             if ($row['goods_number'] < $val)
+             {
+                 show_message(sprintf($GLOBALS['_LANG']['stock_insufficiency'], $row['goods_name'],
+                 $row['goods_number'], $row['goods_number']));
+                 exit;
+             }
+             /* 是货品 */
+             $goods['product_id'] = trim($goods['product_id']);

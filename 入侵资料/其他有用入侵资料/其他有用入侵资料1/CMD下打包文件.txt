@@ -1,0 +1,3 @@
+C:\Progra~1\WINRAR\RAR.EXE 参数a 打包文件保存地址 打包的文件地址
+
+C:\Progra~1\WINRAR\RAR.EXE a D:\wwwmcxgll\90backup.rar D:/wwwroot/upload 

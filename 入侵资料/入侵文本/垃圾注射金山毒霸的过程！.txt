@@ -1,0 +1,55 @@
+D0000D发往论坛板块-------------------------------------------------------
+No2  号板块  技术文章
+D8888D贴子标题-------------------------------------------------------
+垃圾注射金山毒霸的过程！
+D8888D主贴内容-------------------------------------------------------
+作者：上帝之爱！【吐奶头】
+本文米有任何技术含量，只是给比我更菜的菜鸟看的，以及自己的回忆总结（个人习惯）！
+
+前言：话说前几天有人在群里扔出来个金山的网站的shell，当时我在搞一个php的商城网站，米有时间看，所以漏过了！今晚去逛了逛，于是有了这篇垃圾的文章！大牛牛们不要笑话俺！俺是菜鸟，人穷志短，行不？
+
+进入首页之后，直接找注射页面！很快找到一个：[url=http://www.duba.com.hk/XXX.php?id=XXX]链接标记http://www.duba.com.hk/XXX.php?id=XXX[/url],典型的页面，丢个“'”,返回错误页面，我们再来返回去，and 1=1 正常；and 1=2不正常！
+ [img]http://www.safe-code.net/images/sanhei/attachimg.gif[/img] [img]http://www.safe-code.net/attachments/month_0812/20081216_bfdecf8a9380f1851b9bvJ2aMnl629X8.jpg[/img] [img]http://www.safe-code.net/images/attachicons/image.gif[/img][url=http://www.safe-code.net/attachment.php?aid=218&k=3590ea915eaf482248102c2cf5c54380&t=1229376219&nothumb=yes]链接标记1.jpg[/url] (78.58 KB)
+2008-12-16 02:20
+好！接着搞，order by 5正常；order by 10错误，在5和10之间！最后得出是7！接着提交[url=http://www.duba.com.hk/XXX.phpid=XXX/**/and/**/1=2/**/union/**/select/**/1,2,3,4,5,user(),version()/]链接标记http://www.duba.com.hk/XXX.phpid=XXX/**/and/**/1=2/**/union/**/select/**/1,2,3,4,5,user(),version()/[/url]*  显示权限为root  版本为5.0.16-nt （从此处的nt可以看出是windows系统）  
+ [img]http://www.safe-code.net/images/sanhei/attachimg.gif[/img] [img]http://www.safe-code.net/attachments/month_0812/20081216_77da66c286c91d197426BdiWw4abmJg8.jpg[/img] [img]http://www.safe-code.net/images/attachicons/image.gif[/img][url=http://www.safe-code.net/attachment.php?aid=219&k=86463947841b1e4dc6f77be69498bb1d&t=1229376219&nothumb=yes]链接标记2.jpg[/url] (82.47 KB)
+2008-12-16 02:20
+记得我写过一篇关于mysql5注射的，这个就是，猜解的时候不想麻烦的话，直接搞我不多说了！权限为root，那么我去爆爆信息吧，爆到最后也米有爆出什么有用的信息，虽然爆出了16位的sam内容，也米有开3389，米有什么价值,，就不截图了，不会的找我另外一篇文章！本来想睡觉的，把地址丢到群里，去睡觉！可是OneMoreShine非拉着我要今晚搞定，我明天还有课啊！哎！可怜啊！
+不管那么多了，我和OneMoreShine兵分两路，为了速战速决，我决定直接注射搞他！经过一会的猜测，存在表admin  ，结合mysql5注射，找到字段，提交语句：
+[url=http://www.duba.com.hk/XXX.php?id=XXX/news.php?nid=00000000453/**/and/**/1=2/**/union/**/select/**/1,2,3,4,5,username,pwd/**/from/**/admin/]链接标记http://www.duba.com.hk/XXX.php?id=XXX/news.php?nid=00000000453/**/and/**/1=2/**/union/**/select/**/1,2,3,4,5,username,pwd/**/from/**/admin/[/url]* 
+出来了账户和密码！后面直接加个admin，麻痹的，直接出来一个什么指纹玩意的？我草！问了问OneMoreShine，说需要第三方插件！我汗！
+
+ [img]http://www.safe-code.net/images/sanhei/attachimg.gif[/img] [img]http://www.safe-code.net/attachments/month_0812/20081216_a2c6e76f6a28f1e457d22DuIrGWYLvKt.jpg[/img] [img]http://www.safe-code.net/images/attachicons/image.gif[/img][url=http://www.safe-code.net/attachment.php?aid=220&k=2d2c8f88bead7e7fc5d6a50dc8cd1ea0&t=1229376219&nothumb=yes]链接标记3.jpg[/url] (92.77 KB)
+2008-12-16 02:20
+ [img]http://www.safe-code.net/images/sanhei/attachimg.gif[/img] [img]http://www.safe-code.net/attachments/month_0812/20081216_02cc029de80b0e059adbaBmPQtyIaAhb.jpg[/img] [img]http://www.safe-code.net/images/attachicons/image.gif[/img][url=http://www.safe-code.net/attachment.php?aid=221&k=4b325221eb3c2a3769e0b039e431c830&t=1229376219&nothumb=yes]链接标记4i.jpg[/url] (49.7 KB)
+2008-12-16 02:20
+
+不过他给了我另外一个后台，我找到对应这个后台的注射点，开始重复上面的动作！猜测账户和密码进后台，就是这么简单！OneMoreShine说有fckeditor而且刚好有漏洞！但是我也发现了漏洞，但是不是他说的那个，他那样的话麻烦！我直接在后台翻，我就不相信你不上传东西？结果我找到了，在一个不起眼的地方，直接上传大马，就是这样简单！告诉他一声，拿到了！嘎嘎
+ [img]http://www.safe-code.net/images/sanhei/attachimg.gif[/img] [img]http://www.safe-code.net/attachments/month_0812/20081216_c110d01b6d2ead20872bAuATcW6RdSWq.jpg[/img] [img]http://www.safe-code.net/images/attachicons/image.gif[/img][url=http://www.safe-code.net/attachment.php?aid=222&k=77614a4bcc84326a56074378337097b9&t=1229376219&nothumb=yes]链接标记5.jpg[/url] (96.38 KB)
+2008-12-16 02:20
+ [img]http://www.safe-code.net/images/sanhei/attachimg.gif[/img] [img]http://www.safe-code.net/attachments/month_0812/20081216_ed4f85900721dc0f11a0ezM3pH3Qk13x.jpg[/img] [img]http://www.safe-code.net/images/attachicons/image.gif[/img][url=http://www.safe-code.net/attachment.php?aid=223&k=ad8e8f92e677890f73e776e9f8e37585&t=1229376219&nothumb=yes]链接标记6.jpg[/url] (219.03 KB)
+2008-12-16 02:20
+
+
+明天有课上，看看11点多了，明天在提权吧！但是看见静流在线，直接把shell扔给他了！（此战如有任何安全事故，与本人无关！嘎嘎嘎！拉个垫背的！）
+  闪人睡觉去！ 别把安全站点想的那么安全，其实谁都有漏洞，只是发现米有发现而已！
+引用朋友的一句话：
+对防护人士来说 ： 一招 致命，你防了吗？
+对入侵人士来说 ： 一招 致命，你会了吗？
+技术是无罪的，快乐就在思考。
+攻防是种哲学，输赢只在一招。
+
+[  ]
+
+D8888D回贴内容-------------------------------------------------------
+下载数据
+         ~~~~~~~~~~~~~~~~~~~~~~~~~
+                  不错~~~
+
+D8888D回贴内容-------------------------------------------------------
+xiong271 xiong271 。。。。黑客。。（网路上好象出现个**友情入侵金山），，不是抄袭楼主的吧。。
+
+[  ]
+
+D8888D回贴内容-------------------------------------------------------
+嘿嘿，有意思xiong191 xiong191

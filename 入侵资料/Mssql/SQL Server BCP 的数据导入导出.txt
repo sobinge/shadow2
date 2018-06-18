@@ -1,0 +1,24 @@
+SQL Server BCP 的数据导入导出
+/** 导入文本文件 
+EXEC master..xp_cmdshell ’bcp "dbname..tablename" in c:\DT.txt -c -Sservername -Usa -Ppassword’ 
+/** 导出文本文件 
+EXEC master..xp_cmdshell ’bcp "dbname..tablename" out c:\DT.txt -c -Sservername -Usa -Ppassword’ 
+或 
+EXEC master..xp_cmdshell ’bcp "Select * from dbname..tablename" queryout c:\DT.txt -c -Sservername -Usa -Ppassword’ 
+
+
+
+
+SQL2000中BCP轻松使用导入导出数据
+bcp 可以实现数据的导入与导出。  
+
+c:\>bcp "demo.dbo.订单表" out "c:\test.txt" -c -q -S "virus\mysql" -U "sa"
+        -P "dir"
+
+注释：demo.dbo.订单表 把demo里面表订单表导出
+        out 导出
+        in  导入
+        -c 和-q 指定导出时按规则排序
+        -S "virus\mysql" 指定Server名称为virus实例名为mysql
+        -U “sa” 指定用户SA
+        -P  “dir” 密码是dir

