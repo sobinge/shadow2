@@ -1,0 +1,8 @@
+:Base netpersec.hlp>main
+:Title NetPerSec
+1 使用 NetPerSec=IDH_network_lights
+1 NetPerSec 的图标=IDH_netpersec_icon
+1 图表标签=IDH_connection_tab
+1 选项标签=IDH_options_tab
+1 显示标签=IDH_colors_tab
+1 系统要求=IDH_requirements_and_limitations

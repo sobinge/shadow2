@@ -1,0 +1,56 @@
+__SEH__ 0xc0000005 at 0x7755e41b
+CS :0x00000023 SS :0x0000002B DS :0x0000002B
+ES :0x0000002B FS :0x00000053 GS :0x0000002B
+EAX:0x53C80000 EDX:0x00000402 ECX:0x04021F03
+ESP:0x0018B0D0 EBP:0x0018B104 EIP:0x7755E41B
+ESI:0x05DAFD66 EDI:0x2D250000
+-- backtrace --
+   0x7755e41b:[ntdll.dll]:(001:0001e41b)
+   0x7755e023:[ntdll.dll]:(001:0001e023)
+   0x75f84102:[ole32.dll]:(001:00053102)
+   0x75f8411e:[ole32.dll]:(001:0005311e)
+   0x75854b7e:[urlmon.dll]:(001:00003b7e)
+   0x75855d37:[urlmon.dll]:(001:00004d37)
+   0x75855cee:[urlmon.dll]:(001:00004cee)
+   0x75854bdc:[urlmon.dll]:(001:00003bdc)
+   0x7589e313:[urlmon.dll]:(001:0004d313)
+   0x75855ed6:[urlmon.dll]:(001:00004ed6)
+   0x75859a8d:[urlmon.dll]:(001:00008a8d)
+   0x7587060f:[urlmon.dll]:(001:0001f60f)
+   0x7587c1fc:[urlmon.dll]:(001:0002b1fc)
+   0x7587c295:[urlmon.dll]:(001:0002b295)
+   0x6ce1dc33:[mshtml.dll]:(001:0020cc33)
+   0x6ce0e573:[mshtml.dll]:(001:001fd573)
+   0x6cdf6c77:[mshtml.dll]:(001:001e5c77)
+   0x6cdf9ada:[mshtml.dll]:(001:001e8ada)
+   0x6cdf5f22:[mshtml.dll]:(001:001e4f22)
+   0x6cd49d84:[mshtml.dll]:(001:00138d84)
+   0x6cdf628f:[mshtml.dll]:(001:001e528f)
+   0x6cdf5ab2:[mshtml.dll]:(001:001e4ab2)
+   0x6cdf5870:[mshtml.dll]:(001:001e4870)
+   0x6cdf5b69:[mshtml.dll]:(001:001e4b69)
+   0x6cdfa3c5:[mshtml.dll]:(001:001e93c5)
+   0x6cdfa385:[mshtml.dll]:(001:001e9385)
+   0x6cdfa36c:[mshtml.dll]:(001:001e936c)
+   0x6cdac971:[mshtml.dll]:(001:0019b971)
+   0x6cd8ac5b:[mshtml.dll]:(001:00179c5b)
+   0x6cd8ac9c:[mshtml.dll]:(001:00179c9c)
+   0x6ce3eabc:[mshtml.dll]:(001:0022dabc)
+   0x6ce0a9f0:[mshtml.dll]:(001:001f99f0)
+   0x6cdc6ab8:[mshtml.dll]:(001:001b5ab8)
+   0x761d6238:[USER32.dll]:(001:00006238)
+   0x761d68ea:[USER32.dll]:(001:000068ea)
+   0x761d7d31:[USER32.dll]:(001:00007d31)
+   0x761d8112:[USER32.dll]:(001:00008112)
+   0x100b40a8:[MBX@CF4@371A80.###]:(001:000b30a8)
+   !broken!0x00000200:
+   0x0018ac98:[unknown]:unknown
+--stack--
+0x0018b0d0: 0x00000000 0x005f0000 0x05e1d610 0x005f8e14
+0x0018b0e0: 0x05e1d790 0x1f0005e0 0x04020800 0x0018b080
+0x0018b0f0: 0x005f9008 0x0018fd84 0x0dc86cdf 0x00000001
+0x0018b100: 0x05e1d608 0x0018b11c 0x7755e023 0x05dca4e8
+0x0018b110: 0x05dca540 0x00000000 0x05e1d608 0x0018b130
+0x0018b120: 0x75f84102 0x005f0000 0x00000000 0x05e1d610
+0x0018b130: 0x0018b140 0x75f8411e 0x760766bc 0x05e1d610
+0x0018b140: 0x0018b14c 0x75854b7e 0x05e1d610 0x0018b168

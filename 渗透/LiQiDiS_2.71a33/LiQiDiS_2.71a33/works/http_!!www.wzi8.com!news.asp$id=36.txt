@@ -1,0 +1,21 @@
+■漏洞信息:============================================================
+ ·URL:http://www.wzi8.com/news.asp?id=36
+ ·页面标题：南宁资本运作--新闻中心--网资介绍
+ ·参数:id=36
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:113.10.154.123
+ ·数据库:Access
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Fri, 09 Sep 2011 09:56:16 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 8218
+Content-Type: text/html
+Cache-control: private
+
+

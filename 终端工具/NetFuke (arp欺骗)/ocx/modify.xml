@@ -1,0 +1,71 @@
+<?xml version="1.0" standalone="yes"?>
+<OcxInfo>
+<OcxName>
+NetFuke_Modify_Replace
+</OcxName>
+<OcxPath>
+\ocx\NetFuke_Modify.dll
+</OcxPath>
+<OcxCMD>
+Pattern = [GET]
+Replace = [POST]
+</OcxCMD>
+<UseFlag>
+0
+</UseFlag>
+</OcxInfo>
+<OcxInfo>
+<OcxName>
+NetFuke_Modify_TCP_RST
+</OcxName>
+<OcxPath>
+\ocx\NetFuke_Modify_TCP_RST.dll
+</OcxPath>
+<OcxCMD>
+RetString = [fuck]
+</OcxCMD>
+<UseFlag>
+0
+</UseFlag>
+</OcxInfo>
+<OcxInfo>
+<OcxName>
+NetFuke_Modify_IP_Clone
+</OcxName>
+<OcxPath>
+\ocx\NetFuke_Modify_IP_Clone.dll
+</OcxPath>
+<OcxCMD>
+
+</OcxCMD>
+<UseFlag>
+0
+</UseFlag>
+</OcxInfo>
+<OcxInfo>
+<OcxName>
+http_inject
+</OcxName>
+<OcxPath>
+\ocx\NetFuke_Modify_HTTP_Inject.dll
+</OcxPath>
+<OcxCMD>
+Host = [*]
+Page = [.asp|.jsp|.htm|.html]
+InjectFlag = [*]
+HTTP Head = [HTTP/1.1 200 OK
+Server: Microsoft-IIS/5.1
+X-Powered-By: ASP.NET
+Date: Wed, 08 Apr 2009 17:10:17 GMT
+Content-Type: text/html
+Accept-Ranges: bytes
+Last-Modified: Wed, 08 Apr 2009 17:10:05 GMT
+ETag: "ea54c1dc6cb8c91:9e2"
+Content-Length:] 
+HTML Body = [haha!!]
+</OcxCMD>
+<UseFlag>
+1
+</UseFlag>
+</OcxInfo>
+</xml>

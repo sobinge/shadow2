@@ -1,0 +1,28 @@
+■漏洞信息:============================================================
+ ·URL:http://www.reportfly.co.kr/mall/view.asp?rid=37179
+ ·页面标题：[扁诀辣府]扁诀喊 辣府碍飞 厚背 炼荤-(林)困皋捞靛 浚磐抛牢刚飘 (固福狼傈汲ケ) 
+ ·参数:rid=37179
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:222.122.61.170
+ ·数据库:未知
+ ·HEAD:
+HTTP/1.1 200 OK
+Cache-Control: private,no-cache
+Pragma: no-cache
+Content-Length: 37885
+Content-Type: text/html
+Expires: Sat, 02 Apr 2011 11:37:12 GMT
+Server: Microsoft-IIS/7.5
+Set-Cookie: ASPSESSIONIDAARTSSBT=CMCJNOMDBDLOLMOCDOOLOIJG; path=/
+X-Powered-By: ASP.NET
+Date: Sun, 03 Apr 2011 11:37:12 GMT
+Connection: close
+
+
+ ·数据库:SQL Server
+
+■数据库信息:============================================================
+服务器未返回错误信息或返回不可识别的错误信息，你可以根据显示的错误详情设置错误关键字再试，或者切换到使用服务器转发的方式来读取信息！

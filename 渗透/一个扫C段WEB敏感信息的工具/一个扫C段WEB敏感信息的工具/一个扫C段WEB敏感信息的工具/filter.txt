@@ -1,0 +1,3 @@
+.*.qzone.qq.com
+hi.baidu.com/.*
+blog.sina.com.cn/.*$

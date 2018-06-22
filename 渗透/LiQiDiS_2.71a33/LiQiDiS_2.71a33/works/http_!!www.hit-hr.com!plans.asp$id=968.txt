@@ -1,0 +1,22 @@
+■漏洞信息:============================================================
+ ·URL:http://www.hit-hr.com/plans.asp?id=968
+ ·页面标题：
+ ·参数:id=968
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:115.47.189.151
+ ·数据库:Access
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sat, 10 Sep 2011 13:06:20 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 39038
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDCQSBRTTR=HEBMFOIBCEPNKELBOMEEPIPE; path=/
+Cache-control: private
+
+

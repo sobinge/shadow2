@@ -1,0 +1,21 @@
+■漏洞信息:============================================================
+ ·URL:http://www.hnyuechang.com/hyxw.asp?Action=show&bianhao=457
+ ·页面标题：
+ ·参数:Action=show&bianhao=457
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:121.14.2.128
+ ·数据库:Access
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sat, 27 Aug 2011 07:23:09 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 19291
+Content-Type: text/html
+Cache-control: private
+
+

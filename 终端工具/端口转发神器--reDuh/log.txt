@@ -1,0 +1,3481 @@
+================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================AcceptThread error!AcceptThread error!AcceptThread error!================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================AcceptThread error!================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================AcceptThread error!AcceptThread error!================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================AcceptThread error!AcceptThread error!AcceptThread error!================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================error on TpopDataFromRemoteJSPAcceptThread error!AcceptThread error!AcceptThread error!================================
+Warning: socket_read(): unable to read from socket [0]: 远程主机强迫关闭了一个现有的连接。
+ in D:\wwwroot\test.php on line 395
+
+================================================================<html><head><title>Apache Tomcat/6.0.16 - Error report</title><style><!--H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;}A {color : black;}A.name {color : black;}HR {color : #525D76;}--></style> </head><body><h1>HTTP Status 500 - </h1><HR size="1" noshade="noshade"><p><b>type</b> Exception report</p><p><b>message</b> <u></u></p><p><b>description</b> <u>The server encountered an internal error () that prevented it from fulfilling this request.</u></p><p><b>exception</b> <pre>org.apache.jasper.JasperException: An exception occurred processing JSP page /soft.jsp at line 524
+
+521: 				System.out.println(&quot;ERROR: Bad service port - &quot; + servicePort);
+522: 		}
+523: 		else{
+524: 			rpcSock = new Socket(&quot;localhost&quot;, servicePort);				 
+525: 			rw = new PrintWriter(rpcSock.getOutputStream(), true);
+526: 			rd = new BufferedReader(new InputStreamReader(rpcSock.getInputStream()));				
+527: 			rw.println(&quot;[getData]&quot;);
+
+
+Stacktrace:
+	org.apache.jasper.servlet.JspServletWrapper.handleJspException(JspServletWrapper.java:505)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:404)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:337)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:266)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:803)
+</pre></p><p><b>root cause</b> <pre>java.net.ConnectException: Connection refused: connect
+	java.net.PlainSocketImpl.socketConnect(Native Method)
+	java.net.PlainSocketImpl.doConnect(Unknown Source)
+	java.net.PlainSocketImpl.connectToAddress(Unknown Source)
+	java.net.PlainSocketImpl.connect(Unknown Source)
+	java.net.SocksSocketImpl.connect(Unknown Source)
+	java.net.Socket.connect(Unknown Source)
+	java.net.Socket.connect(Unknown Source)
+	java.net.Socket.&lt;init&gt;(Unknown Source)
+	java.net.Socket.&lt;init&gt;(Unknown Source)
+	org.apache.jsp.soft_jsp._jspService(soft_jsp.java:740)
+	org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:803)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:374)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:337)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:266)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:803)
+</pre></p><p><b>note</b> <u>The full stack trace of the root cause is available in the Apache Tomcat/6.0.16 logs.</u></p><HR size="1" noshade="noshade"><h3>Apache Tomcat/6.0.16</h3></body></html>================================AcceptThread error!AcceptThread error!================================<html><head><title>Apache Tomcat/6.0.16 - Error report</title><style><!--H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;}A {color : black;}A.name {color : black;}HR {color : #525D76;}--></style> </head><body><h1>HTTP Status 500 - </h1><HR size="1" noshade="noshade"><p><b>type</b> Exception report</p><p><b>message</b> <u></u></p><p><b>description</b> <u>The server encountered an internal error () that prevented it from fulfilling this request.</u></p><p><b>exception</b> <pre>org.apache.jasper.JasperException: An exception occurred processing JSP page /soft.jsp at line 524
+
+521: 				System.out.println(&quot;ERROR: Bad service port - &quot; + servicePort);
+522: 		}
+523: 		else{
+524: 			rpcSock = new Socket(&quot;localhost&quot;, servicePort);				 
+525: 			rw = new PrintWriter(rpcSock.getOutputStream(), true);
+526: 			rd = new BufferedReader(new InputStreamReader(rpcSock.getInputStream()));				
+527: 			rw.println(&quot;[getData]&quot;);
+
+
+Stacktrace:
+	org.apache.jasper.servlet.JspServletWrapper.handleJspException(JspServletWrapper.java:505)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:404)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:337)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:266)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:803)
+</pre></p><p><b>root cause</b> <pre>java.net.ConnectException: Connection refused: connect
+	java.net.PlainSocketImpl.socketConnect(Native Method)
+	java.net.PlainSocketImpl.doConnect(Unknown Source)
+	java.net.PlainSocketImpl.connectToAddress(Unknown Source)
+	java.net.PlainSocketImpl.connect(Unknown Source)
+	java.net.SocksSocketImpl.connect(Unknown Source)
+	java.net.Socket.connect(Unknown Source)
+	java.net.Socket.connect(Unknown Source)
+	java.net.Socket.&lt;init&gt;(Unknown Source)
+	java.net.Socket.&lt;init&gt;(Unknown Source)
+	org.apache.jsp.soft_jsp._jspService(soft_jsp.java:740)
+	org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:803)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:374)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:337)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:266)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:803)
+</pre></p><p><b>note</b> <u>The full stack trace of the root cause is available in the Apache Tomcat/6.0.16 logs.</u></p><HR size="1" noshade="noshade"><h3>Apache Tomcat/6.0.16</h3></body></html>================================================================<html><head><title>Apache Tomcat/6.0.16 - Error report</title><style><!--H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;}A {color : black;}A.name {color : black;}HR {color : #525D76;}--></style> </head><body><h1>HTTP Status 500 - </h1><HR size="1" noshade="noshade"><p><b>type</b> Exception report</p><p><b>message</b> <u></u></p><p><b>description</b> <u>The server encountered an internal error () that prevented it from fulfilling this request.</u></p><p><b>exception</b> <pre>org.apache.jasper.JasperException: An exception occurred processing JSP page /soft.jsp at line 524
+
+521: 				System.out.println(&quot;ERROR: Bad service port - &quot; + servicePort);
+522: 		}
+523: 		else{
+524: 			rpcSock = new Socket(&quot;localhost&quot;, servicePort);				 
+525: 			rw = new PrintWriter(rpcSock.getOutputStream(), true);
+526: 			rd = new BufferedReader(new InputStreamReader(rpcSock.getInputStream()));				
+527: 			rw.println(&quot;[getData]&quot;);
+
+
+Stacktrace:
+	org.apache.jasper.servlet.JspServletWrapper.handleJspException(JspServletWrapper.java:505)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:404)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:337)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:266)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:803)
+</pre></p><p><b>root cause</b> <pre>java.net.ConnectException: Connection refused: connect
+	java.net.PlainSocketImpl.socketConnect(Native Method)
+	java.net.PlainSocketImpl.doConnect(Unknown Source)
+	java.net.PlainSocketImpl.connectToAddress(Unknown Source)
+	java.net.PlainSocketImpl.connect(Unknown Source)
+	java.net.SocksSocketImpl.connect(Unknown Source)
+	java.net.Socket.connect(Unknown Source)
+	java.net.Socket.connect(Unknown Source)
+	java.net.Socket.&lt;init&gt;(Unknown Source)
+	java.net.Socket.&lt;init&gt;(Unknown Source)
+	org.apache.jsp.soft_jsp._jspService(soft_jsp.java:740)
+	org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:803)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:374)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:337)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:266)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:803)
+</pre></p><p><b>note</b> <u>The full stack trace of the root cause is available in the Apache Tomcat/6.0.16 logs.</u></p><HR size="1" noshade="noshade"><h3>Apache Tomcat/6.0.16</h3></body></html>================================================================<html><head><title>Apache Tomcat/6.0.16 - Error report</title><style><!--H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;}A {color : black;}A.name {color : black;}HR {color : #525D76;}--></style> </head><body><h1>HTTP Status 500 - </h1><HR size="1" noshade="noshade"><p><b>type</b> Exception report</p><p><b>message</b> <u></u></p><p><b>description</b> <u>The server encountered an internal error () that prevented it from fulfilling this request.</u></p><p><b>exception</b> <pre>org.apache.jasper.JasperException: An exception occurred processing JSP page /soft.jsp at line 524
+
+521: 				System.out.println(&quot;ERROR: Bad service port - &quot; + servicePort);
+522: 		}
+523: 		else{
+524: 			rpcSock = new Socket(&quot;localhost&quot;, servicePort);				 
+525: 			rw = new PrintWriter(rpcSock.getOutputStream(), true);
+526: 			rd = new BufferedReader(new InputStreamReader(rpcSock.getInputStream()));				
+527: 			rw.println(&quot;[getData]&quot;);
+
+
+Stacktrace:
+	org.apache.jasper.servlet.JspServletWrapper.handleJspException(JspServletWrapper.java:505)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:404)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:337)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:266)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:803)
+</pre></p><p><b>root cause</b> <pre>java.net.ConnectException: Connection refused: connect
+	java.net.PlainSocketImpl.socketConnect(Native Method)
+	java.net.PlainSocketImpl.doConnect(Unknown Source)
+	java.net.PlainSocketImpl.connectToAddress(Unknown Source)
+	java.net.PlainSocketImpl.connect(Unknown Source)
+	java.net.SocksSocketImpl.connect(Unknown Source)
+	java.net.Socket.connect(Unknown Source)
+	java.net.Socket.connect(Unknown Source)
+	java.net.Socket.&lt;init&gt;(Unknown Source)
+	java.net.Socket.&lt;init&gt;(Unknown Source)
+	org.apache.jsp.soft_jsp._jspService(soft_jsp.java:740)
+	org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:803)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:374)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:337)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:266)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:803)
+</pre></p><p><b>note</b> <u>The full stack trace of the root cause is available in the Apache Tomcat/6.0.16 logs.</u></p><HR size="1" noshade="noshade"><h3>Apache Tomcat/6.0.16</h3></body></html>================================================================<html><head><title>Apache Tomcat/6.0.16 - Error report</title><style><!--H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;}A {color : black;}A.name {color : black;}HR {color : #525D76;}--></style> </head><body><h1>HTTP Status 500 - </h1><HR size="1" noshade="noshade"><p><b>type</b> Exception report</p><p><b>message</b> <u></u></p><p><b>description</b> <u>The server encountered an internal error () that prevented it from fulfilling this request.</u></p><p><b>exception</b> <pre>org.apache.jasper.JasperException: An exception occurred processing JSP page /soft.jsp at line 524
+
+521: 				System.out.println(&quot;ERROR: Bad service port - &quot; + servicePort);
+522: 		}
+523: 		else{
+524: 			rpcSock = new Socket(&quot;localhost&quot;, servicePort);				 
+525: 			rw = new PrintWriter(rpcSock.getOutputStream(), true);
+526: 			rd = new BufferedReader(new InputStreamReader(rpcSock.getInputStream()));				
+527: 			rw.println(&quot;[getData]&quot;);
+
+
+Stacktrace:
+	org.apache.jasper.servlet.JspServletWrapper.handleJspException(JspServletWrapper.java:505)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:404)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:337)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:266)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:803)
+</pre></p><p><b>root cause</b> <pre>java.net.ConnectException: Connection refused: connect
+	java.net.PlainSocketImpl.socketConnect(Native Method)
+	java.net.PlainSocketImpl.doConnect(Unknown Source)
+	java.net.PlainSocketImpl.connectToAddress(Unknown Source)
+	java.net.PlainSocketImpl.connect(Unknown Source)
+	java.net.SocksSocketImpl.connect(Unknown Source)
+	java.net.Socket.connect(Unknown Source)
+	java.net.Socket.connect(Unknown Source)
+	java.net.Socket.&lt;init&gt;(Unknown Source)
+	java.net.Socket.&lt;init&gt;(Unknown Source)
+	org.apache.jsp.soft_jsp._jspService(soft_jsp.java:740)
+	org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:803)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:374)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:337)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:266)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:803)
+</pre></p><p><b>note</b> <u>The full stack trace of the root cause is available in the Apache Tomcat/6.0.16 logs.</u></p><HR size="1" noshade="noshade"><h3>Apache Tomcat/6.0.16</h3></body></html>================================================================<html><head><title>Apache Tomcat/6.0.16 - Error report</title><style><!--H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;}A {color : black;}A.name {color : black;}HR {color : #525D76;}--></style> </head><body><h1>HTTP Status 500 - </h1><HR size="1" noshade="noshade"><p><b>type</b> Exception report</p><p><b>message</b> <u></u></p><p><b>description</b> <u>The server encountered an internal error () that prevented it from fulfilling this request.</u></p><p><b>exception</b> <pre>org.apache.jasper.JasperException: An exception occurred processing JSP page /soft.jsp at line 524
+
+521: 				System.out.println(&quot;ERROR: Bad service port - &quot; + servicePort);
+522: 		}
+523: 		else{
+524: 			rpcSock = new Socket(&quot;localhost&quot;, servicePort);				 
+525: 			rw = new PrintWriter(rpcSock.getOutputStream(), true);
+526: 			rd = new BufferedReader(new InputStreamReader(rpcSock.getInputStream()));				
+527: 			rw.println(&quot;[getData]&quot;);
+
+
+Stacktrace:
+	org.apache.jasper.servlet.JspServletWrapper.handleJspException(JspServletWrapper.java:505)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:404)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:337)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:266)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:803)
+</pre></p><p><b>root cause</b> <pre>java.net.ConnectException: Connection refused: connect
+	java.net.PlainSocketImpl.socketConnect(Native Method)
+	java.net.PlainSocketImpl.doConnect(Unknown Source)
+	java.net.PlainSocketImpl.connectToAddress(Unknown Source)
+	java.net.PlainSocketImpl.connect(Unknown Source)
+	java.net.SocksSocketImpl.connect(Unknown Source)
+	java.net.Socket.connect(Unknown Source)
+	java.net.Socket.connect(Unknown Source)
+	java.net.Socket.&lt;init&gt;(Unknown Source)
+	java.net.Socket.&lt;init&gt;(Unknown Source)
+	org.apache.jsp.soft_jsp._jspService(soft_jsp.java:740)
+	org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:803)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:374)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:337)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:266)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:803)
+</pre></p><p><b>note</b> <u>The full stack trace of the root cause is available in the Apache Tomcat/6.0.16 logs.</u></p><HR size="1" noshade="noshade"><h3>Apache Tomcat/6.0.16</h3></body></html>================================================================<html><head><title>Apache Tomcat/6.0.16 - Error report</title><style><!--H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;}A {color : black;}A.name {color : black;}HR {color : #525D76;}--></style> </head><body><h1>HTTP Status 500 - </h1><HR size="1" noshade="noshade"><p><b>type</b> Exception report</p><p><b>message</b> <u></u></p><p><b>description</b> <u>The server encountered an internal error () that prevented it from fulfilling this request.</u></p><p><b>exception</b> <pre>org.apache.jasper.JasperException: An exception occurred processing JSP page /soft.jsp at line 524
+
+521: 				System.out.println(&quot;ERROR: Bad service port - &quot; + servicePort);
+522: 		}
+523: 		else{
+524: 			rpcSock = new Socket(&quot;localhost&quot;, servicePort);				 
+525: 			rw = new PrintWriter(rpcSock.getOutputStream(), true);
+526: 			rd = new BufferedReader(new InputStreamReader(rpcSock.getInputStream()));				
+527: 			rw.println(&quot;[getData]&quot;);
+
+
+Stacktrace:
+	org.apache.jasper.servlet.JspServletWrapper.handleJspException(JspServletWrapper.java:505)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:404)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:337)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:266)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:803)
+</pre></p><p><b>root cause</b> <pre>java.net.ConnectException: Connection refused: connect
+	java.net.PlainSocketImpl.socketConnect(Native Method)
+	java.net.PlainSocketImpl.doConnect(Unknown Source)
+	java.net.PlainSocketImpl.connectToAddress(Unknown Source)
+	java.net.PlainSocketImpl.connect(Unknown Source)
+	java.net.SocksSocketImpl.connect(Unknown Source)
+	java.net.Socket.connect(Unknown Source)
+	java.net.Socket.connect(Unknown Source)
+	java.net.Socket.&lt;init&gt;(Unknown Source)
+	java.net.Socket.&lt;init&gt;(Unknown Source)
+	org.apache.jsp.soft_jsp._jspService(soft_jsp.java:740)
+	org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:803)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:374)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:337)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:266)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:803)
+</pre></p><p><b>note</b> <u>The full stack trace of the root cause is available in the Apache Tomcat/6.0.16 logs.</u></p><HR size="1" noshade="noshade"><h3>Apache Tomcat/6.0.16</h3></body></html>================================================================<html><head><title>Apache Tomcat/6.0.16 - Error report</title><style><!--H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;}A {color : black;}A.name {color : black;}HR {color : #525D76;}--></style> </head><body><h1>HTTP Status 500 - </h1><HR size="1" noshade="noshade"><p><b>type</b> Exception report</p><p><b>message</b> <u></u></p><p><b>description</b> <u>The server encountered an internal error () that prevented it from fulfilling this request.</u></p><p><b>exception</b> <pre>org.apache.jasper.JasperException: An exception occurred processing JSP page /soft.jsp at line 524
+
+521: 				System.out.println(&quot;ERROR: Bad service port - &quot; + servicePort);
+522: 		}
+523: 		else{
+524: 			rpcSock = new Socket(&quot;localhost&quot;, servicePort);				 
+525: 			rw = new PrintWriter(rpcSock.getOutputStream(), true);
+526: 			rd = new BufferedReader(new InputStreamReader(rpcSock.getInputStream()));				
+527: 			rw.println(&quot;[getData]&quot;);
+
+
+Stacktrace:
+	org.apache.jasper.servlet.JspServletWrapper.handleJspException(JspServletWrapper.java:505)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:404)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:337)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:266)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:803)
+</pre></p><p><b>root cause</b> <pre>java.net.ConnectException: Connection refused: connect
+	java.net.PlainSocketImpl.socketConnect(Native Method)
+	java.net.PlainSocketImpl.doConnect(Unknown Source)
+	java.net.PlainSocketImpl.connectToAddress(Unknown Source)
+	java.net.PlainSocketImpl.connect(Unknown Source)
+	java.net.SocksSocketImpl.connect(Unknown Source)
+	java.net.Socket.connect(Unknown Source)
+	java.net.Socket.connect(Unknown Source)
+	java.net.Socket.&lt;init&gt;(Unknown Source)
+	java.net.Socket.&lt;init&gt;(Unknown Source)
+	org.apache.jsp.soft_jsp._jspService(soft_jsp.java:740)
+	org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:803)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:374)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:337)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:266)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:803)
+</pre></p><p><b>note</b> <u>The full stack trace of the root cause is available in the Apache Tomcat/6.0.16 logs.</u></p><HR size="1" noshade="noshade"><h3>Apache Tomcat/6.0.16</h3></body></html>================================AcceptThread error!AcceptThread error!AcceptThread error!AcceptThread error!

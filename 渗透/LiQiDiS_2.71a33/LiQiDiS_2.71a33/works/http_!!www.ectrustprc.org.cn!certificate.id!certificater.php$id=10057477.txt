@@ -1,0 +1,20 @@
+■漏洞信息:============================================================
+ ·URL:http://www.ectrustprc.org.cn/certificate.id/certificater.php?id=10057477
+ ·页面标题：中国电子商务诚信评价中心颁发--诚信企业(红标)
+ ·参数:id=10057477
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:php
+ ·IP:114.80.152.76
+ ·数据库:MySQL
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Fri, 26 Aug 2011 08:04:50 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+X-Powered-By: PHP/5.2.0
+Content-type: text/html
+
+

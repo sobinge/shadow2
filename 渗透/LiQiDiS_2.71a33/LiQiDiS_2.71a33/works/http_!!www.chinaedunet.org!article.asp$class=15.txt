@@ -1,0 +1,22 @@
+■漏洞信息:============================================================
+ ·URL:http://www.chinaedunet.org/article.asp?class=15
+ ·页面标题：企/事业单位招聘 - 中国研究生招聘网(官方站)--研究生人才求职招聘网站
+ ·参数:class=15
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:180.186.15.27
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sat, 10 Sep 2011 12:46:36 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 29605
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDQATTDCQQ=GIHMELDBKNAJPJJMAGKNBADM; path=/
+Cache-control: private
+
+

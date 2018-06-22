@@ -1,0 +1,21 @@
+Tips and FAQs:
+
+1. When you want to get a webshell with the 'Backup Log' function, if you get failure the first time, and want to do it again, you should rename the target filename. Because if not do so, the filesize grows with every backup, and cannot achieve your goal. Ordinal filename is recommanded.
+
+2. Before you upload an executable file with 'xp_cmdshell' to a server,  you should rename the extension to others, such as 'txt','dat','jpg',etc, when uploadded, you can rename it back. This can increase success ratio.
+
+3. When you are searching web path, if there is no any result after a long time , this is because large number of files on the server commonly, the IIS is timeout; Once request returns, please search again immediately, this time you will get the data.
+
+
+
+使用建议及常见问题解答
+
+1. 使用[基于日志备份]功能的时候，如果第一次备份不成功，要进行第二次备份的时候，要修改一下目的文件名。因为如果不修改的话，会追加到文件的尾部，文件会越来越大，而且不能实现所需的功能。以后多次备份也应如此，推荐使用序数文件名。
+
+2. 为什么使用备份出的中马可以写入文本，但填入大马上传后却提示找不到文件？——因为大马被杀毒软件杀掉了，请先作免杀，或者换个大马再试。
+
+3. 使用xp_cmdShell上传可执行文件的时候，建议先把扩展名改成其他的，比如dat,txt,jpg 等，上传上去后再改回来，这样才能成功上传。
+
+4. 使用备份功能备份出中马后，却无法上传大马。通过查看页面的源码，发现代码中被插入了特殊字符，比如“@”，怎么办？——通常来说，管中窥豹备份得到的中马的可用率是很高的，如果出现了这样的情况，可以通过增减无关字符或调整页面代码元素的属性的位置来避开@字符出现在关键属性上，比如“name”属性，然后重新进行备份； 也可以备份一句话小马，然后使用一句话木马连接工具上传大马即可。
+
+5. 在使用搜索功能搜索网站的目录的时候，如果搜了很久后无内容，通常是因为磁盘文件过多，搜索超时了；请立即再次搜索，通常会很快有结果出来。也就是说，一个盘符应连续搜索两次才能确定结果。当然，如果一次就搜索出来了，就不必再搜第二次了。

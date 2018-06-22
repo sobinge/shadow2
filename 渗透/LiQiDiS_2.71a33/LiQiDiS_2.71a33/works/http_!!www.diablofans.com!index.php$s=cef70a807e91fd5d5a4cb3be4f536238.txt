@@ -1,0 +1,31 @@
+■漏洞信息:============================================================
+ ·URL:http://www.diablofans.com/index.php?s=cef70a807e91fd5d5a4cb3be4f536238
+ ·页面标题：Diablo 3 News, Guides, Tips, Forums - Diablo 3 - Diablofans.com 
+ ·参数:s=cef70a807e91fd5d5a4cb3be4f536238
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:php
+ ·IP:68.64.47.124
+ ·数据库:未知
+ ·HEAD:
+HTTP/1.1 200 OK
+Content-Type: text/html;charset=UTF-8
+Cache-Control: ,no-cachemust-revalidate, max-age=0
+Expires: 0
+Pragma: no-cache
+Content-Length: 93796
+Date: Mon, 04 Apr 2011 04:54:53 GMT
+Connection: close
+X-Cache-Hits: 1
+X-Cache-TTL: 391.097/28
+X-Backend: phpservers2
+X-Req: 2904625797 2904596180
+X-Language: en
+X-URL: /index.php?s=cef70a807e91fd5d5a4cb3be4f536238
+
+
+ ·数据库:SQL Server
+
+■数据库信息:============================================================
+服务器未返回错误信息或返回不可识别的错误信息，你可以根据显示的错误详情设置错误关键字再试，或者切换到使用服务器转发的方式来读取信息！

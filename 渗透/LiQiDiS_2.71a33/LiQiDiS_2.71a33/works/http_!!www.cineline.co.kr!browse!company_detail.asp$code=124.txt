@@ -1,0 +1,20 @@
+■漏洞信息:============================================================
+ ·URL:http://www.cineline.co.kr/browse/company_detail.asp?code=124
+ ·页面标题：CINELINe : 揪匙DB > 内府酒浚磐抛牢刚飘
+ ·参数:code=124
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:218.145.71.182
+ ·数据库:Access
+ ·HEAD:
+HTTP/1.1 200 OK
+Date: Sun, 03 Apr 2011 11:19:12 GMT
+Server: Apache/2.2.17 (Unix) mod_ssl/2.2.17 OpenSSL/1.0.0a PHP/5.3.3
+X-Powered-By: PHP/5.3.3
+Set-Cookie: SESSION=s4d9857b00b85f; expires=Mon, 09-Apr-2012 11:19:12 GMT; path=/
+Connection: close
+Content-Type: text/html
+
+

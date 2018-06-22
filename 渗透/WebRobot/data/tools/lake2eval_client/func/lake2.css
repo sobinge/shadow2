@@ -1,0 +1,22 @@
+body,td,th {
+	font-size: 12px;
+}
+a:link {
+	color: #0000FF;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #0000FF;
+}
+a:hover {
+	text-decoration: none;
+	color: #FF0000;
+}
+a:active {
+	text-decoration: none;
+	color: #FF0000;
+}
+textarea{BORDER:#000000  1px solid;FONT-SIZE: 12px;color: #000000;}
+input{BORDER:#000000 1px solid;FONT-SIZE: 12px;color: #000000;}
+select{BORDER:#000000 1px solid;FONT-SIZE: 12px;color: #000000;}

@@ -1,0 +1,303 @@
+
+■数据库信息:============================================================
+- 数据库名：bids
+- 用户名：dbo
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：HBMC_CRM
+- 服务名：MSSQLSERVER
+- 系统用户名：kimyd
+
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+bids	D:\SQL_Data\bids_Data.MDF	
+buddhanews	D:\SQL_Data\buddhanews_Data.MDF	
+bultus	D:\SQL_Data\bultus_Data.MDF	
+daily_report	D:\SQL_Data\daily_report_Data.MDF	
+distmodel	D:\SQL_Data\distmdl.mdf	
+eB_nibbler	D:\ccmedia\WebLog_DB\eB_nibbler_data.mdf	
+indimail	D:\SQL_Data\indimail_Data.MDF	
+indimail35	D:\SQL_Data\indimail35_Data.MDF	
+master	d:\Microsoft SQL Server\MSSQL\data\master.mdf	
+minjok	D:\SQL_Data\minjok_Data.MDF	
+model	d:\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	d:\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+Northwind	d:\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+novita	D:\SQL_Data\novita_Data.MDF	
+pubs	d:\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+seon	D:\SQL_Data\seon_Data.MDF	
+statistic	D:\SQL_Data\statistic_Data.MDF	
+tanheo	D:\SQL_Data\tanheo_Data.MDF	
+tempdb	d:\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+web	D:\SQL_Data\web_Data.mdf	
+web2	D:\SQL_Data\web2_Data.MDF	
+web3	D:\SQL_Data\web3_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+kimyd		??漫?责???	08 30 2008  4:41PM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	HBMC_CRM	712	AWAITING COMMAND	SYSTEM	
+Internet Information Services	sleeping	WEB1	1176	AWAITING COMMAND		
+Internet Information Services	sleeping	WEB1	1176	AWAITING COMMAND		
+	background			TASK MANAGER		
+	background			TASK MANAGER		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+HBMC_CRM	SQL Server	SQLOLEDB	HBMC_CRM		HBMC_CRM	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+		0		08 30 2008  3:25PM	08 30 2008  3:25PM	
+buddha	?θ??膚?σ????圀瓖?稈?????	8	茄惫绢	08 31 2008  6:08PM	09  3 2008  3:30PM	
+buddhamyboss	???昋钒恁鸱??笮??迮?嘧???????	7	茄惫绢	08 31 2008 11:00PM	08 31 2008 11:02PM	
+BUILTIN\Administrators		1	茄惫绢	08 30 2008  3:25PM	08 30 2008  3:25PM	
+ccmedia	????漫????????????徱??	22	茄惫绢	09 22 2008  2:43PM	09 22 2008  2:48PM	
+indimail35	?铫祇???廌＋卽?敩?????????懟	12	茄惫绢	08 31 2008  6:19PM	08 31 2008  6:19PM	
+kimyd	???刈??????揾噎б???圀?瑡???	8	茄惫绢	08 30 2008  4:25PM	01 15 2009  3:04PM	
+sa	???????轨爃???琇????????	1	茄惫绢	08  6 2000  1:27AM	09  3 2008  6:32PM	
+stat	???硇??爤?怱稴?????渜??????	2	茄惫绢	09 22 2008  2:49PM	09 22 2008  2:49PM	
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+取记录数失败，使用设定值：5
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+取记录数失败，使用设定值：5
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+取记录数失败，使用设定值：5
+■netstat -an
+取记录数失败，使用设定值：5
+Dir of C:: 
+一次性获取失败，正在批次获取……
+Dir of D:: 
+一次性获取失败，正在批次获取……
+------------------------------------------------------------
+正在获取数据库 [bids] 的表名……
+一次性获取失败，正在批次获取……
+批次获取失败，正在逐条获取……
+背阂访	
+辫怕汗汲巩0101	
+阂背客巩拳	
+惑淬扒碍	
+惑淬背府	
+惑淬背府2	
+惑淬背腊	
+惑淬过伏	
+惑淬技公	
+惑淬辆背	
+惑淬怕背2	
+汲巩炼荤0429	
+脚青惑淬	
+脚青惑淬2	
+牢磐齿老埃汲巩	
+漠烦炼盔锐	
+addr_manage	
+addr1	
+admin_seq	
+Article	
+b_board	
+b2546	
+balwon	
+bang_board	
+bang_board1	
+bboard	
+bbsclub	
+bids_board	
+bn_ad	
+BN_COUNT	
+BN_LOG	
+bn_nf	
+bn_qa	
+BN_SERVICE_LIVEPOLL	
+BOARD	
+board_date	
+bud_img	
+budapia_pds	
+budd_main_inform	
+budd_survey	
+buddhanews_image	
+cafegaesul	
+chanduk	
+checkvisit	
+chungsonyun	
+cyber_reporter	
+d_liter	
+D99_CMD	
+DATEPAPER_CONTENT	
+DATEPAPER_IMAGE	
+DATEPAPER_KEYWORD	
+dbo_dtproperties	
+dbo_sysalternates	
+dbo_sysconstraints	
+dbo_syssegments	
+dbo_TB_STRUCT	
+desk	
+docja_write	
+dtproperties	
+eng_news	
+event_log	
+f_liter	
+g_board	
+g_board-1	
+gallery2	
+gija_visit	
+gija_visit_admin	
+GISADB	
+Goodok_ichae	
+guest	
+guest-1	
+gyo_person	
+h_liter	
+health	
+hurt_bud	
+INFORMATION_SCHEMA_CHECK_CONSTRAINTS	
+INFORMATION_SCHEMA_COLUMN_DOMAIN_USAGE	
+INFORMATION_SCHEMA_COLUMN_PRIVILEGES	
+INFORMATION_SCHEMA_COLUMNS	
+INFORMATION_SCHEMA_CONSTRAINT_COLUMN_USAGE	
+INFORMATION_SCHEMA_CONSTRAINT_TABLE_USAGE	
+INFORMATION_SCHEMA_DOMAIN_CONSTRAINTS	
+INFORMATION_SCHEMA_DOMAINS	
+INFORMATION_SCHEMA_KEY_COLUMN_USAGE	
+INFORMATION_SCHEMA_REFERENTIAL_CONSTRAINTS	
+INFORMATION_SCHEMA_SCHEMATA	
+INFORMATION_SCHEMA_TABLE_CONSTRAINTS	
+INFORMATION_SCHEMA_TABLE_PRIVILEGES	
+INFORMATION_SCHEMA_TABLES	
+INFORMATION_SCHEMA_VIEW_COLUMN_USAGE	
+INFORMATION_SCHEMA_VIEW_TABLE_USAGE	
+INFORMATION_SCHEMA_VIEWS	
+INTRA_CONTENT	
+INTRA_KEYWORD	
+intro	
+itnews	
+jmchoi_list	
+junghyu	
+kb_1	
+kbcf_board	
+kbcf_gongji	
+kbcf_information	
+kbcf_news	
+kbcf_pds	
+kbcf_seminar	
+lot_board	
+m_air	
+m_army	
+m_board	
+m_navy	
+MAIL_CONTENT	
+mail_list	
+maillinglist	
+market	
+member	
+nanum	
+news_captin	
+news_content	
+news_image	
+nirvana	
+NM	
+nonjang_f	
+nonjang_s	
+notice	
+notice2	
+office	
+PAPER_CONTENT	
+PAPER_CONTENT_temp	
+PAPER_CONTENT_Test	
+PAPER_CONTENT2	
+PAPER_DATE	
+PAPER_IMAGE	
+PAPER_KEYWORD	
+paper_order_new	
+PAPEREDIT_CONTENT	
+PAPEREDIT_IMAGE	
+PAPEREDIT_KEYWORD	
+PART_LIST	
+PART_OLD	
+PART_OLD-backup	
+pds	
+pds_1	
+person_info	
+poll_log	
+poll_view	
+postcard	
+quiz	
+report_temp	
+saesangmansa	
+saju	
+sang_h1	
+sang_h2	
+sangdam_admin	
+sangdam_board	
+section_desk	
+share_talk	
+si_liter	
+sinsu	
+so_liter	
+stone_talk	
+su_liter	
+Subtitle	
+sureon	
+tanheo_diary	
+tanheo_free	
+tanheo_sunim	
+tanheo_voice	
+tax_board	
+tax_bori	
+tax_data	
+tax_data1	
+tax_data2	
+tax_data3	
+tax_data4	
+tax_free	
+tax_gongji	
+tax_info	
+tax_mem	
+tax_sang	
+tb_url	
+temple_content	
+temple_image	
+temple_info	
+temple_keyword	
+templeaddr	
+TEXT_CONTENT	
+TEXT_KEYWORD	
+top-datepaper	
+Topic	
+Unitemember	
+URL_CONTENT	
+URL_KEYWORD	
+USERDB	
+USERDB2	
+USERTIBET	
+visit2	
+w_temple	
+write	
+write2	
+yes	
+yongu	
+zip	

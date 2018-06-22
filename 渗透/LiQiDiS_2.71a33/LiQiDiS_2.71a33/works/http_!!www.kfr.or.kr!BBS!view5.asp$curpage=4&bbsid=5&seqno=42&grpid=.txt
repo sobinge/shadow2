@@ -1,0 +1,23 @@
+■漏洞信息:============================================================
+ ·URL:http://www.kfr.or.kr/BBS/view5.asp?curpage=4&bbsid=5&seqno=42&grpid=
+ ·页面标题：茄惫傈烹 澜侥 楷备家
+ ·参数:curpage=4&bbsid=5&seqno=42&grpid=
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:211.245.105.4
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 15:48:40 GMT
+Server: Microsoft-IIS/6.0
+Content-Length: 52297
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDASSACACA=OIFNMMBAKEDHFIJOPGMANGGF; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================

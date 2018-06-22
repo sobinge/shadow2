@@ -1,0 +1,969 @@
+//Translator Info 此处输入翻译者信息 使用\r\n表示换行符，\t表示跳格字符	
+TranslatorInfo	當前語言翻譯者：LiQiDiS (liqidis@hotmail.com)\r\n網址：http://www.liqidis.com
+	
+//Main Menu	
+//ScanPage 扫描页面	
+ScanPage	&P.掃描頁面
+StartScan	&S.開始掃描
+StopScan	&O.停止掃描
+Exploit	&E.利用...
+EditPageDOM	&D.編輯頁面DOM
+	
+//ScanSite	
+ScanSite	&S.掃描站點
+ScanSensitiveFiles	&F.掃描敏感檔...
+ScanOrdialFiles	&O.掃描序列檔...
+SiteCrawler	&C.站點爬行器...
+	
+//Codec	
+Codec	&C.編碼解碼
+URLCodecer	&U.URL編碼解碼器...
+MD5	&M.MD5
+MD5Codecer	MD5編碼解碼器...
+MD5BatchLookUp	MD5批量破解器...
+MD5LookupEngines	設置MD5破解引擎...
+BASE64Codecer	&B.BASE64編碼解碼器...
+SQLVarCharEncoder	&S.SQL VarChar 編碼器...
+SQLKeywordCapsRandomizer	&R.SQL 關鍵字大小寫隨機變換器...
+DeclareExec	&D.將SQL語句編碼為Declare_Exec的形式...
+	
+//Advanced Tools	
+AdvancedTools	&A.高級工具
+Looper	&L.自動迴圈機...
+RequestRelayServer	&R.請求轉發器...
+ViewSQLOutput	&V.查看SQL輸出窗口...
+	
+//Tools	
+Tools	&T.工具
+IPDomainReverseLookup	&I.IP功能變數名稱反查...
+ASPEvalClient	&A.ASP一句話木馬客戶端...
+	
+//Settings	
+Settings	&S.設置
+ConfigMySQLServerTransfer	&C.配置我的SQLServer轉發伺服器...
+ProgramSettings	&P.程式設置...
+	
+//Skins	
+Skins	&K.皮膚
+RemoveSkin	&R.移除皮膚
+CurrentSkin	&C.當前皮膚:
+	
+//Languages	
+Languages	&L.介面語言
+TranslatorInfo	&T.翻譯者資訊...
+	
+//Help	
+Help	&H.幫助
+OnlineTut	&O.線上教程...
+HowToConfigMySQLServerTransfer	&H.如何配置基於我的SQLServer伺服器轉發...
+Contents	&C.內容...
+ViewMyRegCode	&V.查看我的註冊碼...
+About	&A.關於...
+Test	&T.測試...
+	
+//Context menu of Vulnerabilities list	
+Copy	&C.複製
+Delete	&D.刪除
+ViewCachedData	&V.查看緩存的數據...
+DeleteCachedData	&R.刪除緩存的數據
+BrowseInAbove	&A.在上面的窗口打開
+BrowseWithIE	&I.在IE中打開...
+SaveList	&S.保存列表...
+LoadList	&L.載入列表...
+GenerateWebReport	&G.生成HTML報表...
+TerminateAllScanningThreads	&T.終止所有掃描線程
+	
+//Main Window Controls	
+Go	去
+Stop	停
+Refresh	刷新
+Back	<-
+Forward	->
+Message	消息
+Save	保存
+Clear	清除
+ScanWholePage	掃描整個頁面
+Keyword	關鍵字
+ScanURL	僅掃描地址欄
+StopScan	停止掃描
+TerminateAllThreads	終止所有掃描線程
+ClearList	清空列表
+Vulnerabilities	漏洞
+ServerErrors	伺服器錯誤
+	
+//Main windows assembly strings 主窗口程序集字符串	
+Initializing...	正在初始化……
+Loading dictionaries...	正在載入字典……
+//URL|250|Ping(ms)|70|Severity|130|Judge Method|140|Exploit Type|60|Type|60|DBType|80|Title|120|Error Fingerprint|150|Alexa|120|Method|80	
+VulnListHeaders	鏈接地址|250|回應時間(ms)|70|嚴重度|130|判斷方法|140|利用類型|60|類別|60|資料庫|80|頁面標題|120|錯誤指紋|150|Alexa排名|120|請求方法|80
+ServerErrorListHeaders	URL|500|伺服器錯誤|300|資料庫類型|150
+ConnectingToSQLServerTransfer	正在測試連接到SQLServer轉發伺服器……
+LoadingVulnList	正在載入自動保存的漏洞列表……
+DblClickToClose	載入完畢，雙擊滑鼠關閉此窗口。
+NewSkinWillBeAppliedAtNextStartup	新的皮膚將在重新啟動時應用。
+ConnectToSQLServerTransferFailed	從本地連接到我的MSSQLServer資料庫失敗，請檢查或重新進行配置！
+WouldYouLikeToConfigSQLTransfer	尚未配置‘基於我的MSSQLServer轉發’設置，建議先進行配置。\r\n請單擊菜單【幫助】【如何配置‘基於我的SQLServer伺服器轉發’】查看配置文檔。
+ErrorKeywordDict	錯誤關鍵字字典
+SourcePathKeywordDict	源路徑關鍵字字典
+NotFoundDBFingerPrintDict	未發現資料庫錯誤指紋字典：
+ParseXMLFailed	解析XML檔失敗：
+FileNotExists	檔不存在：
+Read%sFailed%s	讀取 %s 失敗：%s！
+NotSelected	[未選擇]
+PageNotLoaded	主窗口尚未載入網頁！
+ScanningLinksPlzWait	正在掃描頁面中的連接，請稍候……
+ScanningFormsPlzWait	正在掃描頁面中的Form，請稍候……
+NoScannableLink	沒有可以掃描的連接。
+ScanningVulnsPlzWait	正在掃描漏洞，請稍候……
+AbortedFound%dVulns%dSE	掃描已被用戶取消。共找到 %d 個漏洞，%d 個伺服器錯誤。
+CantExpWhenScanning	掃描時不可進行漏洞利用。
+XorTryCookieOrPost	XoR 型漏洞請嘗試使用 Cookies 或 POST 方法進行滲透測試。
+AttentionOnExit	【注意】為了維護您的合法權益，如果您現在是在公共電腦上運行本程式，請退出程式後徹底刪除本程式。
+PlzInputURLFirst	請先輸入要掃描的地址！
+SureToClearList	您確認要清空列表嗎？
+SkinWillBeRemoveAtNextStartup	皮膚將在軟體重啟後移除。
+CantModifySettingsWhenScanning	掃描時不允許修改程式設置。
+CantDelWhenScanning	在掃描漏洞時不能進行刪除操作。
+SureToDel?	您確定要刪除嗎？
+SureToDelCachedata?	您確定要刪除緩存的數據嗎？
+NoCachedData	無緩存數據。
+LoadLangFailed	裝載語言檔失敗。
+	
+//程序集_注入点扫描	
+Scan:	掃描：
+Skipped:	×已跳過：
+TimeoutSkipped:	×超時已跳過：
+ExposePathSrc	(顯路徑，原始檔案)
+ExposeSQL	(顯SQL)
+ExposePath	(顯路徑)
+	
+//程序集_全局	
+Unknown	未知
+WaitingThreadsExit	正在等待線程結束……
+ThereR%dthreads	有 %d 個線程正在運行……
+ScanComplete_%d_%d	掃描完畢。共有 %d 個安全漏洞， %d 個伺服器錯誤。
+	
+//SQL注入窗口控件	
+Scan	掃描
+GeneralOutput	常規輸出
+BasicInfo	基本資訊
+Settings	設置
+HEAD	請求頭
+Cookies	Cookies
+Browse	流覽
+SaveAs...	另存為...
+Save	保存
+Copy	複製
+OutputToGrid	輸出到網格控件
+ViewSQLOutput...	查看SQL輸出窗口
+BrowseTheURL...	流覽網址...
+	
+//	General Output
+Params:	參數:
+Method:	方法:
+Type:	類型:
+ExpMethod:	利用方式:
+DBType:	資料庫:
+Script:	腳本:
+ReplaceSpaceWith:	替換空格使用:
+OS:	操作系統:
+IPAddr:	IP地址:
+	
+// 	Basic Info.
+BasedOnContentLength	基於內容長度
+BaseLength	基本長度
+Bytes	位元組
+BasedOnKeyword	基於關鍵字
+KeywordInNormalPage:	正常頁面關鍵字:
+BasedOn500Error	基於伺服器500錯
+	
+TipCookie	提示：當流覽完頁面之後，Cookies將會顯示於此處。
+	
+Skip	跳過
+Stop	停止
+Terminate	強行終止
+ViewErrors	查看錯誤
+	
+Common	公用
+	
+ScanDBType	掃描資料庫類型
+GlobalOptions	全局選項
+MaxCount	當取記錄數失敗時默認的數值:
+QuoteDBObjects	擴住資料庫對象(使用[]或``)
+	
+//SQL Server	
+GetDataMethod	獲取數據方法
+ExtractFromServerErrors	從伺服器錯誤資訊
+TroughSQLTransfer	從“我的SQLServer轉發器”
+ConfigMySQLTransfer	配置SQL轉發器...
+HexSQL	編碼SQL為十六進制形式
+	
+//选择夹 SQL Server	
+BasicInfo	基本資訊
+Command	命令行
+GetWebShell	GetWebShell
+Data	數據
+UpdateDB	修改資料庫
+DirTree	目錄樹
+ExecSQL	執行SQL
+ReadFile	讀檔
+Misc	雜項
+	
+//BasicInfo	
+GetBasicInfo	獲取基本資訊
+DBVersion	資料庫版本
+ExtraSQlRear:	附加的SQL尾:
+FrontKeytext:	首關鍵字:
+RearKeytext:	尾關鍵字:
+Language:	語言:
+Set	設定
+	
+//Command	
+XP_CmdShellExists	XP_CmdShell是否存在？
+RestoreXP_CmdShell	恢復XP_CmdShell
+TipSARestoreCmdShell	提示：僅有SA許可權用戶可以恢復XP_CmdShell函數。
+CmdLine:	命令行:
+Echo	回顯
+Exec	執行
+Upload	上傳
+LocalFile:	本地檔:
+RemoteFile:	遠程檔:
+TextMode	文本模式
+BinMode	二進位模式
+Upload	上傳
+Help	幫助
+Misc	雜項
+UploadEXE	上傳EXE下載者
+UploadVBS	上傳VBS下載者
+UploadLooksite	上傳looksite.vbs
+UploadFTP	上傳FTP下載配置檔
+Active3389ByReg	通過註冊表開啟3389
+Active3389ByIni	通過配置檔開啟3389
+	
+//GetWebShell	
+GetWebPath	獲取網站目錄
+Method:	方法:
+ByReadReg	通過讀取註冊表
+BySearchFile	通過搜索檔
+Get	獲取
+RootPath:	根路徑:
+FileToSearch:	待搜索檔案名:
+RestoreRegRead	恢復XP_RegRead
+RestoreDirTree	恢復XP_DirTree
+DBName:	資料庫名:
+WebShellFilename:	WebShell檔案名:
+ContentOfWebShell:	WebShell內容:
+GetFileAttr	取檔屬性
+Filename:	檔案名:
+Get	取
+RestoreXP_GetFileAttr	恢復XP_GetFileAttr
+EncodeAsVarChar	編碼為VarChar
+BackupLog	日誌差異備份
+BackupDB	資料庫差異備份
+//MSSQL>DATA-------------------------------------	
+Where:	條件:
+Top:	記錄數:
+Desc:	降序
+DB:	資料庫名:
+Order:	排序:
+AddDatabase...	添加資料庫...
+AddTables...	添加表...
+AddFields...	添加字段...
+GetTables	獲取表
+GetFields	獲取字段
+GetData	獲取數據
+Tip	!.提示
+//MSSQL>UpdateDB---------------------------------	
+TipUpdateMssql	【提示】如果您在‘數據’頁面中的資料庫結構樹中選擇了字段，下列相應內容將會被自動填寫。
+DB:	資料庫:
+Table:	表:
+Field:	字段:
+Position:	位置:
+AddAtFore	加在首部
+AddAtRear	加在尾部
+ReplaceCompletely	完全替換
+Encode:	編碼:
+Where:	條件:
+Content:	內容:
+Update	修改
+	
+//MSSQL>DirTree---------------------------------	
+CurrentDir:	當前目錄:
+ListDir	列目錄
+PublicPriviOnly	僅有'Public'許可權
+EmptySelectedDir	清空選擇的檔夾
+AddFileFolders	添加檔或目錄
+//MSSQL>ExecSQL---------------------------------	
+chkAutoDisposeCapsEtc	自動處理大小寫、換行和空格
+chkDeclareExecNoEcho	編碼為Declare_Exec形式(無回顯)
+chkAutoDisposeSQL	根據漏洞類型自動處理SQL
+Exec	執行
+OriginalSQL	原始SQL
+SQLAfterDispose	處理後的SQL
+PageSourceReturned	返回的頁面源碼
+	
+//MSSQL>ReadFile---------------------------------	
+Filename:	檔案名:
+Read	讀
+TipReadFile	【注意】僅有'sysadmin'和'bulkadmin'許可權用戶可以讀取檔。
+	
+//MSSQL>MISC---------------------------------	
+ActiveSQL2005Procs	開啟xp_cmdshell/OpenDataSource/OpenRowSet
+DeactiveSQL2005Procs	關閉xp_cmdshell/OpenDataSource/OpenRowSet
+TipNeedSAPrivilege	【注意】需要'sysadmin'許可權
+GetDBIP	獲取資料庫伺服器IP地址
+WanIPOfLocalhost:	本機的外網IP:
+PortToBeOpen:	要打開的端口:
+StartServer	1.啟動伺服器
+SendRequest	2.發送請求
+StopServer	3.停止伺服器
+Help	?.幫助
+SuperDoS	超級死機
+	
+//Access===============================================	
+ScanUnionParams	掃描聯合查詢參數
+GetData	獲取數據
+MiscInfo	雜項資訊
+//Access>Scan Union Params. ---------------------------	
+FrontKeyword:	首關鍵字:
+RearKeyword:	尾關鍵字:
+Seperator:	分隔符號:
+ScanUnionColumns	掃描聯合查詢列
+Total:	總共:
+WhichColumnShown:	顯示的列:
+ModifyManually	手工修改
+//Access>GetData -------------------------------------	
+Settings:	設置:
+TblPrefix:	表首碼:
+TblSuffix:	表尾碼:
+FldPrefix:	字段首碼:
+FldSuffix:	字段尾碼:
+AddTable	添加表
+AddField	添加字段
+GetTable	獲取表
+GetField	獲取字段
+GetData	獲取數據
+//Access>MiscInfo------------------------------------	
+Paths	路徑
+GetSystemPath:	獲取系統路徑:
+GetDBFilename:	獲取資料庫檔案名:
+	
+//MySQL==============================================	
+TextEncodeMethod:	文本編碼方式:
+EncodeAsHex	編碼為十六進制(0x202122...)
+EncodeAsChar	編碼為Char函數(char(97,98,99,...))
+LineComment:	行尾注釋符:
+QuoteDBObjectsWith	使用``括住資料庫對象
+ScanUnionParams	掃描聯合查詢參數
+GetData	獲取數據
+GetWebShell	獲取WebShell
+ReadFile	讀檔
+//MySQL>ScanUnionParams-----------------------------	
+Method:	方法:
+BasedOnKeytextAndNum	基於關鍵文本和數字盲掃(較少列，最快)
+BasedOnKeytext	基於關鍵文本盲掃(較多列)
+BasedOnContentLen	基於內容長度盲掃(最多列)
+BasedOnErrorKeytext	基於錯誤關鍵字(最多列)
+BasedOnOrderAndContentLen	基於ORDER BY和內容長度盲掃(最多400列)
+BasedOnOrderByAndError	基於ORDER BY和錯誤資訊(最多400列)
+ScanUnionColumns	掃描聯合查詢列數
+ErrorKeywords:	錯誤資訊關鍵字:
+Total:	總數:
+WhichColumnShown:	顯示的列:
+ModifyManually	手動修改
+Set	設定
+ForeKeyword:	首關鍵字:
+RearKeyword:	尾關鍵字:
+Seperator:	分隔符號:
+GetBasicInformations	獲取基本資訊
+//MySQL>GetData -----------------------------------	
+Where	條件
+Order	排序
+Desc	逆序
+Limit:	限制:
+AddDatabase...	添加資料庫...
+AddTables...	添加表...
+AddFields...	添加字段...
+Method:	方法:
+ByDictionary	根據字典
+FromSchema	從INFORMATION_SCHEMA
+Prefix:	首碼:
+Suffix:	尾碼:
+ListDBs	列出資料庫
+ListTables	列出表
+ListFields	列出字段
+GetData	獲取數據
+SelectIntoOutFile...	存到遠程伺服器上文件...
+SaveData	保存數據
+//MySQL>GetWebShell-----------------------------------------	
+TargetFilename:	目標檔案名:
+WebShellContent:	WebShell檔內容:
+ShowPHPShellsOnly	僅顯示php shell
+Write	寫出
+//MySQL>ReadFile--------------------------------------------	
+FilenameOnRemoteServer:	遠程伺服器上的檔案名:
+Read	讀
+SaveFileTo:	保存數據到檔:
+TipSaveFileTo	【提示】勾選"保存檔到"選項，將保存資料庫中的原始數據以防止亂碼出現。
+	
+//窗口程序集_漏洞利用	
+ExploitVuln	漏洞利用
+UnsupportedGetDataMethod	不支持的資訊回顯方式。
+NotFoundVulnItem	找不到該條目對應的注入點！
+Finished.	已完成。
+ProcessAborted.	當前任務已被用戶終止！
+PlzWaitThreadExit.	請等待線程結束。
+	
+//以下两个为节文本的首字符和项文本的首字符	
+SectionHead	■
+ItemHead	 ·
+	
+VulnInfo:	漏洞資訊:
+PageTitle:	頁面標題：
+Params:	參數:
+ExploitMethod:	利用方法:
+Script:	腳本語言:
+Database:	資料庫:
+SourceFile:	原始檔案:
+Ready.	就緒。
+NowScanningDBType...	正在探測資料庫類型……
+DBDetectionFailed...	資料庫類型探測失敗，如果您能手工確定資料庫的類型，請直接切換到該資料庫類型頁面進行利用。
+KeywordsCannotBeEmpty	首尾關鍵字不能為空！
+ScanningUnionParams...	正在掃描聯合查詢參數……
+UnionColumnCount_%d_%d:	聯合查詢列數: 總共= %d  顯示的列= %d
+UnionSQLAccess:%s	聯合查詢SQL: and 3=8 union select %s from MSysAccessObjects
+ScanningUnionFailed.	掃描聯合查詢參數失敗，請手工設置聯合查詢參數。
+ScanningUnionOK.	恭喜，UNION查詢猜解成功！^_^
+LoadTables.dictFailed.	表名字典為空　或　讀入表名字典出錯！
+Scanning	正在掃描
+FoundTable:	找到表:
+ScanningTablesFinished.	表名猜解完畢。
+PlzSelectATblFirst.	請先選擇一個表。
+PlzSelectAFieldFirst.	請先選擇要猜解的字段！
+NoTheTblInMem.	記憶體中沒有該表。
+LoadFields.dictFailed.	字段名字典為空　或　讀入字段名字典出錯！
+ScanningField	正在掃描字段
+FoundField:	找到字段:
+ScanningFinished.	掃描結束。
+PlzScanUnionFirst.	請先探測聯合查詢參數！
+RetrvingData...	正在獲取數據……
+RetrvingRecordCount...	正在取記錄條數……
+GetSysPathPlzWait...	正在猜解系統路徑，請稍候……
+GetSysPathOK.	恭喜:猜解系統路徑成功！
+GetSysPathFailed.	猜解系統路徑失敗。
+Failed:NoEMsg	[失敗:無錯誤資訊]
+GetDBPathPlzWait...	正在獲取資料庫路徑，請稍候……
+GetDBPathFailed.	獲取資料庫路徑失敗！
+Failed:CantExtractDBPath	[失敗:無法過濾出路徑]
+DatabaseInfo:	資料庫資訊:
+GettingDBInfo...	正在探測資料庫資訊……
+	
+//下一行，必须使用^符号分割成6项	
+DBInfoHeaders	資料庫名：^用戶名：^版本：^伺服器名：^服務名：^系統用戶名：
+	
+NoServerErrorsLong	伺服器未返回錯誤資訊或返回不可識別的錯誤資訊，你可以根據顯示的錯誤詳情設置錯誤關鍵字再試，或者切換到使用伺服器轉發的方式來讀取資訊！
+SQLAfterDisposed:	處理後的SQL:
+GetBasicInfiFailed	獲取基本資訊失敗
+BatchFailed.1by1start...	批次獲取基本資訊失敗，開始逐一獲取……
+GettingDBNames...	正在獲取資料庫名……
+CurrentDatabase:	當前資料庫:
+GettingDBVersion...	正在獲取伺服器資料庫版本資訊……
+Version:	版本:
+GettingDBVersoinFailed.	獲取資料庫版本資訊失敗！
+SQLSent:	發送的SQL:
+FoundSQL2005long	發現SQL2005，建議您先切換到 '雜項工具' 標籤頁面開啟相關設置。
+DBUserPrivi:	當前用戶許可權：
+GettingPrivi...	正在獲取用戶許可權……
+GettingPriviFailed	獲取用戶許可權失敗！
+ErrorDetails:	錯誤詳情：
+GettingDBs	正在獲取資料庫資訊……
+DBInfo:	資料庫資訊:
+GettingUserlist...	正在獲取用戶列表……
+SQLSvrUsers:	SQL Server用戶名列表：
+Username_tRole_tSid	用戶名\t\t角色\t\t安全編號\r\n
+GettingDBProcInfo...	正在獲取資料庫相關進程資訊……
+DBProcInfo:	資料庫相關進程資訊:
+	
+//下一行必须用|分成六列	
+DBProcInfoHeaders	程式名|狀態|主機名|主機進程ID|命令行|NT用戶名
+	
+GettingLinkedSvrs...	正在獲取鏈接的伺服器資訊……
+LinkedSvrsInfo:	鏈接的伺服器資訊:
+LinkedSvrHeaders	伺服器名|伺服器產品|提供者名|數據源|位置|伺服器網路名
+GettingUserLoginInfo...	正在獲取資料庫登錄用戶的資訊……
+DBUserLoginInfo:	資料庫用戶登錄資訊：
+UserLoginInfoHeaders	用戶名|密碼HASH|資料庫編號|語言|時間1|時間2
+DBconnIsNullLong	資料庫連接為空！建議先點擊[設置我的MSSQLServer伺服器]按鈕測試本地連接屬性。
+UnableConnTransferLong	從本地無法連接到我的MSSQL Server伺服器，請進行設置！
+ProcessAborted.	探測過程被用戶中止。
+Getting	正在獲取
+CreatingTblOnTransfer...	正在我的MSSQLServer伺服器上創建臨時表……
+CreateTblSQL:	建表文本：
+SendingRequest...	正在向遠程主機發送獲取數據請求……
+RetvingDataFromTransfer...	正在從我的MSSQLServer伺服器上取回數據……
+PlzInputCmd.	請先選擇或輸入命令行。
+PlzGetBasicInfoFirst.	請先探測基本資訊。
+ExecCmdPlzWait...	正在執行命令，請稍候……
+GetRecordCountFailed	取記錄數失敗，使用設定值：
+PlzInputFNFirst.	請先輸入檔案名！
+ContentsOfFile:	檔內容：
+ReadingFile...	正在讀取檔內容……
+DropTmpTbl...	正在刪除臨時表……
+PlzWait...	請稍候……
+CmdShellExists	恭喜，函數 XP_CmdShell 存在！
+CmdShellNotExists	:( 函數 XP_CmdShell 不存在。
+PlzSelectLocalFile.	請先選擇本地檔！
+LocalFileNotExists.	本地檔不存在！
+PlzInputRemoteFile.	請輸入遠程檔案名。
+ProcessingFile...	正在處理檔，請稍候……
+FileSizeNotExceed64kb.	檔大小不能超過64KB！
+BldingBinFile...	正在遠程主機上構建二進位檔……
+UploadFinished.	檔上傳完畢！
+UploadingFile...	正在上傳檔……
+RetrvingWebPathFinished.	獲取網站目錄完畢！
+InputFilenameToBeSearch.	請輸入要搜索的路徑和文件名。
+WebPathByFile:	通過搜索檔獲取的網站路徑：
+SearchingFile...	正在遠程主機上搜索檔……
+BldingResultTbl...	正在遠程主機上構造結果表……
+RetrvingData...	正在取回數據……
+GetWebPathByReg:	通過讀取註冊表獲取的網站根目錄：
+PlzModifyRmtFNlong	請根據需要修改遠程檔案名，然後單擊[上傳]按鈕。
+PlzInputDBNameOrScanBasicInfo.	請輸入當前資料庫名。如果你沒有探測基本資訊，請先探測基本資訊。
+InputFilenameToBeGenerated.	請輸入要生成的檔案名。
+InputWebShellContent.	請輸入要上傳的木馬內容。
+DoInitialBackup...	正在創建臨時表，並進行初始備份……
+WritingDataToDB...	正在往資料庫中寫入數據……
+MakeFinalCleanup...	正在備份到檔並作最後的清理……
+GetWebShellFinished.	GetWebShell完成。
+SetupErrorKeywordsLong	基於錯誤資訊的回顯需要先設置錯誤資訊首關鍵字或尾關鍵字，請先探測基本資訊，或手動進行設置。\r\n\r\n如果無法以顯錯的方式探測出數據，請將資訊回顯方式切換到〔基於我的MSSQLServer伺服器中轉〕。
+RestringProc...	正在恢復存儲過程，請稍候……
+RestoringProcFinished.long	恢復存儲過程完畢。注意sa許可權才能成功恢復存儲過程。
+PlzInputFilename.	請輸入檔案名。
+GettingFileAttr:	正在獲取檔屬性：
+SuperDoSConfirm	[超級死機] 功能將使遠程電腦立即失去回應，你確定要執行該功能嗎？請三思而後行！
+PlzSelectADBNode.	請選擇一個資料庫節點！
+GettingTblsOf%s...	正在獲取資料庫 %s 的表名……
+ListingTbls...	正在遠程主機上創建臨時表，並列舉資料庫的表……
+BatchFailed1By1Started...	批次獲取失敗，正在逐條獲取……
+PlzSelectTblNode.	請選擇一個表名節點！
+GetColumnsOf%s%s...	正在獲取 %s.%s 的列名……
+ListingColumns...	正在遠程主機上創建臨時表，並列舉資料庫的字段……
+PlzSelectSomeFlds.	還沒有指定要獲取哪些字段呢。
+ExecutingQuery:	正在執行查詢：
+NotSupEchoMethod.	不支持的數據回顯方式。
+PlzInputDBName.	請輸入資料庫名。
+PlzInputTblName.	請輸入表名。
+PlzInputColName.	請輸入列名。
+SQLCantBeEmpty.	SQL語句不能為空。
+UpdatingTheDB...	正在更新資料庫……
+UpdatingFinished.	更新完畢。
+KeywordsCantBeEmpty.	關鍵字不能為空。
+FileNotFound:	檔未找到:
+WaitingThrdsExit...	正在等待線程結束……
+TmplFileNotFound:	找不到所需的範本檔：
+TipUpFTPlong	請根據需要更改遠程檔案名後點擊上傳按鈕！\r\n\r\n檔上傳完畢後，請執行類似 ftp -i -v -s:c:\ftp.txt 來通過FTP下載檔到遠程電腦。
+PlzSelectDiskOrFolderNode.	請選擇一個磁片或目錄節點！
+Processing...	正在處理……
+GettingData1Request...	正在一次性獲取內容……
+OneRequestFailed:	一次性獲取失敗:
+GettingDataByBatch...	一次性獲取失敗，正在批次獲取……
+GettingByBatchFailed:	批次獲取失敗:
+AreUSureToClear?	你確定要清空嗎？
+PlzInputFilesLong:	請輸入要添加的目錄或檔，一行一個，尾部添加反斜杠表示目錄：
+ExecutingSQL...	正在執行SQL...
+Activating2005procs...	正在開啟 XP_CmdShell/OpenDataSource/OpenRowSet ...
+Deactivating2005Procs...	正在關閉 XP_CmdShell/OpenDataSource/OpenRowSet ...
+InputErrorKeywordsWhenNoMatch.	必須輸入列數不匹配時的錯誤資訊關鍵字。
+ScanningWhichColInPage...	正在掃描哪一列顯示在頁面上……
+UnionSQL:	聯合查詢SQL：
+GettingRecordCntFailed.	取記錄數失敗。
+RecordCount:	記錄數:
+ValuesAreNotValid.	輸入值非法！
+BasicInfos:	基本資訊：
+SingleQuote:yes	可否使用單引號：是
+SingleQuote:no	可否使用單引號：否
+Info_schema:yes	有INFORMATION_SCHEMA：是
+Info_schema:no	有INFORMATION_SCHEMA：否
+ListingDBs...	正在獲取資料庫列表……
+Databases:	資料庫：
+Schema_name	資料庫名
+CharSetName	字元集名
+ListingTblOf%s...	正在列舉資料庫 %s 的表……
+ListingFldsOf%s.%s...	正在獲取 %s.%s 的字段名……
+ColName	列名
+DataType	數據類型
+CharSetName	字元集名
+GettingData...	正在獲取數據……
+PlzSelectCols.	請先選擇一些字段。
+Note:QuoteOnLong	注意：magic_quote_gpc 設置為 on，目標檔可能會創建失敗。
+MustSpecifyFN.	必須指定檔案名。
+MustInputKWsAndSep.	必須輸入首尾關鍵字和分隔符號文本！
+InputWANIP.	請先輸入本機外網IP。
+SpecifyPort.	必須輸入監聽端口。
+StartFailed,PortInUse?	啟動服務失敗，是端口被佔用嗎？
+DBSvrIPis:	資料庫伺服器IP地址：
+PlzStartSvcAndMapPortLong	請先啟動監聽服務，並保證端口已顯露到外網。
+	
+//URL Codecer	Code:
+//Global_UI related code:	
+VulnTable	漏洞表格
+GenByLiQiDiS	此表格由LiQiDiS(Liquid Injection System)生成
+NumericT	數字型
+TextT	文本型
+SearchT	搜索型
+InputDBNames1PerLine:	請輸入資料庫名列表，每行一個：
+InputTblNames1PerLine:	請輸入表名，每行一個：
+InputColNames1PerLine:	請輸入字段列表，每行一個：
+FailedToGetWANIP.	獲取外網IP失敗！
+	
+//Show text paragraph Code:	
+//Common-Code:	
+//SQL Varchar NVarChar Code:	
+//MD5 Code:	
+TheTextNotMD5.	輸入的好像不是MD5值啊！
+CalcMD5CrackMD5	MD5加密解密
+Lookup%sPlzWait...	正在查詢 %s ，請稍候……
+LookupCompSites...	正在使用綜合md5破解網站破解……
+	
+//Setup SQLServerTransfer Code:	
+Success.	^_^成功。
+Failure.	:( 失敗。
+ErrorMsg:	錯誤資訊：
+ConnOKSaveSettings.	連接成功，並已保存到配置檔！
+	
+NoADODBDrv.	資料庫連接為空，沒有Adodb資料庫驅動。
+	
+//Program Settings Code:	
+MustSelect1ScanMethod.	必須至少選擇一種探測方式進行注入點探測。
+RUSure2ClearAll?	確認要全部刪除嗎？
+SrcStrCantBeEmpty.	將被替換的字串不能為空。
+PlzSelectALang.	請選擇一個介面語言。
+LoadLangFileFail.	載入介面語言失敗。
+	
+	
+//Server SQL Code:	
+Percent:	百分比：
+GetSvrSQLFinished.	從驗證伺服器獲取數據完畢，可以開始進行漏洞利用。
+	
+//SensitiveFile scanner Code:	
+GridHead	回應碼|80|鏈接|700
+PlzInputURL.	請先填入URL地址。
+PlzInputExt.	請輸入擴展名。
+UrlFmtInvalid.	URL地址格式不正確。
+	
+//ordinal file scanner Code:	
+URLMustContainVar.	鏈接地址中必須包含迴圈變數：##i##。
+SelectTextToBeReplaceAsVar.	請先在鏈接地址中選擇一段要被迴圈遞增變數##i##替換的文本。
+	
+//DNS reverse lookup Code:	
+MustInputDNSIP.	必須先輸入功能變數名稱或者IP地址。
+InputURLwithVar:	請輸入帶變數的鏈接地址，__dns__變數表示功能變數名稱，__ip__表示IP，就像下麵這樣：
+	
+//The Looper Code:	
+LoopVar	迴圈變數
+Dict1	字典一
+Dict2	字典二
+PageVar1	頁面變數1
+PageVar2	頁面變數2
+MustInputKeywordsOfPV.	必須輸入頁面變數的首尾關鍵字。
+	
+//以下翻译中，必须有4个英文的%s	
+NoVar%s%s%s%s.	數據中無 %s %s，請去掉對變數 %s 的勾選，或者在數據中插入 %s 。
+Error:	錯誤：
+RespCode:	回應碼：
+PlzSelectSomeTextInRequest.	請先在 HTTP 請求頭編輯框 或 POST數據編輯框 中選擇一段文本。
+SaveResults?	您需要保存猜解結果嗎？
+PutFocusInRequest.	請將焦點放入HTTP請求頭編輯框或POST數據提交編輯框。
+	
+//HTTP Protocol Code:	
+NoHostEntry.	無主機(Host)屬性。
+FailedToRslvIP:	解析主機的IP地址失敗：
+FailedToConnTo:	連接主機失敗：
+TimeoutMs:	超時(毫秒)：
+TimeoutContinue:	繼續接收超時：
+	
+//Request Relay	Code:
+StartSvcOK.	服務啟動成功。
+StartSvcFailedPortInUse?	服務啟動失敗，是端口被佔用了嗎？
+SvcStopped.	服務已停止。
+	
+//MultiEngine MD5 crack Code:	
+Data1	數據1
+Data2	數據2
+Composite	複合
+NoEngine.	沒有引擎，請先添加破解引擎。
+NotFndMD5data.	未發現MD5數據，請導入或者粘貼正確的數據。
+ThreadRunning.	線程正在運行。
+Complete.	完成。
+SaveData?	您要保存數據嗎？
+	
+//MD5 engine setup Code:	
+CreateEngineOK.	創建引擎完成。
+CreateEngineFailed.	創建引擎失敗，請檢查本程式是否是從只讀介質運行，或者磁片已滿。
+TitleRequired.	請輸入標題。
+HeadRequired.	請輸入請求頭。
+ForeKeywordRequired.	請輸入首關鍵字。
+RearKeywordRequired.	請輸入尾關鍵字。
+NotFndMD5Var.	在請求頭或POST數據中未發現__md5__變數。
+LoadEngineFailed:	載入引擎失敗：
+FailedToSetEngineState.	設置引擎啟用和禁用狀態失敗。請檢查程式是否在只讀介質上運行，或者磁片已滿。
+	
+//Base64Codecer UI:	
+BASE64Codecer	BASE64編碼解碼器
+PlzInput:	請輸入:
+Paste	粘貼
+BASE64Enc	BASE64編碼
+BASE64Dec	BASE64解碼
+Copy	複製
+	
+//FTP Server Settings UI:	
+PlzInputFTPinfo:	請輸入您的FTP伺服器資訊：
+FTPIP:	FTP主機名或IP地址:
+Username:	用戶名:
+Password:	密碼:
+FileOnFTPsvr:	FTP伺服器上的檔:
+FileOnRmtSvr:	遠程伺服器上期望的檔案名:
+OK	確定
+Cancel	取消
+	
+//MD5 codecer UI:	
+MD5Codecer	MD5加密解密
+CalcMD5	計算MD5
+LookupMD5	反查MD5
+Stop	停止
+	
+//SQL text codecer UI:	
+SQLTextCodecer	SQL文本編碼解碼器
+EncAsVarchar	編碼為Varchar
+EncAsNVarchar	編碼為NVarchar
+DecAsVarchar	按Varchar解碼
+DecAsNVarchar	按NVarchar解碼
+	
+//SQL keywords capital randomizer UI:	
+SQLKWCapRnd	SQL語句關鍵字大小寫隨機變換器
+PlzInputSQL:	請輸入SQL:
+Randomize	隨機化
+RmvCRLF	刪除換行符
+ShrinkSpaces	收縮空白字元
+	
+//URL Codecer UI:	
+UrlCodecer	URL編碼解碼器
+UrlDec	URL解碼
+UrlEnc	URL編碼
+UrlEncCompletely	URL完全編碼
+	
+	
+//Find and Replace UI:	
+Find_Replace	查找與替換
+Find:	 查找:
+ReplaceAs:	替換成:
+CapSens	區分大小寫
+Replace	替換
+	
+	
+//Output UI:	
+Output	輸出
+CopyToClipbd	複製到剪貼板
+Clear	清空
+URLEnc	URL編碼
+AlwaysOnTop	總在最前
+	
+//Batch Look up MD5 UI:	
+BatchLookupMD5	多線程多引擎MD5破解
+ImportData...	導入數據...
+PasteData	粘貼數據
+Start	開始
+Stop	停止
+Copy	複製
+Save...	保存...
+Settings	設置
+MaxThreads:	最大線程數:
+Interval:	間隔(毫秒):
+DontTryOtherEngines.	一旦破解成功，就不再嘗試其他引擎。
+Engines...	引擎...
+	
+//Sensitive file scanner UI:	
+SensFileScanner	敏感檔掃描器
+Ext:	擴展名:
+ScanAllLevels	掃描所有層級
+IfFileExistsScanLong:	如果檔存在，則繼續掃描下列檔:
+IfRespCodeInListLong:	如果回應碼在以下列文本中，則添加鏈接到列表:
+ViewHTTPCode	查看HTTP回應碼含義
+	
+//Encode SQL as Declare_Exec UI:	
+EncSqlAsDec_Exec	將SQL編碼為 Declare _ Exec 的形式
+	
+//Request Relay	UI:
+RequestRelay	請求轉發器
+Port:	端口:
+StartSVC	啟動服務
+StopSvc	停止服務
+HttpHead:	HTTP請求頭:
+TipPressF5ToInsVar.	【提示】按下F5鍵可以快速插入__sql__變數。
+PostData:	提交數據:
+	
+	
+//Config SQL Serve Transfer UI:	
+CfgMyTransfer	設置我的SQLServer轉發伺服器
+WanIP:	外網IP:
+LanIP:	內網IP:
+TestLan	測試本地連接
+TestWan	測試遠程連接
+TestRmtConnInWeb...	在網頁中測試遠程連接...
+	
+//IP reverse lookup UI:	
+IpDnsRvsLookup	探測同伺服器網站
+IpDomainName:	IP/主機名:
+GetIP	獲取IP
+Add...	添加...
+Lookup...	查詢...
+Close	關閉
+	
+//Program Settings UI:	
+ProgSettings	程式設置
+	
+ScanVuln.	掃描漏洞
+AutoRplcSQL	自動替換SQL
+Languages	語言
+	
+MaxScanningThreads:	掃描時最大線程數:
+SkipTimeout:	回應時間超過此值則跳過(秒):
+	
+UseKW	使用自動探測的關鍵字
+UseContentLen	使用內容長度閾值
+Threshold:	閾值:
+	
+GetHead	當找到漏洞後獲取伺服器頭標資訊
+GetAlexa	當找到漏洞後獲取Alexa排行
+Scan0ByteLink	掃描內容長度為空的鏈接
+	
+EnableReplace	啟用替換
+RplcAfterURLEnc	URL編碼後再進行替換
+DelSelected	刪除選擇的
+ClearAll	刪除所有
+Replace	替換
+As	為
+Add	添加
+	
+LangList:	語言列表:
+Preview:	預覽:
+RefreshList	刷新列表
+Apply	應用
+	
+//Show paragraph text UI:	
+Tip:DblClickToClr	【提示】雙擊以清空文本。
+	
+//Ordinal file scanner UI:	
+OrdFileScanner	序列檔掃描器
+PlzInputURLWithVar:	請輸入帶有變數(##i##)的URL地址，如下:
+RplcSelAsVar	將選擇文本替換成變數
+VarSettings	變數設置
+Start:	開始:
+End:	結束:
+Incr.:	遞增:
+Chars:	字元數
+FillWith:	填充字元:
+	
+//Setup engines for looking up md5 UI	
+SetEngForLookupMD5	設置MD5查詢引擎
+EngineList	引擎列表
+Title:	標題:
+RequestHead:	請求頭:
+PostData:	POST數據:
+DelHilited	刪除高亮的
+AddOrMod	添加或修改
+	
+//Registration UI:	
+Registration	註冊
+UrRegCodeIs:	您的註冊碼是:
+	
+//The Looper UI:	
+TheLooper	自動迴圈機
+//The Looper > menu	
+miModHttpReq	&M.修改HTTP請求
+miFillByURL...	&U.根據URL填充請求頭...
+miFillWithGet	&G.使用標準Get請求填充
+miFillWithPost	&P.使用標準POST請求填充
+miMethod	&M.方法
+	
+miCodes	&C.代碼
+miGetDBType	&G.獲取資料庫類型
+	
+miInsertVars	&I.插入變數
+	
+miEncode	&E.編碼
+miSqlKeywordsRand	&R.SQL關鍵字大小寫隨機化
+miUrlEnc	&U.URL編碼
+miUrlDec	&D.URL解碼
+miEncAsVChar	&V.編碼為SQL Varchar
+miEncAsNVChar	&N.編碼為SQL NVarchar
+	
+miFndReplace	&F.查找替換
+	
+miSave	&S.保存
+miSaveAs	&A.另存為...
+miAutoSave	&T.每20秒自動保存
+	
+//The Looper> Tab	
+LoopVars	迴圈變數
+Dict	字典
+PageVars	頁面變數
+Filter	篩檢程式
+Keyword	關鍵字
+ResponseCode	回應碼
+	
+//The Looper> Tabs	
+UseVarI	使用變數__i__
+UseVarJ	使用變數__j__
+Min	最小值
+Max	最大值
+Step	步長
+	
+UseDict1	使用字典1(__dict1__)
+UseDict2	使用字典2(__dict2__)
+Edit...	編輯...
+ReloadDicts	重新加載字典列表
+	
+UsePV1	使用頁面變數1(__pv1__)
+UsePV2	使用頁面變數2(__pv2__)
+	
+EnableTextFilter	啟用文本篩檢程式
+	
+OutputVars	輸出變數
+OutPutVarsWhenNotContains	當返回頁面源碼不包含以下文本時輸出變數
+Counter	反之
+	
+OutputVarsWhenRespCodeIn	當回應碼位於以下列表時輸出變數
+	
+//controls	
+Sleep	暫停
+MsBetweenRequests	毫秒在每次請求之間
+Output	輸出
+PageSource	頁面源碼
+	
+AutoSave	自動保存
+	
+LoopBody	循環體
+Encode	編碼
+Decode	解碼
+Run	運行!
+	
+//Version 2.6 Added ===========================================================	
+//The Looer UI:	
+miProject	&P.專案
+miLoad...	&L.打開...
+	
+//The Looper Code:	
+LooperPrjFilter	迴圈機工程檔(*.looper)|*.looper|所有檔(*.*)|*.*
+FailedSaveFile:	保存檔失敗:
+OpenFileFailure:	打開檔失敗:
+FileFmtIncorrect.	檔格式不正確。
+	
+//Exploit Vulnerability UI:	
+SqlCapital:	SQL語句大小寫:
+DontCare	不處理
+RndCase	隨機大小寫
+LowerCase	小寫
+UpperCase	大寫
+	
+FeatureDisabled.	此功能已被禁用。

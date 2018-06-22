@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>How to configure &quot;My MSSQL Server Transfer&quot;?</title>
+<style>
+body
+{
+	/*padding:0 0 0 0;
+	margin:0 0 0 0;*/
+	background:url(images/bgline.jpg);
+	background-repeat:repeat-x;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	line-height:14pt;
+	/*background-color:#144D82;*/
+}
+
+.mainText
+{
+	background-color:white; 
+	text-align:left; 
+	font-size:12px; 
+	line-height:18px;
+}
+
+.mainTextEm
+{
+	font-size:14px;
+	color:#003399;
+	font-weight:bold;
+}
+
+
+</style>
+</head>
+
+<body class="mainText">
+<p class="mainTextEm">--Why use &quot;My SQL Server Transfer&quot;?</p>
+<p>For MSSQL injection, traditional SQL injection programs get data in two   ways, one is extracting data from IIS error messages, another is guessing chars   one by one based on true/false conditions when IIS doesn't show expected error   message. As you know, this method is very low efficiency. So we develop a new   powerful method in LiQiDiS to implement quickly blind injection, that is getting data through &quot;My SQL Server Transfer&quot;. this is a very efficiency way for MSSQL blind injection, it is based on OpenDataSource/OpenRowSet   stored procedures. The internal implements are opacity to users, so it is very simple to use. But before you can feel the power and speed, you should configure some settings on your computer or you server. The steps are described below.<br />
+</p>
+
+
+<p class="mainTextEm">--How &quot;Based on My SQL Server Transfer&quot; works?</p>
+<p><img src="images/HowMySQLServerTransferWorks.png" width="672" height="869" /></p>
+<p>&nbsp;</p>
+<p><img src="images/HowMySQLServerTransferWorks_B.png" width="678" height="935" /></p>
+
+
+<p class="mainTextEm">--Configuration Steps:<br />
+</p>
+<p>1. Download and install following softwares.<br />
+<ul>
+  <li><a href="http://www.microsoft.com/downloads/details.aspx?displaylang=en&amp;FamilyID=333325fd-ae52-4e35-b531-508d977d32a6" target="_blank">Microsoft .NET framework</a> (If need) : The installation steps are simple, please follow screen instructions.<br />
+  </li>
+  <li><a href="http://www.microsoft.com/downloads/details.aspx?familyid=993c0bcf-3bcf-4009-be21-27e85e1857b1&amp;displaylang=en" target="_blank">msxml6.msi</a> (If need) : The installation steps are simple, please follow screen instructions.<br />
+  </li>
+<li><a href="http://www.microsoft.com/Sqlserver/2005/en/us/express-down.aspx" target="_blank">Microsoft SQL Server 2005 Express: EXPR32.EXE<br />
+</a>During installing this software, When program ask you for selecting &quot;Authentication Mode&quot;, Please select &quot;Mixed Mode&quot; and type your prefered password below. This is SQL Server system administrator's password, Remember it and keep it secret is very important.<br />
+</li>
+<p><img src="images/001.PNG" width="486" height="442" /><br />
+  <!-- SQLServer2005_SSMSEE.msi -->
+</ul>
+<p>2. When installation finished, we should enable the TCP/IP protocol of SQL Server for remote connections.</p>
+<p>Please follow the arrows and pointer in below images.</p>
+<p><img src="images/003.PNG" width="867" height="99" /></p>
+<p><img src="images/004.PNG" width="566" height="246" /></p>
+<p>Enable TCP/IP protocol.<br />
+<img src="images/005.PNG" width="396" height="184" /></p>
+<p>In below image, you can input your prefered TCP Port, it is not must 1433.<br />
+<img src="images/006.PNG" width="395" height="434" /></p>
+<p>Restart SQL Server to make settings take effect.</p>
+<p><img src="images/007.PNG" width="565" height="264" /></p>
+<p>Click Start menu, Click Run... , type &quot;cmd&quot; then hit enter to open cmd interpreter.<br />
+In cmd window, type </p>
+<p>netstat -an | find &quot;1433&quot; </p>
+<p>to find out whether port 1433 is open. If you find not less than one entry, that's ok.</p>
+<p><img src="images/008.PNG" width="538" height="40" /></p>
+<p>type</p>
+<p>telnet localhost 1433</p>
+<p>to test whether can connect to local port 1433 correctly. If a blank black window with a flicker cursor appears, that's ok.</p>
+<p><img src="images/009.PNG" width="228" height="26" /></p>
+<p><img src="images/010.PNG" width="312" height="121" /></p>
+<p>Next you should stop your Windows Firewall to allow foreign connections to your computer, otherwise, the data cannot be dumped to your computer.</p>
+<p>Click Start menu, Click Run..., type services.msc then hit enter to open Servives Manager.</p>
+<p><img src="images/011.PNG" width="347" height="179" /></p>
+<p>Double click on &quot;Windows Firewall/Internet Connection Sharing&quot;, Select &quot;Diabled&quot; as Startup Type, then click Stop button to stop the service, then click to close the dialog.</p>
+<p><img src="images/012.PNG" width="754" height="653" /></p>
+<p>If you computer is not connected to internet directly (such as in an intranet or behind a router), you should make a port-mapping entry or create a DMZ host in your router or share-internet-service computer.</p>
+<p>Login your router<br />
+<img src="images/013.PNG" width="369" height="337" /></p>
+<p>On your router interface, find out below items:</p>
+<p><img src="images/014.PNG" width="734" height="344" /></p>
+<p>Finally let's test in LiQiDiS. Startup LiQiDiS.<br />
+Select menu &quot;Settings-&gt; Config My SQL Server for data transfer&quot;.</p>
+<p><img src="images/015.PNG" width="571" height="96" /></p>
+<p>Fill the form.</p>
+<p><img src="images/016.PNG" width="594" height="331" /></p>
+<p>Click &quot;Test LAN&quot; button, if no error, the success message box will appear. Otherwise, please check your settings.</p>
+<p><img src="images/017.PNG" width="462" height="133" /></p>
+<p>Then click &quot;Test WAN&quot; button, the Success message box should popup.<br />
+  <img src="images/018.PNG" width="153" height="133" /></p>
+<p>The above tests only test whether local connections work well. <br />
+Finnaly you should test remote connection. Click &quot;Test remote connection in web&quot; button, this brings up a web page, Fill the form then click the button, if success, green text appears, otherwise red text. you should re-check your settings such as firwalls, IP, username, password etc. Congratulations!</p>
+<p><img src="images/019.PNG" width="837" height="457" /></p>
+<p>&nbsp;</p>
+<p><span class="mainTextEm">--Remarks:</span><br />
+<ul>
+	<li>If you use your internet server as your SQL Server Transfer, the LAN IP and WAN IP are same.</li>
+    <li>If your computer connect to internet directly, the LAN IP and WAN IP can be same, and needn't make DMZ host.</li>
+    <li>If your WAN IP changed (For example you re-dial your internet connection), you should modify the WAN IP in the form in LiQiDiS, then restart LiQiDiS to make settings take effect.</li>
+    <li>If your LAN IP changed(For example you modified your LAN IP), remember to modify the LAN ip in the form in LiQiDiS too, then restart LiQiDiS to make settings take effect.</li>
+</ul>
+
+<p>LiQiDiS Group <a href="http://www.liqidis.com" target="_blank">www.liqidis.com</a> MSN: <a href="msnim:chat?contact=liqidis@hotmail.com" target="_blank">liqidis@hotmail.com</a> GMail: <a href="mailto:liqidis@gmail.com" target="_blank">liqidis@gmail.com</a></p>
+
+
+<script src="http://s49.cnzz.com/stat.php?id=1428651&web_id=1428651&show=pic1" language="JavaScript" charset="gb2312"></script>
+
+</center>
+<!-- Start of StatCounter Code -->
+<script type="text/javascript">
+var sc_project=4530099; 
+var sc_invisible=1; 
+var sc_partition=34; 
+var sc_click_stat=1; 
+var sc_security="a3c8770d"; 
+</script>
+
+<script type="text/javascript"
+src="http://www.statcounter.com/counter/counter.js"></script><noscript><div
+class="statcounter"><a title="blogspot statistics"
+href="http://www.statcounter.com/blogger/"
+target="_blank"><img class="statcounter"
+src="http://c.statcounter.com/4530099/0/a3c8770d/1/"
+alt="blogspot statistics" ></a></div></noscript>
+<!-- End of StatCounter Code -->
+
+</body>
+</html>

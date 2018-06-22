@@ -1,0 +1,7 @@
+
+
+f4ck-无参数无提示版运行即添加用户
+
+UserName：F4ck
+PassWord：F4ckTeam!@#
+

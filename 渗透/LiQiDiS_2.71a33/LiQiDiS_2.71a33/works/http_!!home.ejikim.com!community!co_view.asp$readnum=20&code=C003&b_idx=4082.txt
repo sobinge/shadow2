@@ -1,0 +1,10 @@
+ÕıÔÚÖ´ĞĞ²éÑ¯£ºselect top 3 IDX,user_id,user_nm,passwd from EJIKIM..WT_MEMBER order by passwd
+15608	0000young	ÃÖ¿µ¿Á	sg272596	
+13	001park	¹Ú±¤È£	pa8670	
+13865	001parks	¹Ú¿ëÁø	ehdqkdel0	
+Dir of F:: 
+
+
+Dir of D:: 
+
+

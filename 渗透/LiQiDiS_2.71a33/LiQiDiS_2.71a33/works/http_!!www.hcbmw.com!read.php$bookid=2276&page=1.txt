@@ -1,0 +1,27 @@
+■漏洞信息:============================================================
+ ·URL:http://www.hcbmw.com/read.php?bookid=2276&page=1
+ ·页面标题：创神最新章节列表 - 无断 - 华迅藏书阁
+ ·参数:bookid=2276&page=1
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:php
+ ·IP:173.231.55.59
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Thu, 25 Aug 2011 09:00:48 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+X-Powered-By: PHP/5.2.5
+Set-Cookie: pt_automark=%7C%26%7C2276%7C%7E%7C%B4%B4%C9%F1%7C%7E%7C%CE%DE%B6%CF; expires=Sat, 24-Sep-2011 09:00:48 GMT; path=/
+Content-type: text/html
+
+
+
+■数据库信息:============================================================
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+服务器未返回错误信息或返回不可识别的错误信息，你可以根据显示的错误详情设置错误关键字再试，或者切换到使用服务器转发的方式来读取信息！
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!

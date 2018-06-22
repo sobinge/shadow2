@@ -1,0 +1,22 @@
+■漏洞信息:============================================================
+ ·URL:http://www.hbhd-group.com.cn/shownews.asp?id=58
+ ·页面标题：省咨询协会举办工程咨询设计企业变革与发展专题报告会
+ ·参数:id=58
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:208.81.166.165
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 12 Sep 2011 08:48:37 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 8784
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDCARTRSCQ=LBNNJCOCDIDBCIKHEMAMPLKC; path=/
+Cache-control: private
+
+

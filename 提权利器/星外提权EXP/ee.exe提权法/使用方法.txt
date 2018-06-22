@@ -1,0 +1,5 @@
+获取ID：
+c:\Documents and Settings\All Users\Application Data\Microsoft\Media Index\ee.exe -i
+
+获取账号密码：
+c:\Documents and Settings\All Users\Application Data\Microsoft\Media Index\ee.exe -u id

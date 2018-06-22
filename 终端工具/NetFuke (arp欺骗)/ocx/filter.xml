@@ -1,0 +1,17 @@
+<?xml version="1.0" standalone="yes"?>
+<OcxInfo>
+<OcxName>
+NetFuke_Filter
+</OcxName>
+<OcxPath>
+\ocx\NetFuke_Filter.dll
+</OcxPath>
+<OcxCMD>
+IPType = TCP
+
+</OcxCMD>
+<UseFlag>
+1
+</UseFlag>
+</OcxInfo>
+</xml>

@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>通过路由器上网的用户如何设置服务器转发</title>
+<style type="text/css">
+div#menu a
+{
+	font-family:黑体,宋体,Arial;
+	font-size:13pt;
+	line-height:20pt;
+}
+
+h2
+{
+	display:block;
+	background-color:#CCC;
+	font-family:黑体,宋体,Arial;
+}
+
+</style>
+</head>
+
+<body>
+<center><h1>通过路由器上网的用户设置转发服务器的步骤</h1></center>
+<div id="menu">
+<p><a href="#downloadGSQL">下载GSQL</a><br />
+  <a href="#closeFirewall">关闭 GSQL 自带的防火墙</a><br />
+  <a href="#closeWindowsFirewall">停用并禁止 Windows 自带的防火墙</a><br />
+  <a href="#getIP">获取本机的外网ip地址</a><br />
+  <a href="#dmz">在路由器中设置 DMZ 主机</a><br />
+  <a href="#setParam">在软件里面设置相关参数</a><br />
+<a href="#caution">注意事项</a></p>
+</div>
+
+<ul>
+  <li>
+    <h2><a name="downloadGSQL" id="downloadGSQL">下载 GSQL。</a></h2>
+  </li>
+</ul>
+<p>  下载地址：</p>
+<p><a href="通过路由器上网的用户设置转发服务器的步骤" target="_blank">http://www.liqidis.com/files/GSQL6.5.0.2.rar</a></p>
+<p>或 </p>
+<p><a href="http://down.gougou.com/down?cid=E146811191C5D3DDD80B638FD40787243D5DE4E7" target="_blank">http://down.gougou.com/down?cid=E146811191C5D3DDD80B638FD40787243D5DE4E7</a></p>
+<p>或</p>
+<p><a href="http://down.gougou.com/down?cid=D044641618D670043443CFC4FE93D666D2E84700" target="_blank">http://down.gougou.com/down?cid=D044641618D670043443CFC4FE93D666D2E84700</a></p>
+<p>请将上述地址复制到IE浏览器地址栏打开，根据提示下载。</p>
+<ul>
+  <li>
+    <h2><a name="closeFirewall" id="closeFirewall"></a>关闭 GSQL 自带的防火墙。</h2>
+  </li>
+</ul>
+<p>
+  下载完毕，解压到硬盘的某个目录中，然后运行 Gsql.exe 文件。程序运行完毕，会缩小到系统通知图标区。在GSQL的托盘图标上点右键，选择&ldquo;显示管理器&rdquo;，如下图：</p>
+<p><img src="images/gsqlTray.gif" width="133" height="105" /></p>
+<p>在GSQL管理器中，切换到网盾页，选择项目点右键，点击&ldquo;修改规则&rdquo;，如下图：</p>
+<p><img src="images/gsqFW01.gif" width="605" height="309" /></p>
+<p>将两个项目的&ldquo;规则类型&rdquo;都改为&ldquo;允许&rdquo;，如下图：</p>
+<p><img src="images/gsqlFW02.gif" width="295" height="242" /></p>
+<p>最后如下：</p>
+<p><img src="images/gsqlFW03.gif" width="458" height="70" /></p>
+<p>&nbsp;</p>
+<ul>
+<li>
+  <h2> <a name="closeWindowsFirewall" id="closeWindowsFirewall"></a>停用并禁止 Windows 自带的防火墙。</h2>
+  </li>
+</ul>
+<p>  步骤： 点击 Windows开始菜单，点击 &ldquo;运行&rdquo;，输入&ldquo;services.msc&rdquo;，按&ldquo;确定&rdquo;按钮打开服务管理器。</p>
+<p>如下： </p>
+<p><img src="images/runServices.gif" width="351" height="214" /></p>
+<p> 在Windows服务管理窗口中，找到 Windows 自带的防火墙进程，其服务名为 Windows Firewall/Internet Connection Sharing (ICS)，在其上点击右键，选择&ldquo;属性&rdquo;，如下图：</p>
+<p><img src="images/services.gif" width="638" height="452" /></p>
+<p> 在服务控制对话框中，将&ldquo;启动类型&rdquo;改为&ldquo;已禁用&rdquo;，然后单击&ldquo;停止&rdquo;、&ldquo;应用&rdquo;、&ldquo;确定&rdquo;按钮。然后关闭服务管理器。</p>
+<p><img src="images/ICSControl.gif" width="410" height="450" /></p>
+<ul>
+  <li>
+    <h2><a name="getIP" id="getIP"></a>获取本机的外网ip地址</h2>
+  </li>
+</ul>
+<p>通过访问 <a href="http://www.ip138.com" target="_blank">http://www.ip138.com</a> 或 <a href="http://www.ip168.com" target="_blank">http://www.ip168.com</a> 可以获取本机的外网IP地址，请记住此ip地址。</p>
+<p><img src="images/ip138.gif" width="551" height="353" /></p>
+<p><img src="images/ip168.gif" width="622" height="349" /></p>
+<ul>
+  <li>
+    <h2><a name="dmz" id="dmz"></a>在路由器中设置 DMZ 主机</h2>
+  </li>
+</ul>
+<p>注意： 如果是通过直接拨号上网的用户，可以跳过此步，直接进入&ldquo;<a href="#setParam">在软件里面设置相关参数</a>&rdquo;一步。</p>
+<p>第一步需要获取路由器的IP地址，步骤如下：点击&ldquo;开始菜单&rdquo;》&ldquo;运行&rdquo;，输入 &ldquo;cmd&rdquo;，点&ldquo;确定&rdquo;打开命令提示窗口。</p>
+<p><img src="images/runCmd.gif" width="347" height="175" /></p>
+<p>在命令提示窗口中，输入&ldquo;ipconfig /all&rdquo;然后按回车键。&quot;IPAddress&quot;是你的本机IP，&ldquo;Default Gateway&rdquo;一行后面的ip地址即你的路由器的ip地址。<br />
+注意你的机器的值可能会跟这个不同，以你自己的机器为准。</p>
+<p><img src="images/ipconfig.gif" width="669" height="438" /></p>
+<p>在 IE 中访问路由器的IP地址，按下图所示的步骤设置好 DMZ 主机，将当前计算机映射到互联网。</p>
+<p><img src="images/dmz.gif" width="622" height="399" /></p>
+<p>&nbsp;</p>
+<ul>
+  <li>
+    <h2><a name="setParam" id="setParam"></a>在软件里面设置相关参数</h2>
+  </li>
+</ul>
+<p>打开 LiQiDiS 软件，选择菜单 &ldquo;设置&rdquo;&gt; &ldquo;配置我的 SQLServer转发服务器...&rdquo;</p>
+<p><img src="images/menu.gif" width="584" height="103" /></p>
+<p>按下图提示填写：</p>
+<p><img src="images/setting.gif" width="430" height="332" /></p>
+<p>填写完毕后点击&ldquo;测试本地连接&rdquo;和&ldquo;测试远程连接&rdquo;，如果出现下面的窗口，则表示设置成功：</p>
+<p><img src="images/ok1.gif" width="255" height="121" /></p>
+<p><img src="images/ok2.gif" width="146" height="121" /></p>
+<p>最后点击&ldquo;确定&rdquo;按钮保存设置。</p>
+<ul>
+  <li>
+    <h2><a name="caution" id="caution"></a>注意事项</h2>
+  </li>
+</ul>
+<p>1. Windows自带的防火墙一定要停止和禁用。<br />
+  2. 在最后一步中，如果出现下面的图示，提示&ldquo;未找到指定的 SQL Server&rdquo;，则表示IP地址填写错误，或者没有设置好DMZ主机：<br />
+<img src="images/notFountSQL.gif" width="543" height="299" /><br />
+</p>
+<p>3. 在最后一步中，如果出现下面的图示，提示&ldquo;一般性网络错误&rdquo;，则表示防火墙没有关闭。请检查是否按上述步骤关闭了防火墙，或者安装了其他的防火墙软件。<br />
+<img src="images/networkError.gif" width="543" height="299" /></p>
+<p>4. 如果同一个局域网中，有多台计算机要设置，则只需在其中一台计算机上按上述步骤设置好，其他的计算机只用执行最后一步设置&mdash;&mdash;&ldquo;在软件里面设置相关参数&rdquo;即可。不过在其他的机器上使用软件的时候，那台安装 GSQL 的机器必须是开着的 (不使用服务器转发功能的时候，可以不用开着)&nbsp;。</p>
+</body>
+</html>

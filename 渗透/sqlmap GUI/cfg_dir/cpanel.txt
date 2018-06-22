@@ -1,0 +1,10 @@
+*log
+/usr/local/cpanel/logs
+/usr/local/cpanel/logs/stats_log
+/usr/local/cpanel/logs/access_log
+/usr/local/cpanel/logs/error_log
+/usr/local/cpanel/logs/license_log
+/usr/local/cpanel/logs/login_log
+/usr/local/cpanel/logs/stats_log
+*conf
+/var/cpanel/cpanel.config

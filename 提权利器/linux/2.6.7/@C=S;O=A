@@ -1,0 +1,83 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+
+<html>
+<head>
+ <title>www.3hack.com/localroot/2.6.7/</title>
+ <style type="text/css"><!--
+    
+    body {
+        color: black;
+        background-color: white;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+        font-size: 11px;
+        background-image: url(icons/bg.gif);
+        margin-left: 40px;
+    }
+
+    img {
+        border-width: 0px;
+        vertical-align: middle;
+        margin: 1px 0px;
+    }
+    
+    pre {
+        font-family: Courier New,Courier,monospace;
+        font-size: 12px;
+        s-height: 400px;
+        margin: 5px 0px;
+    }
+    hr {
+        
+        height: 1px;
+        color: silver;
+        width: 480px;
+        text-align: left;
+        
+    }
+    
+    a {
+        color: blue;
+    }
+    
+    a:visited {
+        color: navy;
+    }
+    
+    a:hover {
+        color: red;
+    }
+
+    h1, a.h1, a.h1:visited  {
+        font-size: 18px;
+        font-weight: normal;
+        margin-top: 0px;
+        margin-bottom: 10px;
+        color: #657FC0;
+        text-decoration: none;
+        text-transform: capitalize;
+    }
+
+    a.h1:hover  {
+        text-decoration: underline;
+    }
+
+    h2 {
+        font-size: 14px;
+        font-weight: bold;
+        color: #777777;
+        margin: 10px 0px;
+    }
+
+ //--></style>
+</head>
+<body>
+ <h1><a href="../../default.htm" class="h1">www.3hack.com</a></span></h1> 
+ <h2>Index of /localroot/2.6.7/</h2>
+<pre><img src="../icons/search.gif" alt="Icon " width="16" height="16"> <a href="@C=N;O=A">Name</a>                                     <a href="@C=M;O=A">Last modified</a>      <a href="@C=S;O=D">Size</a>  <hr><a href="../default.htm"><img src="../icons/fo.gif" alt="[Up to parent folder]" width="16" height="16"></a> <a href="../default.htm">Parent Directory</a>                                              -   
+<a href="krad2"><img src="../icons/default.gif" alt="[   ]" width="16" height="16"></a> <a href="krad2">krad2</a>                                    02-Oct-2007 00:56  9.0K  
+<a href="h00lyshit"><img src="../icons/default.gif" alt="[   ]" width="16" height="16"></a> <a href="h00lyshit">h00lyshit</a>                                02-Oct-2007 00:57   12K  
+<a href="krad"><img src="../icons/default.gif" alt="[   ]" width="16" height="16"></a> <a href="krad">krad</a>                                     02-Oct-2007 00:56   16K  
+<hr></pre>
+<div><a href="http://www.3hack.com/" target="_top"><img src="../icons/img/logo25.gif" width="25" height="25" alt="3HACK.COM Хостинг - Размещение сайтов. Домены. Почта." align="middle"></a>&nbsp;<a href="http://www.3hack.com/" title="Размещение сайтов. Домены. Почта." target="_top">Хостинг 3HACK.COM</a></div>
+</body>
+</html>

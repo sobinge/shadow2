@@ -1,0 +1,51 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title></title>
+<style type="text/css">
+body{border:none;margin:0px;font-size:12px;}
+a{color:blue}
+a:visited{color:blue;}
+.btitem{cursor:pointer;width:81px;height:18px;background:url(../../lib/img/soft.png) -3px -79px no-repeat;color:#000;text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;margin-top:2px;margin-left:5px;line-height:18px;}
+.btitem_over{cursor:pointer;width:81px;height:18px;background:url(../../lib/img/soft.png) -89px -79px no-repeat;color:#000;text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;float:left;margin-top:2px;margin-left:2px;line-height:18px;}
+.ff{float:left;line-height:26px;}
+#sysbg{padding-left:3px;width:230px;border:1px ridge #ccc;height:18px;background:#fff;line-height:16px;margin-top:2px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+#imglist{height:183px;overflow-y:auto}
+.imgitem{width:112px;height:70px;padding-left:3px;padding-top:3px;margin:3px;float:left;background:#000;}
+.imgitemex{width:106px;height:64px;}
+</style>
+<script type="text/javascript" src="../../lib/gnbox.js"></script>
+<script type="text/javascript" src="./main.js"></script>
+<body>
+<div id="appData" style="width:100%;margin:5px;border:1px solid #ccc;height:256px;overflow-y:auto;padding:5px;">
+	<div style="width:100%;overflow:hidden;height:26px;line-height:16px;">
+		<div class="ff">函数库名称:</div>
+		<div class="ff">
+			<div id="sysbg" contenteditable></div>
+		</div>
+		<div class="ff">
+			<div class="btitem" style="float:left" onclick="findExt()" id="sbutton">开始查找</div>
+		</div>
+	</div>
+	<div style="width:100%;overflow:hidden;height:26px;line-height:16px;">
+	数据源选择:<select id="datasource" onchange="server=this.value"><option value='http://www.toolmao.com/box/ext/'>工具猫网络</option><option value='http://xssreport.sinaapp.com/box/ext/'>新浪APP1</option><option value='http://zongzi.sinaapp.com/box/ext/'>新浪APP2</option><option value='http://localhost:8080/extlib/'>测试专用(勿选)</option></select> *若其中一个连接不上，请选择其它
+	</div>
+	<div style="border-bottom:1px dashed #ccc;width:100%;overflow:hidden;height:2px;"></div>
+	<div id="imglist">
+
+	</div>
+</div>
+<div id="btn" style="width:250px;text-align:center;margin:auto;">
+		<div class="btitem" onclick="selectAll()" id="sall" style="float:left;">全选/全不选</div>
+		<div class="btitem" onclick="downloadExt()"  style="float:left;">安装该函数库</div>
+</div>
+<script type="text/javascript">
+Dom.Event.add(window,"onload",function(){
+	$("appData").style.height=($P(parent.document.getElementById("desktop").style.height)-150)+"px";
+});
+Dom.Event.add(window,"onresize",function(){
+	$("appData").style.height=($P(parent.document.getElementById("desktop").style.height)-150)+"px";
+});
+</script>
+</body>
+</html>

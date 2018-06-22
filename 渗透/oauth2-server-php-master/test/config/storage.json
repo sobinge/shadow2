@@ -1,0 +1,47 @@
+{
+    "authorization_codes": {
+        "testcode": {
+            "client_id": "Test Client ID",
+            "user_id": "",
+            "redirect_uri": "",
+            "expires": "9999999999",
+            "scope": ""
+        }
+    },
+    "client_credentials" : {
+        "Test Client ID": {
+            "secret": "TestSecret"
+        }
+    },
+    "user_credentials" : {
+        "test-username": "testpass"
+    },
+    "refresh_tokens" : {
+        "test-refreshtoken": {
+            "refresh_token": "test-refreshtoken",
+            "client_id": "Test Client ID",
+            "user_id": "test-username",
+            "expires": 99999999900,
+            "scope": null
+        }
+    },
+    "access_tokens" : {
+        "accesstoken-expired": {
+            "access_token": "accesstoken-expired",
+            "client_id": "Test Client ID",
+            "expires": 1234567,
+            "scope": null
+        },
+        "accesstoken-scope": {
+            "access_token": "accesstoken-scope",
+            "client_id": "Test Client ID",
+            "expires": 99999999900,
+            "scope": "testscope"
+        },
+        "accesstoken-malformed": {
+            "access_token": "accesstoken-mallformed",
+            "expires": 99999999900,
+            "scope": "testscope"
+        }
+    }
+}

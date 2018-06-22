@@ -1,0 +1,23 @@
+¡öÂ©¶´ĞÅÏ¢:============================================================
+ ¡¤URL:http://www.chiate88.com/DisplayItem.asp?id=35
+ ¡¤Ò³Ãæ±êÌâ£ºä½³å¾·ç³•é¤…-é³³æ¢¨é…¥æ¦®ç²å°åŒ—å¸‚ã€åŸå‘³é³³æ¢¨é…¥é‡‘è³çã€ç¬¬ä¸€åï¼Œé³³é»ƒé…¥ã€æ°´æœé…¥ã€è€å©†é¤…ã€ç‰›å¥¶é…¥é¤…ã€å¤ªé™½é¤…ã€è›‹é»ƒé…¥ã€èµ·å£«è›‹ç³•ã€ç¶ è±†å‡¸ã€å»£å¼æœˆé¤…ã€è¨‚å©šå–œé¤…ã€ç”Ÿæ—¥è›‹ç³•
+ ¡¤²ÎÊı:id=35
+ ¡¤·½·¨:GET
+ ¡¤ÀàĞÍ:Numeric
+ ¡¤ÀûÓÃ·½·¨:And
+ ¡¤½Å±¾ÓïÑÔ:asp
+ ¡¤IP:61.31.198.70
+ ¡¤Êı¾İ¿â:Access
+ ¡¤HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sat, 10 Sep 2011 12:00:02 GMT
+Server: Microsoft-IIS/6.0
+MicrosoftOfficeWebServer: 5.0_Pub
+X-Powered-By: ASP.NET
+Content-Length: 18018
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDCATASBRD=GPAILJHBMOJJHPEPJLOPKGFH; path=/
+Cache-control: private
+
+

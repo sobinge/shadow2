@@ -1,0 +1,1041 @@
+//Key	English
+	
+TranslatorInfo	LiQiDiS (liqidis@hotmail.com)\r\n Site: http://www.liqidis.com
+	
+//Main Menu	
+//ScanPage 扫描页面	
+ScanPage	&P.ScanPage
+BatchScanMultipleLinks	&B.Batch scan multiple links…
+StartScan	&S.Start Scan
+StopScan	&O.Stop Scan
+Exploit	&E.Exploit...
+EditPageDOM	&D.Edit Page DOM
+	
+//ScanSite	
+ScanSite	&S.ScanSite
+ScanSensitiveFiles	&F.Sensitive file scanner...
+ScanOrdialFiles	&O.Ordinal file scanner...
+SiteCrawler	&C.Site crawler...
+	
+//Codec	
+Codec	&C.Codecer
+URLCodecer	&U.URL Codecer...
+MD5	&M.MD5
+MD5Codecer	MD5 Codecer...
+MD5BatchLookUp	MD5 Batch look up...
+MD5LookupEngines	Setup MD5 crack engines...
+BASE64Codecer	&B.BASE64 Codecer...
+SQLVarCharEncoder	&S.SQL VarChar Encoder...
+SQLKeywordCapsRandomizer	&R.SQL Keywords capital randomizer...
+DeclareExec	&D.Encode SQL as Declare+Exec...
+	
+//Advanced Tools	
+AdvancedTools	&A.AdvTools
+Looper	&L.The Looper...
+RequestRelayServer	&R.Request RElay...
+ViewSQLOutput	&V.View SQL output...
+	
+//Tools	
+Tools	&T.Tools
+IPDomainReverseLookup	&I.IP Reverse look up...
+ASPEvalClient	&A.ASP Eval() Client...
+	
+//Settings	
+Settings	&S.Settings
+ConfigMySQLServerTransfer	&C.Configure My SQLServer Transfer...
+ProgramSettings	&P.Program Settings...
+	
+//Skins	
+Skins	&K.Skins
+RemoveSkin	&R.Remove Skin
+CurrentSkin	&C.Current Skin:
+	
+//Languages	
+Languages	
+TranslatorInfo	
+	
+//Help	
+Help	&H.Help
+OnlineTut	&O.Online Tutorials...
+HowToConfigMySQLServerTransfer	&H.How to configure My SQLServer Transfer...
+Contents	&C.Contents...
+ViewMyRegCode	&V.View My RegCode...
+About	&A.About...
+Test	&T.Test...
+	
+//Context menu of Vulnerabilities list	
+Copy	&C.Copy
+Delete	&D.Delete
+ViewCachedData	&V.View cached data...
+DeleteCachedData	&R.Delete cached data
+BrowseInAbove	&A.Browse in above window
+BrowseWithIE	&I.Browse in Internet Explorer...
+SaveList	&S.Save list...
+LoadList	&L.Load list...
+GenerateWebReport	&G.Generate HTML reports...
+TerminateAllScanningThreads	&T.Terminate all scanning threads!
+	
+//Main Window Controls	
+Go	Go
+Stop	Stop
+Refresh	Rfsh
+Back	<-
+Forward	->
+Message	Messages
+Save	Save
+Clear	Clear
+ScanWholePage	Scan whole page
+Keyword	Keyword
+ScanURL	Scan URL only
+StopScan	Stop Scan
+TerminateAllThreads	Terminae all threads!
+ClearList	Clear list
+Vulnerabilities	Vulnerabilities
+ServerErrors	Server errors
+	
+//Main windows assembly strings 主窗口程序集字符串	
+Initializing...	Initializing...
+Loading dictionaries...	Loading dictionaries...
+//URL|250|Ping(ms)|70|Severity|130|Judge Method|140|Exploit Type|60|Type|60|DBType|80|Title|120|Error Fingerprint|150|Alexa|120|Method|80	
+VulnListHeaders	Memo|100|URL|250|Ping(ms)|70|Severity|130|Judge Method|140|Exploit Type|60|Type|60|DBType|80|Title|120|Error Fingerprint|150|Alexa|120|Method|80
+ServerErrorListHeaders	URL|500|Server errors|300|DB Type|150
+ConnectingToSQLServerTransfer	Connecting to 'My SQL Server transferer'...
+LoadingVulnList	Loading vulnerability list...
+DblClickToClose	Complete. Double click to close this window.
+NewSkinWillBeAppliedAtNextStartup	New skin will be applied at next startup.
+ConnectToSQLServerTransferFailed	Connect to 'My SQL Server transferer' failed, Please check or reconfigure.
+WouldYouLikeToConfigSQLTransfer	You havn't configure your 'My SQL Server Transferer' settings, we suggest you do it first.\r\n\r\nPlease click menu [Help] > [How to configure 'My SQL Server Transfer'] to view document.
+ErrorKeywordDict	Error keyword dict
+SourcePathKeywordDict	Source path keyword dict
+NotFoundDBFingerPrintDict	Not found database error fingerprint dict:
+ParseXMLFailed	Parse XML failed:
+FileNotExists	File not exists:
+Read%sFailed%s	Read %s failed: %s
+NotSelected	[Not selected]
+PageNotLoaded	Page not loaded!
+ScanningLinksPlzWait	Scanning links, please wait...
+ScanningFormsPlzWait	Scanning forms, Please wait...
+NoScannableLink	No scannable link.
+ScanningVulnsPlzWait	Scanning vulnerabilities, Please wait...
+AbortedFound%dVulns%dSE	Scanning aborted. [ %d ] vulnerabilities, [ %d ] server errors found.
+CantExpWhenScanning	Cann't exploit vulnerability when scanning.
+XorTryCookieOrPost	You can try to exploit the vulnerability with XoR type through Cookies or POST request.
+AttentionOnExit	Attention: To protect your rights and benefits, if you are running this program on a public computer, you should delete it completely after exit.
+PlzInputURLFirst	Please input address first!
+SureToClearList	Are you sure to clear the list?
+SkinWillBeRemoveAtNextStartup	The skin will be removed at next startup.
+CantModifySettingsWhenScanning	Cann't modify settings when scanning.
+CantDelWhenScanning	When threads are running, can't delete.
+SureToDel?	Are you sure to delete these items?
+SureToDelCachedata?	Are you sure to clear its data cache?
+NoCachedData	No cached data.
+LoadLangFailed	Load language file failure.
+	
+//程序集_注入点扫描	
+Scan:	Scan:
+Skipped:	 -Skipped: 
+TimeoutSkipped:	 -Skipped(timeout):
+ExposePathSrc	(Show path,source)
+ExposeSQL	(Show SQL)
+ExposePath	(Show path)
+	
+//程序集_全局	
+Unknown	Unknown
+WaitingThreadsExit	Waiting threads exit...
+ThereR%dthreads	There are %d threads are running.
+ScanComplete_%d_%d	Scanning complete. Found %d vulnerabilities, %d server errors.
+	
+//SQL注入窗口控件	
+Scan	Scan
+GeneralOutput	General Output
+BasicInfo	Basic Info.
+Settings	Settings
+HEAD	HEAD
+Cookies	Cookies
+Browse	Browse
+SaveAs...	Save as...
+Save	Save
+Copy	Copy
+OutputToGrid	Output to grid
+ViewSQLOutput...	View SQL output...
+BrowseTheURL...	Browse URL...
+	
+//	General Output
+Params:	Params:
+Method:	Method:
+Type:	Type:
+ExpMethod:	Exploit Method:
+DBType:	DB Type:
+Script:	Script:
+ReplaceSpaceWith:	Replace space with:
+OS:	OS:
+IPAddr:	IP:
+	
+// 	Basic Info.
+BasedOnContentLength	Based on Content-Length
+BaseLength	Base length:
+Bytes	Bytes
+BasedOnKeyword	Based on keywords
+KeywordInNormalPage:	Keywords in normal page:
+BasedOn500Error	Based on HTTP 500 error
+	
+TipCookie	Tip: When browse the URL,the Cookies will be displayed below.
+	
+Skip	Skip
+Stop	Stop
+Terminate	Terminate!
+ViewErrors	ViewErrors
+	
+Common	Common
+	
+ScanDBType	Scan DB Type
+GlobalOptions	Global options
+MaxCount	Max record count when retrieve it failed:
+QuoteDBObjects	Quote database objects (Use [] or ``)
+	
+//SQL Server	
+GetDataMethod	Get Data Method:
+ExtractFromServerErrors	Extract from server errors
+TroughSQLTransfer	Through "My SQLServer Transfer"
+ConfigMySQLTransfer	Config "My SQL Server"
+HexSQL	Hex SQL
+	
+//选择夹 SQL Server	
+BasicInfo	Basic Info.
+Command	Command
+GetWebShell	GetWebShell
+Data	Data
+UpdateDB	Update DB
+DirTree	Dir Tree
+ExecSQL	Exec SQL
+ReadFile	Read File
+Misc	Misc
+	
+//BasicInfo	
+GetBasicInfo	Get Basic Info.
+DBVersion	DB Version:
+ExtraSQlRear:	Extra SQL Rear:
+FrontKeytext:	Front key text:
+RearKeytext:	Rear key text:
+Language:	Language:
+Set	Set
+	
+//Command	
+XP_CmdShellExists	XP_CmdShell Exists?
+RestoreXP_CmdShell	Restore XP_CmdShell
+TipSARestoreCmdShell	Tip: Only the users with "sysadmin" privillege which can exec cmpshell.
+CmdLine:	Cmdline:
+Echo	Echo
+Exec	Exec
+Upload	Upload
+LocalFile:	Local file:
+RemoteFile:	Remote file:
+TextMode	Text Mode
+BinMode	Binary Mode
+Upload	Upload
+Help	Help
+Misc	Misc
+UploadEXE	Upload EXE downloader
+UploadVBS	Upload VBS downloader
+UploadLooksite	Upload looksite.vbs
+UploadFTP	Upload FTP download config file
+Active3389ByReg	Active 3389 by Reg
+Active3389ByIni	Active 3389 by INI
+	
+//GetWebShell	
+GetWebPath	Get Web Path
+Method:	Method:
+ByReadReg	By read registry
+BySearchFile	By search file
+Get	Get
+RootPath:	Root path:
+FileToSearch:	File to search:
+RestoreRegRead	Restore XP_RegRead
+RestoreDirTree	Restore XP_DirTree
+DBName:	DB Name:
+WebShellFilename:	WebShell filename:
+ContentOfWebShell:	WebShell contents:
+GetFileAttr	Get File Attr
+Filename:	Filename:
+Get	Get
+RestoreXP_GetFileAttr	Restore XP_GetFileAttr
+EncodeAsVarChar	Encode as VarChar
+BackupLog	Backup log
+BackupDB	Backup DB
+//MSSQL>DATA-------------------------------------	
+Where:	Where:
+Top:	Top:
+Desc:	Desc
+DB:	DBName:
+Order:	Order:
+AddDatabase...	Add databases...
+AddTables...	Add tables...
+AddFields...	Add fields...
+GetTables	Get Tables
+GetFields	Get Fields
+GetData	Get Data
+Tip	!.Tip
+//MSSQL>UpdateDB---------------------------------	
+TipUpdateMssql	Tip: If you select the Field you want to update in the Database Tree in Data Tab, the corresponding DB,Table and Fields will be filled automatically. 
+DB:	DB:
+Table:	Table:
+Field:	Field:
+Position:	Position:
+AddAtFore	Add at fore
+AddAtRear	Add at rear
+ReplaceCompletely	ReplaceCompletely
+Encode:	Encode:
+Where:	Where:
+Content:	Content:
+Update	Update
+	
+//MSSQL>DirTree---------------------------------	
+CurrentDir:	Current Dir:
+ListDir	List Dir
+PublicPriviOnly	'public' privillege only
+EmptySelectedDir	Empty Selected Dir
+AddFileFolders	Add files...
+//MSSQL>ExecSQL---------------------------------	
+chkAutoDisposeCapsEtc	Automatically dispose caps, line-breaks and spaces.
+chkDeclareExecNoEcho	Declare+Exec (No echo)
+chkAutoDisposeSQL	Automatically dispose the SQL based on injection type.
+Exec	Exec
+OriginalSQL	Original SQL
+SQLAfterDispose	SQL After Dispose
+PageSourceReturned	Page Source Returned
+	
+//MSSQL>ReadFile---------------------------------	
+Filename:	Filename:
+Read	Read
+TipReadFile	Tip: Only the users with "sysadmin" and "bulkadmin" privileges can read file.
+	
+//MSSQL>MISC---------------------------------	
+ActiveSQL2005Procs	Activate xp_cmdshell/OpenDataSource/OpenRowSet
+DeactiveSQL2005Procs	Deactivate xp_cmdshell/OpenDataSource/OpenRowSet
+TipNeedSAPrivilege	Tip: Need "sysadmin" privilege.
+GetDBIP	Get the DB server IP
+WanIPOfLocalhost:	WAN IP of localhost:
+PortToBeOpen:	Port to be open:
+StartServer	1.Start Server
+SendRequest	2.Send Request
+StopServer	3.Stop Server
+Help	Help
+SuperDoS	Super DoS
+	
+//Access===============================================	
+ScanUnionParams	Scan Union Params.
+GetData	Get Data
+MiscInfo	Misc Info.
+//Access>Scan Union Params. ---------------------------	
+FrontKeyword:	Front keyword:
+RearKeyword:	Rear keyword:
+Seperator:	Seperator:
+ScanUnionColumns	Scan Union Columns
+Total:	Total:
+WhichColumnShown:	Which column shown:
+ModifyManually	Modify manually
+//Access>GetData -------------------------------------	
+Settings:	Settings
+TblPrefix:	Tbl Prefix:
+TblSuffix:	Tbl Suffix:
+FldPrefix:	Fld Prefix:
+FldSuffix:	Fld Suffix:
+AddTable	Add tables...
+AddField	Add fields...
+GetTable	Get Tables
+GetField	Get Fields
+GetData	Get Data
+//Access>MiscInfo------------------------------------	
+Paths	Paths
+GetSystemPath:	Get system path:
+GetDBFilename:	Get DB filename:
+	
+//MySQL==============================================	
+TextEncodeMethod:	Text encode method:
+EncodeAsHex	Hex(0x202122...)
+EncodeAsChar	char(char(32,33,34,...))
+LineComment:	Line comment:
+QuoteDBObjectsWith	Quote Database objects with ``
+ScanUnionParams	Scan union params.
+GetData	Get Data
+GetWebShell	Get Webshell
+ReadFile	Read File
+//MySQL>ScanUnionParams-----------------------------	
+Method:	Method:
+BasedOnKeytextAndNum	Blind.Based on keytext and number(Few columns,most quick)
+BasedOnKeytext	Blind.Based on keytext(More columns)
+BasedOnContentLen	Blind.Based on Content-length(Most Columns)
+BasedOnErrorKeytext	Based on Error keytext(Most columns)
+BasedOnOrderAndContentLen	Blind.Based on ORDER BY and Content-Length(Max 400 columns)
+BasedOnOrderByAndError	Based on ORDER BY and Error keytext(Max 400 columns)
+ScanUnionColumns	Scan Union Columns
+ErrorKeywords:	Error keywords:
+Total:	Total:
+WhichColumnShown:	Which column shown:
+ModifyManually	Modify manually
+Set	Set
+ForeKeyword:	Fore keyword:
+RearKeyword:	Rear keyword:
+Seperator:	Seperator:
+GetBasicInformations	Get basic informations
+//MySQL>GetData -----------------------------------	
+Where	Where
+Order	Order
+Desc	Desc
+Limit:	Limit:
+AddDatabase...	Add databases...
+AddTables...	Add tables...
+AddFields...	Add fields...
+Method:	Method:
+ByDictionary	By Dictionary
+FromSchema	From INFORMATION_SCHEMA
+Prefix:	Prefix:
+Suffix:	Suffix:
+ListDBs	List DBs
+ListTables	List Tables
+ListFields	List Fields
+GetData	Get Data
+SelectIntoOutFile...	select into outfile(on server)...
+SaveData	Save Data
+//MySQL>GetWebShell-----------------------------------------	
+TargetFilename:	Target filename:
+WebShellContent:	WebShell contents:
+ShowPHPShellsOnly	Show PHP shells only
+Write	Write
+//MySQL>ReadFile--------------------------------------------	
+FilenameOnRemoteServer:	Filename on remote server:
+Read	Read
+SaveFileTo:	Save file to:
+TipSaveFileTo	Tip: Enable "Save file to" option, will save the original raw data.
+	
+//窗口程序集_漏洞利用	
+ExploitVuln	Exploit Vulnerbility
+UnsupportedGetDataMethod	Unsupported get-data method.
+NotFoundVulnItem	Not found the vulnerability item!
+Finished.	Finished.
+ProcessAborted.	Process aborted!
+PlzWaitThreadExit.	Thread is running,please wait.
+	
+//以下两个为节文本的首字符和项文本的首字符	
+SectionHead	>>> 
+ItemHead	 - 
+	
+VulnInfo:	Vulnerablity info:
+PageTitle:	Page title:
+Params:	Parameters:
+ExploitMethod:	Exploit method:
+Script:	Script:
+Database:	Database:
+SourceFile:	Source file:
+Ready.	Ready.
+NowScanningDBType...	Now scanning database type...
+DBDetectionFailed...	Database type detection failed, if you can determine the type of database manually , please change the DBType and switch to corresponding tab, exploit it directly..
+KeywordsCannotBeEmpty	Front keyword or rear keyword cannot be empty.
+ScanningUnionParams...	Scanning Union params...
+UnionColumnCount_%d_%d:	Union column count: total= %d,   Shown= %d 
+UnionSQLAccess:%s	Union SQL: and 3=8 union select %s from MSysAccessObjects
+ScanningUnionFailed.	Scan Union params failed, please set them manually,if you can sure.
+ScanningUnionOK.	Congratulations! UNION params scanning success! Please get database structure, and then you can use UNION queries to get the contents of the database.^_^
+LoadTables.dictFailed.	Tables.dict is empty or read tables.dict failed.
+Scanning	Scanning
+FoundTable:	Found Table:
+ScanningTablesFinished.	Scanning tables finished.
+PlzSelectATblFirst.	Please select a table first.
+PlzSelectAFieldFirst.	Please select a field first.
+NoTheTblInMem.	There is no the table in memory!
+LoadFields.dictFailed.	Fields.dict is empty or read fields.dict error!
+ScanningField	Scanning field
+FoundField:	Found field:
+ScanningFinished.	Scanning finished.
+PlzScanUnionFirst.	Please scan Union params first!
+RetrvingData...	Retrieving data...
+RetrvingRecordCount...	Retrieving records count...
+GetSysPathPlzWait...	Getting system path, Please wait...
+GetSysPathOK.	Congratulations: get the system path success!
+GetSysPathFailed.	Get the system path failed!
+Failed:NoEMsg	[Failed:No error message]
+GetDBPathPlzWait...	Getting database path,please wait...
+GetDBPathFailed.	Get database path failed!
+Failed:CantExtractDBPath	[Failed: Cannot extract the database path.]
+DatabaseInfo:	Database info:
+GettingDBInfo...	Getting database info...
+	
+//下一行，必须使用^符号分割成6项	
+DBInfoHeaders	db_name: ^username: ^version: ^serverName: ^serviceName: ^sysUsername:
+	
+NoServerErrorsLong	Remote server didnot return error message, or the returned messages can't be recognized. \r\nYou can setup right keywords by returned text, then try agin,or you can switch to 'Based on My sql server' to get information.
+SQLAfterDisposed:	SQL after disposed:
+GetBasicInfiFailed	Retrieve basic info failed
+BatchFailed.1by1start...	Batch retrieving basic information failed, one by one started ...
+GettingDBNames...	Retrieving database names...
+CurrentDatabase:	Current database: 
+GettingDBVersion...	Retrieving database version info...
+Version:	Version: 
+GettingDBVersoinFailed.	Retrieving the database version failed!
+SQLSent:	SQL sent:
+FoundSQL2005long	SQL2005 found, we suggest you switch to 'Misc' tab to enable corresponding options.
+DBUserPrivi:	The DB user privileges:
+GettingPrivi...	Getting DB user privileges...
+GettingPriviFailed	Retrieving user privileges failed!
+ErrorDetails:	Error details:
+GettingDBs	Retrieving databases...
+DBInfo:	Databases info:
+GettingUserlist...	Retrieving userlist...
+SQLSvrUsers:	SQL Server users:
+Username_tRole_tSid	Username\t\tRole\t\tSID\r\n
+GettingDBProcInfo...	Getting database process info...
+DBProcInfo:	Database process info:
+	
+//下一行必须用|分成六列	
+DBProcInfoHeaders	Program Name|Status|hostname|Host Process ID|CommandLine|NT Username
+	
+GettingLinkedSvrs...	Getting linked servers info...
+LinkedSvrsInfo:	Linked servers info: 
+LinkedSvrHeaders	ServerName|ServerProduct|Provider_name|Datasource|Location|ServerNetName
+GettingUserLoginInfo...	Retrieving users access to the database login information...
+DBUserLoginInfo:	Database user login info: 
+UserLoginInfoHeaders	Username|Password HASH|Database ID|Language|xdate1|xdate2
+DBconnIsNullLong	Database connection is NULL! We propose you click the 'Config My MSSQLServer' button then test the Local Connection Properties.
+UnableConnTransferLong	Unable to connect to 'My MSSQL Server Transfer' from localhost, please reconfigure!
+ProcessAborted.	Process aborted by user.
+Getting	Getting
+CreatingTblOnTransfer...	Create temp tables on My SQL Server...
+CreateTblSQL:	Create table: 
+SendingRequest...	Sending request to get data...
+RetvingDataFromTransfer...	Retrieving data from My SQL Server...
+PlzInputCmd.	Please input or select command.
+PlzGetBasicInfoFirst.	Please retrieve basic info first.
+ExecCmdPlzWait...	Executing command,please wait...
+GetRecordCountFailed	Getting record count failed, using the presetted value:
+PlzInputFNFirst.	Please input the filename first!
+ContentsOfFile:	Contents of File:
+ReadingFile...	Reading file...
+DropTmpTbl...	Dropping temp tables...
+PlzWait...	Please wait...
+CmdShellExists	Congratulations,proc XP_CmdShell exists!
+CmdShellNotExists	:( Proc XP_CmdShell doesn't exist.
+PlzSelectLocalFile.	Please select local file first!
+LocalFileNotExists.	Local file doesn't exists!
+PlzInputRemoteFile.	Please input remote filename.
+ProcessingFile...	Processing file, Please wait...
+FileSizeNotExceed64kb.	Sorry, File size should not exceed 64 KB!
+BldingBinFile...	Building binary file on remote server...
+UploadFinished.	Upload Finished!
+UploadingFile...	Uploading file...
+RetrvingWebPathFinished.	Retrieving web path finished.
+InputFilenameToBeSearch.	Please input the filename which will be searched.
+WebPathByFile:	Web Path by search file:
+SearchingFile...	Searching files...
+BldingResultTbl...	Building result table on remote server...
+RetrvingData...	Retrieving data...
+GetWebPathByReg:	Get web path by reading registry:
+PlzModifyRmtFNlong	Please modify the remote filename as your need,then click the [Upload] button.
+PlzInputDBNameOrScanBasicInfo.	Please input database name. If yo havn't scan basic information, Please do it first.
+InputFilenameToBeGenerated.	Please input the filename to be generated.
+InputWebShellContent.	Please input the content which will be wroten into file.
+DoInitialBackup...	Creating temp table, and do an initial backup...
+WritingDataToDB...	Writing data to database...
+MakeFinalCleanup...	Backup data to file and and make a final clean-up...
+GetWebShellFinished.	GetWebShell finished.
+SetupErrorKeywordsLong	'Based On Server Error Messages' needs front keyword and rear keyword, Please scan basic info first,or manually set them.\r\n\r\n If there is no data returned with this mode, please switch to 'Based On My SQL Server' transfer.
+RestringProc...	Restoring proc,please wait...
+RestoringProcFinished.long	Restore proc finished. Note that only users with sysadmin roles can restore proc success.
+PlzInputFilename.	Please input filename.
+GettingFileAttr:	Retrieving file attributes:
+SuperDoSConfirm	This will immediately make the remote server no-responsive,are you SURE want to do that? ?? Please think twice before!
+PlzSelectADBNode.	Please select a database node!
+GettingTblsOf%s...	Getting tables of %s ...
+ListingTbls...	Creating temp table, and list the tables...
+BatchFailed1By1Started...	Batch retrieve tables failed, one by one started...
+PlzSelectTblNode.	Please select a table node.
+GetColumnsOf%s%s...	Getting columns of %s.%s
+ListingColumns...	Creating temp tables on remote host, and list columns...
+PlzSelectSomeFlds.	Please select some fields.
+ExecutingQuery:	Executing query: 
+NotSupEchoMethod.	Not supported echo type.
+PlzInputDBName.	Please input database name.
+PlzInputTblName.	Please input table name.
+PlzInputColName.	Please input column name.
+SQLCantBeEmpty.	SQL statements cannot be empty.
+UpdatingTheDB...	Updating the database...
+UpdatingFinished.	Updating finished!
+KeywordsCantBeEmpty.	The keywords may not be empty.
+FileNotFound:	File not found:
+WaitingThrdsExit...	Waiting threads exit...
+TmplFileNotFound:	The template file not found:
+TipUpFTPlong	Please modify the remote filename as your need then click the Upload button.\r\nWhen the file is uploaded completely, you should use the commandline 'ftp -i -v -s:c:\ftp.txt' to download file to the remote host from you FTP server.
+PlzSelectDiskOrFolderNode.	Please select a disk or folder node!
+Processing...	Processing...
+GettingData1Request...	Retrieving data by one-request...
+OneRequestFailed:	One-request retrieving data failed:
+GettingDataByBatch...	Retrieving data by batch...
+GettingByBatchFailed:	Retrieve data by batch failed:
+AreUSureToClear?	Are you sure to clear?
+PlzInputFilesLong:	lease input file or folder,one by one per line, add \ at rear indicates a folder:
+ExecutingSQL...	Executing SQL...
+Activating2005procs...	Activating XP_CmdShell/OpenDataSource/OpenRowSet ...
+Deactivating2005Procs...	Deactivating XP_CmdShell/OpenDataSource/OpenRowSet ...
+InputErrorKeywordsWhenNoMatch.	Must enter the key error text when Union columns not match.
+ScanningWhichColInPage...	Scanning which column appears in page...
+UnionSQL:	Scan Union Columns SQL:
+GettingRecordCntFailed.	Retrieve records count failed.
+RecordCount:	Record Count:
+ValuesAreNotValid.	Values are not valid.
+BasicInfos:	Basic informations:
+SingleQuote:yes	Can use single Quote:yes
+SingleQuote:no	Can use single Quote:no
+Info_schema:yes	Has INFORMATION_SCHEMA:yes
+Info_schema:no	Has INFORMATION_SCHEMA:no
+ListingDBs...	List databases....
+Databases:	Databases:
+Schema_name	Schema_name
+CharSetName	default_character_set_name
+ListingTblOf%s...	Listing tables of %s ...
+ListingFldsOf%s.%s...	Listing fields of %s.%s...
+ColName	column_name
+DataType	data_type
+CharSetName	character_set_name
+GettingData...	Getting data...
+PlzSelectCols.	Please select some Columns.
+Note:QuoteOnLong	Note: The MAGIC_QUOTE_GPC is ON, the target file maybe create fail.
+MustSpecifyFN.	Must specify the filename.
+MustInputKWsAndSep.	Must input 'Front Keytext','Rear Keytext' and 'Seperator Text'.
+InputWANIP.	Please input WAN IP of localhost.
+SpecifyPort.	Must specify which port to be open.
+StartFailed,PortInUse?	Start service failed, port in use ?
+DBSvrIPis:	The DB server IP is: 
+PlzStartSvcAndMapPortLong	Please start listen service first, and make sure the port is mapped to internet.
+	
+//URL Codecer	
+//Global_UI related code:	
+VulnTable	Vulnerabilities Table
+GenByLiQiDiS	Generated by LiQiDiS(Liquid Injection System)
+NumericT	Numeric
+TextT	Text
+SearchT	Search
+InputDBNames1PerLine:	Please enter the database names, every one per line: 
+InputTblNames1PerLine:	Please input table names, every one per line: 
+InputColNames1PerLine:	Please input column names, every one per line: 
+FailedToGetWANIP.	Failed to get WAN IP.
+	
+//Show text paragraph Code:	
+//Common-Code:	
+//SQL Varchar NVarChar Code:	
+//MD5 Code:	
+TheTextNotMD5.	The input text dosn't like a MD5.
+CalcMD5CrackMD5	Calculate MD5 or Lookup MD5 
+Lookup%sPlzWait...	Now lookup %s ,please wait...
+LookupCompSites...	Now looking up composite sites...
+	
+//Setup SQLServerTransfer Code:	
+Success.	^_^Success.
+Failure.	:( Failure.
+ErrorMsg:	Error message:
+ConnOKSaveSettings.	Connect success,and local settings have been saved.
+	
+NoADODBDrv.	The database connection is NULL, no ADODB driver.
+	
+//Program Settings Code:	
+MustSelect1ScanMethod.	You should select at least one scan-method.
+RUSure2ClearAll?	Are you sure to clear all ?
+SrcStrCantBeEmpty.	The source string can't be empty.
+PlzSelectALang.	Please select a language.
+LoadLangFileFail.	Load language file failure.
+	
+	
+//Server SQL Code:	
+Percent:	Percent:
+GetSvrSQLFinished.	Update data finished, you can exploit vulnerabilities now.
+	
+//SensitiveFile scanner Code:	
+GridHead	Response Code|80|URL|700
+PlzInputURL.	Please input URL first.
+PlzInputExt.	Please input the extenstion.
+UrlFmtInvalid.	The URL format is invalid.
+	
+//ordinal file scanner Code:	
+URLMustContainVar.	The URL must contains loop varibale: ##i##.
+SelectTextToBeReplaceAsVar.	Please select the text which will be replaced as variable(##i##).
+	
+//DNS reverse lookup Code:	
+MustInputDNSIP.	Must input domain name or IP.
+InputURLwithVar:	Please input the URL with variable,__dns__ indicates doman name,__ip__ indicates IP, like below:
+	
+//The Looper Code:	
+LoopVar	Loop variable
+Dict1	Dict1
+Dict2	Dict2
+PageVar1	Page variable 1
+PageVar2	Page variable 2
+MustInputKeywordsOfPV.	Must input front keytext and rear keytext of page variables.
+	
+//以下翻译中，必须有4个英文的%s	
+NoVar%s%s%s%s.	There is no %s %s in data. Please uncheck the %s, or insert var %s in data.
+Error:	Error:
+RespCode:	Response Code:
+PlzSelectSomeTextInRequest.	Please select some text in 'HTTP Headers' textarea or 'POST Data' textarea first.
+SaveResults?	Would you like to save the results?
+PutFocusInRequest.	Please click the input focus in the 'HTTP Request Headers' textarea or 'POST Data' textarea.
+	
+//HTTP Protocol Code:	
+NoHostEntry.	No 'Host' entry in HTTP Headers.
+FailedToRslvIP:	Failed to resolve the IP of host: 
+FailedToConnTo:	Failed to connect to:
+TimeoutMs:	Timeout(milliseconds):
+TimeoutContinue:	Timeout when continue(milliseconds):
+	
+//Request Relay	Code:
+StartSvcOK.	Service start successfully.
+StartSvcFailedPortInUse?	Service start failed, is the port in use?
+SvcStopped.	Service stopped.
+	
+//MultiEngine MD5 crack Code:	
+Data1	Data1
+Data2	Data2
+Composite	Composite
+NoEngine.	No engine, please add engines first!
+NotFndMD5data.	Not found MD5 values. Please import or paste correct data.
+ThreadRunning.	 threads are running.
+Complete.	Complete.
+SaveData?	Would you like to save the data?
+	
+//MD5 engine setup Code:	
+CreateEngineOK.	Create engin finished.
+CreateEngineFailed.	Create engin failed. Please check whether this program is stored on a readonly media or files are readonly.
+TitleRequired.	Title is required.
+HeadRequired.	Request head is required.
+ForeKeywordRequired.	Fore key text is required.
+RearKeywordRequired.	Rear key text is required.
+NotFndMD5Var.	Not found variable __md5__ in request head or post data!
+LoadEngineFailed:	Load engin failed: 
+FailedToSetEngineState.	Failed to set the engine's enable state.
+	
+//Base64Codecer UI:	
+BASE64Codecer	BASE64 Codecer
+PlzInput:	Please input:
+Paste	Paste
+BASE64Enc	BASE64 Encode
+BASE64Dec	BASE64 Decode
+Copy	Copy
+	
+//FTP Server Settings UI:	
+PlzInputFTPinfo:	Please input your FTP Server info:
+FTPIP:	FTP hostname or IP:
+Username:	Username:
+Password:	Password:
+FileOnFTPsvr:	File on FTP server:
+FileOnRmtSvr:	Filename expected on remote server:
+OK	OK
+Cancel	Cancel
+	
+//MD5 codecer UI:	
+MD5Codecer	MD5 Codecer
+CalcMD5	Calc MD5
+LookupMD5	Look up MD5
+Stop	Stop
+	
+//SQL text codecer UI:	
+SQLTextCodecer	SQL VarChar codecer
+EncAsVarchar	Encode as VarChar
+EncAsNVarchar	Encode as NVarChar
+DecAsVarchar	Decode as VarChar
+DecAsNVarchar	Decode as NVarChar
+	
+//SQL keywords capital randomizer UI:	
+SQLKWCapRnd	SQL keyword capitalization randomizer
+PlzInputSQL:	Please input SQL:
+Randomize	Randomize
+RmvCRLF	Remove line-breaks
+ShrinkSpaces	Shrink spaces
+	
+//URL Codecer UI:	
+UrlCodecer	URL Codecer
+UrlDec	URL Decode
+UrlEnc	URL Encode
+UrlEncCompletely	URL Encode Completely
+	
+	
+//Find and Replace UI:	
+Find_Replace	Find and Replace
+Find:	Find:
+ReplaceAs:	Replace as:
+CapSens	Case sensitive
+Replace	Replace
+	
+	
+//Output UI:	
+Output	Output
+CopyToClipbd	Copy to clipboard
+Clear	Clear
+URLEnc	URL Encode
+AlwaysOnTop	Always on top
+	
+//Batch Look up MD5 UI:	
+BatchLookupMD5	Batch look up MD5
+ImportData...	Import data...
+PasteData	Paste data
+Start	Start
+Stop	Stop
+Copy	Copy
+Save...	Save...
+Settings	Settings
+MaxThreads:	Max threads:
+Interval:	Interval(ms):
+DontTryOtherEngines.	When success, don't try other engines.
+Engines...	Engines...
+	
+//Sensitive file scanner UI:	
+miScan	&Scan
+miStart	S&tart
+miStop	Sto&p
+miHelp	&Help
+miViewHTTPMeanings	&View HTTP response code meanings…
+miAbout	&About
+miCopyThisLineURL	Copy the URL in this &line
+miBrowseURL	&Browse the URL
+miCopyAll	Copy &All
+miClearTable	Clear &Table
+	
+SensFileScanner	Sensitive files/folders scanner
+Ext:	Ext:
+ScanAllLevels	Scan all levels
+IfFileExistsScanLong:	If file exits, scan these files synchronously :
+IfRespCodeInListLong:	If response code in this string, add corresponding URL into list:
+ViewHTTPCode	View meanings of HTTP response codes
+URL:	URL:
+PathDict:	Path Dict:
+FilenameDict:	Filename Dict:
+RefreshDictList	Refresh Dict List
+Ext:	Ext:
+ScanAllLevels	Scan all levels
+Caution:SelectProperDicts	*** Caution: Must select proper dict before scanning. The default dicts are: AdminPaths and AdminPages. ***
+Use404Page	Use custom 404 page
+KeywordsIn404Page:	Keywords in 404 page:
+IntervalBetweenEveryRequest:	Interval between every request(ms):
+MaxThreads:	Max threads:
+StartScan	Start Scan
+Stop	Stop
+CopyAll	Copy All
+ClearTable	Clear Table
+	
+	
+//Encode SQL as Declare_Exec UI:	
+EncSqlAsDec_Exec	Encode SQL as Declare+EXEC
+	
+//Request Relay	UI:
+RequestRelay	Request Relay
+Port:	Port:
+StartSVC	Start service
+StopSvc	Stop service
+HttpHead:	HTTP Request HEAD:
+TipPressF5ToInsVar.	Tip: Press F5 to insert "__sql__" variable.
+PostData:	POST Data:
+	
+	
+//Config SQL Serve Transfer UI:	
+CfgMyTransfer	Config "My MS SQLServer"
+WanIP:	WAN IP:
+LanIP:	LAN IP:
+TestLan	Test LAN
+TestWan	Test WAN
+TestRmtConnInWeb...	Test remote connection in Web...
+	
+//IP reverse lookup UI:	
+IpDnsRvsLookup	IP/Domain Name Reverse lookup
+IpDomainName:	IP/Host name:
+GetIP	Get IP
+Add...	Add...
+Lookup...	Look up...
+Close	Close
+	
+//Program Settings UI:	
+ProgSettings	Program Settings
+	
+ScanVuln.	Scan Vulerabilities
+AutoRplcSQL	Auto replace SQL
+Languages	Languages
+	
+MaxScanningThreads:	Max threads when scanning:
+SkipTimeout:	Skip which response time exceed (seconds):
+	
+UseKW	Use auto-detected keywords
+UseContentLen	Use content-length threshold
+Threshold:	Threshold:
+	
+GetHead	Get server HEAD when found vulnerability
+GetAlexa	Get alexa rank when found vulnerability
+Scan0ByteLink	Scan 0 byte links
+	
+EnableReplace	Enable Replace
+RplcAfterURLEnc	Replace after URLEncode
+DelSelected	Delete Selected
+ClearAll	Clear All
+Replace	Replace
+As	As
+Add	Add
+	
+LangList:	Languages List:
+Preview:	Preview:
+RefreshList	Refresh List
+Apply	Apply
+	
+//Show paragraph text UI:	
+Tip:DblClickToClr	Tip: Double click to clear content.
+	
+//Ordinal file scanner UI:	
+OrdFileScanner	Ordinal file scanner
+PlzInputURLWithVar:	Please input the URL which contains varialbe(##i##):
+RplcSelAsVar	Replace the selection as var
+VarSettings	Variable settings
+Start:	Start:
+End:	End:
+Incr.:	Incr.:
+Chars:	Chars:
+FillWith:	Fill With:
+	
+//Setup engines for looking up md5 UI	
+SetEngForLookupMD5	Setup engines for looking up MD5
+EngineList	Engine List
+Title:	Title:
+RequestHead:	Request Head:
+PostData:	POST Data:
+DelHilited	Delete Hilighted
+AddOrMod	Add or modify
+	
+//Registration UI:	
+Registration	Registration
+UrRegCodeIs:	Your RegCode is:
+	
+//The Looper UI:	
+TheLooper	The Looper
+//The Looper > menu	
+miModHttpReq	&M.Modify HTTP Request
+miFillByURL...	&U.Fill by URL...
+miFillWithGet	&G.Fill with standard Get request
+miFillWithPost	&P.Fill with standard POST request
+miMethod	&M.Method
+	
+miCodes	&C.Codes
+miGetDBType	&G.Get DB Type
+	
+miInsertVars	&I.InsertVariables
+	
+miEncode	&E.Encode
+miSqlKeywordsRand	&R.SQL Keywords case randomize
+miUrlEnc	&U.URL Encode
+miUrlDec	&D.URL Decode
+miEncAsVChar	&V.Encode as SQL Varchar
+miEncAsNVChar	&N.Encode as SQL NVarchar
+	
+miFndReplace	&F.Find and Replace
+	
+miSave	&S.Save
+miSaveAs	&A.Save as...
+miAutoSave	&T.Auto save every 20s
+	
+//The Looper> Tab	
+LoopVars	LoopVars 
+Dict	Dict 
+PageVars	PageVars 
+Filter	 Filter
+Keyword	 Keyword
+ResponseCode	 Response code
+	
+//The Looper> Tabs	
+UseVarI	Use var __i__:
+UseVarJ	Use var __j__:
+Min	Min
+Max	Max
+Step	Step
+	
+UseDict1	Use __dict1__:
+UseDict2	Use __dict2__:
+Edit...	Edit...
+ReloadDicts	Reload Dictionaries
+	
+UsePV1	Use Page Var1(__pv1__):
+UsePV2	Use Page Var2(__pv2__):
+	
+EnableTextFilter	Enable text filter
+	
+OutputVars	Output Variables
+OutPutVarsWhenNotContains	Output Vars when the response page source not contains the text below
+Counter	Counter
+	
+OutputVarsWhenRespCodeIn	Output vars when the response code in the list below
+	
+//controls	
+Sleep	Sleep
+MsBetweenRequests	milliseconds between per request 
+Output	Output
+PageSource	PageSource
+	
+AutoSave	Auto Save
+	
+LoopBody	Loop Body
+Encode	Encode
+Decode	Decode
+Run	Run!
+	
+//Version 2.6 Added ===========================================================	
+//The Looer UI:	
+miProject	&P.Project
+miLoad...	&L.Load...
+	
+//The Looper Code:	
+LooperPrjFilter	The Looper Project(*.looper)|*.looper|All Files(*.*)|*.*
+FailedSaveFile:	Failed to save file:
+OpenFileFailure:	Open file failure:
+FileFmtIncorrect.	File format is incorrect。
+	
+//Exploit Vulnerability UI:	
+SqlCapital:	SQL Statements capitalization:
+DontCare	Don't care
+RndCase	Randomize case
+LowerCase	Lower case
+UpperCase	Upper case
+	
+FeatureDisabled.	This feature has been disabled.
+	
+//Version 2.7 Added ==========================================================	
+//Set SQL Server Transfer UI:	
+TestLANConn	Now testing LAN DB connection, Please wait...
+TestWANConn	Now testing WAN DB connection, Please wait...
+	
+//Program Settings Window	
+UseXORScan	Use 'XOR' to do deep scan.
+GetDBTypeWhenScanning	Get database type when scanning.
+OnlyShowMySQLVersionGE5	Only show MySQL version() >= 5.0 Vulnerabilities.
+VulnNotAddedBecauseVersionTooOld	[Note] Because of old version, The vulnerable URL not added to list:
+miModifyMemo	&Modify Memo
+PlzInputMemo	Please input your memo
+	
+//Data Seperator Window	
+DataSeperator	Data Seperator
+miDataSeperator	&D.Data Seperator…
+srcDataFile	Source data file:
+srcColumnDelimiter	Source data file column delimiter:
+extractLinesWhich	Extract lines which 
+columnContains	column contains
+targetColumnDelimiter	Target data file column delimiter:
+exportColumns	Export columns:
+exportColumnsTip	Input the columns numbers which to be exported, seperated them by comma. The numbers order will rearrange the colum order.
+start	Start
+stop	Stop
+PlzSelectSrcFile	Please select source data file.
+MustInputSrcClmnDelimiter	Must input source data file column delimiter.
+MustInputDstClmnDelimiter	Must input target data file column delimiter.
+MustInputKeyword	Must input the keyword.
+MustInputExpColumns	Must input the columns numbers which to be exported.
+FileIOError	File IO error.
+PlzWaitAllThreadsExit.	Please wait for all scanning threads exit.
+PlzInputLinks1link1line	Please input links, one link per line:
+	
+//程序设置界面	
+Insert	Insert
+CheckAll	Check All
+CheckInvert	Check Invert
+SQLReplaceTip	Double click item to make the neibour items became same check states.
+	
+//工具菜单	
+ChinaChopper	&All-in-one Eval() client - China Chopper…

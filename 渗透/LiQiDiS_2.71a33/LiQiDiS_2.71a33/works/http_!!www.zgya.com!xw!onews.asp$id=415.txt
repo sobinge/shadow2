@@ -1,0 +1,22 @@
+■漏洞信息:============================================================
+ ·URL:http://www.zgya.com/xw/onews.asp?id=415
+ ·页面标题：虚拟现实延安:让您在电脑前有身临延安的感觉
+ ·参数:id=415
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:221.231.138.45
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 28 Aug 2011 01:00:39 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 37799
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDQCQQADDT=PHNFJCMAJPJKFOEIODJAILIB; path=/
+Cache-control: private
+
+

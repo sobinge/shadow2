@@ -1,0 +1,13 @@
+POST /index.php HTTP/1.1
+Host: www.hashcrack.com
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.2) Gecko/20100115 Firefox/3.6
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: zh-cn,zh;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: GB2312,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 115
+Connection: keep-alive
+Referer: http://www.hashcrack.com/index.php
+Cookie: __utma=6275498.1640224199.1283411659.1283411659.1283411659.1; __utmb=6275498; __utmc=6275498; __utmz=6275498.1283411659.1.1.utmccn=(direct)|utmcsr=(direct)|utmcmd=(none)
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 59

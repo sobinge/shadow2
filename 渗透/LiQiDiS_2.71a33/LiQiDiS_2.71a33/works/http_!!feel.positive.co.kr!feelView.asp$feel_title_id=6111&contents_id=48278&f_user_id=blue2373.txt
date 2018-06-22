@@ -1,0 +1,27 @@
+■漏洞信息:============================================================
+ ·URL:http://feel.positive.co.kr/feelView.asp?feel_title_id=6111&contents_id=48278&f_user_id=blue2373
+ ·页面标题：传俊劳篮 刮埃夸过5 -秦刀俊 亮篮 澜侥  : 距檬客 刮埃夸过 :: 亮篮积阿 Feel烹
+ ·参数:feel_title_id=6111&contents_id=48278&f_user_id=blue2373
+ ·方法:GET
+ ·类型:Search
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:203.231.234.11
+ ·数据库:未知
+ ·HEAD:
+HTTP/1.1 200 OK
+Server: Microsoft-IIS/5.0
+Date: Sun, 03 Apr 2011 15:52:26 GMT
+X-Powered-By: ASP.NET
+Pragma: no-cache
+cache-control: no-staff
+Connection: Keep-Alive
+Content-Length: 39949
+Content-Type: text/html; Charset=euc-kr
+Expires: Sat, 02 Apr 2011 15:52:26 GMT
+Set-Cookie: feelcontent%5Fview%5F48278%5F4=FEEL%5FVIEW%5FOK; path=/
+Set-Cookie: positive=h%5Ffull%5Furl=http%3A%2F%2Ffeel%2Epositive%2Eco%2Ekr%2FfeelView%2Easp%3Ffeel%5Ftitle%5Fid%3D6111%26contents%5Fid%3D48278%26f%5Fuser%5Fid%3Dblue2373; domain=.positive.co.kr; path=/
+Set-Cookie: ASPSESSIONIDCQCSBSTS=HNCDMHJCLGONHCIIFEKJGPDG; path=/
+Cache-control: 86400
+
+

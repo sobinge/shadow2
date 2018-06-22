@@ -1,0 +1,52 @@
+2.2 -------> ptrace
+
+2.4.17 ----> newlocal , kmod , uselib24
+
+2.4.18 ----> brk , brk2 , newlocal , kmod , km.2
+
+2.4.19 ----> brk , brk2 , newlocal , kmod , km.2
+
+2.4.20 ----> ptrace , kmod , ptrace-kmod , brk , brk2 , elfbl , km.2
+
+2.4.21 ----> brk , brk2 , ptrace , ptrace-kmod , km.2 , elfbl
+
+2.4.22 ----> brk , brk2 , ptrace , ptrace-kmod , km.2 , elfbl
+
+2.4.22-10 -> loginx
+
+2.4.23 ----> mremap_pte
+
+2.4.24 ----> mremap_pte , uselib24
+
+2.4.25-1 --> uselib24
+
+2.4.27 ----> uselib24
+
+2.6.2 -----> mremap_pte , krad , h00lyshit
+
+2.6.5 -----> krad , krad2 , h00lyshit
+
+2.6.6 -----> krad , krad2 , h00lyshit
+
+2.6.7 -----> krad , krad2 , h00lyshit
+
+2.6.8 -----> krad , krad2 , h00lyshit
+
+2.6.8-5 ---> krad2 , h00lyshit
+
+2.6.9 -----> krad , krad2 , h00lyshit
+
+2.6.9-34 --> r00t , h00lyshit
+
+2.6.10 ----> krad , krad2 , h00lyshit
+
+2.6.11 ----> k-rad3
+
+2.6.13 ----> raptor , raptor2 , h0llyshit , prctl
+
+2.6.14 ----> raptor , raptor2 , h0llyshit , prctl
+
+2.6.15 ----> raptor , raptor2 , h0llyshit , prctl
+
+2.6.16 ----> raptor , raptor2 , h0llyshit , prctl
+

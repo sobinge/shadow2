@@ -1,0 +1,438 @@
+142.0.139.52 	N/A 
+[400 Bad Request]
+
+142.0.139.3 	N/A 
+[400 Bad Request]
+
+142.0.139.2 	N/A 
+[400 Bad Request]
+
+142.0.139.4 	N/A 
+[400 Bad Request]
+
+142.0.139.5 	N/A 
+[400 Bad Request]
+
+142.0.139.9 	N/A 
+[400 Bad Request]
+
+142.0.139.6 	N/A 
+[400 Bad Request]
+
+142.0.139.7 	N/A 
+[400 Bad Request]
+
+142.0.139.11 	N/A 
+[400 Bad Request]
+
+142.0.139.10 	N/A 
+[400 Bad Request]
+
+142.0.139.8 	N/A 
+[400 Bad Request]
+
+142.0.139.12 	N/A 
+[400 Bad Request]
+
+142.0.139.15 	N/A 
+[400 Bad Request]
+
+142.0.139.18 	N/A 
+[400 Bad Request]
+
+142.0.139.13 	N/A 
+[400 Bad Request]
+
+142.0.139.19 	N/A 
+[400 Bad Request]
+
+142.0.139.16 	N/A 
+[400 Bad Request]
+
+142.0.139.21 	N/A 
+[400 Bad Request]
+
+142.0.139.17 	N/A 
+[400 Bad Request]
+
+142.0.139.20 	N/A 
+[400 Bad Request]
+
+142.0.139.23 	N/A 
+[400 Bad Request]
+
+142.0.139.14 	N/A 
+[400 Bad Request]
+
+142.0.139.22 	N/A 
+[400 Bad Request]
+
+142.0.139.24 	N/A 
+[400 Bad Request]
+
+142.0.139.25 	N/A 
+[400 Bad Request]
+
+142.0.139.27 	N/A 
+[400 Bad Request]
+
+142.0.139.33 	N/A 
+[400 Bad Request]
+
+142.0.139.29 	N/A 
+[400 Bad Request]
+
+142.0.139.28 	N/A 
+[400 Bad Request]
+
+142.0.139.26 	N/A 
+[400 Bad Request]
+
+142.0.139.34 	N/A 
+[400 Bad Request]
+
+142.0.139.35 	N/A 
+[400 Bad Request]
+
+142.0.139.37 	N/A 
+[400 Bad Request]
+
+142.0.139.38 	N/A 
+[400 Bad Request]
+
+142.0.139.1 	Microsoft-IIS/6.0 ASP.NET
+[『红8全讯网』新全讯网,橫財富全讯网-新2网址,最新皇冠网址]
+
+142.0.139.39 	N/A 
+[400 Bad Request]
+
+142.0.139.40 	N/A 
+[400 Bad Request]
+
+142.0.139.41 	N/A 
+[400 Bad Request]
+
+142.0.139.42 	N/A 
+[400 Bad Request]
+
+142.0.139.36 	Microsoft-IIS/6.0 ASP.NET
+[最新的电影_好看的电影_韩国爱情电影_欢迎到欧宝电影网站在线观看]
+
+142.0.139.43 	Microsoft-IIS/6.0 ASP.NET
+[临汾的那些事儿 临汾论坛-随时随地分享身边的新鲜事儿 -  Powered by Discuz!]
+
+142.0.139.44 	N/A 
+[400 Bad Request]
+
+142.0.139.45 	N/A 
+[400 Bad Request]
+
+142.0.139.49 	N/A 
+[400 Bad Request]
+
+142.0.139.51 	N/A 
+[400 Bad Request]
+
+142.0.139.53 	lighttpd/1.4.23 
+[200 OK]
+
+142.0.139.50 	Microsoft-IIS/6.0 ASP.NET
+[免费空间-互联网上最好的全能免费空间之一 - 特价空间网    ---    免费美国空间，好空间]
+
+142.0.139.65 	N/A 
+[400 Bad Request]
+
+142.0.139.66 	N/A 
+[400 Bad Request]
+
+142.0.139.67 	N/A 
+[400 Bad Request]
+
+142.0.139.68 	N/A 
+[400 Bad Request]
+
+142.0.139.69 	N/A 
+[400 Bad Request]
+
+142.0.139.70 	N/A 
+[400 Bad Request]
+
+142.0.139.71 	N/A 
+[400 Bad Request]
+
+142.0.139.72 	N/A 
+[400 Bad Request]
+
+142.0.139.73 	N/A 
+[400 Bad Request]
+
+142.0.139.74 	N/A 
+[400 Bad Request]
+
+142.0.139.75 	N/A 
+[400 Bad Request]
+
+142.0.139.76 	N/A 
+[400 Bad Request]
+
+142.0.139.77 	N/A 
+[400 Bad Request]
+
+142.0.139.81 	Apache-Coyote/1.1 
+[Apache Tomcat]
+
+142.0.139.82 	Apache-Coyote/1.1 
+[Apache Tomcat]
+
+142.0.139.83 	Apache-Coyote/1.1 
+[Apache Tomcat]
+
+142.0.139.84 	Apache-Coyote/1.1 
+[Apache Tomcat]
+
+142.0.139.85 	Apache-Coyote/1.1 
+[Apache Tomcat]
+
+142.0.139.89 	N/A 
+[400 Bad Request]
+
+142.0.139.90 	N/A 
+[400 Bad Request]
+
+142.0.139.91 	N/A 
+[400 Bad Request]
+
+142.0.139.92 	N/A 
+[400 Bad Request]
+
+142.0.139.93 	N/A 
+[400 Bad Request]
+
+142.0.139.97 	N/A 
+[400 Bad Request]
+
+142.0.139.97:8080 	CCProxy 
+[403 Unauthorized]
+
+142.0.139.98 	N/A 
+[400 Bad Request]
+
+142.0.139.98:8080 	CCProxy 
+[403 Unauthorized]
+
+142.0.139.99 	N/A 
+[400 Bad Request]
+
+142.0.139.99:8080 	CCProxy 
+[403 Unauthorized]
+
+142.0.139.100 	N/A 
+[400 Bad Request]
+
+142.0.139.100:8080 	CCProxy 
+[403 Unauthorized]
+
+142.0.139.101 	lighttpd/1.4.23 
+[200 OK]
+
+142.0.139.105 	N/A 
+[400 Bad Request]
+
+142.0.139.106 	N/A 
+[400 Bad Request]
+
+142.0.139.107 	N/A 
+[400 Bad Request]
+
+142.0.139.108 	N/A 
+[400 Bad Request]
+
+142.0.139.109 	N/A 
+[400 Bad Request]
+
+142.0.139.113 	N/A 
+[400 Bad Request]
+
+142.0.139.114 	N/A 
+[400 Bad Request]
+
+142.0.139.115 	N/A 
+[400 Bad Request]
+
+142.0.139.116 	N/A 
+[400 Bad Request]
+
+142.0.139.117 	N/A 
+[400 Bad Request]
+
+142.0.139.129 	N/A 
+[400 Bad Request]
+
+142.0.139.138 	nginx/1.0.15 
+[LNMP一键安装包 by Licess]
+
+142.0.139.137 	nginx/1.0.15 
+[LNMP一键安装包 by Licess]
+
+142.0.139.139 	nginx/1.0.15 
+[LNMP一键安装包 by Licess]
+
+142.0.139.138:8080 	Apache-Coyote/1.1 
+[言情小说,139小说,原创言情小说网站,小说阅读网]
+
+142.0.139.137:8080 	Apache-Coyote/1.1 
+[言情小说,139小说,原创言情小说网站,小说阅读网]
+
+142.0.139.139:8080 	Apache-Coyote/1.1 
+[言情小说,139小说,原创言情小说网站,小说阅读网]
+
+142.0.139.140 	nginx/1.0.15 
+[LNMP一键安装包 by Licess]
+
+142.0.139.140:8080 	Apache-Coyote/1.1 
+[言情小说,139小说,原创言情小说网站,小说阅读网]
+
+142.0.139.141 	nginx/1.0.15 
+[LNMP一键安装包 by Licess]
+
+142.0.139.141:8080 	Apache-Coyote/1.1 
+[言情小说,139小说,原创言情小说网站,小说阅读网]
+
+142.0.139.177 	N/A 
+[400 Bad Request]
+
+142.0.139.178 	N/A 
+[400 Bad Request]
+
+142.0.139.180 	N/A 
+[400 Bad Request]
+
+142.0.139.181 	N/A 
+[400 Bad Request]
+
+142.0.139.193 	N/A 
+[XenServer 5.6.0]
+
+142.0.139.195 	N/A 
+[400 Bad Request]
+
+142.0.139.196 	Microsoft-IIS/6.0 ASP.NET
+[302 Found]
+
+142.0.139.197 	N/A 
+[400 Bad Request]
+
+142.0.139.199 	N/A 
+[400 Bad Request]
+
+142.0.139.200 	N/A 
+[400 Bad Request]
+
+142.0.139.201 	N/A 
+[400 Bad Request]
+
+142.0.139.203 	N/A 
+[400 Bad Request]
+
+142.0.139.204 	N/A 
+[400 Bad Request]
+
+142.0.139.205 	kangle/3.0 
+[503 Service Not Available]
+
+142.0.139.206 	N/A 
+[400 Bad Request]
+
+142.0.139.207 	N/A 
+[400 Bad Request]
+
+142.0.139.208 	N/A 
+[400 Bad Request]
+
+142.0.139.198 	Microsoft-IIS/6.0 ASP.NET
+[KY影视]
+
+142.0.139.209 	Microsoft-IIS/6.0 ASP.NET
+[钓鱼者博客]
+
+142.0.139.210 	N/A 
+[400 Bad Request]
+
+142.0.139.212 	N/A 
+[400 Bad Request]
+
+142.0.139.213 	N/A 
+[400 Bad Request]
+
+142.0.139.214 	N/A 
+[400 Bad Request]
+
+142.0.139.218 	N/A 
+[400 Bad Request]
+
+142.0.139.219 	Microsoft-IIS/6.0 ASP.NET
+[Add Table Form]
+
+142.0.139.220 	N/A 
+[400 Bad Request]
+
+142.0.139.221 	N/A 
+[400 Bad Request]
+
+142.0.139.222 	N/A 
+[400 Bad Request]
+
+142.0.139.223 	N/A 
+[400 Bad Request]
+
+142.0.139.224 	N/A 
+[400 Bad Request]
+
+142.0.139.225 	Microsoft-IIS/6.0 ASP.NET
+[淘铺 - 最全的淘宝店铺]
+
+142.0.139.228 	N/A 
+[400 Bad Request]
+
+142.0.139.229 	N/A 
+[400 Bad Request]
+
+142.0.139.232 	N/A 
+[400 Bad Request]
+
+142.0.139.230 	Microsoft-IIS/6.0 ASP.NET
+[2013最新电影,百度影音,最新电影排行榜2013最新电视剧,好看的电影天堂-爱奇电影网]
+
+142.0.139.234 	N/A 
+[400 Bad Request]
+
+142.0.139.237 	N/A 
+[400 Bad Request]
+
+142.0.139.238 	Microsoft-IIS/6.0 ASP.NET
+[Bad Request]
+
+142.0.139.239 	N/A 
+[400 Bad Request]
+
+142.0.139.241 	N/A 
+[400 Bad Request]
+
+142.0.139.242 	N/A 
+[400 Bad Request]
+
+142.0.139.244 	N/A 
+[400 Bad Request]
+
+142.0.139.247 	Microsoft-IIS/6.0 ASP.NET
+[Bad Request]
+
+142.0.139.248 	N/A 
+[400 Bad Request]
+
+142.0.139.251:8080 	Apache-Coyote/1.1 
+[Apache Tomcat/7.0.11]
+
+142.0.139.252 	Microsoft-IIS/6.0 ASP.NET
+[笑话,笑话网,笑话精选,冷笑话,冷笑话精选,笑话集锦,爆笑笑话,幽默笑话,经典笑话]
+

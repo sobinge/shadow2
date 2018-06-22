@@ -1,0 +1,3 @@
+1.在webshell里查看shell.Users组建是否支持
+
+2.如果支持就可以用这个vbs增加用户，用pr等exp去执行这个vbs即可

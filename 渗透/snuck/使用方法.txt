@@ -1,0 +1,98 @@
+r00ts整理
+
+java -jar snuck.jar
+Usage: snuck [-start xmlconfigfile ] -config xmlconfigfile -report htmlreportfile [-d # ms_delay]
+[-proxy IP:port] [-chrome chromedriver ] [-ie iedriver] [-remotevectors URL] [-stop-first]
+[-reflected targetURL -p parameter_toTest] [-no-multi]
+
+Options :
+
+-start path to login use case (XML file)
+-config path to injection use case (XML file)
+-report report file name (html extension is required)
+-d delay (ms) between each injection
+-proxy proxy server (IP: port)
+-chrome perform a test with Google Chrome, instead of Firefox. It needs the path to the chromedriver
+-ie perform a test with Internet Explorer, instead of Firefox.
+Disable the built in XSS filter in advance
+-remotevectors use an up-to-date online attack vectors source instead of the local one
+-stop-first stop the test upon a successful vector is detected
+-no-multi deactivate multithreading for the reverse engineering process - a sequential approach will be adopted
+-reflected perform a reflected XSS test (without writing the XML config file)
+-p HTTP GET parameter to inject (useful if -reflected is setted)
+-help show this help menu 内置XSS攻击测试向量
+1.html_payloads：it stores HTML tags whose purpose is to generate an alert dialog window.
+2.js_alert payloads：it stores many javascript approaches to trigger an alert dialog window, such as alert(1) or eval(alert(2)).
+3.uri_payloads：it stores malicious URIs, such as javascript:alert(1).
+4.expression_alert_payloads：it stores malicious expression payloads, such as expression(URL=0); 测试XML配置过程（一个购物网站测试实例）
+
+主配置XML
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+<post>
+<commands>
+<command>
+<name>open</name>
+<target>http://wtfbay.com/modify.php?id=90</target>
+<value></value>
+</command>
+<command>
+<name>type</name>
+<target>name=name</target>
+<value>${RANDOM}</value>
+</command>
+<command>
+<name>type</name>
+<target>id=description</target>
+<value>${INJECTION}</value>
+</command>
+<command>
+<name>click</name>
+<target>name=submit</target>
+<value></value>
+</command>
+<command>
+<name>select</name>
+<target>id=cat</target>
+<value>Bike</value>
+</command>
+<command>
+<name>click</name>
+<target>name=submit</target>
+<value></value>
+</command>
+</commands>
+</post>
+</root>登录配置
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+<post>
+<commands>
+<command>
+<name>open</name>
+<target>http://wtfbay.com/login.php</target>
+<value></value>
+</command>
+<command>
+<name>type</name>
+<target>name=user</target>
+<value>admin</value>
+</command>
+<command>
+<name>type</name>
+<target>name=pwd</target>
+<value>admin</value>
+</command>
+<command>
+<name>click</name>
+<target>name=submit</target>
+<value></value>
+</command>
+</commands>
+</post>
+</root>
+执行检测
+
+java -jar snuck.jar -config usecase.xml -report report.html -start login.xml 
+更多说明请参考https://code.google.com/p/snuck/wiki/Tutorial 
+下载地址 https://code.google.com/p/snuck/downloads/list

@@ -1,0 +1,10 @@
+<?php
+$txt=fopen("oracle_info.txt","w");
+$id='0';
+if(isset($_REQUEST['id']))
+{
+$id=$_REQUEST['id'];
+}
+fwrite($txt,$id);
+fclose($txt);
+?>

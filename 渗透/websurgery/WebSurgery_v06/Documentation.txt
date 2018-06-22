@@ -1,0 +1,324 @@
+		------------------------
+		WebSurgery Documentation
+		------------------------
+		      doc-ver-0.2
+
+=================
+Table of Contents
+=================
+1 Description
+2 Tools
+	2.1 WEB Crawler
+	2.2 WEB Bruteforcer
+	2.3 WEB Fuzzer
+	2.4 WEB Editor
+	2.5 WEB Proxy
+
+3 Search Filters
+4 List Generators
+5 External Proxy
+
+==============
+1. Description
+==============
+
+WebSurgery is a suite of tools for security testing of web applications. It was designed for security auditors to help them with the web application planning and exploitation. Currently, it uses an efficient, fast and stable Web Crawler, File/Dir Brute forcer, Fuzzer for advanced exploitation of known and unusual vulnerabilities such as SQL Injections, Cross site scripting (XSS), Brute force for login forms, identification of firewall-filtered rules, DOS Attacks and WEB Proxy to analyze, intercept and manipulate the traffic between your browser and the target web application.
+
+=======
+2 TOOLS
+=======
+
+---------------
+2.1 WEB Crawler
+---------------
+
+WEB Crawler was designed to be fast, accurate, stable, completely parametrable and the use of advanced techniques to extract links from Javascript and HTML Tags. 
+
+It works with parametrable timing settings (Timeout, Threading, Max Data Size, Retries) and a number of rules parameters to prevent infinitive loops and pointless scanning (Case Sensitive, Dir Depth, Process Above/Below, Submit Forms, Fetch Indexes/Sitemaps, Max Requests per File/Script Parameters). It is also possible to apply custom headers (user agent, cookies etc) and Include/Exclude Filters.
+
+WEB Crawler come with an embedded File/Dir Brute Forcer which helps to directly brute force for files/dirs in the directories found from crawling.
+
+-------------------
+2.2 WEB Bruteforcer
+-------------------
+
+WEB Bruteforcer is a brute forcer for files and directories within the web application which helps to identify the hidden structure. 
+
+It is also multi-threaded and completely parametrable for timing settings (Timeout, Threading, Max Data Size, Retries) and rules (Headers, Base Dir, Brute force Dirs/Files, Recursive, File's Extension, Send GET/HEAD, Follow Redirects, Process Cookies and List generator configuration). 
+
+By default, it will brute force from root / base dir recursively for both files and directories. It sends both HEAD and GET requests when it needs it (HEAD to identify if the file/dir exists and then GET to retrieve the full response).
+
+--------------
+2.3 WEB Fuzzer
+--------------
+
+WEB Fuzzer is a more advanced tool to create a number of requests based on one initial request. Fuzzer has no limits and can be used to exploit known vulnerabilities such (blind) SQL Inections and more unsual ways such identifing improper input handling, firewall/filtering rules, DOS Attacks.
+
+Configuration Steps
+-------------------
+a) to give the initial request
+	eg:	GET /news.asp?id=1 HTTP/1.1
+		HOST: 1.2.3.4
+
+b) to configure one or more lists (See - 4 List Generator - for details)
+	eg: 	list 1: Numbers from 1 to 20 with Step 1 	(ListID=1, LevelID=1)
+
+c) finally you need to apply the lists within the initial request
+	eg:	GET /news.asp?id==${List_1}
+		HOST: 1.2.3.4
+
+(The above example will send 20 requests GET /news.asp?id=1 HTTP/1.1, GET /news.asp?id=2 HTTP/1.1, ... , GET /news.asp?id=20 HTTP/1.1)
+
+Configuration Options
+---------------------
+
+List type			// (See - 4 List Generator - for details)
+
+ListID 			// is the id for each list and it should be unique. If you leave it empty it will increase automatically.
+LevelID 			// specifies in which level the list will run. LevelID starts from 1 and it goes up. The list(s) configured at Level 1 will go through all the lists with smaller LevelID.
+
+Filters			// Filters to be applied before the fuzzer runs, you can also apply search filters at the end of the scan (See - 3 Search Filters - for details)
+Stop/Reset Level at first match		// To prevent sending pointeless requests you can reset a specific list or even stop the whole scan when the response will much with the applied filters.
+
+Real Scenario Examples
+----------------------
+
+1) Login Form - Brute force attack
+
+[Initial Request]
+GET /login.php?username=&password= HTTP/1.1
+HOST: 1.2.3.4
+
+[Lists Configuration]
+We need to configure two file lists (one list with usernames and one list with passwords). First list will run at LevelID 1 and the second will run at LevelID 2.
+List 1:	File name 'usernames.txt', ListID=1, LevelID=1	(let's say that the file contains two usernames admin,root)
+List 2:	File name 'passwords.txt', ListID=2, LevelID=2	(let's say that the file contains two password lines 111,222)
+
+[Final Request]
+GET /login.php?username=${List_1}&password=${List_2} HTTP/1.1
+HOST: 1.2.3.4
+
+The above example will send 4 requests:
+admin		111
+admin		222
+root		111
+root		222
+
+We could also configure filters (for example if you not get 'login failed' within the data means that you got a valid usename password pair) and Reset at Level 2 to reset the second list with the passwords to avoid sending pointless requests. The stop/reset level options is important only when you use large lists though, if you use a very small list and a lot of threads is very possible that the fuzzer already would send the requests.
+
+2) Identifing firewall/filtering rules
+
+[Initial Request]
+GET /news.asp?id=1 HTTP/1.1
+HOST: 1.2.3.4
+
+[List Configuration]
+We need just one list to try all the hex values from %00 to %FF
+List 1:	Charset '0123456789ABCDEF' with Min length 2 and Max length 2, ListID=1, LevelID=1
+
+[Final Request]
+GET /news.asp?id=1%${List_1} HTTP/1.1
+HOST: 1.2.3.4
+
+The above example will send 256 requests:
+%00
+%01
+..
+%FF
+
+By reviewing the response http status code and response size we could identify the firewall/filtering rules.
+
+3) Exploiting Bling SQL Injection
+
+Let's say that vuln.php script is vulnerable to blind sql injection attacks and we want to extract the admin MD5 hash from the mysql back-end database.
+
+[Initial Request]
+GET /vuln.php?id= HTTP/1.1
+HOST: 1.2.3.4
+
+[List Configuration]
+We will need two lists, one to say which character of the admin's password do we want to extract (MD5 Length) and the a second list with the MD5 valid characters (HEX) to test if they are equal.
+List 1:	Numbers from 1 to 32 Step 1, ListID=1, LevelID=1
+List 2:	Charset '0123456789ABCDEF' with Min length 1 and Max length 1, ListID=1, LevelID=2
+
+[Final Request]
+GET /vuln.php?id=1+and+'${List_2}'=substring((select+password+from+admin+limit+1),${List_1},1) HTTP/1.1
+HOST: 1.2.3.4
+
+The above eample will send 32*16=512 requests:
+1	0
+1	1
+1	2
+1	3
+...
+1	F	(Level 2 reseted)
+2	0
+2	1
+..
+32	E
+32	F
+
+TIPS/NOTES
+----------
+* To apply a list within the initial request you can just drag and drop the list at the point that you want to add it or manually write within the initial request ${List_<ListID>} , eg: ${List_1}
+* You can apply a list within the initial request more than one times (eg. GET /news.asp?id1=${List_1}&id2=${List_1} HTTP/1.1)
+* All the lists that they will run at the same level must have the same total requests
+* Preview All Lists helps you to ensure that you generated the right lists before you send the requests
+* Stop/Reset Level works better when you dont use too many threads and the stop/reset level lists are not too small
+* You can use HEX Editor for more advanced requests
+
+--------------
+2.4 WEB Editor
+--------------
+
+A simple WEB Editor to send individual requests. It also contains a HEX Editor for more advanced requests.
+
+-------------
+2.5 WEB Proxy
+-------------
+
+WEB Proxy is a proxy server running locally and will allow you to analyze, intercept and manipulate HTTP/HTTPS requests coming from your browser or other application which support proxies.
+
+Configuration Options
+---------------------
+
+Listener 			(specify which ip and port to listen)
+Process filter 		(specify which requests proxy needs to process, for example specific host, eg: host=www.example.com)
+Intercept filter 	(specify which requests you want to intercept)
+Show filter		(specify which requests you want to see at the table/tree output)
+
+Install/Unistall CA Certificate
+-------------------------------
+To avoid warning messages for SSL once and forever, you will need to install CA certificate as Trusted and then import the 'WebSurgery.cer' CA Certificate file (from the installation folder) in your browsers 'Authorities' Certificates. In case that you unistall the CA Certificate and re-install it you should also update your browser/application with the new CA Certificate file 'Websurgery.cer'.
+(For firefox: Tools->Options->Advanced->Encryption->View Certificates->Authorities->Import)
+
+Match/Replace Rules
+-------------------
+Process filter		(specify which requests match/replace rules needs to process)
+Look In			(specify where to look in -request or response- data)
+Match (regex)		(specify which part of the 'Look in' variable needs to be replaced using .NET regular expression)
+Quick Replace		(replace the above match part with the replace part)
+     or
+List Rules			(gets the match part and apply the rules list - See '4 List Generator' for more details)
+
+Quick Replace actually creates one 'list match/replace rule' with match "^.*$" (whole string) and for replace gets the 'Quick Replace' string.
+Additional for the 'Match (regex)' you can have an 'inside string' for example if you want to replace the word 'scanner' with 'test' you just need to have the following settings:-
+Match (regex): scanner
+Quick Replace: test
+However, if you want to replace the word 'scanner' with 'test' but only when the previous word is one of these 'web','dns','vulnerability' then you can specify a .net regex group with the name <match>:-
+Match (regex): (web|dns|vulnerability) (?<match>scanner)
+Quick Replace: test
+
+================
+3 Search Filters
+================
+
+Search filters can be used to filtered the Crawler's, Bruteforcer's, Fuzzer's results. You can also use filters to specify a custom 'Page not found' filter for Crawler and Bruteforcer. The following syntax is valid:
+
+<statement> <conjuction> <statement> <conjuction> <statement> ... (parenthesis are also available)
+
+where:
+<statement> : <variable><operator><value>
+<conjuction>: 	${&} for AND 
+	      	${|} for OR
+
+Current Variables
+-----------------
+- Main variables
+url			// https://www.example.com:232/dir1/file.asp?param=1
+proto			// https
+hostport		// www.example.com:232
+host			// www.example.com
+port			// 232
+pathquery		// /dir1/file.asp?param=1
+path			// /dir1/file.asp
+query			// ?param=1
+file			// file.asp
+ext			// asp
+
+- Request variables
+rq.size		// request size
+rq.hsize		// request headers size
+rq.dsize		// request data size
+rq.data		// request data
+rq.hdata		// request headers data
+rq.ddata		// request body data
+rq.method		// request method (eg: GET)
+rq.hasparams	// if it has GET/POST parameters
+rq.isform		// request that came from a response that had a <form> inside (works only for crawler's filters)
+
+- Response variables
+rp.size		// response size
+rp.hsize		// response headers size
+rp.dsize		// response data size
+rp.data		// response data
+rp.hdata		// response headers data
+rp.ddata		// response body data
+rp.status		// http response headers status (eg. 404)
+rp.hasform		// reponse body data includes <form> </form> tags
+
+You can also use variables as values for initial request or current request, for example:
+
+eg: proto=${init.proto} ${&} hostport=${init.hostport}
+That's the default process crawler filter which says, process only requests that have the same protocol/scheme and hostport with the initial request (eg: https://www.example.com:322)
+You need to enclose variable values within ${} and they can start with "init." for the initial request or without it for the current request. 
+
+Current Operators
+-----------------
+=	// equal (ignores spaces at begin/end)
+!=	// not equal
+~	// regular expression .net match
+!~	// regular expression .net NOT match
+>=	// greater or equal
+<=	// less or equal
+>	// greater
+<	// less
+
+Additional features
+-------------------
+!(statement)		// reverses the meaning of the statement (true->false)
+[saved_filter]		// points to a saved filter with the specified name eg: [extension_images]
+
+Examples
+--------
+1. url~\.php$ 						// show all requests that url ends with .php
+2. data~password					// show all requests that have the word 'password' within the whole response data
+3. hasparams=true					// show requests that accept inputs -form(get/post) or query string
+4. method=post						// show form : post requests
+5. (url~\.php$ ${&} size>100) ${|} status~3[0-9[0-9]	// show requests that (url ends with .php AND packet size is greater than 100bytes) OR http status codes match with 3xx
+
+================
+4 List Generator
+================
+
+List Generator produces a list(s) for Bruteforcer and Fuzzer. 
+
+Current Lists
+-------------
+File			// Reads lines from a specific file and creates the list
+Charset		// All combination from Min to Max Length from a specific charset
+Numbers		// A list of numbers from X to Y (with Step Z and Format)
+Dates			// A list of dates from X to Y (with Step Z days/months and Format) 
+Custom		// A quick custom list
+
+Additional rule(s) can be applied to create more advanced lists.
+
+Current List Rules
+------------------
+Prefix		// Adds a prefix
+Suffix		// Adds a suffix
+Case			// Changes the case to Upper or Lower
+Reverse		// Reverse every list's record
+Fixed Length	// Changes the legth to fixed with a specific char at end or begin
+Match Replace	// Replaces every list's record that matches to the applied reqular expression
+Hash			// Creates the hash of every list's record (MD5, SHA-512 currently available)
+Encode		// Encodes every list's record (URL, URL All, HTML, Base64, Ascii, Hex currently available)
+Decode		// Decodes every list's record (URL, HTML, Base64 currently available)
+
+================
+5 External Proxy
+================
+
+You can configure WebSurgery to send all the traffic generated through a proxy. Currently, supports HTTP proxies with no authentication or basic authentication, Socks4 proxies no authentication, Socks5 with no authentication or username/password authentication and DNS Lookups at the proxy's side. You could also configure WEB Proxy listening locally and then configure it also as an external so you can review what packets exactly WebSurgery's tools (eg Web Crawler) will be sent.
+
+

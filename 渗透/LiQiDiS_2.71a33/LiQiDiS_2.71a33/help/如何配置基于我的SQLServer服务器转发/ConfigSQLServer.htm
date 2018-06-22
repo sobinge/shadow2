@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>如何设置“基于我的MSSQLServer”服务器转发</title>
+
+<style>
+body
+{
+	margin:0 0 0 0;
+	background:url(sqlImages/bgl.gif) repeat-x;
+	/*background-position: 0px -200px;*/
+	/*background-color:#9a9a9a;*/	
+}
+.text
+{
+	/*padding-top:30px;*/
+	padding-left:2em;
+	font-size:12px;
+	line-height:18px;
+	color:#003333;
+	vertical-align:middle;
+}
+.subItemTitle
+{
+	padding-left:2em;
+	font-weight:bold;
+	font-size:14px;	
+}
+.copyright
+{
+color:#666666; text-align:right; font-size:12px;
+}
+</style>
+</head>
+
+<body style="background-attachment:fixed;"><center><br />
+<h2>【管中窥豹】中如何设置“基于我的MSSQLServer”转发功能</h2>
+<br />
+
+<div style="width:80%; text-align:left;">
+<div class="copyright">
+  <p>古木系统安全·<a href="http://goomoo.cn" target="_blank">http://goomoo.cn</a>·【管中窥豹】·<a href="http://gzkb.goomoo.cn" target="_blank">http://gzkb.goomoo.cn</a><br />
+  QQ:100194004 100194001 MSN: goomoozeng@hotmail.com </p></div>
+
+  <p class="subItemTitle">·原理篇——为何要“基于我的MSSQLServer服务器中转”？</p>  
+  <p class="text"> 　　我们知道，针对于MSSQLServer数据库的主机，在入侵的过程中，如果服务器能够返回错误信息给我们，那么我们可以通过这些错误信息迅速获取我们所需的数据，这就是MSSQLServer的显错模式。但是随着广大站长安全意识的增强，以及软件开发技术的提升，有错误显示的主机也越来越少了。在这种情况下，要获取关键数据，一个常用的方法是逐字符猜解，这样就太慢了，而且经常不能正确获取数据。幸而微软在MSSQLServer数据库中为我们提供了OpenDataSource和OpenRowSet这两个函数，通过这两个函数，我们可以把一台数据库服务器上的数据“倾倒”到另一台数据库服务器上。基于这一点，在存在注入漏洞的服务器上，我们执行实现精心编制的SQL语句，就可以将我们所需要的关键数据“倾倒”到我们自己架设的SQLServer服务器上，然后我们再通过查询取出来，这样就可以迅速获取大量数据。</p>
+  <p class="subItemTitle">·实践篇——如何架设“我的SQLServer服务器”</p>
+  <p class="text">　　我们分几种不同的网络连接情况来讲解如何设置“我的MSSQLServer”服务器。</p>
+  <p class="text">　　首先，不论您要将哪台电脑作为SQLServer服务器，您需要在上面安装SQLServer，这里强烈推荐使用SQLServer绿色版，因为它体积小巧，安装方便，设置简单。您可以在这里下载：http://www.suisoft.cn/Blog/article.asp?id=6。下载完毕后是一个压缩包，解压就可以运行。运行后先停止运行，见下图：</p>
+  <p class="text"><img src="sqlImages/001stop.gif" width="560" height="407" /></p>
+  <p class="text">　　切换到“设置”页面，将端口改为1433，然后点击〔保存〕按钮，如下图：</p>
+  <p class="text"><img src="sqlImages/002port.gif" width="440" height="371" /></p>
+  <p class="text">　　程序会提示需要重新启动，点击〔确定〕按钮，如下图：</p>
+  <p class="text"><img src="sqlImages/003restart.gif" width="215" height="118" /></p>
+  <p class="text">　　然后重新执行 GSql.exe，等待GSQL启动完成。如果启动成功的话，会出现如下的信息：</p>
+  <p class="text"><img src="sqlImages/004startOK.gif" width="495" height="81" /></p>
+  <p class="text">　　并在托盘上显示一个带绿色三角形的服务器图标。如果无法启动成功，请检查系统中是否有其他程序占用了1433端口。检查方法：在命令行中执行 netstat -anbo 看那个程序占用了1433端口，请先退出它。 </p>
+  <p class="text">　　下面我们测试GSQL的端口是否正确打开。点击开始菜单&gt;运行，输入cmd回车，打开命令提示符窗口。在命令提示符窗口中输入：</p>
+  <p class="text">netstat -an | find &quot;1433&quot;</p>
+  <p class="text">　　然后按回车键执行， 应该出现下图的信息：</p>
+  <p class="text"><img src="sqlImages/005_netstat1433.gif" width="520" height="157" /></p>
+  <p class="text">　　显示在1433端口在监听。如果此处没有显示则表示1433端口没有正确打开。请重新按前述步骤设置绿色SQLServer，直至成功为止。<br />
+    　　下面测试是否可以本地连接通。在命令提示窗口中输入 telnet localhost 1433，然后按回车， 如果出现一个黑色的窗口，在左上角有一个光标在闪动，则表示连接成功。否则表示本机1433端口未打开，或被防火墙拦截，请正确设置您的防火墙的规则，或者关闭防火墙。</p>
+  <p class="text">　　为了安全起见，还需要修改GSQL的sa账号的默认密码，其默认密码是 Admin。切换到“库管”页面，点击“修改密码”按钮，在弹出的对话框中“密码”后面的编辑框中输入默认的密码Admin，下面输入新密码，点击〔确定〕按钮，这样sa的密码就改掉了。</p>
+  <p class="text"><img src="sqlImages/008_password.gif" width="432" height="366" /></p>
+  <p class="text">　　下面针对不同的联网情况进行分别讲解。</p>
+  <p class="text">1. 我通过路由器拨号上网，我的电脑在局域网之内，我要把我的这台电脑架设为MSSQLServer服务器。</p>
+  <p class="text">　　这是最常见的一种情况。这种情况首先需要通过在路由器上设置虚拟服务器或DMZ主机的方法将本机的1433端口映射到外网。建议使用设置DMZ主机的方法，因为此方法设置很简单。<br />
+  首先需要知道本机的内网IP，方法是在命令提示符下面输入 ipconfig /all 执行，如下图所示：</p>
+  <p class="text"><img src="sqlImages/006_ipconfig.gif" width="642" height="369" /></p>
+  <p class="text">　　可以看到，本机的内网IP为 192.168.0.134。进入路由器的设置页面，将DMZ主机的IP填写为本机IP，然后点击〔保存/应用〕按钮即可，如下图：</p>
+  <p class="text"><img src="sqlImages/007_dmz.gif" width="622" height="399" /></p>
+  <p class="text">　　下一步，请确保您的防火墙设置规则中许可了1433端口以及相应的应用程序，或者关闭防火墙。我们要在【管中窥豹】中进行测试了。启动【管中窥豹】，点击菜单“设置&gt;设置我的MSSQLServer服务器”，先在右侧的“本地连接属性”中填上本机的相关项，这个连接属性是给【管中窥豹】程序自身从“我的SQLServer服务器”取回数据之用的，这里的IP地址要填写局域网的IP地址，或SQLServer的实例名，如下图：</p>
+  <p class="text"><img src="sqlImages/009_localIP.gif" width="412" height="293" /></p>
+  <p class="text">　　在IP地址中也可以填写本机的服务器名＋实例名，并且推荐使用这种方式，绿色SQL的默认实例名是 (Local)\GSQL，如下图所示：</p>
+  <p class="text"><img src="sqlImages/010_instanceName.gif" width="410" height="295" /></p>
+  <p class="text">　　使用服务器名＋实例名的方式测试时使用的时间会稍长，但这并不影响程序运行时的效果，推荐使用这种方式。</p>
+  <p class="text">　　在远程连接属性中，要填写本机的外网IP地址，如果不知道本机的外网IP怎么办，可以点击下面的〔在远程连接属性中填写本机的外网IP地址〕按钮让程序自动填写，其他的端口、用户名和密码等与右侧完全一致。如下图所示：</p>
+  <p class="text"><img src="sqlImages/011_remoteIP.gif" width="410" height="289" /></p>
+  <p class="text">　　在本机在局域网内的情况下，这时候填写完毕，点击〔测试连接〕按钮后，测试一般不会通过，这没关系。远程连接属性一定要通过远程页面的测试才行。这是为什么呢？因为远程连接属性是受害服务器来主动连接我们的SQLServer，所以必须通过远程页面的测试。在远程页面测试的过程中，我们提供的服务器扮演了受害服务器的角色。<br />
+  　　点击〔使用远程页面测试远程连接〕按钮，我们在弹出的窗口中输入一致的内容，如下图：</p>
+  <p class="text"><img src="sqlImages/012_webTest.gif" width="587" height="457" /></p>
+  <p class="text">　　这里测试成功了，才是确实可用。如果这时测试没有成功，请遵循以下步骤进行检查：防火墙设置是否允许了我们的程序通过，是否允许开启1433端口，或者暂时关闭防火墙；DMZ主机是否设置正确并已正确启用？；输入的用户名和密码是否正确？</p>
+  <p class="text">　　这些测试通过之后，请点击确定按钮保存设置，然后重新启动【管中窥豹】。</p>
+  <p class="text">　　如果您已经申请了动态域名解析，比如花生壳或美步的，在远程连接属性中填写动态域名也是可以的，这样就免去了每次外网IP发生变化后都需要重新填写的麻烦，如下图所示：</p>
+  <p class="text"><img src="sqlImages/013_remoteDNS.gif" width="419" height="377" /></p>
+  <p class="text">2. 我直接通过ADSL拨号上网，我有外网IP。</p>
+  <p class="text">　　这种情况设置是最简单的，远程连接属性和本地连接属性填写完全一致就可以了，都直接填写外网IP地址或动态域名解析即可，本地测试和远程页面测试也必须都要成功。</p>
+  <p class="text">3. 我有一台肉鸡服务器，上面装有SQLServer，并且我已获取了该服务器的SQLServer的用户名和密码，我想直接以这台肉鸡作为中转服务器可以吗？</p>
+  <p class="text">　　这是可以的。一般来说，服务器肉鸡都有固定的IP地址，在远程连接属性和本地连接属性里面填写一致的内容即可，同样的，本地测试和远程页面测试都必须要测试成功才可用。</p>
+  <p class="text">&nbsp;</p>
+  <div class="copyright">
+  <p>古木系统安全·<a href="http://goomoo.cn" target="_blank">http://goomoo.cn</a>·【管中窥豹】·<a href="http://gzkb.goomoo.cn" target="_blank">http://gzkb.goomoo.cn</a><br />
+  QQ:100194004 100194001 MSN: goomoozeng@hotmail.com </p></div>
+  </div></div>
+</center></body>
+</html>

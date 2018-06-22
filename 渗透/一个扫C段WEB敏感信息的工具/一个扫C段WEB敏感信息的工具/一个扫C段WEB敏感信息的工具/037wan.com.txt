@@ -1,0 +1,66 @@
+037wan.com 	Microsoft-IIS/6.0 PHP/5.2.10
+[脉动棋牌 -- 河南人自己的游戏网]
+
+125.46.63.4 	Microsoft-IIS/6.0 ASP.NET
+[200 OK]
+
+125.46.63.3 	N/A 
+[400 Bad Request]
+
+125.46.63.20 	N/A 
+[400 Bad Request]
+
+125.46.63.6 	N/A 
+[400 Bad Request]
+
+125.46.63.21 	Microsoft-HTTPAPI/2.0 
+[Not Found]
+
+125.46.63.24 	N/A 
+[400 Bad Request]
+
+125.46.63.14 	nginx 
+[403 Forbidden]
+
+125.46.63.18 	N/A 
+[400 Bad Request]
+
+125.46.63.19 	Microsoft-IIS/6.0 
+[200 OK]
+
+125.46.63.22 	N/A 
+[400 Bad Request]
+
+125.46.63.23 	Apache-Coyote/1.1 
+[VOS2009]
+
+125.46.63.29 	N/A 
+[400 Bad Request]
+
+125.46.63.15:8080 	N/A 
+[400 Bad Request]
+
+125.46.63.11 	Microsoft-IIS/6.0 ASP.NET
+[200 OK]
+
+125.46.63.26 	N/A 
+[400 Bad Request]
+
+125.46.63.28 	Microsoft-IIS/6.0 ASP.NET
+[Error]
+
+125.46.63.16 	Microsoft-IIS/6.0 ASP.NET
+[信息通登录]
+
+125.46.63.10 	Apache/2.2.3 (CentOS) PHP/5.1.6
+[AstgoWAP]
+
+125.46.63.9 	Microsoft-IIS/6.0 ASP.NET
+[200 OK]
+
+125.46.63.16:8080 	Microsoft-IIS/6.0 ASP.NET
+[企信通短信平台2.0]
+
+125.46.63.5 	Apache/2.2.3 (CentOS) 
+[安全电子邮件使用帮助]
+

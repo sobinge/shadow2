@@ -1,0 +1,49 @@
+
+■数据库信息:============================================================
+- 数据库名：yhdatabase
+- 用户名：yhdatabase
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：SQL-005
+- 服务名：MSSQLSERVER
+- 系统用户名：yhdatabase
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 1
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+abcvd	F:\MSSQL\Data\abcvd_data.mdf	
+abroadguy	F:\MSSQL\Data\abroadguy_data.mdf	
+abutler	F:\MSSQL\Data\abutler_data.mdf	
+actionguy4001	F:\MSSQL\Data\actionguy4001_data.mdf	
+adjob12	F:\MSSQL\Data\adjob12_data.mdf	
+adventureschool	F:\MSSQL\Data\adventureschool_data.mdf	
+agaweb	F:\MSSQL\Data\agaweb_data.mdf	
+ahnbn	F:\MSSQL\Data\ahnbn_data.mdf	
+airdic	F:\MSSQL\Data\airdic_data.mdf	
+airi0213	F:\MSSQL\Data\airi0213_data.mdf	
+aivppp	F:\MSSQL\Data\aivppp_data.mdf	
+akplushome	F:\MSSQL\Data\akplushome_data.mdf	
+alis11	F:\MSSQL\Data\alis11_data.mdf	
+alphahair	F:\MSSQL\Data\alphahair_data.mdf	
+amosakplus	F:\MSSQL\Data\amosakplus_data.mdf	
+ams05	F:\MSSQL\Data\ams05_data.mdf	
+analyze79	F:\MSSQL\Data\analyze79_data.mdf	
+anfantkcstv	F:\MSSQL\Data\anfantkcstv_data.mdf	
+angel817	F:\MSSQL\Data\angel817_data.mdf	
+ankukman	F:\MSSQL\Data\ankukman_data.mdf	
+antique7	F:\MSSQL\Data\antique7_data.mdf	
+areesem	F:\MSSQL\Data\areesem_data.mdf	

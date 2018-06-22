@@ -1,0 +1,21 @@
+■漏洞信息:============================================================
+ ·URL:http://www.radical.cn/en/Info/index.asp?id=7
+ ·页面标题：Hangzhou Jingfeng Bearing Co., Ltd.
+ ·参数:id=7
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:58.211.73.35
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 22 Aug 2011 13:16:13 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 8251
+Content-Type: text/html
+Cache-control: private
+
+

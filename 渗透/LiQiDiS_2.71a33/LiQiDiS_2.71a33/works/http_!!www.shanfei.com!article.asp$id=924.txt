@@ -1,0 +1,22 @@
+■漏洞信息:============================================================
+ ·URL:http://www.shanfei.com/article.asp?id=924
+ ·页面标题：《吴大观》汉中首映式在陕飞举行_中航工业陕飞
+ ·参数:id=924
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:61.134.39.11
+ ·数据库:未知
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Fri, 26 Aug 2011 08:58:33 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 24151
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDASTBSQDS=NPHHHOPCJHNDBJDOFOHKIAID; path=/
+Cache-control: private
+
+

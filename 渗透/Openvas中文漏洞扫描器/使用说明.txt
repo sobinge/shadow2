@@ -1,0 +1,23 @@
+Openvas漏洞扫描器 绿骨客户端中文语言包使用说明
+
+这是替换西班牙语言包做的汉化。
+
+在魔方渗透系统下面Openvas漏洞扫描器的语言路径在：/usr/local/share/openvas/translations
+
+
+1、把gsd_es.qm复制到/usr/local/share/openvas/translations下，替换原有的文件。
+
+2、到工具菜单中启动：Start Greenbone Security Desktop。
+
+3、选择Spanish。
+
+4、再次启动Start Greenbone Security Desktop即可显示中文。
+
+
+
+如有翻译不对的地方，请指出，非常感谢！
+==========================================================
+NEURON汉化团队
+2013.1.15
+http://bbs.ngsst.com
+==========================================================

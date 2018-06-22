@@ -1,0 +1,15 @@
+[InternetShortcut]
+URL=http://www.cr173.com/
+Modified=40047BAC44E1CB015C
+IconFile=http://www.cr173.com/favicon.ico
+IconIndex=1
+[{000214A0-0000-0000-C000-000000000046}]
+Prop3=19,2
+[DEFAULT]
+BASEURL=http://www.cr173.com/
+[DOC_completeIFrame]
+BASEURL=about:blank
+ORIGURL=about:blank
+[DOC_completionFrame]
+BASEURL=http://www.cr173.com/ajax.asp?Action=7&
+ORIGURL=/ajax.asp?Action=7&

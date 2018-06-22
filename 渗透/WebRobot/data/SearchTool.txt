@@ -1,0 +1,2 @@
+Google#http://www.google.com.hk/search?q=[Keyword]&num=[SearchResultNum]&start=[StartNum]#100#10#0#
+Baidu#http://www.baidu.com/s?wd=[Keyword]&rn=[SearchResultNum]&pn=[StartNum]#100#8#0#

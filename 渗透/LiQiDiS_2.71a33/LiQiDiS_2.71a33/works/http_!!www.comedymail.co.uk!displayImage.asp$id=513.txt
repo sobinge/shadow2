@@ -1,0 +1,23 @@
+■漏洞信息:============================================================
+ ·URL:http://www.comedymail.co.uk/displayImage.asp?id=513
+ ·页面标题：Funny Picture - ComedyMail.co.uk - Talk Less Fuck More - Huge Collection of Funny Pictures / Videos / Games and Jokes
+ ·参数:id=513
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:213.171.218.100
+ ·数据库:未知
+ ·HEAD:
+HTTP/1.1 403 Forbidden
+Content-Length: 213
+Content-Type: text/html
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Date: Sun, 03 Apr 2011 16:11:37 GMT
+Connection: close
+
+
+ ·源文件:1</font>
+<p>
+<font face="Arial" size=2>/includes/userControl.asp

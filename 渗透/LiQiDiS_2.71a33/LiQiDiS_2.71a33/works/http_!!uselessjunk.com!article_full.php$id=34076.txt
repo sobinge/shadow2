@@ -1,0 +1,22 @@
+■漏洞信息:============================================================
+ ·URL:http://uselessjunk.com/article_full.php?id=34076
+ ·页面标题：Headlock Anal Fuck
+ ·参数:id=34076
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:php
+ ·IP:38.101.219.98
+ ·数据库:未知
+ ·HEAD:
+HTTP/1.1 200 OK
+Date: Sun, 03 Apr 2011 17:15:44 GMT
+Server: Apache/2.2.12 (Ubuntu)
+X-Powered-By: PHP/5.2.10-2ubuntu6.4
+Vary: Accept-Encoding
+Connection: close
+Content-Type: text/html
+
+
+ ·源文件:/var/www/uselessjunk.com/article_full.php
+ ·数据库:MySQL

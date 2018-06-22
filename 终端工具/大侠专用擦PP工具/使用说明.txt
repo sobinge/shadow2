@@ -1,0 +1,3 @@
+自己添加账户以后，登入远程桌面（3389）后会在C:\Documents and Settings 目录下生成一个用户配置文件，自己删除会提示NTUSER.DAT 错误
+下面给大家一个VBS，在网上找到的，效果好的：
+使用格式：cscript.exe 1.vbs

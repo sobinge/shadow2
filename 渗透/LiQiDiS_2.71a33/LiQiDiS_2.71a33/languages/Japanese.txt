@@ -1,0 +1,969 @@
+//Translator Info 此处输入翻译者信息 使用\r\n表示换行符，\t表示跳格字符	
+TranslatorInfo	
+
+//Main Menu	
+//ScanPage 扫描页面	
+ScanPage	&P.ページ&S.をスキャン
+StartScan	します&O.をスキャンすることを
+StopScan	始めます&E.をスキャンすることを停
+Exploit	止します利用...
+EditPageDOM	&D.ページDOMを編集します
+
+//ScanSite	
+ScanSite	&S.サイト&F.をスキャン
+ScanSensitiveFiles	します敏感なファイルをスキャンします...
+ScanOrdialFiles	&O.スキャンの序列のファイル...
+SiteCrawler	&C.サイトははって進みます器...
+
+//Codec	
+Codec	&C.エンコードして暗号電文を解
+URLCodecer	読する&U.URLコードのデコーダー...
+MD5	&M.MD5M
+MD5Codecer	D5コードのデコーダー...
+MD5BatchLookUp	MD5大量は器を解読します...
+MD5LookupEngines	MD5を設けてエンジンを解読します...
+BASE64Codecer	&B.BASE64コードのデコーダー...
+SQLVarCharEncoder	&S.SQL VarChar コーダー...
+SQLKeywordCapsRandomizer	&R.SQL キー?ワードの大きい小文字の無作為の変換機...
+DeclareExec	&D.SQL文をDeclare_Execの形式のためエンコードします...
+
+//Advanced Tools	
+AdvancedTools	&A.高級なツー
+Looper	ル&L.自動の循環機...
+RequestRelayServer	&R.中継器を願い出ます...
+ViewSQLOutput	&V.SQLを調べてウィンドウを出力します...
+
+//Tools	
+Tools	&T.ツール
+IPDomainReverseLookup	&I.IPドメイン名は反対に調べます...
+ASPEvalClient	&A.ASPひと言の木馬のクライアント...
+
+//Settings	
+Settings	&S.&C.を設
+ConfigMySQLServerTransfer	けます私のSQLServerを配置してサーバーを配布します...
+ProgramSettings	&P.プログラムの設置...
+
+//Skins	
+Skins	&K.皮膚
+RemoveSkin	&R.移して皮膚&C.を割
+CurrentSkin	ります当面の皮膚:
+
+//Languages	
+Languages	&L.インターフェースの
+TranslatorInfo	言語&T.翻訳者の情報...
+
+//Help	
+Help	&H.&O.を助
+OnlineTut	けますオンライン教程...
+HowToConfigMySQLServerTransfer	&H.どのように私のSQLServerサーバーに基づいて配布を配置します...
+Contents	&C.内容...
+ViewMyRegCode	&V.私のを調べて登録して積み重ねます...
+About	&A.関して...
+Test	&T.テスト...
+
+//Context menu of Vulnerabilities list	
+Copy	&C.&D.を複製
+Delete	します&V.を削除
+ViewCachedData	しますキャッシュメモリのデータを調べます...
+DeleteCachedData	&R.キャッシュメモリのデータ&A.を削除
+BrowseInAbove	します上のウィンドウで&I.を開け
+BrowseWithIE	ますIEの中で開けます...
+SaveList	&S.リストを保存します...
+LoadList	&L.リストを記載します...
+GenerateWebReport	&G.HTML報告表を形成します...
+TerminateAllScanningThreads	&T.すべてのを停止してスレッドをスキャンします
+
+//Main Window Controls	
+Go	止ま
+Stop	りま
+Refresh	す更新し
+Back	ます<
+Forward	-->ニ
+Message	ュース保
+Save	存一掃し
+Clear	ますスキ
+ScanWholePage	ャンの全体のページのキー?
+Keyword	ワードスキャン
+ScanURL	します住所の柵停止します
+StopScan	スキャンします停止
+TerminateAllThreads	しますすべてのスキャンしますスレッ
+ClearList	ド点検します暇の
+Vulnerabilities	リストの
+ServerErrors	手落ちのサーバーの誤り
+
+//Main windows assembly strings 主窗口程序集字符串	
+Initializing...	初期化しています……
+Loading dictionaries...	字典を記載しています……
+//URL|250|Ping(ms)|70|Severity|130|Judge Method|140|Exploit Type|60|Type|60|DBType|80|Title|120|Error Fingerprint|150|Alexa|120|Method|80	
+VulnListHeaders	リンクの住所|250|レスポンスタイム(ms)|70|厳重度|130|判断の方法|140|利用のタイプ|60|分類|60|データベース|80|ページの見出し|120|誤った指紋|150|Alexa順位|120|願いの方法|80URL|500|サーバーの誤り|300|デ
+ServerErrorListHeaders	ータベースのタイプ|150は接続をテストしてSQLServerまで
+ConnectingToSQLServerTransfer	(へ)サーバーを配布します……自動保存の手落ちのリストを
+LoadingVulnList	記載しています……記載し終わって、マウスをダ
+DblClickToClose	ブルクリックしてこのウィンドウを閉鎖します。
+NewSkinWillBeAppliedAtNextStartup	新しい皮膚は再起動する時使用します。
+ConnectToSQLServerTransferFailed	当地からつながって私のMSSQLServerデータベースまで(へ)失敗して、検査してあるいは再び配置を行うことを下さい！
+WouldYouLikeToConfigSQLTransfer	まだ‘私に基づくMSSQLServerが配布します’の設置を配置していなくて、配置をまず進めると提案しています。\r\nはメニュー【助け】【どのように‘私に基づくSQLServerサーバーが配布します’を配置します】をクリックして調べてファイルを配置します頼みます。
+ErrorKeywordDict	誤ったキー?ワード字典の
+SourcePathKeywordDict	源のパスのキー?ワード字典は
+NotFoundDBFingerPrintDict	データベースの誤った指紋字典を発見していません
+ParseXMLFailed	：XMLファイルの失敗を解析します
+FileNotExists	：ファイルは存在しま
+Read%sFailed%s	せん：読み取ります %s 失敗：%s！
+NotSelected	[選んでいません]主な
+PageNotLoaded	ウィンドウはまだホームページを記載していません！
+ScanningLinksPlzWait	ページをスキャンする中の接続、しばらく待って下さい……
+ScanningFormsPlzWait	ページをスキャンする中のForm、しばらく待って下さい……ス
+NoScannableLink	キャンすることができていない接続。
+ScanningVulnsPlzWait	手落ちをスキャンして、しばらく待って下さい……スキャ
+AbortedFound%dVulns%dSE	ンはすでにユーザーに取り消されました。共に探し当てます %d 手落ち、%d サーバーの誤り。
+CantExpWhenScanning	スキャンする時手落ちの利用を行ってはいけません。
+XorTryCookieOrPost	XoR 型の手落ちは使うことを試みてもらいます Cookies あるいは POST 方法はテストにしみ込むことを行います。
+AttentionOnExit	【注意】あなたの合法的権益を守るため、もしあなたは今公共のコンピュータの上で当プログラムに運行するのだならば、退出のプログラムを頼んだ後に徹底的に当プログラムを削除します。
+PlzInputURLFirst	先にスキャンする住所を入力して下さい！
+SureToClearList	あなたは暇のリストを点検することを確認しますか？
+SkinWillBeRemoveAtNextStartup	皮膚はソフトウェアで後ろに移動して割ることを再起動します。
+CantModifySettingsWhenScanning	スキャンする時改正のプログラムの設置を許しません。
+CantDelWhenScanning	手落ちをスキャンする時操作を削除することを行うことができません。
+SureToDel?	あなたは削除することを確定しますか？
+SureToDelCachedata?	あなたはキャッシュメモリのデータを削除することを確定しますか？
+NoCachedData	キャッシュメモリのデータがありません。
+LoadLangFailed	言語のファイルの失敗を積載します。
+
+//程序集_注入点扫描	
+Scan:	スキャン：×は
+Skipped:	すでに跳んだことがあります
+TimeoutSkipped:	：×タイムアウトはすでに跳んだこと
+ExposePathSrc	があります：(パスが現れます、ソースファ
+ExposeSQL	イル)(SQLが現れま
+ExposePath	す)(パスが現れます)
+
+//程序集_全局	
+Unknown	スレッド
+WaitingThreadsExit	が終わることを待っていることを知りません
+ThereR%dthreads	……あります %d スレッドは運行しています……ス
+ScanComplete_%d_%d	キャンは終わります。共有します %d セキュリティホール、 %d サーバーの誤り。
+
+//SQL注入窗口控件	
+Scan	常規をス
+GeneralOutput	キャンして基本の情
+BasicInfo	報を出力して願い
+Settings	の頭Cook
+HEAD	iesを設けてブ
+Cookies	ラウズして別に貯
+Browse	蓄して次
+SaveAs...	のようになります...
+Save	複製の出力
+Copy	を保存して
+OutputToGrid	グリッドのコンポーネントまで(へ)
+ViewSQLOutput...	SQLがウィンドウを出力してＵＲＬにブ
+BrowseTheURL...	ラウズすることを調べます...
+
+//	General Outputパラメ
+Params:	ーター
+Method:	:方法:タ
+Type:	イプ:利
+ExpMethod:	用の方式:デー
+DBType:	タベース:
+Script:	シナリオ
+ReplaceSpaceWith:	:空欄に交替して使
+OS:	います:ＯＳ:I
+IPAddr:	Pアドレス:
+
+// 	Basic Info.
+BasedOnContentLength	内容の長さの基本的な長さ
+BaseLength	のバイトに基づい
+Bytes	てキー?
+BasedOnKeyword	ワードの正常なペー
+KeywordInNormalPage:	ジのキー?ワードに基づきます:サ
+BasedOn500Error	ーバーの500間違いに基づきます
+
+TipCookie	注意：ページをブラウズし終わった後に、Cookiesはこのところで表示すります。
+
+Skip	強制終了を
+Stop	停止して
+Terminate	誤りを調べることを跳
+ViewErrors	んだことがあります
+
+Common	公用
+
+ScanDBType	データベースのタイプの全体の局
+GlobalOptions	面のオプションの
+MaxCount	記録数の失敗を取る時黙認する数値をスキャンします:拡張して
+QuoteDBObjects	データベースの対象に居住します([]あるいは``を使います)
+
+//SQL Server	
+GetDataMethod	データの方法を得て
+ExtractFromServerErrors	サーバーのエラー?メッセ
+TroughSQLTransfer	ージは“私のSQLServer中継器”ですから
+ConfigMySQLTransfer	SQL中継器を配置します...
+HexSQL	コードSQLは16進法の形式です
+
+//选择夹 SQL Server	
+BasicInfo	基本的な情報のコ
+Command	マンドライン
+GetWebShell	GetWebShellデータはデ
+Data	ータベー
+UpdateDB	スのディレクトリの木
+DirTree	の実行SQLを
+ExecSQL	改正してファイ
+ReadFile	ルのその他を
+Misc	読みます
+
+//BasicInfo	
+GetBasicInfo	基本的な情報のデータベ
+DBVersion	ースバージョンの
+ExtraSQlRear:	付け加えるSQL尾を得ま
+FrontKeytext:	す:初めてキー?ワ
+RearKeytext:	ード:尾のキー?
+Language:	ワード:言
+Set	語:設定
+
+//Command	
+XP_CmdShellExists	XP_CmdShellは存在するかどうか？
+RestoreXP_CmdShell	XP_CmdShell注意を回復しま
+TipSARestoreCmdShell	す：SA権限のユーザーだけあってXP_CmdShell関数を回復することができます。
+CmdLine:	コマンドライン:
+Echo	回顕は実
+Exec	行して当地
+Upload	のファイ
+LocalFile:	ルをアップロードしま
+RemoteFile:	す:長距離ファイル:
+TextMode	テキストのモードの
+BinMode	2進法のモードはアップ
+Upload	ロードして
+Help	その他の
+Misc	アップロ
+UploadEXE	ードEXEダウンロード者のアップ
+UploadVBS	ロードVBSダウンロード者のア
+UploadLooksite	ップロードlooksite.を助けますvbsアッ
+UploadFTP	プロードFTPダウンロードはファイルを配置して
+Active3389ByReg	レジストリを通じて(通って)3389開いてファ
+Active3389ByIni	イルを配置しますを通じて(通って)3389開きます
+
+//GetWebShell	
+GetWebPath	ウェブサイトのディレクト
+Method:	リの方法を
+ByReadReg	得ます:レジストリを読み取り
+BySearchFile	ますを通じて(通って)フ
+Get	ァイルを
+RootPath:	捜索しますを通
+FileToSearch:	じて(通って)根のパスを得ま
+RestoreRegRead	す:ファイル名を捜索すること
+RestoreDirTree	にじっとしています:XP_RegR
+DBName:	ead回復XP_DirTreeデ
+WebShellFilename:	ータベース名を回復します:Web
+ContentOfWebShell:	Shellファイル名:WebShell内
+GetFileAttr	容:ファイル属性のフ
+Filename:	ァイル名を取り
+Get	ます
+RestoreXP_GetFileAttr	:取ってVarChar日誌の相違のバックア
+EncodeAsVarChar	ップのデータベースの相違の
+BackupLog	バックアップのためXP_G
+BackupDB	etFileAttrコードを回復します
+//MSSQL>DATA-------------------------------------	
+Where:	条件:記録
+Top:	数:降順のデー
+Desc:	タベース
+DB:	名:ソーティング
+Order:	します:デー
+AddDatabase...	タベースを添加します...
+AddTables...	時計を添加します...
+AddFields...	カラムを添加します...
+GetTables	カラムを得てデ
+GetFields	ータを得ることに表
+GetData	を取ることを得ま
+Tip	す!.注意
+//MSSQL>UpdateDB---------------------------------	
+TipUpdateMssql	【注意】もしあなたの‘データ’のページの中のデータベースの構造の木の中でカラムを選ぶならば、下記の相応の内容は自ら書き込まれます。
+DB:	データベー
+Table:	ス:時
+Field:	計:カラム
+Position:	:位置:
+AddAtFore	カナダは初でプ
+AddAtRear	ラスして後部
+ReplaceCompletely	で完全にコー
+Encode:	ドに交替
+Where:	します:
+Content:	条件:内
+Update	容:改正
+
+//MSSQL>DirTree---------------------------------	
+CurrentDir:	当面のディレクトリ:
+ListDir	ディレクトリ
+PublicPriviOnly	を並べて'Public'権限だけあって暇の
+EmptySelectedDir	選択のフォルダを点検してファイルあ
+AddFileFolders	るいはディレクトリを添加します
+//MSSQL>ExecSQL---------------------------------	
+chkAutoDisposeCapsEtc	自ら大きい小文字、改行と空欄のコードを処理
+chkDeclareExecNoEcho	してDeclare_Exec形式(回顕がありません)のために手
+chkAutoDisposeSQL	落ちのタイプによって自らSQL実行の原
+Exec	始のSQL
+OriginalSQL	処理の後のS
+SQLAfterDispose	QLの戻るページのソ
+PageSourceReturned	ースコードを処理します
+
+//MSSQL>ReadFile---------------------------------	
+Filename:	ファイル名:【
+Read	注
+TipReadFile	意】が'sysadmin'と'bulkadmin'権限のユーザーだけあってファイルを読み取ることができることを読みます。
+
+//MSSQL>MISC---------------------------------	
+ActiveSQL2005Procs	xp_cmdshell/OpenDataSource/OpenRowSetを開いてxp_cmdshell/OpenD
+DeactiveSQL2005Procs	ataSource/OpenRowSet【注意】を閉鎖します'sysadmin'権限がデータ
+TipNeedSAPrivilege	ベースサーバーのIPアドレスの当機のエクス
+GetDBIP	トラネットIPを得ることを必要としま
+WanIPOfLocalhost:	す:開けるポート:1.サ
+PortToBeOpen:	ーバーの2.をスター
+StartServer	トさせます願いの3.を
+SendRequest	発送しますサー
+StopServer	バーを停止しますか
+Help	？.スーパーハ
+SuperDoS	ングアップを助けます
+
+//Access===============================================	
+ScanUnionParams	スキャンは共同でパラメーターを検索
+GetData	してデータのその
+MiscInfo	他の情報を得ます
+//Access>Scan Union Params. ---------------------------	
+FrontKeyword:	初めてキー?ワード
+RearKeyword:	:尾のキー?ワード:
+Seperator:	セパレーター:ス
+ScanUnionColumns	キャンは共同で検索して全部で
+Total:	並べます:
+WhichColumnShown:	表示する並べること
+ModifyManually	:手製で改正します
+//Access>GetData -------------------------------------	
+Settings:	設置:接頭語
+TblPrefix:	を表します:拡
+TblSuffix:	張子を表します
+FldPrefix:	:カラムの接頭語:カラ
+FldSuffix:	ムの拡張子:時計を
+AddTable	添加してカラ
+AddField	ムを添加してカラム
+GetTable	を得てデータ
+GetField	を得ることに表を
+GetData	取ることを得ます
+//Access>MiscInfo------------------------------------	
+Paths	パスは
+GetSystemPath:	系統的なパスを得ます:デ
+GetDBFilename:	ータベースファイル名を得ます:
+
+//MySQL==============================================	
+TextEncodeMethod:	テキストのコードの
+EncodeAsHex	方式:コードは16進法(0x202122...)のコー
+EncodeAsChar	ドのためにChar関数(char(97のため、98，99，...))1
+LineComment:	本の尾の注釈は合います
+QuoteDBObjectsWith	:使います``含みます居住しますデータベース
+ScanUnionParams	の対象のスキャン共同で検索します
+GetData	パラメーター得ます
+GetWebShell	データ得ますWebShell読み
+ReadFile	ますファイル
+//MySQL>ScanUnionParams-----------------------------	
+Method:	方法:基づき
+BasedOnKeytextAndNum	ます肝心なテキストと数字目が見えません掃きます(少し並べます、最も速いです
+BasedOnKeytext	)基づきます肝心なテキスト目が見えません掃きます(わ
+BasedOnContentLen	りに多く並べます)基づきます内容の長さ目が見えませ
+BasedOnErrorKeytext	ん掃きます(最多で並べます)基づきます誤ったキー
+BasedOnOrderAndContentLen	?ワード(最多で並べます)基づきますORDER BYと内容の長さ目が見えません掃きます
+BasedOnOrderByAndError	(最も多い400列)基づきますORDER BYとエラー?メッセージ(最も多い400列)
+ScanUnionColumns	のスキャン共同で検索します並べます
+ErrorKeywords:	数えますエラー?メッセージのキ
+Total:	ー?ワード
+WhichColumnShown:	:総計:表示する並べ
+ModifyManually	ること:手動は改正
+Set	して初め
+ForeKeyword:	てキー?ワードを設定
+RearKeyword:	します:尾のキー?
+Seperator:	ワード:セパレー
+GetBasicInformations	ター:基本的な情報を得ます
+//MySQL>GetData -----------------------------------	
+Where	条件はソ
+Order	ーティング
+Desc	して逆順
+Limit:	制限します
+AddDatabase...	:データベースを添加します...
+AddTables...	時計を添加します...
+AddFields...	カラムを添加します...
+Method:	方法:字
+ByDictionary	典INFORMATION
+FromSchema	_SCHEMA接頭語によって:拡張子:デ
+Prefix:	ータベー
+Suffix:	スを並べ
+ListDBs	て時計を並べてカ
+ListTables	ラムを並
+ListFields	べてデータを
+GetData	得て長距離サー
+SelectIntoOutFile...	バーの上文の件まで(へ)貯蓄します...
+SaveData	データを保存します
+//MySQL>GetWebShell-----------------------------------------	
+TargetFilename:	目標のファイル名:W
+WebShellContent:	ebShellファイルの内容:php s
+ShowPHPShellsOnly	hellが書き出すだけを表示す
+Write	ります
+//MySQL>ReadFile--------------------------------------------	
+FilenameOnRemoteServer:	長距離サーバーの上のファイル名:データを保
+Read	存
+SaveFileTo:	してファイルに着くことを読みま
+TipSaveFileTo	"す:【注意】鈎は""ファイルを保存して着きます""オプションを選んで、文字化けの出現を防止しますデータベースの中の原始のデータを保存します。"
+
+//窗口程序集_漏洞利用	
+ExploitVuln	手落ちの利用
+UnsupportedGetDataMethod	の支持しない情報の回顕の方式。
+NotFoundVulnItem	この条目の対応したことが探し出せないで注ぎ込みます！
+Finished.	すでに完成しました。
+ProcessAborted.	当面任務はすでにユーザーに停止されました！
+PlzWaitThreadExit.	スレッドが終わることを待って下さい。
+
+//以下两个为节文本的首字符和项文本的首字符	
+SectionHead	■
+ItemHead	?
+
+VulnInfo:	手落ちの情報:ペ
+PageTitle:	ージの見出し：パラ
+Params:	メーター
+ExploitMethod:	:利用の方法:シナ
+Script:	リオの言語:デー
+Database:	タベース:ソ
+SourceFile:	ースファイル
+Ready.	:整います。
+NowScanningDBType...	データベースのタイプを測定しています……デー
+DBDetectionFailed...	タベースのタイプは失敗を測定して、あなたは手製でもしデータベースのタイプを確定することができるならば、直接切り替えてこのデータベースのタイプのページまで(へ)利用を行うことを下さい。
+KeywordsCannotBeEmpty	首尾のキー?ワードいいえ技量の暇！
+ScanningUnionParams...	スキャンして共同でパラメーターを検索します…
+UnionColumnCount_%d_%d:	…共同で検索して数を並べます: 全部で= %d 表示すったのは=を並べ
+UnionSQLAccess:%s	ます %dは共同でSQLを検索します: and 3=8 union select %s from MSysAccessObjectsスキャンは共同でパラメ
+ScanningUnionFailed.	ーターの失敗を検索して、手製で設けて共同でパラメーターを検索することを下さい。
+ScanningUnionOK.	お祝い、UNION検索は解くことに成功することを当てます！^_^時計
+LoadTables.dictFailed.	の字典は暇です　あるいは　時計の字典に入って間違いが起こることを読みます！
+Scanning	スキャンして時計
+FoundTable:	を探し当てます
+ScanningTablesFinished.	:名を表して解完畢を当てます。
+PlzSelectATblFirst.	先に１つの時計を選んで下さい。
+PlzSelectAFieldFirst.	先に選んで解のカラムを当てることを下さい！
+NoTheTblInMem.	メモリの中で表すべきになっていません。
+LoadFields.dictFailed.	カラムの字典は暇です　あるいは　カラムの字典に入って間違いが起こることを読みます！
+ScanningField	カラムをスキャンしてカラ
+FoundField:	ムを探し当てます:ス
+ScanningFinished.	キャンは終わります。
+PlzScanUnionFirst.	先に測定して共同でパラメーターを検索することを下さい！
+RetrvingData...	データを得ています……記録
+RetrvingRecordCount...	の数を取っています……解係統
+GetSysPathPlzWait...	のパスを当てて、しばらく待って下さい……お祝
+GetSysPathOK.	い:みごとに解係統のパスを当てます！
+GetSysPathFailed.	解係統のパスの失敗を当てます。
+Failed:NoEMsg	[失敗:エラー?メッセージがあり
+GetDBPathPlzWait...	ません]データベースのパスを得て、しばらく待って下さい…
+GetDBPathFailed.	…データベースのパスの失敗を得ます！
+Failed:CantExtractDBPath	[失敗:パスを濾過しだすことができません
+DatabaseInfo:	]データベースの情報
+GettingDBInfo...	:データベースの情報を測定しています……
+
+//下一行，必须使用^符号分割成6项	
+DBInfoHeaders	データベース名：^ハンドル名：^バージョン：^サーバー名：^サービス名：^系統的なハンドル名：
+
+NoServerErrorsLong	サーバーはエラー?メッセージに戻っていないであるいは識別してはいけないエラー?メッセージに戻って、あなたは表示する誤った詳しい情況によって誤りのキー?ワードを設けて更に試みることができて、あるいは切り替えてサーバーの配布する方式を使いますまで(へ)情報を読み取りにきます！
+SQLAfterDisposed:	処理の後SQL:基本的な情
+GetBasicInfiFailed	報の失敗を得て劣っていること
+BatchFailed.1by1start...	を決裁(添削，批判，注文)して基本的な情報の失敗を得て、始まって1つ1つ得
+GettingDBNames...	ます……データベース名を得ています…
+CurrentDatabase:	…当面のデータベース
+GettingDBVersion...	:サーバーのデータベースバージョンの情報を得ています……バ
+Version:	ージョン:
+GettingDBVersoinFailed.	データベースバージョンの情報の失敗を得ます！
+SQLSent:	発送したのSQL:SQL200
+FoundSQL2005long	5を発見して、あなたに先に切り替えて着くように提案しています 'その他のツール' ラベルのページは関連していて設けることを開きます。
+DBUserPrivi:	当面のユーザーの権限：
+GettingPrivi...	ユーザーの権限を得ています……ユ
+GettingPriviFailed	ーザーの権限の失敗を得ます！
+ErrorDetails:	誤った詳しい情況
+GettingDBs	：データベースの情報を得ています……
+DBInfo:	データベースの情報
+GettingUserlist...	:ユーザーのリストを得ています……
+SQLSvrUsers:	SQL Serverハンドル名はリストします：
+Username_tRole_tSid	ハンドル名\t\t役\t\t安全な通し番号\r\nはデータベ
+GettingDBProcInfo...	ースの関連している過程の情報を得ています……データ
+DBProcInfo:	ベースの関連している過程の情報:
+
+//下一行必须用|分成六列	
+DBProcInfoHeaders	プログラム名|状態|ホスト名|ホストコンピュータの過程ID|コマンドライン|NTハンドル名
+
+GettingLinkedSvrs...	リンクのサーバーの情報を得ています……リンク
+LinkedSvrsInfo:	のサーバーの情報:サーバー
+LinkedSvrHeaders	名|サーバーの製品|提供者名|データの源|位置|サーバーのネット名はデータベースを得て
+GettingUserLoginInfo...	ユーザーの情報を登録します……データベースのユーザ
+DBUserLoginInfo:	ーは情報を登録します：ハンドル
+UserLoginInfoHeaders	名|パスワードHASH|データベースの通し番号|言語|時間の1|時間の2データ
+DBconnIsNullLong	ベースの接続は暇のため！先に[私のMSSQLServerサーバーを設けます]押しボタンをクリックして当地をテストして属性につながります提案しています。
+UnableConnTransferLong	当地から私のMSSQL Serverサーバーまで(へ)つながることができなくて、設置を行って下さい！
+ProcessAborted.	測定の過程はユーザーに中止されます。
+Getting	私のMSSQLServ
+CreatingTblOnTransfer...	erサーバー得る上に臨時の時計を創建しています……建ててテキストを表し
+CreateTblSQL:	ます：長距離ホス
+SendingRequest...	トコンピュータに発送してデータの願いを得ます……私のMSS
+RetvingDataFromTransfer...	QLServerサーバーから上でデータを持って帰っています……先にコマンドラ
+PlzInputCmd.	インを選びますかます入力して下さい。
+PlzGetBasicInfoFirst.	先に基本の情報を測定して下さい。
+ExecCmdPlzWait...	命令を実行して、しばらく待って下さい……記
+GetRecordCountFailed	録数の失敗を取って、設定値を使います：先に入
+PlzInputFNFirst.	力したファイル名を頼みます！
+ContentsOfFile:	ファイルの内容：
+ReadingFile...	ファイルの内容を読み取っています
+DropTmpTbl...	……臨時の時計を削除していま
+PlzWait...	す……しばらく待
+CmdShellExists	って下さい……お祝い、関数 XP_CmdShell 存在！
+CmdShellNotExists	:( 関数の XP_CmdShell は存在しません。
+PlzSelectLocalFile.	先に当地のファイルを選んで下さい！
+LocalFileNotExists.	当地のファイルは存在しません！
+PlzInputRemoteFile.	長距離ファイル名を入力して下さい。
+ProcessingFile...	ファイルを処理して、しばらく待って下さい……ファ
+FileSizeNotExceed64kb.	イルの大きさは64KBを上回ることができません！
+BldingBinFile...	長距離ホストコンピュータの上でバイナリー?ファイルを作り上げています……ファ
+UploadFinished.	イルのアップロードは終わります！
+UploadingFile...	ファイルをアップロードしています……ウ
+RetrvingWebPathFinished.	ェブサイトを得るディレクトリは終わります！
+InputFilenameToBeSearch.	捜索するパスとファイル名を入力して下さい。
+WebPathByFile:	ファイルの得るウェブサイトのパスを捜索しますを通じて(通って)：長
+SearchingFile...	距離ホストコンピュータの上でファイルを捜索しています……長
+BldingResultTbl...	距離ホストコンピュータの上で構造の結果は表しています……データを
+RetrvingData...	持って帰っています……レジストリの得
+GetWebPathByReg:	るウェブサイトのルート?ディレクトリを読み取りますを通じて(通って)：長距離
+PlzModifyRmtFNlong	ファイル名を改正することを必要としますによって頼んで、それから[アップロード]押しボタンをクリックします。
+PlzInputDBNameOrScanBasicInfo.	当面のデータベース名を入力して下さい。もしあなたは基本の情報を測定するならば、先に基本の情報を測定して下さい。
+InputFilenameToBeGenerated.	形成するファイル名を入力して下さい。
+InputWebShellContent.	アップロードする木馬の内容を入力して下さい。
+DoInitialBackup...	臨時の時計を創建して、そして開始のバックアップを行います……デ
+WritingDataToDB...	ータベースへ中で書いてデータに入ります……バック
+MakeFinalCleanup...	アップファイルそしてまで(へ)最後であることを行ってきちんと
+GetWebShellFinished.	整理します……GetWebShell完成。
+SetupErrorKeywordsLong	エラー?メッセージの回顕に基づいて先にエラー?メッセージの初めてキー?ワードあるいは尾のキー?ワードを設けなければならなくて、先に基本の情報を測定して下さい、あるいは手動は設置を行います。\r\n\r\nは間違っている方式が現れますデータを測定しだすもしことができないならば、情報の回顕の方式を切り替えて〔私に基づくMSSQLServerサーバーが乗り換えます〕に着くことを下さい。
+RestringProc...	メモリーの過程を回復して、しばらく待って下さい……メ
+RestoringProcFinished.long	モリーを回復する過程は終わります。sa権限がみごとにようやくメモリーの過程を回復することができることに注意します。
+PlzInputFilename.	入力したファイル名を頼みます。
+GettingFileAttr:	ファイル属性を得ています：[スー
+SuperDoSConfirm	パーハングアップ] 機能は長距離コンピュータに直ちに失って応えさせます、あなたはこの機能を実行することを確定しますか？熟考の上実行して下さい！
+PlzSelectADBNode.	１つのデータベースのノードを選んで下さい！
+GettingTblsOf%s...	データベースを得ています %s の表します名……長距離ホスト
+ListingTbls...	コンピュータの上で臨時の時計を創建して、そしてデータベースの時計を列挙します……劣っている
+BatchFailed1By1Started...	ことを決裁(添削，批判，注文)して失敗を得て、1条1条得ていま
+PlzSelectTblNode.	す……１つの時計のノードを選んで下さい！
+GetColumnsOf%s%s...	得ています %s.%s の並べます名……長距
+ListingColumns...	離ホストコンピュータの上で臨時の時計を創建して、そしてデータベースのカラムを列挙します…
+PlzSelectSomeFlds.	…まだどれらのカラムを得ますかを指定していません。
+ExecutingQuery:	検索を実行しています
+NotSupEchoMethod.	：支持しないデータの回顕の方式。
+PlzInputDBName.	データベース名を入力して下さい。
+PlzInputTblName.	入力して名を表すことを下さい。
+PlzInputColName.	負けて列に入ることを名下さい。
+SQLCantBeEmpty.	SQL文いいえ技量の暇。
+UpdatingTheDB...	データベースを更新しています……
+UpdatingFinished.	更新は終わります。
+KeywordsCantBeEmpty.	キー?ワードいいえ技量の暇。
+FileNotFound:	ファイルは探し当ててい
+WaitingThrdsExit...	ません:スレッドが終わることを待っています…
+TmplFileNotFound:	…必要な枠板のファイルが探し出せません：によ
+TipUpFTPlong	って長距離ファイル名を変更して下さい後にクリックして押しボタンをアップロードします！\r\n\r\nファイルのアップロードが終わった後に、実行して類似を下さい ftp -i -v -s:c:\ftp.txt FTPを通じて(通って)ファイルをダウンロードして長距離コンピュータに着くことに来ます。
+PlzSelectDiskOrFolderNode.	１つのディスクあるいはディレクトリのノードを選んで下さい！
+Processing...	処理しています……1回限り
+GettingData1Request...	内容を得ます……1回限り失敗を得ます:1回限り失
+OneRequestFailed:	敗を得て、劣っていることを決裁(
+GettingDataByBatch...	添削，批判，注文)して得ます……劣っていることを決裁(添削，批判，注
+GettingByBatchFailed:	文)して失敗を得ます:あなた
+AreUSureToClear?	は暇を点検することを確定しますか？
+PlzInputFilesLong:	添加するディレクトリあるいはファイルを入力して下さい、一行ひとつ、後部は反対に斜めな傍線を添加してディレクトリを表してい
+ExecutingSQL...	ます：SQL.を実行しています..
+Activating2005procs...	開いています XP_CmdShell/OpenDataSource/OpenRowSet ...
+Deactivating2005Procs...	閉鎖しています XP_CmdShell/OpenDataSource/OpenRowSet ...
+InputErrorKeywordsWhenNoMatch.	必ず列に入ってマッチングしない時のエラー?メッセージのキー?ワードを数えることに負けなければなりません。
+ScanningWhichColInPage...	どの1列をスキャンしてページで表示すります上にあります…
+UnionSQL:	…共同でSQLを検索します
+GettingRecordCntFailed.	：記録数の失敗を取ります。
+RecordCount:	記録数:値を入
+ValuesAreNotValid.	力するのは不法です！
+BasicInfos:	基本的な情報：引
+SingleQuote:yes	用符を使うかどうか：引用符を使
+SingleQuote:no	うかどうかです：INFORMATION_
+Info_schema:yes	SCHEMAがあることを否定します：INFORMATI
+Info_schema:no	ON_SCHEMAがあるのです：データベースのリ
+ListingDBs...	ストを得ていることを否定します……デ
+Databases:	ータベース：
+Schema_name	データベースの
+CharSetName	アルファベッ
+ListingTblOf%s...	ト名はデータベースを列挙しています %s の時
+ListingFldsOf%s.%s...	計……得ています %s.%s のカラム名……名数を並
+ColName	べてタ
+DataType	イプアルファベ
+CharSetName	ット名によって
+GettingData...	データを得ています……先に
+PlzSelectCols.	いくつかカラムを選んで下さい。
+Note:QuoteOnLong	注意：magic_quote_gpc 設置 on，目標のファイルは失敗を創建するかもしれません。
+MustSpecifyFN.	必ずファイル名を指定しなければなりません。
+MustInputKWsAndSep.	必ず首尾のキー?ワードとセパレーターのテキストを入力しなければなりません！
+InputWANIP.	先に当機のエクストラネットIPを入力して下さい。
+SpecifyPort.	必ず入力してポートを盗聴しなければなりません。
+"StartFailed,PortInUse?"	スタートして失敗にサービスして、ポートが占用されるのですか？
+DBSvrIPis:	データベースサーバーのIPアドレス：先にスタート
+PlzStartSvcAndMapPortLong	してサービスを盗聴することを下さい、そして必ずポートはすでにエクストラネットまで(へ)現れました。
+
+//URL Codecer	Code:
+//Global_UI related code:	
+VulnTable	手落ちの表のこ
+GenByLiQiDiS	の表がLiQiDiS(Liquid Injection System)から数字型のテキスト型捜索型を形成し
+NumericT	てデータベ
+TextT	ースのリス
+SearchT	トを入力し
+InputDBNames1PerLine:	てもらって、ひとつ行きますと：入力して名を表すことを
+InputTblNames1PerLine:	下さい、ひとつ行きますと：カラムのリ
+InputColNames1PerLine:	ストを入力して下さい、ひとつ行きますと：エク
+FailedToGetWANIP.	ストラネットIP失敗を得ます！
+
+//Show text paragraph Code:	
+//Common-Code:	
+//SQL Varchar NVarChar Code:	
+//MD5 Code:	
+TheTextNotMD5.	入力のはMD5値ではありません！
+CalcMD5CrackMD5	MD5の暗号化する解密は
+Lookup%sPlzWait...	検索しています %s ，しばらく待って下さい…
+LookupCompSites...	…md5を使って総合的にウェブサイトを解読して解読します……
+
+//Setup SQLServerTransfer Code:	
+Success.	^_^成功。
+Failure.	:( 失敗。
+ErrorMsg:	エラー?メッセージ：つな
+ConnOKSaveSettings.	がることに成功して、そしてすでにファイルを配置しますまで(へ)保存しました！
+
+NoADODBDrv.	データベースの接続は暇のため、Adodbデータベースの駆動がありません。
+
+//Program Settings Code:	
+MustSelect1ScanMethod.	少なくとも必ず1種の測定の方式を選ばなければならなくて測定を注ぎ込むことを行います。
+RUSure2ClearAll?	すべて削除することを確認しますか？
+SrcStrCantBeEmpty.	交替される文字列いいえ技量の暇。
+PlzSelectALang.	１つのインターフェースの言語を選んで下さい。
+LoadLangFileFail.	インターフェースの言語の失敗を記載します。
+
+
+//Server SQL Code:	
+Percent:	パーセンテージ
+GetSvrSQLFinished.	：サーバーを検証してデータを得て終わって、手落ちの利用を行うことを始めることができます。
+
+//SensitiveFile scanner Code:	
+GridHead	番号に応えます|80|リンク|700は先
+PlzInputURL.	にURL住所を埋めてもらいます。
+PlzInputExt.	拡張子を入力して下さい。
+UrlFmtInvalid.	URL住所のフォーマットは正しくありません。
+
+//ordinal file scanner Code:	
+URLMustContainVar.	リンクの住所の中で必ず循環の変数を含まなければなりません：##i##。
+SelectTextToBeReplaceAsVar.	先にリンクの住所の中で1段選んで循環に変数##i##の交替するテキストに少しずつ増加されることを下さい。
+
+//DNS reverse lookup Code:	
+MustInputDNSIP.	先に必ずドメイン名あるいはIPアドレスを入力しなければなりません。
+InputURLwithVar:	入力して変数のリンクの住所を持つことを下さい、__dns__変数はドメイン名を表して、__ip__表示IP、似ていて次にこのようにします：
+
+//The Looper Code:	
+LoopVar	循環の変数字典
+Dict1	の1字典の2
+Dict2	ページの変数
+PageVar1	の1ページの変数
+PageVar2	の2は必ずページの
+MustInputKeywordsOfPV.	変数の首尾のキー?ワードを入力しなければなりません。
+
+//以下翻译中，必须有4个英文的%s	
+NoVar%s%s%s%s.	データの中にありません %s %s，変数に対して取り除いて下さい %s の鈎は選んで、あるいはデータの中で挿入します %s 。
+Error:	誤り：番号に
+RespCode:	応えます：先にあ
+PlzSelectSomeTextInRequest.	って下さい HTTP 匹が枠を編集することを願い出ます あるいは POSTデータは枠を編集します 中は1段のテキストを選びます。
+SaveResults?	あなたが保存しなければならなくて結果を解くことを当てますか？
+PutFocusInRequest.	焦点をHTTP願いの匹に入れて枠あるいはPOSTデータを編集して枠を編集することに提出します頼みます。
+
+//HTTP Protocol Code:	
+NoHostEntry.	ホストコンピュータ(Host)の属性がありません。
+FailedToRslvIP:	ホストコンピュータのIPアドレスの失敗を解析します：ホ
+FailedToConnTo:	ストコンピュータの失敗につながり
+TimeoutMs:	ます：タイムアウト(ミリ秒)：タ
+TimeoutContinue:	イムアウトを引き続き接収します：
+
+//Request Relay	Code:サービス
+StartSvcOK.	してスタートすることに成功します。
+StartSvcFailedPortInUse?	サービスして失敗をスタートさせて、ポートが占用されたのですか？
+SvcStopped.	サービスはすでに停止しました。
+
+//MultiEngine MD5 crack Code:	
+Data1	データの1デ
+Data2	ータの2が
+Composite	複合エン
+NoEngine.	ジンがなくて、先に添加してエンジンを解読することを下さい。
+NotFndMD5data.	MD5データを発見していないで、正しいデータを導入しますかます貼って下さい。
+ThreadRunning.	スレッドは運行しています。
+Complete.	完成。
+SaveData?	あなたはデータを保存しますか？
+
+//MD5 engine setup Code:	
+CreateEngineOK.	エンジンの完成を創建します。
+CreateEngineFailed.	エンジンの失敗を創建して、当プログラムを検査して下さいはリードオンリーの媒質から運行するのだかどうか、あるいはディスクはすでにいっぱいになます。
+TitleRequired.	見出しを入力して下さい。
+HeadRequired.	願いの頭を入力して下さい。
+ForeKeywordRequired.	初めてキー?ワードを入力して下さい。
+RearKeywordRequired.	尾のキー?ワードを入力して下さい。
+NotFndMD5Var.	あるいはPOSTデータを願い出る中で__md5__変数を発見していません。
+LoadEngineFailed:	エンジンの失敗を記載します：セ
+FailedToSetEngineState.	ットアップエンジンは使用禁止の状態の失敗を使用し始めますと。検査のプログラムにリードオンリーの媒質の上で運行してかどうかもらって、あるいはディスクはすでにいっぱいになます。
+
+//Base64Codecer UI:	
+BASE64Codecer	BASE64コードのデコーダーは入力し
+PlzInput:	てもらいます
+Paste	:BASE64コ
+BASE64Enc	ードBASE64を貼って
+BASE64Dec	暗号電文を解読して複
+Copy	製します
+
+//FTP Server Settings UI:	
+PlzInputFTPinfo:	あなたのFTPサーバーの情報を入力して下さい：
+FTPIP:	FTPホスト名あるいはIPアドレス:
+Username:	ハンドル名:パ
+Password:	スワード
+FileOnFTPsvr:	:FTPサーバーの上のファイル:長距
+FileOnRmtSvr:	離サーバーの上で期待のファイル名:取り消すこ
+OK	とを確定
+Cancel	します
+
+//MD5 codecer UI:	
+MD5Codecer	MD5の暗号化する解密の
+CalcMD5	計算MD5は反対に
+LookupMD5	MD5を調べて停
+Stop	止します
+
+//SQL text codecer UI:	
+SQLTextCodecer	SQLテキストのコードのデコーダーのコ
+EncAsVarchar	ードはVarcharコードのために
+EncAsNVarchar	NVarcharのためにVarcharによっ
+DecAsVarchar	て暗号電文を解読してNVarcha
+DecAsNVarchar	rによって暗号電文を解読します
+
+//SQL keywords capital randomizer UI:	
+SQLKWCapRnd	SQL文のキー?ワードの大きい小文字の無作為の変換機はSQLを入
+PlzInputSQL:	力してもらいます:無作
+Randomize	為の化は改行
+RmvCRLF	を削除して空欄に縮ん
+ShrinkSpaces	で合うことに合います
+
+//URL Codecer UI:	
+UrlCodecer	URLコードのデコーダーURL暗
+UrlDec	号電文を解読する
+UrlEnc	URLコードURLは
+UrlEncCompletely	完全にエンコードします
+
+
+//Find and Replace UI:	
+Find_Replace	探して交替して探しま
+Find:	す:代わって
+ReplaceAs:	替えます:大き
+CapSens	い小文字を区分して交
+Replace	替します
+
+
+//Output UI:	
+Output	複製を出
+CopyToClipbd	力してクリップボードまで(へ
+Clear	)いつも
+URLEnc	最もの前に暇URL
+AlwaysOnTop	コードを点検します
+
+//Batch Look up MD5 UI:	
+BatchLookupMD5	マルチスレッドの多いエンジンMD5は解読し
+ImportData...	てデータを導入します...
+PasteData	データを貼って
+Start	停止を
+Stop	始めて
+Copy	保存を複
+Save...	製します...
+Settings	最大のス
+MaxThreads:	レッド数を設けます:
+Interval:	間隔(ミリ秒):いった
+DontTryOtherEngines.	ん解読することに成功したら、もうその他のエンジンを試みません。
+Engines...	エンジン...
+
+//Sensitive file scanner UI:	
+SensFileScanner	敏感なファイルのスキャナー
+Ext:	の拡張子:すべて
+ScanAllLevels	の層もしファイルの存在
+IfFileExistsScanLong:	ならばをスキャンして、下記のファイルを引き続きスキャンします:も
+IfRespCodeInListLong:	し下記のテキストで中で番号に応えるならば、リンクを添加してリストに着きます:HTTPが応
+ViewHTTPCode	えて意味を積み重ねることを調べます
+
+//Encode SQL as Declare_Exec UI:	
+EncSqlAsDec_Exec	SQLコードを Declare _ Exec の形式
+
+//Request Relay	UI:中
+RequestRelay	継器のポートを願い出
+Port:	ます:サービ
+StartSVC	スをスタートさ
+StopSvc	せてHTTP願いの匹
+HttpHead:	にサービスすることを停
+TipPressF5ToInsVar.	止します:【注意】F5鍵盤を押さえつけて急速に__sql__変数を挿入することができます。
+PostData:	データに提出します:
+
+
+//Config SQL Serve Transfer UI:	
+CfgMyTransfer	私のSQLServerを設けてサーバーのエクストラネットIPを
+WanIP:	配布します:イ
+LanIP:	ントラネットIP
+TestLan	:当地の接続をテストして
+TestWan	長距離接続をテストしてホ
+TestRmtConnInWeb...	ームページの中で長距離接続をテストします...
+
+//IP reverse lookup UI:	
+IpDnsRvsLookup	サーバーのウェブサイトIP/ホス
+IpDomainName:	ト名を測定しますと
+GetIP	:IPを得て
+Add...	添加します...
+Lookup...	検索...
+Close	閉鎖します
+
+//Program Settings UI:	
+ProgSettings	プログラムの設置
+
+ScanVuln.	手落ちをスキャ
+AutoRplcSQL	ンして自らSQL言語に交
+Languages	替します
+
+MaxScanningThreads:	スキャンする時最大のスレッド数:レス
+SkipTimeout:	ポンスタイムはこの値を上回って(秒)を跳んだことがあります:
+
+UseKW	自動の測定のキー?ワードを使っ
+UseContentLen	て内容の長さの限界値を使
+Threshold:	います:
+
+GetHead	手落ちを探し当てた後にサーバーの頭を得て情報を表示して
+GetAlexa	手落ちを探し当てました後にAlexa長幼の順序を得る
+Scan0ByteLink	スキャンの内容の長さは空っぽなリンクです
+
+EnableReplace	使用し始めてURLコー
+RplcAfterURLEnc	ドに交替しました後に更に選択のを削除してすべ
+DelSelected	てのを削除して交替して添
+ClearAll	加しますになること
+Replace	に交替する
+As	こと
+Add	を行います
+
+LangList:	言語のリスト:プレ
+Preview:	ビュー:リ
+RefreshList	ストする応用を更
+Apply	新します
+
+//Show paragraph text UI:	
+Tip:DblClickToClr	【注意】空っぽなテキストを点検しますダブルクリックします。
+
+//Ordinal file scanner UI:	
+OrdFileScanner	序列のファイルのスキャナー
+PlzInputURLWithVar:	は入力して変数(##i##)のURL住所を持つことをもらって、次の通り:テキストを
+RplcSelAsVar	選んで変数に替えるために初めを設けます:
+VarSettings	終わります:少し
+Start:	ずつ増加し
+End:	ます:キャ
+Incr.:	ラクター数
+Chars:	はキャラクタ
+FillWith:	ーを穴埋めします:
+
+//Setup engines for looking up md5 UI	
+SetEngForLookupMD5	MD5を設けてエンジンのリストの
+EngineList	見出しを検索し
+Title:	ます:匹を
+RequestHead:	願い出ます:PO
+PostData:	STデータ:高亮の添
+DelHilited	加しますかます改正す
+AddOrMod	ることを削除します
+
+//Registration UI:	
+Registration	登録するのは
+UrRegCodeIs:	あなたのが登録して積み重ねますです:
+
+//The Looper UI:	
+TheLooper	自動の循環機
+//The Looper > menu	
+miModHttpReq	&M.HTTP願い&U.を改正し
+miFillByURL...	ますURLによって願いの頭を穴埋めします...
+miFillWithGet	&G.標準Getを使って&P.を穴埋めすることを願い
+miFillWithPost	出ます標準POSTを使って&M.を穴埋めすることを願い
+miMethod	出ます方法
+
+miCodes	&C.コード
+miGetDBType	&G.データベースのタイプを得ます
+
+miInsertVars	&I.変数を挿入します
+
+miEncode	&E.コード
+miSqlKeywordsRand	&R.SQLキー?ワードの大きい小文字の無作為の
+miUrlEnc	化&U.URLコード
+miUrlDec	&D.URL暗号電文を解読
+miEncAsVChar	する&V.コードはSQL Varchar&N.の
+miEncAsNVChar	ためコードはSQL NVarcharのため
+
+miFndReplace	&F.探して交替します
+
+miSave	&S.&A.を保存
+miSaveAs	します別に貯蓄して次のようになります...
+miAutoSave	&T.20秒ごとに自動保存
+
+//The Looper> Tab	
+LoopVars	循環の変数字典
+Dict	のページ
+PageVars	の変数のフィル
+Filter	タのキー?
+Keyword	ワードは番号
+ResponseCode	に応えます
+
+//The Looper> Tabs	
+UseVarI	変数__i__を使って変
+UseVarJ	数__j__最小の値の最
+Min	大の値の
+Max	歩幅を使
+Step	います
+
+UseDict1	字典の1(__dict1__)を使って
+UseDict2	字典の2(__dict2__)の編集を使
+Edit...	います...
+ReloadDicts	再びロード字典はリストします
+
+UsePV1	ページの変数の1(__pv1__)を使ってペ
+UsePV2	ージの変数の2を使います(__pv2__)
+
+EnableTextFilter	テキストのフィルタを使用し始めます
+
+OutputVars	変数を出力してペ
+OutPutVarsWhenNotContains	ージのソースコードに戻って以下のテキストを含みません時これに反して変数を出
+Counter	力します
+
+OutputVarsWhenRespCodeIn	番号に応えて以下に位置してリストします時変数を出力します
+
+//controls	
+Sleep	ミリ秒を
+MsBetweenRequests	一時停止して毎回願い出る間にページの
+Output	ソースコ
+PageSource	ードを出力します
+
+AutoSave	自動保存
+
+LoopBody	循環の体のコー
+Encode	ドは暗号電
+Decode	文を解読し
+Run	て運行します!
+
+//Version 2.6 Added ===========================================================	
+//The Looer UI:	
+miProject	&P.プロジェ
+miLoad...	クト&L.開けて...
+
+//The Looper Code:	
+LooperPrjFilter	循環機工事のファイル(*.looper)|*.looper|すべてのファイル(*.*)|*.*フ
+FailedSaveFile:	ァイルの失敗を保存します:フ
+OpenFileFailure:	ァイルの失敗を開けます:ファイ
+FileFmtIncorrect.	ルフォーマットは正しくありません。
+
+//Exploit Vulnerability UI:	
+SqlCapital:	SQL文の大きい小文字:無作
+DontCare	為で大きい
+RndCase	小文字の大(文)字
+LowerCase	を処理し
+UpperCase	ません
+
+FeatureDisabled.	この機能はすでに使用禁止されました。

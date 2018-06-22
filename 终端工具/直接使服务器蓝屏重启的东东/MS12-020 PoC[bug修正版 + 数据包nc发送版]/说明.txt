@@ -1,0 +1,30 @@
+* 关于rdpwd.sys文件简单分析：
+* http://bbs.blackbap.org/thread-2419-1-1.html
+* 关于termdd.sys文件和termdd.sys文件执行代码位置简述：
+* http://bbs.blackbap.org/thread-2424-1-1.html
+*
+* 文件说明：
+* MS12-020.rb为严格符合rdp数据包规范的ruby脚本语言的MS12-020测试PoC
+*
+* Chinese Shit.py为网上流传的MS12-020漏洞程序Python脚本wireshark v2修正版
+* 西班牙语XP SP3和Win7/R2都成功
+*
+* Chinese Shit Silic Group修正版.py 是基于原Chinese Shit的python脚本的bug校正版本
+* 添加了time.sleep
+*
+* rdp.exe则来自网上广泛流传的花钱购买的版本的利用工具
+*
+* Apache 1.2.19 mod_jk 远程栈溢出漏洞.py 和 MS08-067.py
+* 这两个文件是网上疯传需要freerdp就能成功溢出的MS12-020假EXP的原型
+* 注意：那个 Sabu@fbi.gov 的EXP是个十足的冒牌货~
+*
+* 2012/03/16更新：
+* 数据包nc发送版PoC
+* 用法：
+* nc 目标服务器 3389 < 12020poc.dat
+* 本压缩包内的nc.exe为无壳版，报毒属正常。若已加壳请立即删除
+* 
+*
+* Silic Group - 技术自由 技术创新 技术共享 技术原创 技术进步
+* BlackBap.Org
+*

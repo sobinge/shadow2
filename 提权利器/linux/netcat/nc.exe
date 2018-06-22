@@ -1,0 +1,233 @@
+
+<!doctype html public "-//w3c//dtd html 4.0 transitional//ru">
+<!-- N -->
+<html>
+<head>
+ <script language="JavaScript"><!--
+    if (top.frames.length > 0) {
+        top.location.href = self.location.href;
+    }
+ //--></script>
+ <style type="text/css">
+
+    table.catalog td {
+        padding: 2px 4px 14px 2px;
+    }
+
+    table.filter th {
+        color: #caaa72;
+        font-weight: normal;
+        padding: 4px;
+    }
+
+    table.filter td {
+        background-color: #ffebb2;
+        padding: 8px 4px;
+    }
+
+    table.filter td.top {
+        border-top: 2px solid;
+        border-color: #caaa72;
+    }
+ 
+    table.filter td table td {
+        padding: 0px 0px;
+    }
+
+    body, td {
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+        color: #626262;
+    }
+    
+    td, th {
+        font-size: 11px;  
+    }
+    
+
+    body {
+        background-color: white;
+        background-image: url(../icons/img/bg.gif);
+        margin-left: 40px;
+    }
+
+    input, select, textarea {
+        font-family: Verdana, Tahoma, Arial, sans-serif;
+        font-size: 11px;
+    }
+
+    code, pre {
+        font-family: Courier New, Lucida Console, monospace;
+        font-size: 12px;
+    }
+
+    
+    ul li {
+        list-style-image: url(../icons/img/mini/b50.gif);
+        margin: 10px 0px;
+    
+    }
+    
+    
+    a, a:visited {
+        color: #004080;
+    }
+    
+    a:hover {
+        color: red;
+    }
+
+    h1 {
+        font-size: 18px;
+        font-weight: normal;
+        margin-top: 0px;
+        margin-bottom: 20px;
+        color: #657FC0; /* #EFAF00 */
+    }
+
+    h2 {
+        font-size: 14px;
+        font-weight: bold;
+        margin: 16px 0px;
+    }
+
+    h3 {
+        font-size: 11px;
+        font-weight: bold;
+        margin: 16px 0px;
+    }
+
+
+ </style>
+ <title>Загрузка файла</title>
+</head>
+<body>
+
+<table border="0" cellspacing="0" cellpadding="0">
+ <colgroup>
+  <col width="280">
+  <col width="20">
+  <col width="420">
+ </colgroup>
+
+ <tr>
+  <td><a href="http://www.3hack.com/"><img src="../icons/img/logo2.gif" width="200" height="80" border="0"></a></td>  
+  <td background="../icons/img/main.line.v.gif">&nbsp;</td>
+  <td>
+  
+<table class="filter" border="0" width="100%" cellspacing="0">
+   <form action="http://partner.a4b.ru/click.php?partner_id=30" target="_blank" method="post" accept-charset="utf-8" >
+   <input type="hidden" value="a.1.a.ba" name="fs">
+    <colgroup>
+     <col width="0*">
+     <col width="100%">
+     <col width="0*">
+
+    </colgroup>
+    <tr>
+     <th align="left" colspan="3">Пример запроса: <a href="../../../partner.a4b.ru/click.php@partner_id=30&s=_25EC_25F3_25E7_25FB_25EA_25E0+mp3&onsite=&0=1&1=1&2=1&3=1&4=1&im=0&l=0&ln=0&5=1&6=1&7=1">музыка mp3</a></th>
+    </tr>
+    <tr>
+     <td nowrap class="top">&nbsp;<b>Я ищу:</b></td>
+     <td class="top"><input type="text" name="s" value="" style="width: 100%"></td>
+
+     <td class="top"><input type="submit" value="Найти"></td>
+    </tr>
+    <tr>
+     <td colspan="2" style="padding: 0px 4px 4px 4px">
+      <table border="0" cellspacing="0" cellpadding="2" width="100%">
+       <tr>
+        <td><input type="checkbox" checked name="7" value="1"></td>
+        <td><b>Nigma</b><sup style="font-size: 8px">TM</sup></td>
+
+        <td><input type="checkbox" checked name="0" value="1"></td>
+        <td>Google</td>
+        <td><input type="checkbox" checked name="3" value="1"></td>
+        <td>Яндекс</td>
+        <td><input type="checkbox" checked name="4" value="1"></td>
+        <td>Рамблер</td>
+        <td><input type="checkbox" checked name="6" value="1"></td>
+
+        <td>Апорт</td>
+       </tr>
+      </table>
+     </td>
+     <td></td>
+    </tr>
+   </form>
+   </table>
+  
+  </td>
+ </tr>
+
+ <tr>
+  <td colspan="3" background="../icons/img/main.line.h.gif">&nbsp;</td>  
+ </tr>
+
+ <tr>
+  <td valign="top">
+
+
+<h1>Загрузка файла.</h1>
+
+<p>Вы запросили файл с сайта <a href="../../default.htm">www.3hack.com</a>, 
+размещённого на бесплатном хостинге <a href="http://www.3hack.com/">3HACK.COM</a>. 
+Чтобы скачать запрошенный файл, пройдите по ссылке:</a></p>
+
+<div style="background-color: #fffbc2; border: 1px solid #caaa72; padding: 4px; width: 280px; overflow: hidden; text-align: left;"><a href="nc.exe">www.3hack.com/localroot/netcat/nc.exe</a></div>
+
+<p>Администрация 3HACK.COM предупреждает вас, что испольняемые файлы, загруженные
+из непроверенных мест могут содержать вирусы и нанести вред вашему компьютеру.
+Будьте внимательны и осторожны.</p>
+
+<h2>Что ещё можно сделать?</h2>
+
+<ul>
+ <li>Вы можете отказаться от загрузки и вернуться <a href="default.htm">
+ на предыдущую страницу</a>.</li>
+
+ <li><b>Каталог</b> и <b>поиск</b> помогут быстро получить нужную информацию: 
+ <a href="../../../3HACK.COM/cat.cgi"><img src="../icons/img/next.gif" width="16" height="16" alt="справа" align="middle" border="0"></a></li>
+</ul>
+
+    </td>  
+
+    
+    <td background="../icons/img/main.line.v.gif">&nbsp;</td>
+    <td valign="middle" align="center" style="border: 1px solid #c9ced4;">
+    <script type="text/javascript"><!--
+    google_ad_client = "pub-1512164116462367";
+    /* Square 336x280 */
+    google_ad_slot = "4508371313";
+    google_ad_width = 336;
+    google_ad_height = 280;
+    //-->
+    </script>
+    <acript type="text/javascript"
+    src="../../../pagead2.googlesyndication.com/pagead/show_ads.js">
+    </script>
+    </td>
+   </tr>
+
+
+   </tr>
+
+  <tr>
+   <td colspan="3" background="../icons/img/main.line.h.gif">&nbsp;</td>  
+  </tr>
+
+  <tr>
+   <td>Copyright &copy; 2001-2007 &nbsp;<a href="http://www.3hack.com/">3HACK.COM / Бесплатный хостинг</a></td>
+   <td></td>
+   <td bgcolor="#F0F0F0" style="border-top: 1px solid silver; color: gray;" height="30" align="center">
+    <a href="../../../3HACK.COM/help/sites.html">Cайты</a> <span style="padding: 0px 10px">|</span>
+    <a href="../../../3HACK.COM/help/internal.domains.html">Домены</a> <span style="padding: 0px 10px">|</span>
+    <a href="../../../3HACK.COM/help/mail.html">Почта</a> <span style="padding: 0px 10px"></span>
+   </td>
+  </tr>
+
+  </table>
+
+ </body>
+</html>
+
+

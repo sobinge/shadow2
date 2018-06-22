@@ -1,0 +1,27 @@
+■漏洞信息:============================================================
+ ·URL:http://www.junkyardanimations.com/playanimation.php?id=137
+ ·页面标题：Junkyard Animations - Fuck Mr.Hatcher
+ ·参数:id=137
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:php
+ ·IP:69.163.150.196
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Date: Sun, 03 Apr 2011 17:00:54 GMT
+Server: Apache
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Set-Cookie: PHPSESSID=vr35ff45ginl5e3jdctt5dhkv6; path=/
+Vary: Accept-Encoding
+Connection: close
+Content-Type: text/html
+
+
+ ·源文件:/home/dapavster/junkyardanimations.com/playanimation.php
+
+■数据库信息:============================================================
+服务器未返回错误信息或返回不可识别的错误信息，你可以根据显示的错误详情设置错误关键字再试，或者切换到使用服务器转发的方式来读取信息！

@@ -1,0 +1,27 @@
+■漏洞信息:============================================================
+ ·URL:http://www.wikitree.co.kr/main/issue_news.php?icategory=3
+ ·页面标题：
+鞙勴偆韸鸽Μ - 頃粯 鞊瓣碃 頃粯 韼胳頃橂姅 雺挫姢
+ ·参数:icategory=3
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:php
+ ·IP:61.100.188.211
+ ·数据库:MySQL
+ ·HEAD:
+HTTP/1.1 200 OK
+Date: Tue, 12 Apr 2011 08:32:25 GMT
+Server: Apache/2.2.3 (Red Hat)
+X-Powered-By: PHP/5.1.6
+P3P: CP="NOI CURa ADMa DEVa TAIa OUR DELa BUS IND PHY ONL UNI COM NAV INT DEM PRE"
+Set-Cookie: PHPSESSID=b8ipvgej51nldmiraphursqif2; path=/; domain=.wikitree.co.kr
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Connection: close
+Content-Type: text/html; charset=utf-8
+
+
+总数:8
+总数:8

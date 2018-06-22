@@ -1,0 +1,136 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+
+<html>
+<head>
+ <title>www.3hack.com/localroot/</title>
+ <style type="text/css"><!--
+    
+    body {
+        color: black;
+        background-color: white;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+        font-size: 11px;
+        background-image: url(icons//bg.gif);
+        margin-left: 40px;
+    }
+
+    img {
+        border-width: 0px;
+        vertical-align: middle;
+        margin: 1px 0px;
+    }
+    
+    pre {
+        font-family: Courier New,Courier,monospace;
+        font-size: 12px;
+        s-height: 400px;
+        margin: 5px 0px;
+    }
+    hr {
+        
+        height: 1px;
+        color: silver;
+        width: 480px;
+        text-align: left;
+        
+    }
+    
+    a {
+        color: blue;
+    }
+    
+    a:visited {
+        color: navy;
+    }
+    
+    a:hover {
+        color: red;
+    }
+
+    h1, a.h1, a.h1:visited  {
+        font-size: 18px;
+        font-weight: normal;
+        margin-top: 0px;
+        margin-bottom: 10px;
+        color: #657FC0;
+        text-decoration: none;
+        text-transform: capitalize;
+    }
+
+    a.h1:hover  {
+        text-decoration: underline;
+    }
+
+    h2 {
+        font-size: 14px;
+        font-weight: bold;
+        color: #777777;
+        margin: 10px 0px;
+    }
+
+ //--></style>
+</head>
+<body>
+ <h1><a href="../default.htm" class="h1">www.3hack.com</a></span></h1> 
+ <h2>Index of /localroot/</h2>
+<pre><img src="icons//search.gif" alt="Icon " width="16" height="16"> <a href="@C=N;O=A">Name</a>                                     <a href="@C=M;O=A">Last modified</a>      <a href="@C=S;O=A">Size</a>  <hr><a href="../default.htm"><img src="icons//fo.gif" alt="[Up to parent folder]" width="16" height="16"></a> <a href="../default.htm">Parent Directory</a>                                              -   
+<a href="SunOS%205.10/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="SunOS%205.10/default.htm">SunOS 5.10/</a>                              02-Oct-2007 01:01    -   
+<a href="SunOS%205.9/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="SunOS%205.9/default.htm">SunOS 5.9/</a>                               02-Oct-2007 01:00    -   
+<a href="SunOS%205.8/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="SunOS%205.8/default.htm">SunOS 5.8/</a>                               02-Oct-2007 01:00    -   
+<a href="SunOS%205.7/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="SunOS%205.7/default.htm">SunOS 5.7/</a>                               02-Oct-2007 01:00    -   
+<a href="Spaciel/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="Spaciel/default.htm">Spaciel/</a>                                 02-Oct-2007 01:22    -   
+<a href="Root%20exploits/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="Root%20exploits/default.htm">Root exploits/</a>                           02-Oct-2007 01:02    -   
+<a href="redhat%207.1/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="redhat%207.1/default.htm">redhat 7.1/</a>                              02-Oct-2007 01:00    -   
+<a href="redhat%207.0/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="redhat%207.0/default.htm">redhat 7.0/</a>                              02-Oct-2007 01:00    -   
+<a href="red-hat8.0/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="red-hat8.0/default.htm">red-hat8.0/</a>                              02-Oct-2007 01:02    -   
+<a href="red-8.0/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="red-8.0/default.htm">red-8.0/</a>                                 02-Oct-2007 01:02    -   
+<a href="red-7.3/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="red-7.3/default.htm">red-7.3/</a>                                 02-Oct-2007 01:01    -   
+<a href="r00t-t00ls/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="r00t-t00ls/default.htm">r00t-t00ls/</a>                              25-Jun-2008 22:28    -   
+<a href="OpenBSD/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="OpenBSD/default.htm">OpenBSD/</a>                                 06-Jul-2008 01:12    -   
+<a href="netcat/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="netcat/default.htm">netcat/</a>                                  02-Oct-2007 01:01    -   
+<a href="Mac%20OS%20X/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="Mac%20OS%20X/default.htm">Mac OS X/</a>                                02-Oct-2007 01:01    -   
+<a href="FreeBSD%205.3/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="FreeBSD%205.3/default.htm">FreeBSD 5.3/</a>                             02-Oct-2007 01:01    -   
+<a href="FreeBSD%204.8/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="FreeBSD%204.8/default.htm">FreeBSD 4.8/</a>                             02-Oct-2007 01:00    -   
+<a href="FreeBSD%204.4%20-%204.6/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="FreeBSD%204.4%20-%204.6/default.htm">FreeBSD 4.4 - 4.6/</a>                       02-Oct-2007 01:00    -   
+<a href="2.6.x/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.6.x/default.htm">2.6.x/</a>                                   25-Jun-2008 22:07    -   
+<a href="2.6.23%20-%202.6.24/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.6.23%20-%202.6.24/default.htm">2.6.23 - 2.6.24/</a>                         25-Jun-2008 22:13    -   
+<a href="2.6.18/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.6.18/default.htm">2.6.18/</a>                                  25-Jun-2008 22:20    -   
+<a href="2.6.17/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.6.17/default.htm">2.6.17/</a>                                  25-Jun-2008 22:18    -   
+<a href="2.6.16/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.6.16/default.htm">2.6.16/</a>                                  02-Oct-2007 00:59    -   
+<a href="2.6.15/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.6.15/default.htm">2.6.15/</a>                                  02-Oct-2007 00:59    -   
+<a href="2.6.14/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.6.14/default.htm">2.6.14/</a>                                  02-Oct-2007 00:58    -   
+<a href="2.6.13/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.6.13/default.htm">2.6.13/</a>                                  25-Jun-2008 22:04    -   
+<a href="2.6.12/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.6.12/default.htm">2.6.12/</a>                                  02-Oct-2007 00:59    -   
+<a href="2.6.11/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.6.11/default.htm">2.6.11/</a>                                  02-Oct-2007 00:58    -   
+<a href="2.6.10/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.6.10/default.htm">2.6.10/</a>                                  02-Oct-2007 00:57    -   
+<a href="2.6.9/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.6.9/default.htm">2.6.9/</a>                                   25-Jun-2008 22:21    -   
+<a href="2.6.9-34/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.6.9-34/default.htm">2.6.9-34/</a>                                02-Oct-2007 00:57    -   
+<a href="2.6.8/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.6.8/default.htm">2.6.8/</a>                                   02-Oct-2007 00:57    -   
+<a href="2.6.7/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.6.7/default.htm">2.6.7/</a>                                   02-Oct-2007 00:57    -   
+<a href="2.6.5/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.6.5/default.htm">2.6.5/</a>                                   02-Oct-2007 00:57    -   
+<a href="2.6.4/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.6.4/default.htm">2.6.4/</a>                                   02-Oct-2007 00:59    -   
+<a href="2.6.2/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.6.2/default.htm">2.6.2/</a>                                   02-Oct-2007 00:56    -   
+<a href="2.4%202.6/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.4%202.6/default.htm">2.4 2.6/</a>                                 02-Oct-2007 00:59    -   
+<a href="2.4.x/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.4.x/default.htm">2.4.x/</a>                                   02-Oct-2007 00:59    -   
+<a href="2.4.34/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.4.34/default.htm">2.4.34/</a>                                  26-Jun-2008 11:33    -   
+<a href="2.4.29/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.4.29/default.htm">2.4.29/</a>                                  02-Oct-2007 00:59    -   
+<a href="2.4.27/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.4.27/default.htm">2.4.27/</a>                                  02-Oct-2007 00:56    -   
+<a href="2.4.26/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.4.26/default.htm">2.4.26/</a>                                  02-Oct-2007 00:59    -   
+<a href="2.4.25/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.4.25/default.htm">2.4.25/</a>                                  02-Oct-2007 00:56    -   
+<a href="2.4.24/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.4.24/default.htm">2.4.24/</a>                                  02-Oct-2007 00:56    -   
+<a href="2.4.23/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.4.23/default.htm">2.4.23/</a>                                  02-Oct-2007 00:55    -   
+<a href="2.4.22/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.4.22/default.htm">2.4.22/</a>                                  25-Jun-2008 22:11    -   
+<a href="2.4.22-10/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.4.22-10/default.htm">2.4.22-10/</a>                               02-Oct-2007 00:55    -   
+<a href="2.4.21/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.4.21/default.htm">2.4.21/</a>                                  25-Jun-2008 22:05    -   
+<a href="2.4.20/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.4.20/default.htm">2.4.20/</a>                                  02-Oct-2007 00:52    -   
+<a href="2.4.19/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.4.19/default.htm">2.4.19/</a>                                  02-Oct-2007 00:51    -   
+<a href="2.4.18/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.4.18/default.htm">2.4.18/</a>                                  02-Oct-2007 00:51    -   
+<a href="2.4.17/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.4.17/default.htm">2.4.17/</a>                                  02-Oct-2007 00:50    -   
+<a href="2.2.x/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.2.x/default.htm">2.2.x/</a>                                   02-Oct-2007 00:59    -   
+<a href="2.2.27/default.htm"><img src="icons//fc.gif" alt="[Folder]" width="16" height="16"></a> <a href="2.2.27/default.htm">2.2.27/</a>                                  02-Oct-2007 01:03    -   
+<a href="zecgroup.txt"><img src="icons//txt.gif" alt="[Text Document]" width="16" height="16"></a> <a href="zecgroup.txt">zecgroup.txt</a>                             25-Jun-2008 22:22  1.8K  
+<a href="kernel.txt"><img src="icons//txt.gif" alt="[Text Document]" width="16" height="16"></a> <a href="kernel.txt">kernel.txt</a>                               02-Oct-2007 00:56  1.0K  
+<hr></pre>
+<div><a href="http://www.3hack.com/" target="_top"><img src="icons/img/logo25.gif" width="25" height="25" alt="3HACK.COM Хостинг - Размещение сайтов. Домены. Почта." align="middle"></a>&nbsp;<a href="http://www.3hack.com/" title="Размещение сайтов. Домены. Почта." target="_top">Хостинг 3HACK.COM</a></div>
+</body>
+</html>

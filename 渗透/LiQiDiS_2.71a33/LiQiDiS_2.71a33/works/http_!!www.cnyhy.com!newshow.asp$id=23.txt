@@ -1,0 +1,26 @@
+■漏洞信息:============================================================
+ ·URL:http://www.cnyhy.com/newshow.asp?id=23
+ ·页面标题：CMOS摄像机与CCD摄像机之性能差别-平安通专栏-成都永辉园科技有限公司
+ ·参数:id=23
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:121.61.118.139
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Cache-Control: private
+Connection: close
+Date: Mon, 22 Aug 2011 09:33:33 GMT
+Content-Length: 8208
+Content-Type: text/html
+Expires: Mon, 22 Aug 2011 09:33:33 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+
+
+
+■数据库信息:============================================================
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+服务器未返回错误信息或返回不可识别的错误信息，你可以根据显示的错误详情设置错误关键字再试，或者切换到使用服务器转发的方式来读取信息！

@@ -1,0 +1,27 @@
+■漏洞信息:============================================================
+ ·URL:http://218.236.176.23/its/photo/detail.asp?adminid=&ID=&page=1&Serial=93
+ ·页面标题：荤柳栏肺 焊绰 何魂版惑措切
+ ·参数:adminid=&ID=&page=1&Serial=93
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:218.236.176.23
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 05:44:40 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 14607
+Content-Type: text/html
+Expires: Mon, 04 Apr 2011 05:44:40 GMT
+Set-Cookie: ASPSESSIONIDQATQSSTR=NDGHBKJAMFIJOOKDODGPPOKD; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+
+■数据库信息:============================================================

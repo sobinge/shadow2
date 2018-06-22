@@ -1,0 +1,20 @@
+■漏洞信息:============================================================
+ ·URL:http://www.thebartend.com/jokes/EthnicJokes.php?id=4314
+ ·页面标题："Fuck you" in Hebrew | Bartender's guide and Party Poker bonus codes, coupons, promo and tips
+ ·参数:id=4314
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:php
+ ·IP:70.86.182.29
+ ·数据库:MySQL
+ ·HEAD:
+HTTP/1.1 200 OK
+Date: Sun, 03 Apr 2011 17:02:30 GMT
+Server: Apache mod_fcgid/2.3.6 mod_auth_passthrough/2.1 mod_bwlimited/1.4 FrontPage/5.0.2.2635
+X-Powered-By: PHP/5.2.15
+Connection: close
+Content-Type: text/html
+
+
+ ·源文件:/home/bartend8/public_html/jokes/joke.php

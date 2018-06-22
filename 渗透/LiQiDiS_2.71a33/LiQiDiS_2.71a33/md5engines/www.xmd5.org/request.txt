@@ -1,0 +1,9 @@
+GET /md5/search.asp?hash=__md5__&xmd5=MD5+%BD%E2%C3%DC HTTP/1.1
+Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, application/x-shockwave-flash, application/x-ms-application, application/x-ms-xbap, application/vnd.ms-xpsdocument, application/xaml+xml, */*
+Referer: http://www.xmd5.org/
+Accept-Language: zh-cn
+User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727; .NET CLR 3.0.04506.648; .NET CLR 3.5.21022)
+Host: www.xmd5.org
+Connection: Keep-Alive
+Cookie: ASPSESSIONIDCCTTABQD=NFHINIFDBJHKCCDOAGLKDABE; AJSTAT_ok_pages=1; AJSTAT_ok_times=1
+

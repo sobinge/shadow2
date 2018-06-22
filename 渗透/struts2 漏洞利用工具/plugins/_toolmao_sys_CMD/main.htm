@@ -1,0 +1,244 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title></title>
+<style type="text/css">
+body{border:2px solid #ccc;margin:0px;font-size:14px;background:#000;font-family:Lucida Console;}
+#wrap{height:100%;color:rgb(192,192,192);padding:5px;overflow-y:auto;overflow-x:hidden;}
+.cmdinput{background:#FF3399;width:2px;height:16px;border:0px none #fff;color:rgb(192,192,192);font-family:Lucida Console;font-size:0px;padding-top:500px;}
+.cmdinput_hidden{display:none;}
+#cmdout{word-break:break-all;word-wrap:break-word;display:inline-block}
+</style>
+<script type="text/javascript" src="../../lib/gnbox.js"></script>
+<body>
+<div id="wrap" style="width:528px;">
+Toolmao System [版本 <script type="text/javascript">
+	document.write($VERSION$);
+</script>]<br/>
+版权所有 (c) 2011 Toolmao System。 保留所有权利。
+<br/><br/>
+<span id="lastresult"></span>
+<textarea id="cmdoutH" style="display:none;"></textarea>
+<span id="cmdout">$Toolmao><input id="cmdin" type="text" value="" class="cmdinput"></input></span>
+</div>
+<script type="text/javascript">
+	var _=undefined;
+	var __callback="";
+	var __cursorPos=0;
+	var __cursorstat=false;
+	var __cmdlist=[];
+	var __cmdpointer=0;
+	document.onclick=function(){
+		$("cmdin").focus();
+	};
+	Dom.Event.add(window,"load",function(){
+		__regEvent();
+		__readcolor();
+		Dom.Timer.start(function(){
+			__cursorstat=!__cursorstat;
+			Dom.Html.css("cmdin",{
+				"background":(__cursorstat?"transparent":"#FF3399")
+			})
+		},480);
+	});
+	function print(v){
+		var rv="";
+		var t=$Y(v);
+		switch(t){
+			case "array":
+				rv+=arr2str(v);
+				break;
+			case "object":
+				rv+=obj2str(v);
+				break;
+			case "null":
+				rv+="null";
+				break;
+			default:
+				rv+=v.toString();
+				break;
+		}
+		return $YCN[t]+"\n"+rv;
+	}
+	function use(lib){
+		require(lib);
+	}
+	function color(r,g,b){
+		var color="";
+		if(/^#|^rgb/.test(r)){
+			color=r;
+		}else{
+			color="rgb("+r+","+g+","+b+")";
+		}
+		Dom.Html.css("wrap","color:"+color);
+		__savecolor(color);
+		return "颜色已更换至: "+color;
+	}
+	function __savecolor (color){
+		var fh=File.open(Win.path()+"config.js");
+		File.write(fh,obj2str({"color":color}),true);
+		File.close(fh);
+	}
+	function __readcolor (){
+		var fh=File.open(Win.path()+"config.js");
+		var ct=File.read(fh);
+		try{
+			ct=str2obj(ct);
+			color(ct.color);
+		}catch(e){}
+		File.close(fh);
+	}
+	function __output(retval,clearflag,errorflag,cmdflag){
+		if(!errorflag){
+			_=retval;
+			if(!cmdflag){
+				retval=print(retval);
+			}else{
+				retval="\n"+retval;
+			}
+			retval=retval.replace(/</g,"&lt;").replace(/>/g,"&gt;");
+			retval=retval.replace(/\r/g,"").replace(/\n/g,"<br/>");
+			retval=retval.replace(/ /g,"&nbsp;");
+		}
+		if(clearflag){
+			$("lastresult").innerHTML="";
+		}else{
+			$("lastresult").innerHTML+=$("cmdout").innerHTML.replace('cmdinput','cmdinput_hidden').replace('cmdin','cmdin_'+$R(8))+"<br/>"+retval+"<br/><br/>";
+		}
+		__cmdreset ();
+	}
+	function __cmdreset (){
+		__cursorPos=0;
+		$("cmdoutH").value="";
+		$("cmdout").innerHTML="$Toolmao>"+'<input id="cmdin" type="text" value="" class="cmdinput"></input>';
+		__regEvent();
+	}
+	function __regEvent(){
+		Dom.Event.add("cmdin","onkeyup",function  (){
+			switch(event.keyCode){
+				case 13:
+					var retval="";
+					var cmdline=$("cmdoutH").value;
+					var clearflag=false;
+					var errorflag=false;
+					var cmdflag=false;
+					switch(cmdline){
+						case "":
+							retval="";
+							break;
+						case "clear":
+							clearflag=true;
+							retval="";
+							if(__cmdlist[__cmdlist.length-1]!=cmdline){
+								__cmdlist.push(cmdline);
+							}
+							break;
+						default:
+							if(__cmdlist[__cmdlist.length-1]!=cmdline){
+								__cmdlist.push(cmdline);
+							}
+							var cmdparams=cmdline.split(/\s+/);
+							switch(cmdparams[0]){
+								case "net":
+								case "ping":
+								case "netstat":
+								case "type":
+								case "tasklist":
+								case "taskkill":
+								case "ntsd":
+								case "ls":
+								case "cd":
+								case "set":
+								case "regsvr32":
+								case "dir":
+									cmdflag=true;
+									if(cmdparams[0]=="ls"){
+										cmdline=cmdline.replace(/^ls/,"dir");
+									}
+									Sys.CMD.open();
+									retval=Sys.CMD.run(cmdline,true);
+									Sys.CMD.close();
+									break;
+								default:
+									try{
+										retval=eval($("cmdoutH").value);
+										if(retval===undefined){
+											retval="";
+										}
+									}catch(e){
+										errorflag=true;
+										retval="$错误: "+e.description;
+									}
+							}
+					}
+					__output(retval,clearflag,errorflag,cmdflag);
+					break;
+				case 37:
+					__cursorPos++;
+					var len=$("cmdoutH").value.length;
+					if(__cursorPos>len){
+						__cursorPos=len;
+					}
+					$("cmdout").innerHTML="$Toolmao>"+toNBSP($("cmdoutH").value.substring(0,len-__cursorPos))+'<input id="cmdin" type="text" value="" class="cmdinput"></input>'+toNBSP($("cmdoutH").value.substring(len-__cursorPos,len));
+					__regEvent();
+					break;
+				case 39:
+					__cursorPos--;
+					if(__cursorPos<=0){
+						__cursorPos=0;
+					}
+					var len=$("cmdoutH").value.length;
+					$("cmdout").innerHTML="$Toolmao>"+toNBSP($("cmdoutH").value.substring(0,len-__cursorPos))+'<input id="cmdin" type="text" value="" class="cmdinput"></input>'+toNBSP($("cmdoutH").value.substring(len-__cursorPos,len));
+					__regEvent();
+					break;
+				case 8:
+					var len=$("cmdoutH").value.length;
+					$("cmdoutH").value=$("cmdoutH").value.substring(0,len-__cursorPos-1)+$("cmdin").value+$("cmdoutH").value.substring(len-__cursorPos,len);
+					len=$("cmdoutH").value.length;
+					$("cmdout").innerHTML="$Toolmao>"+toNBSP($("cmdoutH").value.substring(0,len-__cursorPos))+'<input id="cmdin" type="text" value="" class="cmdinput"></input>'+toNBSP($("cmdoutH").value.substring(len-__cursorPos,len));
+					__regEvent();
+					break;
+				default:
+					if(event.keyCode==38){
+						//上翻历史命令记录
+						__cmdreset();
+						__cmdpointer++;
+						if(__cmdpointer>=__cmdlist.length){
+							__cmdpointer=0;
+						}
+						$("cmdin").value=__cmdlist[__cmdlist.length-__cmdpointer-1];
+					}
+					if(event.keyCode==40){
+						//下翻历史命令记录
+						__cmdreset();
+						__cmdpointer--;
+						if(__cmdpointer<0){
+							__cmdpointer=__cmdlist.length-1;
+						}
+						$("cmdin").value=__cmdlist[__cmdlist.length-__cmdpointer-1];
+					}
+					var len=$("cmdoutH").value.length;
+					$("cmdoutH").value=$("cmdoutH").value.substring(0,len-__cursorPos)+$("cmdin").value+$("cmdoutH").value.substring(len-__cursorPos,len);
+					len=$("cmdoutH").value.length;
+					$("cmdout").innerHTML="$Toolmao>"+toNBSP($("cmdoutH").value.substring(0,len-__cursorPos))+'<input id="cmdin" type="text" value="" class="cmdinput"></input>'+toNBSP($("cmdoutH").value.substring(len-__cursorPos,len));
+					$("cmdin").value="";
+					__regEvent();
+			}
+		});
+		$("cmdin").focus();
+		$("cmdin").click();
+	}
+	function toNBSP (str){
+		return str.replace(/ /g,"&nbsp;");
+	}
+</script>
+<script type="text/javascript">
+Dom.Event.add(window,"onload",function(){
+	$("wrap").style.width=($P(parent.document.getElementById("desktop").style.width)-32)+"px";
+});
+Dom.Event.add(window,"onresize",function(){
+	$("wrap").style.width=($P(parent.document.getElementById("desktop").style.width)-32)+"px";
+});
+</script>
+</body>
+</html>

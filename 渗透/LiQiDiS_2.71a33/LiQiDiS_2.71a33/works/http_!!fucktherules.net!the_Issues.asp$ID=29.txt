@@ -1,0 +1,25 @@
+■漏洞信息:============================================================
+ ·URL:http://fucktherules.net/the_Issues.asp?ID=29
+ ·页面标题：Fuck The Rules :: The Issues
+ ·参数:ID=29
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:116.50.21.5
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 16:11:39 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 14474
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDSADRATBS=PCJFMJEAOAMFDPDNPBJGPNHB; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+服务器未返回错误信息或返回不可识别的错误信息，你可以根据显示的错误详情设置错误关键字再试，或者切换到使用服务器转发的方式来读取信息！

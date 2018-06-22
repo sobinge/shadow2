@@ -1,0 +1,968 @@
+//Translator Info 此??入??者信息 使用\r\n表示?行符，\t表示跳格字符	
+TranslatorInfo	번역하신분：LiQiDiS (liqidis@hotmail.com)\r\n사이트：http://www.liqidis.com
+	
+//Main Menu	
+//ScanPage ?描?面	
+ScanPage	&P.페이지검색
+StartScan	&S.검색시작
+StopScan	&O.검색중지
+Exploit	&E.사용...
+EditPageDOM	&D.페이지편집DOM
+	
+//ScanSite	
+ScanSite	&S.사이트검색
+ScanSensitiveFiles	&F.민감파일검색...
+ScanOrdialFiles	&O.스캔시퀀스파일...
+SiteCrawler	&C.사이트검색기...
+	
+//Codec	
+Codec	&C.코드풀기
+URLCodecer	&U.URL코드풀기기능...
+MD5	&M.MD5
+MD5Codecer	MD5코드풀기기능...
+MD5BatchLookUp	MD5다량파결하기...
+MD5LookupEngines	설정MD5파결엔진...
+BASE64Codecer	&B.BASE64코드풀기...
+SQLVarCharEncoder	&S.SQL VarChar 코드기능...
+SQLKeywordCapsRandomizer	&R.SQL 키워드자동대소문자 설정하기...
+DeclareExec	&D.SQL언어코드는Declare_Exec의혁식...
+	
+//Advanced Tools	
+AdvancedTools	&A.고급공구
+Looper	&L.자동순환하기...
+RequestRelayServer	&R.요청전발기...
+ViewSQLOutput	&V.SQL창 내가기 감시...
+	
+//Tools	
+Tools	&T.공구
+IPDomainReverseLookup	&I.IP도메인재검색...
+ASPEvalClient	&A.ASP한줄문장 언어목마클라이언트...
+	
+//Settings	
+Settings	&S.설정
+ConfigMySQLServerTransfer	&C.설정나의SQLServer서비스전발하기...
+ProgramSettings	&P.프로그램설정...
+	
+//Skins	
+Skins	&K.스킨
+RemoveSkin	&R.스킨이동
+CurrentSkin	&C.현재스킨:
+	
+//Languages	
+Languages	&L.프로그램언어
+TranslatorInfo	&T.번역자정보...
+	
+//Help	
+Help	&H.도움말
+OnlineTut	&O.온라인강좌...
+HowToConfigMySQLServerTransfer	&H.어떻게나의SQLServer서버전발설정...
+Contents	&C.내용...
+ViewMyRegCode	&V.나의가입라이센스보기...
+About	&A.정보...
+Test	&T.테스트...
+	
+//Context menu of Vulnerabilities list	
+Copy	&C.복사
+Delete	&D.삭제
+ViewCachedData	&V.버퍼정보보기...
+DeleteCachedData	&R.버퍼정보삭제하기
+BrowseInAbove	&A.위창에서열기
+BrowseWithIE	&I.IE에서열기...
+SaveList	&S.리스트저장...
+LoadList	&L.리스트가져오기...
+GenerateWebReport	&G.HTML테이블생성하기...
+TerminateAllScanningThreads	&T.모든스캔작동중지하기
+	
+//Main Window Controls	
+Go	가기
+Stop	중지
+Refresh	열기
+Back	<-
+Forward	->
+Message	메세지
+Save	저장
+Clear	지우기
+ScanWholePage	전부페이지검색하기
+Keyword	키워드
+ScanURL	주소입력만스캔
+StopScan	검색중지
+TerminateAllThreads	모든스캔작동중지하기
+ClearList	리스트지우기
+Vulnerabilities	에러
+ServerErrors	서버에러
+	
+//Main windows assembly strings 主?口程序集字符串	
+Initializing...	현재초기화상태……
+Loading dictionaries...	지금사전을가져오기……
+//URL|250|Ping(ms)|70|Severity|130|Judge Method|140|Exploit Type|60|Type|60|DBType|80|Title|120|Error Fingerprint|150|Alexa|120|Method|80	
+VulnListHeaders	연결주소|250|반응시간(ms)|70|엄중도|130|판단방법|140|이용종류|60|종류|60|디비|80|페이지제목|120|에러지문|150|Alexa순위명|120|요청방법|80
+ServerErrorListHeaders	URL|500|서버에러|300|디비종류|150
+ConnectingToSQLServerTransfer	테스트로 연결하여 SQLServer전발 서버에 연결중……
+LoadingVulnList	자동저장하는에러 리스트를가져오기……
+DblClickToClose	가져오기완료，두번클릭하여 창끄기
+NewSkinWillBeAppliedAtNextStartup	새로운스킨은 다시시동시적용
+ConnectToSQLServerTransferFailed	로컬에서연결하여나의MSSQLServer디비실패，새로구성하거나,검사하하세요！
+WouldYouLikeToConfigSQLTransfer	설정을 아직않한‘나의MSSQLServer전발’설정，먼저 설정하기를 요구합니다.\r\n메뉴를눌러주세요【도움말】【어떻게‘나의SQLServer서버전발’설정】설정문서를 봐주세요.
+ErrorKeywordDict	에러키워드사전
+SourcePathKeywordDict	원경로 키워드사전
+NotFoundDBFingerPrintDict	디비에러 지문사전발견하지않았습니다：
+ParseXMLFailed	해석XML파일실패：
+FileNotExists	파일없습니다：
+Read%sFailed%s	읽기 %s 실패：%s！
+NotSelected	[미선택]
+PageNotLoaded	첫창에서홈페이지를아직가져오지않았습니다！
+ScanningLinksPlzWait	지금페이지의 연결을 스캔하고있는중입니다，잠시만……
+ScanningFormsPlzWait	지금페이지의Form을 스캔하고있는중입니다，잠시만……
+NoScannableLink	스캔 할 연결이없습니다.
+ScanningVulnsPlzWait	에러를스캔하고있습니다,잠시만……
+AbortedFound%dVulns%dSE	스캔 이미 취소했습니다。전부찾은수는 %d 개에러，%d 개서버에러.
+CantExpWhenScanning	스캔시 에러사용이불가능
+XorTryCookieOrPost	XoR 형 에러에 사용할것은 Cookies 혹은 POST 방법으로 뚫른 테스트로진행하세요
+AttentionOnExit	【주의】고객님의합법적인 라이센스를위하여 ，혹시공공장소에서 본 프로그램을 실행하였다면，본 프로그램을 깨끗이 지워주세요.
+PlzInputURLFirst	우선 스캔 할 주소를입력하세요！
+SureToClearList	리스트를 지우겠습니까?
+SkinWillBeRemoveAtNextStartup	시킨은 프로그램을 재시동할떄 지웁니다.
+CantModifySettingsWhenScanning	스캔시 프로그램설정 수정이 불가능합니다.
+CantDelWhenScanning	스캔시 삭제 작동이 불가능합니다
+SureToDel?	지우겠습니까?
+SureToDelCachedata?	버프정보를지우겠습니까?
+NoCachedData	버프정보가없습니다.
+LoadLangFailed	언어파일 가져오기실패
+	
+//程序集_注入点?描	
+Scan:	검색：
+Skipped:	×이미 건너뛰였습니다：
+TimeoutSkipped:	×시간이 지나가면 건너뛰기：
+ExposePathSrc	(보이는경로，원파일)
+ExposeSQL	(보이는SQL)
+ExposePath	(보이는경로)
+	
+//程序集_全局	
+Unknown	모르는정보
+WaitingThreadsExit	현재 쓰레드 끝나기를 기다리고있습니다……
+ThereR%dthreads	모두 %d 개 쓰레드가 지금실행하고 있습니다……
+ScanComplete_%d_%d	스캔완료。전부 %d 개 안전 에러가 있고， %d 개 서버에러가 있습니다.
+	
+//SQL注入?口控件	
+Scan	스캔
+GeneralOutput	규칙으로내보내기
+BasicInfo	기본정보
+Settings	설정
+HEAD	요청첫구절
+Cookies	Cookies
+Browse	홈페이지열기
+SaveAs...	신저장하기
+Save	저장
+Copy	복사
+OutputToGrid	인터넷콘트롤에내보내기
+ViewSQLOutput...	SQL내보내기창보기
+BrowseTheURL...	도메인주소열기...
+	
+//	General Output
+Params:	변수:
+Method:	방법:
+Type:	종류형태:
+ExpMethod:	이용방식:
+DBType:	디비:
+Script:	스크리트:
+ReplaceSpaceWith:	스페크 바꾸어서 사용하기:
+OS:	시스템:
+IPAddr:	IP주소:
+	
+// 	Basic Info.
+BasedOnContentLength	내용길이에 의하여
+BaseLength	기본길이
+Bytes	byte
+BasedOnKeyword	키워드에 의하여
+KeywordInNormalPage:	정상 페이지 키워드:
+BasedOn500Error	서버500에러
+	
+TipCookie	알림：페이지를 다연후，Cookies는 여기에서 보입니다。
+	
+Skip	건너뛰기
+Stop	중지
+Terminate	강제끄기
+ViewErrors	에러보기
+	
+Common	공용
+	
+ScanDBType	디비종류스캔
+GlobalOptions	전체옵션
+MaxCount	읽어온 기록수 실패시 초기화값:
+QuoteDBObjects	디비대상 무꾸기([]로 사용 혹은``)
+	
+//SQL Server	
+GetDataMethod	정보읽기방법
+ExtractFromServerErrors	서버에서의 에러
+TroughSQLTransfer	“나의SQLServer전발기”로 부터
+ConfigMySQLTransfer	설정SQL전발기...
+HexSQL	코드SQL는16진수형식
+	
+//??? SQL Server	
+BasicInfo	기본정보
+Command	명령항
+GetWebShell	GetWebShell
+Data	정보
+UpdateDB	디비수정하기
+DirTree	목록경로
+ExecSQL	실행SQL
+ReadFile	파일읽기
+Misc	잡설정
+	
+//BasicInfo	
+GetBasicInfo	기본정보읽기
+DBVersion	디비버전
+ExtraSQlRear:	추가한SQL마지막:
+FrontKeytext:	처음키워드:
+RearKeytext:	마지막키워드:
+Language:	언어:
+Set	설정
+	
+//Command	
+XP_CmdShellExists	XP_CmdShell있는지？
+RestoreXP_CmdShell	회복XP_CmdShell
+TipSARestoreCmdShell	알림：SA권한유저만,회복XP_CmdShell함수가능。
+CmdLine:	명령항:
+Echo	다시보이기
+Exec	실행
+Upload	업로드
+LocalFile:	로컬파일:
+RemoteFile:	서버파일:
+TextMode	텍스트형태
+BinMode	이진형태
+Upload	업로드
+Help	도움말
+Misc	잡옵션
+UploadEXE	업로드EXE다운로드
+UploadVBS	업로드VBS다운로드
+UploadLooksite	업로드looksite.vbs
+UploadFTP	업로드FTP설정파일다운로드
+Active3389ByReg	레지스트리를 통하여3389열기
+Active3389ByIni	설정팔일 통하여3389열기
+	
+//GetWebShell	
+GetWebPath	사이트목록읽어오기
+Method:	방법:
+ByReadReg	레지스트리를 통하여읽기
+BySearchFile	검색파일하기
+Get	가져오기
+RootPath:	처음경로:
+FileToSearch:	검색할 파일이름 기다리기:
+RestoreRegRead	회복XP_RegRead
+RestoreDirTree	회복XP_DirTree
+DBName:	디비이름:
+WebShellFilename:	WebShell파일이름:
+ContentOfWebShell:	WebShell내용:
+GetFileAttr	파일속성읽기
+Filename:	파일이름:
+Get	읽기
+RestoreXP_GetFileAttr	회복XP_GetFileAttr
+EncodeAsVarChar	코드는VarChar
+BackupLog	변환로그만백업
+BackupDB	변환디비만백업
+//MSSQL>DATA-------------------------------------	
+Where:	조건:
+Top:	기록수:
+Desc:	내리순서
+DB:	디비이름:
+Order:	배렬:
+AddDatabase...	디비추가...
+AddTables...	테이블추가...
+AddFields...	필드추가...
+GetTables	테이블읽기
+GetFields	필드읽기
+GetData	정보읽기
+Tip	!.알림
+//MSSQL>UpdateDB---------------------------------	
+TipUpdateMssql	【알림】혹시‘정보’페이지에서 디비구성목록의필드를선택하면，아래연결된내용은자동으로입력됩니다.
+DB:	디비:
+Table:	테이블:
+Field:	필드:
+Position:	위치:
+AddAtFore	처음에추가
+AddAtRear	마지막에추가
+ReplaceCompletely	전부바꾸기
+Encode:	코드:
+Where:	조건:
+Content:	내용:
+Update	수정
+	
+//MSSQL>DirTree---------------------------------	
+CurrentDir:	현재목록:
+ListDir	리스트목록
+PublicPriviOnly	있는'Public'권한
+EmptySelectedDir	선택한폴더지우기
+AddFileFolders	파일혹은목록추가
+//MSSQL>ExecSQL---------------------------------	
+chkAutoDisposeCapsEtc	자동대소문자、새줄과 공간처리
+chkDeclareExecNoEcho	코드는Declare_Exec형식
+chkAutoDisposeSQL	에러종류에 의하여 자동SQL처리하기
+Exec	실행
+OriginalSQL	원래SQL
+SQLAfterDispose	처리후의SQL
+PageSourceReturned	돌아간 페이지소스
+	
+//MSSQL>ReadFile---------------------------------	
+Filename:	파일이름:
+Read	읽기
+TipReadFile	【알림】'sysadmin'과'bulkadmin'권한 유저만 파일을 읽을수 있습니다.
+	
+//MSSQL>MISC---------------------------------	
+ActiveSQL2005Procs	시작xp_cmdshell/OpenDataSource/OpenRowSet
+DeactiveSQL2005Procs	끄끼xp_cmdshell/OpenDataSource/OpenRowSet
+TipNeedSAPrivilege	【알림】'sysadmin'권한있어야합니다.
+GetDBIP	디비서버IP주소 읽어오기
+WanIPOfLocalhost:	로컬 외선인터넷IP:
+PortToBeOpen:	열어야할 포터:
+StartServer	1.서버시작하기
+SendRequest	2.요청발송
+StopServer	3.서버끝
+Help	?.도움
+SuperDoS	최고다운
+	
+//Access===============================================	
+ScanUnionParams	연합검색변수 스캔하기
+GetData	정보읽기
+MiscInfo	잡옵션정보
+//Access>Scan Union Params. ---------------------------	
+FrontKeyword:	처음키워드:
+RearKeyword:	마지막키워드:
+Seperator:	분할부호:
+ScanUnionColumns	엽합검색 리스트를 스캔하기
+Total:	전부:
+WhichColumnShown:	보이는리스트:
+ModifyManually	수동수정
+//Access>GetData -------------------------------------	
+Settings:	설정:
+TblPrefix:	테이블앞부분:
+TblSuffix:	테이블뒤부분:
+FldPrefix:	필드앞부분字:
+FldSuffix:	필드뒤부분:
+AddTable	테이블추가
+AddField	필드추가
+GetTable	테이블읽기
+GetField	필드읽기
+GetData	정보읽기
+//Access>MiscInfo------------------------------------	
+Paths	경로
+GetSystemPath:	시스템경로읽기:
+GetDBFilename:	디비파일이름읽기:
+	
+//MySQL==============================================	
+TextEncodeMethod:	텍스트 코드방식:
+EncodeAsHex	코드는16진(0x202122...)
+EncodeAsChar	코드는Char함수(char(97,98,99,...))
+LineComment:	줄마지막,주석부호:
+QuoteDBObjectsWith	사용``무꾼 디비대상
+ScanUnionParams	스캔연합검색변수
+GetData	정보읽기
+GetWebShell	읽기WebShell
+ReadFile	파일읽기
+//MySQL>ScanUnionParams-----------------------------	
+Method:	방법:
+BasedOnKeytextAndNum	관건텍스트와 수자검색으로(적은리스트,제일빠르게)
+BasedOnKeytext	관건텍스트로 검색(많은리스트)
+BasedOnContentLen	내용길이로 검색(제일많은리스트)
+BasedOnErrorKeytext	에러 키워드로(제일많은리스트)
+BasedOnOrderAndContentLen	ORDER BY와내용길이로검색(제일많아서400리스트)
+BasedOnOrderByAndError	ORDER BY와에러정보로(제일많아서400리스트)
+ScanUnionColumns	스캔 연합검색 리스트수
+ErrorKeywords:	에러정보키워드:
+Total:	총수:
+WhichColumnShown:	리스트보이기:
+ModifyManually	수동수정하기
+Set	설정
+ForeKeyword:	처음키워드:
+RearKeyword:	마지막키워드:
+Seperator:	분할부호:
+GetBasicInformations	기본정보읽기
+//MySQL>GetData -----------------------------------	
+Where	조건
+Order	배렬
+Desc	반대로배렬
+Limit:	제한:
+AddDatabase...	디비추가...
+AddTables...	테이블추가...
+AddFields...	필드추가...
+Method:	방법:
+ByDictionary	사전으로
+FromSchema	INFORMATION_SCHEMA에서
+Prefix:	앞부분:
+Suffix:	뒤부분:
+ListDBs	리스트디비
+ListTables	리스트테이블
+ListFields	필드리스트하기
+GetData	정보를읽기
+SelectIntoOutFile...	서버에파일을저장하기...
+SaveData	정보저장
+//MySQL>GetWebShell-----------------------------------------	
+TargetFilename:	목표파일이름:
+WebShellContent:	WebShell파일이름:
+ShowPHPShellsOnly	php shell로만 보이기
+Write	쓰기로 내가기
+//MySQL>ReadFile--------------------------------------------	
+FilenameOnRemoteServer:	서버의파일이름:
+Read	읽기
+SaveFileTo:	정보를 파일에 저장하기:
+TipSaveFileTo	【알림】체클"파일에저장"옵션을선택하시면，디비에 원래정보를 저장하여 자료가 꺠지지 않습니다.
+	
+//?口程序集_漏洞利用	
+ExploitVuln	에러사용
+UnsupportedGetDataMethod	지원하지않는정보 다시 보이는방식
+NotFoundVulnItem	이주소에 해당한인젝센을 찾지못합니다！
+Finished.	이미완료。
+ProcessAborted.	현재미션은 이미유저가 중지하였습니다！
+PlzWaitThreadExit.	쓰레드가 끝날떄까지 기다리세요.
+	
+//以下????文本的首字符和?文本的首字符	
+SectionHead	■
+ItemHead	 ·
+	
+VulnInfo:	에러정보:
+PageTitle:	페이지제목：
+Params:	변수:
+ExploitMethod:	이용방법:
+Script:	스크립언어:
+Database:	디비:
+SourceFile:	원파일:
+Ready.	준비
+NowScanningDBType...	디비종류를검색하고있습니다.……
+DBDetectionFailed...	디비종류감시실패，수동으로 디비종류를 확인이 된다면 ,직접 그 디비 종류페이지에서 이용을 하세요.
+KeywordsCannotBeEmpty	처음과마지막키워드를 비우지 마세요！
+ScanningUnionParams...	연합검색변수 스캔중……
+UnionColumnCount_%d_%d:	연합검색리스트수: 총= %d  보이는 리스트는= %d
+UnionSQLAccess:%s	연합검색SQL: and 3=8 union select %s from MSysAccessObjects
+ScanningUnionFailed.	스캔한 연합검색변수실패，수동으로연합검색변수를 설정하세요
+ScanningUnionOK.	축하합니다，UNION마추기검색성공！^_^
+LoadTables.dictFailed.	테이블 이름사전이 비웠거나 혹은 테이블사전에러！
+Scanning	스캔중
+FoundTable:	찾은테이블:
+ScanningTablesFinished.	테이블이름마추기완료。
+PlzSelectATblFirst.	한개테이블선택하세요
+PlzSelectAFieldFirst.	우선마추기필드를선택하세요！
+NoTheTblInMem.	메모리에 이 테이블이없습니다
+LoadFields.dictFailed.	필드이름사전이 비우거나 혹은 읽은 필드사전에러！
+ScanningField	필드를검색하는중
+FoundField:	찾은필드:
+ScanningFinished.	스캔완료.
+PlzScanUnionFirst.	우선연합검색변수를 감시하세요！
+RetrvingData...	정보를가져오고있습니다……
+RetrvingRecordCount...	개수를기록하고있습니다……
+GetSysPathPlzWait...	시스템 경로마추는중，잠시만……
+GetSysPathOK.	축하합니다:마춘 시스템경로성고！
+GetSysPathFailed.	시스템경로 해석하기실패。
+Failed:NoEMsg	[실패:에러없는정보]
+GetDBPathPlzWait...	디비경로를 읽고있습니다，잠시만……
+GetDBPathFailed.	디비경로 읽기실패！
+Failed:CantExtractDBPath	[실패:경로 필터가 안됩니다]
+DatabaseInfo:	디비정보:
+GettingDBInfo...	디비정보를검색중……
+	
+//下一行，必?使用^符?分割成6?	
+DBInfoHeaders	디비이름：^유저이름：^버전：^서버이름：^서비스이름：^시스템아이디：
+	
+NoServerErrorsLong	서버에서 에러정보를 읽지못하거나,혹은 읽은에러정보 분석불가，현재보이는 에러내용으로 에러설정하여 키워드로다시 해보세요 혹은 서버전발방식으로정보를 읽으세요！
+SQLAfterDisposed:	처리한후의SQL:
+GetBasicInfiFailed	기본정보읽어오기실패
+BatchFailed.1by1start...	대량 기본정보를 읽기실패，하나씩 읽기 시작……
+GettingDBNames...	디비이름읽고있습니다……
+CurrentDatabase:	현재디비:
+GettingDBVersion...	서버디비 버전 정보를 읽고있습니다……
+Version:	버전:
+GettingDBVersoinFailed.	디비버전 정보 읽기실패！
+SQLSent:	보낸SQL:
+FoundSQL2005long	발견SQL2005，우선 '잡옵션공구' 를 열어서 설정을 하세요
+DBUserPrivi:	현재유저권한：
+GettingPrivi...	지금유저권한을읽고있습니다……
+GettingPriviFailed	유저권한읽기실패！
+ErrorDetails:	에러 상세한정보：
+GettingDBs	디비정보읽고있습니다……
+DBInfo:	디비정보:
+GettingUserlist...	유저리스트를읽고있습니다.……
+SQLSvrUsers:	SQL Server유저리스트 테이블：
+Username_tRole_tSid	유저이름\t\t캐릭\t\t보안번호\r\n
+GettingDBProcInfo...	디비에관한 프로세스정보를 읽고있습니다.……
+DBProcInfo:	디비에관한 프로세스정보:
+	
+//下一行必?用|分成六列	
+DBProcInfoHeaders	프로그램이름|상태|호스트이름|호스트프로세스ID|명령항|NT유저이름
+	
+GettingLinkedSvrs...	지금연결한서버정보를읽고있습니다……
+LinkedSvrsInfo:	연결한서버정보:
+LinkedSvrHeaders	서버이름|서버제품|제공자이름|정보원|위치|서버인터넷이름
+GettingUserLoginInfo...	디비에 로그인할수있는 유저정보를 읽고있습니다……
+DBUserLoginInfo:	디비유저 로그인정보：
+UserLoginInfoHeaders	유저이름|비밀번호HASH|디비번호|언어|시간1|시간2
+DBconnIsNullLong	빈 디비연결！우선[설정나의MSSQLServer서버]버튼을 클릭하여 로컬연결속성을 테스트하세요
+UnableConnTransferLong	로컬에서 나의MSSQL Server서버를 연결이 안되면，설정을 진행하세요！
+ProcessAborted.	감시과정에유저가중지를 했습니다
+Getting	읽고있는중입니다
+CreatingTblOnTransfer...	지금 나의MSSQLServer서버에 임시테이블을 생성하고있습니다……
+CreateTblSQL:	테이블생성메모：
+SendingRequest...	호스트서버에 정보를 읽는요청를 하고있습니다……
+RetvingDataFromTransfer...	지금 나의MSSQLServer서버에서 정보를 읽는중……
+PlzInputCmd.	우선 선택하거나 명령항에 입력하세요.
+PlzGetBasicInfoFirst.	우선기본정보를 검색하세요.
+ExecCmdPlzWait...	명령을 실행하는중，잠시만……
+GetRecordCountFailed	기록 읽기실패，사용설정값：
+PlzInputFNFirst.	파일이름 쓰세요！
+ContentsOfFile:	파일내용：
+ReadingFile...	파일내용을 읽고있습니다……
+DropTmpTbl...	임시테이블 삭제중입니다……
+PlzWait...	잠시만 기다려주세요……
+CmdShellExists	축하합니다，함수 XP_CmdShell 있습니다！
+CmdShellNotExists	:( 함수 XP_CmdShell 없습니다。
+PlzSelectLocalFile.	우선로컬파일선택하세요！
+LocalFileNotExists.	로컬파일없습니다！
+PlzInputRemoteFile.	서버이름쓰세요。
+ProcessingFile...	지금파일을처리하고있습니다，잠시만……
+FileSizeNotExceed64kb.	파일크기는64KB초과 하지마세요！
+BldingBinFile...	호스트서버에 이진파일을 구성하고있습니다……
+UploadFinished.	파일업로드완료！
+UploadingFile...	파일업로드하고 있습니다……
+RetrvingWebPathFinished.	사이트경로 읽기완료！
+InputFilenameToBeSearch.	검색할 경로와 파일이름을 입력하세요
+WebPathByFile:	검색파일을 통하여 사이트 경로를 읽어오기：
+SearchingFile...	호스트서버에 파일검색을 하고있습니다……
+BldingResultTbl...	호스트서버에 결과테이블을 구성하고있습니다……
+RetrvingData...	정보를 읽는중입니다……
+GetWebPathByReg:	레지스트리를 읽어서 사이트첫목록을 읽어오기：
+PlzModifyRmtFNlong	요구에따라 서버파일을 수정하세요，그리고 [업로드]버튼을 클릭하세요
+PlzInputDBNameOrScanBasicInfo.	현재디비이름을 입력하세요.혹시 기본정보를 감시 하지 않았으면 ,먼저 기본정보를 감시하세요.
+InputFilenameToBeGenerated.	생성할파일 이름입력하세요
+InputWebShellContent.	업로드 할 목마내용입력하세요.
+DoInitialBackup...	임시테이블을 생성합니다，그리고 초기화 백업을 합니다……
+WritingDataToDB...	디비에 정보를 입력하는 중입니다……
+MakeFinalCleanup...	지금 파일에백업을 하는중 그리고 마지막 처리를 하고있습니다……
+GetWebShellFinished.	GetWebShell완료。
+SetupErrorKeywordsLong	에러문자열로,서버정보읽기를 할려면 에러문자열의 첫키워드와마지막키워드를 설정하세요，우선기본정보를탐사하고，혹은수동설정하세요.\r\n\r\n보이지않는 에러방식으로 탐사해도 정보을읽지못하면，서버정보읽기방식을 〔나의MSSQLServer서버전발〕여기로 전환하세요
+RestringProc...	지금 저장프로시저을 회복하는중，잠시만……
+RestoringProcFinished.long	회복저장프로시저완료。주의sa권한이 있어야만 성공적으로 저장프로시저를 회복할수있습니다.
+PlzInputFilename.	파일이름입력하세요
+GettingFileAttr:	지금파일속송을 읽고있습니다：
+SuperDoSConfirm	[최고다운] 기능은호스트서버를 인츰반응을 없게합니다,확인을하고 이 기능을 실행하겠습니까? 고민하시고 실행하세요！
+PlzSelectADBNode.	디비를 선택하세요 ！
+GettingTblsOf%s...	디비를읽는중 %s 의테이블이름……
+ListingTbls...	호스트서버에 임시테이블을생성하는중입니다，디비의테이블을 정렬하고 있습니다……
+BatchFailed1By1Started...	대량읽기실패，지금 한 구절씩 읽어오고 있습니다……
+PlzSelectTblNode.	테이블이름을 선택하세요！
+GetColumnsOf%s%s...	읽고있는 %s.%s 의 리스트이름……
+ListingColumns...	호스트서버에 임시테이블 생성하는중，그리고 디비의 필드를 정렬하는중……
+PlzSelectSomeFlds.	읽어올 필드를 선택하세요
+ExecutingQuery:	검색을실행하는중：
+NotSupEchoMethod.	지원하지않는 서버에서정보읽기 방식.
+PlzInputDBName.	디비이름을 입력하세요
+PlzInputTblName.	테이블 이름 입력하세요.
+PlzInputColName.	리스트 이름을 입력하세요
+SQLCantBeEmpty.	SQL명령을 비우지마세요
+UpdatingTheDB...	디비를 업로드하는중……
+UpdatingFinished.	엡데이트완료.
+KeywordsCantBeEmpty.	키워드가 비우면안됩니다.
+FileNotFound:	파일 찾지못했습니다:
+WaitingThrdsExit...	쓰레드 끝나기를 기다리고있습니다……
+TmplFileNotFound:	필요한 템플릿 파일을 찾지못했습니다：
+TipUpFTPlong	호스트서버파일이름 수정하여서 업로드 버튼을 누르세요！\r\n\r\n파일업로드완료후，실행 ftp -i -v -s:c:\ftp.txt 하여 FTP로 서버에 다운로드하기
+PlzSelectDiskOrFolderNode.	디스크를 하나선택하거나,혹은 목록을 펼치세요！
+Processing...	처리중……
+GettingData1Request...	한꺼번에 내용을 읽습니다……
+OneRequestFailed:	한번에 읽어오기 실패:
+GettingDataByBatch...	한번에 읽기실패，지금 대량으로 읽어오고 있습니다……
+GettingByBatchFailed:	대량으로 읽어오기 실패:
+AreUSureToClear?	지우겠습니까?
+PlzInputFilesLong:	추가할 폴더 혹은 파일을 입력하세요,한줄하나씩,마지막에 추가할때/으로 목록을 표시합니다 ：
+ExecutingSQL...	현재실행하는SQL...
+Activating2005procs...	열기 XP_CmdShell/OpenDataSource/OpenRowSet ...
+Deactivating2005Procs...	끄기 XP_CmdShell/OpenDataSource/OpenRowSet ...
+InputErrorKeywordsWhenNoMatch.	필스수를 입력하세요, 맞지 않을시의 에러정보 키워드
+ScanningWhichColInPage...	어느필드로 페이지에 보이는지 스캔하고 있습니다 ……
+UnionSQL:	연합검색SQL：
+GettingRecordCntFailed.	기록수가져오기실패
+RecordCount:	기록수:
+ValuesAreNotValid.	입력한값불가！
+BasicInfos:	기본자료：
+SingleQuote:yes	부호'사용하기：네
+SingleQuote:no	부호'사용하기：아니
+Info_schema:yes	INFORMATION_SCHEMA：있슴
+Info_schema:no	INFORMATION_SCHEMA：없슴
+ListingDBs...	디비리스트를 읽어오고있습니다……
+Databases:	디비：
+Schema_name	디비이름
+CharSetName	문자집합이름
+ListingTblOf%s...	디비를 정렬하는중 %s 의 테이블……
+ListingFldsOf%s.%s...	현재읽오있는 %s.%s 의 필드이름……
+ColName	리스트이름
+DataType	자료중류
+CharSetName	문자집합이름
+GettingData...	정보를 읽어오고 있습니다……
+PlzSelectCols.	먼저 몇개필드를 선택하세요.
+Note:QuoteOnLong	주의：magic_quote_gpc 설정하여 on，목표파일(가능)생성실패.
+MustSpecifyFN.	파일이름 지정하세요.
+MustInputKWsAndSep.	앞뒤키워드와 분할부호텍스트를 입력하세요！
+InputWANIP.	로컬 외선인터넷IP입력하세요
+SpecifyPort.	감시 포터를 입력하세요.
+StartFailed,PortInUse?	서비스 시작실패，포트가 사용하고 있습니까？
+DBSvrIPis:	디비서버IP주소：
+PlzStartSvcAndMapPortLong	감시서비스시작하고，그리고포터가꼭외선인터넷에 연결해야됨.
+	
+//URL Codecer	Code:
+//Global_UI related code:	
+VulnTable	에러테이블
+GenByLiQiDiS	이테이블은LiQiDiS(Liquid Injection System)생성
+NumericT	수자형식
+TextT	문자형식
+SearchT	검색형식
+InputDBNames1PerLine:	디비이름리스트입력하기，각줄하나씪：
+InputTblNames1PerLine:	테이블이름입력하기，각줄하나씩：
+InputColNames1PerLine:	필드리스트입력하기，각줄하나씪：
+FailedToGetWANIP.	외선인터넷IP를읽어오기실패！
+	
+//Show text paragraph Code:	
+//Common-Code:	
+//SQL Varchar NVarChar Code:	
+//MD5 Code:	
+TheTextNotMD5.	입력한것이 MD5값이 아닌것같습니다！
+CalcMD5CrackMD5	MD5암호화/파결화
+Lookup%sPlzWait...	지금검색하는중 %s ，잠시만기다려주세요……
+LookupCompSites...	현재사용은 종합md5파결 사이트파결……
+	
+//Setup SQLServerTransfer Code:	
+Success.	^_^성공。
+Failure.	:( 실패。
+ErrorMsg:	에러정보：
+ConnOKSaveSettings.	연결성공，이미설정파일에 저장하였습니다！
+	
+NoADODBDrv.	디비연결비였습니다，Adodb디비drive없습니다。
+	
+//Program Settings Code:	
+MustSelect1ScanMethod.	적어도 하나의 검색방식을 선택하여 인젝션검색하세요.
+RUSure2ClearAll?	전부 삭제하겠습니까？
+SrcStrCantBeEmpty.	바꿀 문자구절은 비우지마세요.
+PlzSelectALang.	프로그램언어를 선택하세요.
+LoadLangFileFail.	프로그램언어 가져오기실패.
+	
+	
+//Server SQL Code:	
+Percent:	백분비：
+GetSvrSQLFinished.	체클서버에서 정보를 가져오기완료，에러사용을 하실수 있습니다.
+	
+//SensitiveFile scanner Code:	
+GridHead	반은코드|80|연결|700
+PlzInputURL.	우선URL주소를입력하세요.
+PlzInputExt.	확장명을 입력하세요.
+UrlFmtInvalid.	URL주소격식이 맞지않습니다.
+	
+//ordinal file scanner Code:	
+URLMustContainVar.	연결주소에 순환변수가꼭 들어가야됩니다：##i##。
+SelectTextToBeReplaceAsVar.	연결주소에서 순환증가변수##i##로 바꿀텍스트를 선택하세요。
+	
+//DNS reverse lookup Code:	
+MustInputDNSIP.	먼저도메인 혹은IP주소를 입력하세요.
+InputURLwithVar:	변수가 있는연결주소를 입력하세요，__dns__변수는 도메인을 표시，__ip__IP를표시，아래와같음：
+	
+//The Looper Code:	
+LoopVar	순환변수
+Dict1	사전1
+Dict2	사전2
+PageVar1	페이지변수1
+PageVar2	페이지변수2
+MustInputKeywordsOfPV.	페이지처음과 마지막키워드를 입력하세요.
+	
+//以下??中，必?有4?英文的%s	
+NoVar%s%s%s%s.	정보에 없는 %s %s，체클을 끈이고변수 %s 에 체클하세요，혹은 정보에 입력 %s 。
+Error:	에러：
+RespCode:	반응코드：
+PlzSelectSomeTextInRequest.	먼저 HTTP 요청 위편집칸 혹은POST정보편집칸에서 한구절텍스트를 선택하세요
+SaveResults?	마추기로 해석한 결과를저장하겠습니까?
+PutFocusInRequest.	HTTP요청 위편집칸 혹은POST정보 업로드편집칸에 클릭하세요.
+	
+//HTTP Protocol Code:	
+NoHostEntry.	없는컴퓨터(Host)속성.
+FailedToRslvIP:	해석한 컴퓨터의IP주소 실패：
+FailedToConnTo:	컴퓨터 연결실패：
+TimeoutMs:	시간을 초과(호초)：
+TimeoutContinue:	계속시간초과를 받기：
+	
+//Request Relay	Code:
+StartSvcOK.	서비스시동성공。
+StartSvcFailedPortInUse?	서비스시작실패，포터가 이미사용하고 있습니까？
+SvcStopped.	서비스중지완료。
+	
+//MultiEngine MD5 crack Code:	
+Data1	자료1
+Data2	자료2
+Composite	복사합병
+NoEngine.	엔진없습니다，우선 파열엔진을 추가하세요
+NotFndMD5data.	MD5정보를 발견하지않았습니다，가져오기를 하거나 정확한정보를 붙혀넣으세요
+ThreadRunning.	쓰레드가 작동중입니다.
+Complete.	완료。
+SaveData?	정보를 저장하겟습니까？
+	
+//MD5 engine setup Code:	
+CreateEngineOK.	엔진생성완료.
+CreateEngineFailed.	엔진생성실패，프로그램이 읽기전용 상태에서 실행하는지 검하세요,혹은 디스크 꽉찾는지 체클하세요.
+TitleRequired.	제목쓰세요。
+HeadRequired.	요청위를 입력하세요.
+ForeKeywordRequired.	처음키워드 입력하세요.
+RearKeywordRequired.	마지막키워드 입력하세요.
+NotFndMD5Var.	요청위 혹은POST정보에서 발견하지못한__md5__변수。
+LoadEngineFailed:	엔진가져오기실패：
+FailedToSetEngineState.	설정한 엔진시작과 금지 한상태 실패.프로그램이 읽기전용 상태에서 실행하는지 검사하세요，혹은 디스크꽉찾는지 체클하세요.
+	
+//Base64Codecer UI:	
+BASE64Codecer	BASE64코드해석기
+PlzInput:	입력하세요:
+Paste	복사하기
+BASE64Enc	BASE64코드
+BASE64Dec	BASE64코드
+Copy	복사
+	
+//FTP Server Settings UI:	
+PlzInputFTPinfo:	나의FTP서버정보쓰기：
+FTPIP:	FTP호스트이름혹은IP주소:
+Username:	아이디:
+Password:	비밀번호:
+FileOnFTPsvr:	FTP서버의파일:
+FileOnRmtSvr:	호스트서버에서기대한파일이름:
+OK	확인
+Cancel	취소
+	
+//MD5 codecer UI:	
+MD5Codecer	MD5암호화암호파결
+CalcMD5	계산MD5
+LookupMD5	재검MD5
+Stop	중지
+	
+//SQL text codecer UI:	
+SQLTextCodecer	SQL텍스트코드파결기
+EncAsVarchar	코드는Varchar
+EncAsNVarchar	코드는NVarchar
+DecAsVarchar	Varchar코드로
+DecAsNVarchar	NVarchar코드로
+	
+//SQL keywords capital randomizer UI:	
+SQLKWCapRnd	SQL언어키워드대소문자랜덤생성하기
+PlzInputSQL:	써넣을SQL:
+Randomize	랜덤화
+RmvCRLF	줄바꿈부호삭제하기
+ShrinkSpaces	축소공백부호
+	
+//URL Codecer UI:	
+UrlCodecer	URL코드풀기기능
+UrlDec	URL코드풀기
+UrlEnc	URL코드
+UrlEncCompletely	URL완전코드
+	
+	
+//Find and Replace UI:	
+Find_Replace	찾기와바꾸기
+Find:	 찾는말:
+ReplaceAs:	바꿀내용:
+CapSens	대소문자 구분하기
+Replace	바꾸기
+	
+	
+//Output UI:	
+Output	보내기
+CopyToClipbd	복사하기
+Clear	전부주지우기
+URLEnc	URL코드
+AlwaysOnTop	항상위
+	
+//Batch Look up MD5 UI:	
+BatchLookupMD5	대량쓰리드 대량엔진MD5파결
+ImportData...	정보가져오기...
+PasteData	자료붙여넣기
+Start	시작
+Stop	중지
+Copy	복사
+Save...	저장...
+Settings	설정
+MaxThreads:	제일큰쓰레드수:
+Interval:	간격(호초):
+DontTryOtherEngines.	파결성공하면，다른 엔진 사용하지 않기
+Engines...	엔진...
+	
+//Sensitive file scanner UI:	
+SensFileScanner	민감파일스캔기
+Ext:	확장명:
+ScanAllLevels	전부층급을스캔하기
+IfFileExistsScanLong:	혹시파일이 있으면,계속 아래파일 스캔하기:
+IfRespCodeInListLong:	혹시반응코드가 아래의 리스트 텍스트에 있으면,리스트에 추가하여 연결하기:
+ViewHTTPCode	HTTP반응코드 의미보기
+	
+//Encode SQL as Declare_Exec UI:	
+EncSqlAsDec_Exec	SQL코드를 Declare _ Exec 의형식으로
+	
+//Request Relay	UI:
+RequestRelay	요청전발기
+Port:	포트:
+StartSVC	서비스시작
+StopSvc	서비스중지
+HttpHead:	HTTP요청위:
+TipPressF5ToInsVar.	【알림】F5키를 누르면__sql__변수입력
+PostData:	정보업로드:
+	
+	
+//Config SQL Serve Transfer UI:	
+CfgMyTransfer	나의SQLServer전발서버 설정하기
+WanIP:	외선인터넷IP:
+LanIP:	내선인터넷IP:
+TestLan	로컬테스트연결
+TestWan	서버테스트연결
+TestRmtConnInWeb...	홈페이지에 서버로테스트연결...
+	
+//IP reverse lookup UI:	
+IpDnsRvsLookup	서버사이트를 검색하기
+IpDomainName:	IP/컴퓨터이름:
+GetIP	IP읽기
+Add...	추가...
+Lookup...	찾기...
+Close	끄기
+	
+//Program Settings UI:	
+ProgSettings	프로그램설정
+	
+ScanVuln.	에러스캔
+AutoRplcSQL	자동바꿀SQL
+Languages	언어
+	
+MaxScanningThreads:	스캔시 최대쓰레드수:
+SkipTimeout:	반응시간 아래와같은값보다 많을때뛰어넘기(초):
+	
+UseKW	자동검색한키워드로사용하기
+UseContentLen	내용길이간격값
+Threshold:	간격값:
+	
+GetHead	에러를찾은후 서버위정보를 가져오기
+GetAlexa	에러를찾은후Alexa배렬을가져오기
+Scan0ByteLink	스캔한 내용길이가 비여있는연결
+	
+EnableReplace	바꾸기사용
+RplcAfterURLEnc	URL코드후다시바꾸기
+DelSelected	선택부분지우기
+ClearAll	전부삭제
+Replace	바꾸기
+As	에 의하여
+Add	추가
+	
+LangList:	언어리스트:
+Preview:	유람:
+RefreshList	리스트새로고침
+Apply	응용
+	
+//Show paragraph text UI:	
+Tip:DblClickToClr	【알림】두번클랙하면메모내용이 지워집니다.
+	
+//Ordinal file scanner UI:	
+OrdFileScanner	순서파일스캔기
+PlzInputURLWithVar:	입력하는주소는 변수가 있는(##i##)的URL주소，아래와같음:
+RplcSelAsVar	선택한 텍스트를 변수로바꾸기
+VarSettings	변수설정
+Start:	시작:
+End:	끝:
+Incr.:	증가:
+Chars:	문자수
+FillWith:	문자부쳐넣기:
+	
+//Setup engines for looking up md5 UI	
+SetEngForLookupMD5	설정MD5검색엔진
+EngineList	엔진리스트
+Title:	제목:
+RequestHead:	요청위:
+PostData:	POST자료:
+DelHilited	환한거만 지우기
+AddOrMod	추가/수정
+	
+//Registration UI:	
+Registration	가입
+UrRegCodeIs:	가입코드는:
+	
+//The Looper UI:	
+TheLooper	자동순환기
+//The Looper > menu	
+miModHttpReq	&M.수정HTTP요청
+miFillWithGet	&G.표준Get요청로부쳐넣기
+miFillWithPost	&P.표준POST요청로부쳐넣기
+miMethod	&M.방법
+	
+miCodes	&C.소스
+miGetDBType	&G.디비종류형식을읽어오기
+	
+miInsertVars	&I.변수넣기
+	
+miEncode	&E.코드
+miSqlKeywordsRand	&R.SQL키워드대소문자랜덤화
+miUrlEnc	&U.URL코드
+miUrlDec	&D.URL코드풀기
+miEncAsVChar	&V.코드는SQL Varchar
+miEncAsNVChar	&N.코드는SQL NVarchar
+	
+miFndReplace	&F.찾기바꾸기
+	
+miSave	&S.저장
+miSaveAs	&A.새로운이름으로저장하기...
+miAutoSave	&T.매20초 자동저장
+	
+//The Looper> Tab	
+LoopVars	순환변수
+Dict	사전
+PageVars	페이지변수
+Filter	필터
+Keyword	키워드
+ResponseCode	반응코드
+	
+//The Looper> Tabs	
+UseVarI	사용변수__i__
+UseVarJ	사용변수__j__
+Min	제일작은값
+Max	제일큰값
+Step	걷는길이
+	
+UseDict1	사용사전1(__dict1__)
+UseDict2	사용사전2(__dict2__)
+Edit...	편집...
+ReloadDicts	다시사전리스트가져오기
+	
+UsePV1	사용페이지변수1(__pv1__)
+UsePV2	사용페이지변수2(__pv2__)
+	
+EnableTextFilter	텍스트필터 시작하기
+	
+OutputVars	변주보내기
+OutPutVarsWhenNotContains	돌아간페이지소스가아래와같은텍스트가없으면변수를내보내기
+Counter	반대로의
+	
+OutputVarsWhenRespCodeIn	방은코드가 아래리스트와 같으면변수를내보내기
+	
+//controls	
+Sleep	중지
+MsBetweenRequests	호수로항상신청사이
+Output	보내기
+PageSource	페이지소스
+	
+AutoSave	자동저장
+	
+LoopBody	순환체
+Encode	코드
+Decode	코드풀기
+Run	실행!
+	
+//Version 2.6 Added ===========================================================	
+//The Looer UI:	
+miProject	&P.프로젝트
+miLoad...	&L.열기...
+	
+//The Looper Code:	
+LooperPrjFilter	순환기프로젝트파일(*.looper)|*.looper|모든파일(*.*)|*.*
+FailedSaveFile:	파일저장실패:
+OpenFileFailure:	파일열기실패:
+FileFmtIncorrect.	파일격식 잘못되였습니다.
+	
+//Exploit Vulnerability UI:	
+SqlCapital:	SQL명령대소문자:
+DontCare	서리하지않기
+RndCase	랜덤대소문자
+LowerCase	소문자
+UpperCase	대문자
+	
+FeatureDisabled.	본기능은 이미 제거되였습니다.

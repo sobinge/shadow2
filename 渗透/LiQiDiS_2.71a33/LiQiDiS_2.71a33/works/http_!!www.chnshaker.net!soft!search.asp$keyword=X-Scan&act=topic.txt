@@ -1,0 +1,25 @@
+■漏洞信息:============================================================
+ ·URL:http://www.chnshaker.net/soft/search.asp?keyword=X-Scan&act=topic
+ ·页面标题：下载搜索 - 刹客技术吧 免费资源,软件下载,程序开发,网站制作,电脑教程,黑客软件,黑客教程,日日更新,一起就来技术吧！
+ ·参数:keyword=X-Scan&act=topic
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:173.231.55.59
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Thu, 25 Aug 2011 08:49:58 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 14539
+Content-Type: text/html
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!

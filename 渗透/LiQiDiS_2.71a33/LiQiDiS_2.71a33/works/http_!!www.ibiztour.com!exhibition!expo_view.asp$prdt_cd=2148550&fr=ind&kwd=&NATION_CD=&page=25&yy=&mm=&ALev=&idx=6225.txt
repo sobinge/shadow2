@@ -1,0 +1,29 @@
+■漏洞信息:============================================================
+ ·URL:http://www.ibiztour.com/exhibition/expo_view.asp?prdt_cd=2148550&fr=ind&kwd=&NATION_CD=&page=25&yy=&mm=&ALev=&idx=6225
+ ·页面标题：酒捞厚令捧绢
+ ·参数:prdt_cd=2148550&fr=ind&kwd=&NATION_CD=&page=25&yy=&mm=&ALev=&idx=6225
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:211.174.62.33
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 11:36:23 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+pragma: no-cache
+cache-control: private
+Content-Length: 31695
+Content-Type: text/html
+Set-Cookie: CGOODS=%7C%B1%B9%C1%A6+%BF%A3%C5%CD%C5%D7%C0%CE%B8%D5%C6%AE+%BB%EA%BE%F7%C0%FC+%28Enterainment+Industry+2011%29; path=/
+Set-Cookie: CIDX=%7C6225; path=/
+Set-Cookie: ASPSESSIONIDSAABSRAB=AGKNDOMDCHDCMLFFGCHKGBDC; path=/
+Cache-control: no-cache
+
+
+
+■数据库信息:============================================================
+服务器未返回错误信息或返回不可识别的错误信息，你可以根据显示的错误详情设置错误关键字再试，或者切换到使用服务器转发的方式来读取信息！

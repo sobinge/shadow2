@@ -1,0 +1,111 @@
+
+■数据库信息:============================================================
+- 数据库名：yomiurikorea
+- 用户名：yomiurikorea_user
+- 版本：Microsoft SQL Server  2000 - 8.00.2187 (Intel X86) 
+	Mar  9 2006 11:38:51 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Standard Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：COM365-0F59026D
+- 服务名：MSSQLSERVER
+- 系统用户名：yomiurikorea_user
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+adwell	C:\Program Files\Microsoft SQL Server\MSSQL\data\adwell_Data.MDF	
+airteckorea	C:\Program Files\Microsoft SQL Server\MSSQL\data\airteckorea_Data.MDF	
+bak_interdeal	C:\Program Files\Microsoft SQL Server\MSSQL\data\bak_interdeal_Data.MDF	
+bak_sktb	C:\Program Files\Microsoft SQL Server\MSSQL\data\bak_sktb_Data.MDF	
+bjfood	C:\Program Files\Microsoft SQL Server\MSSQL\data\bjfood_Data.MDF	
+bread_food	C:\Program Files\Microsoft SQL Server\MSSQL\data\bread_food_Data.MDF	
+chosunbed	C:\Program Files\Microsoft SQL Server\MSSQL\data\chosunbed_Data.MDF	
+chungpam	C:\Program Files\Microsoft SQL Server\MSSQL\data\chungpam_Data.MDF	
+cni24	C:\Program Files\Microsoft SQL Server\MSSQL\data\cni24_Data.MDF	
+daea_energy	C:\Program Files\Microsoft SQL Server\MSSQL\data\daea_energy_Data.MDF	
+danggoo	C:\Program Files\Microsoft SQL Server\MSSQL\data\danggoo_Data.MDF	
+danggoo_temp	C:\Program Files\Microsoft SQL Server\MSSQL\data\danggoo_temp_Data.MDF	
+enmateoil	C:\Program Files\Microsoft SQL Server\MSSQL\data\enmateoil_Data.MDF	
+fips	C:\Program Files\Microsoft SQL Server\MSSQL\data\fips_Data.MDF	
+goodmorning	C:\Program Files\Microsoft SQL Server\MSSQL\data\goodmorning_Data.MDF	
+hansengligh	C:\Program Files\Microsoft SQL Server\MSSQL\data\hansengligh_Data.MDF	
+hongsamplus	C:\Program Files\Microsoft SQL Server\MSSQL\data\hongsamplus_Data.MDF	
+hyunwoo	C:\Program Files\Microsoft SQL Server\MSSQL\data\hyunwoo_Data.MDF	
+ik_wibro	C:\Program Files\Microsoft SQL Server\MSSQL\data\ik_wibro_Data.MDF	
+kimdohyung	C:\Program Files\Microsoft SQL Server\MSSQL\data\kimdohyung_Data.MDF	
+kjlove	C:\Program Files\Microsoft SQL Server\MSSQL\data\kjlove_Data.MDF	
+kmnetworks	C:\Program Files\Microsoft SQL Server\MSSQL\data\kmnetworks_Data.MDF	
+kmtour	C:\Program Files\Microsoft SQL Server\MSSQL\data\kmtour_Data.MDF	
+knsolar	C:\Program Files\Microsoft SQL Server\MSSQL\data\knsolar_Data.MDF	
+koreabrush	C:\Program Files\Microsoft SQL Server\MSSQL\data\koreabrush_Data.MDF	
+kukjae_love	C:\Program Files\Microsoft SQL Server\MSSQL\data\kukjae_love_Data.MDF	
+legendwedding	C:\Program Files\Microsoft SQL Server\MSSQL\data\legendwedding_Data.MDF	
+mannequin	C:\Program Files\Microsoft SQL Server\MSSQL\data\mannequin_Data.MDF	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+mksystem	C:\Program Files\Microsoft SQL Server\MSSQL\data\mksystem_Data.MDF	
+model	C:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+naturefood	C:\Program Files\Microsoft SQL Server\MSSQL\data\naturefood_Data.MDF	
+neow	C:\Program Files\Microsoft SQL Server\MSSQL\data\neow_Data.MDF	
+nolbusinhwa	C:\Program Files\Microsoft SQL Server\MSSQL\data\nolbusinhwa_Data.MDF	
+Northwind	C:\Program Files\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+primewig	C:\Program Files\Microsoft SQL Server\MSSQL\data\primewig_Data.MDF	
+pubs	C:\Program Files\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+rancilio	C:\Program Files\Microsoft SQL Server\MSSQL\data\rancilio_Data.MDF	
+selltop	C:\Program Files\Microsoft SQL Server\MSSQL\data\selltop_Data.MDF	
+seonkorea	C:\Program Files\Microsoft SQL Server\MSSQL\data\seonkorea_Data.MDF	
+sinhwa1	C:\Program Files\Microsoft SQL Server\MSSQL\data\sinhwa1_Data.MDF	
+sinhwa1_bakup	C:\Program Files\Microsoft SQL Server\MSSQL\data\sinhwa1_bakup_Data.MDF	
+sinhwa1_temp	C:\Program Files\Microsoft SQL Server\MSSQL\data\sinhwa1_temp_Data.MDF	
+skincook	C:\Program Files\Microsoft SQL Server\MSSQL\data\skincook_Data.MDF	
+skmuc	C:\Program Files\Microsoft SQL Server\MSSQL\data\skmuc_Data.MDF	
+sktb	C:\Program Files\Microsoft SQL Server\MSSQL\data\sktb_Data.MDF	
+skweb	C:\Program Files\Microsoft SQL Server\MSSQL\data\skweb_Data.MDF	
+soorim	C:\Program Files\Microsoft SQL Server\MSSQL\data\soorim_Data.MDF	
+suboo	C:\Program Files\Microsoft SQL Server\MSSQL\data\suboo_Data.MDF	
+sunhead	C:\Program Files\Microsoft SQL Server\MSSQL\data\sunhead_Data.MDF	
+sunilins	C:\Program Files\Microsoft SQL Server\MSSQL\data\sunilins_Data.MDF	
+taejeon_johap	C:\Program Files\Microsoft SQL Server\MSSQL\data\taejeon_johap_Data.MDF	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+test_data	C:\Program Files\Microsoft SQL Server\MSSQL\data\test_data_Data.MDF	
+test_mnu	C:\Program Files\Microsoft SQL Server\MSSQL\data\test_mnu_Data.MDF	
+test_tongsin	C:\Program Files\Microsoft SQL Server\MSSQL\data\test_tongsin_Data.MDF	
+tophairpieces	C:\Program Files\Microsoft SQL Server\MSSQL\data\tophairpieces_Data.MDF	
+wangdaechu	C:\Program Files\Microsoft SQL Server\MSSQL\data\wangdaechu_Data.MDF	
+wifishop	C:\Program Files\Microsoft SQL Server\MSSQL\data\wifishop_Data.MDF	
+yahojung	C:\Program Files\Microsoft SQL Server\MSSQL\data\yahojung_Data.MDF	
+yomiurikorea	C:\Program Files\Microsoft SQL Server\MSSQL\data\yomiurikorea_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+COM365-0F59026D	SQL Server	SQLOLEDB	COM365-0F59026D		COM365-0F59026D	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+

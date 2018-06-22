@@ -1,0 +1,24 @@
+■漏洞信息:============================================================
+ ·URL:http://jesamart.com/board/qna/reply.asp?page=2&pos=25131&id=254
+ ·页面标题：力荤付飘+++++傈烹力肥澜侥傈巩痢
+ ·参数:page=2&pos=25131&id=254
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:211.239.157.79
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 500 Internal Server Error
+Connection: close
+Date: Sun, 03 Apr 2011 15:48:09 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 10870
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDSQADSRSD=BBEJAPJDKIHHCIBHFDFAGNKE; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================

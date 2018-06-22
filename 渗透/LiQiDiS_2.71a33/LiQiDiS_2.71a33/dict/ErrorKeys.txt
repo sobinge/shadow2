@@ -1,0 +1,37 @@
+;These are font keytexts and rear keytext from IIS error messages, seperated by ===
+
+值 '===' 转换为数据类型===Chinese
+char 值 '===' 转换成数据类型===Chinese(SQL2005)
+鍊?'===' 杞===Chinese(UTF-8)
+varchar value '===' to data type ===English
+varchar value '===' to a column of data type ===English
+&#20540; '===' &#36716;&#25442;&#20026;&#25968;&#25454;&#31867;&#22411;&#20026;===Chinese(HTMLEncoded)
+varchar &#20540; '===' &#36716;&#25442;&#25104;&#25968;&#25454;&#31867;&#22411;===SQL2005Chinese(HTMLEncoded)
+varchar '===' en type de donn===French
+varchar '===' para una columna de tipo de datos===German
+varchar-Wertes '===' in eine Spalte vom Datentyp===German
+archar-Wertes '===' in den ===German
+varchar 蔼 '==='阑(甫) ===Korean
+[7661 7263 6861 7220 B0AA 2027]===[27C0 BB28 B8A6 2920 B5A5 C0CC]===Korean
+varchar 抣 '===' 偐傜 ===Japanese
+varchar 计 '===' 锣传Θ戈===Chinese-traditional
+varchar  '===' 锣传Θ戈===Chinese-traditional
+值 '===' 转换成数据类型===Chinese(SQL2005)
+varchar 鍊?'===' 杞崲涓烘暟鎹被鍨嬩负===Chinese(Unicode)
+varchar &#44050; '==='&#51012;(&#47484;)===Korean(HTMLEncoded)
+[7661 7263 6861 7220 E580 BC20 27]===[2720 E8BD ACE6]===Chinese(UTF-8)
+[7661 7263 6861 7220 B0AA 2027]===[27C0 BB28 B8A6 2920]===Korean(UTF-8)
+varchar 臧?'==='鞚?毳===Korean(UTF-8)
+[7661 7263 6861 7220 926C 2027]===[2720 82A9 82E7 20]===Japanese(UTF-8)
+varchar &#20516; '===' &#12363;&#12425;===Japanese(HTMLEncoded)
+varchar '===' nel tipo di dati===Italian
+varchar '===' vers une colonne de type===French
+ar &#25976;&#20540; '===' &#36681;&#25563;&#25104;&#36039;&#26009;&#22411;&#21029;&#28858;===Chinese-traditional(HTMLEncoded)
+varchar '===' al tipo de datos===Spanish
+[6368 6172 2027]===[2720 616C 2074 6970 6F]===Spanish
+varchar 鍊?'===' 杞夋彌===Chinese-Traditional(SQL2005)
+[6368 6172 20E5 80BC 2027]===[2720 E8BD 89E6 8F9B E688 90]===Chinese-Traditional(SQL2005)
+nvarchar-Werts '===' in den int-Datentyp===Microsoft SQL Server 2008 (SP1)===de
+varchar &#171;&#160;===&#160;&#187;===法国
+nvarchar '===' in una colonna===意大利
+char value &apos;===&apos; to data===English(HTML)

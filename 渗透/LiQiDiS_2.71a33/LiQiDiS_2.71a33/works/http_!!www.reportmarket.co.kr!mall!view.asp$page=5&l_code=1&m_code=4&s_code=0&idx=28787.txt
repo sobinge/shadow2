@@ -1,0 +1,28 @@
+■漏洞信息:============================================================
+ ·URL:http://www.reportmarket.co.kr/mall/view.asp?page=5&l_code=1&m_code=4&s_code=0&idx=28787
+ ·页面标题：SM浚磐抛牢刚飘 扁诀泅炔苞 己傍荤肥盒籍 饭器飘
+ ·参数:page=5&l_code=1&m_code=4&s_code=0&idx=28787
+ ·方法:GET
+ ·类型:Numeric
+ ·利用方法:And
+ ·脚本语言:asp
+ ·IP:121.78.112.158
+ ·数据库:SQL Server
+ ·HEAD:
+HTTP/1.1 200 OK
+Connection: close
+Date: Sun, 03 Apr 2011 11:37:40 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+Pragma: no-cache
+Cache-Control: private
+Content-Length: 46804
+Content-Type: text/html
+Expires: Sat, 02 Apr 2011 11:37:40 GMT
+Set-Cookie: ASPSESSIONIDCSQTDDDS=ENGPANMDLGFEFIEDEPGNMEBM; path=/
+Cache-control: no-cache
+
+
+
+■数据库信息:============================================================
+服务器未返回错误信息或返回不可识别的错误信息，你可以根据显示的错误详情设置错误关键字再试，或者切换到使用服务器转发的方式来读取信息！

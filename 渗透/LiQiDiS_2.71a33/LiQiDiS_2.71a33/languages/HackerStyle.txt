@@ -1,0 +1,964 @@
+TranslatorInfo	L!Q!D!S (1!q!d!~@h0tm@!1.c0m)\r\n S!te: http://www.1!q!d!~.c0m
+	
+//Main Menu	
+//ScanPage	
+ScanPage	&P.Sc@nP@9e
+StartScan	&S.St@rt Sc@n
+StopScan	&O.St0p Sc@n
+Exploit	&E.Exp10!t...
+EditPageDOM	&D.Ed!t P@9e D0M
+	
+//ScanSite	
+ScanSite	&S.Sc@nS!te
+ScanSensitiveFiles	&F.Sen~!t!ve f!1e ~c@nner...
+ScanOrdialFiles	&O.0rd!n@1 f!1e ~c@nner...
+SiteCrawler	&C.S!te cr@w1er...
+	
+//Codec	
+Codec	&C.C0decer
+URLCodecer	&U.URL C0decer...
+MD5	&M.MD5
+MD5Codecer	MD5 C0decer...
+MD5BatchLookUp	MD5 B@tch 100k up...
+MD5LookupEngines	Setup MD5 cr@ck en9!ne~...
+BASE64Codecer	&B.B4SE64 C0decer...
+SQLVarCharEncoder	&S.SQL \/@rCh@r Enc0der...
+SQLKeywordCapsRandomizer	&R.SQL Keyw0rd~ c@p!t@1 r@nd0m!zer...
+DeclareExec	&D.Enc0de SQL @~ Dec1@re+Exec...
+	
+//Advanced Tools	
+AdvancedTools	&A.4dvT001~
+Looper	&L.The L00per...
+RequestRelayServer	&R.Reque~t RE1@y...
+ViewSQLOutput	&V.\/!ew SQL 0utput...
+	
+//Tools	
+Tools	&T.T001~
+IPDomainReverseLookup	&I.IP Rever~e 100k up...
+ASPEvalClient	&A.4SP Ev@1() C1!ent...
+	
+//Settings	
+Settings	&S.Sett!n9~
+ConfigMySQLServerTransfer	&C.C0nf!9ure My SQLServer Tr@n~fer...
+ProgramSettings	&P.Pr09r@m Sett!n9~...
+	
+//Skins	
+Skins	&K.Sk!n~
+RemoveSkin	&R.Rem0ve Sk!n
+CurrentSkin	&C.Current Sk!n:
+	
+//Help	
+Help	&H.|-|e1p
+OnlineTut	&O.0n1!ne Tut0r!@1~...
+HowToConfigMySQLServerTransfer	&H.|-|0w t0 c0nf!9ure My SQLServer Tr@n~fer...
+Contents	&C.C0ntent~...
+ViewMyRegCode	&V.\/!ew My Re9C0de...
+About	&A.4b0ut...
+Test	&T.Te~t...
+	
+//Context menu of Vulnerabilities list	
+Copy	&C.C0py
+Delete	&D.De1ete
+ViewCachedData	&V.\/!ew c@ched d@t@...
+DeleteCachedData	&R.De1ete c@ched d@t@
+BrowseInAbove	&A.Br0w~e !n @b0ve w!nd0w
+BrowseWithIE	&I.Br0w~e !n Internet Exp10rer...
+SaveList	&S.S@ve 1!~t...
+LoadList	&L.L0@d 1!~t...
+GenerateWebReport	&G.Gener@te |-|TML rep0rt~...
+TerminateAllScanningThreads	&T.Term!n@te @11 ~c@nn!n9 thre@d~!
+	
+//Main Window Controls	
+Go	G0
+Stop	St0p
+Refresh	Rf~h
+Back	<-
+Forward	->
+Message	Me~~@9e~
+Save	S@ve
+Clear	C1e@r
+ScanWholePage	Sc@n wh01e p@9e
+Keyword	Keyw0rd
+ScanURL	Sc@n URL 0n1y
+StopScan	St0p Sc@n
+TerminateAllThreads	Term!n@e @11 thre@d~!
+ClearList	C1e@r 1!~t
+Vulnerabilities	\/u1ner@b!1!t!e~
+ServerErrors	Server err0r~
+	
+//Main windows assembly strings 	
+Initializing...	In!t!@1!z!n9...
+Loading dictionaries...	L0@d!n9 d!ct!0n@r!e~...
+//URL|250|Ping(ms)|70|Severity|130|Judge Method|140|Exploit Type|60|Type|60|DBType|80|Title|120|Error Fingerprint|150|Alexa|120|Method|80	
+VulnListHeaders	URL|250|P!n9(m~)|70|Sever!ty|130|Jud9e Meth0d|140|Exp10!t Type|60|Type|60|DBType|80|T!t1e|120|Err0r F!n9erpr!nt|150|41ex@|120|Meth0d|80
+ServerErrorListHeaders	URL|500|Server err0r~|300|DB Type|150
+ConnectingToSQLServerTransfer	C0nnect!n9 t0 'My SQL Server tr@n~ferer'...
+LoadingVulnList	L0@d!n9 vu1ner@b!1!ty 1!~t...
+DblClickToClose	C0mp1ete. D0ub1e c1!ck t0 c10~e th!~ w!nd0w.
+NewSkinWillBeAppliedAtNextStartup	New ~k!n w!11 be @pp1!ed @t next ~t@rtup.
+ConnectToSQLServerTransferFailed	C0nnect t0 'My SQL Server tr@n~ferer' f@!1ed, P1e@~e check 0r rec0nf!9ure.
+WouldYouLikeToConfigSQLTransfer	`/0u h@vn't c0nf!9ure y0ur 'My SQL Server Tr@n~ferer' ~ett!n9~, we ~u99e~t y0u d0 !t f!r~t.\r\n\r\nP1e@~e c1!ck menu [|-|e1p] > [|-|0w t0 c0nf!9ure 'My SQL Server Tr@n~fer'] t0 v!ew d0cument.
+ErrorKeywordDict	Err0r keyw0rd d!ct
+SourcePathKeywordDict	S0urce p@th keyw0rd d!ct
+NotFoundDBFingerPrintDict	N0t f0und d@t@b@~e err0r f!n9erpr!nt d!ct:
+ParseXMLFailed	P@r~e XML f@!1ed:
+FileNotExists	F!1e n0t ex!~t~:
+Read%sFailed%s	Re@d %~ f@!1ed: %~
+NotSelected	[N0t ~e1ected]
+PageNotLoaded	P@9e n0t 10@ded!
+ScanningLinksPlzWait	Sc@nn!n9 1!nk~, p1e@~e w@!t...
+ScanningFormsPlzWait	Sc@nn!n9 f0rm~, P1e@~e w@!t...
+NoScannableLink	N0 ~c@nn@b1e 1!nk.
+ScanningVulnsPlzWait	Sc@nn!n9 vu1ner@b!1!t!e~, P1e@~e w@!t...
+AbortedFound%dVulns%dSE	Sc@nn!n9 @b0rted. [ %d ] vu1ner@b!1!t!e~, [ %d ] ~erver err0r~ f0und.
+CantExpWhenScanning	C@nn't exp10!t vu1ner@b!1!ty when ~c@nn!n9.
+XorTryCookieOrPost	`/0u c@n try t0 exp10!t the vu1ner@b!1!ty w!th X0R type thr0u9h C00k!e~ 0r P0ST reque~t.
+AttentionOnExit	4ttent!0n: T0 pr0tect y0ur r!9ht~ @nd benef!t~, !f y0u @re runn!n9 th!~ pr09r@m 0n @ pub1!c c0mputer, y0u ~h0u1d de1ete !t c0mp1ete1y @fter ex!t.
+PlzInputURLFirst	P1e@~e !nput @ddre~~ f!r~t!
+SureToClearList	4re y0u ~ure t0 c1e@r the 1!~t?
+SkinWillBeRemoveAtNextStartup	The ~k!n w!11 be rem0ved @t next ~t@rtup.
+CantModifySettingsWhenScanning	C@nn't m0d!fy ~ett!n9~ when ~c@nn!n9.
+CantDelWhenScanning	When thre@d~ @re runn!n9, c@n't de1ete.
+SureToDel?	4re y0u ~ure t0 de1ete the~e !tem~?
+SureToDelCachedata?	4re y0u ~ure t0 c1e@r !t~ d@t@ c@che?
+NoCachedData	N0 c@ched d@t@.
+LoadLangFailed	L0@d 1@n9u@9e f!1e f@!1ure.
+	
+//Scan vulnerabilities Code:	
+Scan:	Sc@n:
+Skipped:	 -Sk!pped: 
+TimeoutSkipped:	 -Sk!pped(t!me0ut):
+ExposePathSrc	(Sh0w p@th,~0urce)
+ExposeSQL	(Sh0w SQL)
+ExposePath	(Sh0w p@th)
+	
+//Global Code:	
+Unknown	Unkn0wn
+WaitingThreadsExit	W@!t!n9 thre@d~ ex!t...
+ThereR%dthreads	There @re %d thre@d~ @re runn!n9.
+ScanComplete_%d_%d	Sc@nn!n9 c0mp1ete. F0und %d vu1ner@b!1!t!e~, %d ~erver err0r~.
+	
+//SQL Injection UI:	
+Scan	Sc@n
+GeneralOutput	Gener@1 0utput
+BasicInfo	B@~!c Inf0.
+Settings	Sett!n9~
+HEAD	|-|E4D
+Cookies	C00k!e~
+Browse	Br0w~e
+SaveAs...	S@ve @~...
+Save	S@ve
+Copy	C0py
+OutputToGrid	0utput t0 9r!d
+ViewSQLOutput...	\/!ew SQL 0utput...
+BrowseTheURL...	Br0w~e URL...
+	
+//	Gener@1 0utput
+Params:	P@r@m~:
+Method:	Meth0d:
+Type:	Type:
+ExpMethod:	Exp10!t Meth0d:
+DBType:	DB Type:
+Script:	Scr!pt:
+ReplaceSpaceWith:	Rep1@ce ~p@ce w!th:
+OS:	0S:
+IPAddr:	IP:
+	
+// 	B@~!c Inf0.
+BasedOnContentLength	B@~ed 0n C0ntent-Len9th
+BaseLength	B@~e 1en9th:
+Bytes	Byte~
+BasedOnKeyword	B@~ed 0n keyw0rd~
+KeywordInNormalPage:	Keyw0rd~ !n n0rm@1 p@9e:
+BasedOn500Error	B@~ed 0n |-|TTP 500 err0r
+	
+TipCookie	T!p: When br0w~e the URL,the C00k!e~ w!11 be d!~p1@yed be10w.
+	
+Skip	Sk!p
+Stop	St0p
+Terminate	Term!n@te!
+ViewErrors	\/!ewErr0r~
+	
+Common	C0mm0n
+	
+ScanDBType	Sc@n DB Type
+GlobalOptions	G10b@1 0pt!0n~
+MaxCount	M@x rec0rd c0unt when retr!eve !t f@!1ed:
+QuoteDBObjects	Qu0te d@t@b@~e 0bject~ (U~e [] 0r ``)
+	
+//SQL Server	
+GetDataMethod	Get D@t@ Meth0d:
+ExtractFromServerErrors	Extr@ct fr0m ~erver err0r~
+TroughSQLTransfer	Thr0u9h "My SQLServer Tr@n~fer"
+ConfigMySQLTransfer	C0nf!9 "My SQL Server"
+HexSQL	|-|ex SQL
+	
+//SQL Server	
+BasicInfo	B@~!c Inf0.
+Command	C0mm@nd
+GetWebShell	GetWebShe11
+Data	D@t@
+UpdateDB	Upd@te DB
+DirTree	D!r Tree
+ExecSQL	Exec SQL
+ReadFile	Re@d F!1e
+Misc	M!~c
+	
+//BasicInfo	
+GetBasicInfo	Get B@~!c Inf0.
+DBVersion	DB \/er~!0n:
+ExtraSQlRear:	Extr@ SQL Re@r:
+FrontKeytext:	Fr0nt key text:
+RearKeytext:	Re@r key text:
+Language:	L@n9u@9e:
+Set	Set
+	
+//Command	
+XP_CmdShellExists	XP_CmdShe11 Ex!~t~?
+RestoreXP_CmdShell	Re~t0re XP_CmdShe11
+TipSARestoreCmdShell	T!p: 0n1y the u~er~ w!th "~y~@dm!n" pr!v!11e9e wh!ch c@n exec cmp~he11.
+CmdLine:	Cmd1!ne:
+Echo	Ech0
+Exec	Exec
+Upload	Up10@d
+LocalFile:	L0c@1 f!1e:
+RemoteFile:	Rem0te f!1e:
+TextMode	Text M0de
+BinMode	B!n@ry M0de
+Upload	Up10@d
+Help	|-|e1p
+Misc	M!~c
+UploadEXE	Up10@d EXE d0wn10@der
+UploadVBS	Up10@d \/BS d0wn10@der
+UploadLooksite	Up10@d 100k~!te.vb~
+UploadFTP	Up10@d FTP d0wn10@d c0nf!9 f!1e
+Active3389ByReg	4ct!ve 3389 by Re9
+Active3389ByIni	4ct!ve 3389 by INI
+	
+//GetWebShell	
+GetWebPath	Get Web P@th
+Method:	Meth0d:
+ByReadReg	By re@d re9!~try
+BySearchFile	By ~e@rch f!1e
+Get	Get
+RootPath:	R00t p@th:
+FileToSearch:	F!1e t0 ~e@rch:
+RestoreRegRead	Re~t0re XP_Re9Re@d
+RestoreDirTree	Re~t0re XP_D!rTree
+DBName:	DB N@me:
+WebShellFilename:	WebShe11 f!1en@me:
+ContentOfWebShell:	WebShe11 c0ntent~:
+GetFileAttr	Get F!1e 4ttr
+Filename:	F!1en@me:
+Get	Get
+RestoreXP_GetFileAttr	Re~t0re XP_GetF!1e4ttr
+EncodeAsVarChar	Enc0de @~ \/@rCh@r
+BackupLog	B@ckup 109
+BackupDB	B@ckup DB
+//MSSQL>DATA-------------------------------------	
+Where:	Where:
+Top:	T0p:
+Desc:	De~c
+DB:	DBN@me:
+Order:	0rder:
+AddDatabase...	4dd d@t@b@~e~...
+AddTables...	4dd t@b1e~...
+AddFields...	4dd f!e1d~...
+GetTables	Get T@b1e~
+GetFields	Get F!e1d~
+GetData	Get D@t@
+Tip	!.T!p
+//MSSQL>UpdateDB---------------------------------	
+TipUpdateMssql	T!p: If y0u ~e1ect the F!e1d y0u w@nt t0 upd@te !n the D@t@b@~e Tree !n D@t@ T@b, the c0rre~p0nd!n9 DB,T@b1e @nd F!e1d~ w!11 be f!11ed @ut0m@t!c@11y. 
+DB:	DB:
+Table:	T@b1e:
+Field:	F!e1d:
+Position:	P0~!t!0n:
+AddAtFore	4dd @t f0re
+AddAtRear	4dd @t re@r
+ReplaceCompletely	Rep1@ceC0mp1ete1y
+Encode:	Enc0de:
+Where:	Where:
+Content:	C0ntent:
+Update	Upd@te
+	
+//MSSQL>DirTree---------------------------------	
+CurrentDir:	Current D!r:
+ListDir	L!~t D!r
+PublicPriviOnly	'pub1!c' pr!v!11e9e 0n1y
+EmptySelectedDir	Empty Se1ected D!r
+AddFileFolders	4dd f!1e~...
+//MSSQL>ExecSQL---------------------------------	
+chkAutoDisposeCapsEtc	4ut0m@t!c@11y d!~p0~e c@p~, 1!ne-bre@k~ @nd ~p@ce~.
+chkDeclareExecNoEcho	Dec1@re+Exec (N0 ech0)
+chkAutoDisposeSQL	4ut0m@t!c@11y d!~p0~e the SQL b@~ed 0n !nject!0n type.
+Exec	Exec
+OriginalSQL	0r!9!n@1 SQL
+SQLAfterDispose	SQL 4fter D!~p0~e
+PageSourceReturned	P@9e S0urce Returned
+	
+//MSSQL>ReadFile---------------------------------	
+Filename:	F!1en@me:
+Read	Re@d
+TipReadFile	T!p: 0n1y the u~er~ w!th "~y~@dm!n" @nd "bu1k@dm!n" pr!v!1e9e~ c@n re@d f!1e.
+	
+//MSSQL>MISC---------------------------------	
+ActiveSQL2005Procs	4ct!v@te xp_cmd~he11/0penD@t@S0urce/0penR0wSet
+DeactiveSQL2005Procs	De@ct!v@te xp_cmd~he11/0penD@t@S0urce/0penR0wSet
+TipNeedSAPrivilege	T!p: Need "~y~@dm!n" pr!v!1e9e.
+GetDBIP	Get the DB ~erver IP
+WanIPOfLocalhost:	W4N IP 0f 10c@1h0~t:
+PortToBeOpen:	P0rt t0 be 0pen:
+StartServer	1.St@rt Server
+SendRequest	2.Send Reque~t
+StopServer	3.St0p Server
+Help	|-|e1p
+SuperDoS	Super D0S
+	
+//Access===============================================	
+ScanUnionParams	Sc@n Un!0n P@r@m~.
+GetData	Get D@t@
+MiscInfo	M!~c Inf0.
+//Access>Scan Union Params. ---------------------------	
+FrontKeyword:	Fr0nt keyw0rd:
+RearKeyword:	Re@r keyw0rd:
+Seperator:	Seper@t0r:
+ScanUnionColumns	Sc@n Un!0n C01umn~
+Total:	T0t@1:
+WhichColumnShown:	Wh!ch c01umn ~h0wn:
+ModifyManually	M0d!fy m@nu@11y
+//Access>GetData -------------------------------------	
+Settings:	Sett!n9~
+TblPrefix:	Tb1 Pref!x:
+TblSuffix:	Tb1 Suff!x:
+FldPrefix:	F1d Pref!x:
+FldSuffix:	F1d Suff!x:
+AddTable	4dd t@b1e~...
+AddField	4dd f!e1d~...
+GetTable	Get T@b1e~
+GetField	Get F!e1d~
+GetData	Get D@t@
+//Access>MiscInfo------------------------------------	
+Paths	P@th~
+GetSystemPath:	Get ~y~tem p@th:
+GetDBFilename:	Get DB f!1en@me:
+	
+//MySQL==============================================	
+TextEncodeMethod:	Text enc0de meth0d:
+EncodeAsHex	|-|ex(0x202122...)
+EncodeAsChar	ch@r(ch@r(32,33,34,...))
+LineComment:	L!ne c0mment:
+QuoteDBObjectsWith	Qu0te D@t@b@~e 0bject~ w!th ``
+ScanUnionParams	Sc@n un!0n p@r@m~.
+GetData	Get D@t@
+GetWebShell	Get Web~he11
+ReadFile	Re@d F!1e
+//MySQL>ScanUnionParams-----------------------------	
+Method:	Meth0d:
+BasedOnKeytextAndNum	B1!nd.B@~ed 0n keytext @nd number(Few c01umn~,m0~t qu!ck)
+BasedOnKeytext	B1!nd.B@~ed 0n keytext(M0re c01umn~)
+BasedOnContentLen	B1!nd.B@~ed 0n C0ntent-1en9th(M0~t C01umn~)
+BasedOnErrorKeytext	B@~ed 0n Err0r keytext(M0~t c01umn~)
+BasedOnOrderAndContentLen	B1!nd.B@~ed 0n 0RDER B`/ @nd C0ntent-Len9th(M@x 400 c01umn~)
+BasedOnOrderByAndError	B@~ed 0n 0RDER B`/ @nd Err0r keytext(M@x 400 c01umn~)
+ScanUnionColumns	Sc@n Un!0n C01umn~
+ErrorKeywords:	Err0r keyw0rd~:
+Total:	T0t@1:
+WhichColumnShown:	Wh!ch c01umn ~h0wn:
+ModifyManually	M0d!fy m@nu@11y
+Set	Set
+ForeKeyword:	F0re keyw0rd:
+RearKeyword:	Re@r keyw0rd:
+Seperator:	Seper@t0r:
+GetBasicInformations	Get b@~!c !nf0rm@t!0n~
+//MySQL>GetData -----------------------------------	
+Where	Where
+Order	0rder
+Desc	De~c
+Limit:	L!m!t:
+AddDatabase...	4dd d@t@b@~e~...
+AddTables...	4dd t@b1e~...
+AddFields...	4dd f!e1d~...
+Method:	Meth0d:
+ByDictionary	By D!ct!0n@ry
+FromSchema	Fr0m INF0RM4TI0N_SC|-|EM4
+Prefix:	Pref!x:
+Suffix:	Suff!x:
+ListDBs	L!~t DB~
+ListTables	L!~t T@b1e~
+ListFields	L!~t F!e1d~
+GetData	Get D@t@
+SelectIntoOutFile...	~e1ect !nt0 0utf!1e(0n ~erver)...
+SaveData	S@ve D@t@
+//MySQL>GetWebShell-----------------------------------------	
+TargetFilename:	T@r9et f!1en@me:
+WebShellContent:	WebShe11 c0ntent~:
+ShowPHPShellsOnly	Sh0w P|-|P ~he11~ 0n1y
+Write	Wr!te
+//MySQL>ReadFile--------------------------------------------	
+FilenameOnRemoteServer:	F!1en@me 0n rem0te ~erver:
+Read	Re@d
+SaveFileTo:	S@ve f!1e t0:
+TipSaveFileTo	T!p: En@b1e "S@ve f!1e t0" 0pt!0n, w!11 ~@ve the 0r!9!n@1 r@w d@t@.
+	
+//Exploit Code:	
+ExploitVuln	Exp10!t \/u1nerb!1!ty
+UnsupportedGetDataMethod	Un~upp0rted 9et-d@t@ meth0d.
+NotFoundVulnItem	N0t f0und the vu1ner@b!1!ty !tem!
+Finished.	F!n!~hed.
+ProcessAborted.	Pr0ce~~ @b0rted!
+PlzWaitThreadExit.	Thre@d !~ runn!n9,p1e@~e w@!t.
+	
+//head chars	
+SectionHead	>>> 
+ItemHead	 - 
+	
+VulnInfo:	\/u1ner@b1!ty !nf0:
+PageTitle:	P@9e t!t1e:
+Params:	P@r@meter~:
+ExploitMethod:	Exp10!t meth0d:
+Script:	Scr!pt:
+Database:	D@t@b@~e:
+SourceFile:	S0urce f!1e:
+Ready.	Re@dy.
+NowScanningDBType...	N0w ~c@nn!n9 d@t@b@~e type...
+DBDetectionFailed...	D@t@b@~e type detect!0n f@!1ed, !f y0u c@n determ!ne the type 0f d@t@b@~e m@nu@11y , p1e@~e ch@n9e the DBType @nd ~w!tch t0 c0rre~p0nd!n9 t@b, exp10!t !t d!rect1y..
+KeywordsCannotBeEmpty	Fr0nt keyw0rd 0r re@r keyw0rd c@nn0t be empty.
+ScanningUnionParams...	Sc@nn!n9 Un!0n p@r@m~...
+UnionColumnCount_%d_%d:	Un!0n c01umn c0unt: t0t@1= %d,   Sh0wn= %d 
+UnionSQLAccess:%s	Un!0n SQL: @nd 3=8 un!0n ~e1ect %~ fr0m MSy~4cce~~0bject~
+ScanningUnionFailed.	Sc@n Un!0n p@r@m~ f@!1ed, p1e@~e ~et them m@nu@11y,!f y0u c@n ~ure.
+ScanningUnionOK.	C0n9r@tu1@t!0n~! UNI0N p@r@m~ ~c@nn!n9 ~ucce~~! P1e@~e 9et d@t@b@~e ~tructure, @nd then y0u c@n u~e UNI0N quer!e~ t0 9et the c0ntent~ 0f the d@t@b@~e.^_^
+LoadTables.dictFailed.	T@b1e~.d!ct !~ empty 0r re@d t@b1e~.d!ct f@!1ed.
+Scanning	Sc@nn!n9
+FoundTable:	F0und T@b1e:
+ScanningTablesFinished.	Sc@nn!n9 t@b1e~ f!n!~hed.
+PlzSelectATblFirst.	P1e@~e ~e1ect @ t@b1e f!r~t.
+PlzSelectAFieldFirst.	P1e@~e ~e1ect @ f!e1d f!r~t.
+NoTheTblInMem.	There !~ n0 the t@b1e !n mem0ry!
+LoadFields.dictFailed.	F!e1d~.d!ct !~ empty 0r re@d f!e1d~.d!ct err0r!
+ScanningField	Sc@nn!n9 f!e1d
+FoundField:	F0und f!e1d:
+ScanningFinished.	Sc@nn!n9 f!n!~hed.
+PlzScanUnionFirst.	P1e@~e ~c@n Un!0n p@r@m~ f!r~t!
+RetrvingData...	Retr!ev!n9 d@t@...
+RetrvingRecordCount...	Retr!ev!n9 rec0rd~ c0unt...
+GetSysPathPlzWait...	Gett!n9 ~y~tem p@th, P1e@~e w@!t...
+GetSysPathOK.	C0n9r@tu1@t!0n~: 9et the ~y~tem p@th ~ucce~~!
+GetSysPathFailed.	Get the ~y~tem p@th f@!1ed!
+Failed:NoEMsg	[F@!1ed:N0 err0r me~~@9e]
+GetDBPathPlzWait...	Gett!n9 d@t@b@~e p@th,p1e@~e w@!t...
+GetDBPathFailed.	Get d@t@b@~e p@th f@!1ed!
+Failed:CantExtractDBPath	[F@!1ed: C@nn0t extr@ct the d@t@b@~e p@th.]
+DatabaseInfo:	D@t@b@~e !nf0:
+GettingDBInfo...	Gett!n9 d@t@b@~e !nf0...
+	
+//next line, must use ^ to seperate the string to 6.	
+DBInfoHeaders	db_n@me: ^u~ern@me: ^ver~!0n: ^~erverN@me: ^~erv!ceN@me: ^~y~U~ern@me:
+	
+NoServerErrorsLong	Rem0te ~erver d!dn0t return err0r me~~@9e, 0r the returned me~~@9e~ c@n't be rec09n!zed. \r\n`/0u c@n ~etup r!9ht keyw0rd~ by returned text, then try @9!n,0r y0u c@n ~w!tch t0 'B@~ed 0n My ~q1 ~erver' t0 9et !nf0rm@t!0n.
+SQLAfterDisposed:	SQL @fter d!~p0~ed:
+GetBasicInfiFailed	Retr!eve b@~!c !nf0 f@!1ed
+BatchFailed.1by1start...	B@tch retr!ev!n9 b@~!c !nf0rm@t!0n f@!1ed, 0ne by 0ne ~t@rted ...
+GettingDBNames...	Retr!ev!n9 d@t@b@~e n@me~...
+CurrentDatabase:	Current d@t@b@~e: 
+GettingDBVersion...	Retr!ev!n9 d@t@b@~e ver~!0n !nf0...
+Version:	\/er~!0n: 
+GettingDBVersoinFailed.	Retr!ev!n9 the d@t@b@~e ver~!0n f@!1ed!
+SQLSent:	SQL ~ent:
+FoundSQL2005long	SQL2005 f0und, we ~u99e~t y0u ~w!tch t0 'M!~c' t@b t0 en@b1e c0rre~p0nd!n9 0pt!0n~.
+DBUserPrivi:	The DB u~er pr!v!1e9e~:
+GettingPrivi...	Gett!n9 DB u~er pr!v!1e9e~...
+GettingPriviFailed	Retr!ev!n9 u~er pr!v!1e9e~ f@!1ed!
+ErrorDetails:	Err0r det@!1~:
+GettingDBs	Retr!ev!n9 d@t@b@~e~...
+DBInfo:	D@t@b@~e~ !nf0:
+GettingUserlist...	Retr!ev!n9 u~er1!~t...
+SQLSvrUsers:	SQL Server u~er~:
+Username_tRole_tSid	U~ern@me\t\tR01e\t\tSID\r\n
+GettingDBProcInfo...	Gett!n9 d@t@b@~e pr0ce~~ !nf0...
+DBProcInfo:	D@t@b@~e pr0ce~~ !nf0:
+	
+//next line, must use | to seperate the string to 6.	
+DBProcInfoHeaders	Pr09r@m N@me|St@tu~|h0~tn@me||-|0~t Pr0ce~~ ID|C0mm@ndL!ne|NT U~ern@me
+	
+GettingLinkedSvrs...	Gett!n9 1!nked ~erver~ !nf0...
+LinkedSvrsInfo:	L!nked ~erver~ !nf0: 
+LinkedSvrHeaders	ServerN@me|ServerPr0duct|Pr0v!der_n@me|D@t@~0urce|L0c@t!0n|ServerNetN@me
+GettingUserLoginInfo...	Retr!ev!n9 u~er~ @cce~~ t0 the d@t@b@~e 109!n !nf0rm@t!0n...
+DBUserLoginInfo:	D@t@b@~e u~er 109!n !nf0: 
+UserLoginInfoHeaders	U~ern@me|P@~~w0rd |-|4S|-||D@t@b@~e ID|L@n9u@9e|xd@te1|xd@te2
+DBconnIsNullLong	D@t@b@~e c0nnect!0n !~ NULL! We pr0p0~e y0u c1!ck the 'C0nf!9 My MSSQLServer' butt0n then te~t the L0c@1 C0nnect!0n Pr0pert!e~.
+UnableConnTransferLong	Un@b1e t0 c0nnect t0 'My MSSQL Server Tr@n~fer' fr0m 10c@1h0~t, p1e@~e rec0nf!9ure!
+ProcessAborted.	Pr0ce~~ @b0rted by u~er.
+Getting	Gett!n9
+CreatingTblOnTransfer...	Cre@te temp t@b1e~ 0n My SQL Server...
+CreateTblSQL:	Cre@te t@b1e: 
+SendingRequest...	Send!n9 reque~t t0 9et d@t@...
+RetvingDataFromTransfer...	Retr!ev!n9 d@t@ fr0m My SQL Server...
+PlzInputCmd.	P1e@~e !nput 0r ~e1ect c0mm@nd.
+PlzGetBasicInfoFirst.	P1e@~e retr!eve b@~!c !nf0 f!r~t.
+ExecCmdPlzWait...	Execut!n9 c0mm@nd,p1e@~e w@!t...
+GetRecordCountFailed	Gett!n9 rec0rd c0unt f@!1ed, u~!n9 the pre~etted v@1ue:
+PlzInputFNFirst.	P1e@~e !nput the f!1en@me f!r~t!
+ContentsOfFile:	C0ntent~ 0f F!1e:
+ReadingFile...	Re@d!n9 f!1e...
+DropTmpTbl...	Dr0pp!n9 temp t@b1e~...
+PlzWait...	P1e@~e w@!t...
+CmdShellExists	C0n9r@tu1@t!0n~,pr0c XP_CmdShe11 ex!~t~!
+CmdShellNotExists	:( Pr0c XP_CmdShe11 d0e~n't ex!~t.
+PlzSelectLocalFile.	P1e@~e ~e1ect 10c@1 f!1e f!r~t!
+LocalFileNotExists.	L0c@1 f!1e d0e~n't ex!~t~!
+PlzInputRemoteFile.	P1e@~e !nput rem0te f!1en@me.
+ProcessingFile...	Pr0ce~~!n9 f!1e, P1e@~e w@!t...
+FileSizeNotExceed64kb.	S0rry, F!1e ~!ze ~h0u1d n0t exceed 64 KB!
+BldingBinFile...	Bu!1d!n9 b!n@ry f!1e 0n rem0te ~erver...
+UploadFinished.	Up10@d F!n!~hed!
+UploadingFile...	Up10@d!n9 f!1e...
+RetrvingWebPathFinished.	Retr!ev!n9 web p@th f!n!~hed.
+InputFilenameToBeSearch.	P1e@~e !nput the f!1en@me wh!ch w!11 be ~e@rched.
+WebPathByFile:	Web P@th by ~e@rch f!1e:
+SearchingFile...	Se@rch!n9 f!1e~...
+BldingResultTbl...	Bu!1d!n9 re~u1t t@b1e 0n rem0te ~erver...
+RetrvingData...	Retr!ev!n9 d@t@...
+GetWebPathByReg:	Get web p@th by re@d!n9 re9!~try:
+PlzModifyRmtFNlong	P1e@~e m0d!fy the rem0te f!1en@me @~ y0ur need,then c1!ck the [Up10@d] butt0n.
+PlzInputDBNameOrScanBasicInfo.	P1e@~e !nput d@t@b@~e n@me. If y0 h@vn't ~c@n b@~!c !nf0rm@t!0n, P1e@~e d0 !t f!r~t.
+InputFilenameToBeGenerated.	P1e@~e !nput the f!1en@me t0 be 9ener@ted.
+InputWebShellContent.	P1e@~e !nput the c0ntent wh!ch w!11 be wr0ten !nt0 f!1e.
+DoInitialBackup...	Cre@t!n9 temp t@b1e, @nd d0 @n !n!t!@1 b@ckup...
+WritingDataToDB...	Wr!t!n9 d@t@ t0 d@t@b@~e...
+MakeFinalCleanup...	B@ckup d@t@ t0 f!1e @nd @nd m@ke @ f!n@1 c1e@n-up...
+GetWebShellFinished.	GetWebShe11 f!n!~hed.
+SetupErrorKeywordsLong	'B@~ed 0n Server Err0r Me~~@9e~' need~ fr0nt keyw0rd @nd re@r keyw0rd, P1e@~e ~c@n b@~!c !nf0 f!r~t,0r m@nu@11y ~et them.\r\n\r\n If there !~ n0 d@t@ returned w!th th!~ m0de, p1e@~e ~w!tch t0 'B@~ed 0n My SQL Server' tr@n~fer.
+RestringProc...	Re~t0r!n9 pr0c,p1e@~e w@!t...
+RestoringProcFinished.long	Re~t0re pr0c f!n!~hed. N0te th@t 0n1y u~er~ w!th ~y~@dm!n r01e~ c@n re~t0re pr0c ~ucce~~.
+PlzInputFilename.	P1e@~e !nput f!1en@me.
+GettingFileAttr:	Retr!ev!n9 f!1e @ttr!bute~:
+SuperDoSConfirm	Th!~ w!11 !mmed!@te1y m@ke the rem0te ~erver n0-re~p0n~!ve,@re y0u SURE w@nt t0 d0 th@t? ?? P1e@~e th!nk tw!ce bef0re!
+PlzSelectADBNode.	P1e@~e ~e1ect @ d@t@b@~e n0de!
+GettingTblsOf%s...	Gett!n9 t@b1e~ 0f %~ ...
+ListingTbls...	Cre@t!n9 temp t@b1e, @nd 1!~t the t@b1e~...
+BatchFailed1By1Started...	B@tch retr!eve t@b1e~ f@!1ed, 0ne by 0ne ~t@rted...
+PlzSelectTblNode.	P1e@~e ~e1ect @ t@b1e n0de.
+GetColumnsOf%s%s...	Gett!n9 c01umn~ 0f %~.%~
+ListingColumns...	Cre@t!n9 temp t@b1e~ 0n rem0te h0~t, @nd 1!~t c01umn~...
+PlzSelectSomeFlds.	P1e@~e ~e1ect ~0me f!e1d~.
+ExecutingQuery:	Execut!n9 query: 
+NotSupEchoMethod.	N0t ~upp0rted ech0 type.
+PlzInputDBName.	P1e@~e !nput d@t@b@~e n@me.
+PlzInputTblName.	P1e@~e !nput t@b1e n@me.
+PlzInputColName.	P1e@~e !nput c01umn n@me.
+SQLCantBeEmpty.	SQL ~t@tement~ c@nn0t be empty.
+UpdatingTheDB...	Upd@t!n9 the d@t@b@~e...
+UpdatingFinished.	Upd@t!n9 f!n!~hed!
+KeywordsCantBeEmpty.	The keyw0rd~ m@y n0t be empty.
+FileNotFound:	F!1e n0t f0und:
+WaitingThrdsExit...	W@!t!n9 thre@d~ ex!t...
+TmplFileNotFound:	The temp1@te f!1e n0t f0und:
+TipUpFTPlong	P1e@~e m0d!fy the rem0te f!1en@me @~ y0ur need then c1!ck the Up10@d butt0n.\r\nWhen the f!1e !~ up10@ded c0mp1ete1y, y0u ~h0u1d u~e the c0mm@nd1!ne 'ftp -! -v -~:c:\ftp.txt' t0 d0wn10@d f!1e t0 the rem0te h0~t fr0m y0u FTP ~erver.
+PlzSelectDiskOrFolderNode.	P1e@~e ~e1ect @ d!~k 0r f01der n0de!
+Processing...	Pr0ce~~!n9...
+GettingData1Request...	Retr!ev!n9 d@t@ by 0ne-reque~t...
+OneRequestFailed:	0ne-reque~t retr!ev!n9 d@t@ f@!1ed:
+GettingDataByBatch...	Retr!ev!n9 d@t@ by b@tch...
+GettingByBatchFailed:	Retr!eve d@t@ by b@tch f@!1ed:
+AreUSureToClear?	4re y0u ~ure t0 c1e@r?
+PlzInputFilesLong:	1e@~e !nput f!1e 0r f01der,0ne by 0ne per 1!ne, @dd \ @t re@r !nd!c@te~ @ f01der:
+ExecutingSQL...	Execut!n9 SQL...
+Activating2005procs...	4ct!v@t!n9 XP_CmdShe11/0penD@t@S0urce/0penR0wSet ...
+Deactivating2005Procs...	De@ct!v@t!n9 XP_CmdShe11/0penD@t@S0urce/0penR0wSet ...
+InputErrorKeywordsWhenNoMatch.	Mu~t enter the key err0r text when Un!0n c01umn~ n0t m@tch.
+ScanningWhichColInPage...	Sc@nn!n9 wh!ch c01umn @ppe@r~ !n p@9e...
+UnionSQL:	Sc@n Un!0n C01umn~ SQL:
+GettingRecordCntFailed.	Retr!eve rec0rd~ c0unt f@!1ed.
+RecordCount:	Rec0rd C0unt:
+ValuesAreNotValid.	\/@1ue~ @re n0t v@1!d.
+BasicInfos:	B@~!c !nf0rm@t!0n~:
+SingleQuote:yes	C@n u~e ~!n91e Qu0te:ye~
+SingleQuote:no	C@n u~e ~!n91e Qu0te:n0
+Info_schema:yes	|-|@~ INF0RM4TI0N_SC|-|EM4:ye~
+Info_schema:no	|-|@~ INF0RM4TI0N_SC|-|EM4:n0
+ListingDBs...	L!~t d@t@b@~e~....
+Databases:	D@t@b@~e~:
+Schema_name	Schem@_n@me
+CharSetName	def@u1t_ch@r@cter_~et_n@me
+ListingTblOf%s...	L!~t!n9 t@b1e~ 0f %~ ...
+ListingFldsOf%s.%s...	L!~t!n9 f!e1d~ 0f %~.%~...
+ColName	c01umn_n@me
+DataType	d@t@_type
+CharSetName	ch@r@cter_~et_n@me
+GettingData...	Gett!n9 d@t@...
+PlzSelectCols.	P1e@~e ~e1ect ~0me C01umn~.
+Note:QuoteOnLong	N0te: The M4GIC_QU0TE_GPC !~ 0N, the t@r9et f!1e m@ybe cre@te f@!1.
+MustSpecifyFN.	Mu~t ~pec!fy the f!1en@me.
+MustInputKWsAndSep.	Mu~t !nput 'Fr0nt Keytext','Re@r Keytext' @nd 'Seper@t0r Text'.
+InputWANIP.	P1e@~e !nput W4N IP 0f 10c@1h0~t.
+SpecifyPort.	Mu~t ~pec!fy wh!ch p0rt t0 be 0pen.
+StartFailed,PortInUse?	St@rt ~erv!ce f@!1ed, p0rt !n u~e ?
+DBSvrIPis:	The DB ~erver IP !~: 
+PlzStartSvcAndMapPortLong	P1e@~e ~t@rt 1!~ten ~erv!ce f!r~t, @nd m@ke ~ure the p0rt !~ m@pped t0 !nternet.
+	
+//URL Codecer Code:	
+//Global_UI related code:	
+VulnTable	\/u1ner@b!1!t!e~ T@b1e
+GenByLiQiDiS	Gener@ted by L!Q!D!S(L!qu!d Inject!0n Sy~tem)
+NumericT	Numer!c
+TextT	Text
+SearchT	Se@rch
+InputDBNames1PerLine:	P1e@~e enter the d@t@b@~e n@me~, every 0ne per 1!ne: 
+InputTblNames1PerLine:	P1e@~e !nput t@b1e n@me~, every 0ne per 1!ne: 
+InputColNames1PerLine:	P1e@~e !nput c01umn n@me~, every 0ne per 1!ne: 
+FailedToGetWANIP.	F@!1ed t0 9et W4N IP.
+	
+//Show text paragraph Code:	
+//Common-Code:	
+//SQL Varchar NVarChar Code:	
+//MD5 Code:	
+TheTextNotMD5.	The !nput text d0~n't 1!ke @ MD5.
+CalcMD5CrackMD5	C@1cu1@te MD5 0r L00kup MD5 
+Lookup%sPlzWait...	N0w 100kup %~ ,p1e@~e w@!t...
+LookupCompSites...	N0w 100k!n9 up c0mp0~!te ~!te~...
+	
+//Setup SQLServerTransfer Code:	
+Success.	^_^Succe~~.
+Failure.	:( F@!1ure.
+ErrorMsg:	Err0r me~~@9e:
+ConnOKSaveSettings.	C0nnect ~ucce~~,@nd 10c@1 ~ett!n9~ h@ve been ~@ved.
+	
+NoADODBDrv.	The d@t@b@~e c0nnect!0n !~ NULL, n0 4D0DB dr!ver.
+	
+//Program Settings Code:	
+MustSelect1ScanMethod.	`/0u ~h0u1d ~e1ect @t 1e@~t 0ne ~c@n-meth0d.
+RUSure2ClearAll?	4re y0u ~ure t0 c1e@r @11 ?
+SrcStrCantBeEmpty.	The ~0urce ~tr!n9 c@n't be empty.
+PlzSelectALang.	P1e@~e ~e1ect @ 1@n9u@9e.
+LoadLangFileFail.	L0@d 1@n9u@9e f!1e f@!1ure.
+	
+	
+//Server SQL Code:	
+Percent:	Percent:
+GetSvrSQLFinished.	Upd@te d@t@ f!n!~hed, y0u c@n exp10!t vu1ner@b!1!t!e~ n0w.
+	
+//SensitiveFile scanner Code:	
+GridHead	Re~p0n~e C0de|80|URL|700
+PlzInputURL.	P1e@~e !nput URL f!r~t.
+PlzInputExt.	P1e@~e !nput the exten~t!0n.
+UrlFmtInvalid.	The URL f0rm@t !~ !nv@1!d.
+	
+//ordinal file scanner Code:	
+URLMustContainVar.	The URL mu~t c0nt@!n~ 100p v@r!b@1e: ##!##.
+SelectTextToBeReplaceAsVar.	P1e@~e ~e1ect the text wh!ch w!11 be rep1@ced @~ v@r!@b1e(##!##).
+	
+//DNS reverse lookup Code:	
+MustInputDNSIP.	Mu~t !nput d0m@!n n@me 0r IP.
+InputURLwithVar:	P1e@~e !nput the URL w!th v@r!@b1e,__dn~__ !nd!c@te~ d0m@n n@me,__!p__ !nd!c@te~ IP, 1!ke be10w:
+	
+//The Looper Code:	
+LoopVar	L00p v@r!@b1e
+Dict1	D!ct1
+Dict2	D!ct2
+PageVar1	P@9e v@r!@b1e 1
+PageVar2	P@9e v@r!@b1e 2
+MustInputKeywordsOfPV.	Mu~t !nput fr0nt keytext @nd re@r keytext 0f p@9e v@r!@b1e~.
+	
+//next line,must containts 4 %s	
+NoVar%s%s%s%s.	There !~ n0 %~ %~ !n d@t@. P1e@~e uncheck the %~, 0r !n~ert v@r %~ !n d@t@.
+Error:	Err0r:
+RespCode:	Re~p0n~e C0de:
+PlzSelectSomeTextInRequest.	P1e@~e ~e1ect ~0me text !n '|-|TTP |-|e@der~' text@re@ 0r 'P0ST D@t@' text@re@ f!r~t.
+SaveResults?	W0u1d y0u 1!ke t0 ~@ve the re~u1t~?
+PutFocusInRequest.	P1e@~e c1!ck the !nput f0cu~ !n the '|-|TTP Reque~t |-|e@der~' text@re@ 0r 'P0ST D@t@' text@re@.
+	
+//HTTP Protocol Code:	
+NoHostEntry.	N0 '|-|0~t' entry !n |-|TTP |-|e@der~.
+FailedToRslvIP:	F@!1ed t0 re~01ve the IP 0f h0~t: 
+FailedToConnTo:	F@!1ed t0 c0nnect t0:
+TimeoutMs:	T!me0ut(m!11!~ec0nd~):
+TimeoutContinue:	T!me0ut when c0nt!nue(m!11!~ec0nd~):
+	
+//Request Relay	C0de:
+StartSvcOK.	Serv!ce ~t@rt ~ucce~~fu11y.
+StartSvcFailedPortInUse?	Serv!ce ~t@rt f@!1ed, !~ the p0rt !n u~e?
+SvcStopped.	Serv!ce ~t0pped.
+	
+//MultiEngine MD5 crack Code:	
+Data1	D@t@1
+Data2	D@t@2
+Composite	C0mp0~!te
+NoEngine.	N0 en9!ne, p1e@~e @dd en9!ne~ f!r~t!
+NotFndMD5data.	N0t f0und MD5 v@1ue~. P1e@~e !mp0rt 0r p@~te c0rrect d@t@.
+ThreadRunning.	 thre@d~ @re runn!n9.
+Complete.	C0mp1ete.
+SaveData?	W0u1d y0u 1!ke t0 ~@ve the d@t@?
+	
+//MD5 engine setup Code:	
+CreateEngineOK.	Cre@te en9!n f!n!~hed.
+CreateEngineFailed.	Cre@te en9!n f@!1ed. P1e@~e check whether th!~ pr09r@m !~ ~t0red 0n @ re@d0n1y med!@ 0r f!1e~ @re re@d0n1y.
+TitleRequired.	T!t1e !~ requ!red.
+HeadRequired.	Reque~t he@d !~ requ!red.
+ForeKeywordRequired.	F0re key text !~ requ!red.
+RearKeywordRequired.	Re@r key text !~ requ!red.
+NotFndMD5Var.	N0t f0und v@r!@b1e __md5__ !n reque~t he@d 0r p0~t d@t@!
+LoadEngineFailed:	L0@d en9!n f@!1ed: 
+FailedToSetEngineState.	F@!1ed t0 ~et the en9!ne'~ en@b1e ~t@te.
+	
+//Base64Codecer UI:	
+BASE64Codecer	B4SE64 C0decer
+PlzInput:	P1e@~e !nput:
+Paste	P@~te
+BASE64Enc	B4SE64 Enc0de
+BASE64Dec	B4SE64 Dec0de
+Copy	C0py
+	
+//FTP Server Settings UI:	
+PlzInputFTPinfo:	P1e@~e !nput y0ur FTP Server !nf0:
+FTPIP:	FTP h0~tn@me 0r IP:
+Username:	U~ern@me:
+Password:	P@~~w0rd:
+FileOnFTPsvr:	F!1e 0n FTP ~erver:
+FileOnRmtSvr:	F!1en@me expected 0n rem0te ~erver:
+OK	0K
+Cancel	C@nce1
+	
+//MD5 codecer UI:	
+MD5Codecer	MD5 C0decer
+CalcMD5	C@1c MD5
+LookupMD5	L00k up MD5
+Stop	St0p
+	
+//SQL text codecer UI:	
+SQLTextCodecer	SQL \/@rCh@r c0decer
+EncAsVarchar	Enc0de @~ \/@rCh@r
+EncAsNVarchar	Enc0de @~ N\/@rCh@r
+DecAsVarchar	Dec0de @~ \/@rCh@r
+DecAsNVarchar	Dec0de @~ N\/@rCh@r
+	
+//SQL keywords capital randomizer UI:	
+SQLKWCapRnd	SQL keyw0rd c@p!t@1!z@t!0n r@nd0m!zer
+PlzInputSQL:	P1e@~e !nput SQL:
+Randomize	R@nd0m!ze
+RmvCRLF	Rem0ve 1!ne-bre@k~
+ShrinkSpaces	Shr!nk ~p@ce~
+	
+//URL Codecer UI:	
+UrlCodecer	URL C0decer
+UrlDec	URL Dec0de
+UrlEnc	URL Enc0de
+UrlEncCompletely	URL Enc0de C0mp1ete1y
+	
+	
+//Find and Replace UI:	
+Find_Replace	F!nd @nd Rep1@ce
+Find:	F!nd:
+ReplaceAs:	Rep1@ce @~:
+CapSens	C@~e ~en~!t!ve
+Replace	Rep1@ce
+	
+	
+//Output UI:	
+Output	0utput
+CopyToClipbd	C0py t0 c1!pb0@rd
+Clear	C1e@r
+URLEnc	URL Enc0de
+AlwaysOnTop	41w@y~ 0n t0p
+	
+//Batch Look up MD5 UI:	
+BatchLookupMD5	B@tch 100k up MD5
+ImportData...	Imp0rt d@t@...
+PasteData	P@~te d@t@
+Start	St@rt
+Stop	St0p
+Copy	C0py
+Save...	S@ve...
+Settings	Sett!n9~
+MaxThreads:	M@x thre@d~:
+Interval:	Interv@1(m~):
+DontTryOtherEngines.	When ~ucce~~, d0n't try 0ther en9!ne~.
+Engines...	En9!ne~...
+	
+//Sensitive file scanner UI:	
+SensFileScanner	Sen~!t!ve f!1e~/f01der~ ~c@nner
+Ext:	Ext:
+ScanAllLevels	Sc@n @11 1eve1~
+IfFileExistsScanLong:	If f!1e ex!t~, ~c@n the~e f!1e~ ~ynchr0n0u~1y :
+IfRespCodeInListLong:	If re~p0n~e c0de !n th!~ ~tr!n9, @dd c0rre~p0nd!n9 URL !nt0 1!~t:
+ViewHTTPCode	\/!ew me@n!n9~ 0f |-|TTP re~p0n~e c0de~
+	
+//Encode SQL as Declare+Exec UI:	
+EncSqlAsDec_Exec	Enc0de SQL @~ Dec1@re+EXEC
+	
+//Request Relay	UI:
+RequestRelay	Reque~t Re1@y
+Port:	P0rt:
+StartSVC	St@rt ~erv!ce
+StopSvc	St0p ~erv!ce
+HttpHead:	|-|TTP Reque~t |-|E4D:
+TipPressF5ToInsVar.	T!p: Pre~~ F5 t0 !n~ert "__~q1__" v@r!@b1e.
+PostData:	P0ST D@t@:
+	
+	
+//Config SQL Serve Transfer UI:	
+CfgMyTransfer	C0nf!9 "My MS SQLServer"
+WanIP:	W4N IP:
+LanIP:	L4N IP:
+TestLan	Te~t L4N
+TestWan	Te~t W4N
+TestRmtConnInWeb...	Te~t rem0te c0nnect!0n !n Web...
+	
+//IP reverse lookup UI:	
+IpDnsRvsLookup	IP/D0m@!n N@me Rever~e 100kup
+IpDomainName:	IP/|-|0~t n@me:
+GetIP	Get IP
+Add...	4dd...
+Lookup...	L00k up...
+Close	C10~e
+	
+//Program Settings UI:	
+ProgSettings	Pr09r@m Sett!n9~
+	
+ScanVuln.	Sc@n \/u1er@b!1!t!e~
+AutoRplcSQL	4ut0 rep1@ce SQL
+Languages	L@n9u@9e~
+	
+MaxScanningThreads:	M@x thre@d~ when ~c@nn!n9:
+SkipTimeout:	Sk!p wh!ch re~p0n~e t!me exceed (~ec0nd~):
+	
+UseKW	U~e @ut0-detected keyw0rd~
+UseContentLen	U~e c0ntent-1en9th thre~h01d
+Threshold:	Thre~h01d:
+	
+GetHead	Get ~erver |-|E4D when f0und vu1ner@b!1!ty
+GetAlexa	Get @1ex@ r@nk when f0und vu1ner@b!1!ty
+Scan0ByteLink	Sc@n 0 byte 1!nk~
+	
+EnableReplace	En@b1e Rep1@ce
+RplcAfterURLEnc	Rep1@ce @fter URLEnc0de
+DelSelected	De1ete Se1ected
+ClearAll	C1e@r 411
+Replace	Rep1@ce
+As	4~
+Add	4dd
+	
+LangList:	L@n9u@9e~ L!~t:
+Preview:	Prev!ew:
+RefreshList	Refre~h L!~t
+Apply	4pp1y
+	
+//Show paragraph text UI:	
+Tip:DblClickToClr	T!p: D0ub1e c1!ck t0 c1e@r c0ntent.
+	
+//Ordinal file scanner UI:	
+OrdFileScanner	0rd!n@1 f!1e ~c@nner
+PlzInputURLWithVar:	P1e@~e !nput the URL wh!ch c0nt@!n~ v@r!@1be(##!##):
+RplcSelAsVar	Rep1@ce the ~e1ect!0n @~ v@r
+VarSettings	\/@r!@b1e ~ett!n9~
+Start:	St@rt:
+End:	End:
+Incr.:	Incr.:
+Chars:	Ch@r~:
+FillWith:	F!11 W!th:
+	
+//Setup engines for looking up md5 UI	
+SetEngForLookupMD5	Setup en9!ne~ f0r 100k!n9 up MD5
+EngineList	En9!ne L!~t
+Title:	T!t1e:
+RequestHead:	Reque~t |-|e@d:
+PostData:	P0ST D@t@:
+DelHilited	De1ete |-|!1!9hted
+AddOrMod	4dd 0r m0d!fy
+	
+//Registration UI:	
+Registration	Re9!~tr@t!0n
+UrRegCodeIs:	`/0ur Re9C0de !~:
+	
+//The Looper UI:	
+TheLooper	The L00per
+//The Looper > menu	
+miModHttpReq	&M.M0d!fy |-|TTP Reque~t
+miFillByURL...	&U.F!11 by URL...
+miFillWithGet	&G.F!11 w!th ~t@nd@rd Get reque~t
+miFillWithPost	&P.F!11 w!th ~t@nd@rd P0ST reque~t
+miMethod	&M.Meth0d
+	
+miCodes	&C.C0de~
+miGetDBType	&G.Get DB Type
+	
+miInsertVars	&I.In~ert\/@r!@b1e~
+	
+miEncode	&E.Enc0de
+miSqlKeywordsRand	&R.SQL Keyw0rd~ c@~e r@nd0m!ze
+miUrlEnc	&U.URL Enc0de
+miUrlDec	&D.URL Dec0de
+miEncAsVChar	&V.Enc0de @~ SQL \/@rch@r
+miEncAsNVChar	&N.Enc0de @~ SQL N\/@rch@r
+	
+miFndReplace	&F.F!nd @nd Rep1@ce
+	
+miSave	&S.S@ve
+miSaveAs	&A.S@ve @~...
+miAutoSave	&T.4ut0 ~@ve every 20~
+	
+//The Looper> Tab	
+LoopVars	L00p\/@r~ 
+Dict	D!ct 
+PageVars	P@9e\/@r~ 
+Filter	 F!1ter
+Keyword	 Keyw0rd
+ResponseCode	 Re~p0n~e c0de
+	
+//The Looper> Tabs	
+UseVarI	U~e v@r __!__:
+UseVarJ	U~e v@r __j__:
+Min	M!n
+Max	M@x
+Step	Step
+	
+UseDict1	U~e __d!ct1__:
+UseDict2	U~e __d!ct2__:
+Edit...	Ed!t...
+ReloadDicts	Re10@d D!ct!0n@r!e~
+	
+UsePV1	U~e P@9e \/@r1(__pv1__):
+UsePV2	U~e P@9e \/@r2(__pv2__):
+	
+EnableTextFilter	En@b1e text f!1ter
+	
+OutputVars	0utput \/@r!@b1e~
+OutPutVarsWhenNotContains	0utput \/@r~ when the re~p0n~e p@9e ~0urce n0t c0nt@!n~ the text be10w
+Counter	C0unter
+	
+OutputVarsWhenRespCodeIn	0utput v@r~ when the re~p0n~e c0de !n the 1!~t be10w
+	
+//controls	
+Sleep	S1eep
+MsBetweenRequests	m!11!~ec0nd~ between per reque~t 
+Output	0utput
+PageSource	P@9eS0urce
+	
+AutoSave	4ut0 S@ve
+	
+LoopBody	L00p B0dy
+Encode	Enc0de
+Decode	Dec0de
+Run	Run!
+	
+//Version 2.6 Added ===========================================================	
+//The Looer UI:	
+miProject	&P.Pr0ject
+miLoad...	&L.L0@d...
+	
+//The Looper Code:	
+LooperPrjFilter	The L00per Pr0ject(*.100per)|*.100per|411 F!1e~(*.*)|*.*
+FailedSaveFile:	F@!1ed t0 ~@ve f!1e:
+OpenFileFailure:	0pen f!1e f@!1ure:
+FileFmtIncorrect.	F!1e f0rm@t !~ !nc0rrect¡£
+	
+//Exploit Vulnerability UI:	
+SqlCapital:	SQL St@tement~ c@p!t@1!z@t!0n:
+DontCare	D0n't c@re
+RndCase	R@nd0m!ze c@~e
+LowerCase	L0wer c@~e
+UpperCase	Upper c@~e
+	
+FeatureDisabled.	Th!~ fe@ture h@~ been d!~@b1ed.

