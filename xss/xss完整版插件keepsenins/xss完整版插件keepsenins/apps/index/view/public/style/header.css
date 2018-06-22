@@ -1,0 +1,40 @@
+html.off,html.off body{background-image:url(left_bg.png); background-color:#edf2e3}
+html.on,html.on body,html.addbg,html.addbg body{background: #edf2e3;background-image:none}
+.header {background: #618d03 url(hdbg.gif) no-repeat right bottom}
+.header .logo{background-image: url(logo.png)}
+.header .nav li, .header .nav li a{background-image: url(nav_bg.png)}
+.header .nav li.on a{ color:#333}
+.header .nav li a{color:#e7f4cb}
+.header .nav li.tab_web a, .header .nav li.tab_web a span{background-image: url(site.png)}
+.header .nav li.tab_web a:hover span,.header .nav li.tab_web a.on span{color:#618d03}
+.shortcut a{background-position: 0 -143px; color:#666}
+.shortcut a span{background-position: right -143px}
+.tab-web-panel{ border-color: #dce8c4}
+.tab-web-panel li{ background-color: #f1f5ea}
+.tab-web-panel li:hover,.tab-web-panel li.on{background-color:#dde7ca}
+.cut_line span{color:#7aaf0a}
+#Skin .s1{background-position:0 -66px}
+#Skin .s3{background-position:-14px -33px;}
+.col-1 div.content,.col-2{ border-color:#c8daa3}
+.col-2 h6{background-image:url("x_bg.png"); border-bottom:1px solid #c8daa3; color:#444;}
+.fixed-bottom .fixed-but{background-image:url("x_bg.png");}
+.fixed-bottom .fixed-but .button, .fixed-bottom .fixed-but .button input{background-image:url("btn-content.png"); color:#6f971f}
+.table-list thead th{background-color:#eef5de;border-bottom-color:#e2e3e3;}
+.left_menu h3{ color:#333; border-bottom-color:#CCC}
+.left_menu ul li a:hover, .left_menu ul li.on{background-image: url(left_menu.png); }
+.left_menu ul li.on a{color:#333}
+.left_menu ul li a{ background-color:#f9fbf5}
+.left_menu a.open:hover,.left_menu a.close:hover{ background-color:#e1edd2}
+.content-menu a.add, .content-menu a.add em, .content-menu a.on, .content-menu a.on em{background-image:url("bnt_bg.png");}
+.content-menu a{ color:#333}
+.ui_td_00, .ui_td_02, .ui_td_10, .ui_td_12, .ui_td_20, .ui_td_22, .ui_close {background-image:url("chrome_s.png");}
+.ui_td_01{background-image:url("border.png");}
+.ui_td_21{border-bottom:1px solid #457700;}
+.fav-nav,.fav-nav span,.fav-nav a{background-image:url("fav-nav-bg.png")}
+.fav-help a{ background:none; height:auto; padding:0; margin:0 20px 0 0}
+#pages span {background-color:#618d01;border-color:#618d01;}
+.col-tab .contentList,.col-tab ul.tabBut li{ border-color:#dce8c4}
+.col-tab ul.tabBut li{ background-color:#f1f5ea}
+
+.map-menu ul{border-color:#C8DAA3;}
+.map-menu ul li.title{ background-color:#f3f8e9}

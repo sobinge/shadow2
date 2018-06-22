@@ -1,0 +1,279 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title></title>
+<style type="text/css">
+body{border:none;margin:0px;font-size:12px;}
+a{color:blue}
+a:visited{color:blue;}
+.btitem{cursor:default;width:81px;height:18px;background:url(../../lib/img/soft.png) -3px -79px no-repeat;color:#000;text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;margin-top:2px;margin-left:2px;line-height:18px;}
+.btitem_over{cursor:default;width:81px;height:18px;background:url(../../lib/img/soft.png) -89px -79px no-repeat;color:#000;text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;float:left;margin-top:2px;margin-left:2px;line-height:18px;}
+.ff{float:left;line-height:26px;}
+#sysbg{padding-left:3px;width:230px;border:1px ridge #ccc;height:18px;background:#fff;line-height:16px;margin-top:2px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+#imglist{height:209px;overflow-y:auto}
+.imgitem{width:112px;height:70px;padding-left:3px;padding-top:3px;margin:3px;float:left;background:#000;}
+.imgitemex{width:106px;height:64px;}
+.column{height:303px;float:left;}
+.col1{width:132px;padding:3px;}
+#leftmenu{width:126px;background:#fff;border:1px solid #ccc;}
+.textline{height:25px;line-height:25px;}
+.inspath{border:1px solid #ccc;width:268px;}
+.com td{font-size:12px;}
+.comhead{background:#ccc;}
+.ban{color:red}
+</style>
+<script type="text/javascript" src="../../lib/gnbox.js"></script>
+<script type="text/javascript" src="./main.js"></script>
+<script type="text/javascript">
+	use("sys.reg");//注册表操作( gainover)
+	use("skin.button");//按钮皮肤库( gainover)
+</script>
+<body>
+<div class="column col1">
+	<div id="leftmenu"></div>
+</div>
+<script type="text/javascript">
+	var __TOOLMAO_DLL={
+		"文件读写组件":"scripting.filesystemobject",
+		"数据流处理组件":"adodb.stream",
+		"Windows脚本组件":"wscript.shell",
+		"数据库连接组件":"Adodb.Connection",
+		"系统管理脚本组件":"WbemScripting.SWbemLocator",
+		"桌面应用管理":"Shell.Application",
+		"邮件发送接口":"cdo.message",
+		"XY图片处理组件":"XY.Graphics",
+		"Ironsoft图片组件":"Ironsoft.Drawpic",
+		"微软Socket组件":"MSWinsock.Winsock"
+	};
+	var op=["桌面背景设置","插件安装设置","系统组件信息","操作系统信息"];
+	function hiddenAll (){
+		for(var i=0;i<op.length;i++){
+			Dom.Html.hid("op"+i);
+			Dom.Html.hid("bt"+i);
+		}
+	}
+	function readRegInfo (path){
+		Sys.Reg.open("HKEY_CLASSES_ROOT");
+		var myPath="ToolmaoBox.Plugin";
+		try{
+			var data=Sys.Reg.readData(myPath+"\\"+(path||""));
+			Sys.Reg.close();
+			return data;
+		}catch(e){
+			Sys.Reg.close();
+			return false;
+		}
+	}
+	function delToolmaoRegInfo (){
+		Sys.Reg.open("HKEY_CLASSES_ROOT");
+		var myPath="ToolmaoBox.Plugin";
+		var assPath=".tpk";
+		//tpk操作
+		try{Sys.Reg.delDir(assPath);}catch(e){}
+		//Toolmaobox.plugin，从最底层开始删
+		try{
+			Sys.Reg.delDir(myPath+"\\shell\\open\\command");
+			Sys.Reg.delDir(myPath+"\\shell\\open");
+			Sys.Reg.delDir(myPath+"\\shell");
+			Sys.Reg.delDir(myPath+"\\DefaultIcon");
+			Sys.Reg.delDir(myPath);
+		}catch(e){}
+		Sys.Reg.close();
+	}
+	function unInstall (){
+		delToolmaoRegInfo ();
+		showReg ();
+		alert("取消关联成功，下次重启电脑后生效");
+	}
+	function reInstall (){
+		delToolmaoRegInfo ();
+		writeToolmaoRegInfo ();
+		showReg ();
+		alert("重新关联成功");
+	}
+	function writeToolmaoRegInfo (){
+		var wv=Win.sysversion().toLowerCase();
+		var ico="install_xp.ico";
+		if(wv=="windows 7"||wv=="windows vista"){
+			ico="install.ico";
+		}
+		Sys.Reg.open("HKEY_CLASSES_ROOT");
+		var myPath="ToolmaoBox.Plugin";
+		var assPath=".tpk";
+		try{
+			Sys.Reg.readData(myPath+"\\");
+		}catch(e){
+			Sys.Reg.addDir(myPath,true);
+			Sys.Reg.addFile("","工具猫魔盒插件");
+			Sys.Reg.addDir("DefaultIcon");
+			Sys.Reg.addDir("shell");
+			Sys.Reg.addFile("DefaultIcon\\","\""+external.path+"lib\\img\\"+ico+"\"");
+			Sys.Reg.change(myPath+"\\shell");
+			Sys.Reg.addDir("open",true);
+			Sys.Reg.addDir("command",true);
+			Sys.Reg.addFile("","\""+external.path+"工具猫魔盒.exe\" -unzip \"%1\"");
+		}
+		Sys.Reg.close();
+		Sys.Reg.open("HKEY_CLASSES_ROOT");
+		try{
+			Sys.Reg.readData(assPath+"\\");
+		}catch(e){
+			Sys.Reg.addDir(assPath,true);
+			Sys.Reg.addFile("","ToolmaoBox.Plugin");
+		}
+		Sys.Reg.close();
+		refreshAss();
+	}
+	function refreshAss(){
+		setTimeout(function(){
+			Sys.CMD.open();
+			Sys.CMD.run('"'+external.path+"lib\\use\\refresh.exe\"");
+			Sys.CMD.close();
+		},200);
+	}
+	function showCom (){
+		var str="<table cellpadding=\"5\" width=\"100%\" class=\"com\">";
+			str+="<tr class='comhead'><td>组件名称</td><td align='right'>组件状态</td></tr>";
+			for(var i in __TOOLMAO_DLL){
+				var stat=true;
+				try{
+					stat=external.ActiveXObject(__TOOLMAO_DLL[i]);
+				}catch(e){
+					stat=false;
+				}
+				str+="<tr><td>"+i+"</td><td align='right'>"+(stat?"开启":"<span class='ban'>禁用</span>")+"</td></tr>";
+				stat=null;
+			}
+			str+="</table>";
+		$("op2").innerHTML=str;
+	}
+	function showInfo (){
+		var wsh=Win.obj(Win.com.WSH);
+		var env=wsh.Environment("PROCESS");
+		var infos=["NUMBER_OF_PROCESSORS","PROCESSOR_ARCHITECTURE","OS","COMSPEC","SYSTEMDRIVE","HOMEPATH","PATH","PATHEXT","WINDIR","TEMP"];
+		//alert(env);
+		for(var i=0;i<infos.length;i++){
+			if($("EV_"+infos[i])){
+				var tmp=env(infos[i]);
+				if(infos[i]=="OS"){
+					tmp=Win.sysversion() + "("+tmp+")";
+				}
+				Dom.Html.value("EV_"+infos[i],tmp)
+			}
+		}
+		wsh=null;
+	}
+	function showReg (){
+		$("assInfo").innerHTML=readRegInfo()?"已关联":"未关联";
+		var icondata=readRegInfo("DefaultIcon\\");
+		$("assIcon").innerHTML='<input class=\'inspath\' type="text" value=\''+(icondata||"关联信息丢失")+'\'></input>';
+		var exedata=readRegInfo("shell\\open\\command\\");
+		$("assPath").innerHTML='<input class=\'inspath\' type="text" value=\''+(exedata||"关联信息丢失")+'\'></input>';
+	}
+	//writeToolmaoRegInfo ();
+	var newlist=Dom.Html.list("list_"+$R(6),{
+		/*列表容器样式*/
+		"style":"margin:0px;width:100%;height:100%;overflow:auto",
+		/*列表每一行元素样式*/
+		"itemstyle":"padding-left:10px;line-height:25px;overflow:hidden;word-wrap:normal;text-overflow:ellipsis;cursor:pointer;",
+		/*列表每一行元素高度*/
+		"itemheight":25,
+		/*列表父级容器对象,为空时代表document.body*/
+		"parent":"leftmenu",
+		/*奇数行背景颜色*/
+		"oddcolor":"#ffffff",
+		/*偶数行背景颜色*/
+		"evencolor":"#ffffff",
+		/*鼠标移到此行时的背景颜色*/
+		"overcolor":"#a4d8fe",
+		/*行被选中时的颜色*/
+		"selectcolor":"#51a0f4"
+	});
+	for(var i=0;i<op.length;i++){
+		newlist.add(op[i]);
+	}
+	newlist.color({
+		"itemclick":function(item,index){
+			hiddenAll();
+			Dom.Html.show("op"+index);
+			Dom.Html.show("bt"+index);
+			if(index==1){
+				showReg ();
+			}else if(index==2){
+				showCom();
+			}else if(index==3){
+				showInfo();
+			}
+		}
+	});
+</script>
+<div class="column">
+	<div id="appData" style="width:100%;margin:5px;border:1px solid #ccc;height:100%;overflow-y:auto;padding:5px;">
+		<div id="op0">
+			<div style="width:100%;overflow:hidden;height:26px;line-height:16px;">
+				<div class="ff">桌面背景:</div>
+				<div class="ff">
+					<div id="sysbg" contentEditable=true></div>
+				</div>
+				<div class="ff">
+					<div class="btitem" style="float:left" onclick="selectNewBg()">浏览新背景..</div>
+				</div>
+			</div>
+			<div style="border-bottom:1px dashed #ccc;width:100%;overflow:hidden;height:2px;"></div>
+			<div id="imglist">
+
+			</div>
+		</div>
+		<div id="op1" style="display:none">
+			<div class="textline"><b>当前插件关联后缀</b>: <span>.tpk</span></div>
+			<div class="textline"><b>当前插件关联信息</b>: <span id="assInfo"></span></div>
+			<div class="textline"><b>当前插件关联图标</b>: <span id="assIcon"></span></div>
+			<div class="textline"><b>当前程序关联路径</b>: <span id="assPath"></span></div>
+			<div class="textline"></div>
+			<div class="textline" style="text-align:center">
+
+			</div>
+
+		</div>
+		<div id="op2" style="display:none">
+
+		</div>
+		<div id="op3" style="display:none">
+			<div class="textline"><b>操作系统类型</b>: <span id="ev_OS"></span></div>
+			<div class="textline"><b>处理器核心数</b>: <span id="ev_NUMBER_OF_PROCESSORS"></span></div>
+			<div class="textline"><b>CMD 所在路径</b>: <span id="ev_COMSPEC"></span></div>
+			<div class="textline"><b>主系统盘盘符</b>: <span id="ev_SYSTEMDRIVE"></span></div>
+			<div class="textline"><b>用户系统目录</b>: <span id="ev_WINDIR"></span></div>
+			<div class="textline"><b>临时存储目录</b>: <span id="ev_TEMP"></span></div>
+		</div>
+	</div>
+	<div id="btn" style="width:90%;text-align:center;">
+			<div id="bt0">
+				<input name="mybutton" type="button" value="应用背景" onclick="saveNewBg()"></input>
+			</div>
+			<div id="bt1" style="display:none">
+				<input name="mybutton" type="button" value="重新关联"  onclick="reInstall()"></input>
+				<input name="mybutton" type="button" value="取消关联"  onclick="unInstall ()"></input>
+				<input name="mybutton" type="button" value="刷新关联" onclick="refreshAss()"></input>
+			</div>
+			<div id="bt2" style="display:none">
+				<input name="mybutton" type="button" value="刷新信息" onclick="showCom()"></input>
+			</div>
+			<div id="bt3" style="display:none">
+				<input name="mybutton" type="button" value="刷新信息" onclick="showInfo()"></input>
+			</div>
+			<script type="text/javascript">
+				Skin.Button.set("mybutton","button_style_flex");
+			</script>
+	</div>
+</div>
+<script type="text/javascript">
+Dom.Event.add(window,"onload",function(){
+	$("appData").style.height=($P(parent.document.getElementById("desktop").style.height)-150)+"px";
+});
+Dom.Event.add(window,"onresize",function(){
+	$("appData").style.height=($P(parent.document.getElementById("desktop").style.height)-150)+"px";
+});
+</script>
+</body>
+</html>

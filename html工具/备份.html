@@ -1,0 +1,33 @@
+
+<html><head><title>0x7863专用数据库备份</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link href="../images/css.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table class="tableBorder" width="90%" border="0" align="center" cellpadding="3" cellspacing="1" bgcolor="#ADADAD">
+<tr> 
+<td align="center" background="../images/admin_bg_1.gif"><b><font color="#ffffff">备份数据库</font></b></td>
+</tr>
+<tr>
+<td width="100%" >
+<font color="#FF0000">注意：注意：备份数据需要FSO组件支持，FSO组件的相关帮助！所有路径都是相对与程序空间根目录的相对路径！此功能谨慎使用,可能在有些空间备份后,在本机上不能用ACCESS打开。</font></td>
+</tr>
+<tr><form method="post" action="http://jr-inv.com/Admin/KS.Database.asp?Action=BackUp&Flag=Backup">
+<td width="100%" >
+当前数据库路径：<input type=text size=24 name=DBpath value="D:\www\web\js-zk.net\wwwroot\UploadFiles/2011-10/admin/2011102411463641131.jpg"> 
+请正确添写您当前使用的数据库路径！<BR>
+备份数据库目录：<input type=text size=24 name=bkfolder value=0>
+如果目录不存在，程序将自动创建！<BR>
+备份数据库名称：<input type=text size=24 name=bkDBname value=0x7863.mdb>
+如果备份目录有该文件，将覆盖，如果没有，程序将自动创建！<br>
+<input type=submit value="开始备份"></td>
+</tr>
+<tr>
+<td width="100%" >
+在上面填写数据库路径及数据库完整名称，程序的默认数据库文件为0x7863.mdb<br>
+您可以用这个功能来备份您的数据库，以保证数据的安全！<br></td>
+</tr></form>
+</table>
+
+</body>

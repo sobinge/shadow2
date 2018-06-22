@@ -1,0 +1,137 @@
+pnscan - a Parallell Network Scanner
+
+Copyright (c) 2002 Peter Eriksson <peter@ifm.liu.se>
+
+----------------------------------------------------------------------
+
+This program is free software; you can redistribute it and/or
+modify it as you wish - as long as you don't claim that you wrote
+it.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+----------------------------------------------------------------------
+
+INTRODUCTION
+
+Pnscan is a tool that can be used to survey TCP network
+services.
+
+For example, it can be used to survey the installed versions of
+SSH, FTP, SMTP, Web, IDENT and possibly other services.
+
+The latest version of pnscan can always be downloaded
+from:
+
+	ftp://ftp.lysator.liu.se/pub/unix/pnscan
+
+There is also a small web page about it at:
+
+	http://www.lysator.liu.se/~pen/pnscan
+
+
+If you like it then I'd gladly accept a nice bottle of whisky,
+some free beer or even just a "Thank you!" email :-)
+
+
+
+INSTALLATION
+
+Possibly edit the "Makefile" and the run 'make <SYSTEM>' where <SYSTEM>
+currently may be:
+
+	lnx	Linux with GCC v2
+	gso	Solaris with GCC v3
+	sol	Solaris with Forte C
+
+When it has been built you can install it with "make install-all".
+It will by default install in /usr/local/bin and /usr/local/man/man1
+
+
+USAGE
+
+Start pnscan with "-h" for online help.
+
+pnscan tries to be smart as to how many threads to start -
+it will dynamically start only as many as is needed to make
+progress in the scan - up to a maximum either as specified with
+the "-n" command line option, or 8 minus the maximum number of
+available file descriptors (pnscan tries to increase
+it to the max limit automatically) - or any internal limit
+on the system (Linux normally only allows 256 threads).
+
+Host ranges can be specified both as a CIDR - network
+name or IP address / mask bit length and as a range.
+When using CIDR notation - the first and last address
+is ignored (normally used for broadcasts)
+
+Some examples:
+	192.168.0.0/24
+	192.160.0.1:192.160.0.254
+	arpanet/8
+
+The CIDR names are looked up in "networks" (/etc/networks
+or the YP/NIS+/whatever equivalent).
+
+The host ranges can also be specified as a range (or
+a single address) of hostnames or IP addresses:
+
+	some.where.com:otherplace.where.com
+	192.168.10.27:192.168.11.194
+	localhost
+
+
+Service/Port ranges can be specified both via symbolic names
+looked up in "services" (/etc/services or YP/NIS+/whatever
+equivalent) or as numbers:
+
+	ssh:telnet
+	22:23
+	113
+
+The strings used with "-w" and "-r" may contain escaped characters.
+NUL characters are legal (\0) to use.
+
+pnscan by default will start printing the output from the first line
+recevied - *or* from the start of a match with "-r" (or from the first
+line of the first match if used with the "-l" option).
+
+
+EXAMPLES
+
+# Scan network 192.168.0.0/24 for SSH daemons on port 22
+pnscan 192.168.0.0/24 22
+pnscan 192.168.0.1:192.168.0.254 ssh
+
+# Scan hosts 192.168.10.34 ... 98 for IDENT servers, max 8 threads
+pnscan -n8 -w"VERSION" 192.168.10.34:192.168.10.98 113
+
+# Scan host 127.0.0.1 for WWW servers on all ports
+pnscan -w"HEAD / HTTP/1.0\r\n\r\n" -r"Server:" 192.168.0.32 1:65525
+pnscan -w"HEAD / HTTP/1.0\r\n\r\n" -r"Server:" localhost 1:65525
+
+# Send binary data and expect the binary sequence FF 00 FF on port 145.
+pnscan -W"05 5A 37" -R"FF 00 FF" 192.168.0.32 145
+
+# Scan for Roxen servers and print the whole Server-line
+pnscan -l -w"HEAD / HTTP/1.0\r\n\r\n" -r"Roxen" localhost 1:65525
+
+# Scan for pidentd servers and try to locate the version
+pnscan -w"VERSION" 192.160.0.0/24 113
+
+# Scan network arpanet/24 for daytime servers and sort them IP-numerically
+pnscan arpanet/10 daytime | ipsort
+
+# Read host (&port) lines from stdin and scan the selected hosts for SSH
+echo '192.160.10.11 ssh' | pnscan -v
+echo '192.160.10.12' | pnscan 22
+
+
+
+WARNING
+
+Scanning of networks of which you do not have explicit permission
+to do probably will be considered abuse of network resources and
+may cause problems for you. So *please* use this tool with great care.

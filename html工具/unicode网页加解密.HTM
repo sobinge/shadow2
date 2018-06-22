@@ -1,0 +1,191 @@
+<HTML><HEAD><TITLE>在线文本加密与解</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<META content=网页在线加密解密,网页加密解密,unescape加密解密,网页源代码加密,网页代码加密,网页在线加密,网页制作加密 name=keywords>
+<META content=网页在线加密解密,网页加密解密,unescape加密解密,网页源代码加密,网页代码加密,网页在线加密,网页制作加密 name=description>
+<SCRIPT language=JavaScript>
+<!--
+var Words;
+
+function SetWords(word)
+{
+Words = word.value;
+}
+
+function SetNewWords(form)
+{
+var NewWords;
+NewWords = unescape(Words);
+form.NewWords.value = NewWords;
+}
+
+function SetNewWords1(form)
+{
+var NewWords;
+NewWords = escape(Words);
+form.NewWords.value = NewWords;
+}
+
+
+// -->
+</SCRIPT>
+
+<SCRIPT language=JavaScript>
+<!--
+function MM_preloadImages() { //v3.0
+var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.0
+var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+if(!x && document.getElementById) x=document.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+</SCRIPT>
+
+<SCRIPT language=JavaScript>
+<!--
+
+function MM_timelinePlay(tmLnName, myID) { //v1.2
+//Copyright 1997 Macromedia, Inc. All rights reserved.
+var i,j,tmLn,props,keyFrm,sprite,numKeyFr,firstKeyFr,propNum,theObj,firstTime=false;
+if (document.MM_Time == null) MM_initTimelines(); //if *very* 1st time
+tmLn = document.MM_Time[tmLnName];
+if (myID == null) { myID = ++tmLn.ID; firstTime=true;}//if new call, incr ID
+if (myID == tmLn.ID) { //if Im newest
+setTimeout('MM_timelinePlay("'+tmLnName+'",'+myID+')',tmLn.delay);
+fNew = ++tmLn.curFrame;
+for (i=0; i<tmLn.length; i++) {
+sprite = tmLn[i];
+if (sprite.charAt(0) == 's') {
+if (sprite.obj) {
+numKeyFr = sprite.keyFrames.length; firstKeyFr = sprite.keyFrames[0];
+if (fNew >= firstKeyFr && fNew <= sprite.keyFrames[numKeyFr-1]) {//in range
+keyFrm=1;
+for (j=0; j<sprite.values.length; j++) {
+props = sprite.values[j];
+if (numKeyFr != props.length) {
+if (props.prop2 == null) sprite.obj[props.prop] = props[fNew-firstKeyFr];
+else        sprite.obj[props.prop2][props.prop] = props[fNew-firstKeyFr];
+} else {
+while (keyFrm<numKeyFr && fNew>=sprite.keyFrames[keyFrm]) keyFrm++;
+if (firstTime || fNew==sprite.keyFrames[keyFrm-1]) {
+if (props.prop2 == null) sprite.obj[props.prop] = props[keyFrm-1];
+else        sprite.obj[props.prop2][props.prop] = props[keyFrm-1];
+} } } } }
+} else if (sprite.charAt(0)=='b' && fNew == sprite.frame) eval(sprite.value);
+if (fNew > tmLn.lastFrame) tmLn.ID = 0;
+} }
+}
+//-->
+</SCRIPT>
+
+<META content="MSHTML 6.00.2800.1106" name=GENERATOR></HEAD>
+<BODY>
+<H2 align=center><b><font size="5">文本Unicode码加密与解密<br>
+<br>
+</font><font size="2"><a href="ScriptEncode网页加解密.htm">JScript.Encode脚本加密与解密</a></font></b></H2>
+<P></P>
+<TABLE cellSpacing=0 cellPadding=0 width=778 align=center border=0>
+  <TBODY>
+  <TR>
+    <TD>
+      <TABLE align=center>
+        <TBODY>
+        <TR>
+          <FORM method=post>
+          <TD align=middle>
+              <DIV align=center> 
+                <P 
+            style="PADDING-RIGHT: 40px; PADDING-LEFT: 40px; PADDING-BOTTOM: 0px; WIDTH: 100%; COLOR: #666666; PADDING-TOP: 0px" 
+            align=left><font size="2">用途:1.加密中文信函；2.秘密信息；3.BBS等上面发布加密留言；4.网页加密。</font></P>
+                <p 
+style="PADDING-RIGHT: 40px; PADDING-LEFT: 40px; PADDING-BOTTOM: 0px; WIDTH: 100%; COLOR: #666666; PADDING-TOP: 0px" 
+align=left><font size="2">此类加密解密是通过Unescape脚本的转换实现的，中文文字太多会导致将页面代码膨胀。<br>
+                  <br>
+                  使用方法：<br>
+                  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <FONT 
+            color=#ff0000>加密</FONT>：源代码粘贴在下面的框内，如果你对Java教熟，也可只对部分内容加<BR>
+                  密，在对应输出部分使用outword()即可。注意：<FONT 
+            color=#ff0000>请在加密前先备份您的网页</FONT><BR>
+                  &nbsp;&nbsp;&nbsp; <FONT 
+            color=#ff0000>解密方法</FONT>：将引号内的乱码贴入按解密即可<BR>
+                  如果你的问题是JScript.Encode脚本加密与解密，请使用</font><b><font size="2"><a href="ScriptEncode网页加解密.htm">JScript.Encode脚本加密与解密</a>。</font></b></p>
+                </DIV>
+            <DIV align=center>
+            <CENTER>
+            <P><TEXTAREA style="BORDER-RIGHT: #ffffff 2px solid; BORDER-TOP: #ffffff 2px solid; FONT-SIZE: 14px; BACKGROUND: #cccccc; BORDER-LEFT: #ffffff 2px solid; WIDTH: 590px; BORDER-BOTTOM: #ffffff 2px solid; HEIGHT: 120px" name=Word rows=10 cols=65 onchange=SetWords(this)></TEXTAREA> 
+            </P></CENTER></DIV>
+            <DIV align=center>
+            <CENTER>
+            <P><INPUT style="BORDER-RIGHT: #ff6600 2px solid; BORDER-TOP: #ffffff 2px solid; FONT-SIZE: 14px; BACKGROUND: #ffcc00; BORDER-LEFT: #ffffff 2px solid; WIDTH: 80px; BORDER-BOTTOM: #ff6600 2px solid; HEIGHT: 22px" onclick=SetNewWords(this.form) type=button value=解密 name=uncode> 
+<INPUT style="BORDER-RIGHT: #ff6600 2px solid; BORDER-TOP: #ffffff 2px solid; FONT-SIZE: 14px; BACKGROUND: #ffcc00; BORDER-LEFT: #ffffff 2px solid; WIDTH: 80px; BORDER-BOTTOM: #ff6600 2px solid; HEIGHT: 22px" onclick=SetNewWords1(this.form) type=button value=加密 name=encode> 
+            </P></CENTER></DIV>
+            <DIV align=center>
+            <CENTER>
+                  <P>
+                    <TEXTAREA style="BORDER-RIGHT: #ffffff 2px solid; BORDER-TOP: #ffffff 2px solid; FONT-SIZE: 14px; BACKGROUND: #cccccc; BORDER-LEFT: #ffffff 2px solid; WIDTH: 590px; BORDER-BOTTOM: #ffffff 2px solid; HEIGHT: 120px" name=NewWords rows=10 cols=65></TEXTAREA>
+                  </P>
+                  <P>&nbsp; </P>
+                  <P align="left"><font size="2">以上是转换好的代码,将他们加入如下脚本的引号“”区内，就是加密后的HTML了！以下代码不可直接拷入FrontPage可先贴在记事本中，再copy一次再贴就没问题了。 
+                    <br>
+                    &lt;HTML&gt;<br>
+                    &lt;HEAD&gt;<br>
+                    &lt;SCRIPT LANGUAGE=&quot;Javascript&quot;&gt;<br>
+                    &lt;!--<br>
+                    //此网页已加密，欲解密请到www.china-holiday.com</font></P>
+                  <p align="left"><font size="2">var Words =&quot;把加密生成后的代码复制到此处就OK了&quot; //put 
+                    your cripto code there<br>
+                    function OutWord()<br>
+                    {<br>
+                    var NewWords;<br>
+                    NewWords = unescape(Words);<br>
+                    document.write(NewWords);<br>
+                    } <br>
+                    OutWord();<br>
+                    // --&gt;<br>
+                    &lt;/SCRIPT&gt;<br>
+                    &lt;/HEAD&gt;<br>
+                    &lt;BODY&gt;<br>
+                    &lt;/BODY&gt;<br>
+                    &lt;/HTML&gt; </font> </p>
+                </CENTER></DIV></FORM>
+            <P 
+            style="PADDING-RIGHT: 40px; PADDING-LEFT: 40px; PADDING-BOTTOM: 0px; WIDTH: 100%; COLOR: #666666; PADDING-TOP: 0px" 
+            align=left>&nbsp;&nbsp; 
+            以上是转换好的代码,将他们加入如下脚本的引号“”区内，就是加密后的HTML了！以下代码不可直接拷<BR>入FrontPage可先贴在记事本中，再copy一次再贴就没问题了。 
+            </P>
+            <DIV align=center>
+            <CENTER>
+            <TABLE width="65%" align=center border=0>
+              <TBODY>
+              <TR>
+                <TD height=314><FONT 
+                  face="Arial, Helvetica, sans-serif"><B>&lt;HTML&gt;<BR>&lt;HEAD&gt;<BR>&lt;SCRIPT 
+                  LANGUAGE="Javascript"&gt;<BR>&lt;!--<BR></B></FONT><FONT 
+                  size=2><B>//此网页已加密<BR></B></FONT><B><FONT 
+                  face="Arial, Helvetica, sans-serif"><BR>var Words 
+                  ="</FONT>把加密生成后的代码复到此处就<FONT 
+                  face="Arial, Helvetica, sans-serif">OK</FONT>了<FONT 
+                  face="Arial, Helvetica, sans-serif">" //put your cripto code 
+                  there<BR>function OutWord()<BR>{<BR>var NewWords;<BR>NewWords 
+                  = unescape(Words);<BR>document.write(NewWords);<BR>} 
+                  <BR>OutWord();<BR>// 
+                  --&gt;<BR>&lt;/SCRIPT&gt;<BR>&lt;/HEAD&gt;<BR>&lt;BODY&gt;<BR>&lt;/BODY&gt;<BR>&lt;/HTML&gt;</FONT></B></TD></TR></TBODY></TABLE></CENTER></DIV>
+        <TR>
+          <TD align=middle height="2"></TD>
+        </TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+</BODY></HTML>

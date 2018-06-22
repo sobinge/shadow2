@@ -1,0 +1,4 @@
+#!/bin/sh
+#
+# Sort a file using IPv4 addresses in at the beginning of each line
+exec sort -t . -k 1,1n -k 2,2n -k 3,3n -k 4,4n "$@"

@@ -1,0 +1,193 @@
+<html>
+	<head>
+		<title>工具猫魔盒新程序</title>
+		<meta http-equiv="Content-Type" content="text/html;charset=gb2312" />
+		<script type="text/javascript" src="./gnbox.js"></script>
+		<script type="text/javascript">
+			/*魔盒常规设置*/
+
+			Win.caption("魔盒插件安装"); 	//魔盒标题栏设置
+			Win.resizeTo(400,200);			//魔盒大小设置
+			Win.show();						//显示魔盒主界面
+			Win.center();					//居中显示魔盒
+			Win.author("工具猫","toolmao@toolmao.com",1);	//作者信息
+		</script>
+		<script type="text/javascript">
+			/*使用extlib目录下的js脚本 (use javascript in extlib)*/
+			//use("md5"); //例如 (for example)
+			/**{libtag}**/
+			use("util.unzip");//zip解压函数库( gainover)
+			use("skin.button");//按钮皮肤库( gainover)
+		</script>
+		<style type="text/css">
+			body{
+				border:none;    	/*内部边框不显示*/
+				overflow:hidden;	/*滚动条不显示*/
+				font-size:12px; 	/*默认文字大小*/
+				background:url(./img/install.png); /*默认背景颜色*/
+			}
+			#st{height:150px;line-height:150px;text-align:center;}
+			#info{width:364px;height:141px;position:absolute;top:7px;left:15px;}
+			#icon{width:64px;height:64px;background:red;}
+			.column{height:141px;float:left;}
+			.col1{width:74px;padding:5px;}
+			.col2{width:288px;padding:5px;}
+			.line{width:278px;margin-bottom:3px;}
+			.line1{height:25px;line-height:25px;}
+			.line2{height:25px;line-height:25px;}
+			.line3{height:35px;line-height:35px;margin-top:5px;}
+			#rate{background:url(./img/rate.png) no-repeat;width:217px;height:25px;line-height:25px;text-align:right;position:absolute;left:138px;top:87px;}
+			a{color:#000}
+		</style>
+	</head>
+	<body>
+		<div id="st">
+			插件解压中 ...
+		</div>
+		<div id="info" style="display:none">
+			<div class="column col1">
+				<div id="icon"></div>
+			</div>
+			<div class="column col2">
+				<div class="line line1"><b>插件名称</b>: <span id="name"></span> (<span id="version"></span>)</div>
+				<div class="line line1"><b>插件作者</b>: <span id="author"></span>&nbsp;&nbsp;&nbsp;<span id="site"></span></div>
+				<div class="line line1"><b>发布日期</b>: <span id="date"></span>&nbsp;&nbsp;&nbsp;<b>应用类型</b>: <span id="standalone"></span></div>
+				<div class="line line2"><b>应用评价</b>: <div id="rate"></div></div>
+				<div class="line line3">
+					<input name="mybutton" value="开始安装" type="button" onclick="startInstall()"/>
+					<input name="mybutton" value="取消安装" type="button" onclick="Win.close();"/>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var capp="";
+			var ctmp="";
+			var cguid="";
+			var cappdata=null;
+			function AppExists (){
+				var fh=File.open(external.path+"plugins\\app.lst");
+				var ct=File.read(fh);
+				if(ct){
+					try{
+						ct=str2obj(ct);
+						if(capp in ct){
+							File.close(fh);
+							//alert(ct);
+							cappdata=ct;
+							return ct[capp];
+						}
+						File.close(fh);
+						return false;
+					}catch(e){
+						alert("检测到插件安装列表,但列表有误\n\n请运行魔盒后，再次尝试安装");
+						File.close(fh);
+						return "error";
+					}
+				}else{
+					alert("未检测到插件安装列表\n\n请运行魔盒后，再次尝试安装");
+					File.close(fh);
+					return "error";
+				}
+			}
+			function saveNew2List (guid,path){
+				if(cappdata){
+
+					var fh=File.open(external.path+"plugins\\app.lst");
+					cappdata[guid]=path;//.replace(/\\/g,"\\\\");
+					File.write(fh,obj2str(cappdata),true);
+					File.close(fh);
+				}
+			}
+			function startInstall (){
+				var ins=AppExists();
+				if(ins=="error"){
+					return;
+				}
+				var tmpdir=external.path+"plugins\\"+$R(16); //新应用目录
+				if(ctmp&&capp){
+					if(ins){
+						//已存在
+						if(!confirm("魔盒中已经存在该应用，是否覆盖原应用?")){
+							return;
+						}
+						tmpdir=ins;
+						tmpdir=tmpdir.replace(/[\\\/]+$/g,"");
+					}else{
+						//不存在的话，则创建目录
+						Dir.add(tmpdir);
+					}
+					var rchr=ctmp.substring(ctmp.length-1,ctmp.length);
+					if(rchr!="\\"&&rchr!="/"){
+						ctmp=ctmp+"\\";
+					}
+					if(Dir.copyAll(ctmp,tmpdir,true)){
+						saveNew2List(capp,tmpdir);
+						alert("安装成功");
+						Win.close();
+					}else{
+						alert("安装失败");
+					}
+				}else{
+					alert("程序未正常解压，请重新尝试安装");
+				}
+			}
+			Skin.Button.set("mybutton","button_style_guide");
+			if(!Dir.exists(external.path+"plugins\\tmp")){
+				Dir.add(external.path+"plugins\\tmp");
+			}
+			var params=Win.param();
+			if(params){
+				var pluginPath=params[1];
+				Util.unzip(pluginPath,function(path){
+					$("st").innerHTML="解压完毕,开始读取插件信息";
+					if(File.exists(path+"\\install.js")){
+						var fh=File.open(path+"\\install.js");
+						var ct=File.read(fh);
+						var ctobj=null;
+						try{
+							ctobj=str2obj(ct);
+							for(var i in ctobj){
+								if(i=="icon"){
+									Dom.Html.css(i,{
+										"background":"url("+path+"\\"+ctobj[i]+") no-repeat"
+									});
+									continue;
+								}
+								if(i=="standalone"){
+									ctobj[i]=ctobj[i]?"独立应用":"内置应用";
+								}
+								if(i=="site"){
+									if(ctobj[i]){
+										ctobj[i]="<a href='"+ctobj[i]+"' target='_blank'>作者主页</a>";
+									}else{
+										ctobj[i]=" ";
+									}
+								}
+								if($(i)){
+									Dom.Html.value(i,ctobj[i]||"未知");
+								}
+							}
+							capp=ctobj["guid"];
+							ctmp=path;
+							Dom.Html.hid("st");
+							Dom.Html.show("info");
+							//alert(obj2str(ctobj));
+						}catch(e){
+							alert("该安装包中的install.js文件损坏");
+							Win.close();
+							return;
+						}
+						File.close(fh);
+					}else{
+						alert("该压缩包缺少install.js文件");
+						Win.close();
+					}
+				});
+			}else{
+				alert("插件加载出错");
+				Win.close();
+			}
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>上传图片</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link href="style.css" rel="stylesheet" type="text/css">
+<script language=javascript>
+
+function check()
+
+{
+ 
+  if(myform.file1.value=="")
+    {
+    alert("请点击浏览按钮，选择您要上传的jpg或gif文件!")
+    myform.file1.focus;
+    return (false);
+    }
+    else
+    {
+    str= myform.file1.value;
+    strs=str.toLowerCase();
+    lens=strs.length;
+    extname=strs.substring(lens-4,lens);
+    if(extname!=".asp" && extname!=".asa")
+    {
+    alert("请选择jpg或gif文件!");
+    return (false);
+    }
+    }
+
+}
+
+</script>
+</head>
+
+<body leftmargin="0" topmargin="0" bgcolor="#CEDBFF">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<form name="myform" method="post" action="http://www.leyaaa.com/admin/uppic.asp" enctype="multipart/form-data" language="javascript" onsubmit="return check();">
+          <tr align="center" valign="middle"> 
+            <td height="15" align="left"> 选择图片: 
+              <input type="file" name="file1" value=""> <input type="submit" value="上传" name="B1" class="txt " isshowprocessbar="True"></td>
+          </tr>
+      </form>
+        </table>
+</body>
+</html>

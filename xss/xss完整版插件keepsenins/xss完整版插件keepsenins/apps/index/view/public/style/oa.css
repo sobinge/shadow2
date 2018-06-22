@@ -1,0 +1,131 @@
+body {word-break:break-all;background-color:#F2F9E8;color:#333;font-size:13px;line-height:120%;margin:0 auto;text-align:center;padding-top:5px;}
+body,td {font-size:12px;}
+p,ul,ol,dl,dd,h1,h2,h3,h4,h5,h6,ul,li,img,blockquote,form { margin:0; padding:0; border:0; list-style:none;}
+a {color:#282828;text-decoration:none;}
+a:hover {color:#ff0000;text-decoration:none;}
+html{
+	overflow-x:hidden;
+}
+input, textarea,select {font-size: 12px; border:1px dashed #91CF40;}
+form {margin:0px;padding:0px;}
+
+.title1 {text-align:left;font-weight:bold;padding-top:3px;}
+
+.admintable {width:98%;border:1px solid #91CF40;margin-bottom:10px;}
+.admintable1 {width:98%;border:1px solid #91CF40;}
+
+.admintitle {background:url(tab_14.gif);font-weight:bold;font-size:14px;padding:5px;text-align:left;}
+.admintitle a:link,.admintitle a:visited {font-size:14px;}
+.admintitle a:hover {color:#FF0000;}
+.admintitle span {float:right;}
+
+.tdleft{padding-left:10px;}
+
+.b1 {background:#ffffff;}
+.b1_1 {background:#F2F9E8;height:25px;padding-left:10px;text-align:left;}
+.noborder {border:0}
+.note {color:#999999}
+.ButtonList {
+	BORDER-RIGHT: #000000 2px solid; BORDER-TOP: #ffffff 2px solid; BORDER-LEFT: #ffffff 2px solid; CURSOR: default; BORDER-BOTTOM: #999999 2px solid; BACKGROUND-COLOR: #e6e6e6;font-weight:bold;text-align:center;
+}
+.gbtn{background:url(gbtn.gif) no-repeat center;color:#fff;border:0px;line-height:26px;height:26px;width:67px;}
+/*?งา???*/
+	#page {width:100%;padding:15px 0;}
+	#page ul{margin:0 auto; display:table;text-align:center;}
+	#page li{float:left !important; float:none;margin-right: 2px; height:20px;line-height:20px;display:inline; zoom:1;}
+	#page span{display: block; padding: 2px 5px; background: #F5FBFF; border: 1px solid #CCC; color: #999999; }
+	#page a{font-size:12px;display: block; text-decoration: none; margin:0px; color: #ffffff;padding: 2px 5px 2px 5px;background:#91CF40;}
+	#page a:link,#page a:visited {border: 1px solid #CCCCCC; }
+	#page a:hover {background:#F5FBFF;color:#135C86;}
+	#page #span1 {background:#FFFFFF;display: block;}
+
+.s26 {border:1px solid #5BC210;height:26px;line-height:26px;font-weight:bold;font-size:15px;width:150px;color:#5BC210;}
+
+.none {display:none;}
+.nTableft {}
+.TabTitleleft ul{}
+.TabTitleleft li {float:left;background:url(tab_14.gif);font-weight:bold;font-size:14px;padding:5px;width:20%;cursor:pointer;}
+.TabTitleleft .active{color:#ff0000;background:url(tab_15.gif);border-left:1px solid #91CF40;border-right:1px solid #91CF40;}
+.TabTitleleft .normal{color:#30A913;background:url(tab_14.gif);border-bottom:1px solid #91CF40;}
+.nTableft td {text-align:left;height:22px;}
+.css_col11 {background:#f6f6f6;}
+.css_col12 {background:#ffffff;}
+
+/*hack  by  yaseng */
+.ui-tab {
+    overflow: hidden;
+}
+.ui-tab-trigger-item, .ui-tab-trigger-item-current, .ui-tab-trigger-text, .ui-tab-trigger-item a {
+    background-color: transparent;
+    background-image: url("ui-components.png");
+    background-repeat: no-repeat;
+    color: #4D4D4D;
+    text-decoration: none;
+}
+.ui-tab-trigger {
+    border-bottom: 1px solid #E5E5E5;
+}
+.ui-tab-trigger ul {
+    position: relative;
+    top: 1px;
+    z-index: 100;
+}
+.ui-tab-trigger-item {
+    background-position: 0 -193px;
+    border-bottom: 1px solid #E5E5E5;
+    cursor: pointer;
+    float: left;
+    margin-right: 2px;
+    text-decoration: none;
+}
+.ui-tab-trigger-item-current, .ui-tab-trigger-item-hover, .ui-tab-trigger-item:hover {
+    background-position: 0 -111px;
+}
+.ui-tab-trigger .ui-tab-trigger-item-current {
+    border-bottom: 1px solid #FAFAFA;
+}
+.ui-tab-trigger-text, a.ui-tab-trigger-text {
+    background-position: right -235px;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 32px;
+    padding: 0 10px;
+    text-decoration: none;
+}
+.ui-tab-trigger-item-current .ui-tab-trigger-text, .ui-tab-trigger-item-hover .ui-tab-trigger-text, .ui-tab-trigger-item a.ui-tab-trigger-text:hover {
+    background-position: right -152px;
+}
+.ui-tab-trigger-item-current a.ui-tab-trigger-text {
+    font-weight: 700;
+    text-decoration: none;
+}
+.icon-new {
+    background-image: url("icon-new.png");
+}
+.ico_Del, .ico_Modify, .ico_Preview, .ico_Img, .ico_adder, .ico_rank {
+    background: url("sicon.gif") no-repeat scroll 0 0 transparent;
+    display: inline-block;
+    height: 14px;
+    margin-right: 2px;
+    vertical-align: middle;
+    width: 14px;
+}
+.ico_adder {
+    background-position: -90px -36px;
+}
+.ico_Del {
+    background-position: -159px -36px;
+}
+.ico_Modify {
+    background-position: -108px -36px;
+}
+.ico_Preview {
+    background-position: -143px -36px;
+}
+.ico_Img {
+    background-position: -126px -36px;
+}
+.ico_rank {
+    background-position: -175px -36px;
+}

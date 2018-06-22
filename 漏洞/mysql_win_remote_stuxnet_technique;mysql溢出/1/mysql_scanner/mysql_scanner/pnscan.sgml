@@ -1,0 +1,231 @@
+<!doctype refentry PUBLIC "-//OASIS//DTD DocBook V4.1//EN" [
+
+<!-- Process this file with docbook-to-man to generate an nroff manual
+     page: `docbook-to-man manpage.sgml > manpage.1'.  You may view
+     the manual page with: `docbook-to-man manpage.sgml | nroff -man |
+     less'.  A typical entry in a Makefile or Makefile.am is:
+
+manpage.1: manpage.sgml
+	docbook-to-man $< > $@
+
+    
+	The docbook-to-man binary is found in the docbook-to-man package.
+	Please remember that if you create the nroff version in one of the
+	debian/rules file targets (such as build), you will need to include
+	docbook-to-man in your Build-Depends control field.
+
+  -->
+
+  <!-- Fill in your name for FIRSTNAME and SURNAME. -->
+  <!ENTITY dhfirstname "<firstname>Peter</firstname>">
+  <!ENTITY dhsurname   "<surname>Eriksson</surname>">
+  <!-- Please adjust the date whenever revising the manpage. -->
+  <!ENTITY dhdate      "<date>March 22, 2002</date>">
+  <!-- SECTION should be 1-8, maybe w/ subsection other parameters are
+       allowed: see man(7), man(1). -->
+  <!ENTITY dhsection   "<manvolnum>1</manvolnum>">
+  <!ENTITY dhemail     "<email>pen@lysator.liu.se</email>">
+  <!ENTITY dhusername  "Peter Eriksson">
+  <!ENTITY dhucpackage "<refentrytitle>pnscan</refentrytitle>">
+  <!ENTITY dhpackage   "pnscan">
+
+  <!ENTITY debian      "<productname>Debian</productname>">
+  <!ENTITY gnu         "<acronym>GNU</acronym>">
+]>
+
+<refentry>
+  <refentryinfo>
+    <address>
+      &dhemail;
+    </address>
+    <author>
+      &dhfirstname;
+      &dhsurname;
+    </author>
+    <copyright>
+      <year>2002</year>
+      <holder>&dhusername;</holder>
+    </copyright>
+    &dhdate;
+  </refentryinfo>
+  <refmeta>
+    &dhucpackage;
+
+    &dhsection;
+  </refmeta>
+  <refnamediv>
+    <refname>&dhpackage;</refname>
+
+    <refpurpose>multi threaded port scanning tool</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+    <cmdsynopsis>
+      <command>&dhpackage;</command>
+      <arg><option>options</option></arg>
+      <arg>&lt;CIDR | host-range&gt; &lt;port-range&gt;</arg>
+    </cmdsynopsis> <cmdsynopsis>
+      <command>&dhpackage;</command>
+      <arg><option>options</option></arg>
+      <arg><option>&lt;port&gt;</option></arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+  <refsect1>
+    <title>DESCRIPTION</title>
+
+    <para>This manual page documents briefly the
+      <command>&dhpackage;</command> command.</para>
+
+    <para><command>&dhpackage;</command> is a tool that can be used to survey
+      TCP network services.
+    </para>
+    <para>
+    When used with two command line arguments it will scan the indicated
+    network/hosts and ports. When used without arguments or just one then
+    it will read hostname/IP addresses from stdin and probe those. The single
+    port/service argument is used as a default if no port is indicated on stdin
+    </para>
+    <para>
+      For example, it can be used to survey the installed versions of
+      SSH, FTP, SMTP, Web, IDENT and possibly other services.
+    </para>
+    <para>
+      This program implements a multithreaded TCP port scanner.
+      More information and new relaseses may be found at:
+      http://www.lysator.liu.se/~pen/pnscan
+    </para>
+  </refsect1>
+  <refsect1>
+    <title>OPTIONS</title>
+
+    <variablelist>
+      <varlistentry>
+        <term><option>-h</option></term>
+        <listitem>
+          <para>Show summary of options.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-v</option></term>
+        <listitem>
+          <para>Be verbose.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>-V</option></term>
+	<listitem>
+	  <para>Print version.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>-d</option></term>
+	<listitem>
+	  <para>Print debugginf info.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-s</option>
+        </term>
+        <listitem>
+          <para>Lookup and print hostnames.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>-S</option></term>
+	<listitem>
+	  <para>Enable shutdown mode.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>-l</option></term>
+	<listitem>
+	  <para>Line oriented output.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-w&lt;string&gt;</option>
+        </term>
+        <listitem>
+          <para>Request string to send.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-r&lt;string&gt;</option>
+        </term>
+        <listitem>
+          <para>Response string to look for.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-W&lt;hex list&gt;</option>
+        </term>
+        <listitem>
+          <para>Hex coded request string to send.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-R&lt;hex list&gt;</option>
+        </term>
+        <listitem>
+          <para>Hex coded response string to look for.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-L&lt;length&gt;</option>
+        </term>
+        <listitem>
+          <para>Max bytes of response to print.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-t&lt;msecs&gt;</option>
+        </term>
+        <listitem>
+          <para>Connect/Write/Read timeout.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-n&lt;workers&gt;</option>
+        </term>
+        <listitem>
+          <para>Concurrent worker threads.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+  <refsect1>
+    <title>SEE ALSO</title>
+
+    <para>nmap (1) and ipsort (1).</para>
+
+  </refsect1>
+  <refsect1>
+    <title>AUTHOR</title>
+
+    <para>&dhpackage; was written by &dhusername; &dhemail;.</para>
+    <para>
+      Permission is granted to copy, distribute and/or modify this
+      document under the terms of the <acronym>GNU</acronym> Free
+      Documentation License, Version 1.1 or any later version
+      published by the Free Software Foundation; with no Invariant
+      Sections, no Front-Cover Texts and no Back-Cover Texts.</para>
+  </refsect1>
+</refentry>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-default-dtd-file:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+-->
+
+

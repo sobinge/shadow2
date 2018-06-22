@@ -1,0 +1,416 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<style type="text/css">
+body{border:none;margin:0px;font-size:12px;}
+.appitem{float:left;height:60px;width:300px;margin-left:10px}
+.appitem_img{margin-left:1px;margin-top:1px;float:left;width:64px;height:64px;}
+.appname{font-weight:bold;margin-top:3px;height:20px;line-height:20px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.appauthor{height:20px;line-height:20px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.appman{height:20px;line-height:20px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.warning{color:red;font-weight:bold}
+.ok{color:blue;font-weight:bold}
+.btitem{cursor:pointer;width:81px;height:18px;background:url(../../lib/img/soft.png) -3px -79px no-repeat;color:#000;text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;margin-top:2px;margin-left:2px;line-height:18px;}
+a:visited{color:blue}
+.disable{color:#333}
+.tabhead{width:100%;overflow-y:hidden;height:30px;}
+</style>
+<title></title>
+<script type="text/javascript" src="../../lib/gnbox.js"></script>
+<body>
+<div id="tabhead"></div>
+
+<div id="btn" style="width:100%;text-align:center;position:relative;">
+		<div class="btitem" id="lbt" onclick="lastpage()" style="margin-left:5px;float:left;" disabled>上一页</div>
+		<div class="btitem" id="nbt" onclick="nextpage()" style="margin-left:5px;float:left;" disabled>下一页</div>
+		<div style="float:left;line-height:22px;margin-left:3px;"><input type="text" id="filter" style="margin-top:1px;border:1px solid #ccc;width:50px;height:18px;background:#fff;" onpropertychange="findApp()"></input></div>
+		<div class="btitem" onclick="findApp()" style="margin-left:5px;float:left;">查找</div>
+		<div class="btitem" onclick="newApp()" style="margin-left:5px;float:left;">安装新应用</div>
+</div>
+<script type="text/javascript">
+function saveAppList (){
+	var applist={};
+	for(var i in __PLUGINS){
+		applist[i]=__PLUGINS[i]["__dir"];//.replace(/\\/g,"\\\\");
+	}
+	for(var i in __PLUGINS_DISABLED){
+		applist[i]=__PLUGINS_DISABLED[i]["__dir"];//.replace(/\\/g,"\\\\");
+	}
+	var fh=File.open(external.path+"plugins\\app.lst");
+	File.write(fh,obj2str(applist),true);
+	File.close(fh);
+}
+
+var list=null;
+var tab=null;
+var page={
+	filter:"",
+	enable:true,
+	one:10,
+	current:0,
+	max:0,
+	min:0
+};
+var __PLUGINS={};
+var __PLUGINS_DISABLED={};
+var list_template="<div class='appitem_img' style='background:url(\"{icon}\") no-repeat;'></div><div class='appitem'><div class='appname'>名称: {name} (版本: {version})</div><div class='appauthor'>作者: {author} 日期: {date}</div><div class='appman'> 操作: [{op}] [{del}] [{open}] [{run}] [{update}]</div></div>";
+//状态: [{status}] <br/>
+function checkApp(){
+	__PLUGINS={};
+	__PLUGINS_DISABLED={};
+	try{
+		Dom.Html.show(page.enable?"loading":"loading2");
+	}catch(e){}
+	var appFold=Dir.read(external.path+"plugins",true);
+	var em=new Enumerator(appFold);
+	var hd=Thread.add(function(){
+		var name=em.item().name;
+		var installFile=external.path+"plugins\\"+name+"\\install.js";
+		if(File.exists(installFile)){
+			//如果安装文件存在
+			var fh=File.open(installFile);
+			var cont=File.read(fh);
+			if(cont){
+				var tmp;
+				try{
+					tmp=str2obj(cont);
+					tmp["__dir"]=external.path+"plugins\\"+name+"\\";
+					if(tmp["status"]){
+						__PLUGINS[tmp["guid"]]=tmp;
+					}else{
+						__PLUGINS_DISABLED[tmp["guid"]]=tmp;
+					}
+				}catch(e){}
+			}
+			File.close(fh);
+		}
+		//扫描下一个目录
+		em.moveNext();
+	},function(){
+		return !em.atEnd()
+	},function(){
+		saveAppList();
+		Dom.Html.hid(page.enable?"loading":"loading2");
+		createList();
+	});
+	Thread.execute(hd);
+}
+function createList(){
+	if(list){
+		list.clear();
+		$("app_list").innerHTML="";
+		Dom.Html.del("app_list");
+		list=null;
+	}
+	list=Dom.Html.list("app_list",{
+		"parent":page.enable?"appData":"appDatadisable",
+		"style":"width:100%;margin:0px;",
+		"itemheight":60,
+		"oddcolor":"#fff",
+		"evencolor":"#ccff99",
+		"overcolor":"#ffff99",
+		"selectcolor":"#ffcc66"
+	});
+	var plugins=[];
+	var appMan=__PLUGINS["{150B4A05-5A33-A3CC-636D-F4385F35188}"];
+	delete __PLUGINS["{150B4A05-5A33-A3CC-636D-F4385F35188}"];
+	if(!page.enable){
+		__PLUGINS=__PLUGINS_DISABLED;
+	}
+	if(page.filter){
+		for(var i in __PLUGINS){
+			var author=(__PLUGINS[i]["author"]||"").lc();
+			var name=(__PLUGINS[i]["name"]||"").lc();
+			var fil=(page.filter||"").lc();
+			if(author.indexOf(fil)!=-1||name.indexOf(fil)!=-1){
+				plugins.push(__PLUGINS[i]);
+			}
+		}
+	}else{
+		for(var i in __PLUGINS){
+			plugins.push(__PLUGINS[i]);
+		}
+		if(page.enable){
+			plugins.unshift(appMan);
+		}
+	}
+	if(page.enable){
+		__PLUGINS["{150B4A05-5A33-A3CC-636D-F4385F35188}"]=appMan;
+	}
+	page.max=Math.ceil(plugins.length/page.one);
+	$("lbt").disabled=true;
+	$("nbt").disabled=true;
+	if(page.current>0){
+		$("lbt").disabled=false;
+	}
+	if(page.current+1<page.max){
+		$("nbt").disabled=false;
+	}
+	var pagestart=page.current*page.one;
+	var pageend=(page.current+1)*page.one;
+	pageend=(pageend>plugins.length?plugins.length:pageend);
+	for(var i=pagestart;i<pageend;i++){
+		//alert(i+":"+plugins.length);
+		var one=plugins[i];
+		var iconPath="../../lib/img/app.png";
+		if(one["icon"]){
+			iconPath=one["__dir"]+one["icon"];
+		}
+		var op=one["status"]?(" <a href='javascript:disapp(\""+one["guid"]+"\");void(0);'>禁用</a> "):(" <a href='javascript:enapp(\""+one["guid"]+"\");void(0);'>启用</a> ");
+		var del=" <a href='javascript:delapp(\""+one["guid"]+"\");void(0);'>删除</a> ";
+		var opath=" <a href='javascript:openapp(\""+one["guid"]+"\");void(0);'>查看</a> ";
+		var run=" <a href='javascript:runapp(\""+one["guid"]+"\");void(0);'>运行</a> ";
+		var update=" <a href='javascript:updateapp(\""+one["guid"]+"\");void(0);'>更新</a> ";
+		if(one["__dir"].indexOf("_toolmao_sys_")!=-1){
+			op=" <span class='disable'>禁用</span> ";
+			del=" <span class='disable'>删除</span> ";
+		}
+		if((one["version"]+"").length==1){
+			one["version"]+=".0";
+		}
+		var name=one["name"];
+		if(!one["status"]){
+			name=" <span class='disable'>"+name+"</span> ";
+		}
+		var data=list_template.replace(/\{icon\}/g,iconPath).replace(/\{name\}/g,name)
+				.replace(/\{author\}/g,one["author"])
+				.replace(/\{status\}/g,one["status"]?" <span class='ok'>已开启</span> ":" <span class='warning'>已禁用</span> ")
+				.replace(/\{op\}/g,op)
+				.replace(/\{del\}/g,del)
+				.replace(/\{open\}/g,opath)
+				.replace(/\{date\}/g,(one["date"]||"未知"))
+				.replace(/\{version\}/g,(one["version"]||"1.0"))
+				.replace(/\{run\}/g,run)
+				.replace(/\{update\}/g,update);
+		list.add(data);
+	}
+	list.color();
+}
+function lastpage(){
+	page.current--;
+	if(page.current<0){
+		page.current=0;
+	}
+	createList();
+}
+function nextpage(){
+	page.current++;
+	if(page.current>page.max){
+		page.current=page.max;
+	}
+	createList();
+}
+function findApp(){
+	page.current=0;
+	page.filter=$T($("filter").value);
+	createList();
+}
+function disapp(guid){
+	parent.removeIcon(guid);
+	setapp(guid,false);
+}
+function enapp(guid){
+	if(__PLUGINS[guid]){
+		parent.desktopIcon(__PLUGINS[guid],true);
+	}
+	setapp(guid,true);
+}
+
+function runapp(guid){
+	if(__PLUGINS[guid]){
+		var one=__PLUGINS[guid];
+		var iconPath="./img/app.png";
+		if(one["icon"]){
+			iconPath=one["__dir"]+one["icon"];
+		}
+		if(one["standalone"]){
+			var url=one["__dir"]+one["main"];
+			var cmd="cmd /c \"\""+Win.exe()+"\" -html \""+url+"\"\"";
+			Sys.CMD.open();
+			Sys.CMD.run(cmd);
+			Sys.CMD.close();
+		}else{
+			//直接在本系统中打开
+			var id=$R(8);
+			parent.showInlineApp(id,one,$R(8),iconPath);
+			parent.addTaskBar(one["name"],id);
+		}
+	}
+}
+function updateapp(guid){
+	alert("此功能暂未开放");
+}
+function openapp(guid){
+	var tmp=__PLUGINS[guid];
+	if(tmp){
+		var dir=tmp["__dir"];
+		Sys.CMD.open();
+		Sys.CMD.run("explorer \""+dir+"\"","","",1,true);
+		Sys.CMD.close();
+	}
+}
+function delapp(guid){
+	var tmp=__PLUGINS[guid];
+	if(tmp){
+		var dir=tmp["__dir"];
+		if(dir.indexOf("_toolmao_sys_")!=-1){
+			alert("系统级应用无法被删除");
+			return false;
+		}
+		if(confirm("你确定要删除应用["+tmp["name"]+"]吗? 此操作不可恢复")){
+			if(Dir.exists(dir)){
+				dir=dir.substring(0,dir.length-1);
+				Dir.del(dir,true);
+			}
+			parent.removeIcon(guid);
+		}
+		refreshApp();
+	}
+}
+function setapp(guid,st){
+	var tmp=__PLUGINS[guid];
+	if(tmp){
+		var dir=tmp["__dir"];
+		var ins=dir+"install.js";
+		var fh=File.open(ins);
+		var data=File.read(fh);
+		if(data){
+			var config={};
+			try{
+				config=str2obj(data);
+				config["status"]=st;
+				File.write(fh,obj2str(config),true);
+			}catch(e){}
+		}
+		File.close();
+		refreshApp();
+	}
+}
+function refreshApp(){
+	if(list){
+		list.clear();
+	}
+	Dom.Html.show("loading");
+	checkApp();
+}
+function newApp(){
+	var file=Win.Dialog.open("请选择一个安装程序文件","工具猫魔盒插件(*.tpk)|*.tpk|install.js|install.js");
+	if(file&&File.exists(file)){
+		var ext=File.ext(file);
+		if(ext=="tpk"){
+			var cmd="cmd /c \"\""+Win.exe()+"\" -unzip \""+file+"\"\"";
+			Sys.CMD.open();
+			Sys.CMD.run(cmd);
+			Sys.CMD.close();
+		}else{
+			var fh=File.open(file);
+			var data=File.read(fh);
+			if(data){
+				var tmp={};
+				try{
+					tmp=str2obj(data);
+					var tmpdir=external.path+"plugins\\"+$R(16);
+					if(__PLUGINS[tmp["guid"]]){
+						alert("当前程序已存在");
+						if(!confirm("是否继续安装?")){
+							return ;
+						}
+						tmpdir=__PLUGINS[tmp["guid"]]["__dir"];
+						tmpdir=tmpdir.replace(/[\\\/]+$/g,"");
+					}else{
+						Dir.add(tmpdir);
+					}
+					var pp=File.parentpath(file);
+					if(Dir.copyAll(pp+"\\",tmpdir,true)){
+						var d=new Date();
+						tmp["date"]=d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+						var fh2=File.open(tmpdir+"\\install.js");
+						File.write(fh2,obj2str(tmp),true);
+						File.close(fh2);
+						tmp["__dir"]=tmpdir+"\\";
+						__PLUGINS[tmp["guid"]]=tmp;
+						alert("安装成功");
+						enapp(tmp["guid"]);
+						if(parent.$("_arrow_click")){
+							if(parent.Dom.Html.attr("_arrow_click","atimer")){
+								parent.Dom.Timer.stop(parent.Dom.Html.attr("_arrow_click","atimer"));
+							}
+							parent.Dom.Html.hid("_arrow_click");
+							parent.Dom.Html.del("_arrow_click");
+						}
+					}else{
+						alert("安装失败");
+					}
+				}catch(e){}
+			}
+			File.close(fh);
+		}
+	}
+}
+function setHead (){
+	var newtab=Dom.Html.tabpage("tab_"+$R(6),{
+		/*tab 被选中页眉背景色*/
+		"color1":"#fff",
+		/*tab 未被选中背景色*/
+		"color2":"#f1f1f1",
+		/*边框颜色*/
+		"bordercolor":"#ccc",
+		/*被选中的 tab 页面, 0 为第一页*/
+		"index":0,
+		/*tab高度*/
+		"headerheight":"20px",
+		/*tab宽度*/
+		"headerwidth":"80px",
+		/*页面容器高度*/
+		"bodyheight":"0px",
+		/*其它样式设置*/
+		"tab_style":"width:530px;margin:5px;height:20px;",
+		/*父级容器设置, 为空表示 document.body*/
+		"parent":"tabhead"
+	});
+	var tb1=newtab.add("已启用",function(index){
+		page.enable=true;
+		checkApp();
+	},"");
+	tb1.body.innerHTML='<div id="appData" style="width:100%;margin:1px;border:1px solid #f1f1f1;height:236px;overflow-y:auto;"><div style="margin:auto" id="loading"><img src="../../lib/img/apploading.gif"></img></div></div>';
+	var tb2=newtab.add("已禁用",function(index){
+		page.enable=false;
+		checkApp();
+	},"");
+	tb2.body.innerHTML='<div id="appDatadisable" style="width:100%;margin:1px;border:1px solid #f1f1f1;height:236px;overflow-y:auto;"><div style="margin:auto" id="loading2"><img src="../../lib/img/apploading.gif"></img></div></div>';
+	var tb3=newtab.add("应用商店",function(index){
+		loadShop();
+	},"");
+	tb3.body.innerHTML='<div id="appShop" style="width:100%;padding:5px;margin:1px;border:1px solid #f1f1f1;height:236px;overflow-y:auto;"><div style="margin:auto" id="loading3"><img src="../../lib/img/apploading.gif"></img></div><span id="_shop_tips"></span></div>';
+	return newtab;
+}
+function loadShop (){
+	Net.get("http://www.toolmao.com/shop/status.php?hash="+Math.random(),function  (rs){
+		try{
+			str2obj(rs);
+		}catch(e){
+			Dom.Html.hid("loading3");
+			Dom.Html.value("_shop_tips","暂未开放");
+		}
+	},"text","","","",function  (){
+		Dom.Html.hid("loading3");
+		Dom.Html.value("_shop_tips","暂未开放");
+	});
+}
+Dom.Event.add(window,"onload",function(){
+	tab=setHead();
+	$("appData").style.height=($P(parent.document.getElementById("desktop").style.height)-170)+"px";
+	$("appDatadisable").style.height=($P(parent.document.getElementById("desktop").style.height)-170)+"px";
+	$("appShop").style.height=($P(parent.document.getElementById("desktop").style.height)-170)+"px";
+	checkApp();
+	$$(tab.tab).style.width=($P(parent.document.getElementById("desktop").style.width)-40)+"px";
+});
+Dom.Event.add(window,"onresize",function(){
+	$("appData").style.height=($P(parent.document.getElementById("desktop").style.height)-170)+"px";
+	$("appDatadisable").style.height=($P(parent.document.getElementById("desktop").style.height)-170)+"px";
+	$("appShop").style.height=($P(parent.document.getElementById("desktop").style.height)-170)+"px";
+	$$(tab.tab).style.width=($P(parent.document.getElementById("desktop").style.width)-40)+"px";
+});
+</script>
+</body>
+</html>
