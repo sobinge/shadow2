@@ -1,0 +1,25 @@
+radmin remote intrusion demo by golds7n
+bug found at 2006/9/26
+demo captured at 2007/1/11 
+
+步骤：
+一、获得radmin的password hash
+  password hash:  HKLM\SYSTEM\RAdmin\v2.0\Server\Parameters\parameter
+  端口：HKLM\SYSTEM\RAdmin\v2.0\Server\Parameters\port
+  
+
+  获得hash后，进行组合待用
+
+
+二、利用hash进行Radmin控制
+    ollydbg调试加载
+
+  1、寻找      JMP EAX,F4,F8
+  2、寻找  0x10325476,进入第一项,F2下断,F9运行程序
+  3、连接目标,欺骗通过验证.
+  4、GAME OVER      ^_^
+
+
+
+
+

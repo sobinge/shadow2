@@ -1,0 +1,26 @@
+Wordpress插件Key远程任意篡改漏洞 
+
+漏洞详情
+
+披露状态：
+
+
+
+2012-03-06： 积极联系厂商并且等待厂商认领中，细节不对外公开
+2012-04-20： 厂商已经主动忽略漏洞，细节向公众公开
+
+
+简要描述：
+
+通过一个精心构造的URL, 可以任意篡改储存在数据库的 SID 值. SID 是评论啦用于识别用户身份的标识.
+
+详细说明：
+
+/wp-content/plugins/pinglunla/relay.php?sid=new sid here
+
+ 
+以上URL是用来接收PINGLUNLA服务器的回调, 参数sid会被值"new sid here"替换保存至数据库, 因为没有做任何认证, 匿名用户可以任意调用该接口进而篡改sid.
+
+漏洞证明：
+
+http://www.alibuybuy.com/wp-content/plugins/pinglunla/relay.php?sid=new sid here

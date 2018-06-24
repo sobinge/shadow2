@@ -1,0 +1,36 @@
+bluecms v1.0 图片上传绕过漏洞
+
+洞描述:
+
+BlueCMS(地方分类信息门户专用CMS系统) 
+include/upload.class.php发现，只是检测了文件头，没有检测后缀.
+......
+class upload {
+	private $allow_image_type = array('image/jpg', 'image/gif', 'image/png', 'image/pjpeg');
+......
+    function img_upload($file, $dir = '', $imgname = ''){
+    	if(empty($dir)){
+    		$dir = BLUE_ROOT.DATA.UPLOAD.date("Ym")."/";
+    	}else{
+    		$dir = BLUE_ROOT.DATA.UPLOAD.$dir."/";
+    	}
+ 
+    	if(!file_exists($dir)){
+    		if(!mkdir($dir)){
+    			showmsg('上传过程中创建目录失败');
+    		}
+    	}
+    	if(empty($imgname)){
+    		$imgname = $this->create_tempname().$this->get_type($file['name']);
+    	}
+    	$imgname = $dir . $imgname;
+    	if(!in_array($file['type'],$this->allow_image_type)){
+             //只是检测了文件头部来着，那我们就直接构造一个SHELL就好了
+    		showmsg('不允许的图片类型');
+    	}
+ 
+ 
+    }
+<* 参考
+http://www.st0p.org/blog/archives/bluecms-0day.html
+ *>

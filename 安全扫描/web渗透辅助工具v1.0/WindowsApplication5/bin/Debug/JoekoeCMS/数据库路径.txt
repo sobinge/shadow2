@@ -1,0 +1,4 @@
+数据库路径
+/data_jk/joekoe_data.asp 乔客6.0数据库 
+
+

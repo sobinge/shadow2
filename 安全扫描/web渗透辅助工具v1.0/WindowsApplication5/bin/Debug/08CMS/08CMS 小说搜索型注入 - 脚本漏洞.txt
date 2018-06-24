@@ -1,0 +1,36 @@
+08CMS 小说搜索型注入 - 脚本漏洞
+
+By：xiaoCon 
+    大牛别拍砖，第一次发。
+
+
+以下是引用片段：
+
+//搜索词预处理
+$searchword = empty($searchword) ? '' : cutstr(trim($searchword),50,'');
+$_da['searchword'] = $searchword;
+if($searchword){
+        $filterstr .= ($filterstr ? '&' : '').'searchword='.rawurlencode(stripslashes($searchword));
+}
+//预处理搜索模式：标题subject、关键词keywords、内容fulltxt、会员mname
+$searchmode = empty($searchmode) ? 'subject' : trim($searchmode);
+if(!in_array($searchmode,array('subject','keywords','fulltxt','mname'))) $searchmode = 'subject';
+
+if(!$chid){
+        $nochids = empty($nochids) ? '' : trim($nochids);
+        if($nochids){//排除的模型
+                $_da['nochids'] = $nochids;
+                $filterstr .= ($filterstr ? '&' : '')."nochids=".$nochids;
+                $nochids = explode(',',$nochids);
+                if($nochids) $wherestr .= " AND a.chid ".multi_str($nochids,1);
+        }
+ 
+
+
+    出现搜索型注入。
+
+    http://localhost/search.php?searchmode=subject&searchword=[%]&caid=0&chid=0&ccid4=0&indays=0&orderby=createdate&searchsubmit=1
+
+    在searchword这出现问题。
+
+    我最近努力学下python，尽可能以后写exp。。大家担待了。。

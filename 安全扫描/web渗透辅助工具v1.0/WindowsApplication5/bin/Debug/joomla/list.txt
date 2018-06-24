@@ -1,0 +1,25 @@
+configfile
+joomla CMS后台另类拿WebShell方法
+joomla CMS所有版本后台取WebShell方法
+Joomla com_wrapper SQL注入漏洞
+joomla component (com_bearleague) SQL injection Vulnerability
+joomla component (com_ponygallery) SQL injection Vulnerability
+Joomla Component 1.6 SQL Injection Exploit
+Joomla Component com_bch LFI Vulnerability
+Joomla Component com_products SQL注入漏洞
+Joomla Component com_rule LFI Vulnerability
+Joomla Component com_sadnews LFI Vulnerability
+Joomla Component xsstream-dm Remote SQL Injection
+Joomla Component 目录遍历漏洞
+Joomla Fireboard SQL Injection
+Joomla Mambo FCKeditor模块'Connector'本地文件包含漏洞
+Joomla print.php SQL注入漏洞
+Joomla The Estate Agent component suffers from a remote SQL injection vulnerability
+Joomla1.5.12 跨站脚本执行和信息泄露漏洞（CVE-2011-4911）
+joomla变量覆盖导致注册提权漏洞
+Joomla助我轻松拿webshell
+JOOMLA组件 Calc Builder SQL 注入漏洞
+Joomla组件com_joomnik SQL注入漏洞
+Joomla最新SQL注射漏洞
+oomla Hello component suffers from a local file inclusion vulnerability
+批量拿joomla的webshell

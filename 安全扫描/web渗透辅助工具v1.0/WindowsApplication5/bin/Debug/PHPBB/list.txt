@@ -1,0 +1,10 @@
+phpBB 3 远程文件包含漏洞
+PHPBB 3.0 0day
+PHPBB 3.0 0day漏洞放出
+phpBB 3.0.10 多个SQL注入漏洞
+phpBB AJAX Chat-Shoutbox MOD CSRF Vulnerability
+phpBB Garage v1.2.0 - Beta3 远程SQL注射漏洞
+phpBB MyPage Plugin SQL Injection
+PhpBB2 Custom Mass PM 1.4.7 Cross Site Scripting
+phpBBViet 0.22 phpbb_root_path 远程文件包涵漏洞
+phpBB爆发多个Sql注入漏洞0day

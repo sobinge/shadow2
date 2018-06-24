@@ -1,0 +1,205 @@
+[hostname] dns
+alexa.chinaz.com/?domain=$hostname$ child -1 test class="rank_left"><a!!href="Redirect.asp?url= " 人均页面浏览量!!列表</div> 统计数据估算网站!!IP
+uptime.netcraft.com/up/graph?site=$hostname$ child 1 dddd </td>!!<td> </td>!!<td align="right">
+child 1 dddd </td>!!<td> </td>!!<td align="right"> <tr><td!!colspan=6>status mini-macros!!for!!the!!uptime!!footer
+childarray -1 dddd </td>!!<td> </td>!!<td!!align="right"> <tr><td!!colspan=6>status mini-macros!!for!!the!!uptime!!footer 5
+
+www.baidu.com dns
+alexa.chinaz.com/?domain=$hostname$ child -1 $hostname$:$port$/二级域名 class="rank_left"><a!!href="Redirect.asp?url= " 人均页面浏览量!!列表</div> 统计数据估算网站!!IP
+uptime.netcraft.com/up/graph?site=$hostname$ childarray -1 $hostname$:$port$/version <td> </td> <tr><td!!colspan=6>status mini-macros!!for!!the!!uptime!!footer 2
+www.ip138.com/ips.asp?ip=$ip$&action=2 child -1 $hostname$:$port$/ip区域 <li>本站主数据： </li><li> <h3>ip138.com!!IP查询(搜索IP地址的地理位置)</h3> 如发现小部分ip查询结果不正确请到官方网站
+$hostname$ path -t 40 -reco
+
+192.168.190.128 dns
+$ip$ dport 21,80,8080,135,139,445,3389 20
+$hostname$ path -t 40 -reco
+
+[hostname] dns
+alexa.chinaz.com/?domain=$hostname$ child -1 $hostname$:$port$/二级域名 class="rank_left"><a!!href="Redirect.asp?url= " 人均页面浏览量!!列表</div> 统计数据估算网站!!IP
+uptime.netcraft.com/up/graph?site=$hostname$ childarray -1 $hostname$:$port$/version <td> </td> <tr><td!!colspan=6>status mini-macros!!for!!the!!uptime!!footer 2
+www.ip138.com/ips.asp?ip=$ip$&action=2 child -1 $hostname$:$port$/ip区域 <li>本站主数据： </li><li> <h3>ip138.com!!IP查询(搜索IP地址的地理位置)</h3> 如发现小部分ip查询结果不正确请到官方网站
+[hostname] dns
+
+nexthost
+ifretzero
+[hostname] dns
+alexa.chinaz.com/?domain=$hostname$ child -1 $hostname$:$port$/二级域名 class="rank_left"><a!!href="Redirect.asp?url= " 人均页面浏览量!!列表</div> 统计数据估算网站!!IP
+uptime.netcraft.com/up/graph?site=$hostname$ childarray -1 $hostname$:$port$/version <td> </td> <tr><td!!colspan=6>status mini-macros!!for!!the!!uptime!!footer 2
+www.ip138.com/ips.asp?ip=$ip$&action=2 child -1 $hostname$:$port$/ip区域 <li>本站主数据： </li><li> <h3>ip138.com!!IP查询(搜索IP地址的地理位置)</h3> 如发现小部分ip查询结果不正确请到官方网站
+$hostname$ path -t 40 -reco
+loop
+
+nexthost
+ifretzeroexit
+$hostinput$ dns
+alexa.chinaz.com/?domain=$hostname$ child -1 $hostname$:$port$/二级域名 class="rank_left"><a!!href="Redirect.asp?url= " 人均页面浏览量!!列表</div> 统计数据估算网站!!IP
+uptime.netcraft.com/up/graph?site=$hostname$ childarray -1 $hostname$:$port$/version <td> </td> <tr><td!!colspan=6>status mini-macros!!for!!the!!uptime!!footer 2
+www.ip138.com/ips.asp?ip=$ip$&action=2 child -1 $hostname$:$port$/ip区域 <li>本站主数据： </li><li> <h3>ip138.com!!IP查询(搜索IP地址的地理位置)</h3> 如发现小部分ip查询结果不正确请到官方网站
+rmhost
+loop
+
+nexthost
+ifretzeroexit
+$hostinput$ dns
+alexa.chinaz.com/?domain=$hostname$ child -1 $hostname$:$port$/二级域名 class="rank_left"><a!!href="Redirect.asp?url= " 人均页面浏览量!!列表</div> 统计数据估算网站!!IP
+uptime.netcraft.com/up/graph?site=$hostname$ childarray -1 $hostname$:$port$/version <td> </td> <tr><td!!colspan=6>status mini-macros!!for!!the!!uptime!!footer 2
+www.ip138.com/ips.asp?ip=$ip$&action=2 child -1 $hostname$:$port$/ip区域 <li>本站主数据： </li><li> <h3>ip138.com!!IP查询(搜索IP地址的地理位置)</h3> 如发现小部分ip查询结果不正确请到官方网站
+$hostinput$ path -t 40 -reco
+$hostinput$ dport 21,23,80,135,445,1433,3306,3389,8080 20
+loop
+
+$hostinput$ checknet
+renum
+$hostinput$ dpath -t $sync$
+$hostinput$ dns
+$ip$ dport 21,23,80,135,445,1433,3306,3389,8080 20
+
+$hostinput$ checknet
+renum
+$hostinput$ dpath -t $sync$
+$hostinput$ dreconn -t 20
+
+nexthost
+ifretzeroexit
+$hostinput$ dns
+alexa.chinaz.com/?domain=$hostname$ child -1 $hostname$:$port$/二级域名 class="rank_left"><a!!href="Redirect.asp?url= " 人均页面浏览量!!列表</div> 统计数据估算网站!!IP
+uptime.netcraft.com/up/graph?site=$hostname$ childarray -1 $hostname$:$port$/version <td> </td> <tr><td!!colspan=6>status mini-macros!!for!!the!!uptime!!footer 2
+www.ip138.com/ips.asp?ip=$ip$&action=2 child -1 $hostname$:$port$/ip区域 <li>本站主数据： </li><li> <h3>ip138.com!!IP查询(搜索IP地址的地理位置)</h3> 如发现小部分ip查询结果不正确请到官方网站
+$hostinput$ dpath -t 40
+$hostinput$ dreconn -t 20
+$hostinput$ dport 21,23,80,135,445,1433,3306,3389,8080 20
+loop
+
+nexthost
+ifretzeroexit
+$hostinput$ dns
+alexa.chinaz.com/?domain=$hostname$ child -1 $hostname$:$port$/二级域名 class="rank_left"><a!!href="Redirect.asp?url= " 人均页面浏览量!!列表</div> 统计数据估算网站!!IP
+uptime.netcraft.com/up/graph?site=$hostname$ childarray -1 $hostname$:$port$/version <td> </td> <tr><td!!colspan=6>status mini-macros!!for!!the!!uptime!!footer 2
+www.ip138.com/ips.asp?ip=$ip$&action=2 child -1 $hostname$:$port$/ip区域 <li>本站主数据： </li><li> <h3>ip138.com!!IP查询(搜索IP地址的地理位置)</h3> 如发现小部分ip查询结果不正确请到官方网站
+$hostinput$ dpath -t 40
+$hostinput$ dreconn -t 20
+$hostinput$ dport 21,23,80,135,445,1433,3306,3389,8080 20
+$hostinput$ rmhost
+loop
+
+int a=4
+while a<3
+$hostinput$ dpath -t 40
+loop
+dircount
+
+$hostinput$ dpath -t 40
+$hostinput$ dreconn -t 20
+int a
+while a<=3
+$hostinput$ dspider -t 40
+$a++
+loop
+
+0while dsds
+1while dsads
+2dsads
+3loop
+4while dsadas
+5dsads
+6loop
+7loop
+
+while dsds
+while dsads
+dsads
+loop
+while dsadas
+dsads
+loop
+loop
+int a
+int b
+while a<10
+ while b<10
+	$b++
+	$a
+	loop
+	$a++
+loop
+
+int a
+int b
+while b<10
+while a<10
+$a
+loop
+$b++
+$a++
+loop
+dircount
+
+int a
+int b
+while b<10
+$b
+$b++
+$a++
+loop
+dircount
+
+int a
+int b
+while b<10
+while a<10
+$b
+$a++
+loop
+$b++
+loop
+dircount
+
+int a
+int b
+while b<10
+$a=0
+while a<10
+$b
+$a++
+loop
+$b++
+loop
+dircount
+
+$hostinput$ dpath -t 40 -f dics\cms.dic
+$hostinput$ dreconn -t 20
+$hostinput$ checkremarks
+
+$hostinput$ dpath -t 40 -f dics\cms.dic
+$hostinput$ dreconn -t 20
+$hostinput$ checkremarks
+
+$hostinput$ dns
+$ip$ dport 80,8080,3389 20 $hostname$:$port$/port
+
+
+nexthost
+ifretzeroexit
+$hostinput$ dns
+uptime.netcraft.com/up/graph?site=$hostname$ childarray -1 $hostname$:$port$/version <td> </td> <tr><td!!colspan=6>status mini-macros!!for!!the!!uptime!!footer 2
+$hostinput$ dpath -t 40
+$hostinput$ dreconn -t 20
+$hostinput$ dport 21,23,80,135,445,1433,3306,3389,8080 20 $hostname$:$port$/port
+$hostinput$ rmhost
+loop
+
+$hostinput$ dns
+$hostname$:$port$/ child -1 $hostname$:$port$/g <meta!!name="generator"!!content=" "!!/>
+$hostinput$ dns
+$ip$ dport 80,8080,3389 20 $hostname$:$port$/port
+
+nexthost
+ifretzeroexit
+$hostinput$ dns
+uptime.netcraft.com/up/graph?site=$hostname$ childarray -1 $hostname$:$port$/version <td> </td> <tr><td!!colspan=6>status mini-macros!!for!!the!!uptime!!footer 2
+$hostname$:$port$/ child -1 $hostname$:$port$/g <meta!!name="generator"!!content=" "!!/>
+$hostinput$ dpath -t 40
+$hostinput$ dreconn -t 20
+$hostinput$ dport 21,23,80,135,445,1433,3306,3389,8080 20 $hostname$:$port$/port
+$hostinput$ rmhost
+reset

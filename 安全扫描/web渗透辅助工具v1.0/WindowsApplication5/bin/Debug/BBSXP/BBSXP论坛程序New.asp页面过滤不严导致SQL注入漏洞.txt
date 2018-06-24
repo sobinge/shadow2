@@ -1,0 +1,59 @@
+BBSXP论坛程序New.asp页面过滤不严导致SQL注入漏洞
+
+漏洞版本:
+
+BBSXP7.3
+BBSXP2008
+漏洞描述:
+
+New.asp
+
+代码分析：
+
+Sort=HTMLEncode(Request("Sort")) //第24行
+
+if Sort = empty then
+SqlSort="ThreadID"
+else
+SqlSort=Sort
+end if
+。。。。。。
+sql="Select top "&SqlTopicCount&" * from ["&TablePrefix&"Threads] where Visible=1 "&SqlForumID&" "&SqlTimeLimit&" order by "&SqlSort&" desc" //第66行
+
+过滤函数HTMLEncode 在文件BBSXP_Class.asp中：
+Function HTMLEncode(fString)
+fString=Replace(fString,CHR(9),"")
+fString=Replace(fString,CHR(13),"")
+fString=Replace(fString,CHR(22),"")
+fString=Replace(fString,CHR(38),"&#38;") '“&”
+fString=Replace(fString,CHR(32),"&#32;") '“ ”
+fString=Replace(fString,CHR(34),"&quot;") '“"”
+fString=Replace(fString,CHR(39),"&#39;") '“'”
+fString=Replace(fString,CHR(42)&CHR(42),"&#42;&#42;") '“**”/**/
+fString=Replace(fString,CHR(44),"&#44;") '“,”
+fString=Replace(fString,CHR(45)&CHR(45),"&#45;&#45;") '“--”
+fString=Replace(fString,CHR(60),"&#60;") '“<”
+fString=Replace(fString,CHR(62),"&#62;") '“>”
+fString=Replace(fString,CHR(92),"&#92;") '“\”
+fString=Replace(fString,CHR(59),"&#59;") '“;”
+fString=Replace(fString,CHR(10),"<br>")
+fString=ReplaceText(fString,"([&#])([a-z0-9]*)&#59;","$1$2;")
+
+if SiteConfig("BannedText")<>"" then fString=ReplaceText(fString,"("&SiteConfig("BannedText")&")",string(len("&$1&"),"*"))
+
+if IsSqlDataBase=0 then '过滤片假名(日文字符)[\u30A0-\u30FF] by yuzi
+fString=escape(fString)
+fString=ReplaceText(fString,"%u30([A-F][0-F])","&#x30$1;")
+fString=unescape(fString)
+end if
+
+HTMLEncode=fString
+End Function
+HTMLEncode过滤了Tab键，空格，** .
+变量SqlSort过滤不严导致sql注入漏洞的产生。
+
+
+ <* 参考
+ yamato[BCT]
+ 
+*>

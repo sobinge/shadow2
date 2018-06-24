@@ -1,0 +1,55 @@
+新云的最新注入漏洞
+
+漏洞版本:
+
+Newasp ContentManageSystem Version 3.0.0.518
+漏洞描述:
+
+新云网站管理系统是一个采用ASP和MSSQL等其他多种数据库生成静态页面构建的高效网站解决方案。
+
+先看const.asp的GetUserTodayInfo过程。
+
+QUOTE:
+Lastlogin = Request.Cookies("newasp_net")("LastTime")
+UserDayInfo = Request.Cookies("newasp_net")("UserToday")
+If DateDiff("d",LastLogin,Now())<>0 Then
+………………
+UserDayInfo = "0,0,0,0,0,0"
+Response.Cookies("newasp_net")("UserToday") = UserDayInfo
+end if
+UserToday = Split(UserDayInfo, ",")
+If Ubound(UserToday) <> 5 Then
+………………
+UserDayInfo = "0,0,0,0,0,0"
+Response.Cookies("newasp_net")("UserToday") = UserDayInfo
+end if
+
+然后是
+
+QUOTE:
+Public Function updateUserToday(ByVal str)
+On Error Resume Next
+If Trim(str) <> "" Then
+Newasp.Execute("update [NC_User] SET UserToday='" & str & "' where username='"& Newasp.membername &"' And userid=" & Newasp.memberid)
+Response.Cookies("newasp_net")("UserToday") = str
+End If
+End Function
+
+大家都能看出来。updateUserToday(ByVal str)str没有经过任何过滤就防进了数据库。
+
+然后就是
+articlepost.asp
+message.asp
+softpost.asp
+upfile.asp
+upload.asp
+这几个文件对GetUserTodayInfo和updateUserToday过程没有验证的直接调用，导致了sql注入
+
+ <* 参考
+ http://blog.hacksafe.org/article.asp?id=164
+ http://bbs.sebug.net/viewthread.php?tid=12
+ *>
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.Sobiny（Bug.Center.Team）提供了如下测试方法：2. 3.由于UserDayInfo的格式是 0,0,0,0,0,0每一个字符代表了今天使用的权限，有上传，有短信。4.而每使用一次权限，使用权限的那个一数字就会自加1。5.所以在构造语句的时候要注意。6.在提交的页面的过程中。7.在当前权限的数量上必须为数字，否则就会发生错误。8.而且updateUserToday过程On Er

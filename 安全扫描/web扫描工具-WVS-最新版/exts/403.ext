@@ -1,0 +1,45 @@
+403.1 - 
+[禁止访问][执行访问被拒绝]
+403.1
+TRUE
+403.2 - 
+[禁止访问][读取访问被拒绝]
+403.2
+TRUE
+Directory Listing Denied
+[目录限制]
+403
+FALSE
+您无权使用所提供的凭据查看此目录或页面
+[目录限制<IIS7.0+>]
+403
+FALSE
+You are not authorized to access this page.
+[目录限制<EN>]
+403
+FALSE
+This type of page is not served.
+[禁止访问][资源类型被拒绝]
+403.3
+TRUE
+由于已明确禁止所请求的页类型
+[禁止访问][资源类型被拒绝]
+403.3
+TRUE
+You don't have permission to access
+[目录限制<Apache>]
+403
+FALSE
+您使用所提供的凭据无权查看此目录或页面
+[目录限制<IIS7.0>]
+403
+FALSE
+该页必须通过安全通道查看
+[需要安全通道]
+403.4
+TRUE
+客户端的 IP 地址被拒绝
+[IP限制]
+403
+TRUE
+`

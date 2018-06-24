@@ -1,0 +1,75 @@
+动易6.6 6.7注入漏洞
+
+[动易6.6 6.7注入漏洞 全文]来源：http://hi.baidu.com/darkhackers/blog/item/59fa36ed5863bef6b2fb95e9.html
+[!]作者 :seraph
+[!]QQ :81413170
+[!]程序名称 ;动易
+[!]包含版本 :6.6,6.7
+[!]漏洞文件 :payonline/autorecive1.asp
+[!]漏洞描述 :参数未过滤，可产生注入漏洞
+[!]危害程度 :低
+************************************************************************
+直接查看http://localhost/PayOnline/AutoRecieve1.asp确认版本
+查看如果出现　为了您交易的安全,请不要使用系统默认的MD5密钥则为不可注入且版本为6.8
+
+在线支付失败！ 为６.７　６.６
+
+核心代码：
+AutoRecieve1.asp
+
+v_mid = AccountsID
+v_oid = Trim(Request("v_oid"))    ''''支付定单号
+v_md5 = Trim(Request("v_md5str"))    ''''数字签名
+v_amount = Trim(Request("v_amount"))    ''''支付金额
+v_pstatus = Trim(Request("v_pstatus"))    ''''支付状态
+v_moneytype = Trim(Request("v_moneytype")) ''''支付货币
+v_pmode = Trim(Request("v_pmode"))    ''''支付银行
+v_pstring = Trim(Request("v_pstring"))    ''''支付结果说明
+
+md5string = MD5(v_oid & v_pstatus & v_amount & v_moneytype & PayOnlineKey, 32)
+      
+If UCase(v_md5) = UCase(md5string) And v_pstatus = "20" Then
+Response.Write "ok"
+Call UpdateOrder(v_oid, v_amount, v_pstring, v_pmode, 3, True, True)
+Else
+Response.Write "error"
+End If
+
+UpdateOrder.asp
+
+Sub UpdateOrder(ByVal PaymentNum, ByVal amount, ByVal eBankInfo, ByVal Remark, Status, UpdateDeliverStatus, UpdateOrderStatus)
+Dim PaymentID, OrderFormID, MoneyReceipt, MoneyPayout, eBankID
+Dim sqlPayment, rsPayment
+Dim DoUpdate
+
+PaymentNum = ReplaceBadChar(PaymentNum)
+sqlPayment = "select * from PE_Payment where PaymentNum=''''" & PaymentNum & "''''"
+Set rsPayment = Server.CreateObject("Adodb.RecordSet")
+rsPayment.Open sqlPayment, Conn, 1, 3
+If rsPayment.BOF And rsPayment.EOF Then
+       FoundErr = True
+       If IsMessageShow = True Then
+      Response.Write "找不到指定的支付单！"
+       End If
+Else
+
+
+这里的ＳＱＬ语句
+sqlPayment = "select * from PE_Payment where PaymentNum=''''" & PaymentNum & "''''"
+PaymentNum调用的是AutoRecieve1.asp中的v_oid
+v_oid = Trim(Request("v_oid"))    ''''支付定单号
+v_oid这个参数没有经过任何过滤进入了ＳＱＬ语句当中，可以形成注入
+在这里注入需要一个条件
+
+md5string = MD5(v_oid & v_pstatus & v_amount & v_moneytype & PayOnlineKey, 32)
+      
+If UCase(v_md5) = UCase(md5string) And v_pstatus = "20" Then
+需要一个ＭＤ５值匹配
+不过这里的ＭＤ５值是由用户自己输入的，只需要根据你自己猜解的语句构造生成一个md5就可以通过了
+
+
+注入时出现
+找不到指定的支付单
+为错误
+支付金额不对
+为正确

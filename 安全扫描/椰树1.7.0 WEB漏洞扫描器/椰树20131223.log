@@ -1,0 +1,30 @@
+2013/12/23 12:38:29  Navigating ...
+2013/12/23 12:38:42  GET  http://www.yechenjc.com/search.asp?submit=搜索&key=请输入关键词  String URL1 StatusCode!=OK
+2013/12/23 12:38:47  COOKIE  http://www.yechenjc.com/search.asp?submit=搜索^key=请输入关键词  String KeyWord=
+2013/12/23 12:38:47  POST  http://www.yechenjc.com/requisition.asp^r_username=!S!WCRTESTINPUT000000!E!&r_tel=!S!WCRTESTINPUT000001!E!&r_email=!S!WCRTESTINPUT000002!E!&verifycode=!S!WCRTESTINPUT000003!E!&submit=提交申请&r_content=!S!WCRTESTTEXTAREA000004!E!  String URL1 StatusCode!=OK
+2013/12/23 12:38:47  POST  http://www.yechenjc.com/order.asp^o_name=!S!WCRTESTINPUT000000!E!&o_username=!S!WCRTESTINPUT000001!E!&o_tel=!S!WCRTESTINPUT000002!E!&o_email=!S!WCRTESTINPUT000003!E!&o_address=!S!WCRTESTINPUT000004!E!&verifycode=!S!WCRTESTINPUT000005!E!&submit=提交订单&o_content=!S!WCRTESTTEXTAREA000006!E!  String URL1 StatusCode!=OK
+2013/12/23 12:38:47  GET  http://www.yechenjc.com/search.asp?submit=搜索&key=99999999  Integer URL1 StatusCode!=OK
+2013/12/23 12:38:47  GET  http://www.yechenjc.com/search.asp?submit=搜索&key=99999999  String URL1 StatusCode!=OK
+2013/12/23 12:39:17  GET  http://www.yechenjc.com/search.asp?submit=搜索&key=99999999  String URL1 Null
+2013/12/23 12:39:39  GET  http://www.yechenjc.com/info.asp?id=282  Integer URL1 Null
+2013/12/23 12:39:40  GET  http://www.yechenjc.com/channel.asp?id=3  Integer URL1 Null
+2013/12/23 12:39:48  GET  http://www.yechenjc.com/search.asp?submit=搜索&key=  Search URL1 Null
+2013/12/23 12:40:09  GET  http://www.yechenjc.com/info.asp?id=282  String URL1 Null
+2013/12/23 12:40:10  GET  http://www.yechenjc.com/channel.asp?id=3  String URL1 Null
+2013/12/23 12:40:19  POST  http://www.yechenjc.com/_member/login.asp^m_password=!S!WCRTESTINPUT000001!E!&m_verifycode=!S!WCRTESTINPUT000002!E!&submit=登陆&m_name=!S!WCRTESTINPUT000000!E!  String URL1 Null
+2013/12/23 12:40:20  POST  http://www.yechenjc.com/_member/register.asp^m_name=!S!WCRTESTINPUT000000!E!&m_password=!S!WCRTESTINPUT000001!E!&m_password_again=!S!WCRTESTINPUT000002!E!&m_answer=!S!WCRTESTINPUT000003!E!&m_true_name=!S!WCRTESTINPUT000004!E!&m_qq=!S!WCRTESTINPUT000005!E!&m_mobile=!S!WCRTESTINPUT000006!E!&m_email=!S!WCRTESTINPUT000007!E!&m_address=!S!WCRTESTINPUT000008!E!&m_post_code=!S!WCRTESTINPUT000009!E!&m_verifycode=!S!WCRTESTINPUT000010!E!&submit=注册会员&m_question=您父亲的姓名是？  String URL1 Null
+2013/12/23 12:40:27  POST  http://www.yechenjc.com/requisition.asp^r_username=!S!WCRTESTINPUT000000!E!&r_tel=!S!WCRTESTINPUT000001!E!&r_email=!S!WCRTESTINPUT000002!E!&verifycode=!S!WCRTESTINPUT000003!E!&submit=提交申请&r_content=  Search URL1 Null
+2013/12/23 12:40:27  POST  http://www.yechenjc.com/order.asp^o_name=!S!WCRTESTINPUT000000!E!&o_username=!S!WCRTESTINPUT000001!E!&o_tel=!S!WCRTESTINPUT000002!E!&o_email=!S!WCRTESTINPUT000003!E!&o_address=!S!WCRTESTINPUT000004!E!&verifycode=!S!WCRTESTINPUT000005!E!&submit=提交订单&o_content=  Search URL1 Null
+2013/12/23 12:40:40  COOKIE  http://www.yechenjc.com/info.asp^id=282  Integer URL1 Null
+2013/12/23 12:40:40  COOKIE  http://www.yechenjc.com/channel.asp^id=3  Integer URL1 Null
+2013/12/23 12:40:44  Navigating ...
+2013/12/23 12:41:10  COOKIE  http://www.yechenjc.com/info.asp^id=282  String URL1 Null
+2013/12/23 12:41:10  COOKIE  http://www.yechenjc.com/channel.asp^id=3  String URL1 Null
+2013/12/23 12:41:40  GET  http://www.yechenjc.com/info.asp?id=99999999  Integer URL1 Null
+2013/12/23 12:41:40  GET  http://www.yechenjc.com/channel.asp?id=99999999  Integer URL1 Null
+2013/12/23 12:41:59  POST  http://www.yechenjc.com/_member/login.asp^m_password=!S!WCRTESTINPUT000001!E!&m_verifycode=!S!WCRTESTINPUT000002!E!&submit=登陆&m_name=1  Integer URL1 Null
+2013/12/23 12:42:00  POST  http://www.yechenjc.com/_member/register.asp^m_name=!S!WCRTESTINPUT000000!E!&m_password=!S!WCRTESTINPUT000001!E!&m_password_again=!S!WCRTESTINPUT000002!E!&m_answer=!S!WCRTESTINPUT000003!E!&m_true_name=!S!WCRTESTINPUT000004!E!&m_qq=!S!WCRTESTINPUT000005!E!&m_mobile=!S!WCRTESTINPUT000006!E!&m_email=!S!WCRTESTINPUT000007!E!&m_address=!S!WCRTESTINPUT000008!E!&m_post_code=!S!WCRTESTINPUT000009!E!&m_verifycode=!S!WCRTESTINPUT000010!E!&submit=注册会员&m_question=  Search URL1 Null
+2013/12/23 12:42:07  POST  http://www.yechenjc.com/requisition.asp^r_tel=!S!WCRTESTINPUT000001!E!&r_email=!S!WCRTESTINPUT000002!E!&verifycode=!S!WCRTESTINPUT000003!E!&submit=提交申请&r_content=!S!WCRTESTTEXTAREA000004!E!&r_username=!S!WCRTESTINPUT000000!E!  String URL1 Null
+2013/12/23 12:42:07  POST  http://www.yechenjc.com/order.asp^o_username=!S!WCRTESTINPUT000001!E!&o_tel=!S!WCRTESTINPUT000002!E!&o_email=!S!WCRTESTINPUT000003!E!&o_address=!S!WCRTESTINPUT000004!E!&verifycode=!S!WCRTESTINPUT000005!E!&submit=提交订单&o_content=!S!WCRTESTTEXTAREA000006!E!&o_name=!S!WCRTESTINPUT000000!E!  String URL1 Null
+2013/12/23 12:42:10  GET  http://www.yechenjc.com/info.asp?id=99999999  String URL1 Null
+2013/12/23 12:42:10  GET  http://www.yechenjc.com/channel.asp?id=99999999  String URL1 Null

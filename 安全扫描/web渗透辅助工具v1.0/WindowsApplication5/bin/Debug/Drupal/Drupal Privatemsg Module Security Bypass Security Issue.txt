@@ -1,0 +1,6 @@
+Drupal Privatemsg Module Security Bypass Security Issue
+
+试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.A security issue has been reported in the Privatemsg module for Drupal, which can be exploited by malicious users to bypass certain security restrictions.2. 3.The security issue exists due to improper access permission checks in the Email Notification (pm_email_notify.module) module and can be exploited to modify the notification template.4. 5.Successful exploitation requires the "read privatemsg" permission.6. 7.The security issue is reported in versions prior to 6.x-1.2.8. 9.Solution10.Update to version 6.x-1.2 or later.11. 12.Provided and/or discovered by13.The vendor credits Lee Rowlands.14. 15.Original Advisory16.SA-CONTRIB-2010-038:17.http://drupal.org/node/784602

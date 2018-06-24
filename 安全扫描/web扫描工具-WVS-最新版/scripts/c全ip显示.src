@@ -1,0 +1,7 @@
+while 1
+nexthost
+ifretzeroexit
+$hostinput$ dns
+1 showbyip $hostname$
+$hostinput$ rmhost
+loop

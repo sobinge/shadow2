@@ -1,0 +1,5 @@
+ecshop爆绝对路径的bug 0day
+
+
+ecshop爆绝对路径的bug 　　网址如下" 　　http://www.hake.cc/ECShop/includes/fckeditor/editor/dialog/fck_spellerpages/spellerpages/server-scripts/spellchecker.php  
+ 

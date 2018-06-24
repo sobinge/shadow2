@@ -1,0 +1,54 @@
+Oblog 4.5-4.6 access&mssql getshell 0day 
+
+漏洞详情
+
+披露状态：
+
+
+
+2012-07-06： 积极联系厂商并且等待厂商认领中，细节不对外公开
+2012-07-06： 厂商已经主动忽略漏洞，细节向公众公开
+
+
+简要描述：
+
+由于程序猿的逻辑判断出错，导致可通过IIS解析漏洞直接生成WEBSHELL权限。
+
+详细说明：
+
+影响范围：4.5 - 4.6
+ 漏洞需求: IIS6.0\开启会员
+ 挖掘作者:henry
+ 
+绝对原创，技术含量不高,但影响范围比较广..
+ 
+邮箱是QQ号码求匿..
+ 
+漏洞文件：
+ 
+AjaxServer.asp (372行)
+log_filename = Trim(Request("filename"))//未过滤自定义文件名AjaxServer.asp (259行)(关键)
+If (oblog.chkdomain(log_filename) = False And log_filename <> "") and isdraft<>1 Then oblog.adderrstr ("文件名称不合规范，只能使用小写字母以及数字！")
+
+ 
+逻辑错误,只要有一个条件不满足,则跳过.请看:
+ 
+206行 
+isdraft = Int(Request("isdraft")) //可控
+
+ 
+
+isdraft=1
+ 则成功跳过
+ 
+
+漏洞证明：
+
+漏洞利用：
+ 
+⒈ 注册会员，发表一日志。
+ ⒉ 修改日志，高级选项，文件名称这里写abcdefg，内容为一句话木马源码。然后抓包保存。
+ ⒊ 修改表单数据，将filename改为a.asp;x，isdraft参数为1，提交表单。
+ ⒋ 回到博文管理，选择重新发布日志，日志地址则为SHELL地址。
+ 
+tips: 若博文目录不可, 则可控制filename=../../data/a.asp;x

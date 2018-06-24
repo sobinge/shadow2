@@ -1,0 +1,76 @@
+动网论坛(dvbbs8.2.0)博客插件XSS漏洞
+
+[动网论坛(dvbbs8.2.0)博客插件XSS漏洞 全文]影响版本：dvbbs 8.2.0最新版本（直接在动网论坛下的最新程序）
+
+漏洞文件：
+1.bokemanage.asp&bokepostings.asp
+
+2.BokeSearch.asp 两个漏洞原理一样的
+官网文件已删除了
+
+漏洞出现位置：
+bokepostings.asp大约270行部分代码
+###########################################
+P_Catid = Request.Form("Catid")
+P_Lock = DvBoke.CheckNumeric(Request.Form("Lock"))
+P_Best = DvBoke.CheckNumeric(Request.Form("Best"))
+P_PostContent = CheckAlipay()
+If P_PostContent = "" Then P_PostContent = DvBoke.Checkstr(Request.Form("PostContent"))
+P_PostTitleNote = DvBoke.Checkstr(Request.Form("PostTitleNote")) //问题出现在这里
+PostID = DvBoke.CheckNumeric(Request.Form("PostID"))
+RootID = DvBoke.CheckNumeric(Request.Form("RootID"))
+P_Weather = DvBoke.CheckNumeric(Request.Form("Weather"))
+
+###########################################
+bokemanage.asp文件的部分代码大约290行
+
+###########################################
+
+P_Lock = DvBoke.CheckNumeric(Request.Form("Lock"))
+P_Best = DvBoke.CheckNumeric(Request.Form("Best"))
+P_PostContent = CheckAlipay()
+If P_PostContent = "" Then P_PostContent = DvBoke.Checkstr(Request.Form("PostContent"))
+P_PostTitleNote = DvBoke.Checkstr(Request.Form("PostTitleNote")) //问题出现在这里
+PostID = DvBoke.CheckNumeric(Request.Form("PostID"))
+
+###########################################
+
+下面是checkstr()函数中的代码
+
+###########################################
+
+Public Function Checkstr(Str)
+If Isnull(Str) Then             
+
+CheckStr = ""
+Exit Function 
+End If
+Str = Replace(Str,Chr(0),"")          
+
+CheckStr = Replace(Str,"''","''''")        //用"替换''
+End Function
+
+###########################################
+
+下面是BokeSearch.asp 中的部分代码
+
+###########################################
+
+SelType = DvBoke.CheckNumeric(Request("Sel"))
+KeyWord = DvBoke.Checkstr(Request("KeyWord")) // 同样用checkstr()函数过滤
+DYear = DvBoke.CheckNumeric(Request("DY"))
+DMonth = DvBoke.CheckNumeric(Request("DM"))
+
+........
+
+If KeyWord<>"" Then
+Select Case SelType
+Case 2 ''内容
+    SqlStr = SqlStr &" and Content like ''%"&KeyWord&"%''"
+Case 1 ''作者
+    SqlStr = SqlStr &" and UserName like ''%"&KeyWord&"%''"
+Case Else ''标题
+    SqlStr = SqlStr &" and Title like ''%"&KeyWord&"%''"
+End Select
+
+绕过''过滤就可以注入了............

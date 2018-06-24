@@ -1,0 +1,41 @@
+BBSxp2008 8.0.4 Sql注入漏洞
+
+[BBSxp2008 8.0.4 Sql注入漏洞 全文]影响版本：BBSxp 2008 (Build: 8.0.4)
+漏洞文件:MoveThread.asp
+MoveThread.asp行2-24
+#----代码阅读----#
+
+if CookieUserName =empty then error(&quot;您还未&lt;a href=&quot;&quot;javascript:BBSXP_Modal.Open (&#039;Login.asp&#039;,380,170);&quot;&quot;&gt;登录&lt;/a&gt;&quot;) &#039;保存cookie登陆即可
+ThreadID=R
+
+
+漏洞文件:MoveThread.asp
+MoveThread.asp行2-24
+<%
+if CookieUserName =empty then error("您还未<a href=""javascript:BBSXP_Modal.Open (''Login.asp'',380,170);"">登录</a>") ''保存cookie登陆即可 ThreadID=Request("ThreadID") '' Sql Injection Vulnerability
+If Not IsNumeric(ThreadID) then
+ThreadIDArray=Split(ThreadID,",") ''判断数组,避免13行出错
+if IsArray(ThreadIDArray) then
+for i=0 to Ubound(ThreadIDArray)
+if Execute ("Select ThreadID from ["&TablePrefix&"Threads] where ThreadID="& ThreadIDArray(i)&"").eof then error"<li>系统不存在该帖子的资料"
+next
+ThreadIDSql=int(ThreadIDArray(0))
+else
+error("参数错误。")
+end if
+Else
+ThreadIDSql=int(ThreadID)
+End If
+
+
+ForumID=Execute("Select ForumID From ["&TablePrefix&"Threads] where ThreadID="&ThreadIDSql&"")(0)
+%>
+<!-- #include file="Utility/ForumPermissions.asp" -->
+
+先执行了查询后判断了权限，导致普通用户即可进行sql注射。
+构造Url：;
+提交，返回出错信息
+Microsoft JET Database Engine 错误 ''80040e14''
+字符串的语法错误 在查询表达式 ''ThreadID=1'''' 中。
+/BBSXP_Class.asp，行 5
+漏洞辅助工具：SQL 版本比较好利用，access的nbsi貌似只能猜解出表和字段，字段值无法猜解，需要手工进行

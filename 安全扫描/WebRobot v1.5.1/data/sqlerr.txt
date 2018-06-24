@@ -1,0 +1,45 @@
+#####本文件可以用5个“#”来作为注释
+<b>/home/
+<b>Warning</b>
+<b>Notice</b>:
+</b> on line <b>
+[<a href='function.
+failed to open stream: Permission denied in
+<br>SQL语句错误<br>
+mysql_num_rows()
+mysql_fetch_array()
+Error Occurred While Processing Request
+Server Error in '/' Application
+Microsoft OLE DB Provider for ODBC Drivers error
+error in your SQL syntax
+Invalid Querystring
+OLE DB Provider for ODBC
+VBScript Runtime
+ADODB.Field
+BOF or EOF
+ADODB.Command
+JET Database
+mysql_fetch_row()
+Syntax error
+include()
+mysql_fetch_assoc()
+mysql_fetch_object()
+mysql_numrows()
+GetArray()
+FetchRow()
+Input string was not in a correct format
+Microsoft JET Database Engine
+Microsoft VBScript 运行时错误
+80040e21
+80040e14
+80040e07
+'800a000d'
+'800a0bcd'
+Failed opening required
+<a href='function.require?PHPSESSID
+<b>Fatal error</b>
+ODBC SQL Server Driver
+Microsoft OLE DB Provider
+Microsoft VBScript runtime
+[ODBC]
+Index of /

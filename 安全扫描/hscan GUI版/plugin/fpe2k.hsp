@@ -1,0 +1,8 @@
+name=FrontPage 2000 Extension Exploit
+detail=FrontPage 2000 Extension Exploit
+port=80
+#start
+send=HEAD /_vti_bin/_vti_aut/fp30reg.dll HTTP/1.1"'"'
+recv=100
+grep=200 OK
+#end

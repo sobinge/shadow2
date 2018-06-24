@@ -1,0 +1,195 @@
+乔客(joekoe) CMS 4.0 上传与SQL注入漏洞 
+
+漏洞证明：
+
+上传漏洞:
+ 
+看/common/include/web.upload.asp 中的代码
+ 
+————————————————————-
+ 
+sub doPageLoad()
+ 
+if APP_STATUS=”close” then
+ 
+treeData.addItem “_status”,”error.message”
+ 
+treeData.addItem “_message”,”网站暂时因关闭维护中！请稍候…”
+ 
+exit sub
+ 
+end if
+ 
+up.doInit()
+ 
+if not upConfig.isInit then
+ 
+treeData.addItem “_status”,”error.message”
+ 
+treeData.addItem “_message”,”上传文件的参数不正确！”
+ 
+else
+ 
+doPageLoadUser()
+ 
+select case upConfig.channel
+ 
+case “forum”
+ 
+upConfig.setSaveDir(upConfig.getSaveDir&(left
+ 
+(ops.time.toConvertString(“”,10),6)&DIR_SEPARATOR))
+ 
+upConfig.filename=”"
+ 
+case “user.face”
+ 
+upConfig.filename=”face_”&upConfig.userid
+ 
+upConfig.setSaveDir(“face”&DIR_SEPARATOR)
+ 
+upConfig.filetype=”gif”
+ 
+case “blog.logo”
+ 
+upConfig.setSaveDir(“blog”&DIR_SEPARATOR)
+ 
+upConfig.filetype=”gif”
+ 
+case else
+ 
+if instr(upConfig.channel,”.”)>0 then
+ 
+upConfig.setSaveDir(mid(upConfig.channel,1,instr
+ 
+(upConfig.channel,”.”)-1)&DIR_SEPARATOR)
+ 
+end if
+ 
+if instr(upConfig.fileinput,”url”)>0 then
+ 
+upConfig.filetype=”affix”
+ 
+end if
+ 
+end select
+ 
+if len(upConfig.getSaveDir())<3 then
+ 
+treeData.addItem “_status”,”error.message”
+ 
+treeData.addItem “_message”,”上传文件的参数不正确！”
+ 
+exit sub
+ 
+end if
+ 
+if 1=1 then
+ 
+upConfig.setData “zoom.channel.width”,120
+ 
+upConfig.setData “zoom.channel.height”,90
+ 
+end if
+ 
+upConfig.setBaseDir(DIR_ROOT&DIR_UPLOAD)
+ 
+upConfig.setBasePath(opsDirPath(DIR_ROOT&DIR_UPLOAD))
+ 
+upConfig.setBaseURL(URL_UPLOAD)
+ 
+up.doLoad()
+ 
+end if
+ 
+end sub
+ 
+————————————————————-
+ 
+这段代码通过channel判断是否给上传类型赋值,如果channel不等于forum、
+ 
+user.face、blog.logo的时候判断fileinput是否包含url，如果不包含，
+ 
+upConfig.filetype就不赋值，继续往下看
+ 
+———————————————————————
+ 
+if up.isPost() then
+ 
+call doParseUploadData()
+ 
+treeData.addItem “_status”,”succeed”
+ 
+dim tmpFormMode,tmpFileValue,tmpThumbValue
+ 
+tmpFormMode=”set”
+ 
+if upConfig.channel=”user.face” then
+ 
+tmpLinkMode=”no”
+ 
+tmpFileValue=”#”&up.getFileInfo(“filename”)
+ 
+else
+ 
+tmpFileValue=up.getFileInfo(“file.path”)
+ 
+select case upConfig.filetype
+ 
+case “file”
+ 
+tmpLinkMode=”no”
+ 
+‘tmpFileValue=up.getFileInfo(“file.path”)
+ 
+case “pic”,”spic”,”pics”,”affix”,”gif”,”jpg”,”jpeg”,”bmp”,”png”
+ 
+tmpLinkMode=”no”
+ 
+tmpThumbValue=up.getFileInfo(“thumb.path”)
+ 
+case else
+ 
+tmpLinkMode=”again”
+ 
+tmpFormMode=”append”
+ 
+dim tmpFileType:tmpFileType=lcase(up.getFileInfo(“filetype”))
+ 
+select case tmpFileType
+ 
+case “gif”,”jpg”,”jpeg”,”bmp”,”png”
+ 
+tmpFileValue=”"
+ 
+case “swf”
+ 
+tmpFileValue=”"
+ 
+case else
+ 
+tmpFileValue=”[download="&tmpFileType&"]upload_download.asp?
+ 
+id=”&upConfig.fileid&”[/download]”
+ 
+end select
+ 
+end select
+ 
+end if
+ 
+treeData.addItem “_form.mode”,tmpFormMode
+ 
+treeData.addItem “_form.filevalue”,tmpFileValue
+ 
+treeData.addItem “_form.thumbvalue”,tmpThumbValue
+ 
+end if
+ 乔客(JoeKoe) CMS 4.0后台拿shell。
+ 
+来到后台—>系统管理—>网站配置—>网站名称—>在网站名称那里写入一句话。
+ 
+
+
+
+然后通过一句话链接器连接. www.XXX.com/index.asp 即可

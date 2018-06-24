@@ -1,0 +1,10 @@
+0day Drupal DOS 6.16 and 5.21
+Drupal 6.14 with Sections 6.x-1.2 multiple XSS
+Drupal 7.14 ¾ø¶ÔÂ·¾¶Ð¹Â©Â©¶´
+Drupal 7.15 suffers from multiple path disclosure vulnerabilities
+Drupal 7.x ºËÐÄÂ·¾¶Ð¹Â¶Â©¶´
+Drupal CMS version 7.12 suffers from multiple cross site request forgery vulnerabilities
+Drupal OG Menu Module XSS Vulnerability
+Drupal Privatemsg Module Security Bypass Security Issue
+Drupal Sections Module XSS Vulnerability
+Drupal Wishlist Module 6.x  7.x XSS  CSRF

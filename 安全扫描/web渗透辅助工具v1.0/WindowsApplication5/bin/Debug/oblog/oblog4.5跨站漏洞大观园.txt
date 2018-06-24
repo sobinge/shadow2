@@ -1,0 +1,102 @@
+oblog4.5跨站漏洞大观园
+
+[oblog4.5跨站漏洞大观园 全文]
+[原创]oblog4.5跨站漏洞大观园
+信息来源：邪恶八进制信息安全团队（www.eviloctal.com）
+文章作者：落叶纷飞[S.S.T]
+    oblog这套程序大家应该都很熟悉了吧，它凭着它的简洁、安全、稳定成为国内多用户blog的首选。这天无聊，就下了套上个月才出的oblog4.5最新版来看代码，谁知，居然看出了N多XSS点。
+    首先给大家看一个另类点的跨站点，虽然利用价值不大，但是我觉得跨这个点的思路大家可以学习下。我们来看upload.asp和user_files.asp文件的漏洞代码。
+upload.asp:
+....省略部分代码....
+Set File = Upload.UploadFiles(FormName)
+F_FileName = FilePath & File.FileName
+file_name = File.FileName
+//这里是文件名赋值的过程，后面是上传过程的代码，所以省略。
+
+user_files.asp：
+....省略部分代码....
+<%
+i=0
+Do while not rs.eof
+imgsrc = rs("file_path")
+ext=rs("file_ext")
+If InStr("jpg,jpeg,gif,bmp,png,psd",ext) Then
+imgsrc0 = imgsrc
+Else
+imgsrc0 = "images/nopic.gIf"
+End if
+%>
+....省略部分代码....
+<a href="<%=imgsrc%>" onclick="chk_iddiv(''<%=cstr(rs("fileid"))%>'')" target="_blank" title="cssbody=[dogvdvbdy] cssheader=[dogvdvhdr] body=[<table cellpadding=''0''><tr><td><img src=''<%=imgsrc0%>'' onload=''javascript:if(this.width>190){this.resized=true;this.style.width=190;}'' /></td></tr></table>] fixedabsx=[5] fixedabsy=[47]"><%=OB_IIF(rs("file_showname"),rs("file_name"))%></a></td>
+....省略部分代码....
+    代码中设定只允许上传后缀名为jpg,jpeg,gif,bmp,png,psd的文件，而且后面的代码似乎与漏洞无任何关系，我们该怎么利用呢？不用急且听我道来，我们来看第三段代码，它看似与漏洞最没有关系，但是请大家仔细看一下，它的作用是接收upload.asp文件上传时的文件名，那么，我们把文件名改为跨站代码+后缀，再上传到服务器，是不是就可以成功执行跨站语句了呢？根据windows的特性，文件名中不能含有“/、\、|、:、<、>、?、*、"”这几个字符，如图1
+
+ 
+    可能有朋友会想到用rename命令来更改文件名，但是经过测试发现，用rename修改文件名时只要含有以上字符就会修改失败。那么我们该怎样利用这个漏洞呢？看看这些被系统过滤的字符，我们可以发现没有过滤“%”，那么，我们可不可以把文件编码后台再传到服务器上呢？我们来实践下，我们用URL编码器来把“''><script>alert()</script><''”这段代码编码一下，编码后字符串变为“%27%3E%3Cscript%3Ealert%28%29%3C%2Fscript%3E%3C%27”，如图2
+
+ 
+    OK！我们再把一张图片的文件名改为“%27%3E%3Cscript%3Ealert%28%29%3C%2Fscript%3E%3C%27.gif”，成功改名！好的，我们把它传上服务器看看，上传成功后，我们打开“图片文件”看看，如图3
+
+ 
+    呵呵，跨站成功！这个跨站点利用不大，因为只有自己才能看原来的文件名，在这里我只是想给大家看一种新的跨站思路而已。
+    我们再看下一个跨站点，这个跨站点存在于user_photo.asp、user_subject.asp、index.asp这三个文件中，我们来看它们的漏洞代码：
+user_subject.asp:
+....省略部分代码....
+Sub addclass()
+Dim subjectname, rs, ordernum,ishide
+subjectname = Trim(request.Form("subjectname"))
+....省略部分代码....
+If subjectname = "" Or oblog.strLength(subjectname) > 50 Then oblog.adderrstr ("分类名不能为空且不能大于50字符)！")
+....省略部分代码....
+    rs.open "select top 1 * from [oblog_subject] Where SubjectType=" & t, conn, 1, 3
+    rs.addnew
+    rs("subjectname") = subjectname
+    rs("userid") = oblog.l_uid
+    rs("ordernum") = ordernum
+    rs("subjectType") = t
+    If ishide = "on" Then RS("ishide") = 1 Else rs("ishide") = 0
+    rs.Update
+....省略部分代码....
+user_photo.asp:
+....省略部分代码....
+我的分类:
+<%=subjectname%>
+....省略部分代码....
+index.asp文件的作用是当有新的数据插入库的时候就生成index.html文件,所以,跨站的代码就插入到了index.html文件中了。
+    我们来测试下，注册了用户后，我们进入“用户管理后台”，然后再“相册”选项中选择“相册分类”，点击“相册分类”上的“添加分类”，在分类名称中输入“"><script>alert(56)</script><"”,然后点击“添加”按钮，如图4。
+
+ 
+    好了，分类就添加完了，现在我们来看看跨站的效果，打开“相册管理”，怎么样，跨站的代码执行了吧，如图5。
+
+ 
+    我们去首页看看吧，怎么样，跨站代码在首页页成功执行了，如图6。
+
+ 
+        呵呵，兴趣上来了吧？我们再看第三个跨站点，这个跨站点存在于user_team.asp和manager/m_team.asp文件中。在oblog4.0的时候我在官方测试成功了，后来官方在3月7号发布了补丁，本以为漏洞在4.5不会存在了，谁知竟然是更严重！我们来看它们漏洞代码：
+user_team.asp:
+....省略部分代码....
+ico = Trim(Request.Form("ico"))
+....省略部分代码....
+rs.AddNew
+rs("t_name")=name
+rs("t_ico")=ico
+rs("joinlimit")=t1
+rs("joinscores")=t2
+....省略部分代码....
+rs.Update
+rs.Close
+rs.Open "select Max(teamid) From oblog_team Where createrid=" & oblog.l_uid
+tid=rs(0)
+rs.Close
+....省略部分代码....
+manager/m_team.asp：
+....省略部分代码....
+<%=rs("t_ico")%>  //t_ico变量即刚才的变量ico
+....省略部分代码....
+    看到了吧！变量ico没做任何过滤就丢进数据库更新去了，现在我们来测试下。打开“圈子”选项，选择里面的“创建新圈子”，在弹出的表单中的“外部调用”框里输入跨站代码“"><script>alert(1)</script><"”，然后点击“确认提交”。好了，我们进入内容管理后台的“圈子管理”看看，怎么样，跨站代码执行了吧，如图7
+
+ 
+    我们再去首页看看，代码也成功执行了，如图8。
+
+ 
+    总结：很多人都觉得跨站是一些没用的小漏洞而已，其实，跨站的危害是非常大的，只是看你是否懂得利用罢了，建议大家多去一些讨论脚本安全的论坛学习下，hackyou和milw0rm这两个网站是个不错的选择！

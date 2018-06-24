@@ -1,0 +1,19 @@
+动网(Dvbbs)filemange.asp任意上传漏洞
+
+[动网(Dvbbs)filemange.asp任意上传漏洞 全文]动网(Dvbbs)filemange.asp任意上传漏洞 
+影响版本: 
+
+Powered By Dvbbs Version 8.2.0 
+Powered By Dvbbs Version 8.1.0 
+Powered By Dvbbs Version 8.0.0 
+
+漏洞描述: 
+
+其实还是利用了 
+
+Microsoft IIS 解析文件名“x.asp;x.jpg/x.php;x.jpg”漏洞 
+参考 : 
+
+当上传图片为x.asp;x.jpg时，IIS会自动解析为asp格式， 
+
+所以我们只要上传后是x.asp;x.jpg这样的形式，就可以执行我们的马了，测试了下，x.php;x.jpg也是可以执行的 

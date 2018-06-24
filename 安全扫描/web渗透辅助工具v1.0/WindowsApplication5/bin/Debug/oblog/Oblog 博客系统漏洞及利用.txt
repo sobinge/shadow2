@@ -1,0 +1,132 @@
+Oblog 博客系统漏洞及利用
+
+[Oblog 博客系统漏洞及利用 全文]漏洞平台：Oblog 博客系统 
+平台版本：通吃 
+漏洞名称：密码找回 
+危害程度：★★★☆☆ 
+********************************************************************** 
+Oblog 博客系统的密码找回功能存在一个严重的设计漏洞。利用该漏洞，入侵者可以通过自己构 
+<!--#include file="inc/inc_syssite.asp"--> 
+<!--#include file="inc/md5.asp"--> 
+<!--#include file="inc/syscode.asp"--> 
+<% 
+if is_ot_user then 
+    if not IsObject(conn) then link_database 
+    response.Redirect(ot_lostpasswordurl) 
+    response.End() 
+end if 
+dim action,show_getpassword 
+action=cint(request("action")) 
+call sysshow() 
+show_getpassword="当前位置：<a href=’index.asp’>首页</a>→找回密码<hr noshade>" 
+select case action 
+    case 1 
+    call sub_getpassword_1() 
+    case 2 
+    call sub_getpassword_2() 
+    case 3 
+    call sub_getpassword_3() 
+    case else 
+    call sub_getpassword_0() 
+end select 
+
+
+show=replace(show,"$show_list___FCKpd___0quot;,show_getpassword) 
+response.Write show&oblog.site_bottom 
+
+dim pass_username,daan 
+
+sub sub_getpassword_0 
+    show_getpassword=show_getpassword&"<form name=’form1’ method=’post’ action=’’>" 
+    show_getpassword=show_getpassword&"<TABLE width=’400’ border=0 cellPadding=0 cellSpacing=0 borderColor=#111111 style=’BORDER-COLLAPSE: collapse’>" 
+    show_getpassword=show_getpassword&"<tr><td height=’18’ class=’bian’><strong>找回密码第一步:</strong></td> </tr><tr>" 
+    show_getpassword=show_getpassword&"<td height=’200’><div align=’center’>请输入用户名:" 
+    show_getpassword=show_getpassword&"<input name=’uid’ type=’text’ id=’uid’ size=’23’ maxlength=’26’>" 
+    show_getpassword=show_getpassword&"<br><br><input name=’Submit’ type=’submit’ id=’Submit’ value=’下一步’>" 
+    show_getpassword=show_getpassword&"<input name=’action’ id=’action’ type=’hidden’ value=’1’>" 
+    show_getpassword=show_getpassword&"</div></td></tr></table></form>" 
+end sub 
+
+sub sub_getpassword_1 
+    dim rs 
+    pass_username=oblog.filt_badstr(trim(request("uid"))) 
+    if pass_username="" then oblog.adderrstr("用户名不能为空(不能大于14小于4)！") 
+    set rs=oblog.execute ("select * from [oblog_user] where username=’"&pass_username&"’") 
+    if rs.eof or err then oblog.adderrstr("此用户名不存在！") 
+    if oblog.errstr<>"" then oblog.showerr:exit sub 
+    show_getpassword=show_getpassword&"<form name=’form1’ method=’post’ action=’’>" 
+    show_getpassword=show_getpassword&"<TABLE width=’400’ border=0 cellPadding=0 cellSpacing=0 borderColor=#111111 style=’BORDER-COLLAPSE: collapse’>" 
+    show_getpassword=show_getpassword&"<tr><td height=’18’ ><strong>找回密码第二步:</strong></td> " 
+    show_getpassword=show_getpassword&"</tr><tr> <td height=’200’><div align=’center’>　　　用户名:" 
+    show_getpassword=show_getpassword&"<input name=’uid’ type=’text’ id=’uid’ value=’"&rs("username")&"’ size=’30’ maxlength=’26’>" 
+    show_getpassword=show_getpassword&"<br><br>密码提示问题:" 
+    show_getpassword=show_getpassword&"<input name=’tishi’ type=’text’ id=’tishi’ value=’"&oblog.filt_html(rs("Question"))&"’ size=’30’ maxlength=’26’>" 
+    show_getpassword=show_getpassword&"<br><br>请您输入答案:" 
+    show_getpassword=show_getpassword&"<input name=’daan’ type=’text’ id=’daan’ size=’30’ maxlength=’26’>" 
+    show_getpassword=show_getpassword&"<br><br><input name=’Submit’ type=’submit’ id=’Submit’ value=’下一步’>" 
+    show_getpassword=show_getpassword&"<input name=’action’ id=’action’ type=’hidden’ value=’２’>" 
+    show_getpassword=show_getpassword&"</div></td></tr></table></form>" 
+    rs.close 
+    set rs=nothing 
+end sub 
+
+sub sub_getpassword_2 
+    dim tishi,rs 
+    pass_username=oblog.filt_badstr(trim(request("uid"))) 
+    daan=md5(trim(request("daan"))) 
+    if daan="" then oblog.adderrstr("对不起，密码提示问题答案不能为空！") 
+    set rs=oblog.execute("select * from [oblog_user] where username=’"&pass_username&"’ and answer=’"&daan&"’") 
+    if rs.eof or err then oblog.adderrstr("密码提示问题回答错误！！") 
+    if oblog.errstr<>"" then oblog.showerr:exit sub 
+    show_getpassword=show_getpassword&"<TABLE width=’400’ border=0 cellPadding=0 cellSpacing=0 align=’center’ style=’BORDER-COLLAPSE: collapse’>"& vbcrlf 
+    show_getpassword=show_getpassword&"<tr><td height=’18’ class=’bian’><strong>完成,请重新设定密码:</strong></td></tr><tr>"& vbcrlf 
+    show_getpassword=show_getpassword&"<td><table width=’100%’ border=’0’ cellpadding=’0’ cellspacing=’0’>"& vbcrlf 
+    show_getpassword=show_getpassword&"<tr><td><FORM action=’lostpassword.asp’ method=’post’ name=’regform’ >"& vbcrlf 
+    show_getpassword=show_getpassword&"<br><br><table width=’60%’ border=’0’ align=’center’ cellpadding=’0’ cellspacing=’0’>"& vbcrlf 
+    show_getpassword=show_getpassword&"<tr><td><table border=’0’ cellspacing=’0’ cellpadding=’5’>"& vbcrlf 
+    show_getpassword=show_getpassword&"<tr> <td width=’37%’><div align=’right’>"& vbcrlf 
+    show_getpassword=show_getpassword&"<p>新密码：</p></div></td><td colspan=’2’><input name=’new_pass’ type=’password’ id=’new_pass’></td>"& vbcrlf 
+    show_getpassword=show_getpassword&"</tr><tr><td><div align=’right’>验证密码：</div></td>"& vbcrlf 
+    show_getpassword=show_getpassword&"<td colspan=’2’><input name=’new_pass2’ type=’password’ id=’new_pass2’></td>"& vbcrlf 
+    show_getpassword=show_getpassword&"</tr><tr><td><div align=’right’> </div></td>"& vbcrlf 
+    show_getpassword=show_getpassword&"<td width=’17%’><input type=’submit’ name=’Submit’ value=’确定’></td>"& vbcrlf 
+    show_getpassword=show_getpassword&"<td width=’46%’><input type=’reset’ name=’Submit2’ value=’取消’></td>"& vbcrlf 
+    show_getpassword=show_getpassword&"</tr></table><input name=’action’ id=’action’ type=’hidden’ value=’3’><input name=’uid’ id=’uid’ type=’hidden’ value=’"&pass_username&"’><input name=’daan’ id=’daan’ type=’hidden’ value=’"&daan&"’></td></tr></table></form><br><div align=’center’> </div></td>"& vbcrlf 
+    show_getpassword=show_getpassword&"</tr></table></td></tr></table>"& vbcrlf 
+    rs.close 
+    set rs=nothing 
+end sub 
+
+sub sub_getpassword_3() 
+    dim password,repassword 
+    pass_username=oblog.filt_badstr(trim(request("uid"))) 
+    daan=oblog.filt_badstr(trim(request("daan"))) 
+    password=trim(request("new_pass")) 
+    repassword=trim(request("new_pass2")) 
+    if password="" or oblog.strLength(password)>14 or oblog.strLength(password)<4 then oblog.adderrstr("密码不能为空(不能大于14小于4)！") 
+    if repassword="" then oblog.adderrstr("重复密码不能为空！") 
+    if password<>repassword then oblog.adderrstr("两次密码输入不同！") 
+    if oblog.errstr<>"" then oblog.showerr:exit sub 
+    password=md5(password) 
+    oblog.execute("update oblog_user set [password]=’"&password&"’ where username=’"&pass_username&"’ and answer=’"&daan&"’" ) 
+    oblog.savecookie pass_username,password,0,"" 
+    show_getpassword="当前位置：<a href=’index.asp’>首页</a>→修改密码成功<hr noshade>" 
+    show_getpassword=show_getpassword&"<strong>您的密码已经修改成功！</strong><br>" 
+    show_getpassword=show_getpassword&"<a href=’index.asp’>点击返回首页。</a><br>" 
+    show_getpassword=show_getpassword&"5秒后自动进入管理后台。" 
+    show_getpassword=show_getpassword&"<script language=JavaScript>" 
+    show_getpassword=show_getpassword&"setTimeout(""window.location=’user_index.asp’"",5000);" 
+    show_getpassword=show_getpassword&"</script>" 
+end sub 
+
+%> 
+
+通过以上代码，大家可以发现该功能的实现代码的每一步都没有对上一步的用户输入进行合法验证，从而可以自己构造表单绕过回答提示问题的步骤，最严重的是第三步，不但没有将第二步的中的提示问题的答案传入且验证，实现代码只是对重设密码的长度和一致性进行验证，虽然在SQL语句中加入了条件 answer=’&daan&’，但是问题仍然存在！第一次使用该漏洞的时候，提交自己构造的表单信息后，虽然提示说提交成功，但是实际上根本就没有成功，但是该用户的问题答案应该被改掉，再提交一次但可以改掉指定用户的密码！ 
+
+漏洞利用： /*由于空间限制，不能上传图片，这里只给出漏洞利用文本叙述*/ 
+
+首先在本地架设一个Oblog的平台并配置好，然后使用创建的用户依次进入密码提示的第三步 
+，然后打开嗅探工具进行抓包，准备工作做好之后在第三步中设置新密码并点击”确定“，此时“找回密码”的表单信息就被抓下来了，然后再把得到的表单信息保存到下来。 
+找到表单信息中的<Form action = "losepassword.asp" method=’post’ nameme=’regform’>，把 losepassword.asp 改成目标网站的 losepassword.asp地址。然后再找到<input name=’uid’ id=’uid’ type=’hidden’ value=’***’>，把 Value 的值改为目标用户名。最后再将<input name=’daan’ id=’daan’ value=’****’>的 value 的值清空。 
+最后，将这个信息文件另存为网页文件，打开重设密码，然后提交。密码更改成功！ 
+ 

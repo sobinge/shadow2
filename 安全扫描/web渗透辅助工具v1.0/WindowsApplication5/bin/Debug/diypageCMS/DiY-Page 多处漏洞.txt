@@ -1,0 +1,22 @@
+DiY-Page 多处漏洞
+
+漏洞描述:
+
+Diy-Page v8.2程序存在多处漏洞，包括本地文件包含漏洞，上传漏洞，跨站漏洞，etc..
+
+ /inc/func.php  
+
+02 function get_upload_filename($realname) {  
+
+03  $exttmp=explode(".",$realname);  
+
+04  $ext=$exttmp[count($exttmp)-1];   
+ 
+  ……  (有劳编辑 很多敏感代码被sebug过滤)
+
+  get_upload_filename()把附件名含有asp、asa、php后缀的替换为空，str_replace可以利用大写绕过。
+
+
+ <* 参考
+http://hi.baidu.com/cnryan/blog/item/8e98d02973f43bed99250af9.html
+ *>

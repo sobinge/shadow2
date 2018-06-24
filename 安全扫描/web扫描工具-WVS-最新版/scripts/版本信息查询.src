@@ -1,0 +1,7 @@
+while 1
+nexthost
+ifretzeroexit
+$hostinput$ dns
+uptime.netcraft.com/up/graph?site=$hostname$ childarray -1 $hostname$:$port$/version <td> </td> <tr><td!!colspan=6>status mini-macros!!for!!the!!uptime!!footer 2
+$hostinput$ rmhost
+loop

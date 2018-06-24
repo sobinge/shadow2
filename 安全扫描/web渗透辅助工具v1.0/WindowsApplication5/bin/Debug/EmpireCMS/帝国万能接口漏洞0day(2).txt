@@ -1,0 +1,128 @@
+我们提交的时候，他地址是提交到index.php?install=1&setup=SetConfig 
+ 
+1. if($_GET['install']==1)
+ 
+2. {
+ 
+3. @include("../class/connect.php");
+ 
+4. @include("../class/db_sql.php");
+ 
+5. @include("../class/functions.php");
+ 
+6. $link=db_connect();
+ 
+7. $empire=new mysqlquery();
+ 
+8. if($setup=="SetConfig")
+ 
+9. {
+ 
+10. SetUserCOMConfig($_POST);
+ 
+11. }
+ 
+12. elseif($setup=="alter")
+ 
+13. {
+ 
+14. InstallUserCOM();
+ 
+15. }
+ 
+16. elseif($setup=="update")
+ 
+17. {
+ 
+18. UpdateUserCOM();
+ 
+19. }
+ 
+20. else
+ 
+21. {}
+ 
+复制代码
+ 
+他这里开始调用一个SetUserCOMConfig的函数了，我们继续跟踪
+ 
+在data/fun.php中的15行
+ 
+我们可以看到这个函数 
+ 
+1. function SetUserCOMConfig($add){
+ 
+2. $filetext=ReadFiletext('data/user.php');
+ 
+3. if(empty($filetext))
+ 
+4. {
+ 
+5. InstallShowMsg('文件 /update/data/user.php 丢失,安装不成功.');
+ 
+6. }
+ 
+7. $vr=explode(",",ReturnRepUserVar());
+ 
+8. $count=count($vr);
+ 
+9. for($i=0;$i<$count;$i++)
+ 
+10. {
+ 
+11. $filetext=str_replace("[!@--".$vr[$i]."--@!]",$add[$vr[$i]],$filetext);
+ 
+12. }
+ 
+13. //写入配置文件
+ 
+14. $fp=@fopen("../class/user.php","w");
+ 
+15. if(!$fp)
+. {
+ 
+17. InstallShowMsg(' /class/user.php 文件权限没有设为0777，安装不成功.');
+ 
+18. }
+ 
+19. @fputs($fp,$filetext);
+ 
+20. @fclose($fp);
+ 
+复制代码
+ 
+.....//省略若干
+ 
+这里的他将$filetext=str_replace("[!@--".$vr[$i]."--@!]",$add[$vr[$i]],$filetext);
+ 
+他将传进来的变量进行了切割，然后赋给了$filetext
+ 
+然后看下面 
+ 
+1. //写入配置文件
+ 
+2. $fp=@fopen("../class/user.php","w");
+ 
+3. if(!$fp)
+ 
+4. {
+ 
+5. InstallShowMsg(' /class/user.php 文件权限没有设为0777，安装不成功.');
+ 
+6. }
+ 
+7. @fputs($fp,$filetext);
+ 
+复制代码
+ 
+打开了一个class/user.php文件，然后将$filetext写入了
+ 
+我们看看写入的结果，随便填一个
+ 
+开了一个class/user.php文件，然后将$filetext写入了
+
+所以我们淫荡点，写个${@phpinfo()}试试
+ 
+ 
+然后访问以下class/user.php这个文件
+ 

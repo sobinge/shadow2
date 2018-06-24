@@ -1,0 +1,8 @@
+PhpBB2 Custom Mass PM 1.4.7 Cross Site Scripting
+
+发布时间: 2011-08-27 (GMT+0800)
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.^ Exploit title: PhpBB2 Module "Custom Mass PM" Cross Site Scripting Vulnerability2.^ Author     : Silic0n (science_media017[At]yahoo.com)3.^ MOD Title: Custom mass PM 4.^ MOD Description: Add mass PM functionnality to group members (or all forums members) for   authorized users. Add the   possibility for all users to send ordinary PM to multiple users   (usernames separated by a semi-colon)5.^ MOD Version: 1.4.7 6.^ Exploit Release: 8/27/20117.^ Vulnearble script: privmsg.php8. 9. 10.--------------------11.^ Payload12.--------------------13.0x1 : Goto forum_script/Privmsg.php14.0x2 : Username Input Box write Malicious JS eg :<script>alert(document.cookie)</script>15. 16.--------------------17.^ Vulnearble code 18.--------------------19. 20.$to_username_array = explode (";", $HTTP_POST_VARS['username']);21. 22.--------------------23.Fix :24.--------------------25. 26.$to_username = phpbb_clean_username($HTTP_POST_VARS['username']);27.$to_username_array = explode (";", $to_username);28. 29. 30. 31.Special Thnanks To mafi, Gaurav_raj420 ,  Exidous , Mr 52 (7) , Dalsim , Zetra , root4o ,32. D4rk, Danzel, messsy , Thor ,abronsius ,Nova , jaya ,@ry@n ,entr0py, -[SiLeNtp0is0n]-33.,Ne0_Hacker, InX_R00t,DODo(:P)  All ZH , DK & G4H members :)34. 35.------------36.^ Site 37.------------38.www.igniteds.net (ConsoleFx)

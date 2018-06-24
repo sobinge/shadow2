@@ -1,0 +1,27 @@
+漏洞版本:
+
+织梦(DEDE)CMS V5.3
+漏洞描述:
+
+织梦内容管理系统,最强大的中文开源CMS网站管理项目,使用PHP+MySQL架构。
+
+在文件include/common.inc.php中：
+1.foreach($_REQUEST as $_k=>$_v)   //第10行2.{3.	if( strlen($_k)>0 && eregi('^(_|cfg_|GLOBALS)',$_k) && !isset($_COOKIE[$_k]) )4.	{5.		exit('Request var not allow!');6.	}7.}8.//如果以cfg_开头的变量以cookie方式提交就可以通过。9.if($_FILES)   //第154行10.{11.	require_once(DEDEINC.'/uploadsafe.inc.php');12.}
+
+文件uploadsafe.inc.php主要代码：
+1.$keyarr = array('name','type','tmp_name','size');    //第15行2. 3.foreach($_FILES as $_key=>$_value)4.{5.	foreach($keyarr as $k)6.	{7.		if(!isset($_FILES[$_key][$k]))8.		{9.			exit('Request Error!');10.		}11.	}12.	$$_key = $_FILES[$_key]['tmp_name'] = str_replace("\\\\","\\",$_FILES[$_key]['tmp_name']); 13.//结合上面的通过cookie提交变量和这里的覆盖变量，就可以覆盖任意的变量。
+
+文件plus/ flink_add.php代码如下：
+require_once(dirname(__FILE__)."/../include/common.inc.php");
+//显示模板(简单PHP文件)
+include_once($cfg_basedir.$cfg_templets_dir."/plus/flink-add.htm");
+覆盖掉变量$cfg_basedir就可以远程包含
+<* 参考
+s1@sebug.net 
+
+http://sebug.net/appdir/织梦(DedeCms)
+ *>
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.Cookie提交适当的变量然后访问plus/flink_add.php就可以远程包含

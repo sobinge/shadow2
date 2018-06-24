@@ -1,0 +1,19 @@
+foosun cms4sp5 商业版存在严重注射漏洞
+FoosunCMSv4.0sp5带模板完整版存在恶意后门代码
+foosun最新SQL注入漏洞爆管理员帐号密码
+风讯（foosun） 4.0 SP7 getshell 0day
+风讯(FooSun) favorite.asp页面存在越权漏洞
+风讯（FooSun）awardAction.asp页面存在SQL注入漏洞
+风讯（FooSun）Corp_card_Unpass.asp页面存在越权漏洞
+风讯(FooSun)favorite.asp页面存在越权漏洞(2)
+风讯（FooSun）GetPassword.asp任意修改密码漏洞
+风讯（FooSun）GetPassword.asp页面存在任意修改密码漏洞
+风讯（FooSun）SetNextOptions.asp 注入漏洞
+风讯(FoosunCMS) 5.0 Error.asp 错误页跨站脚本漏洞
+风讯4.0 user-SetNextOptions.asp sql注入漏洞
+风讯4高危漏洞
+风讯API_Response.asp注入漏洞
+风讯awardAction.asp页面SQL注入漏洞
+风讯CMS 1.0 SP5存在XSS漏洞
+风讯setnextoptions.asp注入漏洞
+风讯网站管理系统页面越权漏洞

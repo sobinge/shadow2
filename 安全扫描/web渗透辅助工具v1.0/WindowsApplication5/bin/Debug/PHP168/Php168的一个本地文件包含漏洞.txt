@@ -1,0 +1,28 @@
+Php168的一个本地文件包含漏洞
+看的是v6版的,在do/job.php文件: 
+
+... 
+}elseif(ereg("^([-_0-9a-zA-Z]+)$",$_GET[job])||ereg("^([-_0-9a-zA-Z]+)$",$_POST[job])){ 
+    require(dirname(__FILE__)."/"."global.php"); 
+    if(is_file(PHP168_PATH."inc/job/$job.php")){ 
+        include(PHP168_PATH."inc/job/$job.php"); 
+    } 
+} 
+
+嗯,如果开了全局的话,就可以用gpc的变量注册顺序来pass那个正则判断,不过php168很友善的搞了个模拟register_globals=on的功能,在inc/common.inc.php文件: 
+
+... 
+if(!ini_get(''register_globals'')){ 
+    @extract($_COOKIE,EXTR_SKIP); 
+    @extract($_FILES,EXTR_SKIP); 
+} 
+
+foreach($_POST as $_key=>$_value){ 
+    !ereg("^\_[A-Z]+",$_key) && $$_key=$_POST[$_key]; 
+} 
+foreach($_GET as $_key=>$_value){ 
+    !ereg("^\_[A-Z]+",$_key) && $$_key=$_GET[$_key]; 
+} 
+... 
+
+嗯,可以很容易的pass上面的判断了,不过这里的变量注册顺序和gpc默认的变量注册顺序是有些不同的:)

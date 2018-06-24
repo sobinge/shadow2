@@ -1,0 +1,3 @@
+”—«È¡¥Ω”xSS
+
+javascript:alert(document.cookie);

@@ -1,0 +1,1 @@
+d:\1\ftp.exe ¡°net user 123 /add

@@ -1,0 +1,10 @@
+name=Linux Apache Verify Username
+detail=RedHat Linux Apache Verify Username Vulnerability
+port=80
+#start
+send=GET /~root HTTP/1.0"'"'
+recv=2047
+grep=Apache
+grep=Linux
+grep=don't have permission
+#end

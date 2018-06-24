@@ -1,0 +1,7 @@
+Z-blog 1.8 cmd.asp xss跨站漏洞
+Z-Blog 1.8 Arwen Build 81206 catalog.asp 存在跨站漏洞
+Z-blog 1.8 爆web路径信息漏洞
+Z-blog FUNCTION-c_function.asp跨站脚本攻击漏洞
+Z-BLOG V1.8 c_error.asp跨站漏洞
+Z-blog跨站脚本攻击漏洞
+Z-blog又一严重跨站脚本攻击漏洞

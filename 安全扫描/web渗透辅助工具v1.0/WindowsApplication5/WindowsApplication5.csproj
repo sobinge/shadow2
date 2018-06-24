@@ -1,0 +1,185 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{909351FD-4683-4690-8105-11611AAE8751}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WindowsApplication3</RootNamespace>
+    <AssemblyName>web渗透辅助工具v1.0</AssemblyName>
+    <ApplicationIcon>20121111042712122---www.ico.la---.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="fingureprint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fingureprint.designer.cs">
+      <DependentUpon>fingureprint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CMD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CMD.Designer.cs">
+      <DependentUpon>CMD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="encode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="encode.Designer.cs">
+      <DependentUpon>encode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MD5.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MD5.Designer.cs">
+      <DependentUpon>MD5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NC.Designer.cs">
+      <DependentUpon>NC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="serverinfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="serverinfo.Designer.cs">
+      <DependentUpon>serverinfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form2.designer.cs">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form3.designer.cs">
+      <DependentUpon>Form3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="scanner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="scanner.designer.cs">
+      <DependentUpon>scanner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ip2domain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ip2domain.designer.cs">
+      <DependentUpon>ip2domain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CMD.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CMD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="encode.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>encode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fingureprint.resx">
+      <DependentUpon>fingureprint.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form2.resx">
+      <DependentUpon>Form2.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form3.resx">
+      <DependentUpon>Form3.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NC.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>NC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="scanner.resx">
+      <DependentUpon>scanner.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ip2domain.resx">
+      <DependentUpon>ip2domain.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="serverinfo.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>serverinfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MD5.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MD5.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="20121111042712122---www.ico.la---.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

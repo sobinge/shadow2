@@ -1,0 +1,10 @@
+动易默认数据库
+
+/database/PowerEasy4.mdb 动易网站管理系统4.03数据库
+/database/PowerEasy4.mdb 动易网站管理系统4.03数据库 
+/database/PowerEasy5.mdb 动易网站管理系统5.X数据库 
+/database/PowerEasy6.mdb 动易网站管理系统6X数据库 
+/database/PowerEasy2006.mdb 动易网站管理系统2006数据库 
+
+
+

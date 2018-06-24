@@ -1,0 +1,4 @@
+Google*****http://www.google.com.hk/search?q=$$$$$
+Bing*****http://cn.bing.com/search?q=$$$$$
+Baidu*****http://www.baidu.com/s?wd=$$$$$
+Yahoo*****http://www.yahoo.cn/s?q=$$$$$

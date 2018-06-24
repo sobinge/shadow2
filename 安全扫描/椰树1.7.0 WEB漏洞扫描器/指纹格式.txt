@@ -1,0 +1,2 @@
+指纹路径      cms程序名称   指纹cmd5                        指纹关键词
+/favicon.ico ECSHOP网店程序 5c9c996e03cdee120657435096f65544 ecshop

@@ -1,0 +1,13 @@
+name=QPOP Verify User
+detail=IQPOP Verify User Vulnerability
+port=110
+#start
+recv=1023
+grep=+OK
+send=user root"'"'
+recv=1023
+grep=+OK
+send=pass password"'"'
+recv=1023
+grep=Authentication failure
+#end

@@ -1,0 +1,8 @@
+Z-blog 1.8 爆web路径信息漏洞
+
+[Z-blog 1.8 爆web路径信息漏洞 全文]影响版本:
+Z-blog 1.8
+漏洞描述:
+Z-blog使用的默认编辑器存在路径信息泄露漏洞
+测试方法:
+/admin/FCKeditor/editor/dialog/fck_spellerpages/spellerpages/server-scripts/spellchecker.php

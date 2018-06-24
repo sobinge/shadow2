@@ -1,0 +1,6 @@
+while 1
+nexthost
+ifretzeroexit
+$hostinput$ cscan -t 40
+$hostinput$ rmhost
+loop

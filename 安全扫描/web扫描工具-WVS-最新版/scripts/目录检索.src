@@ -1,0 +1,7 @@
+while 1
+nexthost
+ifretzeroexit
+$hostinput$ dpath -t 40
+$hostinput$ dreconn -t 20
+$hostinput$ rmhost
+loop

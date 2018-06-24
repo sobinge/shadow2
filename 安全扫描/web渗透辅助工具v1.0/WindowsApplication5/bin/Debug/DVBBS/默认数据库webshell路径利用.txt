@@ -1,0 +1,7 @@
+默认数据库/webshell路径利用
+
+
+默认数据库/webshell路径利用:这样的网站很多/利人别人的WEBSHELL. /Databackup/dvbbs7.MDB /bbs/Databackup/dvbbs7.MDB /bbs/Data/dvbbs7.MDB /data/dvbbs7.mdb /bbs/diy.asp /diy.asp /bbs/cmd.asp /bbs/cmd.exe /bbs/s-u.exe /bbs/servu.exe 工具：网站猎手 挖掘鸡 EY：http://www.heimian.com/bbs/Databackup/dvbbs7.MDB
+本文来源于独自等待博客：http://www.waitalone.cn/ 原文地址：http://www.waitalone.cn/post/PentestingSkills.html 
+
+

