@@ -6,6 +6,8 @@
 
 ### 收集不易 分享请注明来源～
 https://github.com/w1109790800/Permeable
+欢迎关注我的公众号：
+!()[http://baobaiqiang.oss-cn-beijing.aliyuncs.com/qrcode_for_gh_8a7f39bf3a00_344.jpg]
 
 ## 目录结构
 
