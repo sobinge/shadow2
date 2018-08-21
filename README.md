@@ -9,6 +9,7 @@ https://github.com/w1109790800/Permeable
 
 ### 欢迎关注我的公众号：
 ![](http://baobaiqiang.oss-cn-beijing.aliyuncs.com/qrcode_for_gh_8a7f39bf3a00_344.jpg)
+### 我的小程序：
 ![我的小程序](http://baobaiqiang.oss-cn-beijing.aliyuncs.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20180617083655.jpg)
 ## 目录结构
 
